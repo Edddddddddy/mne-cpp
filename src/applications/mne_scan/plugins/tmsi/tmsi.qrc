@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="impedances.png">images/icons/impedances.png</file>
+        <file alias="database.png">images/icons/database.png</file>
+    </qresource>
+</RCC>
