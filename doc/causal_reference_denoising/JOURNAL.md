@@ -254,3 +254,22 @@ hidden reasoning is not.
 - Decision: accept for integration and reproduce the missing-enum/status RED
   in the populated main workspace.
 - Next: cherry-pick and build only `test_causal_reference_denoiser`.
+
+### E-028 - Transactional configure RED reproduced
+
+- Actor: manager.
+- Integrated test commit: `e467f4f54`.
+- Evidence: the focused Release build reached the test source and failed only
+  on missing `InvalidConfiguration` and `InvalidShape` enum members at the
+  intended assertions; compiler codes C2838/C2065.
+- Result: accepted as the second valid RED.
+- Next: dispatch `W-CORE-002` for the minimum configuration/shape GREEN.
+
+### E-029 - Transactional configure GREEN prepared
+
+- Actor: manager.
+- Request: `W-CORE-002`.
+- Scope: two status values, transactional commit of channel/block bounds, and
+  allocation-free bypass shape validation only.
+- Model/environment: Luna/max, new isolated worktree.
+- Next: commit this record, publish RED evidence, and dispatch the worker.

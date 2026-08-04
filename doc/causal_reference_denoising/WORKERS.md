@@ -228,3 +228,31 @@ The manager records and forwards all cross-worker messages here before acting.
 - Manager static review: the one-slot test observes transactionality through
   both rejected and accepted process shapes and stays within the requested
   test-only scope. Accepted for cherry-pick and RED reproduction.
+
+### MANAGER VALIDATION W-TEST-CORE-002-RED
+
+- Integrated test commit: `e467f4f54`.
+- Command: `cmake --build build-causal-reference-denoising --target
+  test_causal_reference_denoiser --config Release -- /m:2`.
+- Expected failure: MSVC C2838/C2065 at test lines 97 and 109 because
+  `DenoiserStatus::InvalidConfiguration` and
+  `DenoiserProcessStatus::InvalidShape` are not yet declared.
+- Result: valid RED accepted; production implementation may begin.
+
+### REQUEST W-CORE-002
+
+- From / to: manager / `W-CORE`.
+- Model/environment: `gpt-5.6-luna`, `max`, new worktree from the current
+  integration branch.
+- Blocking: yes, for later core tests.
+- Task: make only the transactional test GREEN. Add the two fixed status enum
+  values; validate positive `channelCount` and `maxBlockSamples` before
+  committing them; a rejected configure must preserve the prior values;
+  bypass processing must return `InvalidShape` without mutation when rows do
+  not equal the committed channel count or columns are outside the committed
+  positive block bound. Keep the original bypass behavior for valid shape.
+- Scope: numerical header/source only; no new test, history, EWLS, row picks,
+  nonfinite scan, allocation, plugin, or CMake change.
+- Required response: `RESPONSE W-CORE-002`, commit SHA, changed files, evidence,
+  limitations, and the next recommended single RED behavior.
+- Status: recorded before dispatch.

@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T02:58:00+08:00
+Last updated: 2026-08-05T03:01:00+08:00
 
 ## Recovery order
 
@@ -19,8 +19,8 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-The first isolated public-interface tracer is GREEN in the populated main
-workspace. The next vertical slice is one transactional-configuration RED.
+The transactional-configuration test is a valid main-workspace RED. The next
+vertical slice is its minimum configuration commit and shape-check GREEN.
 
 ## Completed
 
@@ -33,14 +33,13 @@ workspace. The next vertical slice is one transactional-configuration RED.
 
 ## Running workers
 
-`W-TEST-CORE-002` returned test-only commit `6b6ccf5c4`; manager static review
-accepted it for integration and main-workspace RED reproduction.
+`W-CORE-002` is queued for Luna/max dispatch in a new worktree.
 
 ## Next actions
 
-1. Cherry-pick `6b6ccf5c4` and reproduce its expected RED.
-2. Record exact compiler evidence.
-3. Request the minimum transactionality implementation only after valid RED.
+1. Dispatch `W-CORE-002` and persist identifiers.
+2. Review its minimum GREEN implementation.
+3. Validate the focused target in the main workspace.
 
 ## Focused verification targets
 
