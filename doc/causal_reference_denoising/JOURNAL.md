@@ -243,3 +243,14 @@ hidden reasoning is not.
 - Worktree: `C:/Users/lcy/.codex/worktrees/8a0d/mne-cpp-main`.
 - Result: Luna/max worker is active with test-only scope.
 - Next: wait for its structured response and inspect the single-file diff.
+
+### E-027 - Transactional configure test response reviewed
+
+- Actor: `W-TEST-CORE` and manager.
+- Response: `RESPONSE W-TEST-CORE-002`, commit `6b6ccf5c4`.
+- Evidence: one test slot and one changed file; the rejected candidate differs
+  in channel count and has an invalid zero block bound, while subsequent
+  process shape statuses expose whether the old layout was preserved.
+- Decision: accept for integration and reproduce the missing-enum/status RED
+  in the populated main workspace.
+- Next: cherry-pick and build only `test_causal_reference_denoiser`.

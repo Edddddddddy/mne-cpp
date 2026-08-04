@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T02:51:00+08:00
+Last updated: 2026-08-05T02:58:00+08:00
 
 ## Recovery order
 
@@ -33,13 +33,13 @@ workspace. The next vertical slice is one transactional-configuration RED.
 
 ## Running workers
 
-`W-TEST-CORE-002` is active on Luna/max in worktree `8a0d`. It adds only the
-transactional configure RED.
+`W-TEST-CORE-002` returned test-only commit `6b6ccf5c4`; manager static review
+accepted it for integration and main-workspace RED reproduction.
 
 ## Next actions
 
-1. Wait for `RESPONSE W-TEST-CORE-002`.
-2. Review and reproduce its expected RED in the main workspace.
+1. Cherry-pick `6b6ccf5c4` and reproduce its expected RED.
+2. Record exact compiler evidence.
 3. Request the minimum transactionality implementation only after valid RED.
 
 ## Focused verification targets

@@ -212,4 +212,19 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-TEST-CORE-002`, commit SHA, changed file,
   focused RED command and missing-enum/status evidence, or the documented
   clean-worktree infrastructure limitation.
-- Status: active in the isolated worktree.
+- Status: response received; pending main-workspace RED reproduction.
+
+### RESPONSE W-TEST-CORE-002
+
+- Conclusion: added exactly one transactional configuration Qt test slot.
+- Commit: `6b6ccf5c46234eedfdda2e8e91b3a50379af2f5a`.
+- Changed file: `test_causal_reference_denoiser.cpp` only.
+- Contract fixed: `DenoiserStatus::InvalidConfiguration` and
+  `DenoiserProcessStatus::InvalidShape`; rejected four-channel/zero-block
+  candidate must leave the previously committed three-channel layout active,
+  and both rejected-shape and valid-shape bypass blocks remain value-identical.
+- Worker evidence: `git diff --check` passed. Clean-worktree configure stopped
+  at the known ignored Eigen baseline gap, so no RED build was claimed.
+- Manager static review: the one-slot test observes transactionality through
+  both rejected and accepted process shapes and stays within the requested
+  test-only scope. Accepted for cherry-pick and RED reproduction.
