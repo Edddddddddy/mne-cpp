@@ -399,4 +399,21 @@ The manager records and forwards all cross-worker messages here before acting.
   nonfinite block scan, diagnostics, or plugin code.
 - Required response: `RESPONSE W-CORE-003` with commit, files, evidence,
   implementation notes, and next single RED recommendation.
-- Status: active; direct snapshot confirmed recovery-record reading.
+- Status: response received; pending main-workspace validation.
+
+### RESPONSE W-CORE-003
+
+- Conclusion: implemented complete validation for the current configuration
+  contract.
+- Commit: `f91bab1106907580cdcfd5d8d03288a2403c2a30`.
+- Changed file: `causalreferencedenoiser.cpp` only.
+- Strategy: `std::isfinite` scalar checks; allocation-free nested loops for row
+  range/uniqueness/disjointness; inclusive regularization bounds; division
+  comparison for the 256-feature cap. All checks short-circuit before the two
+  state assignments.
+- Worker evidence: `git diff --check` passed and worktree clean; focused build
+  blocked by the known absent ignored Eigen baseline, without repair/copy.
+- Suggested next RED: causal lag-history advancement in bypass mode.
+- Manager static review: empty reference rejection short-circuits before the
+  feature-cap division, tap count is proven positive, helpers do not allocate,
+  and all assignments remain after validation. Accepted for cherry-pick.

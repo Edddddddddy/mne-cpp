@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T03:48:00+08:00
+Last updated: 2026-08-05T03:50:00+08:00
 
 ## Recovery order
 
@@ -33,13 +33,14 @@ vertical slice is its minimum validation-only GREEN.
 
 ## Running workers
 
-`W-CORE-003` is active on Luna/max in worktree `5822`.
+`W-CORE-003` returned commit `f91bab110`; manager static review accepted the
+single-file validation implementation for integration and GREEN validation.
 
 ## Next actions
 
-1. Wait for `RESPONSE W-CORE-003`.
-2. Review its numerical validation-only implementation.
-3. Re-run the focused Qt report and require all rows GREEN.
+1. Cherry-pick `f91bab110`.
+2. Re-run the focused Qt report synchronously.
+3. Require all configuration rows and existing tests GREEN.
 
 ## Focused verification targets
 
