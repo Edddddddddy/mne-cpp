@@ -99,3 +99,10 @@ hidden reasoning is not.
 - Scope: one configure-plus-bypass RED tracer bullet and focused test target;
   no production code and no horizontal batch of tests.
 - Next: wait for worktree setup and a structured response.
+
+### E-012 - Core tracer worktree ready
+
+- Actor: manager
+- Result: resolved worker thread
+  `019fcdfb-9c01-7bb2-88a1-7af4a5621a0d` in isolated worktree `76e7`.
+- Next: wait for `RESPONSE W-TEST-CORE-001` without modifying the worker tree.

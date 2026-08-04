@@ -33,14 +33,14 @@ have been added yet.
 
 ## Running workers
 
-- `W-TEST-CORE-001`: Luna/max; worktree setup pending; adding one RED public
-  interface tracer bullet. Blocks `W-CORE`.
+- `W-TEST-CORE-001`: Luna/max; thread
+  `019fcdfb-9c01-7bb2-88a1-7af4a5621a0d`; adding one RED public interface
+  tracer bullet. Blocks `W-CORE`.
 
 ## Next actions
 
-1. Resolve the worker thread ID after worktree setup.
-2. Review the worker's RED evidence and commit before integration.
-3. Dispatch `W-CORE` to make the tracer bullet green and continue vertical
+1. Review the worker's RED evidence and commit before integration.
+2. Dispatch `W-CORE` to make the tracer bullet green and continue vertical
    TDD slices.
 
 ## Focused verification targets

@@ -65,7 +65,8 @@ The manager records and forwards all cross-worker messages here before acting.
 ### REQUEST W-TEST-CORE-001
 
 - From / to: manager / `W-TEST-CORE`
-- Client thread: `client-new-thread:2f7a3181-c13c-4df2-a1f1-4e7d6ed1aa4c`
+- Thread: `019fcdfb-9c01-7bb2-88a1-7af4a5621a0d`
+- Client setup ID: `client-new-thread:2f7a3181-c13c-4df2-a1f1-4e7d6ed1aa4c`
 - Model: `gpt-5.6-luna`, `max`
 - Worktree base: `codex/causal-reference-denoising`
 - Blocking: yes, for `W-CORE`.
@@ -74,4 +75,4 @@ The manager records and forwards all cross-worker messages here before acting.
   production code or further behavioral tests.
 - Required response: commit SHA, changed files, narrow RED command and failure
   evidence, beginning `RESPONSE W-TEST-CORE-001`.
-- Status: worktree setup pending.
+- Status: active in worktree `C:/Users/lcy/.codex/worktrees/76e7/mne-cpp-main`.
