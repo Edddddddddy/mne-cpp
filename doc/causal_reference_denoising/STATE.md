@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T03:33:00+08:00
+Last updated: 2026-08-05T03:37:00+08:00
 
 ## Recovery order
 
@@ -19,8 +19,9 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-The transactional-configuration test is a valid main-workspace RED. The next
-vertical slice is its minimum configuration commit and shape-check GREEN.
+The transactional-configuration and shape-check slice is GREEN. The next
+vertical slice is one data-driven test slot for all SPEC configuration
+invariants before any streaming/EWLS state is added.
 
 ## Completed
 
@@ -33,14 +34,13 @@ vertical slice is its minimum configuration commit and shape-check GREEN.
 
 ## Running workers
 
-Replacement `W-CORE-002-R` returned commit `8d9a65010`; manager static review
-accepted it for cherry-pick and main-workspace GREEN validation.
+None. `W-CORE-002-R` is integrated and validated.
 
 ## Next actions
 
-1. Cherry-pick `8d9a65010`.
-2. Validate the focused target and executable in the main workspace.
-3. Record GREEN or return a revision request.
+1. Publish the transactional GREEN evidence.
+2. Dispatch one test-only configuration-invariant RED worker.
+3. Review and reproduce that RED before implementation.
 
 ## Focused verification targets
 

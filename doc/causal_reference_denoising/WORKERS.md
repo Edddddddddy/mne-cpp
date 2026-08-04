@@ -305,3 +305,13 @@ The manager records and forwards all cross-worker messages here before acting.
 - Manager static review: initialization, early return, and assignment order are
   transactional for the tested fields; no unrequested behavior or dependency
   was added. Accepted for cherry-pick and populated-workspace validation.
+
+### MANAGER VALIDATION W-CORE-002-R-GREEN
+
+- Integrated commit: `cc84fd082`.
+- Command: focused Release build of `test_causal_reference_denoiser`, followed
+  by `out/Release/apps/test_causal_reference_denoiser.exe -txt`.
+- Result: build/link succeeded and test executable returned exit code 0.
+- Warnings: only the known Eigen/MSVC C4819 code-page warnings.
+- Decision: transactionality/shape slice is GREEN. Next RED covers the complete
+  configuration invariant matrix, not streaming history or EWLS yet.

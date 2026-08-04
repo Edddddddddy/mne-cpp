@@ -325,3 +325,13 @@ hidden reasoning is not.
 - Decision: accept for cherry-pick; runtime GREEN still requires the populated
   main workspace focused build and test run.
 - Next: integrate and run only `test_causal_reference_denoiser`.
+
+### E-035 - Transactional configure slice is GREEN
+
+- Actor: manager.
+- Integrated commit: `cc84fd082`.
+- Evidence: focused Release target built and linked; the two-slot Qt test
+  executable returned exit code 0. No full application or rt_server was run.
+- Result: rejected configuration preserves committed shape and invalid blocks
+  pass through unchanged with explicit status.
+- Next: publish evidence and create one configuration-invariant RED slot.
