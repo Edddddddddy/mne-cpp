@@ -244,7 +244,7 @@ The manager records and forwards all cross-worker messages here before acting.
 - From / to: manager / `W-CORE`.
 - Client setup ID: `client-new-thread:8edf70e8-a904-4eb0-aa66-52a9f3b7cb65`.
 - Worktree: `C:/Users/lcy/.codex/worktrees/a425/mne-cpp-main`.
-- Thread: pending app lookup.
+- Thread: `019fce1d-7aad-7f12-9781-8497c9f66123`.
 - Model/environment: `gpt-5.6-luna`, `max`, new worktree from the current
   integration branch.
 - Blocking: yes, for later core tests.
@@ -260,4 +260,5 @@ The manager records and forwards all cross-worker messages here before acting.
   limitations, and the next recommended single RED behavior.
 - Status: dispatched; worktree exists at integration commit `3c338c8f2`.
   Two read-only app thread-list calls timed out and were terminated; the task
-  was not dispatched again.
+  was not dispatched again. The session index resolved the thread, and a
+  direct bounded snapshot confirmed it is active.

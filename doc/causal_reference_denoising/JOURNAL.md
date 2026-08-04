@@ -284,3 +284,13 @@ hidden reasoning is not.
   queries.
 - Next: retry a bounded thread lookup later, record the ID, and continue with
   the existing worktree only.
+
+### E-031 - Transactional configure worker thread resolved
+
+- Actor: manager.
+- Thread: `019fce1d-7aad-7f12-9781-8497c9f66123`.
+- Evidence: the local session index associated the newest session with
+  worktree `a425`; a direct zero-timeout thread snapshot confirmed active
+  status.
+- Result: normal bounded waiting can resume without duplicate dispatch.
+- Next: wait for `RESPONSE W-CORE-002`.
