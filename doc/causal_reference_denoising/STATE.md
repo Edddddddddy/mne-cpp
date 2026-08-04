@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T02:44:00+08:00
+Last updated: 2026-08-05T02:48:00+08:00
 
 ## Recovery order
 
@@ -19,8 +19,8 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-The first isolated public-interface tracer is a reproducible RED. The next
-vertical slice is the minimum production seam required to make it GREEN.
+The first isolated public-interface tracer is GREEN in the populated main
+workspace. The next vertical slice is one transactional-configuration RED.
 
 ## Completed
 
@@ -33,15 +33,13 @@ vertical slice is the minimum production seam required to make it GREEN.
 
 ## Running workers
 
-`W-CORE-001` returned commit `c3958cde9`. Static manager review is complete;
-integration and main-workspace focused validation are next.
+None. `W-CORE-001` is integrated and validated.
 
 ## Next actions
 
-1. Cherry-pick `c3958cde9` and run the focused target in the populated main
-   workspace.
-2. Record the actual GREEN or return a revision request.
-3. Add the next single RED behavior only after the tracer is GREEN.
+1. Publish the first GREEN evidence to branch and issue #2.
+2. Dispatch one Luna/max test worker for transactional configure RED.
+3. Review the failing test before requesting its minimum implementation.
 
 ## Focused verification targets
 

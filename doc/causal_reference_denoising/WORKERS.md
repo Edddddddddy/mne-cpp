@@ -178,3 +178,15 @@ The manager records and forwards all cross-worker messages here before acting.
 - Manager static review: four-file diff is scoped, uses the repository export
   macro, and keeps the numerical test isolated. Accepted for cherry-pick and
   populated-main-workspace validation; runtime GREEN is not yet claimed.
+
+### MANAGER VALIDATION W-CORE-001-GREEN
+
+- Integrated commit: `fc86ff7a6`.
+- Build command: `cmake --build build-causal-reference-denoising --target
+  test_causal_reference_denoiser --config Release -- /m:2`.
+- Build result: success; both the tracer and `causalreferencedenoiser.cpp`
+  compiled and linked. Eigen emitted only code-page C4819 warnings.
+- Run command: `out/Release/apps/test_causal_reference_denoiser.exe -txt`.
+- Run result: exit code 0.
+- Decision: first tracer is GREEN. The next task must add only the
+  transactional invalid-config RED; no EWLS implementation may begin yet.

@@ -206,3 +206,14 @@ hidden reasoning is not.
 - Decision: accept the commit for cherry-pick and reproduce GREEN in the
   populated integration workspace before expanding the TDD suite.
 - Next: cherry-pick and run only `test_causal_reference_denoiser`.
+
+### E-023 - First core tracer is GREEN
+
+- Actor: manager.
+- Integrated commit: `fc86ff7a6`.
+- Evidence: the focused Release target compiled and linked the tracer plus the
+  new numerical source; the test executable returned exit code 0. No
+  `mne_rt_server` or full application target was run.
+- Warnings: existing Eigen headers emitted MSVC C4819 code-page warnings only.
+- Result: the first public configure-plus-bypass slice is accepted as GREEN.
+- Next: publish this evidence, then request one transactional configure RED.
