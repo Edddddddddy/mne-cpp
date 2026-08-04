@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T03:40:00+08:00
+Last updated: 2026-08-05T03:44:00+08:00
 
 ## Recovery order
 
@@ -34,13 +34,14 @@ invariants before any streaming/EWLS state is added.
 
 ## Running workers
 
-`W-TEST-CORE-003` is active on Luna/max in worktree `02c2`.
+`W-TEST-CORE-003` returned commit `eb7573efe`; manager static review accepted
+the one-file, 26-row test for integration and runtime RED reproduction.
 
 ## Next actions
 
-1. Wait for `RESPONSE W-TEST-CORE-003`.
-2. Review its one data-driven invariant test.
-3. Reproduce its runtime RED before implementation.
+1. Cherry-pick `eb7573efe`.
+2. Build and run the focused test with a text report in the ignored build tree.
+3. Record the first failing data row before implementation.
 
 ## Focused verification targets
 

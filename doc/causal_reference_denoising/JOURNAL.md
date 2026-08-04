@@ -371,3 +371,14 @@ hidden reasoning is not.
 - Response: `REQUEST W-TEST-CORE-003-PATH` provides the exact paths and keeps
   the task non-blocking and unchanged.
 - Next: forward the recorded path clarification and continue waiting.
+
+### E-040 - Configuration-invariant test reviewed
+
+- Actor: `W-TEST-CORE` and manager.
+- Response: `RESPONSE W-TEST-CORE-003`, commit `eb7573efe`.
+- Evidence: one test file, one data-driven behavior, 26 deterministic rows;
+  no production or CMake changes.
+- Decision: accept the test design. Main workspace must demonstrate runtime
+  RED because the clean worker could not generate the focused target.
+- Next: cherry-pick, build, and capture the Qt text result under the ignored
+  focused build directory.

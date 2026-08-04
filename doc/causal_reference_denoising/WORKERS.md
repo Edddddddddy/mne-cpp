@@ -355,3 +355,18 @@ The manager records and forwards all cross-worker messages here before acting.
   and the tail of `doc/causal_reference_denoising/JOURNAL.md`; continue the
   original test-only task unchanged.
 - Status: recorded before forwarding.
+
+### RESPONSE W-TEST-CORE-003
+
+- Conclusion: added one data-driven invalid-configuration behavior.
+- Commit: `eb7573efeefb4996e2d417e84d2d224c07c0573b`.
+- Changed file: `test_causal_reference_denoiser.cpp` only.
+- Coverage: 26 named rows for scalar finiteness/ranges, non-empty row sets,
+  uniqueness, sign/range, disjointness, and the 256-feature cap.
+- Worker evidence: diff checks passed and worktree was clean. Its focused
+  configure stopped before generation due a clean-worktree toolset/dependency
+  limitation; no ignored Eigen repair or rt_server run occurred.
+- Expected first RED row: `samplingFrequencyHz_zero`.
+- Manager static review: each row starts from the valid three-channel config;
+  the feature-cap row uses one valid reference with 257 taps, isolating the
+  requested cap. Accepted for cherry-pick and runtime RED reproduction.
