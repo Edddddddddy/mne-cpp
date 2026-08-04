@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T02:08:42+08:00
+Last updated: 2026-08-05T02:25:00+08:00
 
 ## Recovery order
 
@@ -19,8 +19,8 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-Initial durable planning record is ready for commit. No feature code or tests
-have been added yet.
+The first isolated public-interface tracer is a reproducible RED. The next
+vertical slice is the minimum production seam required to make it GREEN.
 
 ## Completed
 
@@ -33,13 +33,14 @@ have been added yet.
 
 ## Running workers
 
-None. Focused test CMake revision `76fbc02ad` is accepted for integration.
+`W-CORE-001` is queued for dispatch on Luna/max in a separate worktree. Its
+only responsibility is the first GREEN production seam.
 
 ## Next actions
 
-1. Publish the accepted RED milestone.
-2. Dispatch `W-CORE` to make the tracer bullet green and continue vertical
-   TDD slices through the remaining SPEC behaviors.
+1. Dispatch `W-CORE-001` and record its thread/worktree identifiers.
+2. Review and integrate its minimum GREEN commit.
+3. Add the next single RED behavior only after the tracer is GREEN.
 
 ## Focused verification targets
 

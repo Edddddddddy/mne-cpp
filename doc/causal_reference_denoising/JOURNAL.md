@@ -155,3 +155,22 @@ hidden reasoning is not.
 - Result: one-test tracer seam is valid and free of unrelated MNE dependencies.
 - Next: publish the RED milestone and dispatch `W-CORE` to make it green before
   adding the next behavior.
+
+### E-018 - RED milestone published
+
+- Actor: manager.
+- Evidence: pushed integration HEAD `bc60ad25d` and posted GitHub issue #2
+  comment `issuecomment-5183095071` with the focused command and expected
+  missing-header failure.
+- Result: the public development record now matches the local TDD state.
+- Next: dispatch the logged minimum GREEN request `W-CORE-001`.
+
+### E-019 - First core GREEN request prepared
+
+- Actor: manager.
+- Request: `W-CORE-001`.
+- Scope: only the numerical production seam and CMake wiring required by the
+  existing tracer; no EWLS implementation and no second behavioral test.
+- Model/environment: Luna/max, new isolated worktree.
+- Next: commit this request record, dispatch it, then record the returned thread
+  and worktree identifiers.

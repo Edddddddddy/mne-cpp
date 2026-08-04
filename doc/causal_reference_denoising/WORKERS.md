@@ -135,3 +135,24 @@ The manager records and forwards all cross-worker messages here before acting.
 - Expected failure: MSVC `C1083`, missing
   `rtprocessing/causalreferencedenoiser.h` while compiling the tracer source.
 - Result: valid RED accepted; `W-CORE` may begin.
+
+### REQUEST W-CORE-001
+
+- From / to: manager / `W-CORE`.
+- Model/environment: `gpt-5.6-luna`, `max`, new worktree from the current
+  integration branch.
+- Blocking: yes, for every later core behavior.
+- Context: the one-slot tracer currently fails only because
+  `<rtprocessing/causalreferencedenoiser.h>` is absent.
+- Task: add the minimum Eigen/STL production header/source and CMake wiring to
+  make the existing valid-config plus `BypassTrackHistory` tracer GREEN.
+  Preserve the entire input block and expose the tracer's fixed public status
+  names. Do not add a second test or implement the EWLS algorithm yet.
+- Required discipline: read the durable records in recovery order; use the
+  `codebase-design` and `tdd` skills; keep the focused test isolated from the
+  full MNE/FIFF/UI dependency graph; do not repair or vendor the ignored Eigen
+  baseline in the clean worktree.
+- Required response: `RESPONSE W-CORE-001`, commit SHA, changed files, focused
+  command/evidence available in the worktree, limitations, and next suggested
+  single RED behavior.
+- Status: recorded before dispatch.
