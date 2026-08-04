@@ -361,3 +361,13 @@ hidden reasoning is not.
 - Worktree: `C:/Users/lcy/.codex/worktrees/02c2/mne-cpp-main`.
 - Result: Luna/max is active with one-file, test-only scope.
 - Next: wait for `RESPONSE W-TEST-CORE-003`.
+
+### E-039 - Configuration record path clarified
+
+- Actor: worker and manager.
+- Evidence: the worker first tried root-level record names; manager verified
+  the required files exist under `doc/causal_reference_denoising/` in worktree
+  `02c2` at `652492ff6`.
+- Response: `REQUEST W-TEST-CORE-003-PATH` provides the exact paths and keeps
+  the task non-blocking and unchanged.
+- Next: forward the recorded path clarification and continue waiting.

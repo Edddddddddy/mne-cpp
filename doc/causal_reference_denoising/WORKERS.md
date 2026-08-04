@@ -336,3 +336,22 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-TEST-CORE-003`, commit SHA, changed file,
   available evidence, and expected first failing data row.
 - Status: active; direct snapshot confirmed required-record reading.
+
+### RESPONSE W-TEST-CORE-003-PATH-CHECK
+
+- From / to: worker / manager.
+- Blocking: no; worker reported root-level `STATE.md`-style paths were absent
+  and began locating the records.
+- Manager evidence: worktree `02c2` is at `652492ff6`, and
+  `doc/causal_reference_denoising/STATE.md` exists there.
+- Conclusion: use the full repository-relative directory for all five records;
+  no checkout, copy, or scope change is needed.
+
+### REQUEST W-TEST-CORE-003-PATH
+
+- From / to: manager / `W-TEST-CORE-003`.
+- Blocking: no.
+- Instruction: read `doc/causal_reference_denoising/{STATE,SPEC,WORKERS,REVIEW}.md`
+  and the tail of `doc/causal_reference_denoising/JOURNAL.md`; continue the
+  original test-only task unchanged.
+- Status: recorded before forwarding.
