@@ -6,7 +6,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(QT_REQUIRED_COMPONENTS Core Widgets 3DRender Concurrent Network Test)
+set(QT_REQUIRED_COMPONENTS Core Test)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS ${QT_REQUIRED_COMPONENTS})
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS ${QT_REQUIRED_COMPONENTS})
 
@@ -23,24 +23,13 @@ endif()
 set(QT_REQUIRED_COMPONENT_LIBS ${QT_REQUIRED_COMPONENTS})
 list(TRANSFORM QT_REQUIRED_COMPONENT_LIBS PREPEND "Qt${QT_VERSION_MAJOR}::")
 
-set(MNE_LIBS_REQUIRED
-  mne_rtprocessing
-  mne_connectivity
-  mne_inverse
-  mne_fwd
-  mne_mne
-  mne_fiff
-  mne_fs
-  mne_utils
-  mne_events
-  mne_disp
-  mne_disp3D
-)
-
 target_link_libraries(${PROJECT_NAME} PRIVATE
   ${QT_REQUIRED_COMPONENT_LIBS}
-  ${MNE_LIBS_REQUIRED}
   eigen
+)
+
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ${CMAKE_SOURCE_DIR}/libraries
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
