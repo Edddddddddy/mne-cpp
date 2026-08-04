@@ -294,3 +294,14 @@ hidden reasoning is not.
   status.
 - Result: normal bounded waiting can resume without duplicate dispatch.
 - Next: wait for `RESPONSE W-CORE-002`.
+
+### E-032 - Transactional configure worker system error
+
+- Actor: Codex app and manager.
+- Thread: `019fce1d-7aad-7f12-9781-8497c9f66123` ended `systemError` without a
+  response.
+- Evidence: worktree `a425` remains clean at `3c338c8f2`, with no new commit or
+  diff.
+- Decision: record the failed attempt and create one Luna/max replacement with
+  the unchanged minimum scope; do not infer or reconstruct missing work.
+- Next: dispatch `W-CORE-002-R`.

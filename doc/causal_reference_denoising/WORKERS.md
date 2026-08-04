@@ -262,3 +262,23 @@ The manager records and forwards all cross-worker messages here before acting.
   Two read-only app thread-list calls timed out and were terminated; the task
   was not dispatched again. The session index resolved the thread, and a
   direct bounded snapshot confirmed it is active.
+
+### SYSTEM FAILURE W-CORE-002
+
+- Thread status: `systemError`; no assistant response or tool marker was
+  returned.
+- Worktree audit: clean at `3c338c8f2`; no commit, staged file, or unstaged
+  change exists.
+- Decision: preserve the worktree for evidence and dispatch one replacement
+  task with identical scope. No code can be accepted from this failed attempt.
+
+### REQUEST W-CORE-002-R
+
+- From / to: manager / replacement `W-CORE`.
+- Model/environment: `gpt-5.6-luna`, `max`, new worktree from the current
+  integration branch.
+- Blocking: yes.
+- Task and scope: identical to `W-CORE-002`; make only the transactional
+  configuration test GREEN in the numerical header/source.
+- Required response: `RESPONSE W-CORE-002-R` with commit and focused evidence.
+- Status: recorded before dispatch.
