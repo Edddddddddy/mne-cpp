@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T03:08:00+08:00
+Last updated: 2026-08-05T03:33:00+08:00
 
 ## Recovery order
 
@@ -33,14 +33,14 @@ vertical slice is its minimum configuration commit and shape-check GREEN.
 
 ## Running workers
 
-`W-CORE-002` ended with an app system error and left no changes. Replacement
-`W-CORE-002-R` is active on Luna/max in worktree `06cd`.
+Replacement `W-CORE-002-R` returned commit `8d9a65010`; manager static review
+accepted it for cherry-pick and main-workspace GREEN validation.
 
 ## Next actions
 
-1. Wait for `RESPONSE W-CORE-002-R`.
-2. Review its minimum GREEN implementation.
-3. Validate the focused target in the main workspace.
+1. Cherry-pick `8d9a65010`.
+2. Validate the focused target and executable in the main workspace.
+3. Record GREEN or return a revision request.
 
 ## Focused verification targets
 

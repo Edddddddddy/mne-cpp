@@ -286,3 +286,22 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-CORE-002-R` with commit and focused evidence.
 - Status: active; direct bounded snapshot confirmed the worker is reading the
   required durable records and skills.
+
+### RESPONSE W-CORE-002-R
+
+- Conclusion: implemented transactional channel/block-bound validation and
+  invalid-shape bypass handling.
+- Commit: `8d9a6501058d4629ab95338bec13aa7eab8eba59`.
+- Changed files: `causalreferencedenoiser.h/.cpp` only.
+- Implementation: adds `InvalidConfiguration`/`InvalidShape`; rejects invalid
+  bounds before assignment; commits two bounds on success; compares rows and
+  positive/max columns in the allocation-free `noexcept` process path without
+  writing the block.
+- Worker evidence: `git diff --check` passed. Focused build remained unavailable
+  in the clean worktree because no build directory/ignored Eigen baseline was
+  present; nothing was copied or repaired.
+- Suggested next RED: prove `BypassTrackHistory` advances causal lag history
+  while preserving output.
+- Manager static review: initialization, early return, and assignment order are
+  transactional for the tested fields; no unrequested behavior or dependency
+  was added. Accepted for cherry-pick and populated-workspace validation.

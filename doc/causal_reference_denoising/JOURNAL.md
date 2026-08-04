@@ -315,3 +315,13 @@ hidden reasoning is not.
 - Result: direct snapshot confirms Luna/max is active with the unchanged
   numerical header/source-only scope.
 - Next: wait for the structured replacement response.
+
+### E-034 - Transactional configure replacement reviewed
+
+- Actor: `W-CORE` replacement and manager.
+- Response: `RESPONSE W-CORE-002-R`, commit `8d9a65010`.
+- Evidence: two numerical files only; invalid bounds return before state writes,
+  valid bounds commit, and process performs only fixed scalar shape checks.
+- Decision: accept for cherry-pick; runtime GREEN still requires the populated
+  main workspace focused build and test run.
+- Next: integrate and run only `test_causal_reference_denoiser`.
