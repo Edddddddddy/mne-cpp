@@ -146,3 +146,12 @@ hidden reasoning is not.
 - Result: one-file revision reviewed and accepted.
 - Next: cherry-pick, regenerate the focused build, and require the missing
   production header as the first valid RED.
+
+### E-017 - First valid TDD RED reproduced
+
+- Actor: manager
+- Evidence: isolated target configure succeeded; the target build failed with
+  `C1083` because `rtprocessing/causalreferencedenoiser.h` does not yet exist.
+- Result: one-test tracer seam is valid and free of unrelated MNE dependencies.
+- Next: publish the RED milestone and dispatch `W-CORE` to make it green before
+  adding the next behavior.

@@ -125,3 +125,13 @@ The manager records and forwards all cross-worker messages here before acting.
   retained `eigen`, and added `${CMAKE_SOURCE_DIR}/libraries` as the only local
   include root.
 - Manager review: one-file focused diff; accepted for cherry-pick.
+
+### MANAGER VALIDATION W-TEST-CORE-001-RED
+
+- Integrated commits: `59537fdd6` and `650338f19`.
+- Configure: focused MSVC 2026 / Qt 5.15 build generation succeeded.
+- RED command: `cmake --build build-causal-reference-denoising --target
+  test_causal_reference_denoiser --config Release -- /m:2`.
+- Expected failure: MSVC `C1083`, missing
+  `rtprocessing/causalreferencedenoiser.h` while compiling the tracer source.
+- Result: valid RED accepted; `W-CORE` may begin.

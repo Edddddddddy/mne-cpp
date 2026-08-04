@@ -37,9 +37,9 @@ None. Focused test CMake revision `76fbc02ad` is accepted for integration.
 
 ## Next actions
 
-1. Integrate `76fbc02ad` and rerun intended RED.
+1. Publish the accepted RED milestone.
 2. Dispatch `W-CORE` to make the tracer bullet green and continue vertical
-   TDD slices.
+   TDD slices through the remaining SPEC behaviors.
 
 ## Focused verification targets
 
