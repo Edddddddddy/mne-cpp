@@ -33,12 +33,12 @@ workspace. The next vertical slice is one transactional-configuration RED.
 
 ## Running workers
 
-`W-TEST-CORE-002` is queued for dispatch on Luna/max in a new worktree. It
-adds only the transactional configure RED.
+`W-TEST-CORE-002` is active on Luna/max in worktree `8a0d`. It adds only the
+transactional configure RED.
 
 ## Next actions
 
-1. Dispatch `W-TEST-CORE-002` and persist its identifiers.
+1. Wait for `RESPONSE W-TEST-CORE-002`.
 2. Review and reproduce its expected RED in the main workspace.
 3. Request the minimum transactionality implementation only after valid RED.
 

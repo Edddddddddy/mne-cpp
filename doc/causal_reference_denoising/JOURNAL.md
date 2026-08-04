@@ -234,3 +234,12 @@ hidden reasoning is not.
   previously committed row layout through shape validation; test-only.
 - Model/environment: Luna/max, new isolated worktree.
 - Next: commit this request record and dispatch it.
+
+### E-026 - Transactional configure test worker active
+
+- Actor: manager.
+- Request: `W-TEST-CORE-002`.
+- Thread: `019fce18-2d75-7cf3-ab76-3a8694b4edca`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/8a0d/mne-cpp-main`.
+- Result: Luna/max worker is active with test-only scope.
+- Next: wait for its structured response and inspect the single-file diff.
