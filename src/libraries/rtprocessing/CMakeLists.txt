@@ -22,6 +22,7 @@ set(SOURCES
     filter.cpp
     rtica.cpp
     rtconnectivity.cpp
+    causalreferencedenoiser.cpp
     rtprocessing_global.cpp
     sphara.cpp
     detecttrigger.cpp
@@ -48,6 +49,7 @@ set(HEADERS
     detecttrigger.h
     sphara.h
     rtconnectivity.h
+    causalreferencedenoiser.h
     adaptivetsss.h
     helpers/cosinefilter.h
     helpers/parksmcclellan.h
