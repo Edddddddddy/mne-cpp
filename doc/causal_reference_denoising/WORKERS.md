@@ -76,3 +76,30 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: commit SHA, changed files, narrow RED command and failure
   evidence, beginning `RESPONSE W-TEST-CORE-001`.
 - Status: active in worktree `C:/Users/lcy/.codex/worktrees/76e7/mne-cpp-main`.
+
+### REQUEST W-TEST-CORE-001-INFRA
+
+- From / to: manager / `W-TEST-CORE`
+- Blocking: no; narrows validation responsibility.
+- Evidence: the clean worktree lacks Eigen files such as
+  `Eigen/src/Core/util/Macros.h` and `scripts/buildtests.in`. They are ignored
+  but present in the main workspace; this is not a configured submodule.
+- Decision: do not copy, link, stage, or repair the third-party Eigen tree.
+  Commit only the requested test/CMake changes and report the infrastructure
+  configure failure separately. The manager will cherry-pick the commit and
+  reproduce the intended missing-production-header RED in the main workspace.
+- Status: forwarded and followed; temporary dependency/build files were removed.
+
+### RESPONSE W-TEST-CORE-001
+
+- Commit: `79cbd1752d2d8501786a007c2e02bedbb7d5057f`
+- Changed files: top-level testframe list, focused test CMake, one Qt test source.
+- Contract: valid configuration returns `DenoiserStatus::Configured`;
+  `BypassTrackHistory` returns `DenoiserProcessStatus::Bypassed` in
+  `DenoiserProcessResult::status` and preserves the complete matrix.
+- Test count: one Qt slot; no production files added.
+- Worker validation: clean-worktree configure failed before target generation
+  because of the documented ignored Eigen baseline files. Intended RED not
+  claimed.
+- Manager review: patch is scoped and matches the repository's current Qt test
+  CMake convention. Accepted for cherry-pick; manager must reproduce RED.

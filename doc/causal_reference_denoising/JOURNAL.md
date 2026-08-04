@@ -106,3 +106,24 @@ hidden reasoning is not.
 - Result: resolved worker thread
   `019fcdfb-9c01-7bb2-88a1-7af4a5621a0d` in isolated worktree `76e7`.
 - Next: wait for `RESPONSE W-TEST-CORE-001` without modifying the worker tree.
+
+### E-013 - Clean-worktree Eigen baseline gap identified
+
+- Actor: worker and manager
+- Evidence: the worker configure stopped before the new target because Eigen
+  files ignored by the repository snapshot are absent in a clean worktree;
+  the same ignored files exist in the main workspace.
+- Decision: do not mutate or vendor the third-party tree. Worker commits only
+  its test files; manager validates the intended RED after cherry-pick in the
+  main workspace.
+- Next: forward `REQUEST W-TEST-CORE-001-INFRA`.
+
+### E-014 - Core tracer response reviewed
+
+- Actor: `W-TEST-CORE` and manager
+- Response: `RESPONSE W-TEST-CORE-001`, commit `79cbd1752`.
+- Result: accepted a three-file patch containing one public-interface test and
+  no production code. Worker correctly did not claim the infrastructure
+  failure as TDD RED.
+- Next: cherry-pick the commit and reproduce the intended missing-header RED
+  in the main workspace.

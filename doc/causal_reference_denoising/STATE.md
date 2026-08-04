@@ -33,13 +33,12 @@ have been added yet.
 
 ## Running workers
 
-- `W-TEST-CORE-001`: Luna/max; thread
-  `019fcdfb-9c01-7bb2-88a1-7af4a5621a0d`; adding one RED public interface
-  tracer bullet. Blocks `W-CORE`.
+None. `W-TEST-CORE-001` returned accepted commit `79cbd1752`; integration and
+manager-side RED reproduction are pending.
 
 ## Next actions
 
-1. Review the worker's RED evidence and commit before integration.
+1. Cherry-pick `79cbd1752` and build the focused target to obtain intended RED.
 2. Dispatch `W-CORE` to make the tracer bullet green and continue vertical
    TDD slices.
 
