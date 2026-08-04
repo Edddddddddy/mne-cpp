@@ -352,3 +352,12 @@ hidden reasoning is not.
   test source only.
 - Model/environment: Luna/max, new isolated worktree.
 - Next: commit the request and dispatch it.
+
+### E-038 - Configuration-invariant test worker active
+
+- Actor: manager.
+- Request: `W-TEST-CORE-003`.
+- Thread: `019fce45-615b-7612-9f23-3694f6c581eb`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/02c2/mne-cpp-main`.
+- Result: Luna/max is active with one-file, test-only scope.
+- Next: wait for `RESPONSE W-TEST-CORE-003`.

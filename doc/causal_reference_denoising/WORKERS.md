@@ -319,6 +319,9 @@ The manager records and forwards all cross-worker messages here before acting.
 ### REQUEST W-TEST-CORE-003
 
 - From / to: manager / `W-TEST-CORE`.
+- Client setup ID: `client-new-thread:2c0f559b-65c0-4e65-999a-3f6d132c16c8`.
+- Thread: `019fce45-615b-7612-9f23-3694f6c581eb`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/02c2/mne-cpp-main`.
 - Model/environment: `gpt-5.6-luna`, `max`, new worktree from current
   integration branch.
 - Blocking: yes, for full configure validation.
@@ -332,4 +335,4 @@ The manager records and forwards all cross-worker messages here before acting.
   Existing channel/max-bound coverage need not be duplicated.
 - Required response: `RESPONSE W-TEST-CORE-003`, commit SHA, changed file,
   available evidence, and expected first failing data row.
-- Status: recorded before dispatch.
+- Status: active; direct snapshot confirmed required-record reading.

@@ -34,11 +34,11 @@ invariants before any streaming/EWLS state is added.
 
 ## Running workers
 
-`W-TEST-CORE-003` is queued for Luna/max dispatch in a new worktree.
+`W-TEST-CORE-003` is active on Luna/max in worktree `02c2`.
 
 ## Next actions
 
-1. Dispatch `W-TEST-CORE-003` and persist its identifiers.
+1. Wait for `RESPONSE W-TEST-CORE-003`.
 2. Review its one data-driven invariant test.
 3. Reproduce its runtime RED before implementation.
 
