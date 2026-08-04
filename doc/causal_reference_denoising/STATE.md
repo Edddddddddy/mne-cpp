@@ -33,12 +33,11 @@ have been added yet.
 
 ## Running workers
 
-None. `W-TEST-CORE-001` returned accepted commit `79cbd1752`; integration and
-manager-side RED reproduction are pending.
+None. Focused test CMake revision `76fbc02ad` is accepted for integration.
 
 ## Next actions
 
-1. Cherry-pick `79cbd1752` and build the focused target to obtain intended RED.
+1. Integrate `76fbc02ad` and rerun intended RED.
 2. Dispatch `W-CORE` to make the tracer bullet green and continue vertical
    TDD slices.
 

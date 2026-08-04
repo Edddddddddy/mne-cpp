@@ -103,3 +103,25 @@ The manager records and forwards all cross-worker messages here before acting.
   claimed.
 - Manager review: patch is scoped and matches the repository's current Qt test
   CMake convention. Accepted for cherry-pick; manager must reproduce RED.
+
+### REQUEST W-TEST-CORE-001-REVISE
+
+- From / to: manager / `W-TEST-CORE`
+- Evidence: after cherry-pick, focused target generation succeeded, but the
+  copied legacy test CMake linked the full MNE dependency set. MSVC 2026 failed
+  in unrelated Qt 5.15 / `mne_fiff` code before compiling the tracer test.
+- Required change: make this Eigen-only numerical test target link only Qt
+  Core/Test and `eigen`, and add only the `src/libraries` include root needed
+  for `<rtprocessing/...>`. Do not link `mne_rtprocessing` or other MNE/3D/UI
+  libraries in this tracer target. Keep the single test and no production code.
+- Required response: a new commit and exact changed CMake evidence, beginning
+  `RESPONSE W-TEST-CORE-001-REVISE`.
+- Status: completed.
+
+### RESPONSE W-TEST-CORE-001-REVISE
+
+- Commit: `76fbc02ad628ba8e0e2f5a76e305b39e4a50e505`
+- Change: reduced Qt dependencies to Core/Test, removed all MNE library links,
+  retained `eigen`, and added `${CMAKE_SOURCE_DIR}/libraries` as the only local
+  include root.
+- Manager review: one-file focused diff; accepted for cherry-pick.

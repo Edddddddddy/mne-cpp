@@ -127,3 +127,22 @@ hidden reasoning is not.
   failure as TDD RED.
 - Next: cherry-pick the commit and reproduce the intended missing-header RED
   in the main workspace.
+
+### E-015 - Tracer target exposed unrelated dependency failure
+
+- Actor: manager
+- Evidence: focused configure succeeded, but target build stopped in Qt 5.15
+  `qlist.h` while building `mne_fiff` with MSVC 2026; the tracer source was not
+  compiled.
+- Decision: the pure numerical test must not inherit the legacy full-MNE test
+  link template. Return a focused CMake revision request to the original worker.
+- Next: forward `REQUEST W-TEST-CORE-001-REVISE` and rerun RED after integration.
+
+### E-016 - Pure numerical test target isolated
+
+- Actor: `W-TEST-CORE` and manager
+- Response: commit `76fbc02ad` removes FIFF/display/3D/UI dependencies from
+  the tracer target and retains only Qt Core/Test plus Eigen.
+- Result: one-file revision reviewed and accepted.
+- Next: cherry-pick, regenerate the focused build, and require the missing
+  production header as the first valid RED.
