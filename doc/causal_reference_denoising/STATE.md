@@ -13,8 +13,9 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 - Base: local `master` at `a15e27f0a6f0c7022ba5a7b2b8f40e5bcafd35ec`
 - Remote history: local `master` and `origin/main` have no common ancestor.
 - Pull request: intentionally out of scope; publish the branch and issue only.
-- GitHub issue: pending creation.
-- Old issue: `Edddddddddy/mne-cpp#1`, to be closed as superseded after the new issue exists.
+- Remote branch: `origin/codex/causal-reference-denoising` published and tracked.
+- GitHub issue: `Edddddddddy/mne-cpp#2`.
+- Old issue: `Edddddddddy/mne-cpp#1`, closed as superseded by issue #2.
 
 ## Current phase
 
@@ -37,9 +38,9 @@ and the new GitHub issue is published.
 
 ## Next actions
 
-1. Commit and push this initial record.
-2. Create the new GitHub issue and close issue #1 as superseded.
-3. Dispatch `W-TEST-CORE` on Luna/max for the first TDD tracer bullet.
+1. Commit and push the issue/publication record.
+2. Dispatch `W-TEST-CORE` on Luna/max for the first TDD tracer bullet.
+3. Review the worker's red/green evidence before accepting its commit.
 
 ## Focused verification targets
 
