@@ -305,3 +305,13 @@ hidden reasoning is not.
 - Decision: record the failed attempt and create one Luna/max replacement with
   the unchanged minimum scope; do not infer or reconstruct missing work.
 - Next: dispatch `W-CORE-002-R`.
+
+### E-033 - Transactional configure replacement active
+
+- Actor: manager.
+- Request: `W-CORE-002-R`.
+- Thread: `019fce3e-f589-7a73-b2f4-bb8bad58f90b`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/06cd/mne-cpp-main`.
+- Result: direct snapshot confirms Luna/max is active with the unchanged
+  numerical header/source-only scope.
+- Next: wait for the structured replacement response.

@@ -33,12 +33,12 @@ vertical slice is its minimum configuration commit and shape-check GREEN.
 
 ## Running workers
 
-`W-CORE-002` ended with an app system error and left no changes. A replacement
-`W-CORE-002-R` is queued with the same minimum Luna/max scope.
+`W-CORE-002` ended with an app system error and left no changes. Replacement
+`W-CORE-002-R` is active on Luna/max in worktree `06cd`.
 
 ## Next actions
 
-1. Dispatch `W-CORE-002-R` and record its identifiers.
+1. Wait for `RESPONSE W-CORE-002-R`.
 2. Review its minimum GREEN implementation.
 3. Validate the focused target in the main workspace.
 
