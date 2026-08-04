@@ -315,3 +315,21 @@ The manager records and forwards all cross-worker messages here before acting.
 - Warnings: only the known Eigen/MSVC C4819 code-page warnings.
 - Decision: transactionality/shape slice is GREEN. Next RED covers the complete
   configuration invariant matrix, not streaming history or EWLS yet.
+
+### REQUEST W-TEST-CORE-003
+
+- From / to: manager / `W-TEST-CORE`.
+- Model/environment: `gpt-5.6-luna`, `max`, new worktree from current
+  integration branch.
+- Blocking: yes, for full configure validation.
+- Task: add one data-driven Qt test behavior asserting
+  `InvalidConfiguration` for each remaining SPEC invariant: non-finite or
+  non-positive sampling frequency; non-positive tap count/update interval;
+  non-finite or non-positive memory; regularization outside `[1e-8, 1]` or
+  non-finite; empty reference/target sets; duplicate, negative, or out-of-range
+  rows; reference/target overlap; and `referenceCount * tapCount > 256`.
+- Scope: test source only; no production/CMake change, no streaming behavior.
+  Existing channel/max-bound coverage need not be duplicated.
+- Required response: `RESPONSE W-TEST-CORE-003`, commit SHA, changed file,
+  available evidence, and expected first failing data row.
+- Status: recorded before dispatch.

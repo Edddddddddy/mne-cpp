@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T03:37:00+08:00
+Last updated: 2026-08-05T03:40:00+08:00
 
 ## Recovery order
 
@@ -34,13 +34,13 @@ invariants before any streaming/EWLS state is added.
 
 ## Running workers
 
-None. `W-CORE-002-R` is integrated and validated.
+`W-TEST-CORE-003` is queued for Luna/max dispatch in a new worktree.
 
 ## Next actions
 
-1. Publish the transactional GREEN evidence.
-2. Dispatch one test-only configuration-invariant RED worker.
-3. Review and reproduce that RED before implementation.
+1. Dispatch `W-TEST-CORE-003` and persist its identifiers.
+2. Review its one data-driven invariant test.
+3. Reproduce its runtime RED before implementation.
 
 ## Focused verification targets
 

@@ -335,3 +335,20 @@ hidden reasoning is not.
 - Result: rejected configuration preserves committed shape and invalid blocks
   pass through unchanged with explicit status.
 - Next: publish evidence and create one configuration-invariant RED slot.
+
+### E-036 - Transactional GREEN published
+
+- Actor: manager.
+- Evidence: pushed through `7dcb8e016` and posted issue #2 comment
+  `issuecomment-5183704507`.
+- Result: GitHub issue and durable records match the tested state.
+- Next: dispatch `W-TEST-CORE-003`.
+
+### E-037 - Configuration-invariant RED prepared
+
+- Actor: manager.
+- Request: `W-TEST-CORE-003`.
+- Scope: one data-driven test behavior for all remaining configure invariants;
+  test source only.
+- Model/environment: Luna/max, new isolated worktree.
+- Next: commit the request and dispatch it.
