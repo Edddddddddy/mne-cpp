@@ -190,3 +190,23 @@ The manager records and forwards all cross-worker messages here before acting.
 - Run result: exit code 0.
 - Decision: first tracer is GREEN. The next task must add only the
   transactional invalid-config RED; no EWLS implementation may begin yet.
+
+### REQUEST W-TEST-CORE-002
+
+- From / to: manager / `W-TEST-CORE`.
+- Model/environment: `gpt-5.6-luna`, `max`, new worktree from the current
+  integration branch.
+- Blocking: yes, for the next production slice.
+- Task: add exactly one new Qt test slot proving rejected reconfiguration does
+  not replace a prior valid configuration. Configure a valid three-row layout,
+  then submit a candidate with four channels and an invalid zero block bound;
+  expect `DenoiserStatus::InvalidConfiguration`. Prove the old layout remains
+  committed by requiring a four-row bypass block to return
+  `DenoiserProcessStatus::InvalidShape` unchanged, then a three-row bypass
+  block to return `Bypassed` unchanged.
+- Scope: test source only; no production or CMake change, no additional
+  validation matrix, no EWLS behavior.
+- Required response: `RESPONSE W-TEST-CORE-002`, commit SHA, changed file,
+  focused RED command and missing-enum/status evidence, or the documented
+  clean-worktree infrastructure limitation.
+- Status: recorded before dispatch.

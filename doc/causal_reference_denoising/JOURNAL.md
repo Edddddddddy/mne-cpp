@@ -217,3 +217,20 @@ hidden reasoning is not.
 - Warnings: existing Eigen headers emitted MSVC C4819 code-page warnings only.
 - Result: the first public configure-plus-bypass slice is accepted as GREEN.
 - Next: publish this evidence, then request one transactional configure RED.
+
+### E-024 - First GREEN milestone published
+
+- Actor: manager.
+- Evidence: pushed through `629921a99` and posted issue #2 comment
+  `issuecomment-5183209939` with the focused build and exit-code evidence.
+- Result: GitHub and durable local records agree on the first GREEN.
+- Next: dispatch `W-TEST-CORE-002`.
+
+### E-025 - Transactional configure RED prepared
+
+- Actor: manager.
+- Request: `W-TEST-CORE-002`.
+- Scope: one new test slot that observes rejection and preservation of the
+  previously committed row layout through shape validation; test-only.
+- Model/environment: Luna/max, new isolated worktree.
+- Next: commit this request record and dispatch it.

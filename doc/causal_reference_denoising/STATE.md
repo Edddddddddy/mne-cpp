@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T02:48:00+08:00
+Last updated: 2026-08-05T02:51:00+08:00
 
 ## Recovery order
 
@@ -33,13 +33,14 @@ workspace. The next vertical slice is one transactional-configuration RED.
 
 ## Running workers
 
-None. `W-CORE-001` is integrated and validated.
+`W-TEST-CORE-002` is queued for dispatch on Luna/max in a new worktree. It
+adds only the transactional configure RED.
 
 ## Next actions
 
-1. Publish the first GREEN evidence to branch and issue #2.
-2. Dispatch one Luna/max test worker for transactional configure RED.
-3. Review the failing test before requesting its minimum implementation.
+1. Dispatch `W-TEST-CORE-002` and persist its identifiers.
+2. Review and reproduce its expected RED in the main workspace.
+3. Request the minimum transactionality implementation only after valid RED.
 
 ## Focused verification targets
 
