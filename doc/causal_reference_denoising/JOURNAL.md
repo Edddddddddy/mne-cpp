@@ -193,3 +193,16 @@ hidden reasoning is not.
 - Result: `W-CORE-001` is active with Luna/max and the recorded minimum scope.
 - Next: wait for `RESPONSE W-CORE-001`, then inspect its diff before any
   cherry-pick.
+
+### E-022 - First core GREEN response reviewed
+
+- Actor: `W-CORE` and manager.
+- Response: `RESPONSE W-CORE-001`, commit `c3958cde9`.
+- Evidence: four-file, 132-line addition; whitespace check passed; public names
+  match the tracer and SPEC; the focused target remains outside the full MNE
+  dependency graph.
+- Limitation: the worker correctly stopped at the known clean-worktree Eigen
+  baseline gap and did not claim a passing build.
+- Decision: accept the commit for cherry-pick and reproduce GREEN in the
+  populated integration workspace before expanding the TDD suite.
+- Next: cherry-pick and run only `test_causal_reference_denoiser`.

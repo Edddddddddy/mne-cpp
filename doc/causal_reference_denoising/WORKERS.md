@@ -158,4 +158,23 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-CORE-001`, commit SHA, changed files, focused
   command/evidence available in the worktree, limitations, and next suggested
   single RED behavior.
-- Status: active in the isolated worktree.
+- Status: response received; pending main-workspace validation.
+
+### RESPONSE W-CORE-001
+
+- Conclusion: implemented the minimum first-GREEN production seam.
+- Commit: `c3958cde93474c9ed10992987fb604abb7b5a603`.
+- Changed files: `causalreferencedenoiser.h/.cpp`, RTPROCESSINGLIB CMake list,
+  and focused-test CMake list.
+- Design: the public config/mode/method seam matches `SPEC.md`; the tracer
+  compiles the numerical source directly while the library also registers it;
+  bypass returns the fixed status and does not write the input block.
+- Scope held: no second test, EWLS, plugin, or ignored Eigen repair.
+- Worker evidence: `git diff --check` passed. Clean-worktree configure stopped
+  at the already documented missing ignored Eigen baseline before target
+  generation, so the worker did not claim GREEN.
+- Suggested next RED: reject one invalid configuration transactionally while
+  preserving a prior committed configuration.
+- Manager static review: four-file diff is scoped, uses the repository export
+  macro, and keeps the numerical test isolated. Accepted for cherry-pick and
+  populated-main-workspace validation; runtime GREEN is not yet claimed.

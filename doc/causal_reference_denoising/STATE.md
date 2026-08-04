@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T02:25:00+08:00
+Last updated: 2026-08-05T02:44:00+08:00
 
 ## Recovery order
 
@@ -33,13 +33,14 @@ vertical slice is the minimum production seam required to make it GREEN.
 
 ## Running workers
 
-`W-CORE-001` is active on Luna/max in worktree `ef9b`. Its only responsibility
-is the first GREEN production seam.
+`W-CORE-001` returned commit `c3958cde9`. Static manager review is complete;
+integration and main-workspace focused validation are next.
 
 ## Next actions
 
-1. Wait for `RESPONSE W-CORE-001`.
-2. Review and integrate its minimum GREEN commit.
+1. Cherry-pick `c3958cde9` and run the focused target in the populated main
+   workspace.
+2. Record the actual GREEN or return a revision request.
 3. Add the next single RED behavior only after the tracer is GREEN.
 
 ## Focused verification targets
