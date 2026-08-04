@@ -33,11 +33,12 @@ vertical slice is its minimum configuration commit and shape-check GREEN.
 
 ## Running workers
 
-`W-CORE-002` is queued for Luna/max dispatch in a new worktree.
+`W-CORE-002` is active or initializing on Luna/max in worktree `a425`; its
+thread ID is pending because the app thread-list query timed out twice.
 
 ## Next actions
 
-1. Dispatch `W-CORE-002` and persist identifiers.
+1. Resolve the `W-CORE-002` thread ID without duplicate dispatch.
 2. Review its minimum GREEN implementation.
 3. Validate the focused target in the main workspace.
 

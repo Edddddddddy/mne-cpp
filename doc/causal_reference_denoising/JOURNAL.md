@@ -273,3 +273,14 @@ hidden reasoning is not.
   allocation-free bypass shape validation only.
 - Model/environment: Luna/max, new isolated worktree.
 - Next: commit this record, publish RED evidence, and dispatch the worker.
+
+### E-030 - Transactional configure worker worktree created
+
+- Actor: manager.
+- Client setup ID: `client-new-thread:8edf70e8-a904-4eb0-aa66-52a9f3b7cb65`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/a425/mne-cpp-main` at `3c338c8f2`.
+- Incident: two read-only app thread-list queries hung and were terminated;
+  no duplicate worker was created and no repository state was changed by the
+  queries.
+- Next: retry a bounded thread lookup later, record the ID, and continue with
+  the existing worktree only.
