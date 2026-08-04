@@ -385,6 +385,9 @@ The manager records and forwards all cross-worker messages here before acting.
 ### REQUEST W-CORE-003
 
 - From / to: manager / `W-CORE`.
+- Client setup ID: `client-new-thread:014022fe-666d-4dd4-a631-2aea6180d892`.
+- Thread: `019fce4c-69f2-7193-b5c7-47bad21bf7c0`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/5822/mne-cpp-main`.
 - Model/environment: `gpt-5.6-luna`, `max`, new isolated worktree.
 - Blocking: yes, before streaming state.
 - Task: make the 26-row invariant behavior GREEN in numerical source/header
@@ -396,4 +399,4 @@ The manager records and forwards all cross-worker messages here before acting.
   nonfinite block scan, diagnostics, or plugin code.
 - Required response: `RESPONSE W-CORE-003` with commit, files, evidence,
   implementation notes, and next single RED recommendation.
-- Status: recorded before dispatch.
+- Status: active; direct snapshot confirmed recovery-record reading.

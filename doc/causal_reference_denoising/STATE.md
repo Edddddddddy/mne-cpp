@@ -33,11 +33,11 @@ vertical slice is its minimum validation-only GREEN.
 
 ## Running workers
 
-`W-CORE-003` is queued for Luna/max dispatch in a new worktree.
+`W-CORE-003` is active on Luna/max in worktree `5822`.
 
 ## Next actions
 
-1. Dispatch `W-CORE-003` and persist its identifiers.
+1. Wait for `RESPONSE W-CORE-003`.
 2. Review its numerical validation-only implementation.
 3. Re-run the focused Qt report and require all rows GREEN.
 

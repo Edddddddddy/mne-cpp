@@ -394,3 +394,12 @@ hidden reasoning is not.
   executable and produced no report, so it was explicitly excluded as evidence.
 - Result: accepted runtime RED.
 - Next: dispatch `W-CORE-003` for validation-only GREEN.
+
+### E-042 - Configuration validation worker active
+
+- Actor: manager.
+- Request: `W-CORE-003`.
+- Thread: `019fce4c-69f2-7193-b5c7-47bad21bf7c0`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/5822/mne-cpp-main`.
+- Result: Luna/max is active with numerical validation-only scope.
+- Next: wait for `RESPONSE W-CORE-003`.
