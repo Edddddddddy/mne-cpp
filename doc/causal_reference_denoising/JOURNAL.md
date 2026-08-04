@@ -382,3 +382,15 @@ hidden reasoning is not.
   RED because the clean worker could not generate the focused target.
 - Next: cherry-pick, build, and capture the Qt text result under the ignored
   focused build directory.
+
+### E-041 - Configuration-invariant runtime RED reproduced
+
+- Actor: manager.
+- Integrated test commit: `19a23b9a6`.
+- Evidence: synchronized Qt run produced a text report with 4 passes, 26
+  intended failures, and exit code 26; first failure was
+  `samplingFrequencyHz_zero`.
+- Correction: a prior direct PowerShell invocation did not wait for the GUI
+  executable and produced no report, so it was explicitly excluded as evidence.
+- Result: accepted runtime RED.
+- Next: dispatch `W-CORE-003` for validation-only GREEN.

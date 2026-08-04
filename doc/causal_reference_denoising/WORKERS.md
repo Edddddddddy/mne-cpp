@@ -370,3 +370,30 @@ The manager records and forwards all cross-worker messages here before acting.
 - Manager static review: each row starts from the valid three-channel config;
   the feature-cap row uses one valid reference with 257 taps, isolating the
   requested cap. Accepted for cherry-pick and runtime RED reproduction.
+
+### MANAGER VALIDATION W-TEST-CORE-003-RED
+
+- Integrated commit: `19a23b9a6`.
+- Build: focused Release target succeeded.
+- Run: synchronized hidden-window Qt execution with text report under the
+  ignored focused build directory.
+- Result: 4 existing checks passed, all 26 new rows failed at the intended
+  configure assertion, and process exit code was 26. First failure:
+  `samplingFrequencyHz_zero`.
+- Decision: valid runtime RED; full configure validation may be implemented.
+
+### REQUEST W-CORE-003
+
+- From / to: manager / `W-CORE`.
+- Model/environment: `gpt-5.6-luna`, `max`, new isolated worktree.
+- Blocking: yes, before streaming state.
+- Task: make the 26-row invariant behavior GREEN in numerical source/header
+  only. Validate finite positive fs/memory; positive tap/update; regularization
+  in `[1e-8,1]`; non-empty, unique, in-range, disjoint rows; and feature cap
+  using overflow-safe arithmetic. Perform all validation before existing state
+  assignments so failed configure remains transactional.
+- Scope: no tests/CMake, row-state copies, scratch allocation, history, EWLS,
+  nonfinite block scan, diagnostics, or plugin code.
+- Required response: `RESPONSE W-CORE-003` with commit, files, evidence,
+  implementation notes, and next single RED recommendation.
+- Status: recorded before dispatch.

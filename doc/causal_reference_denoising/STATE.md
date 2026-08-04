@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T03:44:00+08:00
+Last updated: 2026-08-05T03:48:00+08:00
 
 ## Recovery order
 
@@ -19,9 +19,8 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-The transactional-configuration and shape-check slice is GREEN. The next
-vertical slice is one data-driven test slot for all SPEC configuration
-invariants before any streaming/EWLS state is added.
+The 26-row configuration-invariant behavior is a valid runtime RED. The next
+vertical slice is its minimum validation-only GREEN.
 
 ## Completed
 
@@ -34,14 +33,13 @@ invariants before any streaming/EWLS state is added.
 
 ## Running workers
 
-`W-TEST-CORE-003` returned commit `eb7573efe`; manager static review accepted
-the one-file, 26-row test for integration and runtime RED reproduction.
+`W-CORE-003` is queued for Luna/max dispatch in a new worktree.
 
 ## Next actions
 
-1. Cherry-pick `eb7573efe`.
-2. Build and run the focused test with a text report in the ignored build tree.
-3. Record the first failing data row before implementation.
+1. Dispatch `W-CORE-003` and persist its identifiers.
+2. Review its numerical validation-only implementation.
+3. Re-run the focused Qt report and require all rows GREEN.
 
 ## Focused verification targets
 
