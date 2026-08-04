@@ -33,13 +33,15 @@ enum class DenoisingMode {
 //=============================================================================================================
 
 enum class DenoiserStatus {
-    Configured
+    Configured,
+    InvalidConfiguration
 };
 
 //=============================================================================================================
 
 enum class DenoiserProcessStatus {
-    Bypassed
+    Bypassed,
+    InvalidShape
 };
 
 //=============================================================================================================
@@ -75,6 +77,10 @@ public:
                                   DenoisingMode mode) noexcept;
 
     void reset() noexcept;
+
+private:
+    Eigen::Index m_channelCount = 0;
+    Eigen::Index m_maxBlockSamples = 0;
 };
 
 //=============================================================================================================

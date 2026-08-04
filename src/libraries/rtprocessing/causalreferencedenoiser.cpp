@@ -22,7 +22,12 @@ using namespace RTPROCESSINGLIB;
 
 DenoiserStatus CausalReferenceDenoiser::configure(const CausalReferenceDenoiserConfig& config)
 {
-    (void)config;
+    if (config.channelCount <= 0 || config.maxBlockSamples <= 0) {
+        return DenoiserStatus::InvalidConfiguration;
+    }
+
+    m_channelCount = config.channelCount;
+    m_maxBlockSamples = config.maxBlockSamples;
     return DenoiserStatus::Configured;
 }
 
@@ -31,8 +36,14 @@ DenoiserStatus CausalReferenceDenoiser::configure(const CausalReferenceDenoiserC
 DenoiserProcessResult CausalReferenceDenoiser::process(Eigen::Ref<Eigen::MatrixXd> block,
                                                        DenoisingMode mode) noexcept
 {
-    (void)block;
     (void)mode;
+
+    if (block.rows() != m_channelCount
+        || block.cols() <= 0
+        || block.cols() > m_maxBlockSamples) {
+        return DenoiserProcessResult{DenoiserProcessStatus::InvalidShape};
+    }
+
     return DenoiserProcessResult{DenoiserProcessStatus::Bypassed};
 }
 
