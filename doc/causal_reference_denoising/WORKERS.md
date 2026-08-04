@@ -59,3 +59,19 @@ The manager records and forwards all cross-worker messages here before acting.
 5. `W-PLUGIN-UI`: controls and diagnostics.
 6. `W-EXAMPLE-DOC`: example, benchmark, and learning documentation.
 7. `R-INTEGRATION`: Sol/ultra final review.
+
+## Execution workers
+
+### REQUEST W-TEST-CORE-001
+
+- From / to: manager / `W-TEST-CORE`
+- Client thread: `client-new-thread:2f7a3181-c13c-4df2-a1f1-4e7d6ed1aa4c`
+- Model: `gpt-5.6-luna`, `max`
+- Worktree base: `codex/causal-reference-denoising`
+- Blocking: yes, for `W-CORE`.
+- Task: add exactly one public-interface RED tracer bullet for valid configure
+  followed by `BypassTrackHistory`, plus the focused CMake target. Do not add
+  production code or further behavioral tests.
+- Required response: commit SHA, changed files, narrow RED command and failure
+  evidence, beginning `RESPONSE W-TEST-CORE-001`.
+- Status: worktree setup pending.

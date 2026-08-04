@@ -33,14 +33,15 @@ have been added yet.
 
 ## Running workers
 
-None. Implementation workers start only after this record is committed, pushed,
-and the new GitHub issue is published.
+- `W-TEST-CORE-001`: Luna/max; worktree setup pending; adding one RED public
+  interface tracer bullet. Blocks `W-CORE`.
 
 ## Next actions
 
-1. Commit and push the issue/publication record.
-2. Dispatch `W-TEST-CORE` on Luna/max for the first TDD tracer bullet.
-3. Review the worker's red/green evidence before accepting its commit.
+1. Resolve the worker thread ID after worktree setup.
+2. Review the worker's RED evidence and commit before integration.
+3. Dispatch `W-CORE` to make the tracer bullet green and continue vertical
+   TDD slices.
 
 ## Focused verification targets
 

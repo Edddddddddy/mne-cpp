@@ -89,3 +89,13 @@ hidden reasoning is not.
   `Edddddddddy/mne-cpp#1` as not planned.
 - Next: commit and push the publication record, then dispatch the core TDD
   tracer-bullet worker.
+
+### E-011 - Core tracer-bullet worker dispatched
+
+- Actor: manager
+- Request: `W-TEST-CORE-001`.
+- Model/environment: Luna/max, separate worktree from the published feature
+  branch.
+- Scope: one configure-plus-bypass RED tracer bullet and focused test target;
+  no production code and no horizontal batch of tests.
+- Next: wait for worktree setup and a structured response.
