@@ -139,6 +139,9 @@ The manager records and forwards all cross-worker messages here before acting.
 ### REQUEST W-CORE-001
 
 - From / to: manager / `W-CORE`.
+- Client setup ID: `client-new-thread:719101fb-b9e7-4b6f-99ae-7f77dca31fe6`.
+- Thread: `019fce0e-59ad-7ce1-91a3-db5f4fd233e8`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/ef9b/mne-cpp-main`.
 - Model/environment: `gpt-5.6-luna`, `max`, new worktree from the current
   integration branch.
 - Blocking: yes, for every later core behavior.
@@ -155,4 +158,4 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-CORE-001`, commit SHA, changed files, focused
   command/evidence available in the worktree, limitations, and next suggested
   single RED behavior.
-- Status: recorded before dispatch.
+- Status: active in the isolated worktree.

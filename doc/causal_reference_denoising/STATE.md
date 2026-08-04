@@ -33,12 +33,12 @@ vertical slice is the minimum production seam required to make it GREEN.
 
 ## Running workers
 
-`W-CORE-001` is queued for dispatch on Luna/max in a separate worktree. Its
-only responsibility is the first GREEN production seam.
+`W-CORE-001` is active on Luna/max in worktree `ef9b`. Its only responsibility
+is the first GREEN production seam.
 
 ## Next actions
 
-1. Dispatch `W-CORE-001` and record its thread/worktree identifiers.
+1. Wait for `RESPONSE W-CORE-001`.
 2. Review and integrate its minimum GREEN commit.
 3. Add the next single RED behavior only after the tracer is GREEN.
 

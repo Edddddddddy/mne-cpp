@@ -174,3 +174,22 @@ hidden reasoning is not.
 - Model/environment: Luna/max, new isolated worktree.
 - Next: commit this request record, dispatch it, then record the returned thread
   and worktree identifiers.
+
+### E-020 - First core GREEN worker dispatched
+
+- Actor: manager.
+- Request: `W-CORE-001`.
+- Client setup ID: `client-new-thread:719101fb-b9e7-4b6f-99ae-7f77dca31fe6`.
+- Result: Codex accepted a Luna/max worktree task based on the integration
+  branch; the final thread/worktree identifiers are pending setup.
+- Next: resolve setup, persist the identifiers, then wait for the structured
+  response.
+
+### E-021 - First core GREEN worktree ready
+
+- Actor: manager.
+- Thread: `019fce0e-59ad-7ce1-91a3-db5f4fd233e8`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/ef9b/mne-cpp-main`.
+- Result: `W-CORE-001` is active with Luna/max and the recorded minimum scope.
+- Next: wait for `RESPONSE W-CORE-001`, then inspect its diff before any
+  cherry-pick.
