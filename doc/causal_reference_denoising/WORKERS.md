@@ -4402,6 +4402,23 @@ does not continuously poll them.
 - Decision: benchmark GREEN; `R-BENCH-FINITE-001` is closed and public issue #7
   evidence may be published after this record is committed/pushed.
 
+### PUBLISH W-BENCH-001-GREEN
+
+- GitHub issue #7 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195718600`.
+- Connector write and CLI API read-back exactly record worker/integration/
+  evidence commits, all-target integrity, Release default PASS, p50/p95/max,
+  generation/update counts, strict gate PASS and execution restrictions.
+
+### RETIREMENT PRECHECK W-BENCH-001
+
+- Worker reported a clean detached exact replacement `b8ce427b8f`; manager
+  verifies its sole example-main blob `86d1bc04f` exactly equals integrated
+  HEAD.
+- Review, populated Release default/benchmark runs and GitHub evidence are
+  durable. This one-shot benchmark conversation may be app-archived without
+  deleting or mutating its worktree.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread

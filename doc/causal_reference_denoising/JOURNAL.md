@@ -3428,3 +3428,14 @@ hidden reasoning is not.
   FIFF link, dependency repair or rt_server was used.
 - Next: commit/push code and evidence, publish/read back issue #7, then verify
   and archive the completed benchmark worker.
+
+### E-326 - Benchmark GREEN published and retirement precheck passed
+
+- Publish/read-back: issue #7 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195718600`
+  exactly records scope, all-target correction, Release default/benchmark
+  exits, p50/p95/max and the p95 gate.
+- Content: worker replacement and integrated example-main blobs both equal
+  `86d1bc04f`; clean worker status was reported and all evidence is durable.
+- Next: commit/push this precheck, archive the completed one-shot benchmark
+  conversation through the app only, then record the retirement result.
