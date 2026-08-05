@@ -3180,4 +3180,5 @@ does not continuously poll them.
   no-polling confirmation; proactively notify manager then stop.
 - Lifecycle: after acceptance this processor-test responsibility is complete;
   manager will verify and archive the conversation before formal review.
-- Status: recorded before forwarding.
+- Status: forwarded successfully to the existing thread with no model override;
+  it remains Luna/max. No new conversation or polling.

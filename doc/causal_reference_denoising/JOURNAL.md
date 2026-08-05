@@ -2562,3 +2562,14 @@ hidden reasoning is not.
   complete and may be archived before independent Sol/ultra milestone review.
 - Next: commit/push this publish/request record, forward to the existing thread
   without a model override, and do not poll.
+
+### E-249 - Valid reconfigure tracer forwarded to reusable worker
+
+- Actor: manager and visible thread messaging.
+- Result: `REQUEST W-PROC-TEST-003` delivered to existing thread
+  `019fd266-902d-77e1-b40a-a754eaac6222` with no model override; it remains
+  Luna/max.
+- Scope: one test-source delta atop `aa75e2520b`, changed three-row layout,
+  zero-model post-reconfigure probe and new `target=3*ref` relearning/probe.
+- Coordination: no new conversation, subagent or polling. Await only proactive
+  RESPONSE.
