@@ -2148,3 +2148,21 @@ hidden reasoning is not.
 - Recovery: nothing material or uncommitted was deleted. All request,
   acknowledgement, failure and retirement evidence is retained on the branch.
 - Next: no worker is active; await agreement on the GitHub child-issue split.
+
+### E-218 - Engineering-first execution plan authorized
+
+- Actor: user and manager.
+- Authorization: implement the complete approved plan while retaining GitHub
+  issue #2 as epic, creating five child issues, using only visible worktree
+  conversations for implementation/review, and never starting `mne_rt_server`.
+- Priority: processor mapping, nonblocking queue and buildable plugin MVP precede
+  example/docs and final P3 closure. Existing algorithm metrics are regression
+  gates; no further estimator tuning is scheduled.
+- Conversation policy: manager Sol/ultra with no internal subagents; ordinary
+  implementation Luna/max; concurrency/realtime/review Sol/ultra; workers push
+  structured RESPONSE messages to the manager without continuous polling.
+- Repository preflight: integration HEAD `ed33abbe8` matches its remote; only
+  the three preserved user-owned untracked paths are present.
+- Next: commit/push this authorization record, create the five issues through
+  the GitHub connector, update epic #2, then durably register the first tracer
+  REQUEST before creating its visible work conversation.

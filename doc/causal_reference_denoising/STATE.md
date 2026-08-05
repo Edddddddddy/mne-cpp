@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T20:25:00+08:00
+Last updated: 2026-08-05T20:54:23+08:00
 
 ## Recovery order
 
@@ -25,13 +25,13 @@ passes, zero failures/skips. The measured synthetic result is 58.6541 dB noise
 reduction and 0.000113195 clean projection-amplitude error. Formal review has
 P0/P1/P2 zero open; two P3 integration items remain tracked.
 
-Development is paused at the plugin-data boundary while the execution topology
-is corrected. The manager conversation must use Sol/ultra and must not create
-internal subagents. Remaining code is organized as GitHub child issues first,
-then dispatched as minimal REQUESTs to new user-visible work conversations.
-Dedicated user-visible review conversations inspect returned commits. The
-manager does not continuously poll worker conversations; workers return a
-structured RESPONSE to the manager when complete.
+The corrected engineering-first execution plan is approved. The manager
+conversation uses Sol/ultra and does not create internal subagents. Execution
+now begins by creating five GitHub child issues under epic #2; the first code
+slice will then be dispatched as a minimal REQUEST to a new user-visible
+Luna/max work conversation. Dedicated user-visible Sol/ultra review
+conversations inspect milestone commits. The manager does not continuously
+poll workers; workers return a structured RESPONSE to the manager when done.
 
 ## Completed
 
@@ -51,14 +51,13 @@ structured RESPONSE to the manager when complete.
 
 ## Next actions
 
-1. Review the proposed GitHub child-issue split with the user; keep issue #2 as
-   the feature epic.
-2. Create the agreed child issues and link their dependency/order from #2.
-3. Dispatch the first minimal plugin-processor test task to a new visible work
+1. Create the approved five child issues and link their dependency/order from
+   epic #2.
+2. Dispatch the first minimal plugin-processor test task to a new visible work
    conversation using Luna/max or Sol as risk requires.
-4. Receive its explicit RESPONSE without polling, then open a separate visible
+3. Receive its explicit RESPONSE without polling, then open a separate visible
    Sol/ultra review conversation before integration.
-5. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 
