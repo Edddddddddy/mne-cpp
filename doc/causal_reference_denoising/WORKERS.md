@@ -2665,3 +2665,14 @@ does not continuously poll them.
   algorithm-quality results remain regression evidence, not a reason for more
   numerical tuning before user acceptance.
 - Status: effective immediately; no new worker is active.
+
+### RETIREMENT RESPONSE W-TEST-PLUGIN-DATA-001
+
+- Pre-removal proof: registered detached worktree was clean at exact
+  `cdc07b28363422abddc8c11f6131d57ca8ae1d3b`.
+- Action: removed through `git worktree remove` using the verified absolute
+  target `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-plugin-data-001`.
+- Verification: the path no longer exists and `git worktree list` contains
+  only the manager integration worktree.
+- Recoverability: no code or uncommitted change was removed; the failed request
+  and correction remain fully recorded in this ledger and Git history.

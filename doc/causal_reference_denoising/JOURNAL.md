@@ -2137,3 +2137,14 @@ hidden reasoning is not.
   plugin MVP, then supporting learning artifacts and final review.
 - Next: commit/push this durable correction and present the evidence-backed
   current status and proposed split to the user before creating issues.
+
+### E-217 - Failed internal worker worktree retired safely
+
+- Actor: manager after correction commit `15124250f` was pushed.
+- Precondition: the verified absolute worktree was registered, detached, clean
+  and still at exact `cdc07b283`; it contained no worker output.
+- Action/result: `git worktree remove` succeeded, the directory no longer
+  exists, and only the manager integration worktree remains registered.
+- Recovery: nothing material or uncommitted was deleted. All request,
+  acknowledgement, failure and retirement evidence is retained on the branch.
+- Next: no worker is active; await agreement on the GitHub child-issue split.
