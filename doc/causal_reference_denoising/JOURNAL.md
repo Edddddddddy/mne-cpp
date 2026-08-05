@@ -825,3 +825,34 @@ hidden reasoning is not.
   at integration commit `b27b328d9`.
 - Model: Sol/high; exact analytic one-slot scope and no-subagent rule accepted.
 - Next: wait for the structured response while avoiding overlapping test edits.
+
+### E-085 - Non-learning mode test response received
+
+- Actor: `/root/w_test_core_008` and manager.
+- Response: test-only commit `ec69672b6` with ApplyOnly/Bypass data rows, known
+  model `2r(t)+3r(t-1)`, adversarial full interval, and analytic future probe.
+- Evidence: one file, clean diff/worktree, no subagents; worker runtime remains
+  infrastructure-limited by the known ignored Eigen baseline.
+- Decision: record before acting; manager now inspects the exact commit and
+  validates the oracle arithmetic before integration.
+
+### E-086 - Non-learning response SHA reconciled
+
+- Actor: manager.
+- Issue: the response's full SHA does not resolve although short SHA
+  `ec69672b6` matches the worker HEAD.
+- Evidence: the clean detached worktree reports HEAD
+  `ec69672b6ebda8871de7a8787dabb3f58047e51a` via `git rev-parse`.
+- Decision: treat the mismatch as a response typo, record it explicitly, and
+  review/integrate the resolved object without duplicate implementation.
+
+### E-087 - Non-learning analytic test accepted
+
+- Actor: manager using codebase-design/TDD review criteria.
+- Arithmetic: known model `[2,3]`, adversarial residuals `[480,-422]`, probe
+  features `[7,-4]`/`[-6,7]`, and targets `[2,9]` are consistent with tap-major
+  current/lag ordering.
+- Robustness: tolerance `1e-5` covers only the configured `1e-8` loading and
+  forgetting perturbation; unintended learning or missing history is much
+  larger.
+- Decision: accept resolved commit `ec69672b6`; integrate and run focused tests.

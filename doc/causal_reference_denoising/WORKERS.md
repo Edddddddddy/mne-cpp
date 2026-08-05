@@ -965,3 +965,44 @@ The manager records and forwards all cross-worker messages here before acting.
   classification, and no-subagent confirmation.
 - Status: active. Detached worktree was created from integration commit
   `b27b328d9`; Sol/high agent accepted the no-subagent request.
+
+### RESPONSE W-TEST-CORE-008
+
+- Worker-reported commit: short SHA `ec69672b6`; the reported full SHA
+  `ec69672b6f0281c337123887438dbcb13bcce7ac` does not resolve.
+- Manager reconciliation: clean detached worktree HEAD and `git rev-parse HEAD`
+  resolve the actual commit as
+  `ec69672b6ebda8871de7a8787dabb3f58047e51a`. Use this object for review and
+  integration; no duplicate task is needed.
+- Data rows: `ApplyOnly` and `BypassTrackHistory`; one public test source only.
+- Training: reference `[0,1,0]`, target `[0,2,3]`, preserved row
+  `[100,101,102]`; independent features identify analytic model
+  `y(t)=2r(t)+3r(t-1)`.
+- Adversarial interval: reference `[10,-4]`, target `[500,-400]`, preserved row
+  `[200,201]`. ApplyOnly expects `[480,-422]` within `1e-5`; Bypass requires
+  exact whole-block preservation.
+- Common probe: reference `[7,-6]`, target `[2,9]`, preserved `[300,301]`, with
+  features `[7,-4]` and `[-6,7]`; target residual is within `1e-5` and
+  non-target rows exact.
+- Sensitivity: learning on the two-sample adversarial interval changes the
+  future model; failure to track history changes the first probe lag.
+- Evidence: staged/committed diff checks passed and worktree is clean. Runtime
+  is correctly unclaimed because the detached worktree lacks ignored Eigen
+  baseline files; no repair/copy attempted.
+- Classification/scope: static immediate-GREEN expectation, runtime infra-
+  limited; no production/CMake/plugin/dependency/rt_server edits and no
+  subagents.
+- Manager status: response is durable; exact diff review is next.
+
+### MANAGER REVIEW W-TEST-CORE-008
+
+- Scope: accepted; exactly one data-driven public-interface slot and one test
+  source, with no unrelated change.
+- Oracle check: the two eligible training features are `[1,0]` and `[0,1]`;
+  target values identify weights `[2,3]`. Adversarial expected outputs are
+  `[480,-422]`. After references `[10,-4]`, probe features are `[7,-4]` and
+  `[-6,7]`, whose analytic targets are `[2,9]`.
+- Sensitivity check: regularization/forgetting perturbations remain well below
+  `1e-5`; any adversarial learning or stale history produces order-one errors.
+- Decision: accept reconciled commit `ec69672b6ebda8871de7a8787dabb3f58047e51a`
+  for cherry-pick and populated-workspace runtime validation.

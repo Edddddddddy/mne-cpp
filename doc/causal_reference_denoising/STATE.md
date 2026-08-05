@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T16:19:00+08:00
+Last updated: 2026-08-05T16:25:00+08:00
 
 ## Recovery order
 
@@ -33,12 +33,13 @@ fresh-state semantics are GREEN. The next contract is non-learning mode state.
 
 ## Running workers
 
-`W-TEST-CORE-008` is active as collaboration agent `/root/w_test_core_008` on
-Sol/high in detached worktree `mne-cpp-worker-w-test-core-008`.
+`W-TEST-CORE-008` returned test commit `ec69672b6`; its response mistyped the
+full SHA, reconciled from clean worktree HEAD as
+`ec69672b6ebda8871de7a8787dabb3f58047e51a`. Diff review is pending.
 
 ## Next actions
 
-1. Wait for and review `RESPONSE W-TEST-CORE-008`.
+1. Review reconciled commit `ec69672b6` against the analytic contract.
 2. Integrate the ApplyOnly/Bypass non-learning and history test.
 3. Integrate that narrow contract before diagnostics and malloc-guard work.
 
