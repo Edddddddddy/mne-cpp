@@ -166,3 +166,14 @@ completion.
 ## Final integration review
 
 Pending.
+
+## Processor milestone pre-review
+
+#### R-PROC-TEST-MEMORY-001 - P2 - Open
+
+- Location: worker commit `0d8aeafec1`, focused processor test source line 320.
+- Evidence: lower memory case uses `0.0`, which cannot distinguish the adapter
+  UI requirement `memory >= 1.0` from the numerical core's weaker `memory > 0`.
+- Impact: a regression accepting `0.5` would pass the new acceptance suite.
+- Required fix/test: use `0.5`, expect InvalidSettings, and retain the full
+  learned-model disarm/pass-through oracle. No production change.

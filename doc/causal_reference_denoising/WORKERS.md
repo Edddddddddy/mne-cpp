@@ -3064,3 +3064,33 @@ does not continuously poll them.
   implemented contract; no artificial RED or production edit.
 - Status: response recorded before manager inspects the exact diff. Conversation
   remains unarchived for planned reuse after acceptance.
+
+### MANAGER REVIEW W-PROC-TEST-002
+
+- Provenance/scope: exact clean `0d8aeafec1` has requested parent `a868914ca`,
+  changes only the focused test source and covers the reported 19 cases.
+- Prime/disarm/probe structure is strong and observes stale ownership entirely
+  through the public processor interface.
+- P2 `R-PROC-TEST-MEMORY-001`: at test source line 320, memory lower-bound case
+  uses `0.0`. This proves only the numerical/core positive-memory invariant and
+  would pass an incorrect adapter accepting `0 < memory < 1`, so it does not
+  protect the specified UI minimum `1.0`.
+- Required correction: replace the lower-bound value/name with `0.5` and keep
+  expected `InvalidSettings`; no other case, production or scope change.
+- Decision: hold integration for an amended one-file commit with the same exact
+  parent. Reuse the active Luna/max conversation; do not create a replacement.
+
+### REQUEST W-PROC-TEST-002-REVISE
+
+- From / to: manager / reusable visible thread
+  `019fd266-902d-77e1-b40a-a754eaac6222`.
+- Blocking: yes for integration.
+- Task: in the single authorized test source, change the lower memory case from
+  `0.0`/`memory-zero` to `0.5`/a below-min name. Keep all other 18 cases and
+  prime/disarm/probe assertions identical.
+- Commit shape: amend `0d8aeafec1` so the replacement commit still has exact
+  parent `a868914ca`; run diff checks and available focused evidence.
+- Required response: `RESPONSE W-PROC-TEST-002-REVISE` with replacement SHA,
+  line/value/name evidence, unchanged scope, clean status and proactive manager
+  notification. No production/dependency/rt_server/subagent/polling.
+- Status: recorded before forwarding.

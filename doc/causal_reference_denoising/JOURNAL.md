@@ -2482,3 +2482,17 @@ hidden reasoning is not.
   reconfigure-reset tracer.
 - Next: commit/push response, inspect exact diff and run populated focused
   Release before integration/reuse.
+
+### E-243 - Invalid/disarm test held for UI-memory sensitivity
+
+- Actor: manager reviewing exact `0d8aeafec1`.
+- Finding `R-PROC-TEST-MEMORY-001` P2: memory `0.0` only exercises core
+  positivity and would not fail if adapter UI validation wrongly accepted
+  values between zero and one.
+- Correction: change the one case to `0.5`, retain expected InvalidSettings and
+  all learned-model disarm/pass-through assertions. No production change.
+- Lifecycle: reuse the active Luna/max processor-test conversation and request
+  an amended same-parent commit; do not create or poll another thread.
+- Next: commit/push this review/request, forward it to thread
+  `019fd266-902d-77e1-b40a-a754eaac6222`, then wait only for its proactive
+  revised RESPONSE.
