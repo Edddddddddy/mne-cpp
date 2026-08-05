@@ -78,6 +78,12 @@ struct AdaptiveDenoisingConfigureResult
 class AdaptiveDenoisingProcessor final
 {
 public:
+    AdaptiveDenoisingProcessor() noexcept = default;
+    AdaptiveDenoisingProcessor(const AdaptiveDenoisingProcessor&) = delete;
+    AdaptiveDenoisingProcessor& operator=(const AdaptiveDenoisingProcessor&) = delete;
+    AdaptiveDenoisingProcessor(AdaptiveDenoisingProcessor&&) = delete;
+    AdaptiveDenoisingProcessor& operator=(AdaptiveDenoisingProcessor&&) = delete;
+
     AdaptiveDenoisingConfigureResult configure(
         const AdaptiveDenoisingStreamDescriptor& stream,
         Eigen::Index maxBlockSamples,

@@ -18,6 +18,7 @@
 #include <cstdint>
 #include <initializer_list>
 #include <limits>
+#include <type_traits>
 #include <vector>
 
 //=============================================================================================================
@@ -33,6 +34,24 @@
 using namespace ADAPTIVEDENOISINGPLUGIN;
 using namespace Eigen;
 using namespace RTPROCESSINGLIB;
+
+//=============================================================================================================
+
+static_assert(
+    std::is_nothrow_default_constructible<AdaptiveDenoisingProcessor>::value,
+    "AdaptiveDenoisingProcessor must be nothrow default constructible");
+static_assert(
+    !std::is_copy_constructible<AdaptiveDenoisingProcessor>::value,
+    "AdaptiveDenoisingProcessor must not be copy constructible");
+static_assert(
+    !std::is_copy_assignable<AdaptiveDenoisingProcessor>::value,
+    "AdaptiveDenoisingProcessor must not be copy assignable");
+static_assert(
+    !std::is_move_constructible<AdaptiveDenoisingProcessor>::value,
+    "AdaptiveDenoisingProcessor must not be move constructible");
+static_assert(
+    !std::is_move_assignable<AdaptiveDenoisingProcessor>::value,
+    "AdaptiveDenoisingProcessor must not be move assignable");
 
 //=============================================================================================================
 
