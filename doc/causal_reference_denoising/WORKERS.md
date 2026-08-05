@@ -2341,3 +2341,6 @@ The manager records and forwards all cross-worker messages here before acting.
   remove it through Git worktree management. The one-shot Sol/ultra agent is
   not reusable.
 - Status: recorded before action.
+- Publish attempt 1: `gh issue comment` failed with GitHub GraphQL EOF; branch
+  and evidence commits were already pushed successfully. Record before retry;
+  no code or issue state change is claimed. Worktree verification remains.

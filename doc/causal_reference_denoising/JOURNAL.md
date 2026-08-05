@@ -1795,3 +1795,13 @@ hidden reasoning is not.
   43/0/0 run as the effective allocation-guard evidence.
 - Next: push/publish, verify and remove the one-shot worktree, then dispatch
   independent Sol/ultra core review.
+
+### E-186 - Synthetic milestone issue publish attempt interrupted
+
+- Actor: manager using the GitHub workflow.
+- Result: first `gh issue comment` attempt failed with
+  `api.github.com/graphql: EOF`; no GitHub issue mutation is claimed.
+- Integrity: integration branch and all evidence commits are already pushed;
+  no code retry or duplicate worker is required.
+- Next: commit this failure record, verify/remove the completed detached
+  worktree, then retry the same issue comment.
