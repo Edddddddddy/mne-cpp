@@ -195,6 +195,10 @@ tracked.
   with deleted copy/move operations. No real v1 owner needs move support, so a
   custom moved-from interface would add a hypothetical seam. Minimal Luna/max
   header/trait fix is prepared as `W-PROC-MOVE-001`.
+- Fix review: exact worker commit `b49f27699` on requested base adds only the
+  five special-member declarations and five namespace-scope C++14 traits in
+  the two authorized files. Manager interface/diff review found no issue;
+  populated compile/runtime validation is pending before closure.
 
 #### R-PROC-LOCALITY-001 - P3 - Open
 

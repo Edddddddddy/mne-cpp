@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T00:30:00+08:00
+Last updated: 2026-08-06T00:36:00+08:00
 
 ## Recovery order
 
@@ -52,15 +52,14 @@ items are tracked as nonblocking follow-up.
 
 ## Running workers
 
-- `W-PROC-MOVE-001` Luna/max thread
-  `019fd29c-2487-77a3-bfee-512054491941` returned exact-base two-file commit
-  `b49f27699`. Response is durable; manager diff review, integration and
-  populated focused Release validation are next.
+- `W-PROC-MOVE-001` Luna/max commit `b49f27699` passed manager exact diff and
+  interface review. It has the requested parent, only two authorized files,
+  truthful noexcept default construction, deleted copy/move and five C++14
+  traits. Cherry-pick and populated focused Release validation are next.
 
 ## Next actions
 
-1. Inspect exact worker commit/diff against `46a413609`, then cherry-pick only
-   if the special-member and type-trait scope is exact.
+1. Cherry-pick accepted worker commit `b49f27699`.
 2. Build/run complete `test_adaptive_denoising_plugin` Release in the populated
    manager workspace and close P2 only on GREEN.
 3. Publish the formal review/fix evidence and close issue #4 after focused

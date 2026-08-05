@@ -3448,3 +3448,21 @@ does not continuously poll them.
   rt_server, subagent or manager polling. Manager owns exact diff review and
   populated Release validation before P2 closure.
 - Status: response recorded before manager commit inspection.
+
+### MANAGER REVIEW W-PROC-MOVE-001
+
+- Provenance/scope: exact commit `b49f27699` has requested parent
+  `46a413609`, changes only the processor header and focused test source, and
+  passes commit diff check.
+- Interface: explicit noexcept default construction plus deleted copy/move
+  operations encode the selected single-worker ownership without a new move
+  seam or moved-from state contract.
+- Traits: five namespace-scope C++14 assertions observe the public type policy;
+  an implicit move regression becomes a compile failure. Existing three Qt
+  runtime behaviors are byte/content unchanged.
+- Noexcept: default construction only initializes `unique_ptr` and the fixed
+  scalar snapshot, so the declaration is truthful under the current members.
+- Finding: none. This is the minimal correction requested by formal P2
+  `R-PROC-MOVE-001`.
+- Decision: accept for cherry-pick and populated focused Release build/run.
+  P2 remains open until compiled traits and all three runtime slots are GREEN.

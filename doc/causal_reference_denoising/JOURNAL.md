@@ -2741,3 +2741,14 @@ hidden reasoning is not.
   dependency repair, full scan, rt_server, subagent or polling occurred.
 - Next: commit/push this response, then inspect exact object/diff and execute
   populated Release before integrating or closing `R-PROC-MOVE-001`.
+
+### E-264 - Processor ownership fix accepted by manager review
+
+- Provenance: exact `b49f27699` on requested `46a413609`; two authorized files,
+  25 insertions, clean diff and no hidden source/CMake change.
+- Interface result: explicitly noncopyable/nonmovable worker ownership removes
+  the contradictory moved-from state without adding a hypothetical seam.
+- Test result: five public C++14 traits compile-gate the selected policy while
+  the three runtime slots remain unchanged.
+- Decision: no finding; commit may be cherry-picked after this review is
+  durable. P2 closes only after populated Release builds and exits zero.
