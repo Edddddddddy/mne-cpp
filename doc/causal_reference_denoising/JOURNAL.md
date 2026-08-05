@@ -1032,3 +1032,12 @@ hidden reasoning is not.
   worktree remains clean at `810e11d65`.
 - Action: non-blocking status request with no scope change or duplicate worker.
 - Next: await progress/blocker response.
+
+### E-108 - Replacement diagnostics implementation complete in worktree
+
+- Actor: `/root/w_core_006_r` and manager.
+- Response: no blocker; header/source implementation is complete, diff-check
+  clean, and undergoing final static/compile-oriented review.
+- Limitation: runtime is manager-owned due the documented ignored Eigen baseline.
+- Scope: no subagents; original bounded slice unchanged.
+- Next: wait for commit/structured response without duplicate work.
