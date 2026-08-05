@@ -1771,3 +1771,13 @@ hidden reasoning is not.
   subagents; the worker is one-shot.
 - Decision: response is durable before acting. Review the exact commit, then
   cherry-pick only if causality, counting, metric sensitivity and scope pass.
+
+### E-184 - Quantitative synthetic test accepted for integration
+
+- Actor: manager using TDD and codebase-design seam criteria.
+- Review: exact one-source/one-slot commit; causal tap order, zero prehistory,
+  warmup/epoch counts, deterministic excitation and both acceptance equations
+  match SPEC. Assertions are sensitive to unlearned/mis-lagged/corrupt output.
+- Decision: accept `bae282c347` for cherry-pick. Only populated Release runtime
+  metrics may establish the >=10 dB and <=2 percent gates.
+- Next: commit this review, cherry-pick and run the focused synchronized test.

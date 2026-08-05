@@ -2299,3 +2299,22 @@ The manager records and forwards all cross-worker messages here before acting.
   clean detached HEAD pass. Runtime is manager-owned due the known ignored
   detached dependencies; immediate GREEN is analytically expected.
 - Lifecycle: no subagents. Manager exact review and populated execution follow.
+
+### MANAGER REVIEW W-TEST-CORE-015
+
+- Scope/base: accepted. Exact commit `bae282c347` is clean on requested base
+  `ea5870cf2` and adds one slot/test source only (172 lines including one
+  standard-library include).
+- Causality/counts: target noise uses the module's exact tap-major current-to-
+  lag-three ordering with zero prehistory. After three warmup samples,
+  `98,301 / 128` gives 767 accepted epochs and 125 pending samples, matching
+  the asserted generation and aggregate event count.
+- Signal quality: two independent seeded broadband AR/multisine references make
+  the eight-feature system well excited. More than three memory constants of
+  pure known-noise training separates estimator convergence from the clean
+  evaluation sinusoid and leaves wide analytic gate margins.
+- Sensitivity: exact reference equality guards row selection; finite output,
+  zero rejects/generation, residual-noise reduction and clean projection all
+  fail materially for an unlearned, mis-lagged or corrupt model.
+- Decision: accept for cherry-pick and populated Release execution. Runtime
+  metrics, not the independent oracle alone, determine quantitative GREEN.
