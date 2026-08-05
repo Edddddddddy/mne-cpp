@@ -608,6 +608,9 @@ The manager records and forwards all cross-worker messages here before acting.
 ### REQUEST W-TEST-CORE-005
 
 - From / to: manager / `W-TEST-CORE`.
+- Client setup ID: `client-new-thread:659f5b36-a5e8-4984-babb-03d1fc0fd7ce`.
+- Thread: `019fd040-bb35-7e83-9dc8-ee2abfbb21d1`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/e95c/mne-cpp-main`.
 - Model/environment: `gpt-5.6-luna`, `max`, new isolated worktree; Sol is not
   needed because this is a bounded public-contract safety test.
 - Blocking: yes.
@@ -621,4 +624,4 @@ The manager records and forwards all cross-worker messages here before acting.
   chunk, reset, malloc, or diagnostics cases.
 - Required response: `RESPONSE W-TEST-CORE-005` with commit, rows, state-proof
   sequence, expected RED, and limitations.
-- Status: recorded before dispatch.
+- Status: active; direct snapshot confirmed TDD record recovery.

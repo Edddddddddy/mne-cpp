@@ -554,3 +554,13 @@ hidden reasoning is not.
   threads returned `archived: true`.
 - Evidence remains durable in commits, test reports, and `WORKERS.md`.
 - Next: create fresh Luna/max `W-TEST-CORE-005`.
+
+### E-058 - Atomic nonfinite test worker active
+
+- Actor: manager.
+- Request: `W-TEST-CORE-005`.
+- Thread: `019fd040-bb35-7e83-9dc8-ee2abfbb21d1`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/e95c/mne-cpp-main`.
+- Result: Luna/max is active with one-file test-only scope and explicit no-
+  subagent instruction.
+- Next: wait for `RESPONSE W-TEST-CORE-005`.

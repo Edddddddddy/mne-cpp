@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T12:28:00+08:00
+Last updated: 2026-08-05T12:49:00+08:00
 
 ## Recovery order
 
@@ -33,14 +33,14 @@ atomic selected-NaN/Inf pass-through with state immutability.
 
 ## Running workers
 
-`W-TEST-CORE-005` is queued for Luna/max dispatch after retiring completed
-`W-CORE-004` and its interrupted nested threads.
+`W-TEST-CORE-005` is active on Luna/max in worktree `e95c`; completed
+`W-CORE-004` and its interrupted nested threads are archived.
 
 ## Next actions
 
-1. Publish causal EWLS GREEN and retire non-reusable implementation threads.
-2. Dispatch `W-TEST-CORE-005` for atomic nonfinite RED.
-3. Review and reproduce RED before the small production fix.
+1. Wait for `RESPONSE W-TEST-CORE-005`.
+2. Review and reproduce atomic nonfinite RED.
+3. Dispatch the small production fix only after valid RED.
 
 ## Focused verification targets
 
