@@ -1058,3 +1058,12 @@ The manager records and forwards all cross-worker messages here before acting.
   explicitly rejected alternatives, and no-edit/no-subagent confirmation.
 - Status: active as collaboration agent `/root/r_diagnostics_001`; Sol/ultra
   accepted the read-only/no-subagent scope.
+
+### REQUEST R-DIAGNOSTICS-001-STATUS
+
+- From / to: manager / `/root/r_diagnostics_001`.
+- Blocking: no; review scope remains unchanged.
+- Context: repeated bounded waits show the read-only reviewer still running,
+  with no repository modification.
+- Question: report concise progress/blocker state at the next safe boundary.
+- Status: recorded before forwarding.

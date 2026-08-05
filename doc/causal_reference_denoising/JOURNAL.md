@@ -899,3 +899,11 @@ hidden reasoning is not.
 - Result: exact fixed-size interface/failure-semantics review is active.
 - Next: wait for the structured response; do not edit numerical interface while
   review is running.
+
+### E-093 - Diagnostics reviewer status requested
+
+- Actor: manager.
+- Evidence: multiple bounded waits show the Sol/ultra read-only review still
+  active; the repository remains unmodified by the reviewer.
+- Action: non-blocking `REQUEST R-DIAGNOSTICS-001-STATUS`, with no scope change.
+- Next: keep waiting without duplicate review dispatch.
