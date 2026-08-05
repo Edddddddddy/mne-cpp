@@ -4260,3 +4260,27 @@ does not continuously poll them.
   stage/generation/RMS evidence, illustrative-only interpretation and no full
   scan/rt_server/vendor-repair restrictions.
 - Status: public GREEN durable; worker content/retirement verification remains.
+
+### PUBLISH W-QUEUE-TEST-003-GREEN
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5195069942`.
+- Connector write and API read-back exactly match worker/integration commits,
+  8/0/0 Release, invalid-state/null-metadata recovery, lifecycle regression,
+  complete focused coverage, restrictions and the next formal review gate.
+
+### RETIREMENT PRECHECK W-QUEUE-TEST-003
+
+- Worker reported clean detached exact `cff55a01e`; manager verifies its sole
+  focused-test blob `f13fbec9` exactly equals integrated HEAD.
+- All three Luna test slices are durable, GREEN and published. The reusable
+  thread has completed its final authorized queue task and may be archived by
+  the app without deleting or modifying its worktree.
+
+### RETIREMENT PRECHECK W-EXAMPLE-001
+
+- Worker reported clean detached exact `708db5425`; manager verifies all three
+  authorized blobs exactly equal integrated HEAD: registration `3ab9d165`,
+  CMake `d9912a44`, main `ccdcdbf4`.
+- Review, populated Release PASS and GitHub evidence are durable. The one-shot
+  example thread may be app-archived without deleting/modifying its worktree.

@@ -3214,3 +3214,19 @@ hidden reasoning is not.
   state preservation are all GREEN.
 - Next: commit/push code/evidence, publish issue #5, verify/archive the final
   Luna/max test worker, then dispatch independent Sol/ultra formal review.
+
+### E-305 - Final queue GREEN published
+
+- Publish/read-back: issue #5 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5195069942`
+  exactly records 8/0/0, state-preservation/recovery and review next gate.
+- No presentation correction was needed; connector write is exact.
+
+### E-306 - Queue-test and example workers pass retirement precheck
+
+- Queue: worker `cff55a01e` sole test blob equals integrated HEAD `f13fbec9`.
+- Example: worker `708db5425` three blobs equal integrated HEAD (`3ab9d165`,
+  `d9912a44`, `ccdcdbf4`). Both responses report clean detached worktrees.
+- Evidence: reviews, populated Release runs and GitHub comments are durable.
+- Next: commit/push precheck, archive both completed visible conversations via
+  the app only, then record retirement and prepare formal queue review.

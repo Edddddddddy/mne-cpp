@@ -89,7 +89,8 @@ Manager will not poll or overlap its focused test-source edit. Public dispatch:
 It proactively returned exact-base commit `cff55a01e`, adding one focused slot
 for invalid configuration/block/destination state preservation. Manager review
 passes; it is integrated as `422c5264c`. Populated Release reports 8/0/0 and
-exit zero, including a 62 ms stop wake.
+exit zero, including a 62 ms stop wake. GREEN is published at
+`https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5195069942`.
 
 Non-overlapping issue #7 work is prepared as `W-EXAMPLE-001`: a focused
 Eigen/streaming example target that directly exercises the completed numerical
@@ -108,6 +109,8 @@ build/run exits zero with `example invariants: PASS`; learning reaches model
 generation four, freeze emits zero updates and reset restores generation zero.
 GREEN is published at
 `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195038508`.
+Queue-test and example worker scoped blobs exactly match integration; both
+one-shot conversations are ready for app archival without worktree deletion.
 3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
