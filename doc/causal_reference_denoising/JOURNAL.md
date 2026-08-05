@@ -2496,3 +2496,13 @@ hidden reasoning is not.
 - Next: commit/push this review/request, forward it to thread
   `019fd266-902d-77e1-b40a-a754eaac6222`, then wait only for its proactive
   revised RESPONSE.
+
+### E-244 - Memory-bound revision forwarded to reusable worker
+
+- Actor: manager and visible thread messaging.
+- Result: `REQUEST W-PROC-TEST-002-REVISE` delivered successfully to existing
+  thread `019fd266-902d-77e1-b40a-a754eaac6222` with no model override, so it
+  remains Luna/max.
+- Scope: one value/name amendment, same parent, no other case or file change.
+- Coordination: no new conversation and no polling. Await only proactive
+  `RESPONSE W-PROC-TEST-002-REVISE`.

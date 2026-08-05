@@ -3093,4 +3093,5 @@ does not continuously poll them.
 - Required response: `RESPONSE W-PROC-TEST-002-REVISE` with replacement SHA,
   line/value/name evidence, unchanged scope, clean status and proactive manager
   notification. No production/dependency/rt_server/subagent/polling.
-- Status: recorded before forwarding.
+- Status: forwarded successfully to the same visible Luna/max thread; no model
+  override, new conversation or polling.
