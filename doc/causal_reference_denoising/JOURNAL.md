@@ -2694,3 +2694,16 @@ hidden reasoning is not.
 - Safety: manager did not manually delete or modify the app-owned worktree.
 - Next: record the selected explicit noncopyable/nonmovable policy and dispatch
   one new visible Luna/max minimal P2 fix conversation.
+
+### E-260 - Processor ownership policy and P2 fix request selected
+
+- Decision: processor remains a single-worker deep module and is explicitly
+  default-constructible, noncopyable and nonmovable. No v1 caller needs a move
+  seam; deleting move prevents Ready/no-model contradiction by construction.
+- TDD slice: namespace-scope C++14 traits verify nothrow default construction
+  and all four deleted copy/move properties; complete runtime suite must remain
+  unchanged and GREEN.
+- Request: `W-PROC-MOVE-001`, new visible Luna/max task, exactly processor
+  header plus focused test source; no source/CMake/core/plugin expansion.
+- Next: commit/push this decision/request, create the worktree conversation,
+  record its identity, then publish the P2 fix dispatch to issue #4.

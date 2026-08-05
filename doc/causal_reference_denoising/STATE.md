@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T00:09:00+08:00
+Last updated: 2026-08-06T00:14:00+08:00
 
 ## Recovery order
 
@@ -52,15 +52,13 @@ items are tracked as nonblocking follow-up.
 
 ## Running workers
 
-- None. The completed read-only reviewer is archived after exact-SHA, clean-
-  status and scoped-content verification. No app-owned worktree was manually
-  deleted.
+- `W-PROC-MOVE-001` is prepared for a new visible Luna/max minimal fix
+  conversation after this REQUEST commit is pushed. It will change only the
+  processor header and focused test source.
 
 ## Next actions
 
-1. Resolve P2 `R-PROC-MOVE-001` with an explicit noncopyable/nonmovable worker-
-   owned interface and C++14 type-trait verification through a new Luna/max
-   minimal work conversation.
+1. Dispatch the recorded Luna/max `W-PROC-MOVE-001` fix conversation.
 2. Publish the formal review/fix evidence and close issue #4 after focused
    Release remains GREEN.
 3. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra

@@ -3370,3 +3370,36 @@ does not continuously poll them.
   modified by the manager.
 - Status: complete; findings remain in `REVIEW.md` and this conversation will
   not be reused for implementation.
+
+### REQUEST W-PROC-MOVE-001
+
+- From / to: manager thread
+  `019fcdc3-4a1e-76d1-8140-1bd521219297` / new visible processor ownership-fix
+  work conversation.
+- GitHub issue/finding: `Edddddddddy/mne-cpp#4`, P2
+  `R-PROC-MOVE-001`.
+- Model/environment: `gpt-5.6-luna`, `max`, new saved-project worktree from
+  `codex/causal-reference-denoising`; no internal/nested subagents.
+- Blocking: yes for processor issue #4 closure and queue work.
+- Selected interface policy: `AdaptiveDenoisingProcessor` is a worker-owned
+  single-stream module. Add an explicit noexcept default constructor and
+  explicitly delete copy construction/assignment and move construction/
+  assignment. Do not add custom move support or another ownership interface.
+- TDD verification: in the focused public test source add `<type_traits>` and
+  namespace-scope C++14 static assertions proving nothrow default construction,
+  noncopyability and nonmovability. If available, observe that the pre-fix
+  move-trait assertion fails before applying the header change; otherwise
+  report the known clean-worktree dependency limitation honestly.
+- Authorized files: processor header and focused processor test source only.
+  Preserve all three runtime slots and every production behavior. No source/
+  CMake/core/queue/plugin/UI/example/dependency/vendor or rt_server change.
+- Required validation: diff checks, exact two-file scope, available focused
+  Release build/run or known ignored-Eigen limitation, and clean commit.
+- Required response: begin `RESPONSE W-PROC-MOVE-001`; include exact base/
+  commit, declarations and trait assertions, RED/GREEN or infrastructure
+  evidence, changed files, limitations, clean status and no-subagent
+  confirmation. Actively send it to the manager thread using
+  `send_message_to_thread`, then stop without polling.
+- Lifecycle: one-shot; manager archives after exact integration/content and
+  populated Release verification.
+- Status: recorded before visible work conversation creation.

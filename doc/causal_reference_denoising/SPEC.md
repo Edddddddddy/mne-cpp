@@ -339,6 +339,13 @@ shape of diagnostics; no string is constructed there. A Ready configure creates
 a new numerical configuration and resets the model. `configuration()` is a
 fixed-size worker/UI snapshot.
 
+`AdaptiveDenoisingProcessor` is explicitly default-constructible, single-
+worker owned, noncopyable and nonmovable. Moving the numerical ownership
+without atomically changing the fixed configuration snapshot would make a
+moved-from instance report `Ready` while processing as unconfigured. V1 has no
+real second ownership adapter requiring a move seam, so copy and move
+construction/assignment are deleted and enforced by C++14 type traits.
+
 The real `FiffInfo` conversion treats each row bad when
 `info.bads.contains(ch.ch_name)`; STIM, misc, bad MEG/reference and all unrelated
 rows are never selected and therefore must remain value-identical. Enabled/

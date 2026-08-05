@@ -191,6 +191,10 @@ tracked.
 - Required verification: C++14 type-trait static assertions for the selected
   policy; if moves remain, configured move behavior tests; complete focused
   Release executable remains GREEN.
+- Manager decision: select the preferred explicit noexcept default constructor
+  with deleted copy/move operations. No real v1 owner needs move support, so a
+  custom moved-from interface would add a hypothetical seam. Minimal Luna/max
+  header/trait fix is prepared as `W-PROC-MOVE-001`.
 
 #### R-PROC-LOCALITY-001 - P3 - Open
 
