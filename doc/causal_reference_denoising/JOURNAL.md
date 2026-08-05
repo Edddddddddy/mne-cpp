@@ -3260,3 +3260,12 @@ hidden reasoning is not.
   concurrency/lifecycle scope, P0-P3 schema and proactive response.
 - Next: commit/push creation evidence and publish/read back issue #5; do not
   poll or overlap review with speculative production edits.
+
+### E-310 - Queue formal review dispatch published
+
+- Publish/read-back: issue #5 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5195120967`
+  exactly matches Sol/ultra setup, snapshot, concurrency/lifecycle scope,
+  evidence schema and restrictions.
+- Coordination: await only proactive reviewer response; disjoint learning-guide
+  work may proceed without queue source/test overlap.

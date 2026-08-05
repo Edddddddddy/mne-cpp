@@ -4343,3 +4343,11 @@ does not continuously poll them.
   restrictions are present.
 - Coordination: no final thread ID yet; manager will not poll. Await only the
   proactive `RESPONSE R-QUEUE-001` after public dispatch.
+
+### PUBLISH R-QUEUE-001-START
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5195120967`.
+- Connector write and API read-back exactly match Sol/ultra setup ID, snapshot,
+  review surface/questions, P0-P3 gate and read-only restrictions.
+- Status: public dispatch complete; manager will not poll the reviewer.
