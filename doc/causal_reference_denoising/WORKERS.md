@@ -2184,3 +2184,55 @@ The manager records and forwards all cross-worker messages here before acting.
 - Decision: accept for cherry-pick and populated Debug build/run. A process
   abort would be valid failure evidence; success must produce the effective
   guard slot pass, not a skip.
+
+### MANAGER VALIDATION W-TEST-CORE-014-GREEN
+
+- Integrated commit: `b719d7ccd`.
+- Debug build: success; Qt report explicitly identifies a Debug build with
+  Eigen assertions active. Only known Eigen/MSVC C4819 warnings.
+- Synchronized report: 43 passed, zero failed, zero skipped, exit code zero.
+- Guard slot crossed `P=8` warmup/full boundary/LDLT and committed ApplyOnly
+  without process abort, proving no Eigen heap allocation after configure for
+  these hot paths.
+- Decision: core malloc-guard acceptance is satisfied.
+
+### RETIREMENT REQUEST CLEANUP-018
+
+- Publish effective Debug 43/0 malloc-guard evidence to issue #2.
+- Verify detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-014` is clean at
+  `ecd252fba` and its focused CMake/test content matches integrated `b719d7ccd`;
+  remove it through Git worktree management. Agent is not reusable.
+- Status: recorded before publish/cleanup.
+
+### REQUEST W-TEST-CORE-015
+
+- From / to: manager / quantitative synthetic acceptance test worker.
+- Planned execution: detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-015` from current
+  integration HEAD; identifier recorded after dispatch.
+- Model/environment: `gpt-5.6-sol`, `ultra`; no nested subagents.
+- Model decision: deterministic streaming signal construction, causal lag
+  alignment and quantitative dB/amplitude gates require high-risk numerical
+  reasoning.
+- Blocking: yes for core numerical acceptance and formal review.
+- Task: add exactly one public-interface Qt slot using two deterministic rich
+  reference streams, four taps (`P=8`), one target, 128-sample blocks/update
+  interval, 30-second memory and `1e-3` regularization. Precompute a continuous
+  finite reference stream, construct target environmental noise from known
+  tap-major weights with zero prehistory, and train over enough blocks for
+  steady state using ApplyAndLearn. Evaluate one continuing ApplyOnly block
+  whose raw target is known noise plus a deterministic clean sinusoid. Require
+  exact reference preservation/finite output, environmental-noise reduction
+  `20*log10(rms(noise)/rms(output-clean)) >= 10 dB`, and clean projection
+  amplitude error `abs(dot(output,clean)/dot(clean,clean)-1) <= 0.02`.
+- Determinism/sensitivity: fixed integer PRNG or explicit deterministic formula,
+  no external data/random_device; log measured values with `qInfo`. Use enough
+  training epochs for a robust margin, not a threshold-tuned borderline case.
+- Scope: test source only; exactly one slot, no production/header/CMake/plugin/
+  dependency or rt_server. Honest immediate GREEN is allowed; do not change the
+  algorithm or add benchmark/example code in this task.
+- Required response: `RESPONSE W-TEST-CORE-015` with commit, generator/weights/
+  block counts and causal construction, exact metric equations, expected margin,
+  evidence/classification and no-subagent confirmation.
+- Status: request recorded before cleanup/worktree creation/dispatch.

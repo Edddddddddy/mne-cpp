@@ -1695,3 +1695,21 @@ hidden reasoning is not.
   allocations/assertions outside guards.
 - Decision: accept `ecd252fba`; commit review, cherry-pick and run Debug. The
   guard must pass rather than skip before synthetic acceptance.
+
+### E-177 - Effective Debug malloc guard is GREEN
+
+- Actor: manager.
+- Integrated test/CMake: `b719d7ccd`.
+- Evidence: Debug build succeeds; synchronized report has 43 passes, zero
+  failures, zero skips and exit code zero. Guarded boundary/LDLT and ApplyOnly
+  calls did not abort, proving no Eigen allocation on those configured paths.
+- Next: publish/retire and add quantitative synthetic acceptance.
+
+### E-178 - Synthetic acceptance request prepared
+
+- Actor: manager under the hard acceptance gates and TDD.
+- Request: `W-TEST-CORE-015`, Sol/ultra, one public test slot/source, no
+  subagents; deterministic continuous two-reference/four-tap stream, steady-state
+  ApplyOnly evaluation, >=10 dB noise reduction and <=2% clean projection error.
+- Next: commit/push, publish/clean guard worker, create fresh synthetic test
+  worktree and dispatch.

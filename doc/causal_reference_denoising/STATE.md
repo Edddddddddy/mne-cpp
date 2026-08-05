@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T23:27:00+08:00
+Last updated: 2026-08-05T23:38:00+08:00
 
 ## Recovery order
 
@@ -34,14 +34,14 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-`W-TEST-CORE-014` commit `ecd252fba` passed manager exact review; integration
-and effective Debug guard execution are pending.
+No worker is running. Effective Debug malloc guard `b719d7ccd` is GREEN with
+43 passes and no skip; its one-shot test worktree cleanup is pending.
 
 ## Next actions
 
-1. Commit/push the manager review record.
-2. Integrate scoped guard test and build/run Debug for effective assertions.
-3. Require guard success before synthetic acceptance.
+1. Commit/push guard evidence and `W-TEST-CORE-015` synthetic request.
+2. Publish/cleanup the malloc-guard milestone.
+3. Dispatch quantitative synthetic acceptance on Sol/ultra.
 
 ## Focused verification targets
 
