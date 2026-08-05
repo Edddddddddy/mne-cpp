@@ -3287,3 +3287,15 @@ hidden reasoning is not.
   exactly matches the one-file Luna/max task, technical content, provenance,
   repository-path and non-goal constraints.
 - Coordination: await proactive response only; queue reviewer remains separate.
+
+### E-313 - BabyMEG-scale benchmark task requested
+
+- Request: `W-BENCH-001`, new visible Luna/max task editing only the existing
+  focused example main with a `--benchmark` mode.
+- Workload: 270 rows (16 references, 250 targets, four preserved), P=64,
+  128-sample epochs, 100 warmup plus 1000 timed process calls. Input preparation
+  is outside timing; epoch solves are inside; p50/p95 and `p95 < 128 ms` gate.
+- Independence: no overlap with guide, queue review, plugin source, tests/CMake
+  or dependencies; no full scan or rt_server.
+- Next: commit/push request, create/record Luna/max worktree and publish issue
+  #7 dispatch without polling any active task.

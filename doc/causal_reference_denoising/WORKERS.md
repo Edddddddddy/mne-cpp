@@ -4214,6 +4214,40 @@ does not continuously poll them.
   non-goals and restrictions.
 - Status: public dispatch complete; manager will not poll or edit the new guide.
 
+### REQUEST W-BENCH-001
+
+- From / to: manager / new visible benchmark conversation.
+- GitHub issue: `Edddddddddy/mne-cpp#7`.
+- Model/environment: `gpt-5.6-luna`, `max`, new saved-project worktree from the
+  current integration branch; no internal/nested subagents or manager polling.
+- Scope: modify only
+  `src/examples/ex_causal_reference_denoising/main.cpp`; retain the current
+  default teaching example exactly and add a `--benchmark` execution mode.
+- Scale/config: 1000 Hz, 128 samples/block, 270 total rows, 16 reference rows,
+  250 target rows and four preserved rows; four taps (`P=64`), update interval
+  128, 30 s memory and 1e-3 loading. Generate deterministic finite reference/
+  target/preserved data outside the timed region.
+- Timing: configure once, run 100 untimed warmup blocks, then 1000 timed
+  ApplyAndLearn calls. Restore/repopulate the already-sized input block outside
+  each timer; include the full `process` call and its epoch solve inside. Do no
+  per-block I/O or allocation in the timed region.
+- Report: print dimensions/config, sample/block duration 128 ms, p50/p95 in ms,
+  max/generation/accepted/rejected summary and explicit PASS/FAIL for `p95 <
+  128 ms`. Use a documented deterministic percentile rule and exit nonzero on
+  configure/process/nonfinite/preservation/performance failure.
+- Integrity: prove reference/preserved rows remain exact and selected targets
+  stay finite on representative post-call blocks. Benchmark is engineering
+  evidence, not a unit test or new algorithm-quality gate.
+- Verification: focused populated build is manager-owned; worker should attempt
+  Release if its ignored Eigen baseline permits, otherwise report limitation
+  without dependency repair. One-file commit/diff/clean checks.
+- Required response: `RESPONSE W-BENCH-001` with exact base/commit, dimensions,
+  generator/timing boundaries, percentile definition, worker build/run evidence
+  or limitation, file/clean status and no-subagent/no-poll/no-full-scan/no-
+  rt_server confirmation. Proactively notify manager then stop.
+- Lifecycle: one-shot; benchmark-result documentation follows after manager run.
+- Status: recorded and will be committed/pushed before visible task creation.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread

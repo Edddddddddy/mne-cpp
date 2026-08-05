@@ -77,6 +77,8 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
    for a narrow fix until that gate passes.
 2. Create the already-durable `W-DOC-001` visible Luna/max task while example
    work remains non-overlapping; do not poll either task.
+3. Run a separate Luna/max `W-BENCH-001` task that edits only the focused
+   example main to add the required BabyMEG-scale Release timing mode.
 
 `W-QUEUE-TEST-002` completed from exact base `f77bf44ce` as worker commit
 `da315d81e`; its one-shot conversation may be reused for the immediately
@@ -119,7 +121,7 @@ one-shot conversations were app-archived without worktree deletion.
 `3d7328683` as `client-new-thread:1030c8cd-96dd-4ad6-a650-927118f3d03f`.
 Manager will not poll; reviewer must proactively return its structured gate.
 Dispatch: `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5195120967`.
-3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 
