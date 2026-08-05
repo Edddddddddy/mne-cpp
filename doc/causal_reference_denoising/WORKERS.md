@@ -2765,3 +2765,22 @@ does not continuously poll them.
 - Integrity: only three authorized files changed; cached and commit diff checks
   passed; worktree is clean/detached; no subagents and no manager polling.
 - Status: response recorded before manager inspects the worker diff.
+
+### MANAGER REVIEW W-PROC-TEST-001
+
+- Provenance: exact clean worker HEAD `095633f159` has parent `eef062192`; diff
+  contains only the three authorized test/CMake files and passes diff check.
+- Interface behavior: one Qt slot crosses the frozen processor seam and checks
+  Ready row/feature counts, actual numerical learning/application diagnostics,
+  exact preservation of five non-target rows and finite near-zero target output.
+- Oracle sensitivity: with one scalar feature and relative regularization
+  `1e-8`, the learned coefficient is approximately `2/(1+1e-8)`; a raw target
+  of 34 leaves residual about `3.4e-7`, safely inside `1e-5`. Missing/wrong row
+  selection, bad/STIM leakage or an uncommitted model produces a material fail.
+- Dependency/static review: CMake mirrors the existing isolated core-test
+  pattern, adds only the plugin include root and does not link any forbidden
+  MNE/FIFF/scan library. Real FIFF constants are header-only in this target.
+- Finding: none. Scope and TDD tracer quality accepted.
+- Decision: record/push this review, cherry-pick the worker commit, then the
+  populated manager build must produce the intended missing-processor-header
+  RED before any production implementation request.
