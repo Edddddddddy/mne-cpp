@@ -33,15 +33,15 @@ are GREEN. The next contract is reset and three-mode state semantics.
 
 ## Running workers
 
-`W-TEST-CORE-007` produced one scoped test-file modification but did not finish
-commit/response after repeated bounded waits and explicit finish guidance. Its
-interruption is recorded; manager recovery/review is next.
+`W-TEST-CORE-007` was interrupted after apparent non-response, but inspection
+showed it had just committed scoped test `7640f3750`. The exact diff is accepted;
+a response-only recovery turn is pending before integration.
 
 ## Next actions
 
-1. Interrupt the non-responsive one-shot agent without discarding its isolated
-   file modification.
-2. Review, commit, and integrate the recovered reset-to-fresh-state test.
+1. Request the structured final response from the interrupted worker without
+   permitting further edits.
+2. Integrate the already reviewed reset-to-fresh-state test `7640f3750`.
 3. Reproduce RED or accept immediate GREEN before the next mode slice.
 
 ## Focused verification targets

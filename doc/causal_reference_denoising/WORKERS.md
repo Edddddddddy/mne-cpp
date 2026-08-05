@@ -867,3 +867,25 @@ The manager records and forwards all cross-worker messages here before acting.
   may commit it only if it satisfies the already durable request.
 - Replacement: none; do not duplicate an already implemented test.
 - Status: recorded before action.
+
+### RECOVERY W-TEST-CORE-007-COMMIT
+
+- Interruption result: previous agent status was `running`; it is now
+  `interrupted`.
+- Recovered commit: `7640f37501d1f305f345d3fbf39447c7c05a5933`, created just
+  before interruption; worktree is clean and detached at that commit.
+- Diff: one test file, 110 insertions, no whitespace errors.
+- Manager static review: accepted. Prime features commit `[2,-3,4]` then leave
+  one partial sample; post-reset features commit a deliberately different
+  model and the probe is exactly generated from it. The sequence detects
+  retained history/weights before or during training and retained stats/count
+  at the new boundary/probe, while checking every non-target row exactly.
+
+### REQUEST W-TEST-CORE-007-FINAL-RESPONSE
+
+- From / to: manager / interrupted `/root/w_test_core_007`.
+- Blocking: yes only for protocol completion, not code recovery.
+- Instruction: make no edits; return the required structured final response
+  for existing commit `7640f3750`, including evidence, limitation,
+  classification, and no-subagent confirmation.
+- Status: recorded before response-only follow-up.

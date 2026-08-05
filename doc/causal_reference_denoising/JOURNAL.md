@@ -765,3 +765,14 @@ hidden reasoning is not.
   worker or losing work.
 - Next: inspect the exact recovered diff and accept/reject it against the
   original public reset contract.
+
+### E-079 - Reset test commit recovered and reviewed
+
+- Actor: manager after interrupting `/root/w_test_core_007`.
+- Discovery: the worker had just committed `7640f3750`; the detached worktree
+  is clean, so no modification was lost.
+- Review: one test slot correctly primes model/history/partial-epoch state,
+  resets, crosses a fresh boundary against a new control, and probes the new
+  model at `1e-12`; non-target rows are exact.
+- Decision: accept the diff. Trigger one response-only turn to complete the
+  REQUEST/RESPONSE ledger, with no further edits allowed, before cherry-pick.
