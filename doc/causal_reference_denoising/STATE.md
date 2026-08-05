@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T20:05:00+08:00
+Last updated: 2026-08-05T20:12:00+08:00
 
 ## Recovery order
 
@@ -34,14 +34,14 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-No worker is running. `W-TEST-CORE-011` is integrated as `d36491643`; focused
-runtime has 40 passes and zero failures, with worktree cleanup pending.
+`W-CORE-008` is active as `/root/w_core_008` on Sol/ultra in detached worktree
+`C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-core-008` at `230697fed`.
 
 ## Next actions
 
-1. Commit/push GREEN evidence and `REQUEST W-CORE-008`.
-2. Verify/remove the one-shot test worktree.
-3. Dispatch strict positive-factorization/pivot hardening on Sol/ultra.
+1. Await/review `RESPONSE W-CORE-008` without overlapping source edits.
+2. Integrate only the bounded strict-acceptance predicate change.
+3. Require the synchronized 40-check report to remain GREEN.
 
 ## Focused verification targets
 

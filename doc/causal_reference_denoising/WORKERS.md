@@ -1652,7 +1652,9 @@ The manager records and forwards all cross-worker messages here before acting.
   `148870f87` and its focused test content matches integrated `d36491643`.
 - Remove it through Git worktree management. Completed agent
   `/root/w_test_core_011` is one-shot and must not be reused.
-- Status: recorded before cleanup.
+- Status: complete. Worktree was clean at `148870f87`, its focused test exactly
+  matched integrated `d36491643`, and Git worktree removal succeeded. The
+  completed one-shot agent will not be reused.
 
 ### REQUEST W-CORE-008
 
@@ -1677,4 +1679,5 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-CORE-008` with commit, exact predicates and
   ordering, changed files, diff/available validation, 40-test expected
   characterization status, remaining findings and no-subagent confirmation.
-- Status: request recorded before cleanup/worktree creation/dispatch.
+- Status: active as collaboration agent `/root/w_core_008`. Detached worktree
+  created clean at `230697fed`; Sol/ultra accepted the source-only scope.

@@ -1319,3 +1319,13 @@ hidden reasoning is not.
   before the existing atomic commit.
 - Next: commit/push, clean the one-shot test worktree, create a fresh detached
   implementation worktree and dispatch.
+
+### E-137 - Strict LDLT worker active
+
+- Actor: manager and `/root/w_core_008`.
+- Cleanup: W-TEST-CORE-011 worktree was clean/content-matched and removed; its
+  one-shot agent will not be reused.
+- Worktree/model: detached `mne-cpp-worker-w-core-008` at `230697fed`,
+  Sol/ultra, numerical source only and no subagents.
+- Next: await structured response; no overlapping numerical source edit by the
+  manager while the worker is active.
