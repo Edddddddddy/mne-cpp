@@ -3307,3 +3307,12 @@ hidden reasoning is not.
 - Base/scope: exact `60b394ab2`, one example-main `--benchmark` edit; default
   teaching mode immutable and no overlap with guide/queue review/plugin.
 - Next: commit/push creation evidence and publish/read back issue #7; no polling.
+
+### E-315 - Focused benchmark dispatch published
+
+- Publish/read-back: issue #7 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195193407`
+  exactly matches one-file Luna/max task, 270-row workload, timer boundaries,
+  percentile/performance/integrity gates and restrictions.
+- Coordination: await proactive response only; manager continues plugin seam
+  design without editing example or guide.

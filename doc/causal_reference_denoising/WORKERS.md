@@ -4260,6 +4260,15 @@ does not continuously poll them.
 - Coordination: no final thread ID yet; manager will not poll or edit example
   main and awaits the proactive response after public dispatch.
 
+### PUBLISH W-BENCH-001-START
+
+- GitHub issue #7 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195193407`.
+- Connector write and API read-back exactly match Luna/max setup/base, one-file
+  preserved-default scope, 270-row/P64/100+1000 workload, timing/report/gate and
+  restrictions.
+- Status: public dispatch complete; manager will not poll or edit example main.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread
