@@ -944,3 +944,12 @@ hidden reasoning is not.
 - Sequence: NotConfigured, Bypass warmup, ApplyOnly warmup completion, one
   accepted ApplyAndLearn boundary, reset snapshot; analytic RMS at every call.
 - Next: commit/push records, create detached worktree, dispatch.
+
+### E-098 - Diagnostics lifecycle test worker active
+
+- Actor: manager and `/root/w_test_core_009`.
+- Worktree/model: detached `mne-cpp-worker-w-test-core-009` at `1d7729ab3`,
+  Sol/high, no subagents.
+- Result: the exact one-slot NotConfigured/warmup/RMS/generation lifecycle test
+  is active.
+- Next: wait for structured response; do not edit the overlapping test source.

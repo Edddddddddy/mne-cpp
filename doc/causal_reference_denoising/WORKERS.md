@@ -1120,7 +1120,7 @@ The manager records and forwards all cross-worker messages here before acting.
 ### REQUEST W-TEST-CORE-009
 
 - From / to: manager / diagnostics lifecycle test worker.
-- Execution: collaboration subagent in detached worktree
+- Execution: collaboration subagent `/root/w_test_core_009` in detached worktree
   `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-009`; identifier recorded
   after dispatch.
 - Model/environment: `gpt-5.6-sol`, `high`; no nested subagents.
@@ -1139,4 +1139,5 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-TEST-CORE-009` with commit, exact sequence and
   RMS oracle, expected compile failure, evidence/infra limitation, and no-
   subagent confirmation.
-- Status: recorded before worktree setup/dispatch.
+- Status: active. Detached worktree created from `1d7729ab3`; Sol/high accepted
+  one-slot/no-subagent scope.
