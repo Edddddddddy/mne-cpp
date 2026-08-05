@@ -33,7 +33,10 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/libraries
 )
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE MNE_RTPROCESSING_LIBRARY)
+target_compile_definitions(${PROJECT_NAME} PRIVATE
+    MNE_RTPROCESSING_LIBRARY
+    EIGEN_RUNTIME_NO_MALLOC
+)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER mne-cpp.org

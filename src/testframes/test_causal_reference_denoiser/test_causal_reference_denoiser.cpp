@@ -88,6 +88,7 @@ private slots:
     void acceptsLoadedRankDeficientEpoch();
     void reportsStableRmsForLargeBypassAndAnalyticApplyOnly();
     void fallsBackAtomicallyWhenPredictionOverflows();
+    void processDoesNotAllocateAfterConfigure();
 };
 
 //=============================================================================================================
@@ -1269,6 +1270,100 @@ void TestCausalReferenceDenoiser::fallsBackAtomicallyWhenPredictionOverflows()
     QVERIFY(normalResult.diagnostics.modelGeneration == 1);
     QVERIFY(normalResult.diagnostics.modelUpdatesAccepted == 0);
     QVERIFY(normalResult.diagnostics.modelUpdatesRejected == 0);
+}
+
+//=============================================================================================================
+
+void TestCausalReferenceDenoiser::processDoesNotAllocateAfterConfigure()
+{
+#ifdef EIGEN_NO_DEBUG
+    QSKIP("Eigen assertions are disabled, so the runtime malloc guard is ineffective.");
+#else
+    CausalReferenceDenoiserConfig config;
+    config.samplingFrequencyHz = 1000.0;
+    config.channelCount = 5;
+    config.maxBlockSamples = 7;
+    config.referenceRows = VectorXi(2);
+    config.referenceRows << 0, 1;
+    config.targetRows = VectorXi(2);
+    config.targetRows << 2, 3;
+    config.tapCount = 4;
+    config.adaptationIntervalSamples = 4;
+    config.memoryTimeSeconds = 300.0;
+    config.regularization = 1e-8;
+
+    CausalReferenceDenoiser denoiser;
+    QVERIFY(denoiser.configure(config) == DenoiserStatus::Configured);
+
+    // The first three columns fill four-tap history. The final four columns
+    // form one complete P=8 learning epoch and exercise the loaded LDLT solve.
+    MatrixXd learningBlock(5, 7);
+    learningBlock << 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+                     2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0,
+                     3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0,
+                    -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0,
+                   100.0, 101.0, 102.0, 103.0, 104.0, 105.0, 106.0;
+    const MatrixXd originalLearningBlock = learningBlock;
+
+    // Constant continuation references reproduce the learned feature and
+    // make both target rows an observable committed-model probe.
+    MatrixXd applyOnlyBlock(5, 2);
+    applyOnlyBlock << 1.0, 1.0,
+                      2.0, 2.0,
+                      3.0, 3.0,
+                     -4.0, -4.0,
+                    107.0, 108.0;
+    const MatrixXd originalApplyOnlyBlock = applyOnlyBlock;
+
+    const bool learningMallocWasAllowed = Eigen::internal::is_malloc_allowed();
+    Eigen::internal::set_is_malloc_allowed(false);
+    const DenoiserProcessResult learningResult =
+        denoiser.process(learningBlock, DenoisingMode::ApplyAndLearn);
+    Eigen::internal::set_is_malloc_allowed(learningMallocWasAllowed);
+
+    QVERIFY(learningResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(learningBlock.allFinite());
+    QVERIFY(learningResult.diagnostics.referenceRowCount == 2);
+    QVERIFY(learningResult.diagnostics.targetRowCount == 2);
+    QVERIFY(learningResult.diagnostics.featureCount == 8);
+    QVERIFY(learningResult.diagnostics.warmupSamplesRemaining == 0);
+    QVERIFY(learningResult.diagnostics.modelUpdatesAccepted == 1);
+    QVERIFY(learningResult.diagnostics.modelUpdatesRejected == 0);
+    QVERIFY(learningResult.diagnostics.modelGeneration == 1);
+    QVERIFY(std::isfinite(learningResult.diagnostics.inputRms));
+    QVERIFY(std::isfinite(learningResult.diagnostics.outputRms));
+    QVERIFY(std::isfinite(learningResult.diagnostics.estimatedNoiseRms));
+    QVERIFY((learningBlock.row(0).array()
+             == originalLearningBlock.row(0).array()).all());
+    QVERIFY((learningBlock.row(1).array()
+             == originalLearningBlock.row(1).array()).all());
+    QVERIFY((learningBlock.row(4).array()
+             == originalLearningBlock.row(4).array()).all());
+
+    const bool applyOnlyMallocWasAllowed = Eigen::internal::is_malloc_allowed();
+    Eigen::internal::set_is_malloc_allowed(false);
+    const DenoiserProcessResult applyOnlyResult =
+        denoiser.process(applyOnlyBlock, DenoisingMode::ApplyOnly);
+    Eigen::internal::set_is_malloc_allowed(applyOnlyMallocWasAllowed);
+
+    QVERIFY(applyOnlyResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(applyOnlyBlock.allFinite());
+    QVERIFY(applyOnlyResult.diagnostics.modelGeneration == 1);
+    QVERIFY(applyOnlyResult.diagnostics.modelUpdatesAccepted == 0);
+    QVERIFY(applyOnlyResult.diagnostics.modelUpdatesRejected == 0);
+    QVERIFY(std::isfinite(applyOnlyResult.diagnostics.inputRms));
+    QVERIFY(std::isfinite(applyOnlyResult.diagnostics.outputRms));
+    QVERIFY(std::isfinite(applyOnlyResult.diagnostics.estimatedNoiseRms));
+    QVERIFY(applyOnlyResult.diagnostics.estimatedNoiseRms > 0.0);
+    QVERIFY((applyOnlyBlock.row(0).array()
+             == originalApplyOnlyBlock.row(0).array()).all());
+    QVERIFY((applyOnlyBlock.row(1).array()
+             == originalApplyOnlyBlock.row(1).array()).all());
+    QVERIFY((applyOnlyBlock.row(4).array()
+             == originalApplyOnlyBlock.row(4).array()).all());
+    QVERIFY((applyOnlyBlock.row(2).array().abs() <= 1e-6).all());
+    QVERIFY((applyOnlyBlock.row(3).array().abs() <= 1e-6).all());
+#endif
 }
 
 //=============================================================================================================
