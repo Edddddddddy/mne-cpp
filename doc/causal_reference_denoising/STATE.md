@@ -22,7 +22,8 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 Core numerical contracts, effective Debug Eigen malloc guard and quantitative
 synthetic acceptance are GREEN. Release reports 43 passes, zero failures and
 one intentional guard skip, with 58.6541 dB noise reduction and 0.000113195
-clean projection-amplitude error. Formal independent core review is next.
+clean projection-amplitude error. Formal review has P0/P1 zero and holds the
+core gate only for the analytic forgetting-test P2.
 
 ## Completed
 
@@ -35,9 +36,9 @@ clean projection-amplitude error. Formal independent core review is next.
 
 ## Running workers
 
-Formal reviewer `R-CORE-001` is complete and safely retired: P0/P1 are zero,
-one P2 analytic forgetting-test gap is open, and two P3 integration/
-documentation items are tracked. A focused P2 test task is being prepared.
+- `/root/w_test_core_016`: Sol/high, one-shot public analytic forgetting test in
+  detached worktree `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-016`
+  at exact base `12ab4e621`; test source only, no subagents.
 
 ## Next actions
 

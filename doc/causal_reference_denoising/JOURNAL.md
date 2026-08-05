@@ -1947,3 +1947,13 @@ hidden reasoning is not.
 - Sensitivity: lambda one, missing within-epoch decay or missing committed-stat
   aging produce materially different future output.
 - Next: commit/push, create exact detached worktree and dispatch.
+
+### E-200 - Analytic forgetting P2 test worker active
+
+- Actor: manager and `/root/w_test_core_016`.
+- Worktree/model: clean detached
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-016` at exact
+  `12ab4e621`, Sol/high, test source only, no subagents.
+- Scope: one independent lambda=0.5/two-epoch future-weight oracle closing
+  `R-CORE-FORGET-001`; no production or plugin work.
+- Next: await structured response without overlapping the focused test source.
