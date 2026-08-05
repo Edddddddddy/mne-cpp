@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T20:50:00+08:00
+Last updated: 2026-08-05T21:05:00+08:00
 
 ## Recovery order
 
@@ -34,13 +34,12 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-`W-TEST-CORE-012` is active as `/root/w_test_core_012` on Sol/high in detached
-worktree `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-012` at
-`a7bb413ca`.
+`W-TEST-CORE-012` returned one-test commit `c302fbfff`; manager exact review,
+integration and populated runtime characterization are pending.
 
 ## Next actions
 
-1. Await/review `RESPONSE W-TEST-CORE-012` without overlapping test edits.
+1. Review exact commit `c302fbfff` and both RMS oracles/tolerances.
 2. Integrate and run the focused report; immediate GREEN is expected.
 3. Close R-RMS-001 only with large-finite and analytic evidence.
 

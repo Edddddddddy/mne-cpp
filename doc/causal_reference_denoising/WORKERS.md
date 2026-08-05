@@ -1813,3 +1813,21 @@ The manager records and forwards all cross-worker messages here before acting.
 - Scope/lifecycle: final diff review/available validation/commit pending; no
   subagents and no scope change.
 - Next: await clean commit response; do not duplicate.
+
+### RESPONSE W-TEST-CORE-012
+
+- Commit: `c302fbfff6d1b057161597390c98ce3b9aa98dff`.
+- Changed file: focused numerical test source only; one slot with two sections.
+- Bypass oracle: reference `[1,-2,3,-4]`, target alternating
+  `+/- DBL_MAX/4`; require Bypassed, exact block, finite input/output RMS and
+  zero noise. Compare with `abs(actual/M-1) <= 8*epsilon` to avoid overflow.
+- Training/probe oracle: train `[1,2] -> [2,4]`, one tap/interval two/reg
+  `1e-8`, so `W=2/(1+1e-8)`. Probe refs `[3,4]`, raw target `[10,14]` yields
+  residuals `[10-3W,14-4W]`, input `sqrt(148)`, output residual RMS, and noise
+  `W*sqrt(12.5)`; combined absolute/relative `1e-12` tolerance.
+- State/rows: training accepts once/generation one; probe has zero events,
+  finite output and exact reference preservation.
+- Evidence: one-file/one-slot clean commit and independent oracle; detached
+  runtime unavailable only due known ignored baseline/build gap.
+- Classification/lifecycle: immediate GREEN expected, no forced RED and no
+  subagents. Manager exact review follows.
