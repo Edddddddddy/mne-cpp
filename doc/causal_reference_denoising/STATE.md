@@ -129,6 +129,10 @@ Dispatch: `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-51951209
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 
+Plugin implementation is intentionally waiting for `R-QUEUE-001` to resolve
+the native `QSharedPointer` versus queue `std::shared_ptr` ownership seam, first-
+callback shape bootstrap and row-count transition policy recorded in `SPEC.md`.
+
 ## Focused verification targets
 
 - `test_causal_reference_denoiser`

@@ -19,6 +19,10 @@
 - `R-QUEUE-001`: independent visible Sol/ultra review of the concrete
   preallocated SPSC queue, stop/reconfigure lifecycle, public tests and
   realtime constraints. No finding exists until the reviewer returns evidence.
+- Manager integration follow-up: native `QSharedPointer<FiffInfo>` ownership,
+  first-callback exact-shape bootstrap and row-count transitions are explicit
+  caller risks in `SPEC.md`; formal review should classify or leave them to the
+  plugin milestone rather than letting the adapter hide callback allocation.
 
 ## Core numerical review
 

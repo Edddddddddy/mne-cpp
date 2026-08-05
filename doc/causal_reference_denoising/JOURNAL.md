@@ -3316,3 +3316,15 @@ hidden reasoning is not.
   percentile/performance/integrity gates and restrictions.
 - Coordination: await proactive response only; manager continues plugin seam
   design without editing example or guide.
+
+### E-316 - Plugin bootstrap and metadata ownership seam exposed
+
+- Evidence: the real input API returns `QSharedPointer<FiffInfo>` and exposes
+  channel/block dimensions only inside its DirectConnection notify callback;
+  the current queue accepts exact rows and `std::shared_ptr<const FiffInfo>`.
+- Risks: a bridge control block or initial exact-shape configure can allocate in
+  acquisition context, and row-count changes are rejected before the worker can
+  inspect new metadata. Same-row metadata changes remain transportable.
+- Decision: do not start plugin source work speculatively. Record the questions
+  in `SPEC.md`, take the formal queue gate, then freeze the smallest native-
+  ownership/bootstrap/row-transition seam before worker dispatch.

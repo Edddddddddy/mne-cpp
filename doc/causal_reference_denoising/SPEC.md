@@ -252,6 +252,33 @@ thread all information needed to handle a layout transition at the same block
 boundary as its samples. UI pending settings/reset state remains a separate
 UI-to-worker boundary and is never locked by the acquisition callback.
 
+### Adapter bootstrap risks to resolve before plugin code
+
+Read-only integration inspection exposed three concrete caller-seam questions
+that the queue-only tests cannot answer:
+
+- `RealTimeMultiSampleArray::info()` returns `QSharedPointer<FiffInfo>`, while
+  the frozen queue currently transports `std::shared_ptr<const FiffInfo>`.
+  Creating a new standard-library control block per input or metadata change
+  would add acquisition-thread allocation and weaken locality. The formal queue
+  review must decide whether the plugin caches a one-time bridge or the private
+  queue should use the native Qt ownership type.
+- Channel count and the first block width are unavailable in plugin `init()` or
+  `start()` and first appear in the DirectConnection input callback. The queue
+  requires an exact preallocated shape. Plugin implementation must explicitly
+  define its one-time bootstrap while preserving exactly one nonblocking data
+  write per block and no wait/retry/busy loop.
+- An exact-row queue can transport metadata changes only while row count remains
+  constant. A row-count transition currently returns `InvalidBlock` before the
+  worker can see its metadata, so the plugin must either define a bounded
+  variable-row ingress or explicitly treat such a transition as a stopped/
+  restart boundary. It must not silently process new rows with stale picks.
+
+No production choice is frozen here. `R-QUEUE-001` and the subsequent plugin
+seam decision must select the smallest implementation that preserves block/
+metadata FIFO, safe ownership, drop-newest behavior and worker-boundary model
+configuration without modifying `AbstractAlgorithm` or global measurement APIs.
+
 The selected plugin-private queue interface transports `FiffInfo` ownership
 without including or inspecting its definition. The header forward-declares
 `FIFFLIB::FiffInfo`; only the later plugin adapter dereferences it.
