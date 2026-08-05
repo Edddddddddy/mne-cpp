@@ -1479,3 +1479,12 @@ hidden reasoning is not.
 - Cleanup: W-TEST-CORE-012 worktree was clean/content-matched and removed; its
   one-shot Sol/high agent will not be reused.
 - Next: create and dispatch the durable application-overflow RED request.
+
+### E-154 - Application overflow test worker active
+
+- Actor: manager and `/root/w_test_core_013`.
+- Worktree/model: detached `mne-cpp-worker-w-test-core-013` at `d991e1e9a`,
+  Sol/ultra, exactly one test source/slot and no subagents.
+- Scope: two-target mixed overflow/finite prediction sample-wide fallback and
+  later committed-model integrity; no production edit.
+- Next: await structured response; manager will not edit overlapping test code.

@@ -1894,4 +1894,5 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-TEST-CORE-013` with commit, exact matrices,
   overflow and atomicity argument, RMS/state oracle, expected RED, evidence and
   no-subagent confirmation.
-- Status: request recorded before cleanup/worktree creation/dispatch.
+- Status: active as collaboration agent `/root/w_test_core_013`. Detached
+  worktree created clean at `d991e1e9a`; Sol/ultra accepted the one-slot scope.
