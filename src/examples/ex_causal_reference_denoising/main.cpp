@@ -12,10 +12,14 @@
 
 #include <Eigen/Dense>
 
+#include <algorithm>
+#include <chrono>
 #include <cmath>
 #include <cstdint>
+#include <cstring>
 #include <iomanip>
 #include <iostream>
+#include <vector>
 
 //=============================================================================================================
 // USED NAMESPACES
@@ -39,6 +43,15 @@ constexpr double kMemoryTimeSeconds = 30.0;
 constexpr double kRegularization = 1e-3;
 constexpr Index kReferenceCount = 2;
 constexpr Index kTargetRow = 2;
+
+constexpr Index kBenchmarkChannelCount = 270;
+constexpr Index kBenchmarkReferenceCount = 16;
+constexpr Index kBenchmarkTargetCount = 250;
+constexpr Index kBenchmarkFirstTargetRow = 16;
+constexpr Index kBenchmarkFirstPreservedRow = 266;
+constexpr Index kBenchmarkPreservedCount = 4;
+constexpr int kBenchmarkWarmupBlockCount = 100;
+constexpr int kBenchmarkTimedBlockCount = 1000;
 
 // The coefficients are tap-major: [r0(t), r1(t), r0(t-1), r1(t-1), ...].
 constexpr double kTapMajorWeights[kReferenceCount * kTapCount] = {
@@ -152,6 +165,315 @@ bool exactBlock(const MatrixXd& actual, const MatrixXd& expected) noexcept
     return true;
 }
 
+const char* statusName(DenoiserProcessStatus status) noexcept;
+
+std::uint32_t nextBenchmarkState(std::uint32_t& state) noexcept
+{
+    state ^= state << 13;
+    state ^= state >> 17;
+    state ^= state << 5;
+    return state;
+}
+
+double nextBenchmarkExcitation(std::uint32_t& state) noexcept
+{
+    const double unit = static_cast<double>(nextBenchmarkState(state))
+                        / 4294967295.0;
+    return 2.0 * unit - 1.0;
+}
+
+void fillBenchmarkBlock(MatrixXd& block) noexcept
+{
+    std::uint32_t states[kBenchmarkReferenceCount] = {};
+    double referenceMemories[kBenchmarkReferenceCount] = {};
+
+    for (Index reference = 0; reference < kBenchmarkReferenceCount; ++reference) {
+        states[reference] = 0xA341316Cu
+                             + 0x9E3779B9u
+                                   * static_cast<std::uint32_t>(reference + 1);
+    }
+
+    for (Index sample = 0; sample < kMaxBlockSamples; ++sample) {
+        const double timeSeconds = static_cast<double>(sample)
+                                   / kSamplingFrequencyHz;
+        for (Index reference = 0; reference < kBenchmarkReferenceCount; ++reference) {
+            referenceMemories[reference] =
+                0.31 * referenceMemories[reference]
+                + 0.69 * nextBenchmarkExcitation(states[reference]);
+
+            const double frequency = 5.0 + 1.75 * static_cast<double>(reference);
+            const double harmonic = 17.0 + 0.50 * static_cast<double>(reference);
+            block(reference, sample) =
+                0.70 * referenceMemories[reference]
+                + 0.20 * std::sin(2.0 * kPi * frequency * timeSeconds
+                                  + 0.13 * static_cast<double>(reference))
+                + 0.10 * std::cos(2.0 * kPi * harmonic * timeSeconds
+                                  - 0.07 * static_cast<double>(reference));
+        }
+    }
+
+    for (Index target = 0; target < kBenchmarkTargetCount; ++target) {
+        const Index row = kBenchmarkFirstTargetRow + target;
+        for (Index sample = 0; sample < kMaxBlockSamples; ++sample) {
+            double environmentalNoise = 0.0;
+            for (Index lag = 0; lag < kTapCount; ++lag) {
+                for (Index reference = 0;
+                     reference < kBenchmarkReferenceCount;
+                     ++reference) {
+                    if (sample < lag) {
+                        continue;
+                    }
+
+                    const Index pattern = target + 3 * lag + reference;
+                    const double sign = pattern % 2 == 0 ? 1.0 : -1.0;
+                    const double coefficient =
+                        sign * (0.04 + 0.001 * static_cast<double>(pattern % 23));
+                    environmentalNoise += coefficient * block(
+                        reference, sample - lag);
+                }
+            }
+
+            const double timeSeconds = static_cast<double>(sample)
+                                       / kSamplingFrequencyHz;
+            const double deterministicSignal =
+                0.05 * std::sin(2.0 * kPi
+                                * (2.0 + 0.11 * static_cast<double>(target))
+                                * timeSeconds
+                                + 0.017 * static_cast<double>(target))
+                + 0.02 * std::cos(2.0 * kPi
+                                  * (11.0 + 0.07 * static_cast<double>(target))
+                                  * timeSeconds);
+            block(row, sample) = environmentalNoise + deterministicSignal;
+        }
+    }
+
+    for (Index preserved = 0; preserved < kBenchmarkPreservedCount; ++preserved) {
+        const Index row = kBenchmarkFirstPreservedRow + preserved;
+        for (Index sample = 0; sample < kMaxBlockSamples; ++sample) {
+            const double timeSeconds = static_cast<double>(sample)
+                                       / kSamplingFrequencyHz;
+            block(row, sample) =
+                1000.0 + 100.0 * static_cast<double>(preserved)
+                + 0.01 * static_cast<double>(sample)
+                + 0.03 * std::cos(2.0 * kPi
+                                  * (1.0 + static_cast<double>(preserved))
+                                  * timeSeconds);
+        }
+    }
+}
+
+void copyAlreadySizedMatrix(const MatrixXd& source, MatrixXd& destination) noexcept
+{
+    std::copy(source.data(), source.data() + source.size(), destination.data());
+}
+
+bool benchmarkRowsUnchanged(const MatrixXd& actual, const MatrixXd& expected) noexcept
+{
+    for (Index row = 0; row < kBenchmarkReferenceCount; ++row) {
+        for (Index sample = 0; sample < kMaxBlockSamples; ++sample) {
+            if (actual(row, sample) != expected(row, sample)) {
+                return false;
+            }
+        }
+    }
+
+    for (Index row = kBenchmarkFirstPreservedRow;
+         row < kBenchmarkFirstPreservedRow + kBenchmarkPreservedCount;
+         ++row) {
+        for (Index sample = 0; sample < kMaxBlockSamples; ++sample) {
+            if (actual(row, sample) != expected(row, sample)) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+bool finiteBenchmarkTargets(const MatrixXd& block,
+                            Index& failingRow,
+                            Index& failingSample) noexcept
+{
+    for (Index target = 0; target < kBenchmarkTargetCount; ++target) {
+        const Index row = kBenchmarkFirstTargetRow + target;
+        for (Index sample = 0; sample < block.cols(); ++sample) {
+            if (!std::isfinite(block(row, sample))) {
+                failingRow = row;
+                failingSample = sample;
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+bool verifyBenchmarkProcess(const char* stage,
+                            const MatrixXd& pristine,
+                            const MatrixXd& work,
+                            const DenoiserProcessResult& result) noexcept
+{
+    if (result.status != DenoiserProcessStatus::Processed) {
+        std::cerr << "FAIL " << stage << ": unexpected process status="
+                  << statusName(result.status) << '\n';
+        return false;
+    }
+    Index failingTargetRow = 0;
+    Index failingSample = 0;
+    if (!finiteBenchmarkTargets(work, failingTargetRow, failingSample)) {
+        std::cerr << "FAIL " << stage << ": target row " << failingTargetRow
+                  << " sample " << failingSample << " is nonfinite\n";
+        return false;
+    }
+    if (!benchmarkRowsUnchanged(work, pristine)) {
+        std::cerr << "FAIL " << stage
+                  << ": reference/preserved representative row changed\n";
+        return false;
+    }
+    return true;
+}
+
+CausalReferenceDenoiserConfig makeBenchmarkConfig()
+{
+    CausalReferenceDenoiserConfig config{};
+    config.samplingFrequencyHz = kSamplingFrequencyHz;
+    config.channelCount = kBenchmarkChannelCount;
+    config.maxBlockSamples = kMaxBlockSamples;
+    config.referenceRows = VectorXi(kBenchmarkReferenceCount);
+    for (Index reference = 0; reference < kBenchmarkReferenceCount; ++reference) {
+        config.referenceRows(reference) = reference;
+    }
+    config.targetRows = VectorXi(kBenchmarkTargetCount);
+    for (Index target = 0; target < kBenchmarkTargetCount; ++target) {
+        config.targetRows(target) = kBenchmarkFirstTargetRow + target;
+    }
+    config.tapCount = kTapCount;
+    config.adaptationIntervalSamples = kAdaptationIntervalSamples;
+    config.memoryTimeSeconds = kMemoryTimeSeconds;
+    config.regularization = kRegularization;
+    return config;
+}
+
+double nearestRankPercentile(const std::vector<double>& sortedSamples,
+                             double quantile) noexcept
+{
+    const std::size_t rank = static_cast<std::size_t>(
+        std::ceil(quantile * static_cast<double>(sortedSamples.size())));
+    return sortedSamples[rank == 0 ? 0 : rank - 1];
+}
+
+int runBenchmark()
+{
+    const CausalReferenceDenoiserConfig config = makeBenchmarkConfig();
+
+    CausalReferenceDenoiser denoiser;
+    if (denoiser.configure(config) != DenoiserStatus::Configured) {
+        std::cerr << "FAIL benchmark configure: requested configuration was rejected\n";
+        return 1;
+    }
+
+    const Index featureCount = config.referenceRows.size() * config.tapCount;
+    const double blockDurationMs =
+        1000.0 * static_cast<double>(kMaxBlockSamples)
+        / config.samplingFrequencyHz;
+
+    std::cout << "benchmark dimensions: rows=" << config.channelCount
+              << " references=0..15 (" << config.referenceRows.size() << ')'
+              << " targets=16..265 (" << config.targetRows.size() << ')'
+              << " preserved=266..269 (" << kBenchmarkPreservedCount << ')'
+              << " blockSamples=" << kMaxBlockSamples
+              << " taps=" << config.tapCount
+              << " P=" << featureCount << '\n';
+    std::cout << "benchmark config: fs=" << config.samplingFrequencyHz
+              << " Hz maxBlock=" << config.maxBlockSamples
+              << " updateInterval=" << config.adaptationIntervalSamples
+              << " samples memorySeconds=" << config.memoryTimeSeconds
+              << " regularization=" << config.regularization
+              << " warmupBlocks=" << kBenchmarkWarmupBlockCount
+              << " timedBlocks=" << kBenchmarkTimedBlockCount << '\n';
+    std::cout << "block acquisition duration=" << blockDurationMs << " ms\n";
+    std::cout << "benchmark scope: engineering performance evidence; no denoising-quality gate\n";
+    std::cout << "percentile rule: deterministic nearest-rank/order statistic; sort x[0..N-1] and use x[ceil(q*N)-1] (1-based rank)\n";
+
+    // Generate both matrices at their final size before warmup. The work matrix
+    // is restored from the pristine matrix before every process call and never
+    // resized in the benchmark loop.
+    MatrixXd pristineBlock(kBenchmarkChannelCount, kMaxBlockSamples);
+    fillBenchmarkBlock(pristineBlock);
+    MatrixXd workBlock(kBenchmarkChannelCount, kMaxBlockSamples);
+    copyAlreadySizedMatrix(pristineBlock, workBlock);
+
+    std::vector<double> timingSamplesMs;
+    timingSamplesMs.reserve(kBenchmarkTimedBlockCount);
+    timingSamplesMs.resize(kBenchmarkTimedBlockCount);
+
+    std::uint64_t totalAccepted = 0;
+    std::uint64_t totalRejected = 0;
+    DenoiserProcessResult finalResult{
+        DenoiserProcessStatus::NotConfigured,
+        DenoiserProcessDiagnostics{0, 0, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0}};
+
+    for (int blockIndex = 0; blockIndex < kBenchmarkWarmupBlockCount; ++blockIndex) {
+        copyAlreadySizedMatrix(pristineBlock, workBlock);
+        const DenoiserProcessResult result =
+            denoiser.process(workBlock, DenoisingMode::ApplyAndLearn);
+        if (!verifyBenchmarkProcess("benchmark warmup", pristineBlock, workBlock, result)) {
+            return 1;
+        }
+        totalAccepted += result.diagnostics.modelUpdatesAccepted;
+        totalRejected += result.diagnostics.modelUpdatesRejected;
+        finalResult = result;
+    }
+
+    for (int blockIndex = 0; blockIndex < kBenchmarkTimedBlockCount; ++blockIndex) {
+        // This restore is deliberately outside the timed region.
+        copyAlreadySizedMatrix(pristineBlock, workBlock);
+
+        const auto start = std::chrono::steady_clock::now();
+        const DenoiserProcessResult result =
+            denoiser.process(workBlock, DenoisingMode::ApplyAndLearn);
+        const auto finish = std::chrono::steady_clock::now();
+        timingSamplesMs[static_cast<std::size_t>(blockIndex)] =
+            std::chrono::duration<double, std::milli>(finish - start).count();
+
+        if (!verifyBenchmarkProcess("benchmark timed block",
+                                    pristineBlock,
+                                    workBlock,
+                                    result)) {
+            return 1;
+        }
+        if (!std::isfinite(timingSamplesMs[static_cast<std::size_t>(blockIndex)])) {
+            std::cerr << "FAIL benchmark: nonfinite timing sample\n";
+            return 1;
+        }
+        totalAccepted += result.diagnostics.modelUpdatesAccepted;
+        totalRejected += result.diagnostics.modelUpdatesRejected;
+        finalResult = result;
+    }
+
+    std::sort(timingSamplesMs.begin(), timingSamplesMs.end());
+    const double p50Ms = nearestRankPercentile(timingSamplesMs, 0.50);
+    const double p95Ms = nearestRankPercentile(timingSamplesMs, 0.95);
+    const double maxMs = timingSamplesMs.back();
+
+    std::cout << std::fixed << std::setprecision(3)
+              << "timed ApplyAndLearn: p50=" << p50Ms
+              << " ms p95=" << p95Ms
+              << " ms max=" << maxMs << " ms\n";
+    std::cout << "final generation=" << finalResult.diagnostics.modelGeneration
+              << " total accepted=" << totalAccepted
+              << " total rejected=" << totalRejected << '\n';
+
+    const bool performancePass = std::isfinite(p95Ms) && p95Ms < blockDurationMs;
+    std::cout << "performance gate (p95 < " << blockDurationMs << " ms): "
+              << (performancePass ? "PASS" : "FAIL") << '\n';
+    if (!performancePass) {
+        return 1;
+    }
+
+    std::cout << "benchmark: PASS\n";
+    return 0;
+}
+
 const char* statusName(DenoiserProcessStatus status) noexcept
 {
     switch (status) {
@@ -223,8 +545,16 @@ bool verifyCommonStage(const char* stage,
 // MAIN
 //=============================================================================================================
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc == 2 && std::strcmp(argv[1], "--benchmark") == 0) {
+        return runBenchmark();
+    }
+    if (argc != 1) {
+        std::cerr << "usage: ex_causal_reference_denoising [--benchmark]\n";
+        return 2;
+    }
+
     CausalReferenceDenoiserConfig config;
     config.samplingFrequencyHz = kSamplingFrequencyHz;
     config.channelCount = kChannelCount;
