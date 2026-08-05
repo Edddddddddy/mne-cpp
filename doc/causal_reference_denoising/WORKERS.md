@@ -2079,7 +2079,10 @@ The manager records and forwards all cross-worker messages here before acting.
   `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-core-009` is clean at
   `ae8824219` and its source content matches integrated `2aac482d9`; remove it
   through Git worktree management. The one-shot agent is not reusable.
-- Status: recorded before publish/cleanup.
+- Status: complete. GREEN evidence published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5190579108`.
+  Worktree was clean at `ae8824219`, its source exactly matched integrated
+  `2aac482d9`, and Git worktree removal succeeded. The agent is not reusable.
 
 ### REQUEST W-TEST-CORE-014
 

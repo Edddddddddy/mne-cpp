@@ -1630,3 +1630,13 @@ hidden reasoning is not.
   Debug target so Eigen assertions make the guard effective.
 - Next: commit/push, publish/clean fallback worker, create fresh test worktree
   and dispatch.
+
+### E-170 - Application fallback GREEN published and worker retired
+
+- Actor: manager under GitHub and worker lifecycle workflows.
+- Publish: issue comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5190579108`
+  records 42/0 evidence and numerical finding closure.
+- Cleanup: W-CORE-009 worktree was clean/content-matched and removed; its
+  one-shot Sol/ultra agent will not be reused.
+- Next: create and dispatch the durable malloc-guard request.
