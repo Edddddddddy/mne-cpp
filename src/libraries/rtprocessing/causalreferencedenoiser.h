@@ -15,6 +15,8 @@
 
 #include <Eigen/Core>
 
+#include <memory>
+
 //=============================================================================================================
 // DEFINE NAMESPACE RTPROCESSINGLIB
 //=============================================================================================================
@@ -41,7 +43,8 @@ enum class DenoiserStatus {
 
 enum class DenoiserProcessStatus {
     Bypassed,
-    InvalidShape
+    InvalidShape,
+    Processed
 };
 
 //=============================================================================================================
@@ -71,6 +74,9 @@ struct RTPROCESINGSHARED_EXPORT DenoiserProcessResult
 class RTPROCESINGSHARED_EXPORT CausalReferenceDenoiser final
 {
 public:
+    CausalReferenceDenoiser() noexcept;
+    ~CausalReferenceDenoiser();
+
     DenoiserStatus configure(const CausalReferenceDenoiserConfig& config);
 
     DenoiserProcessResult process(Eigen::Ref<Eigen::MatrixXd> block,
@@ -79,8 +85,8 @@ public:
     void reset() noexcept;
 
 private:
-    Eigen::Index m_channelCount = 0;
-    Eigen::Index m_maxBlockSamples = 0;
+    struct Impl;
+    std::unique_ptr<Impl> m_impl;
 };
 
 //=============================================================================================================
