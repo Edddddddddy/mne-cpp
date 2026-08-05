@@ -3973,3 +3973,45 @@ does not continuously poll them.
   isolated Qt Core/Eigen build and no-polling/no-rt_server restrictions match
   the durable request.
 - Status: public dispatch complete; manager does not poll either active worker.
+
+### REQUEST W-DOC-001
+
+- From / to: manager / new visible learning-guide conversation.
+- GitHub issue: `Edddddddddy/mne-cpp#7`.
+- Model/environment: `gpt-5.6-luna`, `max`, current integration branch;
+  no internal/nested subagents or manager polling.
+- Independence: add one new documentation file only, so it does not overlap
+  queue tests, example CMake/main or plugin planning.
+- Task: create
+  `doc/causal_reference_denoising/LEARNING_GUIDE.md` as a concise but complete
+  engineering guide to the implemented v1. Explain channel-by-time Eigen
+  shapes, reference/target/preserved rows, tap-major feature ordering, causal
+  history across arbitrary block boundaries, warmup and future-only model
+  commits.
+- Mathematics/code mapping: define `R/M/L/P`, `G(PxP)`, `H(MxP)`, `W(MxP)`,
+  per-sample forgetting, pending/committed candidate transaction, relative
+  diagonal loading and LDLT solve without inverse. Explain what each actual
+  `noalias()` assignment/product buys and where aliasing would be unsafe.
+- Streaming/engineering: modes, reset/freeze behavior, latency components,
+  fixed update epochs, no-allocation configure/process split, scaled RMS,
+  solve/application fallback, target-only writes, queue drop-newest seam and
+  complexity `O(N(P^2+MP)) + O(P^3/K)` with memory shapes.
+- Learning aids: include one small four-row/two-reference/two-tap numeric shape
+  walkthrough and one block-boundary timeline; distinguish algorithm effect
+  evidence from plugin engineering verification.
+- Research/license: cite the TSR/TSPCA paper, Fast-LMS MEG precedent, BSD
+  MEEGkit behavior reference and GPL FieldTrip research-only reference already
+  frozen in SPEC. Explicitly state independent equation-based implementation,
+  no copied/linked GPL code and v1 non-goals.
+- Accuracy: read current numerical header/source and SPEC; do not invent a
+  runtime registry, tSSS/HFC support or guarantees not present in tests. Link
+  local module/example/test paths using repository-relative Markdown.
+- Authorized file: new `LEARNING_GUIDE.md` only. Do not edit durable ledgers,
+  source/test/CMake/plugin/example/vendor/dependency files or run rt_server.
+- Verification/response: Markdown structure/link/path/static review, diff
+  check, one-file clean commit. Return `RESPONSE W-DOC-001` with base/commit,
+  outline, exact formulas/example/timeline, sources/license statement, file and
+  limitations; proactively notify manager. No subagents/polling/rt_server.
+- Lifecycle: one-shot; benchmark results may later be appended by a different
+  task after manager review.
+- Status: recorded before visible task creation.

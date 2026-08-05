@@ -83,6 +83,9 @@ interface without FIFF, full mne_scan or mne_rt_server.
 Its corrected Luna/max setup was accepted from exact base `473d9eeed` as
 `client-new-thread:2e3283a1-8aa7-4872-a44f-c36a8a686808`.
 Dispatch: `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5194881491`.
+
+`W-DOC-001` is prepared as a separate Luna/max task adding one learning guide;
+it is disjoint from active queue-test and example files.
 3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.

@@ -3034,3 +3034,14 @@ hidden reasoning is not.
 - Coordination: queue lifecycle and example workers own disjoint files; manager
   polls neither and awaits proactive responses while continuing read-only
   planning for plugin integration.
+
+### E-290 - Eigen/streaming learning guide request prepared
+
+- Request: `W-DOC-001`, Luna/max, one new `LEARNING_GUIDE.md` under issue #7.
+- Content: actual Eigen shapes/tap order/noalias/LDLT/loading, EWLS state
+  transaction, modes/latency/complexity/real-time queue seam, numeric shape
+  walkthrough, timeline and frozen research/license provenance.
+- Independence: one new documentation file; no overlap with active example,
+  queue test or future plugin source.
+- Next: commit/push, create/record the visible task and publish issue #7
+  dispatch without polling active workers.
