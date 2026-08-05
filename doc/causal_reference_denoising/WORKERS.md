@@ -2122,3 +2122,19 @@ The manager records and forwards all cross-worker messages here before acting.
 - Question: report concise progress, Debug/Eigen assertion handling, guarded
   call coverage and any blocker; no rescope or subagents.
 - Status: recorded before forwarding.
+
+### RESPONSE W-TEST-CORE-014-STATUS
+
+- Conclusion: no blocker; required records/skills/base and focused CMake/test
+  are fully inspected.
+- Planned slot: one configured five-row denoiser, refs `{0,1}`, targets `{2,3}`,
+  preserved row four, four taps (`P=8`), interval four. Guard one seven-sample
+  ApplyAndLearn call (three warmup plus four eligible/LDLT), restore immediately,
+  then separately guard a preallocated committed-model ApplyOnly probe.
+- Allocation discipline: every block/copy/state allocated/configured before
+  guard; all Qt assertions after restoration. Target defines
+  `EIGEN_RUNTIME_NO_MALLOC`.
+- Debug effectiveness: `EIGEN_NO_DEBUG` branch QSKIPs before setup so Release
+  cannot masquerade as evidence; manager Debug run is authoritative.
+- Scope/lifecycle: numeric data finalization remains; no subagents or rescope.
+- Next: continue same worker only.

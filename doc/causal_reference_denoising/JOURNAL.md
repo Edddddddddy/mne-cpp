@@ -1658,3 +1658,11 @@ hidden reasoning is not.
 - Action: prepare one non-blocking Debug/assertion/coverage status request
   without changing scope or dispatching a duplicate.
 - Next: commit/push, forward and continue waiting.
+
+### E-173 - Malloc guard design confirmed
+
+- Actor: `/root/w_test_core_014` and manager.
+- Result: no blocker; effective Debug-only guard covers warmup, update boundary/
+  LDLT and committed ApplyOnly, with all allocations/assertions outside guards.
+- Release explicitly skips under `EIGEN_NO_DEBUG`; CMake defines runtime guard.
+- Decision: record and continue the same worker without expansion.
