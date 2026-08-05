@@ -3580,3 +3580,26 @@ does not continuously poll them.
   no-rt_server rules match the durable request.
 - Status: tracer dispatch is public; manager awaits only the worker-pushed
   RESPONSE and does not edit the same focused test source concurrently.
+
+### RESPONSE W-QUEUE-TEST-001
+
+- Visible Luna/max thread: `019fd2ad-308f-7282-bdaa-0b321de8df06`.
+- Exact base/commit: `734d9951514274d9c795c45c1e179e3259659534` /
+  `ad3e54bfebfbfc62bcf3c4e6ea5e4af594122f21`.
+- Slot: `queuePreservesFifoDropNewestAndMetadata` in the focused processor test
+  source only.
+- Matrices: A=`[[1,2,3],[11,12,13]]`, B=`[[21,22,23,24],
+  [31,32,33,34]]`, C=`[[41,42],[51,52]]`; A/B are mutated after push and
+  pops compare saved originals, proving deep copy.
+- Metadata: three distinct `shared_ptr<int>` owners create aliasing null
+  `shared_ptr<const FIFFLIB::FiffInfo>` handles. Ownership equivalence uses
+  symmetric `owner_before`; no FIFF object is constructed or dereferenced.
+- Status oracle: configure Ready; A/B Pushed; C Full; FIFO pops A/B with sample
+  counts 3/4 and paired owners; empty pop Timeout; C then Pushed/Popped with
+  sample count two, proving Full did not advance/overwrite the ring.
+- Worker RED evidence: queue header absence is confirmed, but clean-worktree
+  CMake stopped earlier on the known ignored Eigen `Macros.h`/`buildtests.in`
+  gap. No compiler RED or GREEN is claimed and no dependency was repaired.
+- Integrity: exactly one authorized test source; diff checks and clean detached
+  status pass; no production/CMake/full scan/rt_server/subagent/polling.
+- Status: response recorded before manager commit/diff inspection.
