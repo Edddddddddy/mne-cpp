@@ -2738,3 +2738,5 @@ does not continuously poll them.
   `send_message_to_thread`; no manager polling or internal subagent is used.
 - Status: setup accepted asynchronously; final thread ID was not returned and
   will not be polled. Await only the worker-pushed RESPONSE.
+- GitHub dispatch evidence:
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5192068833`.

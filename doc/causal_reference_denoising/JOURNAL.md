@@ -2234,3 +2234,15 @@ hidden reasoning is not.
   when its explicit `RESPONSE W-PROC-TEST-001` arrives in this manager thread.
 - Next: commit/push the creation response, publish dispatch evidence to issue
   #4, then leave the worker independent.
+
+### E-224 - Processor tracer dispatch published
+
+- Actor: manager using the GitHub connector after creation record
+  `ca67efa98` was pushed.
+- Evidence: issue #4 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5192068833`
+  contains the exact base, Luna/max model, client setup ID, intended RED,
+  authorized scope and notification/no-polling/no-rt_server rules.
+- Verification: GitHub read-back matches the submitted dispatch body.
+- Next: no overlapping test/CMake edit and no thread polling. Resume only from
+  the worker-pushed `RESPONSE W-PROC-TEST-001` or new user direction.
