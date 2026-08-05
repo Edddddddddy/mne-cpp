@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T23:20:00+08:00
+Last updated: 2026-08-05T23:27:00+08:00
 
 ## Recovery order
 
@@ -34,12 +34,12 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-`W-TEST-CORE-014` returned scoped commit `ecd252fba`; manager exact review,
-integration and effective Debug guard execution are pending.
+`W-TEST-CORE-014` commit `ecd252fba` passed manager exact review; integration
+and effective Debug guard execution are pending.
 
 ## Next actions
 
-1. Review exact commit `ecd252fba` and guard effectiveness/restoration.
+1. Commit/push the manager review record.
 2. Integrate scoped guard test and build/run Debug for effective assertions.
 3. Require guard success before synthetic acceptance.
 

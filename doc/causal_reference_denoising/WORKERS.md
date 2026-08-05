@@ -2167,3 +2167,20 @@ The manager records and forwards all cross-worker messages here before acting.
 - Evidence: clean scoped commit/diff; analytic probe residuals about `6e-9` and
   `-8e-9`. Detached runtime unavailable due known baseline/build gap; no repair.
 - Lifecycle: no subagents. Manager exact review/Debug execution follow.
+
+### MANAGER REVIEW W-TEST-CORE-014
+
+- Scope/base: accepted. Exact commit `ecd252fba` is clean on `7c29b4f55` and
+  changes only focused test CMake plus one test slot.
+- Effectiveness: `EIGEN_RUNTIME_NO_MALLOC` covers both directly compiled test
+  and numerical source. Under Debug, Eigen's `eigen_assert` checks the runtime
+  flag; Release/NDEBUG is explicitly skipped and cannot be used as proof.
+- Coverage: all allocations/copies/configure occur before disabling. The guarded
+  learning call includes warmup, `P=8` feature products, pending/candidate
+  matrices, loaded LDLT solve, diagnostics and history; a second guarded call
+  exercises committed model application.
+- Restoration: explicit pre-call `is_malloc_allowed()` snapshot avoids Eigen's
+  setter-return trap and is restored before any Qt assertion.
+- Decision: accept for cherry-pick and populated Debug build/run. A process
+  abort would be valid failure evidence; success must produce the effective
+  guard slot pass, not a skip.

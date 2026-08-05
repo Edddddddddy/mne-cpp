@@ -1686,3 +1686,12 @@ hidden reasoning is not.
 - Evidence: clean diff/commit, analytic residual oracle, known detached runtime
   limitation and no subagents.
 - Decision: record before acting; perform exact review then populated Debug run.
+
+### E-176 - Hot-path malloc guard commit accepted
+
+- Actor: manager under Eigen/real-time and TDD review.
+- Review: scoped two-file test change; effective Debug assertion semantics,
+  correct flag restoration, full boundary/LDLT plus ApplyOnly coverage, and all
+  allocations/assertions outside guards.
+- Decision: accept `ecd252fba`; commit review, cherry-pick and run Debug. The
+  guard must pass rather than skip before synthetic acceptance.
