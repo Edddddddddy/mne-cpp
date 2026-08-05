@@ -534,3 +534,14 @@ hidden reasoning is not.
 - Decision: accept for cherry-pick and main-workspace compile/runtime checks;
   do not claim hot-path allocation proof until the dedicated guard test.
 - Next: build and run only `test_causal_reference_denoiser`.
+
+### E-056 - First causal EWLS implementation is GREEN
+
+- Actor: manager.
+- Integrated commit: `10e33a1b8`.
+- Evidence: focused Release build succeeded and synchronized Qt report contains
+  31 passes, zero failures, and exit code 0.
+- Result: causal warmup, tap ordering, future-only boundary commit, ApplyOnly,
+  and target-only write are accepted for the current tracer.
+- Next: publish evidence, retire the non-reusable implementation threads, and
+  dispatch atomic nonfinite RED on Luna/max.

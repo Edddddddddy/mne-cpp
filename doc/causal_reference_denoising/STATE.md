@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T12:24:00+08:00
+Last updated: 2026-08-05T12:28:00+08:00
 
 ## Recovery order
 
@@ -19,8 +19,8 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-The first causal EWLS streaming tracer is a valid compile RED. The next
-vertical slice is the high-risk numerical streaming implementation.
+The first causal EWLS streaming tracer is GREEN. The next vertical slice is
+atomic selected-NaN/Inf pass-through with state immutability.
 
 ## Completed
 
@@ -33,15 +33,14 @@ vertical slice is the high-risk numerical streaming implementation.
 
 ## Running workers
 
-`W-CORE-004` returned commit `f3a909941`; manager static review accepted it for
-integration and main-workspace compile/runtime validation.
+`W-TEST-CORE-005` is queued for Luna/max dispatch after retiring completed
+`W-CORE-004` and its interrupted nested threads.
 
 ## Next actions
 
-1. Cherry-pick `f3a909941`.
-2. Build the focused target and run the synchronized Qt report.
-3. Return a revision request on any compile/runtime failure; otherwise record
-   causal tracer GREEN.
+1. Publish causal EWLS GREEN and retire non-reusable implementation threads.
+2. Dispatch `W-TEST-CORE-005` for atomic nonfinite RED.
+3. Review and reproduce RED before the small production fix.
 
 ## Focused verification targets
 

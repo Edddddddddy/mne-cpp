@@ -588,3 +588,37 @@ The manager records and forwards all cross-worker messages here before acting.
 - Manager static review: causal/tap ordering and transaction boundaries match
   the tracer; only target rows are written. Accepted for cherry-pick, with
   Eigen API compilation and runtime still required.
+
+### MANAGER VALIDATION W-CORE-004-GREEN
+
+- Integrated commit: `10e33a1b8`.
+- Focused Release build: succeeded, including Eigen LDLT/PImpl APIs.
+- Synchronized Qt report: 31 passed, 0 failed, exit code 0.
+- Decision: first general causal EWLS tracer is GREEN. Hot-path malloc proof,
+  nonfinite atomicity, chunk equivalence, and broader acceptance remain open.
+
+### RETIREMENT REQUEST CLEANUP-003
+
+- Archive completed `W-CORE-004` thread
+  `019fd018-8939-7e72-9fc8-17085c79806e` and interrupted nested threads
+  `019fd019-994e-7380-9be9-105d31501639` and
+  `019fd019-b14a-7473-95c9-6d18c5cb91ff` after this record is committed.
+- Status: pending action.
+
+### REQUEST W-TEST-CORE-005
+
+- From / to: manager / `W-TEST-CORE`.
+- Model/environment: `gpt-5.6-luna`, `max`, new isolated worktree; Sol is not
+  needed because this is a bounded public-contract safety test.
+- Blocking: yes.
+- Task: add one data-driven behavior for selected-reference NaN and selected-
+  target Inf. Prime a test denoiser and identical control through warmup plus
+  one eligible learning sample. Only the test denoiser receives the bad block;
+  require new status `NonFiniteInput`, exact whole-block pass-through, then feed
+  identical continuation and probe blocks to both and require matching outputs,
+  proving history/statistics/model state did not advance.
+- Scope: test source only; no production/CMake, nonselected-nonfinite, shape,
+  chunk, reset, malloc, or diagnostics cases.
+- Required response: `RESPONSE W-TEST-CORE-005` with commit, rows, state-proof
+  sequence, expected RED, and limitations.
+- Status: recorded before dispatch.
