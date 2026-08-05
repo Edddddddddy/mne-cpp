@@ -462,10 +462,26 @@ DenoiserProcessResult CausalReferenceDenoiser::process(Eigen::Ref<Eigen::MatrixX
         }
 
         state.prediction.noalias() = state.weights * state.feature;
+        bool predictionCanBeApplied = true;
+        for (Eigen::Index target = 0; target < state.targetCount; ++target) {
+            const double residual = state.rawTargets(target) - state.prediction(target);
+            if (!std::isfinite(state.prediction(target))
+                || !std::isfinite(residual)) {
+                predictionCanBeApplied = false;
+            }
+        }
+
+        if (!predictionCanBeApplied) {
+            state.prediction.setZero();
+        } else {
+            for (Eigen::Index target = 0; target < state.targetCount; ++target) {
+                block(state.targetRows(target), sample) =
+                    state.rawTargets(target) - state.prediction(target);
+            }
+        }
+
         for (Eigen::Index target = 0; target < state.targetCount; ++target) {
             estimatedNoiseSumOfSquares.add(state.prediction(target));
-            block(state.targetRows(target), sample) =
-                state.rawTargets(target) - state.prediction(target);
         }
 
         if (learn) {
