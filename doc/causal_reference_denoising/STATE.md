@@ -80,6 +80,8 @@ Its public dispatch is
 Non-overlapping issue #7 work is prepared as `W-EXAMPLE-001`: a focused
 Eigen/streaming example target that directly exercises the completed numerical
 interface without FIFF, full mne_scan or mne_rt_server.
+Its corrected Luna/max setup was accepted from exact base `473d9eeed` as
+`client-new-thread:2e3283a1-8aa7-4872-a44f-c36a8a686808`.
 3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.

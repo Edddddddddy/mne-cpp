@@ -3947,3 +3947,19 @@ does not continuously poll them.
   was created.
 - Decision: preserve the exact request and retry once with a plain/escaped
   prompt string. This is not a duplicate task dispatch.
+
+### RESPONSE W-EXAMPLE-001-CREATE
+
+- Result: the corrected visible saved-project worktree creation was accepted
+  asynchronously.
+- Client setup ID:
+  `client-new-thread:2e3283a1-8aa7-4872-a44f-c36a8a686808`.
+- Host/model: local, `gpt-5.6-luna`, `max`.
+- Exact corrected branch base:
+  `473d9eeeda55ab280771b24b2a0b2b7b4e803995`.
+- Prompt integrity: exact examples-only three-file scope, deterministic public-
+  interface stream/stage/runtime invariants, direct numerical-source Qt Core/
+  Eigen dependency seam, no test/plugin/core/docs/vendor/rt_server/subagent/
+  polling and proactive response notification.
+- Coordination: no final thread ID was returned; manager will not poll and
+  awaits only the worker-pushed RESPONSE after issue #7 dispatch.

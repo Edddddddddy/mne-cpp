@@ -3015,3 +3015,12 @@ hidden reasoning is not.
 - Effect: no task, worktree, repository or GitHub mutation occurred.
 - Next: commit/push the failure record and retry the same W-EXAMPLE-001 request
   with an escaped prompt; do not create any second logical task.
+
+### E-288 - Focused example task creation accepted
+
+- Result: corrected Luna/max worktree setup accepted as
+  `client-new-thread:2e3283a1-8aa7-4872-a44f-c36a8a686808` from exact
+  `473d9eeed`; this is the sole W-EXAMPLE-001 dispatch.
+- Scope/coordination: examples-only three-file task, no overlap with queue test,
+  no polling or rt_server; worker must proactively return its response.
+- Next: commit/push creation evidence and publish/read back issue #7 dispatch.
