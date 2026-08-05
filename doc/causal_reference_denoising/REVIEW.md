@@ -27,10 +27,10 @@ Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
 - Fix: selected fixed-size diagnostics in `SPEC.md`; aggregate every boundary.
 - Required test: lifecycle plus multiple/mixed boundary event counts.
 - Progress: fixed result/lifecycle is GREEN in `b5f29fff1` with test
-  `a0fcf0e68`; mixed accepted/rejected boundary proof remains in
-  `W-TEST-CORE-010`.
+  `a0fcf0e68`; mixed accepted/rejected boundary proof is integrated as
+  `d1ffa0904` and currently exposes the intended `R-SOLVE-001` RED.
 
-#### R-SOLVE-001 - P1 - Open
+#### R-SOLVE-001 - P1 - In progress
 
 - Location: `causalreferencedenoiser.cpp:183-197,334-344`.
 - Evidence: finite inputs can overflow in-place outer products; solve returns
@@ -39,6 +39,8 @@ Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
   elapsed forgetting.
 - Required test: multiple extreme finite rejected epochs followed by a normal
   accepted epoch in the same call, with finite output and future probe.
+- RED evidence: `d1ffa0904`; focused report has 38 passes and the single
+  intended accepted-count failure, process exit code one.
 
 #### R-SOLVE-002 - P2 - Open
 

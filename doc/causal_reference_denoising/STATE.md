@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T18:20:00+08:00
+Last updated: 2026-08-05T18:30:00+08:00
 
 ## Recovery order
 
@@ -19,8 +19,9 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-Core behavior and fixed diagnostics lifecycle are GREEN. Next is transactional
-finite-overflow epoch rejection/recovery (`R-SOLVE-001`).
+Core behavior and fixed diagnostics lifecycle are GREEN. Transactional
+finite-overflow epoch rejection/recovery (`R-SOLVE-001`) now has a valid
+runtime RED: 38 passed and one intended failure.
 
 ## Completed
 
@@ -33,14 +34,14 @@ finite-overflow epoch rejection/recovery (`R-SOLVE-001`).
 
 ## Running workers
 
-`W-TEST-CORE-010` returned test commit `3d38866c5`; manager diff/oracle review
-accepted it. Populated-workspace runtime RED reproduction is pending.
+No worker is running. `W-TEST-CORE-010` is integrated as `d1ffa0904`; its
+one-shot detached worktree remains pending verified cleanup.
 
 ## Next actions
 
-1. Commit the durable response/review record.
-2. Integrate the single test and reproduce runtime RED.
-3. Dispatch the transactional pending-statistics implementation only after RED.
+1. Commit and push the runtime RED evidence.
+2. Verify/remove the completed test worktree.
+3. Dispatch a fresh Sol/ultra transactional pending-statistics implementation.
 
 ## Focused verification targets
 

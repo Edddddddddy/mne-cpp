@@ -1119,3 +1119,15 @@ hidden reasoning is not.
   extreme epoch, producing events `1/3`, generation one and probe residual six.
 - Decision: accept `3d38866c5`; commit the durable review, then integrate and
   reproduce runtime RED before dispatching production work.
+
+### E-117 - Transactional recovery runtime RED reproduced
+
+- Actor: manager under TDD.
+- Integrated test: `d1ffa0904`.
+- Evidence: focused Release build succeeded; synchronized Qt report returned
+  38 passes, one intended failure at `modelUpdatesAccepted == 2`, and exit code
+  one. Every pre-existing numerical test remains GREEN.
+- Diagnosis: in-place `G/H` overflow persists across epoch boundaries, so the
+  later normal epoch cannot recover a model.
+- Next: commit/push the RED, clean the one-shot test worktree after exact
+  content verification, then dispatch a fresh Sol/ultra implementation worker.

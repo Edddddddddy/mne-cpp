@@ -1398,3 +1398,27 @@ The manager records and forwards all cross-worker messages here before acting.
   to report `1/3`, generation one and a probe residual of six.
 - Decision: accept for cherry-pick and populated-workspace runtime RED. No
   production change is authorized before that RED is captured.
+
+### MANAGER VALIDATION W-TEST-CORE-010-RED
+
+- Integrated test commit: `d1ffa0904`.
+- Focused Release build: succeeded; only the known Eigen/MSVC C4819 code-page
+  warnings were emitted.
+- Synchronized Qt report: 38 passed, one failed, process exit code one. The
+  unique failure is the new `modelUpdatesAccepted == 2` assertion at the
+  transactional recovery slot; all prior tests remain GREEN.
+- Interpretation: the current implementation cannot accept the final normal
+  epoch after finite extreme epochs poison in-place `G/H`. This is the intended
+  runtime RED for `R-SOLVE-001`.
+- Decision: production work may now begin. It must keep committed finite stats
+  separate from preallocated pending-epoch/candidate storage and change only
+  numerical header/source.
+
+### RETIREMENT REQUEST CLEANUP-011
+
+- Before dispatching production work, verify detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-010` is clean at
+  `3d38866c5`, and that its test content matches integrated `d1ffa0904`.
+- Then remove it through Git worktree management. Completed agent
+  `/root/w_test_core_010` is one-shot and must not be reused.
+- Status: recorded before cleanup.
