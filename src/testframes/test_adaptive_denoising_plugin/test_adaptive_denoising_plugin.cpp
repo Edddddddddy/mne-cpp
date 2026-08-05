@@ -15,11 +15,14 @@
 
 #include <Eigen/Dense>
 
+#include <atomic>
+#include <chrono>
 #include <cmath>
 #include <cstdint>
 #include <initializer_list>
 #include <limits>
 #include <memory>
+#include <thread>
 #include <type_traits>
 #include <vector>
 
@@ -142,6 +145,7 @@ private slots:
     void invalidConfigurationDisarmsLearnedModel();
     void validReconfigureResetsAndRelearnsModel();
     void queuePreservesFifoDropNewestAndMetadata();
+    void queueStopWakesWaiterAndReconfigureStartsFresh();
 };
 
 //=============================================================================================================
@@ -675,6 +679,136 @@ void TestAdaptiveDenoisingPlugin::queuePreservesFifoDropNewestAndMetadata()
     for (Index row = 0; row < originalC.rows(); ++row) {
         QVERIFY(rowEquals(destination.data, originalC, row));
     }
+}
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingPlugin::queueStopWakesWaiterAndReconfigureStartsFresh()
+{
+    AdaptiveDenoisingBlockQueue queue;
+    AdaptiveDenoisingBlockQueueConfig config;
+    config.channelCount = 2;
+    config.maxBlockSamples = 4;
+    config.capacity = 1;
+
+    QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::Ready);
+    QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::AlreadyRunning);
+
+    constexpr int kConsumerTimeoutMilliseconds = 3000;
+    constexpr int kStopSchedulingAllowanceMilliseconds = 50;
+    constexpr int kWakeUpperBoundMilliseconds = 1500;
+    constexpr int kEntryWaitBudgetMilliseconds = 1000;
+
+    AdaptiveDenoisingQueuedBlock consumerDestination;
+    consumerDestination.data.resize(config.channelCount, config.maxBlockSamples);
+    consumerDestination.sampleCount = 0;
+    consumerDestination.fiffInfo.reset();
+
+    std::atomic<bool> consumerEntered(false);
+    std::atomic<bool> consumerFinished(false);
+    std::atomic<int> observedStatus(
+        static_cast<int>(AdaptiveDenoisingQueuePopStatus::Timeout));
+    std::atomic<std::int64_t> consumerEnteredMilliseconds(-1);
+    std::atomic<std::int64_t> observedElapsedMilliseconds(-1);
+
+    const auto testStartedAt = std::chrono::steady_clock::now();
+    std::thread consumer([&] {
+        const auto enteredAt = std::chrono::steady_clock::now();
+        consumerEnteredMilliseconds.store(
+            std::chrono::duration_cast<std::chrono::milliseconds>(enteredAt - testStartedAt).count(),
+            std::memory_order_release);
+        consumerEntered.store(true, std::memory_order_release);
+
+        const auto waitStartedAt = std::chrono::steady_clock::now();
+        const AdaptiveDenoisingQueuePopStatus status =
+            queue.waitPop(consumerDestination, kConsumerTimeoutMilliseconds);
+        const auto waitFinishedAt = std::chrono::steady_clock::now();
+
+        observedStatus.store(static_cast<int>(status), std::memory_order_release);
+        observedElapsedMilliseconds.store(
+            std::chrono::duration_cast<std::chrono::milliseconds>(waitFinishedAt - waitStartedAt)
+                .count(),
+            std::memory_order_release);
+        consumerFinished.store(true, std::memory_order_release);
+    });
+
+    const auto entryDeadline =
+        std::chrono::steady_clock::now()
+        + std::chrono::milliseconds(kEntryWaitBudgetMilliseconds);
+    while (!consumerEntered.load(std::memory_order_acquire)
+           && std::chrono::steady_clock::now() < entryDeadline) {
+        std::this_thread::yield();
+    }
+
+    const bool consumerEnteredBeforeStop = consumerEntered.load(std::memory_order_acquire);
+    std::this_thread::sleep_for(
+        std::chrono::milliseconds(kStopSchedulingAllowanceMilliseconds));
+    const bool consumerWasWaitingBeforeStop = !consumerFinished.load(std::memory_order_acquire);
+    const auto stopStartedAt = std::chrono::steady_clock::now();
+    queue.stop();
+    queue.stop();
+    consumer.join();
+
+    const std::int64_t enteredMilliseconds =
+        consumerEnteredMilliseconds.load(std::memory_order_acquire);
+    const std::int64_t stopMilliseconds =
+        std::chrono::duration_cast<std::chrono::milliseconds>(stopStartedAt - testStartedAt).count();
+    const std::int64_t stopDelayMilliseconds = stopMilliseconds - enteredMilliseconds;
+    const std::int64_t observedElapsed =
+        observedElapsedMilliseconds.load(std::memory_order_acquire);
+
+    qInfo() << "queue stop wake timeoutMs" << kConsumerTimeoutMilliseconds
+            << "stopDelayMs" << stopDelayMilliseconds
+            << "observedElapsedMs" << observedElapsed
+            << "enteredBeforeStop" << consumerEnteredBeforeStop
+            << "waitingBeforeStop" << consumerWasWaitingBeforeStop;
+
+    QVERIFY(consumerEnteredBeforeStop);
+    QVERIFY(consumerWasWaitingBeforeStop);
+    QVERIFY(observedStatus.load(std::memory_order_acquire)
+            == static_cast<int>(AdaptiveDenoisingQueuePopStatus::Stopped));
+    QVERIFY(observedElapsed >= 0);
+    QVERIFY(observedElapsed < kWakeUpperBoundMilliseconds);
+
+    MatrixXd stoppedBlock(2, 1);
+    stoppedBlock(0, 0) = -101.0;
+    stoppedBlock(1, 0) = 202.0;
+    const auto stoppedOwner = std::make_shared<int>(4);
+    const std::shared_ptr<const FIFFLIB::FiffInfo> stoppedMetadata(stoppedOwner, nullptr);
+
+    QVERIFY(queue.tryPush(stoppedBlock, stoppedMetadata)
+            == AdaptiveDenoisingQueuePushStatus::Stopped);
+
+    AdaptiveDenoisingQueuedBlock stoppedDestination;
+    stoppedDestination.data.resize(config.channelCount, config.maxBlockSamples);
+    QVERIFY(queue.waitPop(stoppedDestination, 0) == AdaptiveDenoisingQueuePopStatus::Stopped);
+
+    QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::Ready);
+
+    MatrixXd freshBlock(2, 2);
+    freshBlock(0, 0) = -7.0;
+    freshBlock(0, 1) = 8.0;
+    freshBlock(1, 0) = 70.0;
+    freshBlock(1, 1) = 80.0;
+    const MatrixXd expectedFreshBlock = freshBlock;
+
+    const auto freshOwner = std::make_shared<int>(5);
+    const std::shared_ptr<const FIFFLIB::FiffInfo> freshMetadata(freshOwner, nullptr);
+    QVERIFY(!sameOwner(freshMetadata, stoppedMetadata));
+
+    QVERIFY(queue.tryPush(freshBlock, freshMetadata)
+            == AdaptiveDenoisingQueuePushStatus::Pushed);
+
+    AdaptiveDenoisingQueuedBlock freshDestination;
+    freshDestination.data.resize(config.channelCount, config.maxBlockSamples);
+    QVERIFY(queue.waitPop(freshDestination, 0) == AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(freshDestination.sampleCount, Index(2));
+    QVERIFY(sameOwner(freshDestination.fiffInfo, freshMetadata));
+    for (Index row = 0; row < expectedFreshBlock.rows(); ++row) {
+        QVERIFY(rowEquals(freshDestination.data, expectedFreshBlock, row));
+    }
+
+    QVERIFY(queue.waitPop(freshDestination, 0) == AdaptiveDenoisingQueuePopStatus::Timeout);
 }
 
 //=============================================================================================================
