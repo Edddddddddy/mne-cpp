@@ -1957,3 +1957,12 @@ hidden reasoning is not.
 - Scope: one independent lambda=0.5/two-epoch future-weight oracle closing
   `R-CORE-FORGET-001`; no production or plugin work.
 - Next: await structured response without overlapping the focused test source.
+
+### E-201 - Forgetting test worker status requested
+
+- Actor: manager.
+- Evidence: repeated bounded waits show `/root/w_test_core_016` running and its
+  exact detached worktree remains clean.
+- Action: record a non-blocking recurrence/tolerance/sensitivity/blocker status
+  request before forwarding; no duplicate or scope change.
+- Next: forward and continue bounded waiting.

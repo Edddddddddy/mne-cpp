@@ -2485,3 +2485,14 @@ The manager records and forwards all cross-worker messages here before acting.
 - Status: active as collaboration agent `/root/w_test_core_016`. Detached
   worktree is clean at exact base `12ab4e621`; Sol/high accepted the one-slot,
   test-source-only scope and nested-subagent prohibition.
+
+### REQUEST W-TEST-CORE-016-STATUS
+
+- From / to: manager / `/root/w_test_core_016`.
+- Blocking: no; exact one-slot analytic scope remains unchanged.
+- Context: repeated bounded waits show the worker running while its detached
+  worktree remains clean.
+- Question: at the next safe boundary report exact recurrence/tolerance,
+  sensitivity alternatives, progress and blocker. Do not rescope, edit
+  production code or spawn subagents.
+- Status: recorded before forwarding.
