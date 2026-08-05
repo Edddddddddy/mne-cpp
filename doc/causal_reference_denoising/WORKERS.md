@@ -3115,3 +3115,19 @@ does not continuously poll them.
 - Reuse: conversation/worktree remains available for the following valid-
   reconfigure-reset tracer.
 - Status: response recorded before manager inspects the replacement commit.
+
+### MANAGER REVIEW W-PROC-TEST-002-REVISE
+
+- Provenance: exact clean replacement `aa75e2520b` has requested parent
+  `a868914ca` and one authorized test-source diff.
+- Old-to-new audit: compared directly with rejected `0d8aeafec1`; the only
+  changes are memory `0.0 -> 0.5` and case name `memory-zero ->
+  memory-below-min`.
+- Sensitivity: `0.5` is finite/positive, so it passes the numerical core's
+  weaker positivity invariant but violates the adapter UI minimum `1.0`.
+  Therefore the test now fails if adapter lower-bound enforcement is removed or
+  weakened to `>0`.
+- Finding resolution: close P2 `R-PROC-TEST-MEMORY-001`. No production change
+  or other test revision is required.
+- Decision: accept replacement for cherry-pick and populated focused execution;
+  keep the reusable conversation active for the later reset tracer.

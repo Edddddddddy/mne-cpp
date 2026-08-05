@@ -2519,3 +2519,16 @@ hidden reasoning is not.
   worktree, no dependency repair/rt_server/subagent/polling.
 - Next: commit/push response, inspect replacement diff, close P2 only if exact,
   then cherry-pick and run populated focused Release.
+
+### E-246 - Memory-bound P2 closed after exact amended review
+
+- Actor: manager reviewing `aa75e2520b` against rejected `0d8aeafec1`.
+- Evidence: exact same parent and one authorized file; old-to-new delta contains
+  only `0.0 -> 0.5` and the below-min case rename. Diff checks are clean.
+- Sensitivity: positive `0.5` isolates the adapter UI lower bound from the
+  numerical core positivity invariant, so the acceptance test now detects the
+  intended regression.
+- Decision: close `R-PROC-TEST-MEMORY-001`, accept the replacement for
+  cherry-pick/populated run and retain the worker conversation for the next
+  separate reset tracer.
+- Next: commit/push closure, cherry-pick `aa75e2520b` and run focused Release.

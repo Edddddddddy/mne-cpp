@@ -169,7 +169,7 @@ Pending.
 
 ## Processor milestone pre-review
 
-#### R-PROC-TEST-MEMORY-001 - P2 - Open
+#### R-PROC-TEST-MEMORY-001 - P2 - Closed
 
 - Location: worker commit `0d8aeafec1`, focused processor test source line 320.
 - Evidence: lower memory case uses `0.0`, which cannot distinguish the adapter
@@ -177,3 +177,7 @@ Pending.
 - Impact: a regression accepting `0.5` would pass the new acceptance suite.
 - Required fix/test: use `0.5`, expect InvalidSettings, and retain the full
   learned-model disarm/pass-through oracle. No production change.
+- Resolution: replacement test commit `aa75e2520b` uses `0.5` and the
+  below-min case name, keeps exact InvalidSettings plus complete learned-model
+  disarm/probe assertions, and has the same requested parent. Direct comparison
+  to the rejected commit shows only the two requested line changes.
