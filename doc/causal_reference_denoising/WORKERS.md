@@ -2939,3 +2939,28 @@ does not continuously poll them.
   a reason to widen this implementation commit.
 - Decision: accept for cherry-pick and populated Release build/run; runtime
   GREEN is manager-owned and not yet claimed.
+
+### MANAGER VALIDATION W-PROC-GREEN-001-GREEN
+
+- Integrated production commit: `a602bdff4` (cherry-pick of exact worker
+  `46b600f910`).
+- Configure/build: regenerated `build-causal-reference-denoising` and built
+  Release target `test_adaptive_denoising_plugin`; processor, numerical source,
+  test and moc compiled and linked successfully. Only known Eigen/MSVC C4819
+  code-page warnings occurred.
+- Run: `out/Release/apps/test_adaptive_denoising_plugin.exe -txt` returned
+  process exit code zero.
+- Behavioral result: Ready counts, good/bad FIFF-kind selection, one accepted
+  generation, numerical ApplyOnly denoising, finite output and exact five-row
+  preservation all pass through the frozen processor interface.
+- Decision: first processor tracer is GREEN. Next RED must cover invalid/
+  missing configure classification and prove old model ownership is disarmed.
+
+### RETIREMENT REQUEST W-PROC-GREEN-001
+
+- Publish the focused GREEN evidence to issue #4.
+- Verify visible worker worktree is clean at exact `46b600f910` and all three
+  authorized file contents match integrated `a602bdff4`, then archive thread
+  `019fd258-04db-7982-b1f6-c7010727c03c` through the app.
+- Do not manually delete the app-owned worktree.
+- Status: recorded before publication/archival.

@@ -2391,3 +2391,17 @@ hidden reasoning is not.
   next public behavior tracer after this GREEN.
 - Next: commit/push review evidence, cherry-pick `46b600f910`, build/run the
   populated focused Release target and accept only measured GREEN.
+
+### E-236 - First processor mapping tracer is populated GREEN
+
+- Actor: manager after integrating worker implementation as `a602bdff4`.
+- Evidence: focused CMake regeneration and Release build succeed; processor,
+  numerical source and tracer link. The executable returns exit zero; only the
+  known Eigen/MSVC C4819 warnings appear.
+- Behavioral gate: one good REF_MEG and one good MEG are learned/applied while
+  bad REF/MEG, STIM, misc and good reference rows remain exact; Ready counts,
+  generation/events and finite output pass.
+- Decision: current vertical slice is GREEN. Do not add queue/plugin work yet;
+  the next tracer verifies invalid/missing configuration and stale-model disarm.
+- Lifecycle: publish GREEN, verify worker/integration identity and clean state,
+  then archive the completed visible implementation conversation.

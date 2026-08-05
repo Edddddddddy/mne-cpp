@@ -50,17 +50,17 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 
 ## Running workers
 
-- None executing. Visible Luna/max `W-PROC-GREEN-001`, thread
-  `019fd258-04db-7982-b1f6-c7010727c03c`, proactively returned clean three-file
-  commit `46b600f910` from exact base `9a99e80c3`. Response is durable; manager
-  exact diff review and populated focused GREEN validation are pending.
+- None executing. `W-PROC-GREEN-001` is integrated as `a602bdff4`; populated
+  Release focused build and one-slot executable pass with exit zero. Visible
+  thread `019fd258-04db-7982-b1f6-c7010727c03c` is pending GREEN publication,
+  clean/content verification and archival.
 
 ## Next actions
 
-1. Review exact worker commit `46b600f910`, then run the populated focused
-   target before integration.
-2. After GREEN, add the next invalid/missing-layout tracer
-   before widening processor behavior.
+1. Publish processor first GREEN to issue #4 and archive its verified one-shot
+   visible implementation conversation.
+2. Add the next invalid/missing-layout and stale-model-disarm tracer before
+   widening processor behavior.
 3. After issue #4 reaches a milestone commit, open a separate visible
    Sol/ultra review conversation before integration.
 4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
