@@ -1261,3 +1261,13 @@ hidden reasoning is not.
 - Classification: immediate GREEN is expected and must be reported honestly;
   the existing extreme transaction test already covers invalid rejection.
 - Next: commit/push, create the detached worktree and dispatch.
+
+### E-131 - Rank-deficient request push transient failure
+
+- Actor: manager/Git transport.
+- Result: local request commit `6d7fe23bf` succeeded, but its first non-force
+  push failed with GitHub `OpenSSL SSL_connect: SSL_ERROR_SYSCALL`.
+- Classification: transient network infrastructure failure; repository state
+  and task scope are intact and no worker was dispatched prematurely.
+- Next: commit this event locally, retry the same branch push, and proceed only
+  after the remote contains both durable records.
