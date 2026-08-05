@@ -3883,3 +3883,13 @@ does not continuously poll them.
   rt_server/subagent/polling and proactive RESPONSE notification.
 - Coordination: no final thread ID was returned and setup will not be polled;
   manager awaits only the worker-pushed response after public dispatch.
+
+### PUBLISH W-QUEUE-TEST-002-START
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5194824674`.
+- Read-back: exact base/model/setup ID, one test-source scope, active configure,
+  bounded stop wake/idempotence/stopped statuses/fresh reconfigure oracle and
+  no-subagent/no-polling/no-rt_server restrictions match the durable request.
+- Status: public dispatch complete. Manager will not poll or overlap the test
+  source and awaits only the worker-pushed RESPONSE.

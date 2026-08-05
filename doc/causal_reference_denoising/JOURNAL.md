@@ -2984,3 +2984,12 @@ hidden reasoning is not.
   remain on the main test thread and consumer join precedes assertions.
 - Next: commit/push creation evidence, publish/read back issue #5 dispatch and
   await only the proactive response without overlapping test edits.
+
+### E-285 - Queue lifecycle tracer dispatch published
+
+- Publish/read-back: issue #5 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5194824674`
+  matches exact base, Luna/max task, one-file public lifecycle oracle, timing/
+  join safety and restrictions.
+- Coordination: do not poll or edit the focused test source. Read-only planning
+  or non-overlapping example/document work may proceed while awaiting response.
