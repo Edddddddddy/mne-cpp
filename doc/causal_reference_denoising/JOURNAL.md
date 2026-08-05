@@ -2506,3 +2506,16 @@ hidden reasoning is not.
 - Scope: one value/name amendment, same parent, no other case or file change.
 - Coordination: no new conversation and no polling. Await only proactive
   `RESPONSE W-PROC-TEST-002-REVISE`.
+
+### E-245 - Memory-bound amended response received
+
+- Actor: reusable Luna/max processor-test thread and manager.
+- Replacement: `aa75e2520b`, same exact parent `a868914ca`; worker amended the
+  previous commit instead of adding history.
+- Correction: memory lower-bound case is now `0.5` and named below-min, directly
+  distinguishing UI `>=1` from numerical `>0`; all other acceptance behavior is
+  unchanged.
+- Integrity: one authorized test file, exact two-line old-to-new delta, clean
+  worktree, no dependency repair/rt_server/subagent/polling.
+- Next: commit/push response, inspect replacement diff, close P2 only if exact,
+  then cherry-pick and run populated focused Release.

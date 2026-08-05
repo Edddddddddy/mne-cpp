@@ -51,15 +51,15 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 ## Running workers
 
 - Reusable Luna/max processor-test conversation, thread
-  `019fd266-902d-77e1-b40a-a754eaac6222`, returned clean test-only commit
-  `0d8aeafec1` from exact base `a868914ca`. Exact review found one P2 test-
-  sensitivity gap: memory `0` does not prove the adapter UI lower bound `1`.
-  A same-conversation amend to `0.5` is pending; no integration occurred.
+  `019fd266-902d-77e1-b40a-a754eaac6222`, proactively returned amended clean
+  test-only commit `aa75e2520b` with exact parent `a868914ca`. It changes the
+  lower-memory case to `0.5`; manager exact diff review/populated execution are
+  pending before closing P2 and integration.
 
 ## Next actions
 
-1. Receive amended `RESPONSE W-PROC-TEST-002-REVISE` without polling, confirm
-   memory `0.5` directly protects the UI lower bound, then integrate/run.
+1. Confirm amended `aa75e2520b` only applies the two requested line changes,
+   close P2, integrate and run the populated focused target.
 2. If GREEN, reuse that same relevant
    conversation for the separate valid-reconfigure-reset tracer.
 3. After issue #4 reaches a milestone commit, open a separate visible

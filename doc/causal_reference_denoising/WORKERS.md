@@ -3095,3 +3095,23 @@ does not continuously poll them.
   notification. No production/dependency/rt_server/subagent/polling.
 - Status: forwarded successfully to the same visible Luna/max thread; no model
   override, new conversation or polling.
+
+### RESPONSE W-PROC-TEST-002-REVISE
+
+- Reusable thread: `019fd266-902d-77e1-b40a-a754eaac6222`, still Luna/max.
+- Replacement commit: `aa75e2520b659c922c5db61de743b1ff27cec006`,
+  exact parent `a868914ca6a41cba17762c35bfb602e36feb5f5e`; prior
+  `0d8aeafec1` was amended rather than stacked.
+- Exact correction: focused test source line 320 changes memory from `0.0` to
+  `0.5`; line 322 renames the case from `memory-zero` to
+  `memory-below-min`; expected InvalidSettings remains.
+- Unchanged: all other 18 cases, prime/disarm/probe oracle, original mapping
+  tracer and every non-test file.
+- Evidence: replacement and old-to-new diff checks pass; old-to-new delta is
+  exactly two requested lines; commit is one authorized test source and the
+  worktree is clean/detached.
+- Runtime: still unavailable only because of the known ignored Eigen worktree
+  baseline; no dependency repair/copy, rt_server, subagent or manager polling.
+- Reuse: conversation/worktree remains available for the following valid-
+  reconfigure-reset tracer.
+- Status: response recorded before manager inspects the replacement commit.
