@@ -30,6 +30,42 @@ using namespace RTPROCESSINGLIB;
 
 //=============================================================================================================
 
+namespace
+{
+
+bool matricesEqualIncludingNonFinite(const MatrixXd& actual,
+                                     const MatrixXd& expected) noexcept
+{
+    if (actual.rows() != expected.rows() || actual.cols() != expected.cols()) {
+        return false;
+    }
+
+    for (Index row = 0; row < actual.rows(); ++row) {
+        for (Index column = 0; column < actual.cols(); ++column) {
+            const double actualValue = actual(row, column);
+            const double expectedValue = expected(row, column);
+
+            if (std::isnan(expectedValue)) {
+                if (!std::isnan(actualValue)) {
+                    return false;
+                }
+            } else if (std::isinf(expectedValue)) {
+                if (actualValue != expectedValue) {
+                    return false;
+                }
+            } else if (actualValue != expectedValue) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+} // namespace
+
+//=============================================================================================================
+
 class TestCausalReferenceDenoiser : public QObject
 {
     Q_OBJECT
@@ -40,6 +76,8 @@ private slots:
     void rejectsInvalidConfiguration_data();
     void rejectsInvalidConfiguration();
     void appliesAndLearnsCausallyAcrossEpochs();
+    void rejectsSelectedNonFiniteAtomically_data();
+    void rejectsSelectedNonFiniteAtomically();
 };
 
 //=============================================================================================================
@@ -299,6 +337,120 @@ void TestCausalReferenceDenoiser::appliesAndLearnsCausallyAcrossEpochs()
     QVERIFY(postBoundaryBlock(0, 0) == 5.0);
     QVERIFY(postBoundaryBlock(2, 0) == 103.0);
     QVERIFY(std::abs(postBoundaryBlock(1, 0)) <= 1e-4);
+}
+
+//=============================================================================================================
+
+void TestCausalReferenceDenoiser::rejectsSelectedNonFiniteAtomically_data()
+{
+    QTest::addColumn<QString>("mutation");
+
+    QTest::newRow("selected_reference_nan") << QStringLiteral("selected_reference_nan");
+    QTest::newRow("selected_target_positive_infinity")
+        << QStringLiteral("selected_target_positive_infinity");
+}
+
+//=============================================================================================================
+
+void TestCausalReferenceDenoiser::rejectsSelectedNonFiniteAtomically()
+{
+    QFETCH(QString, mutation);
+
+    CausalReferenceDenoiserConfig config;
+    config.samplingFrequencyHz = 1000.0;
+    config.channelCount = 3;
+    config.maxBlockSamples = 3;
+    config.referenceRows = VectorXi(1);
+    config.referenceRows << 0;
+    config.targetRows = VectorXi(1);
+    config.targetRows << 1;
+    config.tapCount = 2;
+    config.adaptationIntervalSamples = 2;
+    config.memoryTimeSeconds = 300.0;
+    config.regularization = 1e-8;
+
+    CausalReferenceDenoiser control;
+    CausalReferenceDenoiser subject;
+    QVERIFY(control.configure(config) == DenoiserStatus::Configured);
+    QVERIFY(subject.configure(config) == DenoiserStatus::Configured);
+
+    MatrixXd controlPrime(3, 2);
+    controlPrime << 1.0, 2.0,
+                    5.0, 7.0,
+                    100.0, 101.0;
+    MatrixXd subjectPrime = controlPrime;
+
+    const DenoiserProcessResult controlPrimeResult =
+        control.process(controlPrime, DenoisingMode::ApplyAndLearn);
+    const DenoiserProcessResult subjectPrimeResult =
+        subject.process(subjectPrime, DenoisingMode::ApplyAndLearn);
+
+    QVERIFY(controlPrimeResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(subjectPrimeResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY((controlPrime.array() == subjectPrime.array()).all());
+    QVERIFY(controlPrime(0, 0) == 1.0);
+    QVERIFY(controlPrime(0, 1) == 2.0);
+    QVERIFY(controlPrime(2, 0) == 100.0);
+    QVERIFY(controlPrime(2, 1) == 101.0);
+
+    MatrixXd badBlock(3, 1);
+    badBlock << 3.0,
+                12.0,
+                102.0;
+    if (mutation == QStringLiteral("selected_reference_nan")) {
+        badBlock(0, 0) = std::numeric_limits<double>::quiet_NaN();
+    } else if (mutation == QStringLiteral("selected_target_positive_infinity")) {
+        badBlock(1, 0) = std::numeric_limits<double>::infinity();
+    } else {
+        QFAIL("Unknown selected non-finite mutation");
+    }
+    const MatrixXd expectedBadBlock = badBlock;
+
+    const DenoiserProcessResult badResult =
+        subject.process(badBlock, DenoisingMode::ApplyAndLearn);
+
+    QVERIFY(badResult.status == DenoiserProcessStatus::NonFiniteInput);
+    QVERIFY(matricesEqualIncludingNonFinite(badBlock, expectedBadBlock));
+
+    MatrixXd controlContinuation(3, 1);
+    controlContinuation << 3.0,
+                           12.0,
+                           102.0;
+    MatrixXd subjectContinuation = controlContinuation;
+
+    const DenoiserProcessResult controlContinuationResult =
+        control.process(controlContinuation, DenoisingMode::ApplyAndLearn);
+    const DenoiserProcessResult subjectContinuationResult =
+        subject.process(subjectContinuation, DenoisingMode::ApplyAndLearn);
+
+    QVERIFY(controlContinuationResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(subjectContinuationResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY((controlContinuation - subjectContinuation).array().abs().maxCoeff() <= 1e-12);
+    QVERIFY(controlContinuation(0, 0) == 3.0);
+    QVERIFY(subjectContinuation(0, 0) == 3.0);
+    QVERIFY(controlContinuation(2, 0) == 102.0);
+    QVERIFY(subjectContinuation(2, 0) == 102.0);
+
+    MatrixXd controlProbe(3, 1);
+    controlProbe << 5.0,
+                    19.0,
+                    103.0;
+    MatrixXd subjectProbe = controlProbe;
+
+    const DenoiserProcessResult controlProbeResult =
+        control.process(controlProbe, DenoisingMode::ApplyOnly);
+    const DenoiserProcessResult subjectProbeResult =
+        subject.process(subjectProbe, DenoisingMode::ApplyOnly);
+
+    QVERIFY(controlProbeResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(subjectProbeResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY((controlProbe - subjectProbe).array().abs().maxCoeff() <= 1e-12);
+    QVERIFY(controlProbe(0, 0) == 5.0);
+    QVERIFY(subjectProbe(0, 0) == 5.0);
+    QVERIFY(controlProbe(2, 0) == 103.0);
+    QVERIFY(subjectProbe(2, 0) == 103.0);
+    QVERIFY(std::abs(controlProbe(1, 0)) <= 1e-4);
+    QVERIFY(std::abs(subjectProbe(1, 0)) <= 1e-4);
 }
 
 //=============================================================================================================
