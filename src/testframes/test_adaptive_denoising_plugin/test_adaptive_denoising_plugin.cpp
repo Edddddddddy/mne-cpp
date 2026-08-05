@@ -112,6 +112,7 @@ class TestAdaptiveDenoisingPlugin : public QObject
 private slots:
     void mapsRowsTrainsAndAppliesOnly();
     void invalidConfigurationDisarmsLearnedModel();
+    void validReconfigureResetsAndRelearnsModel();
 };
 
 //=============================================================================================================
@@ -461,6 +462,103 @@ void TestAdaptiveDenoisingPlugin::invalidConfigurationDisarmsLearnedModel()
         QVERIFY(std::isnan(diagnostics.inputRms));
         QVERIFY(std::isnan(diagnostics.outputRms));
         QVERIFY(std::isnan(diagnostics.estimatedNoiseRms));
+    }
+}
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingPlugin::validReconfigureResetsAndRelearnsModel()
+{
+    AdaptiveDenoisingProcessor processor;
+
+    const AdaptiveDenoisingConfigureResult initialResult =
+        processor.configure(goodTwoChannelStream(), kBlockSamples, goodSettings());
+    QVERIFY(initialResult.status == AdaptiveDenoisingConfigureStatus::Ready);
+    QCOMPARE(initialResult.referenceCount, Index(1));
+    QCOMPARE(initialResult.targetCount, Index(1));
+    QCOMPARE(initialResult.featureCount, Index(1));
+
+    MatrixXd initialTraining(2, kBlockSamples);
+    for (Index column = 0; column < kBlockSamples; ++column) {
+        initialTraining(0, column) = static_cast<double>(column + 1);
+        initialTraining(1, column) = 2.0 * initialTraining(0, column);
+    }
+
+    const DenoiserProcessResult initialTrainingResult =
+        processor.process(initialTraining, DenoisingMode::ApplyAndLearn);
+    QVERIFY(initialTrainingResult.status == DenoiserProcessStatus::Processed);
+    QCOMPARE(initialTrainingResult.diagnostics.modelGeneration, std::uint64_t(1));
+    QCOMPARE(initialTrainingResult.diagnostics.modelUpdatesAccepted, std::uint64_t(1));
+    QCOMPARE(initialTrainingResult.diagnostics.modelUpdatesRejected, std::uint64_t(0));
+
+    const AdaptiveDenoisingStreamDescriptor reconfiguredStream = streamWithChannels({
+        {FIFFV_MISC_CH, false},
+        {FIFFV_REF_MEG_CH, false},
+        {FIFFV_MEG_CH, false}});
+    const AdaptiveDenoisingConfigureResult reconfigureResult =
+        processor.configure(reconfiguredStream, kBlockSamples, goodSettings());
+
+    QVERIFY(reconfigureResult.status == AdaptiveDenoisingConfigureStatus::Ready);
+    QCOMPARE(reconfigureResult.referenceCount, Index(1));
+    QCOMPARE(reconfigureResult.targetCount, Index(1));
+    QCOMPARE(reconfigureResult.featureCount, Index(1));
+
+    const AdaptiveDenoisingConfigureResult reconfiguredSnapshot = processor.configuration();
+    QVERIFY(reconfiguredSnapshot.status == AdaptiveDenoisingConfigureStatus::Ready);
+    QCOMPARE(reconfiguredSnapshot.referenceCount, Index(1));
+    QCOMPARE(reconfiguredSnapshot.targetCount, Index(1));
+    QCOMPARE(reconfiguredSnapshot.featureCount, Index(1));
+
+    MatrixXd resetProbe(3, kBlockSamples);
+    for (Index column = 0; column < kBlockSamples; ++column) {
+        resetProbe(0, column) = 9001.0 + static_cast<double>(column);
+        resetProbe(1, column) = 17.0;
+        resetProbe(2, column) = 34.0;
+    }
+    const MatrixXd expectedResetProbe = resetProbe;
+
+    const DenoiserProcessResult resetProbeResult =
+        processor.process(resetProbe, DenoisingMode::ApplyOnly);
+    QVERIFY(resetProbeResult.status == DenoiserProcessStatus::Processed);
+    QCOMPARE(resetProbeResult.diagnostics.modelGeneration, std::uint64_t(0));
+    QCOMPARE(resetProbeResult.diagnostics.modelUpdatesAccepted, std::uint64_t(0));
+    QCOMPARE(resetProbeResult.diagnostics.modelUpdatesRejected, std::uint64_t(0));
+    QVERIFY(matrixEquals(resetProbe, expectedResetProbe));
+
+    MatrixXd reconfiguredTraining(3, kBlockSamples);
+    for (Index column = 0; column < kBlockSamples; ++column) {
+        reconfiguredTraining(0, column) = 10001.0 + static_cast<double>(column);
+        reconfiguredTraining(1, column) = static_cast<double>(column + 1);
+        reconfiguredTraining(2, column) = 3.0 * reconfiguredTraining(1, column);
+    }
+    const MatrixXd expectedReconfiguredTraining = reconfiguredTraining;
+
+    const DenoiserProcessResult reconfiguredTrainingResult =
+        processor.process(reconfiguredTraining, DenoisingMode::ApplyAndLearn);
+    QVERIFY(reconfiguredTrainingResult.status == DenoiserProcessStatus::Processed);
+    QCOMPARE(reconfiguredTrainingResult.diagnostics.modelGeneration, std::uint64_t(1));
+    QCOMPARE(reconfiguredTrainingResult.diagnostics.modelUpdatesAccepted, std::uint64_t(1));
+    QCOMPARE(reconfiguredTrainingResult.diagnostics.modelUpdatesRejected, std::uint64_t(0));
+    QVERIFY(rowEquals(reconfiguredTraining, expectedReconfiguredTraining, 0));
+    QVERIFY(rowEquals(reconfiguredTraining, expectedReconfiguredTraining, 1));
+
+    MatrixXd futureProbe(3, kBlockSamples);
+    for (Index column = 0; column < kBlockSamples; ++column) {
+        futureProbe(0, column) = 11001.0 + static_cast<double>(column);
+        futureProbe(1, column) = 17.0;
+        futureProbe(2, column) = 51.0;
+    }
+    const MatrixXd expectedFutureProbe = futureProbe;
+
+    const DenoiserProcessResult futureProbeResult =
+        processor.process(futureProbe, DenoisingMode::ApplyOnly);
+    QVERIFY(futureProbeResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(futureProbe.array().isFinite().all());
+    QVERIFY(rowEquals(futureProbe, expectedFutureProbe, 0));
+    QVERIFY(rowEquals(futureProbe, expectedFutureProbe, 1));
+
+    for (Index column = 0; column < kBlockSamples; ++column) {
+        QVERIFY(std::abs(futureProbe(2, column)) <= 1e-5);
     }
 }
 
