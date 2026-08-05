@@ -2045,3 +2045,20 @@ The manager records and forwards all cross-worker messages here before acting.
   dependency/build gap.
 - Remaining: malloc guard, synthetic acceptance and plugin work. No subagents.
 - Manager status: response durable; exact commit review follows.
+
+### MANAGER REVIEW W-CORE-009
+
+- Scope/base: accepted. Exact commit `ae8824219` is clean on `1cfae4696` and
+  changes one numerical source file by 18 insertions/two deletions.
+- Atomicity: raw targets already reside in preallocated scratch; a complete
+  scalar validation pass occurs before any block write. Failure zeros the whole
+  prediction vector and writes nothing, so all targets at the sample remain raw.
+- Diagnostics/learning: noise accumulation follows the decision and therefore
+  records exactly what was subtracted. ApplyAndLearn continues from raw targets
+  and the same feature; existing transactional boundary rejection contains any
+  extreme candidate. History ordering is unchanged.
+- Real-time: stack scalar state and in-place vector zero only; no dynamic
+  container, exception, lock, string or rollback buffer. Valid fast-path writes
+  all targets only after validation.
+- Decision: accept for cherry-pick and populated build/runtime; close P2 only
+  after the 42/0 report.

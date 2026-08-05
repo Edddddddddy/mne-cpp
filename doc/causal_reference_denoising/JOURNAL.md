@@ -1600,3 +1600,12 @@ hidden reasoning is not.
   detached runtime limitation and no subagents.
 - Decision: record before acting; perform exact commit review and populated
   42-check validation only after acceptance.
+
+### E-167 - Application overflow fallback commit accepted
+
+- Actor: manager using sample-wide atomicity and hot-path review criteria.
+- Review: exact one-source scope; all prediction/residual checks precede writes,
+  fallback zeros actual subtraction, raw learning/history remain ordered and no
+  explicit allocation primitive is added.
+- Decision: accept `ae8824219`; commit review, cherry-pick and require 42/0
+  before closing P2 `R-APPLY-001`.

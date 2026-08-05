@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T22:32:00+08:00
+Last updated: 2026-08-05T22:38:00+08:00
 
 ## Recovery order
 
@@ -34,12 +34,12 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-`W-CORE-009` returned one-source commit `ae8824219`; manager exact review,
-integration and populated 42-check validation are pending.
+`W-CORE-009` commit `ae8824219` passed manager exact review; integration and
+populated 42-check validation are pending.
 
 ## Next actions
 
-1. Review exact commit `ae8824219` and validate-before-write ordering.
+1. Commit/push the manager review record.
 2. Integrate only validate-before-write sample-wide fallback.
 3. Require all 42 focused checks GREEN before closing P2.
 
