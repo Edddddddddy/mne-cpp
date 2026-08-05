@@ -36,14 +36,15 @@ now GREEN through an independent analytic forgetting oracle. Core gate passed.
 
 ## Running workers
 
-No implementation worker is running. Completed `W-TEST-CORE-016` and its
-detached worktree await verified retirement after issue evidence publish.
+No worker is running. Core review/P2 closure is published and all completed
+core/review worktrees are safely retired. Plugin-data TDD is next.
 
 ## Next actions
 
-1. Publish core review/P2 closure and retire `W-TEST-CORE-016`.
-2. Begin the plugin-data TDD tracer for FIFF row resolution.
-3. Track P3 header locality and real-library link smoke for later integration.
+1. Freeze the plugin-private processor interface and add a FIFF row-selection
+   behavioral RED tracer.
+2. Implement the minimal worker-owned processor/configure seam to GREEN.
+3. Add the nonblocking drop-newest queue tracer/implementation next.
 
 ## Focused verification targets
 

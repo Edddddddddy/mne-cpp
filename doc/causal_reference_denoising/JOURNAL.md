@@ -2021,3 +2021,15 @@ hidden reasoning is not.
   locality/link P3s and allow plugin-data TDD.
 - Next: commit/push, publish issue evidence and safely retire the one-shot test
   worktree before dispatching plugin work.
+
+### E-207 - Core review closure published and final core worker retired
+
+- Actor: manager under GitHub and worker lifecycle workflows.
+- Publish: issue #2 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5191259854`
+  records P0/P1 zero, P2 closed, Release 44/0/1 and Debug 45/0/0.
+- Cleanup: W-TEST-CORE-016 was clean at exact `6c39f16db3`; focused test hash
+  matched integrated `1b542b18a` at
+  `471533e32d0824c57509f8c411db9a72e5d329c3`; Git worktree removal succeeded.
+- Lifecycle: one-shot agent not reused. Numerical core phase is complete.
+- Next: define and test the first plugin-private data processor seam.
