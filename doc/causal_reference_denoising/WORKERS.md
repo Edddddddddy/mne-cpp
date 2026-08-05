@@ -2344,3 +2344,9 @@ The manager records and forwards all cross-worker messages here before acting.
 - Publish attempt 1: `gh issue comment` failed with GitHub GraphQL EOF; branch
   and evidence commits were already pushed successfully. Record before retry;
   no code or issue state change is claimed. Worktree verification remains.
+- Worktree cleanup: complete. The detached tree was clean at exact
+  `bae282c347`; worker/integration focused-test hashes both equal
+  `8e649c188532cf3e1b105b4d29d232ea6017f737`; verified Git worktree removal
+  succeeded. The one-shot agent will not be reused.
+- Publish status: issue comment still pending retry; the failure-record commit
+  push also encountered a transient GitHub SSL connection error.

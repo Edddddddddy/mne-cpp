@@ -1805,3 +1805,15 @@ hidden reasoning is not.
   no code retry or duplicate worker is required.
 - Next: commit this failure record, verify/remove the completed detached
   worktree, then retry the same issue comment.
+
+### E-187 - Synthetic worker worktree safely retired
+
+- Actor: manager under the worker lifecycle policy.
+- Verification: detached worktree clean at exact `bae282c347`; its focused test
+  and integrated `a079df377` content share hash
+  `8e649c188532cf3e1b105b4d29d232ea6017f737`.
+- Cleanup: Git-managed worktree removal completed and the path no longer
+  exists. The one-shot Sol/ultra worker is not reusable.
+- Network: the first failure-record push also met a transient GitHub SSL
+  connection error; local commits remain intact.
+- Next: commit this cleanup record and retry branch push/issue publication.
