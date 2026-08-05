@@ -833,3 +833,13 @@ The manager records and forwards all cross-worker messages here before acting.
   `G/H/pending-count` at or after the new boundary.
 - Scope: unchanged; test source only, one slot, no subagents.
 - Status: recorded before forwarding.
+
+### RESPONSE W-TEST-CORE-007-NARROW
+
+- Conclusion: guidance followed; implementation is limited to one Qt slot.
+- Sequence: taps three and interval three; subject-only two-sample warmup,
+  three eligible samples to commit a model, then one partial-epoch sample;
+  reset; identical five-sample post-reset training and two-sample ApplyOnly
+  probe against a freshly configured control.
+- Scope/lifecycle: test source only; no design expansion and no subagents.
+- Status: worker validation and commit are in progress.

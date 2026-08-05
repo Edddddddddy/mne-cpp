@@ -734,3 +734,13 @@ hidden reasoning is not.
   design expansion and implement the sufficient prime/reset/new-boundary/probe
   black-box sequence now.
 - Scope/model remain unchanged; no duplicate worker is created.
+
+### E-076 - Reset worker confirms bounded implementation
+
+- Actor: `/root/w_test_core_007` and manager.
+- Response: one Qt slot uses tap three/interval three, primes a committed model
+  plus partial epoch, resets, then compares five new training samples and a
+  two-sample ApplyOnly probe with a fresh control.
+- Evidence: this crosses post-reset warmup and a new boundary; retained model,
+  history, statistics, or epoch count can affect observable outputs/state.
+- Status: validation and commit remain in progress; no subagents.
