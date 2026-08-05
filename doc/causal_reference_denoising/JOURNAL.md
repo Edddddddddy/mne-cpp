@@ -1240,3 +1240,24 @@ hidden reasoning is not.
   finding remains.
 - Next: commit/push, publish GREEN to issue #2, then verify/content-match/remove
   the completed one-shot worker worktree before selecting the next P2 RED.
+
+### E-129 - P1 GREEN published and worker retired
+
+- Actor: manager under GitHub and worker lifecycle workflows.
+- Publish: issue comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5190070518`
+  records 39/0 evidence and P1 closure.
+- Cleanup: the W-CORE-007 worktree was clean/content-matched and removed; the
+  one-shot Sol/ultra agent will not be reused.
+- Next: add the rank-deficient positive-loading characterization required
+  before strict LDLT pivot hardening.
+
+### E-130 - Rank-deficient LDLT test request prepared
+
+- Actor: manager under TDD and P2 `R-SOLVE-002`.
+- Request: `W-TEST-CORE-011`, Sol/high, one public test slot/source, no
+  subagents; rank-one `P=4` features must accept with diagonal loading and
+  produce a finite analytic future probe.
+- Classification: immediate GREEN is expected and must be reported honestly;
+  the existing extreme transaction test already covers invalid rejection.
+- Next: commit/push, create the detached worktree and dispatch.

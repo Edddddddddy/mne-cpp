@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T19:20:00+08:00
+Last updated: 2026-08-05T19:30:00+08:00
 
 ## Recovery order
 
@@ -34,14 +34,14 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-No worker is running. `W-CORE-007` was integrated as `9142415b7`; its one-shot
-detached worktree remains pending verified cleanup.
+No worker is running. `W-CORE-007` was integrated as `9142415b7`; its clean,
+content-matched detached worktree was removed and it will not be reused.
 
 ## Next actions
 
-1. Commit/push and publish the 39/0 P1 closure evidence to issue #2.
-2. Verify/remove the clean one-shot implementation worktree.
-3. Select the next P2 numerical RED before core formal review.
+1. Commit/push `REQUEST W-TEST-CORE-011`.
+2. Dispatch the rank-deficient loaded-LDLT characterization worker.
+3. Use that guard before adding strict positive-pivot acceptance checks.
 
 ## Focused verification targets
 

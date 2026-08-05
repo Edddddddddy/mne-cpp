@@ -1568,4 +1568,34 @@ The manager records and forwards all cross-worker messages here before acting.
   `0e5519417`, and its numerical source content matches integrated `9142415b7`.
 - Remove it through Git worktree management. Completed agent
   `/root/w_core_007` is one-shot and must not be reused.
-- Status: recorded before publish/cleanup.
+- Status: complete. GREEN was published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5190070518`.
+  The worktree was clean at `0e5519417`, its source exactly matched integrated
+  `9142415b7`, and Git worktree removal succeeded. The completed agent is not
+  reusable; only immutable tool history remains because hard delete is absent.
+
+### REQUEST W-TEST-CORE-011
+
+- From / to: manager / strict-positive LDLT characterization test worker.
+- Planned execution: detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-011` from current
+  integration HEAD; agent identifier recorded after dispatch.
+- Model/environment: `gpt-5.6-sol`, `high`; no nested subagents.
+- Model decision: this is one bounded analytic public-contract test. Sol/high
+  is proportional; the later implementation/review can use Sol/ultra.
+- Blocking: yes for P2 `R-SOLVE-002` hardening.
+- Task: add exactly one public-interface Qt slot proving a rank-deficient EWLS
+  epoch remains acceptable because relative diagonal loading makes the normal
+  equations positive definite. Use two perfectly collinear references, two
+  taps, one target, one warmup sample and four eligible samples so the `P=4`
+  feature matrix has rank one. Require the training block to remain unchanged
+  under the old zero model, one accepted update, zero rejected updates and
+  generation one. Then an analytic ApplyOnly probe must be finite, preserve
+  both references and reduce the known target residual to `<=1e-5`.
+- Scope: test source only; one slot, no production/CMake/plugin/dependency or
+  rt_server. Do not duplicate the already GREEN extreme-candidate rejection
+  test. Honest immediate GREEN characterization is allowed and expected.
+- Required response: `RESPONSE W-TEST-CORE-011` with commit, exact stream and
+  rank argument, analytic probe/tolerance, available evidence and GREEN/RED
+  classification, plus no-subagent confirmation.
+- Status: recorded before worktree creation and dispatch.
