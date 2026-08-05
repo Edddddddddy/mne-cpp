@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T00:52:00+08:00
+Last updated: 2026-08-06T00:58:00+08:00
 
 ## Recovery order
 
@@ -56,17 +56,16 @@ items are tracked as nonblocking follow-up.
   the five C++14 traits and the focused Qt report is 5 passed, zero failed/
   skipped, exit zero. P2 `R-PROC-MOVE-001` is closed; issue #4 evidence and
   final-QA P3 deferral are published/read back. Worker exact content/clean
-  precheck passes and archival is next before issue #4 closure.
+  precheck passes and the one-shot worker is archived without manual worktree
+  deletion. Issue #4 and epic #2 update are next.
 
 ## Next actions
 
-1. Archive the completed one-shot
-   Luna/max conversation without manually deleting its app worktree.
-2. Close issue #4 and update epic #2 after publication/archival evidence is
+1. Close issue #4 and update epic #2 after publication/archival evidence is
    durable.
-3. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
+2. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
    concurrency implementation and independent review.
-4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 

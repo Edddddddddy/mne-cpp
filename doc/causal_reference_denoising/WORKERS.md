@@ -3501,3 +3501,13 @@ does not continuously poll them.
 - Decision: one-shot Luna/max thread
   `019fd29c-2487-77a3-bfee-512054491941` may be archived through the app. Do
   not manually delete or modify its app-owned worktree.
+
+### RETIREMENT RESPONSE W-PROC-MOVE-001
+
+- App result: one-shot Luna/max thread
+  `019fd29c-2487-77a3-bfee-512054491941` archived successfully after exact
+  integration/content and populated GREEN evidence were durable.
+- Worktree policy: app-owned path
+  `C:/Users/lcy/.codex/worktrees/9da4/mne-cpp-main` was not manually deleted or
+  modified by the manager.
+- Status: complete; the ownership-fix conversation will not be reused.

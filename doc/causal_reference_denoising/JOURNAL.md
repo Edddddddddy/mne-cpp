@@ -2776,3 +2776,11 @@ hidden reasoning is not.
 - Decision: after this precheck is committed/pushed, archive the one-shot
   Luna/max thread through the app without deleting its worktree, then close
   issue #4 and update epic #2.
+
+### E-267 - Processor ownership worker archived
+
+- Result: app archived thread `019fd29c-2487-77a3-bfee-512054491941` after its
+  exact commit, matching content, GREEN and GitHub evidence were durable.
+- Safety: no manual deletion or modification of the app-owned worktree.
+- Next: commit/push retirement response, close issue #4, mark the processor
+  milestone complete in epic #2, then prepare issue #5 queue tracer.
