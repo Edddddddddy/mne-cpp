@@ -7,6 +7,7 @@ endif()
 
 add_subdirectory(ex_averaging)
 add_subdirectory(ex_cancel_noise)
+add_subdirectory(ex_causal_reference_denoising)
 add_subdirectory(ex_compute_forward)
 add_subdirectory(ex_coreg)
 add_subdirectory(ex_evoked_grad_amp)
