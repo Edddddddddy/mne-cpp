@@ -1016,3 +1016,11 @@ hidden reasoning is not.
 - Decision: retire the failed agent/worktree and dispatch fresh Sol/high
   `W-CORE-006-R` under the unchanged, already durable implementation scope.
 - Next: commit/push, remove the clean worktree, create replacement, dispatch.
+
+### E-106 - Replacement diagnostics worker active
+
+- Actor: manager and `/root/w_core_006_r`.
+- Cleanup: failed clean worktree removed; no code lost.
+- Worktree/model: detached `mne-cpp-worker-w-core-006-r` at `810e11d65`,
+  Sol/high, no subagents.
+- Next: wait for complete header/source commit; no overlapping edits.

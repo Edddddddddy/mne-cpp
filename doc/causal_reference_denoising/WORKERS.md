@@ -1248,4 +1248,6 @@ The manager records and forwards all cross-worker messages here before acting.
   application fallback, tests/CMake/plugin changes, or dependency repairs.
 - Required response: `RESPONSE W-CORE-006-R` with a complete clean commit and
   the same evidence fields as the original request.
-- Status: recorded before cleanup/worktree setup/dispatch.
+- Status: active as `/root/w_core_006_r`. The failed clean worktree was removed;
+  replacement worktree was created from `810e11d65`; Sol/high accepted the
+  unchanged header/source-only and no-subagent scope.

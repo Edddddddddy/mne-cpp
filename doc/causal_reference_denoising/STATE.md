@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T17:29:00+08:00
+Last updated: 2026-08-05T17:34:00+08:00
 
 ## Recovery order
 
@@ -33,14 +33,13 @@ semantics are GREEN. Next is fixed-size diagnostics/solve-rejection design.
 
 ## Running workers
 
-Diagnostics lifecycle compile RED is integrated. `W-CORE-006` failed because
-its response stream disconnected and left a clean unchanged worktree. Fresh
-replacement `W-CORE-006-R` is prepared.
+Diagnostics lifecycle compile RED is integrated. Fresh replacement
+`W-CORE-006-R` is active as `/root/w_core_006_r` on Sol/high.
 
 ## Next actions
 
-1. Remove the verified clean failed worktree and dispatch `W-CORE-006-R`.
-2. Review/integrate only a complete header/source replacement response.
+1. Wait for `RESPONSE W-CORE-006-R`.
+2. Review/integrate only a complete header/source response.
 3. Integrate and validate diagnostics lifecycle GREEN before the separate
    transactional solve-rejection RED.
 
