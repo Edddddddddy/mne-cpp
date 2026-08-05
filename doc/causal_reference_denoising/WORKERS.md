@@ -2871,3 +2871,16 @@ does not continuously poll them.
   no-subagent confirmation. Actively send it to the manager thread using
   `send_message_to_thread`, then stop without polling.
 - Status: request recorded before visible work conversation creation.
+
+### RESPONSE W-PROC-GREEN-001-CREATE
+
+- Result: visible saved-project worktree creation accepted asynchronously.
+- Client setup ID: `client-new-thread:aa50ed99-db64-4f34-addb-ea3b71e91ba2`.
+- Model/host: `gpt-5.6-luna`, `max`, local.
+- Exact branch base at dispatch:
+  `9a99e80c39d731cbc4f9ed552df9632c754c923d`.
+- Prompt integrity: includes exact three-file authorization, RED contract,
+  candidate/disarm/pass-through safety, recovery/skill reads, no-subagent and
+  no-rt_server rules, plus manager thread for active RESPONSE notification.
+- Status: final thread ID is setup-owned and will not be polled. Await only the
+  worker-pushed `RESPONSE W-PROC-GREEN-001`.

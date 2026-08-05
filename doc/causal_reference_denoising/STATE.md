@@ -50,16 +50,17 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 
 ## Running workers
 
-- None executing. `W-PROC-TEST-001` is integrated as `daae515ed`, valid RED
-  evidence is published, and visible thread
-  `019fd204-2ae1-7153-bc52-d33d952b5598` is archived. Minimal GREEN processor
-  request `W-PROC-GREEN-001` is prepared but not yet dispatched.
+- `W-PROC-GREEN-001`: visible Luna/max saved-project worktree conversation for
+  issue #4, accepted with client setup ID
+  `client-new-thread:aa50ed99-db64-4f34-addb-ea3b71e91ba2` from exact
+  integration base `9a99e80c3`. It owns only processor header/source and focused
+  test CMake. The manager does not poll; worker must actively return RESPONSE.
 
 ## Next actions
 
-1. Dispatch the minimal GREEN processor implementation to a new visible
-   Luna/max work conversation.
-2. Validate focused GREEN, then add the next invalid/missing-layout tracer
+1. Receive `RESPONSE W-PROC-GREEN-001` without polling, review its exact diff
+   and run the populated focused target before integration.
+2. After GREEN, add the next invalid/missing-layout tracer
    before widening processor behavior.
 3. After issue #4 reaches a milestone commit, open a separate visible
    Sol/ultra review conversation before integration.

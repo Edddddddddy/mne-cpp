@@ -2326,3 +2326,17 @@ hidden reasoning is not.
   polling or subagents.
 - Next: commit/push this lifecycle/request record, create a fresh visible
   saved-project worktree conversation, then record its returned identity/base.
+
+### E-231 - Visible minimal processor implementation worker accepted
+
+- Actor: manager and Codex app saved-project task creation.
+- Dispatch: Luna/max client setup
+  `client-new-thread:aa50ed99-db64-4f34-addb-ea3b71e91ba2` accepted from exact
+  integration base `9a99e80c3`.
+- Scope: processor header/source and focused test CMake only; candidate Ready
+  commit, invalid/missing disarm and unarmed pass-through are required, with no
+  test/core/queue/plugin/UI/dependency expansion.
+- Coordination: worker must actively message the manager with its structured
+  RESPONSE. Do not wait/read/list to monitor it.
+- Next: commit/push the creation result, publish implementation dispatch to
+  issue #4, then leave the visible worker independent.
