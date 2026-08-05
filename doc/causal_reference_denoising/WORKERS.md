@@ -1488,3 +1488,15 @@ The manager records and forwards all cross-worker messages here before acting.
   subagents. Static review/available validation is in progress; detached Eigen
   baseline may prevent runtime.
 - Next: await the complete clean commit response; no duplicate or rescope.
+
+### REQUEST W-CORE-007-FINISH
+
+- From / to: manager / `/root/w_core_007`.
+- Blocking: no; implementation contract is unchanged.
+- Evidence: manager read-only inspection sees one source file, 67 insertions
+  and 16 deletions, clean diff check, exact committed/pending/candidate state,
+  and no public/CMake/test change. The detached dependency limitation is known.
+- Instruction: finish static checks now, do not spend time repairing unavailable
+  build infrastructure, commit the scoped source diff, and return the required
+  structured response. No extra finding or feature may be implemented.
+- Status: recorded before forwarding.

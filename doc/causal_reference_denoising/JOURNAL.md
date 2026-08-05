@@ -1197,3 +1197,12 @@ hidden reasoning is not.
   review and available validation remain active.
 - Decision: record before inspecting the isolated diff; continue the same
   worker and do not duplicate implementation.
+
+### E-125 - Transactional worker asked to conclude
+
+- Actor: manager.
+- Read-only evidence: exact one-source-file patch, clean diff check and selected
+  three-layer statistics transaction; no public/test/build scope expansion.
+- Action: prepare a finish request because detached build infrastructure is the
+  already documented non-actionable limitation.
+- Next: commit/push, forward, and await the clean implementation commit.
