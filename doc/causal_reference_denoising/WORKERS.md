@@ -1189,7 +1189,7 @@ The manager records and forwards all cross-worker messages here before acting.
 ### REQUEST W-CORE-006
 
 - From / to: manager / diagnostics lifecycle implementation worker.
-- Execution: collaboration subagent in detached worktree
+- Execution: collaboration subagent `/root/w_core_006` in detached worktree
   `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-core-006`; identifier recorded after
   dispatch.
 - Model/environment: `gpt-5.6-sol`, `high`; no nested subagents.
@@ -1212,4 +1212,6 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-CORE-006`, commit, declaration and aggregation
   details, stable RMS algorithm, solve outcome/generation semantics, evidence/
   infra limitation, next RED, and no-subagent confirmation.
-- Status: recorded before test-worker cleanup/worktree setup/dispatch.
+- Status: active. Test worker was clean/content-matched and removed; new
+  implementation worktree was created from `8637bb118`; Sol/high accepted the
+  header/source-only and no-subagent scope.
