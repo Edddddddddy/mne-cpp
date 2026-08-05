@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T20:54:23+08:00
+Last updated: 2026-08-05T23:23:32+08:00
 
 ## Recovery order
 
@@ -31,13 +31,13 @@ passes, zero failures/skips. The measured synthetic result is 58.6541 dB noise
 reduction and 0.000113195 clean projection-amplitude error. Formal review has
 P0/P1/P2 zero open; two P3 integration items remain tracked.
 
-The corrected engineering-first execution plan is approved. The manager
-conversation uses Sol/ultra and does not create internal subagents. Execution
-now begins by creating five GitHub child issues under epic #2; the first code
-slice will then be dispatched as a minimal REQUEST to a new user-visible
-Luna/max work conversation. Dedicated user-visible Sol/ultra review
-conversations inspect milestone commits. The manager does not continuously
-poll workers; workers return a structured RESPONSE to the manager when done.
+The engineering-first processor milestone is implemented and focused GREEN.
+The concrete plugin-private processor maps good REF_MEG/MEG rows, disarms old
+state on every invalid or missing layout, and resets/relearns on valid layout
+changes. The populated Release focused executable exits zero for the mapping,
+19 invalid/disarm cases, and valid reconfigure/reset/relearn behavior. The
+completed reusable Luna/max test conversation is archived. Independent
+Sol/ultra issue #4 review is the next gate before the nonblocking queue.
 
 ## Completed
 
@@ -50,20 +50,17 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 
 ## Running workers
 
-- Reusable Luna/max processor-test conversation, thread
-  `019fd266-902d-77e1-b40a-a754eaac6222` completed its role. Delta is integrated
-  as `d977e98ed`; populated Release build/run exits zero for all three processor
-  behaviors. GREEN publication, content verification and archival are pending
-  before the independent Sol/ultra processor milestone review.
+- None. The next worker will be a new visible Sol/ultra read-only processor
+  milestone reviewer after its REQUEST is committed and pushed.
 
 ## Next actions
 
-1. Publish valid-reconfigure GREEN, verify/retire the completed Luna/max test
-   conversation.
-2. Create an independent visible Sol/ultra read-only issue #4 processor
-   milestone review conversation.
-3. After issue #4 reaches a milestone commit, open a separate visible
-   Sol/ultra review conversation before integration.
+1. Record and dispatch an independent visible Sol/ultra read-only issue #4
+   processor milestone review conversation.
+2. Resolve every P0/P1 and any P2 finding; publish the formal review and close
+   issue #4 when its gate is satisfied.
+3. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
+   concurrency implementation and independent review.
 4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.

@@ -2624,3 +2624,13 @@ hidden reasoning is not.
   test source hash exactly matches integrated content.
 - Decision: after this record is committed/pushed, archive the completed
   processor-test conversation through the app without deleting its worktree.
+
+### E-254 - Reusable processor-test conversation archived
+
+- Actor: manager and Codex app thread lifecycle.
+- Result: thread `019fd266-902d-77e1-b40a-a754eaac6222` returned
+  `archived: true` after its exact commit/content and issue evidence were
+  durable.
+- Safety: no manual deletion or mutation of the app-managed worktree occurred.
+- Next: commit/push this response, then record and dispatch a new visible
+  Sol/ultra read-only processor milestone review.
