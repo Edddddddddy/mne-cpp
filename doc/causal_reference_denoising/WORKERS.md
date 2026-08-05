@@ -1421,4 +1421,40 @@ The manager records and forwards all cross-worker messages here before acting.
   `3d38866c5`, and that its test content matches integrated `d1ffa0904`.
 - Then remove it through Git worktree management. Completed agent
   `/root/w_test_core_010` is one-shot and must not be reused.
-- Status: recorded before cleanup.
+- Status: complete. The worktree was clean at `3d38866c5`, its test content
+  exactly matched integrated `d1ffa0904`, and Git worktree removal succeeded.
+  The completed collaboration agent remains retained only as immutable tool
+  history because this runtime exposes no hard-delete operation; it is not
+  reusable.
+
+### REQUEST W-CORE-007
+
+- From / to: manager / fresh transactional EWLS implementation worker.
+- Planned execution: detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-core-007` from current integration
+  HEAD; collaboration agent identifier is recorded after dispatch.
+- Model/environment: `gpt-5.6-sol`, `ultra`; no nested subagents.
+- Model decision: this slice changes recursive EWLS state ownership, finite
+  overflow recovery, boundary transactions and the no-allocation hot path, so
+  Sol/ultra is selected.
+- Blocking: yes for P1 `R-SOLVE-001` and closure of mixed event diagnostics.
+- Task: make only the integrated `rejectsPoisonedEpochsAndRecoversWithinBlock`
+  runtime RED GREEN. Keep committed finite `G/H` separate from preallocated
+  pending-epoch statistics and candidate scratch. Accumulate pending stats and
+  elapsed forgetting per eligible learning sample. At a boundary, solve from
+  a finite candidate composed from aged committed plus pending stats; on
+  success atomically commit candidate `G/H/W`, and on poison/solve failure
+  discard pending stats, age only committed `G/H`, retain committed `W`, and
+  increment the existing rejection event. Clear the pending epoch after every
+  boundary so later epochs in the same block can recover.
+- Required invariants: configure remains the only allocation phase; reset
+  clears all committed/pending/candidate state; process stays noexcept with no
+  explicit allocation/lock/string; causal apply-before-learn ordering, chunk
+  equivalence, modes, diagnostics and target-only writes remain unchanged.
+- Scope: numerical header/source only; no tests/CMake/plugin/dependency or
+  rt_server. Do not broaden into strict-pivot `R-SOLVE-002`, application
+  overflow `R-APPLY-001`, malloc guard, synthetic acceptance or plugin code.
+- Required response: `RESPONSE W-CORE-007` with commit SHA, exact added state
+  shapes, recurrence/composition/discard equations, boundary ordering,
+  diff/evidence limitation, remaining findings and no-subagent confirmation.
+- Status: request recorded before worktree creation and dispatch.

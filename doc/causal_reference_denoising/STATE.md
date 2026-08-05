@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T18:30:00+08:00
+Last updated: 2026-08-05T18:40:00+08:00
 
 ## Recovery order
 
@@ -35,12 +35,12 @@ runtime RED: 38 passed and one intended failure.
 ## Running workers
 
 No worker is running. `W-TEST-CORE-010` is integrated as `d1ffa0904`; its
-one-shot detached worktree remains pending verified cleanup.
+clean/content-matched detached worktree was removed and it will not be reused.
 
 ## Next actions
 
-1. Commit and push the runtime RED evidence.
-2. Verify/remove the completed test worktree.
+1. Commit/push `REQUEST W-CORE-007`.
+2. Create its detached worktree from the current integration HEAD.
 3. Dispatch a fresh Sol/ultra transactional pending-statistics implementation.
 
 ## Focused verification targets

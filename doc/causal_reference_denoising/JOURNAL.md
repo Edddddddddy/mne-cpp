@@ -1131,3 +1131,23 @@ hidden reasoning is not.
   later normal epoch cannot recover a model.
 - Next: commit/push the RED, clean the one-shot test worktree after exact
   content verification, then dispatch a fresh Sol/ultra implementation worker.
+
+### E-118 - Transactional test worker retired
+
+- Actor: manager under the user worker lifecycle policy.
+- Evidence: detached worktree was clean at `3d38866c5`; its focused test file
+  exactly matched integrated `d1ffa0904`; Git worktree removal succeeded.
+- Lifecycle: `/root/w_test_core_010` is one-shot and will not be reused. The
+  collaboration runtime has no hard-delete operation, so only immutable task
+  history remains.
+- Next: record the fresh implementation request before dispatch.
+
+### E-119 - Transactional implementation request prepared
+
+- Actor: manager under TDD, codebase-design and P1 `R-SOLVE-001`.
+- Request: `W-CORE-007`, Sol/ultra, no subagents, numerical header/source only.
+- Scope: preallocated pending/candidate EWLS statistics; boundary accept commits
+  `G/H/W`, rejection ages committed `G/H`, discards the epoch and permits a
+  later same-block recovery. No other P2 or plugin work.
+- Next: commit/push this request, create a detached worktree from current HEAD,
+  and dispatch the fresh worker.
