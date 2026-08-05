@@ -3061,3 +3061,15 @@ hidden reasoning is not.
   polling, full scan or rt_server.
 - Next: commit/push the response, inspect exact provenance/diff/test robustness,
   then integrate and execute in the populated Release workspace if accepted.
+
+### E-292 - Queue lifecycle test accepted by manager review
+
+- Provenance: `da315d81e` is the exact requested-base one-file commit; diff
+  check passes and no production/CMake/other test slot changed.
+- Thread safety: the consumer owns no Qt assertion, uses one finite public wait
+  and atomic results; the manager thread joins before assertions. A 1500 ms
+  threshold distinguishes stop wake from the 3000 ms natural timeout.
+- Lifecycle sensitivity: AlreadyRunning, double stop, stopped push/pop and a
+  distinct fresh matrix/metadata/Timeout sequence cover active-state mutation,
+  wake idempotence and stale token/data leakage through public behavior.
+- Decision: no finding; cherry-pick is authorized after this review is pushed.

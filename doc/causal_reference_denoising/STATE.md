@@ -65,13 +65,13 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 - `W-QUEUE-TEST-002` proactively returned exact-base Luna/max commit
   `da315d81e`, adding one focused public lifecycle slot for AlreadyRunning,
   bounded stop wake, idempotent stop, stopped statuses and fresh reconfigure.
-  The response is durable; manager diff review, integration and populated
-  Release execution are next.
+  Manager provenance/diff/thread-safety review passes; integration and
+  populated Release execution are next.
 
 ## Next actions
 
-1. Inspect exact `da315d81e`, integrate only if the public test is robust, and
-   run the populated focused Release executable. Retain the Sol implementation
+1. Cherry-pick accepted `da315d81e` and run the populated focused Release
+   executable. Retain the Sol implementation
    conversation only for a narrow fix if the follow-up exposes a defect.
 2. Use the wait window only for read-only planning or truly non-overlapping
    example/document work; do not begin plugin integration before queue coverage.

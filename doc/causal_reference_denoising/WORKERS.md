@@ -3915,6 +3915,24 @@ does not continuously poll them.
   absent; no vendor repair, full scan, rt_server, subagent or manager polling.
 - Status: response recorded before manager diff review or cherry-pick.
 
+### MANAGER REVIEW W-QUEUE-TEST-002
+
+- Provenance: exact commit `da315d81e` has parent `f77bf44ce`; its diff is
+  clean and contains exactly one authorized focused test-source edit with 134
+  additions. Queue production, CMake and all existing slots are unchanged.
+- Safety: the destination is fully preallocated before thread creation; the
+  consumer performs one public finite wait and stores only atomic observations.
+  The main thread uses a bounded entry wait, calls idempotent stop, always joins,
+  and performs every Qt assertion afterward, so no failing assertion strands a
+  joinable thread.
+- Sensitivity: the 1500 ms upper bound is below the 3000 ms natural timeout;
+  `consumerWasWaitingBeforeStop`, exact Stopped statuses and a fresh queue
+  matrix/metadata/Timeout oracle jointly detect failed wake, active-configure
+  mutation and stale stop/data tokens. The 50 ms allowance is not an internal
+  synchronization dependency and remains a conservative Windows margin.
+- Finding: none. Accept for cherry-pick; runtime GREEN remains required in the
+  populated Release workspace before this lifecycle slice closes.
+
 ### REQUEST W-EXAMPLE-001
 
 - From / to: manager thread
