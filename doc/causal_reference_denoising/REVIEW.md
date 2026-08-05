@@ -12,8 +12,8 @@
 
 ## Core numerical review
 
-Formal independent review `R-CORE-001` is prepared after quantitative GREEN;
-reviewer assignment and findings are pending.
+Formal independent review `R-CORE-001` is active on Sol/ultra against exact
+commit `f0a0e14d7`, in a read-only detached worktree with no subagents.
 
 ### Diagnostics seam pre-review
 

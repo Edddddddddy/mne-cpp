@@ -1837,3 +1837,15 @@ hidden reasoning is not.
 - Gate: report P0-P3 with exact evidence; P0/P1 zero and P2 resolved/deferred
   are required before plugin-data work begins.
 - Next: commit/push, create the isolated review worktree and dispatch.
+
+### E-190 - Formal independent core reviewer active
+
+- Actor: manager and `/root/r_core_001`.
+- Worktree/model: clean detached
+  `C:/Users/lcy/Desktop/meg/mne-cpp-review-r-core-001` at exact integration
+  `f0a0e14d7`, Sol/ultra, read-only, no edits or subagents.
+- Scope: independently review the numerical public seam/source/tests/evidence,
+  including transactions, causality, finite safety, diagnostics, chunk
+  invariance and configured real-time hot path.
+- Next: await P0-P3 findings while doing read-only plugin seam preparation; do
+  not dispatch plugin implementation before the core gate decision.
