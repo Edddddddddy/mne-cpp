@@ -1281,3 +1281,13 @@ hidden reasoning is not.
   Sol/high, one test slot/source and no subagents.
 - Next: await structured response; manager will not edit the overlapping test
   source while the worker is active.
+
+### E-133 - Rank-deficient characterization response received
+
+- Actor: `/root/w_test_core_011` and manager.
+- Response: one-slot test commit `148870f87`; rank-one `P=4` features, one
+  loaded solve acceptance and analytic future probe residual below `1e-5`.
+- Evidence: clean one-file commit/diff, no subagents and honest immediate-GREEN
+  expectation with detached runtime limitation.
+- Decision: record before acting; inspect the exact rank/ridge assertions, then
+  integrate and run the populated-workspace report if accepted.

@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T19:38:00+08:00
+Last updated: 2026-08-05T19:48:00+08:00
 
 ## Recovery order
 
@@ -34,14 +34,13 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-`W-TEST-CORE-011` is active as `/root/w_test_core_011` on Sol/high in detached
-worktree `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-011` at
-`aebe2fafb`.
+`W-TEST-CORE-011` returned one-test commit `148870f87`; manager diff/oracle
+review and populated-workspace characterization are pending.
 
 ## Next actions
 
-1. Await/review `RESPONSE W-TEST-CORE-011` without overlapping test edits.
-2. Integrate and run the focused report; immediate GREEN is acceptable.
+1. Review exact commit `148870f87` and its rank-one/ridge oracle.
+2. Integrate and run the focused report; immediate GREEN is expected.
 3. Use the characterization before strict positive-pivot hardening.
 
 ## Focused verification targets

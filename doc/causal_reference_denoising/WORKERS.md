@@ -1600,3 +1600,21 @@ The manager records and forwards all cross-worker messages here before acting.
   classification, plus no-subagent confirmation.
 - Status: active as collaboration agent `/root/w_test_core_011`. Detached
   worktree created clean at `aebe2fafb`; Sol/high accepted the one-slot scope.
+
+### RESPONSE W-TEST-CORE-011
+
+- Commit: `148870f873bef105f5a7dae6193191a32916a3bb`.
+- Changed file: focused numerical test source only; exactly one Qt slot.
+- Stream/rank: references `[1,2,4,8,16]` and twice that row; target `3*r0`.
+  After one warmup the `P=4` features are `v,2v,4v,8v` for
+  `v=[2,4,1,2]^T`, so the feature span has rank one.
+- Training oracle: old zero model preserves the complete block; events `1/0`,
+  generation one and exact reference rows.
+- Probe: refs `[32,64]` give feature `16v` and analytic target 96; finite
+  residual `<=1e-5`, generation one, zero events and exact refs. With loading
+  `1e-8`, expected ridge residual is about `6.144e-7`.
+- Evidence: all diff checks pass, clean detached HEAD, test source only.
+  Runtime is correctly unclaimed due the known detached dependency/build gap.
+- Classification/lifecycle: immediate GREEN characterization expected; no
+  production/build/plugin/dependency/rt_server change and no subagents.
+- Manager status: response durable; exact diff/oracle review follows.
