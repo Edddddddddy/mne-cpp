@@ -3822,3 +3822,50 @@ does not continuously poll them.
   then add the next lifecycle behavior before formal concurrency review.
 - Restrictions: no full mne_scan or rt_server; user untracked paths remain
   untouched.
+
+### PUBLISH W-QUEUE-GREEN-001-GREEN
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5194795653`.
+- Read-back: exact worker/integration commits, three-file scope, populated
+  Release build, 6/0/0 report, FIFO/drop-newest/deep-copy/metadata conclusions,
+  restrictions and next lifecycle slice all match durable evidence.
+
+### REQUEST W-QUEUE-TEST-002
+
+- From / to: manager thread
+  `019fcdc3-4a1e-76d1-8140-1bd521219297` / new visible queue-lifecycle test
+  conversation.
+- GitHub issue: `Edddddddddy/mne-cpp#5`.
+- Model/environment: `gpt-5.6-luna`, `max`, new saved-project worktree from the
+  current integration branch; no internal/nested subagents.
+- Blocking: yes for queue lifecycle completion and formal concurrency review.
+- TDD behavior: add exactly one public-interface slot
+  `queueStopWakesWaiterAndReconfigureStartsFresh`. Configure an empty queue,
+  require a second active configure returns AlreadyRunning, then start one
+  consumer waiting with a bounded multi-second timeout into an exact
+  preallocated destination. After the consumer has entered the call and a
+  short scheduling allowance, call stop twice; require the consumer joins well
+  before its timeout and returns Stopped. Subsequent push/pop while stopped
+  must return Stopped.
+- Fresh-state oracle: configure again after the stopped consumer is joined;
+  require Ready, push/pop one distinct short matrix plus aliasing metadata owner
+  and prove exact leading columns/sample count/owner. An immediate second pop
+  must Timeout, proving neither the old stop wake token nor pending state leaked
+  into the fresh queue.
+- Test robustness: use a finite consumer timeout so a broken wake cannot hang
+  the suite; synchronize only test setup, not queue internals; allow reasonable
+  Windows scheduling margin while still distinguishing wake from timeout.
+- TDD classification: expected immediate GREEN characterization of the newly
+  integrated interface. Do not manufacture RED or edit production when it
+  passes; if it fails, return exact timing/status evidence for a separate Sol
+  fix request.
+- Authorized file: focused plugin test source only. Preserve existing slots;
+  no queue/processor/core/CMake/plugin/UI/dependency/vendor/example/rt_server.
+- Required response: `RESPONSE W-QUEUE-TEST-002` with exact base/commit,
+  synchronization/timing oracle, stop/status/reconfigure matrices and metadata
+  evidence, RED or GREEN/infra classification, changed file/clean status and
+  no-subagent/no-polling confirmation. Proactively notify manager then stop.
+- Lifecycle: one-shot unless manager explicitly reuses it for one immediately
+  adjacent queue-validation test after acceptance.
+- Status: recorded before visible task creation.

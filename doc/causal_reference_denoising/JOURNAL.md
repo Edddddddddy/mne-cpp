@@ -2959,3 +2959,16 @@ hidden reasoning is not.
 - Decision: publish queue GREEN, then continue without pause to a separate
   Luna/max stop-wake/reconfigure lifecycle tracer. Formal concurrency review
   remains after focused queue coverage is complete.
+
+### E-283 - Queue GREEN published and lifecycle tracer prepared
+
+- Publish/read-back: issue #5 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5194795653`
+  matches exact commits, populated 6/0/0 report and queue behavior evidence.
+- Next tracer: `W-QUEUE-TEST-002`, new visible Luna/max one-slot test for
+  AlreadyRunning, bounded waiter wake, idempotent stop, stopped statuses and
+  fresh reconfigure without stale wake/data tokens.
+- Scope: focused test source only; production queue is immutable until a
+  public-interface failure exists. No rt_server or full scan.
+- Next: commit/push request, create/record the visible task, publish dispatch,
+  then continue other non-overlapping management work or await proactive reply.

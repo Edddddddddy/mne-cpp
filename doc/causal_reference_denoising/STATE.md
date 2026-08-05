@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T02:25:00+08:00
+Last updated: 2026-08-06T02:35:00+08:00
 
 ## Recovery order
 
@@ -65,9 +65,10 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 
 ## Next actions
 
-1. Publish/read back the 6/0/0 queue GREEN on issue #5.
-2. Record and dispatch one new visible Luna/max stop-wake/reconfigure lifecycle
-   tracer; retain the Sol implementation conversation only for a narrow fix if
+1. Dispatch recorded Luna/max `W-QUEUE-TEST-002` stop-wake/reconfigure lifecycle
+   tracer from the current branch and publish it to issue #5.
+2. Await its proactive RESPONSE without polling or overlapping the focused test
+   source; retain the Sol implementation conversation only for a narrow fix if
    the follow-up exposes a defect.
 3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
