@@ -1216,3 +1216,15 @@ hidden reasoning is not.
   Eigen runtime limitation, and no subagents.
 - Decision: record before acting; next perform exact commit review, integrate
   only if accepted, and require all 39 focused checks GREEN.
+
+### E-127 - Transactional implementation commit accepted
+
+- Actor: manager using codebase-design/TDD and P1 review criteria.
+- Review: exact one-source-file scope; mathematically correct pending recurrence
+  and candidate composition; success commits `G/H/W` only after checks;
+  rejection ages committed stats and cannot leak poisoned candidate state.
+- Real-time/state check: new matrices allocate only during configure; reset and
+  paused-mode behavior include the new pending state; no explicit hot-path
+  allocation/lock/string is introduced.
+- Decision: accept `0e5519417` for cherry-pick and focused build/runtime; later
+  P2 strict-pivot/application-overflow findings remain open.

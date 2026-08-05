@@ -1524,3 +1524,26 @@ The manager records and forwards all cross-worker messages here before acting.
 - Remaining untouched: strict-pivot P2, application-overflow P2, malloc guard,
   synthetic acceptance, plugin/CMake/dependency/test and rt_server work.
 - Lifecycle: Sol/ultra; no subagents. Manager commit-level review is next.
+
+### MANAGER REVIEW W-CORE-007
+
+- Scope/base: accepted. Exact commit `0e5519417` is clean on request base
+  `5eff9abb9`, changes one numerical source file (71 insertions, 16 deletions),
+  and has no public header, test, CMake, plugin or dependency edit.
+- Recurrence: pending matrices initialized at zero and scalar `d=1` reproduce
+  the per-sample EWLS recurrence; `d*committed + pending` is the correct full
+  candidate at every fixed boundary, including partial epochs across calls.
+- Atomicity: candidate composition and every existing finite/LDLT/weight check
+  occur before committed state writes. Success commits `G/H/W` together;
+  failure only ages finite committed `G/H`, retains `W/generation`, then clears
+  pending state. Candidate scratch may be nonfinite but is never committed.
+- Streaming: ApplyOnly/Bypass leave a partial learning epoch paused; reset
+  clears all new matrices/count/decay; apply-before-learn and future-only model
+  activation are preserved.
+- Real-time: all dynamic matrices are sized in `Impl` construction; process
+  adds only in-place operations and scalar branches, with no explicit
+  allocation, lock or string work. Formal malloc guard remains a later test.
+- Known exclusions remain correctly untouched: strict LDLT pivots and
+  application overflow.
+- Decision: accept for cherry-pick and populated-workspace compiled/runtime
+  validation. GREEN is not claimed until the synchronized 39-check report.

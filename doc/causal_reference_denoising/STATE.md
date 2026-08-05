@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T19:05:00+08:00
+Last updated: 2026-08-05T19:12:00+08:00
 
 ## Recovery order
 
@@ -34,13 +34,13 @@ runtime RED: 38 passed and one intended failure.
 
 ## Running workers
 
-`W-CORE-007` returned source commit `0e5519417`; manager commit-level review,
+`W-CORE-007` source commit `0e5519417` passed manager commit-level review;
 integration and populated-workspace GREEN validation are pending.
 
 ## Next actions
 
-1. Review exact commit `0e5519417` against the bounded transaction contract.
-2. Integrate only if its one-source-file scope and state ordering are correct.
+1. Commit/push the manager review record.
+2. Cherry-pick exact commit `0e5519417`.
 3. Run the focused synchronized report and require all 39 checks GREEN.
 
 ## Focused verification targets
