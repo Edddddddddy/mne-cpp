@@ -121,8 +121,12 @@ struct CausalReferenceDenoiser::Impl
     , feature(featureCount)
     , rawTargets(targetCount)
     , prediction(targetCount)
-    , gram(featureCount, featureCount)
-    , cross(targetCount, featureCount)
+    , committedGram(featureCount, featureCount)
+    , committedCross(targetCount, featureCount)
+    , pendingGram(featureCount, featureCount)
+    , pendingCross(targetCount, featureCount)
+    , candidateGram(featureCount, featureCount)
+    , candidateCross(targetCount, featureCount)
     , weights(targetCount, featureCount)
     , solveMatrix(featureCount, featureCount)
     , solveRightHandSide(featureCount, targetCount)
@@ -139,8 +143,12 @@ struct CausalReferenceDenoiser::Impl
         feature.setZero();
         rawTargets.setZero();
         prediction.setZero();
-        gram.setZero();
-        cross.setZero();
+        committedGram.setZero();
+        committedCross.setZero();
+        pendingGram.setZero();
+        pendingCross.setZero();
+        candidateGram.setZero();
+        candidateCross.setZero();
         weights.setZero();
         solveMatrix.setZero();
         solveRightHandSide.setZero();
@@ -148,6 +156,7 @@ struct CausalReferenceDenoiser::Impl
         decomposition.setZero();
         historySampleCount = 0;
         eligibleLearningSampleCount = 0;
+        pendingEpochDecay = 1.0;
         modelGeneration = 0;
     }
 
@@ -191,14 +200,40 @@ struct CausalReferenceDenoiser::Impl
         }
     }
 
-    bool solveAndCommitWeights() noexcept
+    void accumulatePendingStatistics() noexcept
     {
+        // After n samples, pendingEpochDecay is lambda^n and the pending
+        // matrices contain the recurrence initialized from zero.
+        pendingEpochDecay *= forgettingFactor;
+
+        pendingGram *= forgettingFactor;
+        pendingGram.noalias() += feature * feature.transpose();
+
+        pendingCross *= forgettingFactor;
+        pendingCross.noalias() += rawTargets * feature.transpose();
+    }
+
+    bool solveAndCommitPendingEpoch() noexcept
+    {
+        // Compose the full recurrence without modifying the committed state.
+        candidateGram.noalias() = committedGram;
+        candidateGram *= pendingEpochDecay;
+        candidateGram += pendingGram;
+
+        candidateCross.noalias() = committedCross;
+        candidateCross *= pendingEpochDecay;
+        candidateCross += pendingCross;
+
+        if (!candidateGram.allFinite() || !candidateCross.allFinite()) {
+            return false;
+        }
+
         double diagonalScale = 0.0;
 
         for (Eigen::Index row = 0; row < featureCount; ++row) {
             for (Eigen::Index column = 0; column <= row; ++column) {
-                const double symmetricValue = 0.5 * gram(row, column)
-                                              + 0.5 * gram(column, row);
+                const double symmetricValue = 0.5 * candidateGram(row, column)
+                                              + 0.5 * candidateGram(column, row);
                 solveMatrix(row, column) = symmetricValue;
                 solveMatrix(column, row) = symmetricValue;
             }
@@ -223,15 +258,32 @@ struct CausalReferenceDenoiser::Impl
             return false;
         }
 
-        solveRightHandSide.noalias() = cross.transpose();
+        solveRightHandSide.noalias() = candidateCross.transpose();
         candidateWeightsTranspose.noalias() = decomposition.solve(solveRightHandSide);
         if (decomposition.info() != Eigen::Success
             || !candidateWeightsTranspose.allFinite()) {
             return false;
         }
 
+        // All numerical checks have passed; commit candidate G/H/W together.
+        committedGram.noalias() = candidateGram;
+        committedCross.noalias() = candidateCross;
         weights.noalias() = candidateWeightsTranspose.transpose();
         return true;
+    }
+
+    void rejectPendingEpoch() noexcept
+    {
+        committedGram *= pendingEpochDecay;
+        committedCross *= pendingEpochDecay;
+    }
+
+    void clearPendingEpoch() noexcept
+    {
+        pendingGram.setZero();
+        pendingCross.setZero();
+        eligibleLearningSampleCount = 0;
+        pendingEpochDecay = 1.0;
     }
 
     const Eigen::Index channelCount;
@@ -251,8 +303,12 @@ struct CausalReferenceDenoiser::Impl
     Eigen::VectorXd feature;
     Eigen::VectorXd rawTargets;
     Eigen::VectorXd prediction;
-    Eigen::MatrixXd gram;
-    Eigen::MatrixXd cross;
+    Eigen::MatrixXd committedGram;
+    Eigen::MatrixXd committedCross;
+    Eigen::MatrixXd pendingGram;
+    Eigen::MatrixXd pendingCross;
+    Eigen::MatrixXd candidateGram;
+    Eigen::MatrixXd candidateCross;
     Eigen::MatrixXd weights;
     Eigen::MatrixXd solveMatrix;
     Eigen::MatrixXd solveRightHandSide;
@@ -261,6 +317,7 @@ struct CausalReferenceDenoiser::Impl
 
     Eigen::Index historySampleCount = 0;
     Eigen::Index eligibleLearningSampleCount = 0;
+    double pendingEpochDecay = 1.0;
     std::uint64_t modelGeneration = 0;
 };
 
@@ -401,20 +458,18 @@ DenoiserProcessResult CausalReferenceDenoiser::process(Eigen::Ref<Eigen::MatrixX
         }
 
         if (learn) {
-            state.gram *= state.forgettingFactor;
-            state.gram.noalias() += state.feature * state.feature.transpose();
-            state.cross *= state.forgettingFactor;
-            state.cross.noalias() += state.rawTargets * state.feature.transpose();
+            state.accumulatePendingStatistics();
 
             ++state.eligibleLearningSampleCount;
             if (state.eligibleLearningSampleCount == state.adaptationIntervalSamples) {
-                if (state.solveAndCommitWeights()) {
+                if (state.solveAndCommitPendingEpoch()) {
                     ++modelUpdatesAccepted;
                     ++state.modelGeneration;
                 } else {
+                    state.rejectPendingEpoch();
                     ++modelUpdatesRejected;
                 }
-                state.eligibleLearningSampleCount = 0;
+                state.clearPendingEpoch();
             }
         }
 
