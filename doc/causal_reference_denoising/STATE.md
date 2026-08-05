@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T01:32:00+08:00
+Last updated: 2026-08-06T01:38:00+08:00
 
 ## Recovery order
 
@@ -53,16 +53,14 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 
 ## Running workers
 
-- `W-QUEUE-TEST-001` Luna/max thread
-  `019fd2ad-308f-7282-bdaa-0b321de8df06` returned exact-base one-file commit
-  `ad3e54bf`; response is durable. Manager diff review and populated missing-
-  header RED reproduction are next.
+- `W-QUEUE-TEST-001` exact one-file commit `ad3e54bf` passed manager tracer/
+  interface review. Cherry-pick and populated missing-header RED reproduction
+  are next.
 
 ## Next actions
 
-1. Inspect exact tracer commit and oracle, then cherry-pick only if one-file
-   scope and public-interface sensitivity are correct.
-2. Reproduce the expected missing queue header RED in the populated workspace.
+1. Cherry-pick accepted tracer `ad3e54bf` and reproduce the expected missing
+   queue header RED in the populated workspace.
 3. After valid RED, dispatch a separate Sol/ultra queue implementation task.
 4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm

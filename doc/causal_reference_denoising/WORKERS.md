@@ -3603,3 +3603,18 @@ does not continuously poll them.
 - Integrity: exactly one authorized test source; diff checks and clean detached
   status pass; no production/CMake/full scan/rt_server/subagent/polling.
 - Status: response recorded before manager commit/diff inspection.
+
+### MANAGER REVIEW W-QUEUE-TEST-001
+
+- Provenance/scope: exact `ad3e54bf` has requested parent `734d99515`, changes
+  one authorized focused test source by 96 insertions and passes diff check.
+- Public-interface sensitivity: post-push A/B mutation distinguishes deep copy;
+  capacity-two C Full plus later C success distinguishes drop-newest from
+  overwrite/index advance; sequential pops and distinct control-block owners
+  distinguish FIFO data/metadata pairing.
+- Test locality: only valid leading columns are compared; unused preallocated
+  tail remains unspecified. Metadata handles are never dereferenced and the
+  test adds no mne_fiff link or implementation seam.
+- Finding: none. One vertical behavior is accepted for populated compile RED.
+- Decision: cherry-pick and require C1083 missing queue header before any
+  production implementation request.
