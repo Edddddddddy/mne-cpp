@@ -3193,3 +3193,13 @@ hidden reasoning is not.
   polling, full scan or rt_server.
 - Next: commit/push response, inspect exact diff and sentinels/capacity oracle,
   then integrate and run populated Release only if accepted.
+
+### E-303 - Final queue validation accepted by manager review
+
+- Provenance: exact `cff55a01e` on `701f5bed9`, one authorized test file and
+  clean diff. Existing queue/processor production and prior slots are unchanged.
+- Oracle: rejected config/input/destination operations are followed by Ready,
+  Pushed/Full and exact Popped/Timeout behavior; destination matrix/count/owner
+  sentinels make state consumption or mutation observable.
+- Decision: no finding; cherry-pick after this review is pushed, then execute
+  the complete populated Release focused suite before formal queue review.

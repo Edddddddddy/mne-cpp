@@ -89,7 +89,8 @@ Manager will not poll or overlap its focused test-source edit. Public dispatch:
 `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5195009989`.
 It proactively returned exact-base commit `cff55a01e`, adding one focused slot
 for invalid configuration/block/destination state preservation. Manager review,
-integration and populated Release execution are pending.
+scope and sentinel/capacity oracle pass; integration and populated Release
+execution are next.
 
 Non-overlapping issue #7 work is prepared as `W-EXAMPLE-001`: a focused
 Eigen/streaming example target that directly exercises the completed numerical

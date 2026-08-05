@@ -4039,6 +4039,22 @@ does not continuously poll them.
   subagent, polling, full scan or rt_server.
 - Status: response durable before manager diff review or cherry-pick.
 
+### MANAGER REVIEW W-QUEUE-TEST-003
+
+- Provenance: exact `cff55a01e` on requested `701f5bed9`; clean diff with 131
+  insertions in exactly the focused test source. Queue/CMake and seven prior
+  passes remain unchanged.
+- Configuration sensitivity: fresh and stopped invalid candidates exercise all
+  public bounds including `size_t(INT_MAX)+1`, and Ready after them proves the
+  failed candidates neither allocate/publish nor poison future configuration.
+- State sensitivity: invalid producer shapes precede a successful capacity-one
+  push; Full on the next valid block proves capacity is occupied only by the
+  first valid payload. Two invalid destinations preserve full matrix, count and
+  alias-owner sentinels, while a later valid pop returns the original first
+  block/null metadata and then Timeout.
+- Finding: none. Accept for cherry-pick; populated Release GREEN remains
+  required before queue coverage is sent to formal Sol/ultra review.
+
 ### REQUEST W-EXAMPLE-001
 
 - From / to: manager thread
