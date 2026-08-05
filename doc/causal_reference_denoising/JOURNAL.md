@@ -3299,3 +3299,11 @@ hidden reasoning is not.
   or dependencies; no full scan or rt_server.
 - Next: commit/push request, create/record Luna/max worktree and publish issue
   #7 dispatch without polling any active task.
+
+### E-314 - Benchmark task creation accepted
+
+- Result: new visible Luna/max worktree setup accepted as
+  `client-new-thread:70b6de3a-9f69-407d-b46d-2d17ac2da778`.
+- Base/scope: exact `60b394ab2`, one example-main `--benchmark` edit; default
+  teaching mode immutable and no overlap with guide/queue review/plugin.
+- Next: commit/push creation evidence and publish/read back issue #7; no polling.

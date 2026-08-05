@@ -117,6 +117,9 @@ GREEN is published at
 Queue-test and example worker scoped blobs exactly match integration; both
 one-shot conversations were app-archived without worktree deletion.
 
+`W-BENCH-001` visible Luna/max setup was accepted from exact base `60b394ab2`
+as `client-new-thread:70b6de3a-9f69-407d-b46d-2d17ac2da778`.
+
 `R-QUEUE-001` visible Sol/ultra review setup was accepted from exact snapshot
 `3d7328683` as `client-new-thread:1030c8cd-96dd-4ad6-a650-927118f3d03f`.
 Manager will not poll; reviewer must proactively return its structured gate.

@@ -4248,6 +4248,18 @@ does not continuously poll them.
 - Lifecycle: one-shot; benchmark-result documentation follows after manager run.
 - Status: recorded and will be committed/pushed before visible task creation.
 
+### RESPONSE W-BENCH-001-CREATE
+
+- Result: new visible Luna/max benchmark worktree setup accepted asynchronously.
+- Client setup ID:
+  `client-new-thread:70b6de3a-9f69-407d-b46d-2d17ac2da778`; host `local`.
+- Exact base: `60b394ab2b30509e46b11c16ee3121d99488414b`.
+- Prompt integrity: one example-main edit, preserved default mode, exact
+  270/16/250/4/P64 workload, 100+1000 timing boundary, percentile/report/
+  performance/integrity gates and restrictions are present.
+- Coordination: no final thread ID yet; manager will not poll or edit example
+  main and awaits the proactive response after public dispatch.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread
