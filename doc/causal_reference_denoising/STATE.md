@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T20:32:00+08:00
+Last updated: 2026-08-05T20:42:00+08:00
 
 ## Recovery order
 
@@ -34,14 +34,14 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-`W-CORE-008` commit `e09e3da5c` passed manager commit-level review;
-integration and populated 40-check validation are pending.
+No worker is running. Strict LDLT commit `3faa0ca14` is GREEN with 40 passes;
+its one-shot implementation worktree remains pending verified cleanup.
 
 ## Next actions
 
-1. Commit/push the manager review record.
-2. Cherry-pick exact commit `e09e3da5c`.
-3. Require the synchronized 40-check report to remain GREEN.
+1. Commit/push P2 solver closure and the stable-RMS test request.
+2. Publish solver evidence and remove the clean implementation worktree.
+3. Dispatch `W-TEST-CORE-012` for large-finite/analytic RMS coverage.
 
 ## Focused verification targets
 

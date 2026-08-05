@@ -1743,3 +1743,45 @@ The manager records and forwards all cross-worker messages here before acting.
   existing sized LDLT object.
 - Decision: accept for cherry-pick and populated compile/runtime. P2 closes
   only if rank-one and poisoned-recovery cases remain GREEN in the 40-check run.
+
+### MANAGER VALIDATION W-CORE-008-GREEN
+
+- Integrated production commit: `3faa0ca14`.
+- Focused Release build: success; only known Eigen/MSVC C4819 warnings.
+- Synchronized Qt report: 40 passed, zero failed, process exit code zero.
+- Both loaded rank-one acceptance and poisoned-candidate rejection/recovery
+  remain GREEN under strict positivity/pivot gates.
+- Decision: close P2 `R-SOLVE-002`.
+
+### RETIREMENT REQUEST CLEANUP-014
+
+- Publish 40/0 strict-solver evidence to issue #2.
+- Verify detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-core-008` is clean at
+  `e09e3da5c` and its source content matches integrated `3faa0ca14`; remove it
+  through Git worktree management. The one-shot agent is not reusable.
+- Status: recorded before publish/cleanup.
+
+### REQUEST W-TEST-CORE-012
+
+- From / to: manager / stable RMS contract test worker.
+- Planned execution: detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-012` from current
+  integration HEAD; identifier recorded after dispatch.
+- Model/environment: `gpt-5.6-sol`, `high`; no nested subagents.
+- Blocking: yes for P2 `R-RMS-001`.
+- Task: add exactly one public-interface Qt slot with two sequential sections.
+  First, Bypass a finite block whose selected target values are alternating
+  `+/- DBL_MAX/4`; require exact block preservation, finite input/output RMS
+  equal to `DBL_MAX/4` within a relative tolerance, and zero noise RMS. Second,
+  train a one-tap one-reference model `y=2r` over one two-sample epoch with
+  regularization `1e-8`; ApplyOnly probe refs `[3,4]`, raw targets `[10,14]`.
+  Using `w=2/(1+1e-8)`, require diagnostics to match analytic input,
+  output-residual and actually-subtracted-noise RMS, finite output, exact ref,
+  generation one and zero probe update events.
+- Scope: test source only; exactly one slot, no production/header/CMake/plugin/
+  dependency or rt_server. Honest immediate GREEN is expected; do not force RED
+  or change the existing scaled-sum implementation.
+- Required response: `RESPONSE W-TEST-CORE-012` with commit, exact matrices and
+  RMS equations/tolerances, evidence/classification and no-subagent confirmation.
+- Status: request recorded before cleanup/worktree creation/dispatch.

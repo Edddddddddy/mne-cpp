@@ -47,7 +47,7 @@ Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
   failed epochs are discarded after aging committed stats. The same report is
   GREEN with 39 passes and zero failures.
 
-#### R-SOLVE-002 - P2 - Open
+#### R-SOLVE-002 - P2 - Closed
 
 - Location: `causalreferencedenoiser.cpp:187-200`.
 - Evidence: Eigen `Success` plus finite `D` does not prove strictly positive,
@@ -58,7 +58,9 @@ Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
   increment generation.
 - Progress: loaded rank-one characterization `d36491643` is GREEN in a 40/0
   report; invalid-candidate rejection/generation is covered by `d1ffa0904`.
-  The source acceptance predicate still needs strict hardening.
+  Source hardening `3faa0ca14` adds positive factorization, strict finite
+  positive pivots and finite RHS/weights before commit.
+- Resolution: synchronized report remains 40/0 GREEN after hardening.
 
 #### R-RMS-001 - P2 - Open
 

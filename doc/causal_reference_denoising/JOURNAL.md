@@ -1367,3 +1367,22 @@ hidden reasoning is not.
   allocation primitive.
 - Decision: accept `e09e3da5c`; commit the review, cherry-pick and require the
   synchronized 40/0 report before closing P2 `R-SOLVE-002`.
+
+### E-142 - Strict LDLT acceptance hardening is GREEN
+
+- Actor: manager.
+- Integrated production: `3faa0ca14`.
+- Evidence: focused Release build succeeds; synchronized report has 40 passes,
+  zero failures and exit code zero. Rank-one loaded acceptance and poisoned
+  candidate rejection/recovery both remain correct.
+- Review effect: close P2 `R-SOLVE-002`.
+- Next: publish/retire, then add the two-part stable RMS characterization.
+
+### E-143 - Stable RMS test request prepared
+
+- Actor: manager under TDD and P2 `R-RMS-001`.
+- Request: `W-TEST-CORE-012`, Sol/high, exactly one test slot/source and no
+  subagents; verify `DBL_MAX/4` Bypass RMS and analytic ApplyOnly input/output/
+  actually-subtracted-noise RMS for `w=2/(1+1e-8)`.
+- Next: commit/push, publish solver GREEN, clean its one-shot worktree, create a
+  fresh test worktree and dispatch.
