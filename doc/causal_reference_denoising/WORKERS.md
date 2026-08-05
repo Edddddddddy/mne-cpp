@@ -2138,3 +2138,12 @@ The manager records and forwards all cross-worker messages here before acting.
   cannot masquerade as evidence; manager Debug run is authoritative.
 - Scope/lifecycle: numeric data finalization remains; no subagents or rescope.
 - Next: continue same worker only.
+
+### RESPONSE W-TEST-CORE-014-GUARD-CORRECTION
+
+- Correction: Eigen 3.4 `set_is_malloc_allowed(bool)` returns the newly stored
+  value, not the previous state.
+- Implemented sequence: snapshot `is_malloc_allowed()` first; disable; call
+  process; immediately restore the snapshot. Both guarded regions use this
+  sequence.
+- Decision: accepted correction; no scope change. Await complete commit.

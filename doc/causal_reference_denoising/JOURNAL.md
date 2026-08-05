@@ -1666,3 +1666,12 @@ hidden reasoning is not.
   LDLT and committed ApplyOnly, with all allocations/assertions outside guards.
 - Release explicitly skips under `EIGEN_NO_DEBUG`; CMake defines runtime guard.
 - Decision: record and continue the same worker without expansion.
+
+### E-174 - Eigen malloc flag restoration corrected
+
+- Actor: `/root/w_test_core_014`.
+- Evidence: Eigen 3.4 Memory.h shows `set_is_malloc_allowed` returns the newly
+  stored value, not the prior one.
+- Correction: each test region snapshots `is_malloc_allowed()` before disabling
+  and restores that explicit snapshot immediately after process.
+- Next: await the complete clean test/CMake commit.
