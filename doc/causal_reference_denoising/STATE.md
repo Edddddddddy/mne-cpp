@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T22:48:00+08:00
+Last updated: 2026-08-05T23:00:00+08:00
 
 ## Recovery order
 
@@ -34,14 +34,15 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-No worker is running. Application fallback commit `2aac482d9` is GREEN with
-42 passes; its one-shot implementation worktree remains pending cleanup.
+`W-TEST-CORE-014` is active as `/root/w_test_core_014` on Sol/ultra in detached
+worktree `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-014` at
+`7c29b4f55`.
 
 ## Next actions
 
-1. Commit/push P2 closure and `W-TEST-CORE-014` malloc-guard request.
-2. Publish/cleanup the application-fallback milestone.
-3. Dispatch the focused Eigen runtime malloc-guard test on Sol/ultra.
+1. Await/review `RESPONSE W-TEST-CORE-014` without overlapping test/CMake edits.
+2. Integrate scoped guard test and build/run Debug for effective assertions.
+3. Require guard success before synthetic acceptance.
 
 ## Focused verification targets
 

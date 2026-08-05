@@ -2110,4 +2110,5 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-TEST-CORE-014` with commit, exact config/data
   and guarded regions, compile-definition/debug assertion explanation,
   evidence/infra limitation and no-subagent confirmation.
-- Status: request recorded before cleanup/worktree creation/dispatch.
+- Status: active as collaboration agent `/root/w_test_core_014`. Detached
+  worktree created clean at `7c29b4f55`; Sol/ultra accepted scoped request.

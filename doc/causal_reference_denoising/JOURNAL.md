@@ -1640,3 +1640,12 @@ hidden reasoning is not.
 - Cleanup: W-CORE-009 worktree was clean/content-matched and removed; its
   one-shot Sol/ultra agent will not be reused.
 - Next: create and dispatch the durable malloc-guard request.
+
+### E-171 - Hot-path malloc guard worker active
+
+- Actor: manager and `/root/w_test_core_014`.
+- Worktree/model: detached `mne-cpp-worker-w-test-core-014` at `7c29b4f55`,
+  Sol/ultra, one test slot plus focused CMake and no subagents.
+- Scope: effective Debug Eigen runtime guard across warmup+LDLT boundary and
+  committed ApplyOnly path; all buffers configured/preallocated before guard.
+- Next: await structured response without overlapping test/CMake edits.
