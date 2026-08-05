@@ -1178,3 +1178,12 @@ hidden reasoning is not.
   `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5189966843`
   records test commit, 38/1 evidence, failure semantics and the bounded P1 fix.
 - Next: continue waiting for `W-CORE-007`; no duplicate worker or scope change.
+
+### E-123 - Transactional worker status requested
+
+- Actor: manager.
+- Evidence: bounded waits show `/root/w_core_007` running; detached worktree is
+  still clean at `5eff9abb9` with no overlapping or out-of-scope edit.
+- Action: prepare a non-blocking progress/blocker request without changing the
+  implementation contract or dispatching a duplicate.
+- Next: commit/push, forward the status request, then continue bounded waiting.

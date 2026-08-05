@@ -1459,3 +1459,13 @@ The manager records and forwards all cross-worker messages here before acting.
   diff/evidence limitation, remaining findings and no-subagent confirmation.
 - Status: active as collaboration agent `/root/w_core_007`. Detached worktree
   created clean at `5eff9abb9`; Sol/ultra accepted the exact bounded request.
+
+### REQUEST W-CORE-007-STATUS
+
+- From / to: manager / `/root/w_core_007`.
+- Blocking: no; implementation scope remains unchanged.
+- Context: several bounded waits show the worker still running while its
+  detached worktree remains clean at the request base.
+- Question: at the next safe boundary, report concise progress, current design
+  choice and any blocker; do not broaden scope or spawn subagents.
+- Status: recorded before forwarding.
