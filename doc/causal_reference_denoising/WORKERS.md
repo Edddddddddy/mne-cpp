@@ -3557,3 +3557,16 @@ does not continuously poll them.
   notify the manager thread, then stop.
 - Lifecycle: one-shot; archive after accepted/integrated RED and content proof.
 - Status: recorded before visible task creation.
+
+### RESPONSE W-QUEUE-TEST-001-CREATE
+
+- Result: visible saved-project worktree creation accepted asynchronously.
+- Client setup ID:
+  `client-new-thread:424b1c1f-6d6a-4c9a-a380-39b3ce73abf2`.
+- Host/model: local, `gpt-5.6-luna`, `max`.
+- Exact branch base: `734d9951514274d9c795c45c1e179e3259659534`.
+- Prompt integrity: one test-source slot, exact A/B/C drop-newest/FIFO/deep-
+  copy/metadata-owner oracle, no FIFF construction/link, no production/CMake/
+  dependency/rt_server/subagent/polling and proactive manager RESPONSE.
+- Coordination: final thread ID was not returned and will not be polled; await
+  only the worker-pushed result.

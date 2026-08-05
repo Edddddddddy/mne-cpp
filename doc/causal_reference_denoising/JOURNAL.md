@@ -2809,3 +2809,14 @@ hidden reasoning is not.
   manager polling or rt_server.
 - Next: commit/push interface/request, create task, record identity and publish
   dispatch to issue #5.
+
+### E-270 - Queue tracer task creation accepted
+
+- Result: visible Luna/max worktree setup accepted as
+  `client-new-thread:424b1c1f-6d6a-4c9a-a380-39b3ce73abf2` from exact
+  `734d99515`.
+- Scope: one focused test-source RED slot for deep copy, capacity-two FIFO,
+  metadata control-block pairing, Full/drop-newest, Timeout and later reuse.
+- Coordination: no final thread ID, no polling or overlapping test edit;
+  worker must proactively send `RESPONSE W-QUEUE-TEST-001`.
+- Next: commit/push creation evidence and publish dispatch to issue #5.

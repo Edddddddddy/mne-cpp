@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T01:13:00+08:00
+Last updated: 2026-08-06T01:19:00+08:00
 
 ## Recovery order
 
@@ -53,15 +53,16 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 
 ## Running workers
 
-- `W-QUEUE-TEST-001` is prepared for a new visible Luna/max issue #5 tracer
-  conversation after this interface/request commit is pushed.
+- `W-QUEUE-TEST-001` visible Luna/max worktree setup is accepted asynchronously
+  as `client-new-thread:424b1c1f-6d6a-4c9a-a380-39b3ce73abf2` from exact base
+  `734d99515`; it must return one test-source RED tracer proactively.
 
 ## Next actions
 
-1. Dispatch recorded Luna/max `W-QUEUE-TEST-001` tracer, then publish it to
-   issue #5.
-2. After valid RED, dispatch a separate Sol/ultra queue implementation task.
-3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+1. Publish the queue tracer dispatch to issue #5.
+2. Await only worker-pushed `RESPONSE W-QUEUE-TEST-001`; do not poll.
+3. After valid RED, dispatch a separate Sol/ultra queue implementation task.
+4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 
