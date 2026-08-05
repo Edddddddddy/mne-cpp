@@ -83,6 +83,7 @@ private slots:
     void resetRestoresFreshConfiguredState();
     void nonLearningModesPreserveModelAndAdvanceHistory_data();
     void nonLearningModesPreserveModelAndAdvanceHistory();
+    void reportsDiagnosticsAcrossLifecycle();
 };
 
 //=============================================================================================================
@@ -799,6 +800,138 @@ void TestCausalReferenceDenoiser::nonLearningModesPreserveModelAndAdvanceHistory
             QVERIFY(probeBlock(row, column) == originalProbeBlock(row, column));
         }
     }
+}
+
+//=============================================================================================================
+
+void TestCausalReferenceDenoiser::reportsDiagnosticsAcrossLifecycle()
+{
+    CausalReferenceDenoiser denoiser;
+
+    MatrixXd unconfiguredBlock(3, 2);
+    unconfiguredBlock << 1.0, 2.0,
+                         3.0, 4.0,
+                         5.0, 6.0;
+    const MatrixXd originalUnconfiguredBlock = unconfiguredBlock;
+
+    const DenoiserProcessResult unconfiguredResult =
+        denoiser.process(unconfiguredBlock, DenoisingMode::ApplyAndLearn);
+    const DenoiserProcessDiagnostics& unconfiguredDiagnostics =
+        unconfiguredResult.diagnostics;
+
+    QVERIFY(unconfiguredResult.status == DenoiserProcessStatus::NotConfigured);
+    QVERIFY((unconfiguredBlock.array() == originalUnconfiguredBlock.array()).all());
+    QVERIFY(unconfiguredDiagnostics.referenceRowCount == 0);
+    QVERIFY(unconfiguredDiagnostics.targetRowCount == 0);
+    QVERIFY(unconfiguredDiagnostics.featureCount == 0);
+    QVERIFY(unconfiguredDiagnostics.warmupSamplesRemaining == 0);
+    QVERIFY(unconfiguredDiagnostics.modelGeneration == 0);
+    QVERIFY(unconfiguredDiagnostics.modelUpdatesAccepted == 0);
+    QVERIFY(unconfiguredDiagnostics.modelUpdatesRejected == 0);
+    QVERIFY(std::isnan(unconfiguredDiagnostics.inputRms));
+    QVERIFY(std::isnan(unconfiguredDiagnostics.outputRms));
+    QVERIFY(std::isnan(unconfiguredDiagnostics.estimatedNoiseRms));
+
+    CausalReferenceDenoiserConfig config;
+    config.samplingFrequencyHz = 1000.0;
+    config.channelCount = 3;
+    config.maxBlockSamples = 2;
+    config.referenceRows = VectorXi(1);
+    config.referenceRows << 0;
+    config.targetRows = VectorXi(1);
+    config.targetRows << 1;
+    config.tapCount = 3;
+    config.adaptationIntervalSamples = 2;
+    config.memoryTimeSeconds = 30.0;
+    config.regularization = 1e-3;
+    QVERIFY(denoiser.configure(config) == DenoiserStatus::Configured);
+
+    MatrixXd bypassWarmupBlock(3, 1);
+    bypassWarmupBlock << 1.0,
+                         3.0,
+                         5.0;
+    const MatrixXd originalBypassWarmupBlock = bypassWarmupBlock;
+    const DenoiserProcessResult bypassWarmupResult =
+        denoiser.process(bypassWarmupBlock, DenoisingMode::BypassTrackHistory);
+
+    QVERIFY(bypassWarmupResult.status == DenoiserProcessStatus::Bypassed);
+    QVERIFY((bypassWarmupBlock.array() == originalBypassWarmupBlock.array()).all());
+    QVERIFY(bypassWarmupResult.diagnostics.referenceRowCount == 1);
+    QVERIFY(bypassWarmupResult.diagnostics.targetRowCount == 1);
+    QVERIFY(bypassWarmupResult.diagnostics.featureCount == 3);
+    QVERIFY(bypassWarmupResult.diagnostics.warmupSamplesRemaining == 1);
+    QVERIFY(bypassWarmupResult.diagnostics.modelGeneration == 0);
+    QVERIFY(bypassWarmupResult.diagnostics.modelUpdatesAccepted == 0);
+    QVERIFY(bypassWarmupResult.diagnostics.modelUpdatesRejected == 0);
+    QVERIFY(bypassWarmupResult.diagnostics.inputRms == 3.0);
+    QVERIFY(bypassWarmupResult.diagnostics.outputRms == 3.0);
+    QVERIFY(bypassWarmupResult.diagnostics.estimatedNoiseRms == 0.0);
+
+    MatrixXd applyOnlyWarmupBlock(3, 1);
+    applyOnlyWarmupBlock << 2.0,
+                           -4.0,
+                           6.0;
+    const MatrixXd originalApplyOnlyWarmupBlock = applyOnlyWarmupBlock;
+    const DenoiserProcessResult applyOnlyWarmupResult =
+        denoiser.process(applyOnlyWarmupBlock, DenoisingMode::ApplyOnly);
+
+    QVERIFY(applyOnlyWarmupResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY((applyOnlyWarmupBlock.array() == originalApplyOnlyWarmupBlock.array()).all());
+    QVERIFY(applyOnlyWarmupResult.diagnostics.referenceRowCount == 1);
+    QVERIFY(applyOnlyWarmupResult.diagnostics.targetRowCount == 1);
+    QVERIFY(applyOnlyWarmupResult.diagnostics.featureCount == 3);
+    QVERIFY(applyOnlyWarmupResult.diagnostics.warmupSamplesRemaining == 0);
+    QVERIFY(applyOnlyWarmupResult.diagnostics.modelGeneration == 0);
+    QVERIFY(applyOnlyWarmupResult.diagnostics.modelUpdatesAccepted == 0);
+    QVERIFY(applyOnlyWarmupResult.diagnostics.modelUpdatesRejected == 0);
+    QVERIFY(applyOnlyWarmupResult.diagnostics.inputRms == 4.0);
+    QVERIFY(applyOnlyWarmupResult.diagnostics.outputRms == 4.0);
+    QVERIFY(applyOnlyWarmupResult.diagnostics.estimatedNoiseRms == 0.0);
+
+    MatrixXd learningBlock(3, 2);
+    learningBlock << 3.0, 4.0,
+                     5.0, -12.0,
+                     7.0, 8.0;
+    const MatrixXd originalLearningBlock = learningBlock;
+    const DenoiserProcessResult learningResult =
+        denoiser.process(learningBlock, DenoisingMode::ApplyAndLearn);
+    const double expectedLearningRms = std::sqrt(84.5);
+
+    QVERIFY(learningResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY((learningBlock.array() == originalLearningBlock.array()).all());
+    QVERIFY(learningResult.diagnostics.referenceRowCount == 1);
+    QVERIFY(learningResult.diagnostics.targetRowCount == 1);
+    QVERIFY(learningResult.diagnostics.featureCount == 3);
+    QVERIFY(learningResult.diagnostics.warmupSamplesRemaining == 0);
+    QVERIFY(learningResult.diagnostics.modelGeneration == 1);
+    QVERIFY(learningResult.diagnostics.modelUpdatesAccepted == 1);
+    QVERIFY(learningResult.diagnostics.modelUpdatesRejected == 0);
+    QVERIFY(std::abs(learningResult.diagnostics.inputRms - expectedLearningRms) <= 1e-12);
+    QVERIFY(std::abs(learningResult.diagnostics.outputRms - expectedLearningRms) <= 1e-12);
+    QVERIFY(learningResult.diagnostics.estimatedNoiseRms == 0.0);
+
+    denoiser.reset();
+
+    MatrixXd resetBypassBlock(3, 1);
+    resetBypassBlock << -2.0,
+                         9.0,
+                        10.0;
+    const MatrixXd originalResetBypassBlock = resetBypassBlock;
+    const DenoiserProcessResult resetBypassResult =
+        denoiser.process(resetBypassBlock, DenoisingMode::BypassTrackHistory);
+
+    QVERIFY(resetBypassResult.status == DenoiserProcessStatus::Bypassed);
+    QVERIFY((resetBypassBlock.array() == originalResetBypassBlock.array()).all());
+    QVERIFY(resetBypassResult.diagnostics.referenceRowCount == 1);
+    QVERIFY(resetBypassResult.diagnostics.targetRowCount == 1);
+    QVERIFY(resetBypassResult.diagnostics.featureCount == 3);
+    QVERIFY(resetBypassResult.diagnostics.warmupSamplesRemaining == 1);
+    QVERIFY(resetBypassResult.diagnostics.modelGeneration == 0);
+    QVERIFY(resetBypassResult.diagnostics.modelUpdatesAccepted == 0);
+    QVERIFY(resetBypassResult.diagnostics.modelUpdatesRejected == 0);
+    QVERIFY(resetBypassResult.diagnostics.inputRms == 9.0);
+    QVERIFY(resetBypassResult.diagnostics.outputRms == 9.0);
+    QVERIFY(resetBypassResult.diagnostics.estimatedNoiseRms == 0.0);
 }
 
 //=============================================================================================================
