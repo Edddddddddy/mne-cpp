@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T12:49:00+08:00
+Last updated: 2026-08-05T12:56:00+08:00
 
 ## Recovery order
 
@@ -33,14 +33,14 @@ atomic selected-NaN/Inf pass-through with state immutability.
 
 ## Running workers
 
-`W-TEST-CORE-005` is active on Luna/max in worktree `e95c`; completed
-`W-CORE-004` and its interrupted nested threads are archived.
+`W-TEST-CORE-005` returned commit `9ef2ffe08`; manager static review accepted
+the two-row state-immutability test for integration and RED reproduction.
 
 ## Next actions
 
-1. Wait for `RESPONSE W-TEST-CORE-005`.
-2. Review and reproduce atomic nonfinite RED.
-3. Dispatch the small production fix only after valid RED.
+1. Cherry-pick `9ef2ffe08` and reproduce compile RED.
+2. Archive the one-shot test worker.
+3. Dispatch the small Luna/max production fix only after valid RED.
 
 ## Focused verification targets
 

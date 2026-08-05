@@ -624,4 +624,22 @@ The manager records and forwards all cross-worker messages here before acting.
   chunk, reset, malloc, or diagnostics cases.
 - Required response: `RESPONSE W-TEST-CORE-005` with commit, rows, state-proof
   sequence, expected RED, and limitations.
-- Status: active; direct snapshot confirmed TDD record recovery.
+- Status: response received; pending main-workspace RED reproduction.
+
+### RESPONSE W-TEST-CORE-005
+
+- Commit: `9ef2ffe089076def3683b3a0f8d5fdd13cff77a2`.
+- Changed file: `test_causal_reference_denoiser.cpp` only.
+- Rows: `selected_reference_nan` and
+  `selected_target_positive_infinity`.
+- Proof: identical control/subject are primed to one eligible epoch sample;
+  subject alone rejects a bad block with NaN/Inf-aware exact preservation;
+  identical continuation completes the epoch, and an ApplyOnly probe must
+  match control within `1e-12` with residual `<=1e-4`.
+- Worker evidence: diff check passed; clean configure stopped at ignored Eigen
+  baseline before target generation. Expected RED is missing
+  `DenoiserProcessStatus::NonFiniteInput`.
+- Scope/lifecycle: no production/CMake, rt_server, or subagents.
+- Manager static review: the sequence detects history, epoch-statistic, and
+  model mutation while preserving explicit nonfinite payload semantics.
+  Accepted for cherry-pick.

@@ -564,3 +564,12 @@ hidden reasoning is not.
 - Result: Luna/max is active with one-file test-only scope and explicit no-
   subagent instruction.
 - Next: wait for `RESPONSE W-TEST-CORE-005`.
+
+### E-059 - Atomic nonfinite test response reviewed
+
+- Actor: `W-TEST-CORE` and manager.
+- Response: `RESPONSE W-TEST-CORE-005`, commit `9ef2ffe08`.
+- Evidence: one file, two data rows, control/subject continuation and probe
+  comparison proves all relevant streaming state is unchanged by rejection.
+- Decision: accept for integration and require missing-`NonFiniteInput` RED.
+- Next: cherry-pick and build only the focused target.
