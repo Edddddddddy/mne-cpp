@@ -6,9 +6,13 @@
   correction, and required verification.
 - P0/P1 must be fixed before integration completes.
 - P2 must be fixed or explicitly deferred in the GitHub issue.
-- Reviewers use `gpt-5.6-sol` with `ultra` reasoning and do not edit code.
-- Fixes are returned to the owning Luna/max worker through a logged
-  `REQUEST`/`RESPONSE` exchange.
+- Reviewers run in dedicated user-visible work conversations using
+  `gpt-5.6-sol` with `ultra` reasoning and do not edit code.
+- The manager conversation does not spawn internal review subagents or
+  continuously poll reviewers. Reviewers send their final structured RESPONSE
+  back to the manager.
+- Fixes are returned to a new or still-relevant Luna/max or Sol implementation
+  conversation through a logged `REQUEST`/`RESPONSE` exchange.
 
 ## Core numerical review
 

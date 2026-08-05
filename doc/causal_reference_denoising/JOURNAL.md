@@ -2088,3 +2088,52 @@ hidden reasoning is not.
   target twice it and probe `17->34`; all row-preservation/diagnostics/RED scope
   remains unchanged.
 - Next: commit/push and forward immediately to the same worker; no duplicate.
+
+### E-213 - Plugin tracer correction acknowledged
+
+- Actor: `/root/w_test_plugin_data_001`.
+- Response: interval/max 16 and the 6x16/probe data are accepted before commit;
+  original scope/dependency/RED/no-production/no-subagent rules remain.
+- Decision: continue the same worker only.
+
+### E-214 - User corrected the development topology and delivery priority
+
+- Actor: user and manager.
+- Problem: the manager incorrectly dispatched the plugin tracer through an
+  internal subagent. The required topology is a Sol/ultra manager conversation
+  with no subagents, multiple GitHub issues agreed first, visible work
+  conversations for minimal implementation blocks, and separate visible review
+  conversations.
+- Coordination rule: conversations exchange durable `REQUEST`/`RESPONSE`
+  messages; workers push completion/questions back to the manager, which does
+  not continuously poll them. Every decision/result remains on disk, and every
+  context recovery reads the five files in the specified order.
+- Priority change: finish an engineering MVP rapidly. Existing numerical
+  effect gates remain regression tests; do not tune the algorithm further
+  before processor/queue/plugin/UI/example delivery and user acceptance.
+- Decision: effective immediately. Stop internal subagent dispatch and first
+  summarize progress plus agree the child-issue plan.
+
+### E-215 - Failed internal plugin worker audited and superseded
+
+- Actor: manager.
+- Failure: `/root/w_test_plugin_data_001` ended with a backend stream
+  disconnect before a final response.
+- Repository evidence: its detached worktree is clean at exact `cdc07b283`;
+  there is no worker code, commit, staging or partial modification to recover.
+- Decision: mark `W-TEST-PLUGIN-DATA-001` superseded and do not retry it as a
+  subagent. No implementation worker is active. Retire the clean detached
+  worktree only after this audit is committed.
+
+### E-216 - Remaining engineering work proposed as five child issues
+
+- Actor: manager under the corrected topology.
+- Parent: retain GitHub issue #2 as the feature epic and completed numerical-
+  core evidence holder.
+- Proposed children: processor/mapping/tests; nonblocking queue/lifecycle;
+  plugin shell/settings/minimal UI; example/benchmark/learning docs; focused
+  integration/P3/final review.
+- Delivery sequence: complete processor and queue first, then a buildable
+  plugin MVP, then supporting learning artifacts and final review.
+- Next: commit/push this durable correction and present the evidence-backed
+  current status and proposed split to the user before creating issues.

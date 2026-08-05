@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T19:40:00+08:00
+Last updated: 2026-08-05T20:25:00+08:00
 
 ## Recovery order
 
@@ -19,11 +19,19 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-Core numerical contracts, effective Debug Eigen malloc guard and quantitative
-synthetic acceptance are GREEN. Release reports 44 passes, zero failures and
-one intentional guard skip, with 58.6541 dB noise reduction and 0.000113195
-clean projection-amplitude error. Formal review has P0/P1 zero; its sole P2 is
-now GREEN through an independent analytic forgetting oracle. Core gate passed.
+The Eigen numerical core is complete and reviewed. Release reports 44 passes,
+zero failures and one intentional Debug-only guard skip; Debug reports 45
+passes, zero failures/skips. The measured synthetic result is 58.6541 dB noise
+reduction and 0.000113195 clean projection-amplitude error. Formal review has
+P0/P1/P2 zero open; two P3 integration items remain tracked.
+
+Development is paused at the plugin-data boundary while the execution topology
+is corrected. The manager conversation must use Sol/ultra and must not create
+internal subagents. Remaining code is organized as GitHub child issues first,
+then dispatched as minimal REQUESTs to new user-visible work conversations.
+Dedicated user-visible review conversations inspect returned commits. The
+manager does not continuously poll worker conversations; workers return a
+structured RESPONSE to the manager when complete.
 
 ## Completed
 
@@ -36,16 +44,23 @@ now GREEN through an independent analytic forgetting oracle. Core gate passed.
 
 ## Running workers
 
-- `/root/w_test_plugin_data_001`: Sol/high, one-shot first plugin-data RED
-  tracer in detached
-  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-plugin-data-001` at exact
-  `cdc07b283`; test/CMake only, no subagents.
+- None. Internal subagent `/root/w_test_plugin_data_001` failed with a stream
+  disconnect before producing code and is superseded by the visible-work-
+  conversation policy. Its detached worktree was verified clean at
+  `cdc07b283` before retirement.
 
 ## Next actions
 
-1. Receive/review/integrate the behavioral FIFF-kind/bad-row RED tracer.
-2. Implement the minimal worker-owned processor/configure seam to GREEN.
-3. Add the nonblocking drop-newest queue tracer/implementation next.
+1. Review the proposed GitHub child-issue split with the user; keep issue #2 as
+   the feature epic.
+2. Create the agreed child issues and link their dependency/order from #2.
+3. Dispatch the first minimal plugin-processor test task to a new visible work
+   conversation using Luna/max or Sol as risk requires.
+4. Receive its explicit RESPONSE without polling, then open a separate visible
+   Sol/ultra review conversation before integration.
+5. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+   shell and minimal controls. Do not spend further time tuning algorithm
+   quality now that the existing effect gates are GREEN.
 
 ## Focused verification targets
 

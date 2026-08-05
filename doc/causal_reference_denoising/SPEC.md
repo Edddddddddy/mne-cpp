@@ -12,6 +12,31 @@ learning project for streaming state, fixed update epochs, and Eigen matrix
 operations. HFC, rSSS/AdaptiveTSSS, ICA/ORICA, synthetic-reference discovery,
 and `mne_rt_server` integration are not part of v1.
 
+## Delivery priority
+
+The v1 schedule is engineering-first. The numerical effect gates are already
+GREEN and are retained as regression tests, but no further estimator tuning or
+additional denoising algorithms block delivery. Remaining effort is ordered by
+integration risk: deterministic processor mapping and safe pass-through,
+nonblocking acquisition/worker lifecycle, buildable plugin shell, minimal
+controls/diagnostics, then example/benchmark/learning documentation. The user
+accepts the focused targets and example; full `mne_scan + mne_rt_server` is not
+required.
+
+The proposed GitHub work breakdown keeps issue #2 as the feature epic and uses
+five remaining child issues:
+
+1. Plugin processor, channel mapping and focused adapter tests.
+2. Nonblocking drop-newest queue and processing-thread lifecycle.
+3. `scan_adaptivedenoising` plugin shell, block-boundary settings and minimal UI.
+4. Synthetic example, real-time benchmark and Eigen/streaming learning docs.
+5. Focused integration verification, tracked P3 closure and final review.
+
+Each child issue is split into reviewable minimal REQUEST blocks. Tests and
+production GREEN changes are separate blocks where practical, but speed takes
+precedence over mechanically forcing RED when an existing public contract
+already has adequate regression coverage.
+
 ## Research and licensing
 
 - Signal model: de Cheveigne and Simon, *Denoising based on Time-Shift PCA*:
@@ -336,14 +361,27 @@ disabled maps to BypassTrackHistory so causal reference history continues.
 
 ## Worker lifecycle and model selection
 
-- The manager decides whether a worker conversation remains reusable after its
-  response is integrated. Keep conversations whose same responsibility and
-  context remain useful; retire one-shot, failed, superseded, or stale-worktree
-  conversations after their evidence is durable.
+- The manager is this user-visible conversation, requested to run on
+  `gpt-5.6-sol` with ultra reasoning. It controls direction, GitHub issues,
+  integration and final acceptance and does not create internal subagents.
+- Implementation and review work run in newly created user-visible work
+  conversations with independent worktrees. The manager decides whether a
+  work conversation remains reusable after its response is integrated. Keep
+  conversations whose same responsibility and context remain useful; retire
+  one-shot, failed, superseded, or stale-worktree conversations after their
+  evidence is durable.
+- A worker receives one logged `REQUEST <id>` and, on completion, first writes
+  `RESPONSE <id>` evidence to the durable ledger, then sends that response to
+  the manager conversation. The manager does not continuously poll work
+  conversations. Cross-conversation questions use the same REQUEST/RESPONSE
+  envelope and are relayed by the manager.
+- A dedicated visible Sol/ultra review conversation reviews each milestone
+  commit without editing it. Findings return to a new or still-relevant
+  implementation conversation; the review conversation never owns fixes.
 - The current app exposes thread archiving rather than hard deletion. Archive
-  non-reusable workers; use hard deletion instead if a supported thread-delete
-  operation becomes available. Never remove app-owned worktrees manually as a
-  substitute for conversation lifecycle management.
+  non-reusable work conversations; use hard deletion instead if a supported
+  thread-delete operation becomes available. Never remove app-owned worktrees
+  manually as a substitute for conversation lifecycle management.
 - Test and implementation workers default to `gpt-5.6-luna` at `max`, the
   highest supported Luna effort. Use `gpt-5.6-sol` when the manager judges the
   task to require independent high-risk reasoning, especially numerical math,

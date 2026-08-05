@@ -1,8 +1,11 @@
 # Worker Ledger
 
-The manager owns the integration branch. Implementation workers use separate
-worktrees, Luna/max, one minimal responsibility, and return reviewable commits.
-Review workers use Sol/ultra and do not implement fixes.
+The user-visible manager conversation owns direction, GitHub issues and the
+integration branch. It runs on Sol/ultra and does not create internal
+subagents. Implementation work conversations use separate worktrees,
+Luna/max or manager-selected Sol, one minimal responsibility, and return
+reviewable commits. Dedicated visible review conversations use Sol/ultra and
+do not implement fixes.
 
 ## Message protocol
 
@@ -14,7 +17,9 @@ RESPONSE <id>
 from / to / conclusion / evidence / affected files or commit / next action
 ```
 
-The manager records and forwards all cross-worker messages here before acting.
+The manager records and forwards all cross-conversation messages here before
+acting. Workers send a structured RESPONSE back when complete; the manager
+does not continuously poll them.
 
 ## Lifecycle and model policy
 
@@ -2627,3 +2632,36 @@ The manager records and forwards all cross-worker messages here before acting.
   generation, exact non-target and `<=1e-5` residual oracles.
 - Other scope/CMake/dependency/RED/no-subagent rules are unchanged.
 - Status: recorded before forwarding.
+
+### RESPONSE W-TEST-PLUGIN-DATA-001-CORRECTION
+
+- Worker confirmed the correction before commit: max block/interval 16,
+  6x16 training and future good-ref/target probe 17/34.
+- Original one-slot, isolated dependency, intended RED, no-production and
+  no-subagent constraints remain accepted.
+
+### SYSTEM FAILURE W-TEST-PLUGIN-DATA-001
+
+- Transport used: internal collaboration subagent `/root/w_test_plugin_data_001`.
+- Result: stream disconnected before completion; no RESPONSE, commit, staged
+  change or worktree modification exists.
+- Audit: detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-plugin-data-001` is clean at
+  exact `cdc07b283`.
+- Decision: the request is superseded, not retried. More importantly, this
+  transport is invalid for the user-required topology. The manager will not
+  create further internal subagents.
+
+### USER DIRECTION TOPOLOGY-001
+
+- Manager: this visible conversation, Sol/ultra, no internal subagents.
+- Planning order: discuss the work breakdown, create multiple linked GitHub
+  issues, then issue minimal logged REQUESTs to newly created visible work
+  conversations using Luna/max or Sol according to risk.
+- Review: separate visible Sol/ultra conversations; reviewers do not fix.
+- Coordination: worker completion/question is pushed back as RESPONSE; no
+  continuous manager polling.
+- Priority: engineering MVP and rapid end-to-end delivery first. Existing
+  algorithm-quality results remain regression evidence, not a reason for more
+  numerical tuning before user acceptance.
+- Status: effective immediately; no new worker is active.
