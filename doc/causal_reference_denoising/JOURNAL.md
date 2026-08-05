@@ -3111,3 +3111,29 @@ hidden reasoning is not.
   immutable, and no full scan or rt_server is authorized.
 - Next: commit/push the request, send it to the retained task with the exact
   new branch base, then publish/read back the dispatch without polling.
+
+### E-296 - Final queue validation follow-up accepted
+
+- Result: retained visible thread
+  `019fd2e0-188f-7a62-a89c-7ceefa15f6cd` accepted
+  `REQUEST W-QUEUE-TEST-003` with explicit Luna/max.
+- Base/scope: exact `701f5bed9`, one focused test source/slot and no production
+  or CMake changes. The worker must realign only its clean detached worktree.
+- Coordination: no manager polling or overlapping test edit; worker will send
+  a proactive structured response and then stop.
+- Next: commit/push dispatch evidence and publish/read back issue #5; continue
+  only disjoint documentation/example management while the test is active.
+
+### E-297 - Focused example response received
+
+- Actor: visible Luna/max thread
+  `019fd2e5-43ca-79c3-822c-20ef795608f1` and manager.
+- Delta: exact-base `708db5425`, examples registration plus new example
+  CMake/main only. It demonstrates R/M/P=2/1/8, causal tap-major data, bypass
+  warmup, learning epochs, ApplyOnly freeze and reset through public numerical
+  behavior with non-target preservation checks.
+- Dependency seam: numerical source direct compile, Qt Core/Eigen only; worker
+  correctly reports its isolated ignored-Eigen configure block without repair
+  or a fabricated runtime result.
+- Next: commit/push response, inspect exact three-file diff and teaching/runtime
+  assertions, then integrate and run populated Release only if accepted.

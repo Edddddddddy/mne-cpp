@@ -3994,6 +3994,21 @@ does not continuously poll them.
   after manager integration/GREEN/content verification.
 - Status: recorded and will be committed/pushed before follow-up dispatch.
 
+### RESPONSE W-QUEUE-TEST-003-DISPATCH
+
+- Result: follow-up accepted by retained visible task
+  `019fd2e0-188f-7a62-a89c-7ceefa15f6cd`.
+- Model: explicit `gpt-5.6-luna`, `max` as required by the user.
+- Exact requested base: `701f5bed955fde2050438e6e4d8440f6fbe1766b`;
+  worker must first prove its task worktree clean, fetch if required, and detach
+  at that integration commit before editing.
+- Prompt integrity: one test slot/file, exact configuration/producer/consumer
+  invalid-state oracles, valid null-metadata capacity-one recovery, no timing,
+  production/CMake/vendor/full-scan/rt_server/subagent/polling restrictions and
+  proactive RESPONSE are all present.
+- Coordination: manager will not poll or edit the focused test source. Formal
+  review starts only after this response is inspected, integrated and GREEN.
+
 ### REQUEST W-EXAMPLE-001
 
 - From / to: manager thread
@@ -4115,3 +4130,27 @@ does not continuously poll them.
 - Lifecycle: one-shot; benchmark results may later be appended by a different
   task after manager review.
 - Status: recorded before visible task creation.
+
+### RESPONSE W-EXAMPLE-001
+
+- From / to: visible Luna/max example thread
+  `019fd2e5-43ca-79c3-822c-20ef795608f1` / manager.
+- Exact base/commit: `473d9eeeda55ab280771b24b2a0b2b7b4e803995` /
+  `708db5425ad0ae8c653ad3df3f29ff9187ace1ba`; parent is the requested base.
+- Scope: examples registration plus new focused example CMake/main only; clean
+  detached worker state and diff checks pass.
+- Stream: four channel rows, two references, one target and one preserved row;
+  1000 Hz, four taps, 128-sample epochs/blocks, 30 s memory, 1e-3 loading,
+  therefore R/M/P=2/1/8. Deterministic global-index reference functions feed
+  tap-major environmental weights plus a clean 7 Hz sinusoid.
+- Stages: two-sample Bypass warmup; five continuous ApplyAndLearn blocks;
+  continuing ApplyOnly freeze; reset followed by one-sample Bypass. Each stage
+  asserts status, row preservation, finite target, diagnostics/events and the
+  expected generation/warmup invariants, exiting nonzero on violation.
+- Dependencies: directly compiles the numerical source, includes libraries,
+  defines the rtprocessing export macro and links only Qt Core plus Eigen; no
+  rtprocessing/FIFF/scan/scShared/scMeas link.
+- Worker evidence: isolated configure is blocked before target generation by
+  the known ignored Eigen baseline gap, with no dependency/vendor repair or
+  runtime claim. Luna/max, no subagent, polling, full scan or rt_server.
+- Status: response recorded before manager provenance/diff review or integration.

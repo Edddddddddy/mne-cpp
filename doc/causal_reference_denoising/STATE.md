@@ -83,6 +83,10 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 `da315d81e`; its one-shot conversation may be reused for the immediately
 adjacent queue-validation slice only.
 
+`W-QUEUE-TEST-003` was dispatched to that retained Luna/max conversation
+`019fd2e0-188f-7a62-a89c-7ceefa15f6cd` from exact base `701f5bed9`.
+Manager will not poll or overlap its focused test-source edit.
+
 Non-overlapping issue #7 work is prepared as `W-EXAMPLE-001`: a focused
 Eigen/streaming example target that directly exercises the completed numerical
 interface without FIFF, full mne_scan or mne_rt_server.
@@ -92,6 +96,10 @@ Dispatch: `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-51948814
 
 `W-DOC-001` is prepared as a separate Luna/max task adding one learning guide;
 it is disjoint from active queue-test and example files.
+`W-EXAMPLE-001` proactively returned exact-base Luna/max commit `708db5425`
+from visible thread `019fd2e5-43ca-79c3-822c-20ef795608f1`; it adds only the
+registered focused example CMake/main files. Manager diff review and populated
+Release build/run are pending before integration.
 3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
