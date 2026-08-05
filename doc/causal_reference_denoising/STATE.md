@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T17:34:00+08:00
+Last updated: 2026-08-05T17:44:00+08:00
 
 ## Recovery order
 
@@ -33,13 +33,14 @@ semantics are GREEN. Next is fixed-size diagnostics/solve-rejection design.
 
 ## Running workers
 
-Diagnostics lifecycle compile RED is integrated. Fresh replacement
-`W-CORE-006-R` is active as `/root/w_core_006_r` on Sol/high.
+Diagnostics lifecycle compile RED is integrated. Replacement `W-CORE-006-R`
+also hit a response-stream disconnect, but its complete two-file implementation
+passed manager static review and was recovered as commit `eb342faf5`.
 
 ## Next actions
 
-1. Wait for `RESPONSE W-CORE-006-R`.
-2. Review/integrate only a complete header/source response.
+1. Commit the durable recovery SHA and cherry-pick `eb342faf5`.
+2. Run the focused build and synchronized report.
 3. Integrate and validate diagnostics lifecycle GREEN before the separate
    transactional solve-rejection RED.
 

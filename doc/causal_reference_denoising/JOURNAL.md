@@ -1041,3 +1041,33 @@ hidden reasoning is not.
 - Limitation: runtime is manager-owned due the documented ignored Eigen baseline.
 - Scope: no subagents; original bounded slice unchanged.
 - Next: wait for commit/structured response without duplicate work.
+
+### E-109 - Replacement response transport failed after implementation
+
+- Actor: `/root/w_core_006_r` runtime and manager.
+- Result: final response stream disconnected, but two scoped numerical files
+  remain modified and diff-check clean in the isolated worktree.
+- Decision: preserve and review the complete diff; do not reopen implementation.
+  Manager may create a recovery commit only after verifying every branch of the
+  selected lifecycle contract.
+
+### E-110 - Diagnostics implementation recovery diff accepted
+
+- Actor: manager using codebase-design/TDD and the selected diagnostics seam.
+- Review: exact two-file scope; all early-return snapshots, post-call warmup,
+  event/generation aggregation and scaled RMS paths match the RED contract.
+- Real-time check: no explicit allocation/lock/string path added; later
+  transactional/app-overflow findings remain intentionally open.
+- Decision: commit the existing isolated diff as manager recovery without
+  editing it, then integrate and validate.
+
+### E-111 - Diagnostics implementation recovered as a commit
+
+- Actor: manager in the detached replacement worktree.
+- Commit: `eb342faf5`, exactly the accepted numerical header/source diff.
+- Evidence: worktree is clean after commit; no production edit was added during
+  recovery and no worker runtime claim is inferred.
+- Note: a document commit attempted from the detached worktree had no staged
+  document change, as expected; the main-workspace durable record remains
+  intact and is committed before cherry-pick.
+- Next: integrate `eb342faf5` and run the focused target/report.

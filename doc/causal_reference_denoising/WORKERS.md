@@ -1270,3 +1270,47 @@ The manager records and forwards all cross-worker messages here before acting.
   no focused build directory, so runtime GREEN remains manager-owned.
 - Lifecycle: no subagents.
 - Next: finish static review, commit, and return structured response.
+
+### RESPONSE W-CORE-006-R-ERROR
+
+- Result: final response transport disconnected before structured completion.
+- Difference from the first failure: numerical header/source implementation is
+  present in the isolated worktree, exactly two files and diff-check clean.
+- Classification: external response transport failure; implementation is not
+  yet accepted or discarded.
+- Decision: do not duplicate or delete. Manager will inspect the entire diff;
+  if it satisfies the durable request, create a recovery commit in that
+  worktree and validate it in the populated workspace.
+
+### MANAGER RECOVERY REVIEW W-CORE-006-R
+
+- Scope: accepted; only `causalreferencedenoiser.h/.cpp`, 134 insertions and 21
+  deletions, diff-check clean.
+- Interface/early returns: exact selected fixed struct and NotConfigured;
+  unconfigured uses zero snapshot/NaN RMS, while shape/nonfinite use committed
+  snapshot, zero events and NaN RMS before mutation.
+- Valid aggregation: input targets accumulate before modification, outputs
+  after processing, and prediction RMS includes only actually subtracted
+  predictions with implicit zeros for warmup/bypass.
+- Stable RMS: scale plus normalized sum-of-squares avoids direct squaring and
+  returns zero for an all-zero prediction stream.
+- State: solve returns bool; accepted/rejected counts are call-local and only
+  accepted boundaries increment cumulative generation; reset clears it.
+- Real-time review: stack scalars/aggregate results and existing preallocated
+  Eigen state only; no explicit allocation, locks or strings were added.
+- Known open scope: poisoned in-place `G/H`, strict-positive LDLT and application
+  overflow remain the recorded later findings.
+- Decision: create a manager recovery commit in the isolated worktree without
+  further edits, then cherry-pick and validate in the populated workspace.
+
+### RESPONSE W-CORE-006-R-RECOVERY
+
+- Recovery commit: `eb342faf5c8e91fbcef29944bd1b9764a52e2bb4`.
+- Author/action: manager committed the already reviewed two-file worktree diff
+  after both implementation agents' response transports failed; no code edit
+  was made during recovery.
+- Worktree state: clean detached HEAD after commit.
+- Scope/evidence: numerical header/source only, diff-check clean; implementation
+  evidence and known limitations are captured in the recovery review above.
+- Next: integrate and run populated-workspace compile/runtime; no worker GREEN
+  is claimed.
