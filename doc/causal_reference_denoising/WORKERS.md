@@ -2917,3 +2917,25 @@ does not continuously poll them.
 - Model/process policy: Luna/max, no subagents, no manager polling, no
   mne_rt_server.
 - Status: response recorded before manager inspects the worker diff.
+
+### MANAGER REVIEW W-PROC-GREEN-001
+
+- Provenance/scope: exact clean worker HEAD `46b600f910` has requested parent
+  `9a99e80c3`; diff is only processor header/source plus focused test CMake and
+  passes diff check.
+- Deep-module seam: concrete processor exposes only fixed descriptor/settings/
+  result data and configure/process/reset/configuration. No Qt/FiffInfo,
+  registry, strategy or caller-side numerical state leaks into the header.
+- Mapping/ownership: source selects only non-bad REF_MEG and MEG rows, builds
+  Eigen row vectors, configures an isolated candidate and swaps ownership only
+  after `DenoiserStatus::Configured`.
+- Failure safety: every validation/missing/core-reject path destroys prior
+  ownership and zeroes the adapter snapshot. Unarmed process is write-free and
+  returns the exact numerical NotConfigured shape with quiet-NaN RMS.
+- Hot path: processor process performs only a unique_ptr branch and numerical
+  delegation or fixed aggregate construction; no allocation, lock or string.
+- Finding: none for the authorized GREEN slice. Invalid classification and
+  stale-model disarm remain behaviorally untested and are the next tracer, not
+  a reason to widen this implementation commit.
+- Decision: accept for cherry-pick and populated Release build/run; runtime
+  GREEN is manager-owned and not yet claimed.

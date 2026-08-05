@@ -2378,3 +2378,16 @@ hidden reasoning is not.
   repaired. No rt_server or subagent was used; manager was not polled.
 - Next: commit/push this RESPONSE, then inspect exact source/CMake and run the
   populated focused target before accepting or integrating the commit.
+
+### E-235 - Minimal processor implementation accepted for populated validation
+
+- Actor: manager using codebase-design and the existing RED contract.
+- Review: exact clean `46b600f910`/parent `9a99e80c3`, three authorized files,
+  concrete small interface, good REF_MEG/MEG selection, candidate-only Ready
+  ownership, disarm-on-failure and write-free unarmed pass-through.
+- Realtime/dependency check: process adds no allocation/lock/string/Qt/FiffInfo;
+  focused CMake adds only processor source and retains isolated dependencies.
+- Finding: none. Invalid/missing classification and stale-model disarm need the
+  next public behavior tracer after this GREEN.
+- Next: commit/push review evidence, cherry-pick `46b600f910`, build/run the
+  populated focused Release target and accept only measured GREEN.
