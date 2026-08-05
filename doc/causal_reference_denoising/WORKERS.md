@@ -4336,6 +4336,13 @@ does not continuously poll them.
 - Coordination: manager will not poll or edit example main; await proactive
   replacement response.
 
+### PUBLISH W-BENCH-001-REVISE
+
+- GitHub issue #7 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195280130`.
+- Connector write/API read-back exactly record P2 all-target gap, HOLD, narrow
+  Luna/max correction and immutable timer/workload/default/scope constraints.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread

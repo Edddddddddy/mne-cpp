@@ -123,7 +123,8 @@ Dispatch: `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-51951934
 It proactively returned exact-base commit `79eff3b3a`, modifying only the
 focused example main. Manager timing/scope review passes, but P2 benchmark
 integrity finding `R-BENCH-FINITE-001` requires checking all 250 target rows,
-not only row 16, before integration and populated Release timing.
+not only row 16, before integration and populated Release timing. Discussion:
+`https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195280130`.
 
 `R-QUEUE-001` visible Sol/ultra review setup was accepted from exact snapshot
 `3d7328683` as `client-new-thread:1030c8cd-96dd-4ad6-a650-927118f3d03f`.

@@ -3368,3 +3368,10 @@ hidden reasoning is not.
 - Scope: same exact parent and example-main file; only all rows 16..265 finite
   verification after timing may change. All workload/timer/default behavior is
   frozen and manager will not poll.
+
+### E-321 - Benchmark P2 and revision published
+
+- Publish/read-back: issue #7 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195280130`
+  exactly records `R-BENCH-FINITE-001`, integration HOLD and narrow correction.
+- Next: await proactive amended response; no manager edit/poll.
