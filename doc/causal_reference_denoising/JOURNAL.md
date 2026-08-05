@@ -2340,3 +2340,15 @@ hidden reasoning is not.
   RESPONSE. Do not wait/read/list to monitor it.
 - Next: commit/push the creation result, publish implementation dispatch to
   issue #4, then leave the visible worker independent.
+
+### E-232 - Minimal processor implementation dispatch published
+
+- Actor: manager using the GitHub connector after creation record
+  `de36b6780` was pushed.
+- Evidence: issue #4 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5193135833`
+  contains exact base/model/client setup, three-file scope, GREEN goal,
+  candidate/disarm/pass-through safety and no-polling/no-rt_server rules.
+- Verification: GitHub read-back matches the submitted dispatch body.
+- Next: no overlapping processor/CMake edit and no thread polling. Resume only
+  from worker-pushed `RESPONSE W-PROC-GREEN-001` or new user direction.

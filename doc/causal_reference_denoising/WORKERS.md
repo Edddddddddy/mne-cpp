@@ -2884,3 +2884,5 @@ does not continuously poll them.
   no-rt_server rules, plus manager thread for active RESPONSE notification.
 - Status: final thread ID is setup-owned and will not be polled. Await only the
   worker-pushed `RESPONSE W-PROC-GREEN-001`.
+- GitHub dispatch evidence:
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5193135833`.
