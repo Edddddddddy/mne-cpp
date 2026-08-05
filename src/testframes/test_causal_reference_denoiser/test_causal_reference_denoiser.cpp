@@ -81,6 +81,8 @@ private slots:
     void rejectsSelectedNonFiniteAtomically();
     void preservesChunkBoundaryEquivalence();
     void resetRestoresFreshConfiguredState();
+    void nonLearningModesPreserveModelAndAdvanceHistory_data();
+    void nonLearningModesPreserveModelAndAdvanceHistory();
 };
 
 //=============================================================================================================
@@ -687,6 +689,114 @@ void TestCausalReferenceDenoiser::resetRestoresFreshConfiguredState()
         for (Eigen::Index column = 0; column < originalProbe.cols(); ++column) {
             QVERIFY(subjectProbe(row, column) == originalProbe(row, column));
             QVERIFY(controlProbe(row, column) == originalProbe(row, column));
+        }
+    }
+}
+
+//=============================================================================================================
+
+void TestCausalReferenceDenoiser::nonLearningModesPreserveModelAndAdvanceHistory_data()
+{
+    QTest::addColumn<bool>("applyModel");
+
+    QTest::newRow("ApplyOnly") << true;
+    QTest::newRow("BypassTrackHistory") << false;
+}
+
+//=============================================================================================================
+
+void TestCausalReferenceDenoiser::nonLearningModesPreserveModelAndAdvanceHistory()
+{
+    QFETCH(bool, applyModel);
+
+    constexpr double currentWeight = 2.0;
+    constexpr double lagWeight = 3.0;
+    constexpr double residualTolerance = 1e-5;
+
+    CausalReferenceDenoiserConfig config;
+    config.samplingFrequencyHz = 1000.0;
+    config.channelCount = 3;
+    config.maxBlockSamples = 3;
+    config.referenceRows = VectorXi(1);
+    config.referenceRows << 0;
+    config.targetRows = VectorXi(1);
+    config.targetRows << 1;
+    config.tapCount = 2;
+    config.adaptationIntervalSamples = 2;
+    config.memoryTimeSeconds = 300.0;
+    config.regularization = 1e-8;
+
+    CausalReferenceDenoiser denoiser;
+    QVERIFY(denoiser.configure(config) == DenoiserStatus::Configured);
+
+    // After the zero-reference warmup, the independent features [1, 0] and
+    // [0, 1] identify the analytic target model 2 * r(t) + 3 * r(t - 1).
+    MatrixXd trainingBlock(3, 3);
+    trainingBlock << 0.0, 1.0, 0.0,
+                     0.0, currentWeight * 1.0 + lagWeight * 0.0,
+                     currentWeight * 0.0 + lagWeight * 1.0,
+                     100.0, 101.0, 102.0;
+    const MatrixXd originalTrainingBlock = trainingBlock;
+
+    const DenoiserProcessResult trainingResult =
+        denoiser.process(trainingBlock, DenoisingMode::ApplyAndLearn);
+
+    QVERIFY(trainingResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY((trainingBlock.array() == originalTrainingBlock.array()).all());
+
+    // These incompatible raw targets would replace the committed model if a
+    // nominally non-learning mode accumulated one full adaptation interval.
+    MatrixXd adversarialBlock(3, 2);
+    adversarialBlock << 10.0, -4.0,
+                        500.0, -400.0,
+                        200.0, 201.0;
+    const MatrixXd originalAdversarialBlock = adversarialBlock;
+    const Eigen::Index exactRows[] = {0, 2};
+    const DenoisingMode mode = applyModel
+                                   ? DenoisingMode::ApplyOnly
+                                   : DenoisingMode::BypassTrackHistory;
+
+    const DenoiserProcessResult adversarialResult = denoiser.process(adversarialBlock, mode);
+
+    if (applyModel) {
+        QVERIFY(adversarialResult.status == DenoiserProcessStatus::Processed);
+        const double expectedFirstResidual =
+            500.0 - (currentWeight * 10.0 + lagWeight * 0.0);
+        const double expectedSecondResidual =
+            -400.0 - (currentWeight * -4.0 + lagWeight * 10.0);
+        QVERIFY(std::abs(adversarialBlock(1, 0) - expectedFirstResidual)
+                <= residualTolerance);
+        QVERIFY(std::abs(adversarialBlock(1, 1) - expectedSecondResidual)
+                <= residualTolerance);
+        for (const Eigen::Index row : exactRows) {
+            for (Eigen::Index column = 0; column < adversarialBlock.cols(); ++column) {
+                QVERIFY(adversarialBlock(row, column)
+                        == originalAdversarialBlock(row, column));
+            }
+        }
+    } else {
+        QVERIFY(adversarialResult.status == DenoiserProcessStatus::Bypassed);
+        QVERIFY((adversarialBlock.array() == originalAdversarialBlock.array()).all());
+    }
+
+    // The first feature [7, -4] depends on the final adversarial reference.
+    // Both targets are generated solely from the original analytic model.
+    MatrixXd probeBlock(3, 2);
+    probeBlock << 7.0, -6.0,
+                  currentWeight * 7.0 + lagWeight * -4.0,
+                  currentWeight * -6.0 + lagWeight * 7.0,
+                  300.0, 301.0;
+    const MatrixXd originalProbeBlock = probeBlock;
+
+    const DenoiserProcessResult probeResult =
+        denoiser.process(probeBlock, DenoisingMode::ApplyOnly);
+
+    QVERIFY(probeResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(std::abs(probeBlock(1, 0)) <= residualTolerance);
+    QVERIFY(std::abs(probeBlock(1, 1)) <= residualTolerance);
+    for (const Eigen::Index row : exactRows) {
+        for (Eigen::Index column = 0; column < probeBlock.cols(); ++column) {
+            QVERIFY(probeBlock(row, column) == originalProbeBlock(row, column));
         }
     }
 }
