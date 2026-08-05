@@ -1500,3 +1500,27 @@ The manager records and forwards all cross-worker messages here before acting.
   build infrastructure, commit the scoped source diff, and return the required
   structured response. No extra finding or feature may be implemented.
 - Status: recorded before forwarding.
+
+### RESPONSE W-CORE-007
+
+- Commit: `0e55194179d465d10bb1413e95a6593e3877df98`.
+- Changed file: `src/libraries/rtprocessing/causalreferencedenoiser.cpp` only;
+  public header/interface unchanged.
+- Configure-time state: committed `G(PxP)/H(MxP)/W(MxP)`, pending
+  `Gp(PxP)/Hp(MxP)`, candidate `Gc(PxP)/Hc(MxP)` and scalar epoch decay `d`.
+- Recurrence/composition: `d<-lambda*d`, `Gp<-lambda*Gp+phi*phi^T`,
+  `Hp<-lambda*Hp+y*phi^T`; boundary uses `Gc=d*G+Gp`, `Hc=d*H+Hp` and the
+  existing loaded LDLT solve.
+- Transaction: finite successful solve commits `G/H/W`; rejection performs
+  only `G<-d*G`, `H<-d*H`, retaining `W` and generation. Both outcomes clear
+  pending matrices/count and reset `d=1`, enabling a later same-call recovery.
+- Ordering: raw target capture, apply committed model, accumulate pending,
+  transact boundary, then advance history; a new model remains future-only.
+- Evidence: clean exact base, pre-stage/staged/committed diff checks and clean
+  detached HEAD. Scalar oracle recovered weight `1.99999998`, probe residual
+  about `6e-8`, and confirmed finite extreme outer-product overflow.
+- Limitation: detached worktree lacks the known ignored Eigen/build baseline;
+  manager owns compiled/runtime validation. No repair was attempted.
+- Remaining untouched: strict-pivot P2, application-overflow P2, malloc guard,
+  synthetic acceptance, plugin/CMake/dependency/test and rt_server work.
+- Lifecycle: Sol/ultra; no subagents. Manager commit-level review is next.

@@ -1206,3 +1206,13 @@ hidden reasoning is not.
 - Action: prepare a finish request because detached build infrastructure is the
   already documented non-actionable limitation.
 - Next: commit/push, forward, and await the clean implementation commit.
+
+### E-126 - Transactional implementation response received
+
+- Actor: `/root/w_core_007` and manager.
+- Response: clean one-source-file commit `0e5519417` implementing the selected
+  committed/pending/candidate transaction with no public-interface change.
+- Evidence: clean diff/HEAD, scalar recovered-model oracle, known detached
+  Eigen runtime limitation, and no subagents.
+- Decision: record before acting; next perform exact commit review, integrate
+  only if accepted, and require all 39 focused checks GREEN.
