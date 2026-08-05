@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T00:20:00+08:00
+Last updated: 2026-08-06T00:24:00+08:00
 
 ## Recovery order
 
@@ -59,13 +59,12 @@ items are tracked as nonblocking follow-up.
 
 ## Next actions
 
-1. Publish the P2 finding and ownership-fix dispatch to issue #4.
-2. Await only worker-pushed `RESPONSE W-PROC-MOVE-001`; do not poll.
-3. Publish the formal review/fix evidence and close issue #4 after focused
+1. Await only worker-pushed `RESPONSE W-PROC-MOVE-001`; do not poll.
+2. Publish the formal review/fix evidence and close issue #4 after focused
    Release remains GREEN.
-4. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
+3. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
    concurrency implementation and independent review.
-5. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 

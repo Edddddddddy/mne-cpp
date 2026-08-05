@@ -3417,3 +3417,13 @@ does not continuously poll them.
   no subagents/rt_server/polling and proactive manager RESPONSE.
 - Coordination: final thread ID is setup-owned and was not returned. Manager
   will not poll; await only the worker-pushed result.
+
+### PUBLISH W-PROC-MOVE-001-START
+
+- GitHub issue #4 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5194029032`.
+- Read-back: exact formal-review SHA and P0/P1/P2/P3 state, implicit-move
+  contradiction, selected deleted-copy/move policy, Luna/max base/scope and
+  no-polling/no-rt_server rules all match durable records.
+- Status: P2 fix dispatch is public; issue #4 remains open pending worker
+  response, manager integration and complete focused Release GREEN.

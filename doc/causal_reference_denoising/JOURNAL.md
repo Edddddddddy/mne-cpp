@@ -2719,3 +2719,13 @@ hidden reasoning is not.
   proactively send `RESPONSE W-PROC-MOVE-001`.
 - Next: commit/push creation evidence and publish the finding/fix dispatch to
   issue #4.
+
+### E-262 - Processor review and ownership fix dispatch published
+
+- Publish: issue #4 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5194029032`.
+- Read-back: exact review snapshot, priority gate, P2 evidence, explicit
+  noncopyable/nonmovable correction, Luna/max base/scope and restrictions match
+  the durable request.
+- Next: no manager polling or overlapping header/test edit; resume only from
+  the worker-pushed `RESPONSE W-PROC-MOVE-001` or new user direction.
