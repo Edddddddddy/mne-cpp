@@ -889,3 +889,25 @@ The manager records and forwards all cross-worker messages here before acting.
   for existing commit `7640f3750`, including evidence, limitation,
   classification, and no-subagent confirmation.
 - Status: recorded before response-only follow-up.
+
+### RESPONSE W-TEST-CORE-007
+
+- Commit: `7640f37501d1f305f345d3fbf39447c7c05a5933`.
+- Changed file: numerical public test source only; one Qt slot and 110 lines.
+- Prime: subject-only two-sample warmup, three independent eligible samples
+  committing `[2,-3,4]`, then one partial-next-epoch sample observing that model.
+- Reset/control: call `subject.reset()`, configure a fresh identical control,
+  then give both the same five-sample ApplyAndLearn sequence crossing fresh
+  warmup and a complete new epoch for an incompatible model.
+- Probe: give both the same two-sample ApplyOnly block; statuses and outputs use
+  `1e-12` relative tolerance, while non-target rows `{0,2,3}` are exact.
+- Sensitivity: retained history/weights changes training output; retained
+  `G/H` or pending count changes the boundary/probe model.
+- Evidence: pre/post-stage diff checks passed and the committed worktree is
+  clean. Clean-worktree configure failed only on the known absent ignored Eigen
+  baseline, so no runtime GREEN is claimed by the worker.
+- Classification: static immediate-GREEN expectation, runtime infra-limited;
+  manager validation required. No production/CMake/plugin/dependency/rt_server
+  changes and no subagents.
+- Manager decision: response matches the recovered/reviewed commit; accept for
+  cherry-pick and populated-workspace execution.

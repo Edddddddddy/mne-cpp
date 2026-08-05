@@ -776,3 +776,13 @@ hidden reasoning is not.
   model at `1e-12`; non-target rows are exact.
 - Decision: accept the diff. Trigger one response-only turn to complete the
   REQUEST/RESPONSE ledger, with no further edits allowed, before cherry-pick.
+
+### E-080 - Reset worker response protocol recovered
+
+- Actor: `/root/w_test_core_007` and manager.
+- Response: existing commit `7640f3750`, exact prime/reset/new-boundary/probe
+  sequence, one-file scope, clean diff/worktree evidence, no subagents.
+- Limitation: worker runtime remains correctly unclaimed because its detached
+  worktree lacks ignored Eigen baseline files.
+- Decision: accept the response and commit; integrate and run only the populated
+  main-workspace focused target.

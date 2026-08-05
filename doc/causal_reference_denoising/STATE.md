@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T16:03:00+08:00
+Last updated: 2026-08-05T16:08:00+08:00
 
 ## Recovery order
 
@@ -33,15 +33,13 @@ are GREEN. The next contract is reset and three-mode state semantics.
 
 ## Running workers
 
-`W-TEST-CORE-007` was interrupted after apparent non-response, but inspection
-showed it had just committed scoped test `7640f3750`. The exact diff is accepted;
-a response-only recovery turn is pending before integration.
+`W-TEST-CORE-007` response was recovered successfully for accepted test commit
+`7640f3750`. Integration and populated-workspace validation are pending.
 
 ## Next actions
 
-1. Request the structured final response from the interrupted worker without
-   permitting further edits.
-2. Integrate the already reviewed reset-to-fresh-state test `7640f3750`.
+1. Integrate the reviewed reset-to-fresh-state test `7640f3750`.
+2. Build and run the synchronized focused Qt report.
 3. Reproduce RED or accept immediate GREEN before the next mode slice.
 
 ## Focused verification targets
