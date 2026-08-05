@@ -4205,6 +4205,15 @@ does not continuously poll them.
 - Coordination: no final thread ID yet; manager will not poll and awaits only
   the proactive structured RESPONSE after public dispatch.
 
+### PUBLISH W-DOC-001-START
+
+- GitHub issue #7 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195139614`.
+- Connector write and API read-back exactly match Luna/max setup/base, one-file
+  guide scope, implemented Eigen/EWLS/queue/provenance topics, path accuracy,
+  non-goals and restrictions.
+- Status: public dispatch complete; manager will not poll or edit the new guide.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread

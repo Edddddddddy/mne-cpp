@@ -3279,3 +3279,11 @@ hidden reasoning is not.
   algorithm seam.
 - Coordination: no polling or overlap with Sol queue review/plugin source.
 - Next: commit/push creation evidence and publish/read back issue #7.
+
+### E-312 - Eigen/streaming guide dispatch published
+
+- Publish/read-back: issue #7 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195139614`
+  exactly matches the one-file Luna/max task, technical content, provenance,
+  repository-path and non-goal constraints.
+- Coordination: await proactive response only; queue reviewer remains separate.

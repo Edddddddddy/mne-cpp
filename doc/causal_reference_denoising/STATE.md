@@ -103,6 +103,7 @@ Dispatch: `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-51948814
 it is disjoint from active queue-test and example files. Its visible worktree
 setup was accepted from exact base `fa832d51d` as
 `client-new-thread:7c8c1a8c-3952-4f9e-9229-d9f7257a2ccb`.
+Dispatch: `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195139614`.
 `W-EXAMPLE-001` proactively returned exact-base Luna/max commit `708db5425`
 from visible thread `019fd2e5-43ca-79c3-822c-20ef795608f1`; it adds only the
 registered focused example CMake/main files. Manager provenance/dependency/
