@@ -125,6 +125,10 @@ focused example main. Manager timing/scope review passes, but P2 benchmark
 integrity finding `R-BENCH-FINITE-001` requires checking all 250 target rows,
 not only row 16, before integration and populated Release timing. Discussion:
 `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195280130`.
+The narrow revision proactively returned replacement `b8ce427b8f` with the
+same exact parent and one-file scope. It reports all-target/all-sample checks
+after the timer while leaving the workload and timing boundaries unchanged;
+manager review, integration and populated Release execution are next.
 
 `R-QUEUE-001` visible Sol/ultra review setup was accepted from exact snapshot
 `3d7328683` as `client-new-thread:1030c8cd-96dd-4ad6-a650-927118f3d03f`.

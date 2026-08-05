@@ -3375,3 +3375,19 @@ hidden reasoning is not.
   `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195280130`
   exactly records `R-BENCH-FINITE-001`, integration HOLD and narrow correction.
 - Next: await proactive amended response; no manager edit/poll.
+
+### E-322 - Benchmark all-target revision received
+
+- Actor: retained visible Luna/max benchmark thread
+  `019fd300-a9e2-7f93-8063-32450ff1d543` and manager.
+- Replacement: exact-parent `b8ce427b8f` supersedes held `79eff3b3a` and
+  changes only the focused example main.
+- Correction: every sample of all 250 configured target rows is checked after
+  the timer for every warmup/timed process result; the first failing row/sample
+  is reported. Workload, timing region, percentile, gate and default teaching
+  path remain frozen.
+- Evidence limit: worker correctly reports the isolated Eigen gap and makes no
+  runtime claim or vendor repair.
+- Next: commit/push this response, inspect exact provenance and comparison,
+  then integrate and execute the populated Release example and benchmark only
+  if manager review accepts the replacement.

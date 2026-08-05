@@ -4343,6 +4343,26 @@ does not continuously poll them.
 - Connector write/API read-back exactly record P2 all-target gap, HOLD, narrow
   Luna/max correction and immutable timer/workload/default/scope constraints.
 
+### RESPONSE W-BENCH-001-REVISE
+
+- From / to: retained visible Luna/max benchmark thread
+  `019fd300-a9e2-7f93-8063-32450ff1d543` / manager.
+- Replacement: `b8ce427b8f58e213b5aab80f267fcce4a9b19bba` with exact
+  parent `60b394ab2b30509e46b11c16ee3121d99488414b`; it replaces
+  held commit `79eff3b3ac6119955c6288bd50030d515736f1a5`.
+- Scope: only `src/examples/ex_causal_reference_denoising/main.cpp`; worker
+  reports a clean detached worktree and passing committed diff checks.
+- Correction: the post-timer integrity helper now scans every sample of every
+  configured target row 16..265 and reports the first failing row/sample. It is
+  used for all 100 warmup and 1000 timed results. Timer boundaries, generator,
+  dimensions, configuration, counts, percentile rule, default teaching path
+  and strict p95 gate are unchanged.
+- Worker limitation: isolated Release execution remains blocked by the known
+  ignored Eigen baseline gap; no vendor repair or runtime percentile is
+  claimed. Luna/max, no subagent, polling, full scan or rt_server.
+- Status: response is durable before manager provenance/diff review,
+  integration or populated Release execution.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread
