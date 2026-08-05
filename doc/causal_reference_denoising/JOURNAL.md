@@ -3481,3 +3481,12 @@ hidden reasoning is not.
   guide or queue review.
 - Next: commit/push request, create/publicly dispatch the visible task and await
   proactive responses only.
+
+### E-331 - Core contract QA task creation accepted
+
+- App accepted new visible Luna/max setup
+  `client-new-thread:77046610-99af-4ce6-a7de-2522cded7ccf`.
+- Prompt fixes exact base, two-file interface/test scope, local deep-module
+  contract, deleted copy/move and compile-time ownership/noexcept verification.
+- Next: commit/push creation evidence, publish/read back issue #3 and do not
+  poll or overlap the core header/test files.

@@ -4503,6 +4503,16 @@ does not continuously poll them.
   Proactively send `RESPONSE W-QA-CORE-CONTRACT-001` and stop.
 - Status: request durable before task creation.
 
+### RESPONSE W-QA-CORE-CONTRACT-001-CREATE
+
+- Result: new visible Luna/max worktree setup accepted asynchronously as
+  `client-new-thread:77046610-99af-4ce6-a7de-2522cded7ccf`; host `local`.
+- Prompt requires exact base `7eb04cbfa`, two authorized core header/test
+  files, compact truthful contract, explicit noncopy/nonmove ownership and
+  namespace-scope C++14 traits/noexcept checks with no runtime behavior change.
+- Coordination: manager will not poll or overlap either authorized core file;
+  await only the proactive structured response after public issue dispatch.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread
