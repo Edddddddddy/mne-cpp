@@ -187,7 +187,7 @@ completion.
 
 Pending.
 
-### R-BENCH-FINITE-001 - P2 - Fix accepted, runtime pending
+### R-BENCH-FINITE-001 - P2 - Closed
 
 - Location: held benchmark commit `79eff3b3a`, focused example main finite
   integrity helper.
@@ -200,8 +200,11 @@ Pending.
   and reports the first failing row/sample after the timer; the 100 warmup and
   1000 timed calls share this verifier. Comparison to the held commit is
   confined to that helper/call site.
-- Remaining verification: populated Release default example and benchmark
-  must exit zero, all integrity gates must pass and p95 must be below 128 ms.
+- Resolution: replacement is integrated as `87ab418bd`. Populated Release
+  default mode exits zero with `example invariants: PASS`; benchmark exits zero
+  with all integrity checks PASS, p50 `2.725 ms`, p95 `4.317 ms`, max
+  `8.557 ms`, generation/accepted/rejected `1099/1099/0`. The p95 gate is well
+  below 128 ms and all 250 target rows are now covered.
 
 ## Processor milestone review
 

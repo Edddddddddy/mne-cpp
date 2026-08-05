@@ -3402,3 +3402,29 @@ hidden reasoning is not.
 - Decision: no remaining source finding; cherry-pick is authorized after this
   review record is pushed. Populated Release default/benchmark execution and
   the strict p95 gate remain required before public GREEN.
+
+### E-324 - Benchmark replacement integrated and default mode regressed
+
+- Integration: `b8ce427b8f` cherry-picked as `87ab418bd` with one example-main
+  change; Release rebuild/link succeeds with only the known Eigen code-page
+  warnings.
+- Default run: exit zero and `example invariants: PASS`; learning reaches
+  generation four, freeze has zero events and reset restores generation zero.
+- Initial capture anomaly: direct PowerShell calls with `--benchmark` yielded
+  empty tool output, including missing shell markers, so no result was inferred.
+- Next: isolate the executable as a waited child process and use its exit code/
+  console as the tight diagnostic and performance evidence loop.
+
+### E-325 - BabyMEG-scale Release benchmark is GREEN
+
+- Diagnostic: `Start-Process -Wait -PassThru` reliably captures the child and
+  proves the prior empty result was a shell-output capture issue, not an app
+  crash or Eigen failure.
+- Result: exit zero; p50 `2.725 ms`, p95 `4.317 ms`, max `8.557 ms`; final
+  generation `1099`, accepted `1099`, rejected `0`; integrity and benchmark
+  PASS messages are present.
+- Acceptance: p95 is well below the 128 ms block duration; all 250 selected
+  targets are finite and all reference/preserved rows are exact. No full scan,
+  FIFF link, dependency repair or rt_server was used.
+- Next: commit/push code and evidence, publish/read back issue #7, then verify
+  and archive the completed benchmark worker.

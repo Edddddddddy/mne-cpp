@@ -4380,6 +4380,28 @@ does not continuously poll them.
   Release build, default example and `--benchmark` execution remain mandatory
   before closing `R-BENCH-FINITE-001` or publishing GREEN.
 
+### VALIDATION W-BENCH-001-REVISE
+
+- Integration: replacement `b8ce427b8f` cherry-picked as `87ab418bd`; only
+  the existing focused example main changes.
+- Build/default: populated Visual Studio Release target
+  `ex_causal_reference_denoising` recompiles/links. The no-argument teaching
+  path exits zero with `example invariants: PASS`; its R/M/P, learning/freeze/
+  reset and exact row-preservation behavior remains GREEN.
+- Benchmark: an independent `Start-Process -Wait` invocation exits zero and
+  reports p50 `2.725 ms`, p95 `4.317 ms`, max `8.557 ms`, final generation
+  `1099`, accepted `1099`, rejected `0`, and `benchmark: PASS`.
+- Gate: nearest-rank p95 is below the 128 ms acquisition duration by a wide
+  margin. All 250 target rows are finite after every call, and every reference
+  plus preserved row passes exact equality checks.
+- Diagnostic note: two direct PowerShell pipeline invocations returned empty
+  captured output; a child-process invocation isolated this as shell capture,
+  not an application failure. No code change or performance claim was based on
+  the empty capture.
+- Restrictions: no full mne_scan, FIFF client link, vendor repair or rt_server.
+- Decision: benchmark GREEN; `R-BENCH-FINITE-001` is closed and public issue #7
+  evidence may be published after this record is committed/pushed.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread

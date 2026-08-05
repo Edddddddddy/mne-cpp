@@ -128,7 +128,10 @@ not only row 16, before integration and populated Release timing. Discussion:
 The narrow revision proactively returned replacement `b8ce427b8f` with the
 same exact parent and one-file scope. It reports all-target/all-sample checks
 after the timer while leaving the workload and timing boundaries unchanged;
-manager review, integration and populated Release execution are next.
+manager review accepted it and it is integrated as `87ab418bd`. Populated
+Release default mode and benchmark both exit zero. Benchmark p50/p95/max are
+`2.725/4.317/8.557 ms`, generation/accepted/rejected are `1099/1099/0`, and
+the strict p95 <128 ms plus all-target/non-target integrity gates pass.
 
 `R-QUEUE-001` visible Sol/ultra review setup was accepted from exact snapshot
 `3d7328683` as `client-new-thread:1030c8cd-96dd-4ad6-a650-927118f3d03f`.
