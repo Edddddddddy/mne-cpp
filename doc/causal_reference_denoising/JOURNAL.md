@@ -3350,3 +3350,14 @@ hidden reasoning is not.
   no repair or fabricated percentile and used no subagent/poll/full scan/server.
 - Next: commit/push response, inspect exact one-file diff and timer boundaries,
   then integrate and run populated Release only if accepted.
+
+### E-319 - Benchmark manager review requests all-target finite gate
+
+- Accepted: exact one-file provenance, preserved default mode, workload,
+  preallocation, timer boundaries, nearest-rank percentile and p95 gate.
+- P2 `R-BENCH-FINITE-001`: only row 16 is inspected for finiteness although
+  rows 16..265 are configured targets. This weakens the benchmark integrity
+  oracle without affecting the timed region.
+- Decision: hold integration. Commit/push a narrow revise request to the same
+  Luna/max task for all-target/all-sample checks and an amended exact-parent
+  commit; do not change generator/timer/default mode.

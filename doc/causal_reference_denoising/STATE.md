@@ -121,8 +121,9 @@ one-shot conversations were app-archived without worktree deletion.
 as `client-new-thread:70b6de3a-9f69-407d-b46d-2d17ac2da778`.
 Dispatch: `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195193407`.
 It proactively returned exact-base commit `79eff3b3a`, modifying only the
-focused example main. Manager diff/timing review and populated Release
-benchmark remain pending before integration.
+focused example main. Manager timing/scope review passes, but P2 benchmark
+integrity finding `R-BENCH-FINITE-001` requires checking all 250 target rows,
+not only row 16, before integration and populated Release timing.
 
 `R-QUEUE-001` visible Sol/ultra review setup was accepted from exact snapshot
 `3d7328683` as `client-new-thread:1030c8cd-96dd-4ad6-a650-927118f3d03f`.

@@ -24,6 +24,16 @@
   caller risks in `SPEC.md`; formal review should classify or leave them to the
   plugin milestone rather than letting the adapter hide callback allocation.
 
+#### R-BENCH-FINITE-001 - P2 - Open
+
+- Location: worker benchmark commit `79eff3b3a`, example main helper
+  `finiteBenchmarkSelectedTarget` and its process verification call.
+- Evidence: only target row 16 is checked although target rows 16..265 are all
+  selected and timed. Nonfinite output in 249 rows would not fail the benchmark.
+- Required correction: validate all configured target rows/samples after every
+  call outside timing; retain exact workload/timer. Rebuild/run populated
+  Release and require normal example plus benchmark exit zero.
+
 ## Core numerical review
 
 Formal independent review `R-CORE-001` completed on Sol/ultra against exact

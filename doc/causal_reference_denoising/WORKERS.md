@@ -4295,6 +4295,36 @@ does not continuously poll them.
   no subagent, polling, full scan or rt_server.
 - Status: response durable before manager provenance/code/timing review.
 
+### MANAGER REVIEW W-BENCH-001
+
+- Provenance/scope: exact `79eff3b3a` on requested `60b394ab2`; clean one-file
+  323-addition/one-line-change diff. Default teaching path remains behind the
+  no-argument branch and is textually unchanged.
+- Timing: matrices/timing vector reach final sizes before loops; raw restore is
+  before clocks; timed interval contains one complete `process` call only.
+  Nearest-rank sorting/report and strict p95 gate match the request.
+- `R-BENCH-FINITE-001` - P2: helper
+  `finiteBenchmarkSelectedTarget` checks only row 16 even though the configured
+  selected set is rows 16..265. A nonfinite output in any other selected target
+  would let the integrity gate and performance PASS stand.
+- Required correction: check every sample of all 250 configured target rows on
+  every warmup/timed result (outside the measured interval), report the failing
+  row/sample if practical, and keep timer/default/scope unchanged. Amend/replace
+  the commit with the same exact parent; populated execution remains manager-
+  owned after response.
+
+### REQUEST W-BENCH-001-REVISE
+
+- To: retained visible Luna/max benchmark thread
+  `019fd300-a9e2-7f93-8063-32450ff1d543`.
+- Blocking: yes for benchmark integration.
+- Scope: same one example-main file/parent. Replace row-16-only finite helper
+  with all selected target rows 16..265; no timer/generator/config/default path
+  or other-file change.
+- Required response: amended replacement commit, exact comparison to rejected
+  `79eff3b3a`, all-target oracle, diff/clean evidence and unchanged restrictions.
+- Status: recorded and will be committed/pushed before follow-up dispatch.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread
