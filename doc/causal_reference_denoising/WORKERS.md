@@ -3618,3 +3618,16 @@ does not continuously poll them.
 - Finding: none. One vertical behavior is accepted for populated compile RED.
 - Decision: cherry-pick and require C1083 missing queue header before any
   production implementation request.
+
+### MANAGER VALIDATION W-QUEUE-TEST-001-RED
+
+- Integrated commit: `b3ff9afc1` (cherry-pick of exact worker `ad3e54bf`).
+- Command: populated Release build of `test_adaptive_denoising_plugin`.
+- Expected/observed failure: MSVC C1083 at focused test line 12, missing
+  `adaptivedenoising/adaptivedenoisingblockqueue.h`. Compilation reaches the
+  new tracer after normal target generation; only known Eigen C4819 warnings
+  accompany the failure.
+- Classification: valid public-interface compile RED. No queue production file
+  exists and no unrelated dependency/link/full-scan/rt_server failure masks it.
+- Decision: Sol/ultra production implementation may begin after RED publication
+  and one-shot tracer retirement.

@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T01:38:00+08:00
+Last updated: 2026-08-06T01:45:00+08:00
 
 ## Recovery order
 
@@ -53,16 +53,15 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 
 ## Running workers
 
-- `W-QUEUE-TEST-001` exact one-file commit `ad3e54bf` passed manager tracer/
-  interface review. Cherry-pick and populated missing-header RED reproduction
-  are next.
+- `W-QUEUE-TEST-001` is integrated as `b3ff9afc1`. Populated Release build
+  reaches the intended C1083 missing `adaptivedenoisingblockqueue.h`; valid RED
+  is accepted. Publication/worker retirement precede Sol/ultra implementation.
 
 ## Next actions
 
-1. Cherry-pick accepted tracer `ad3e54bf` and reproduce the expected missing
-   queue header RED in the populated workspace.
-3. After valid RED, dispatch a separate Sol/ultra queue implementation task.
-4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+1. Publish valid RED to issue #5, verify/archive the one-shot Luna/max tracer.
+2. Record and dispatch a separate Sol/ultra queue implementation task.
+3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 
