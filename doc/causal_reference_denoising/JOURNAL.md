@@ -3391,3 +3391,14 @@ hidden reasoning is not.
 - Next: commit/push this response, inspect exact provenance and comparison,
   then integrate and execute the populated Release example and benchmark only
   if manager review accepts the replacement.
+
+### E-323 - Benchmark revision accepted by manager review
+
+- Provenance: `b8ce427b8f` has exact requested parent, clean one-file scope and
+  a narrow helper/call-site delta from held `79eff3b3a`.
+- Sensitivity: all target rows 16..265 and every block column are now checked
+  after the process timer, for every warmup and timed result, with first-failure
+  coordinates. This closes the source gap without contaminating timing.
+- Decision: no remaining source finding; cherry-pick is authorized after this
+  review record is pushed. Populated Release default/benchmark execution and
+  the strict p95 gate remain required before public GREEN.

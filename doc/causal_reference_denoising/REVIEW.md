@@ -187,6 +187,22 @@ completion.
 
 Pending.
 
+### R-BENCH-FINITE-001 - P2 - Fix accepted, runtime pending
+
+- Location: held benchmark commit `79eff3b3a`, focused example main finite
+  integrity helper.
+- Evidence: the initial helper inspected only target row 16 although the
+  configured selected set is rows 16..265.
+- Required correction: verify every sample of all 250 selected rows outside
+  the measured region without changing workload or timer boundaries.
+- Fix review: replacement `b8ce427b8f` has the same exact parent/one-file
+  scope. It loops target indices 0..249, maps rows 16..265, checks every column
+  and reports the first failing row/sample after the timer; the 100 warmup and
+  1000 timed calls share this verifier. Comparison to the held commit is
+  confined to that helper/call site.
+- Remaining verification: populated Release default example and benchmark
+  must exit zero, all integrity gates must pass and p95 must be below 128 ms.
+
 ## Processor milestone review
 
 Formal independent review `R-PROC-001` completed on Sol/ultra against exact

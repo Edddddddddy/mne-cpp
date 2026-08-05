@@ -4363,6 +4363,23 @@ does not continuously poll them.
 - Status: response is durable before manager provenance/diff review,
   integration or populated Release execution.
 
+### MANAGER REVIEW W-BENCH-001-REVISE
+
+- Provenance/scope: replacement `b8ce427b8f` has exact requested parent
+  `60b394ab2b`, modifies only the focused example main and passes committed
+  diff checks. Its delta from held `79eff3b3a` is 16 insertions/eight deletions
+  confined to the finite-target helper and its diagnostic call site.
+- Oracle: target indices 0..249 map exactly to rows 16..265; every column is
+  checked after `steady_clock::now()` captures the process finish time. The
+  first failing row/sample is surfaced, and the same verifier runs for all 100
+  warmup plus 1000 timed calls.
+- Frozen behavior: source generator, 270-row/P=64 configuration, iteration
+  counts, preallocation, restore/timer boundaries, nearest-rank percentile,
+  strict p95 gate and no-argument teaching path are unchanged.
+- Decision: no remaining source finding. Accept for cherry-pick; populated
+  Release build, default example and `--benchmark` execution remain mandatory
+  before closing `R-BENCH-FINITE-001` or publishing GREEN.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread
