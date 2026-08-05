@@ -1141,3 +1141,30 @@ The manager records and forwards all cross-worker messages here before acting.
   subagent confirmation.
 - Status: active. Detached worktree created from `1d7729ab3`; Sol/high accepted
   one-slot/no-subagent scope.
+
+### RESPONSE W-TEST-CORE-009
+
+- Commit: `bdfca52d37804bcb8a9e4f4f83ed6f5c6ec2588f`.
+- Changed file: focused numerical test source only; exactly one Qt slot.
+- Sequence/oracle: unconfigured `3x2` block requires NotConfigured/unchanged/
+  zero snapshot/NaN RMS; Bypass target 3 gives warmup1 and RMS `3/3/0`;
+  ApplyOnly target -4 gives warmup0 and `4/4/0`; two learning targets `[5,-12]`
+  keep old-zero-model output, accept/reject `1/0`, generation1, and input/output
+  RMS `sqrt(84.5)=9.19238815542512`, noise0; reset plus Bypass target9 restores
+  generation0/warmup1 and `9/9/0`.
+- Expected RED: missing NotConfigured, diagnostics type/result member and fields.
+- Evidence: diff check passed and committed worktree is clean. Configure stopped
+  at known ignored Eigen baseline absence; no dependency repair/runtime claim.
+- Scope/lifecycle: no production/CMake/plugin/dependency/rt_server changes and
+  no subagents.
+- Manager status: response is durable; exact diff/oracle review is next.
+
+### MANAGER REVIEW W-TEST-CORE-009
+
+- Scope: accepted; one Qt slot/test source only.
+- Oracle: `sqrt((5^2+(-12)^2)/2)=sqrt(84.5)`; all single-sample RMS values are
+  absolute target magnitudes. Old zero weights preserve the first learning
+  epoch while the boundary can still increment generation.
+- Lifecycle: post-call warmup transitions `2 -> 1 -> 0`; reset plus one bypass
+  correctly expects warmup1 and generation0.
+- Decision: accept `bdfca52d3` for cherry-pick and intended compile RED.

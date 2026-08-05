@@ -953,3 +953,21 @@ hidden reasoning is not.
 - Result: the exact one-slot NotConfigured/warmup/RMS/generation lifecycle test
   is active.
 - Next: wait for structured response; do not edit the overlapping test source.
+
+### E-099 - Diagnostics lifecycle test response received
+
+- Actor: `/root/w_test_core_009` and manager.
+- Response: one-slot test commit `bdfca52d3` covering NotConfigured, warmup via
+  Bypass/ApplyOnly, one accepted boundary, analytic RMS, and reset snapshot.
+- Evidence: one file, clean diff/worktree, no subagents; detached runtime is
+  limited only by known ignored Eigen files.
+- Decision: record before acting; manager now inspects exact assertions and
+  reproduces the intended compile RED after acceptance.
+
+### E-100 - Diagnostics lifecycle test accepted
+
+- Actor: manager using selected diagnostics seam and TDD criteria.
+- Review: one-slot scope, quiet-NaN unconfigured result, warmup sequence,
+  accepted generation, reset snapshot, and `sqrt(84.5)` oracle are consistent.
+- Decision: accept `bdfca52d3`; integrate and build only the focused target to
+  reproduce missing-interface RED.
