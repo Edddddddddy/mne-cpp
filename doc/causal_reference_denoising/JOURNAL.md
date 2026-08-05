@@ -1849,3 +1849,11 @@ hidden reasoning is not.
   invariance and configured real-time hot path.
 - Next: await P0-P3 findings while doing read-only plugin seam preparation; do
   not dispatch plugin implementation before the core gate decision.
+
+### E-191 - Core reviewer method confirmed
+
+- Actor: `/root/r_core_001`.
+- Response: exact `f0a0e14` review started using codebase-design interface
+  depth/locality criteria; no edits, staging, rt_server or subagents.
+- Decision: no finding is inferred from a start notification; await the full
+  prioritized formal response.
