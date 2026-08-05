@@ -2112,3 +2112,13 @@ The manager records and forwards all cross-worker messages here before acting.
   evidence/infra limitation and no-subagent confirmation.
 - Status: active as collaboration agent `/root/w_test_core_014`. Detached
   worktree created clean at `7c29b4f55`; Sol/ultra accepted scoped request.
+
+### REQUEST W-TEST-CORE-014-STATUS
+
+- From / to: manager / `/root/w_test_core_014`.
+- Blocking: no; malloc-guard scope is unchanged.
+- Context: bounded waits show the worker running while detached worktree remains
+  clean at the request base.
+- Question: report concise progress, Debug/Eigen assertion handling, guarded
+  call coverage and any blocker; no rescope or subagents.
+- Status: recorded before forwarding.

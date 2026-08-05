@@ -1649,3 +1649,12 @@ hidden reasoning is not.
 - Scope: effective Debug Eigen runtime guard across warmup+LDLT boundary and
   committed ApplyOnly path; all buffers configured/preallocated before guard.
 - Next: await structured response without overlapping test/CMake edits.
+
+### E-172 - Malloc guard worker status requested
+
+- Actor: manager.
+- Evidence: Sol/ultra agent remains running and isolated worktree remains clean
+  after bounded waits.
+- Action: prepare one non-blocking Debug/assertion/coverage status request
+  without changing scope or dispatching a duplicate.
+- Next: commit/push, forward and continue waiting.
