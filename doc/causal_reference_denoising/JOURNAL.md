@@ -1892,3 +1892,14 @@ hidden reasoning is not.
   recurrence/transactions appear internally consistent so far.
 - Decision: record but do not fix/close before the final stable finding. The
   reviewer continues noexcept/integer/CMake/evidence audit without blockers.
+
+### E-195 - Independent forgetting oracle sketched pending final finding
+
+- Actor: manager; no code or worker action yet.
+- Proposed public oracle: set `fs=1`, `tau=1/log(2)` so lambda is independently
+  `0.5`; use two one-sample accepted epochs with `r=1` and targets 1 then 3.
+- Analytic result: after relative scalar loading, the second committed weight is
+  `((0.5*1+3)/(0.5*1+1))/(1+regularization)`. An ApplyOnly probe exposes that
+  weight and materially distinguishes correct forgetting from lambda=1.
+- Decision: wait for the reviewer's final stable ID/required test before
+  dispatching a one-slot test worker; do not preempt or edit production code.
