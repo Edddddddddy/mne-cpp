@@ -4454,6 +4454,16 @@ does not continuously poll them.
   `RESPONSE W-QA-PROC-BOUNDARY-001` and stop.
 - Status: request durable before task creation.
 
+### RESPONSE W-QA-PROC-BOUNDARY-001-CREATE
+
+- Result: new visible Luna/max worktree setup accepted asynchronously as
+  `client-new-thread:f247e307-5cb2-4444-ac8b-eb38e28233d9`; host `local`.
+- Prompt requires realignment to exact worker base `8030221b5`, one focused
+  test-source edit, all six inclusive Ready oracles, exact P=256 counts and
+  preservation of existing over-cap/disarm cases.
+- Coordination: manager will not poll or overlap the focused test source.
+  Await only proactive structured response after public issue #3 dispatch.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread

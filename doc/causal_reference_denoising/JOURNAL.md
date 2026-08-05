@@ -3457,3 +3457,12 @@ hidden reasoning is not.
   docs/dependency overlap with active queue review or learning guide.
 - Next: commit/push request, create the visible worktree, publish issue #3 and
   await only its proactive response.
+
+### E-329 - Processor boundary QA task creation accepted
+
+- App accepted a new visible Luna/max worktree setup as
+  `client-new-thread:f247e307-5cb2-4444-ac8b-eb38e28233d9`.
+- Prompt fixes exact base, single test-file scope, six Ready boundaries, P=256
+  snapshot, TDD recovery and no subagent/poll/full-scan/server restrictions.
+- Next: commit/push creation evidence, publish/read back issue #3 and do not
+  poll or overlap its test-source edit.
