@@ -582,3 +582,11 @@ hidden reasoning is not.
   intended assertion, C2838/C2065.
 - Result: valid RED; bounded preflight implementation may begin.
 - Next: archive the test worker and dispatch fresh Luna/max `W-CORE-005`.
+
+### E-061 - Atomic nonfinite test worker retired
+
+- Actor: manager and Codex app.
+- Request: `CLEANUP-004`.
+- Result: `W-TEST-CORE-005` returned `archived: true` after its response, commit,
+  and RED evidence were durable.
+- Next: create fresh Luna/max `W-CORE-005`.
