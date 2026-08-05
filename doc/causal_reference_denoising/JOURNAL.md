@@ -1338,3 +1338,13 @@ hidden reasoning is not.
 - Action: prepare one non-blocking progress/API/blocker request without
   changing scope or dispatching a duplicate.
 - Next: commit/push, forward the request, and continue bounded waiting.
+
+### E-139 - Strict LDLT patch complete in worktree
+
+- Actor: `/root/w_core_008` and manager.
+- Result: no blocker; source patch adds success/positive/strict-finite-pivot,
+  finite RHS and finite solved-weight predicates before committed writes.
+- Evidence: clean base and diff check; Eigen API confidence high; populated
+  compile/runtime remains manager-owned; no subagents.
+- Decision: record before inspecting the isolated diff; await the clean commit
+  response without duplicate implementation.

@@ -1691,3 +1691,18 @@ The manager records and forwards all cross-worker messages here before acting.
 - Question: report concise progress, selected Eigen predicates/API confidence
   and any blocker at the next safe boundary; no rescope or subagents.
 - Status: recorded before forwarding.
+
+### RESPONSE W-CORE-008-STATUS
+
+- Conclusion: no blocker; required records/skills and exact clean base were
+  verified. One-source patch is present and diff-check clean.
+- Predicate order: retain existing finite solve matrix check; after LDLT
+  compute require `info()==Success`, then `isPositive()`, then every `vectorD`
+  pivot finite and strictly greater than zero. Materialize the transposed
+  candidate cross matrix into preallocated RHS and require it all finite;
+  solve, require Success and finite candidate weights, then commit `G/H/W`.
+- API confidence: high; `isPositive`, `vectorD`, `info` and dense `allFinite`
+  are stable Eigen APIs adjacent to current code. Compile/runtime remains
+  manager-owned due the known detached baseline gap.
+- Scope/lifecycle: 40/0 rank-one behavior expected unchanged; no subagents.
+- Next: worker is finishing static checks/commit; do not duplicate or rescope.
