@@ -732,4 +732,27 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-TEST-CORE-006` with commit, deterministic
   stream/chunks, command/evidence limitation, and whether RED or immediate
   GREEN; confirm no subagents.
-- Status: active; direct snapshot confirms TDD and no-subagent scope.
+- Status: response received; pending manager diff review and main-workspace
+  validation.
+
+### RESPONSE W-TEST-CORE-006
+
+- Commit: `8aa84d032fc635bfc8832b6b6fa39941406ef8fc`.
+- Changed file: `test_causal_reference_denoiser.cpp` only.
+- Stream: 21 samples over five channels; references `{0,1}`, targets `{2,3}`,
+  preserved row 4, three taps, interval four, maximum block size 32.
+- Boundaries/chunks: four model-update boundaries after samples 5, 9, 13, and
+  17; irregular chunk sizes `{1,3,2,5,4,6}`; common five-sample ApplyOnly
+  probe follows the stream.
+- Signal: targets contain current, one-lag, and two-lag combinations of both
+  references plus bounded sinusoidal clean components.
+- Worker evidence: `git diff --check` passed. The fresh worktree has no usable
+  configured build because its ignored Eigen baseline is absent, so the worker
+  correctly classifies the runtime result as infrastructure-limited rather
+  than RED or GREEN.
+- Scope/model: test source only; no production/CMake/dependency/rt_server
+  changes, no subagents, Luna/max.
+- Manager review: accepted. The one-slot public-interface test covers warmup,
+  four fixed update epochs, irregular boundaries, future model equivalence,
+  and exact preservation of all non-target rows without production coupling.
+- Manager status: populated-main-workspace execution is next.

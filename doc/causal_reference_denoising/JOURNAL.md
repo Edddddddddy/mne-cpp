@@ -640,3 +640,26 @@ hidden reasoning is not.
 - Result: Luna/max is active with one public-interface test slot and no
   subagents.
 - Next: wait for `RESPONSE W-TEST-CORE-006`.
+
+### E-067 - Chunk-equivalence test response received
+
+- Actor: `W-TEST-CORE-006` and manager.
+- Response: test-only commit `8aa84d032` with a 21-sample deterministic stream,
+  chunks `{1,3,2,5,4,6}`, four adaptation boundaries, and a common ApplyOnly
+  probe.
+- Evidence: the worker reports `git diff --check` success, no subagents, and no
+  production/CMake changes. Runtime classification remains infrastructure-
+  limited because the clean worktree lacks the ignored Eigen baseline.
+- Decision: record the response before acting; manager must now inspect the
+  exact diff and run it in the populated integration workspace.
+
+### E-068 - Chunk-equivalence test diff accepted
+
+- Actor: manager using codebase-design and TDD review criteria.
+- Scope evidence: one public-interface Qt slot and one test file only; no
+  production, CMake, plugin, dependency, or unrelated edits.
+- Contract evidence: the test spans causal warmup, four fixed update epochs,
+  irregular chunk boundaries, a common future ApplyOnly probe, and exact
+  preservation of reference/unselected rows.
+- Decision: accept commit `8aa84d032`; commit the durable response/review record
+  before cherry-pick, then build and run the focused target.

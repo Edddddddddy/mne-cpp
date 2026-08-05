@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T15:22:00+08:00
+Last updated: 2026-08-05T15:30:12+08:00
 
 ## Recovery order
 
@@ -34,12 +34,13 @@ tolerance.
 
 ## Running workers
 
-`W-TEST-CORE-006` is active on Luna/max in worktree `639d`.
+`W-TEST-CORE-006` has returned test commit `8aa84d032`; manager diff review
+and populated-workspace validation are pending.
 
 ## Next actions
 
-1. Wait for `RESPONSE W-TEST-CORE-006`.
-2. Review the public-interface chunk-equivalence test.
+1. Review commit `8aa84d032` and record the scope decision.
+2. Cherry-pick the accepted public-interface chunk-equivalence test.
 3. Accept immediate GREEN if the existing implementation passes; otherwise
    reproduce RED and issue a fix request.
 
