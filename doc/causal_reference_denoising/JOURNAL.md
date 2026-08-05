@@ -1497,3 +1497,13 @@ hidden reasoning is not.
 - Action: prepare one non-blocking progress/oracle request without changing
   scope or creating a duplicate.
 - Next: commit/push, forward and continue waiting.
+
+### E-156 - Overflow status push transient failure
+
+- Actor: manager/Git transport.
+- Result: local status-request commit `206d0d264` succeeded; first push failed
+  with the recurring GitHub `OpenSSL SSL_connect: SSL_ERROR_SYSCALL`.
+- Classification: transient infrastructure only; the worker/request scope and
+  local repository are intact.
+- Next: commit this event, retry the same non-force push, then forward the
+  already recorded status request without duplicate dispatch.
