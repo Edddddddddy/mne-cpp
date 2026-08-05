@@ -807,3 +807,15 @@ The manager records and forwards all cross-worker messages here before acting.
   worktree remained clean.
 - Question: return a concise progress/blocker note at the next safe boundary.
 - Status: forwarded; no implementation assumption is made.
+
+### RESPONSE W-TEST-CORE-007-STATUS
+
+- Conclusion: no blocker; original test-only scope remains active.
+- Evidence: the agent read the durable recovery records and full codebase-
+  design/TDD instructions, found no `AGENTS.md`, and confirmed the detached
+  worktree is clean at `71aefcd26814669a4f5e19700a61c4952988867c`.
+- Progress: public seam, current reset implementation, and test conventions are
+  inspected; the single observable sequence is being designed to distinguish
+  retained lag history, `G/H`, pending count, and committed `W`.
+- Lifecycle: no nested subagents.
+- Next: continue the same worker; do not duplicate or rescope.
