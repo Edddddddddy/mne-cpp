@@ -1634,3 +1634,47 @@ The manager records and forwards all cross-worker messages here before acting.
   generation one, and both reference rows are value-preserved.
 - Decision: accept for cherry-pick and populated-workspace immediate-GREEN
   characterization. No production change is inferred from worker evidence.
+
+### MANAGER VALIDATION W-TEST-CORE-011-GREEN
+
+- Integrated test commit: `d36491643`.
+- Focused Release build: success; only known Eigen/MSVC C4819 warnings.
+- Synchronized Qt report: 40 passed, zero failed, exit code zero.
+- Rank-deficient slot accepts exactly one loaded boundary and its analytic
+  future probe passes; all prior numerical contracts remain GREEN.
+- Classification: immediate GREEN characterization. It guards the next
+  source-only strict positivity hardening from rejecting valid rank-one data.
+
+### RETIREMENT REQUEST CLEANUP-013
+
+- Verify detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-011` is clean at
+  `148870f87` and its focused test content matches integrated `d36491643`.
+- Remove it through Git worktree management. Completed agent
+  `/root/w_test_core_011` is one-shot and must not be reused.
+- Status: recorded before cleanup.
+
+### REQUEST W-CORE-008
+
+- From / to: manager / strict-positive LDLT hardening worker.
+- Planned execution: detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-core-008` from current integration
+  HEAD; agent identifier recorded after dispatch.
+- Model/environment: `gpt-5.6-sol`, `ultra`; no nested subagents.
+- Model decision: factorization acceptance sits on a numerical transaction
+  boundary and must preserve rank-deficient loaded behavior, so Sol/ultra is
+  selected.
+- Blocking: yes for P2 `R-SOLVE-002`.
+- Task: harden only `solveAndCommitPendingEpoch()` so a candidate is accepted
+  only when Eigen LDLT reports success and positive factorization, every `D`
+  pivot is finite and strictly greater than zero, the solve RHS is finite, and
+  candidate weights are finite. Any failed condition must return false before
+  committed `G/H/W` writes, using the existing rejection transaction and
+  diagnostics. Preserve loading, recurrence and public interface.
+- Scope: numerical source only; no test/header/CMake/plugin/dependency or
+  rt_server. Do not change tolerance/loading, implement application fallback,
+  malloc guard, synthetic acceptance or plugin work.
+- Required response: `RESPONSE W-CORE-008` with commit, exact predicates and
+  ordering, changed files, diff/available validation, 40-test expected
+  characterization status, remaining findings and no-subagent confirmation.
+- Status: request recorded before cleanup/worktree creation/dispatch.

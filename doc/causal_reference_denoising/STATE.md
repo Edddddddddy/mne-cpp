@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T19:55:00+08:00
+Last updated: 2026-08-05T20:05:00+08:00
 
 ## Recovery order
 
@@ -34,14 +34,14 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-`W-TEST-CORE-011` commit `148870f87` passed manager diff/oracle review;
-integration and populated-workspace characterization are pending.
+No worker is running. `W-TEST-CORE-011` is integrated as `d36491643`; focused
+runtime has 40 passes and zero failures, with worktree cleanup pending.
 
 ## Next actions
 
-1. Commit/push the manager review record.
-2. Cherry-pick `148870f87` and run the focused report; GREEN is expected.
-3. Use the characterization before strict positive-pivot hardening.
+1. Commit/push GREEN evidence and `REQUEST W-CORE-008`.
+2. Verify/remove the one-shot test worktree.
+3. Dispatch strict positive-factorization/pivot hardening on Sol/ultra.
 
 ## Focused verification targets
 

@@ -56,6 +56,9 @@ Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
   and finite candidate weights.
 - Required test: loaded rank-deficient data accepts; invalid candidate does not
   increment generation.
+- Progress: loaded rank-one characterization `d36491643` is GREEN in a 40/0
+  report; invalid-candidate rejection/generation is covered by `d1ffa0904`.
+  The source acceptance predicate still needs strict hardening.
 
 #### R-RMS-001 - P2 - Open
 

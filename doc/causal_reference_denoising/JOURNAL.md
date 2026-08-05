@@ -1300,3 +1300,22 @@ hidden reasoning is not.
   `6.144e-7` against a `1e-5` threshold.
 - Decision: accept `148870f87`; commit the review, cherry-pick, and run the
   populated focused report before strict pivot hardening.
+
+### E-135 - Rank-deficient loaded solve characterization is GREEN
+
+- Actor: manager.
+- Integrated test: `d36491643`.
+- Evidence: focused Release build succeeds; synchronized report has 40 passes,
+  zero failures and exit code zero. Rank-one loading accepts and the analytic
+  probe is denoised while all prior cases stay GREEN.
+- Next: use this guard plus the existing invalid-candidate recovery test to
+  harden LDLT success/positive/strict-finite-pivot acceptance.
+
+### E-136 - Strict LDLT hardening request prepared
+
+- Actor: manager under P2 `R-SOLVE-002` and codebase-design review.
+- Request: `W-CORE-008`, Sol/ultra, numerical source only, no subagents; require
+  success, positive factorization, finite strictly-positive pivots/RHS/weights
+  before the existing atomic commit.
+- Next: commit/push, clean the one-shot test worktree, create a fresh detached
+  implementation worktree and dispatch.
