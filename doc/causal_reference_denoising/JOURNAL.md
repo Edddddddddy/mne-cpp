@@ -2587,3 +2587,15 @@ hidden reasoning is not.
   known app-worktree Eigen gap; no scope expansion/rt_server/subagent/polling.
 - Next: commit/push response, inspect exact delta and execute populated focused
   Release. On GREEN archive this completed test role before formal review.
+
+### E-251 - Valid reconfigure/reset tracer accepted for populated run
+
+- Actor: manager under the processor public interface.
+- Review: exact delta `2cbca78eb5` on accepted parent `aa75e2520b`, one focused
+  test slot/file only, clean diff.
+- Oracle quality: changed layout exposes stale row picks/weights; immediate
+  complete matrix identity and generation zero expose reset; later generation
+  one plus `3*ref` residual exposes relearning, with exact non-target rows.
+- Finding: none; no production/CMake change is indicated.
+- Next: commit/push review evidence, cherry-pick the delta and run populated
+  focused Release. On GREEN retire the reusable tester and prepare formal review.

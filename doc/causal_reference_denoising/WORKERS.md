@@ -3203,3 +3203,22 @@ does not continuously poll them.
   existing reconfigure/reset behavior.
 - Status: response recorded before manager exact delta review. Conversation is
   retained until acceptance/archival.
+
+### MANAGER REVIEW W-PROC-TEST-003
+
+- Provenance/scope: exact clean delta `2cbca78eb5` has required parent
+  `aa75e2520b`, changes only the focused test source and passes diff check.
+- Behavior: one 98-line slot observes valid reconfigure solely through the
+  public processor interface: changed layout, configuration snapshot, zero-
+  generation whole-block reset probe, new mapping acceptance and future
+  residual.
+- Sensitivity: stale old row picks/weights modify the reset probe or wrong rows;
+  failure to reset generation violates zero; failure to relearn generation one
+  or the `3*ref` model leaves a material 51-amplitude future residual.
+- Locality: misc/reference row identity verifies only the selected target may
+  change after both reset and relearning. Existing two behaviors remain intact.
+- Finding: none. Expected immediate GREEN acceptance test is scoped and
+  behavior-sensitive.
+- Decision: accept for cherry-pick and populated Release execution. After GREEN
+  archive the completed reusable tester and start independent Sol/ultra
+  processor milestone review.
