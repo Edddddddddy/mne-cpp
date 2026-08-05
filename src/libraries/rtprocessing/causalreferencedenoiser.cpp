@@ -60,6 +60,38 @@ bool areDisjoint(const Eigen::VectorXi& first, const Eigen::VectorXi& second) no
     return true;
 }
 
+struct ScaledSumOfSquares
+{
+    void add(double value) noexcept
+    {
+        const double magnitude = std::abs(value);
+        if (magnitude == 0.0) {
+            return;
+        }
+
+        if (scale < magnitude) {
+            const double ratio = scale / magnitude;
+            sumOfSquares = 1.0 + sumOfSquares * ratio * ratio;
+            scale = magnitude;
+        } else {
+            const double ratio = magnitude / scale;
+            sumOfSquares += ratio * ratio;
+        }
+    }
+
+    double rms(std::uint64_t valueCount) const noexcept
+    {
+        if (scale == 0.0) {
+            return 0.0;
+        }
+
+        return scale * std::sqrt(sumOfSquares / static_cast<double>(valueCount));
+    }
+
+    double scale = 0.0;
+    double sumOfSquares = 1.0;
+};
+
 } // namespace
 
 //=============================================================================================================
@@ -116,6 +148,7 @@ struct CausalReferenceDenoiser::Impl
         decomposition.setZero();
         historySampleCount = 0;
         eligibleLearningSampleCount = 0;
+        modelGeneration = 0;
     }
 
     bool hasCompleteHistory() const noexcept
@@ -158,7 +191,7 @@ struct CausalReferenceDenoiser::Impl
         }
     }
 
-    void solveAndCommitWeights() noexcept
+    bool solveAndCommitWeights() noexcept
     {
         double diagonalScale = 0.0;
 
@@ -181,23 +214,24 @@ struct CausalReferenceDenoiser::Impl
         }
 
         if (!solveMatrix.allFinite()) {
-            return;
+            return false;
         }
 
         decomposition.compute(solveMatrix);
         if (decomposition.info() != Eigen::Success
             || !decomposition.vectorD().allFinite()) {
-            return;
+            return false;
         }
 
         solveRightHandSide.noalias() = cross.transpose();
         candidateWeightsTranspose.noalias() = decomposition.solve(solveRightHandSide);
         if (decomposition.info() != Eigen::Success
             || !candidateWeightsTranspose.allFinite()) {
-            return;
+            return false;
         }
 
         weights.noalias() = candidateWeightsTranspose.transpose();
+        return true;
     }
 
     const Eigen::Index channelCount;
@@ -227,6 +261,7 @@ struct CausalReferenceDenoiser::Impl
 
     Eigen::Index historySampleCount = 0;
     Eigen::Index eligibleLearningSampleCount = 0;
+    std::uint64_t modelGeneration = 0;
 };
 
 } // namespace RTPROCESSINGLIB
@@ -279,36 +314,69 @@ DenoiserStatus CausalReferenceDenoiser::configure(const CausalReferenceDenoiserC
 DenoiserProcessResult CausalReferenceDenoiser::process(Eigen::Ref<Eigen::MatrixXd> block,
                                                        DenoisingMode mode) noexcept
 {
-    if (!m_impl
-        || block.rows() != m_impl->channelCount
-        || block.cols() <= 0
-        || block.cols() > m_impl->maxBlockSamples) {
-        return DenoiserProcessResult{DenoiserProcessStatus::InvalidShape};
-    }
+    const double quietNaN = std::numeric_limits<double>::quiet_NaN();
 
-    for (Eigen::Index reference = 0; reference < m_impl->referenceCount; ++reference) {
-        const Eigen::Index row = m_impl->referenceRows(reference);
-        for (Eigen::Index sample = 0; sample < block.cols(); ++sample) {
-            if (!std::isfinite(block(row, sample))) {
-                return DenoiserProcessResult{DenoiserProcessStatus::NonFiniteInput};
-            }
-        }
-    }
-
-    for (Eigen::Index target = 0; target < m_impl->targetCount; ++target) {
-        const Eigen::Index row = m_impl->targetRows(target);
-        for (Eigen::Index sample = 0; sample < block.cols(); ++sample) {
-            if (!std::isfinite(block(row, sample))) {
-                return DenoiserProcessResult{DenoiserProcessStatus::NonFiniteInput};
-            }
-        }
+    if (!m_impl) {
+        return DenoiserProcessResult{
+            DenoiserProcessStatus::NotConfigured,
+            DenoiserProcessDiagnostics{0, 0, 0, 0, 0, 0, 0,
+                                       quietNaN, quietNaN, quietNaN}};
     }
 
     Impl& state = *m_impl;
+    const auto errorResult = [&state, quietNaN](DenoiserProcessStatus status) noexcept {
+        return DenoiserProcessResult{
+            status,
+            DenoiserProcessDiagnostics{
+                state.referenceCount,
+                state.targetCount,
+                state.featureCount,
+                state.causalHistory.cols() - state.historySampleCount,
+                state.modelGeneration,
+                0,
+                0,
+                quietNaN,
+                quietNaN,
+                quietNaN}};
+    };
+
+    if (block.rows() != state.channelCount
+        || block.cols() <= 0
+        || block.cols() > state.maxBlockSamples) {
+        return errorResult(DenoiserProcessStatus::InvalidShape);
+    }
+
+    for (Eigen::Index reference = 0; reference < state.referenceCount; ++reference) {
+        const Eigen::Index row = state.referenceRows(reference);
+        for (Eigen::Index sample = 0; sample < block.cols(); ++sample) {
+            if (!std::isfinite(block(row, sample))) {
+                return errorResult(DenoiserProcessStatus::NonFiniteInput);
+            }
+        }
+    }
+
+    for (Eigen::Index target = 0; target < state.targetCount; ++target) {
+        const Eigen::Index row = state.targetRows(target);
+        for (Eigen::Index sample = 0; sample < block.cols(); ++sample) {
+            if (!std::isfinite(block(row, sample))) {
+                return errorResult(DenoiserProcessStatus::NonFiniteInput);
+            }
+        }
+    }
+
     const bool bypass = mode == DenoisingMode::BypassTrackHistory;
     const bool learn = mode == DenoisingMode::ApplyAndLearn;
+    ScaledSumOfSquares inputSumOfSquares;
+    ScaledSumOfSquares outputSumOfSquares;
+    ScaledSumOfSquares estimatedNoiseSumOfSquares;
+    std::uint64_t modelUpdatesAccepted = 0;
+    std::uint64_t modelUpdatesRejected = 0;
 
     for (Eigen::Index sample = 0; sample < block.cols(); ++sample) {
+        for (Eigen::Index target = 0; target < state.targetCount; ++target) {
+            inputSumOfSquares.add(block(state.targetRows(target), sample));
+        }
+
         for (Eigen::Index reference = 0; reference < state.referenceCount; ++reference) {
             state.currentReferences(reference) =
                 block(state.referenceRows(reference), sample);
@@ -327,6 +395,7 @@ DenoiserProcessResult CausalReferenceDenoiser::process(Eigen::Ref<Eigen::MatrixX
 
         state.prediction.noalias() = state.weights * state.feature;
         for (Eigen::Index target = 0; target < state.targetCount; ++target) {
+            estimatedNoiseSumOfSquares.add(state.prediction(target));
             block(state.targetRows(target), sample) =
                 state.rawTargets(target) - state.prediction(target);
         }
@@ -339,7 +408,12 @@ DenoiserProcessResult CausalReferenceDenoiser::process(Eigen::Ref<Eigen::MatrixX
 
             ++state.eligibleLearningSampleCount;
             if (state.eligibleLearningSampleCount == state.adaptationIntervalSamples) {
-                state.solveAndCommitWeights();
+                if (state.solveAndCommitWeights()) {
+                    ++modelUpdatesAccepted;
+                    ++state.modelGeneration;
+                } else {
+                    ++modelUpdatesRejected;
+                }
                 state.eligibleLearningSampleCount = 0;
             }
         }
@@ -347,9 +421,29 @@ DenoiserProcessResult CausalReferenceDenoiser::process(Eigen::Ref<Eigen::MatrixX
         state.advanceHistory();
     }
 
-    return DenoiserProcessResult{bypass
-                                     ? DenoiserProcessStatus::Bypassed
-                                     : DenoiserProcessStatus::Processed};
+    for (Eigen::Index target = 0; target < state.targetCount; ++target) {
+        const Eigen::Index row = state.targetRows(target);
+        for (Eigen::Index sample = 0; sample < block.cols(); ++sample) {
+            outputSumOfSquares.add(block(row, sample));
+        }
+    }
+
+    const std::uint64_t valueCount = static_cast<std::uint64_t>(state.targetCount)
+                                     * static_cast<std::uint64_t>(block.cols());
+
+    return DenoiserProcessResult{
+        bypass ? DenoiserProcessStatus::Bypassed : DenoiserProcessStatus::Processed,
+        DenoiserProcessDiagnostics{
+            state.referenceCount,
+            state.targetCount,
+            state.featureCount,
+            state.causalHistory.cols() - state.historySampleCount,
+            state.modelGeneration,
+            modelUpdatesAccepted,
+            modelUpdatesRejected,
+            inputSumOfSquares.rms(valueCount),
+            outputSumOfSquares.rms(valueCount),
+            estimatedNoiseSumOfSquares.rms(valueCount)}};
 }
 
 //=============================================================================================================

@@ -15,6 +15,7 @@
 
 #include <Eigen/Core>
 
+#include <cstdint>
 #include <memory>
 
 //=============================================================================================================
@@ -41,10 +42,11 @@ enum class DenoiserStatus {
 
 //=============================================================================================================
 
-enum class DenoiserProcessStatus {
-    Bypassed,
+enum class DenoiserProcessStatus : std::uint8_t {
+    NotConfigured,
     InvalidShape,
     NonFiniteInput,
+    Bypassed,
     Processed
 };
 
@@ -65,9 +67,26 @@ struct RTPROCESINGSHARED_EXPORT CausalReferenceDenoiserConfig
 
 //=============================================================================================================
 
+struct RTPROCESINGSHARED_EXPORT DenoiserProcessDiagnostics
+{
+    Eigen::Index referenceRowCount;
+    Eigen::Index targetRowCount;
+    Eigen::Index featureCount;
+    Eigen::Index warmupSamplesRemaining;
+    std::uint64_t modelGeneration;
+    std::uint64_t modelUpdatesAccepted;
+    std::uint64_t modelUpdatesRejected;
+    double inputRms;
+    double outputRms;
+    double estimatedNoiseRms;
+};
+
+//=============================================================================================================
+
 struct RTPROCESINGSHARED_EXPORT DenoiserProcessResult
 {
     DenoiserProcessStatus status;
+    DenoiserProcessDiagnostics diagnostics;
 };
 
 //=============================================================================================================
