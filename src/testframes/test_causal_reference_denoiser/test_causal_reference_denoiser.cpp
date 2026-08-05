@@ -12,6 +12,7 @@
 
 #include <Eigen/Dense>
 
+#include <cmath>
 #include <limits>
 
 //=============================================================================================================
@@ -38,6 +39,7 @@ private slots:
     void rejectedConfigurationPreservesCommittedShape();
     void rejectsInvalidConfiguration_data();
     void rejectsInvalidConfiguration();
+    void appliesAndLearnsCausallyAcrossEpochs();
 };
 
 //=============================================================================================================
@@ -251,6 +253,52 @@ void TestCausalReferenceDenoiser::rejectsInvalidConfiguration()
 
     CausalReferenceDenoiser denoiser;
     QVERIFY(denoiser.configure(candidate) == DenoiserStatus::InvalidConfiguration);
+}
+
+//=============================================================================================================
+
+void TestCausalReferenceDenoiser::appliesAndLearnsCausallyAcrossEpochs()
+{
+    CausalReferenceDenoiserConfig config;
+    config.samplingFrequencyHz = 1000.0;
+    config.channelCount = 3;
+    config.maxBlockSamples = 3;
+    config.referenceRows = VectorXi(1);
+    config.referenceRows << 0;
+    config.targetRows = VectorXi(1);
+    config.targetRows << 1;
+    config.tapCount = 2;
+    config.adaptationIntervalSamples = 2;
+    config.memoryTimeSeconds = 300.0;
+    config.regularization = 1e-8;
+
+    CausalReferenceDenoiser denoiser;
+    QVERIFY(denoiser.configure(config) == DenoiserStatus::Configured);
+
+    MatrixXd firstBlock(3, 3);
+    firstBlock << 1.0, 2.0, 3.0,
+                  5.0, 7.0, 12.0,
+                  100.0, 101.0, 102.0;
+    const MatrixXd expectedFirstBlock = firstBlock;
+
+    const DenoiserProcessResult firstResult =
+        denoiser.process(firstBlock, DenoisingMode::ApplyAndLearn);
+
+    QVERIFY(firstResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY((firstBlock.array() == expectedFirstBlock.array()).all());
+
+    MatrixXd postBoundaryBlock(3, 1);
+    postBoundaryBlock << 5.0,
+                         19.0,
+                         103.0;
+
+    const DenoiserProcessResult postBoundaryResult =
+        denoiser.process(postBoundaryBlock, DenoisingMode::ApplyOnly);
+
+    QVERIFY(postBoundaryResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(postBoundaryBlock(0, 0) == 5.0);
+    QVERIFY(postBoundaryBlock(2, 0) == 103.0);
+    QVERIFY(std::abs(postBoundaryBlock(1, 0)) <= 1e-4);
 }
 
 //=============================================================================================================
