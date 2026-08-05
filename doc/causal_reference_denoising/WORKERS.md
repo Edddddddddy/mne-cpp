@@ -2612,3 +2612,18 @@ The manager records and forwards all cross-worker messages here before acting.
 - Status: active as collaboration agent `/root/w_test_plugin_data_001`.
   Detached worktree is clean at exact `cdc07b283`; Sol/high accepted the
   test/CMake-only RED scope and nested-subagent prohibition.
+
+### REQUEST W-TEST-PLUGIN-DATA-001-CORRECTION
+
+- From / to: manager / `/root/w_test_plugin_data_001`.
+- Blocking: yes; corrects a manager inconsistency before commit.
+- Evidence: SPEC/UI requires adaptation interval 16-2048, but the initial
+  tracer requested interval/max block two while the frozen processor says it
+  validates UI ranges.
+- Correction: use max block and interval 16. Training block is 6x16 with good
+  reference `1..16`, good target exactly twice it, and distinct 16-sample
+  sequences for bad reference, bad MEG, STIM and misc. Retain one future probe
+  (`goodRef=17`, `goodTarget=34`) and the same Ready 1/1/1, one acceptance/
+  generation, exact non-target and `<=1e-5` residual oracles.
+- Other scope/CMake/dependency/RED/no-subagent rules are unchanged.
+- Status: recorded before forwarding.

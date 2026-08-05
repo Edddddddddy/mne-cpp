@@ -2078,3 +2078,13 @@ hidden reasoning is not.
 - Scope: one six-row train/probe behavior slot plus focused dependency-isolated
   target; initial RED is absent processor header.
 - Next: await response without overlapping test/CMake edits.
+
+### E-212 - Plugin tracer interval inconsistency corrected
+
+- Actor: manager before worker commit.
+- Conflict: initial request used interval two, but frozen plugin settings must
+  enforce the planned UI range beginning at 16.
+- Correction: 6x16 training, interval/max block 16, good reference `1..16`,
+  target twice it and probe `17->34`; all row-preservation/diagnostics/RED scope
+  remains unchanged.
+- Next: commit/push and forward immediately to the same worker; no duplicate.
