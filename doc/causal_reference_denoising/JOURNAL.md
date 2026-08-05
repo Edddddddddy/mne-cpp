@@ -1151,3 +1151,13 @@ hidden reasoning is not.
   later same-block recovery. No other P2 or plugin work.
 - Next: commit/push this request, create a detached worktree from current HEAD,
   and dispatch the fresh worker.
+
+### E-120 - Transactional implementation worker active
+
+- Actor: manager and `/root/w_core_007`.
+- Worktree/model: detached `mne-cpp-worker-w-core-007` at `5eff9abb9`,
+  Sol/ultra, no subagents.
+- Scope: numerical header/source only; pending/candidate epoch transaction and
+  same-block recovery, with later P2 findings explicitly excluded.
+- Next: await the structured commit response; manager will not edit overlapping
+  numerical files while the worker is active.

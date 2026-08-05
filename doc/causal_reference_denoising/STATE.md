@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T18:40:00+08:00
+Last updated: 2026-08-05T18:45:00+08:00
 
 ## Recovery order
 
@@ -34,14 +34,14 @@ runtime RED: 38 passed and one intended failure.
 
 ## Running workers
 
-No worker is running. `W-TEST-CORE-010` is integrated as `d1ffa0904`; its
-clean/content-matched detached worktree was removed and it will not be reused.
+`W-CORE-007` is active as `/root/w_core_007` on Sol/ultra in detached worktree
+`C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-core-007` at `5eff9abb9`.
 
 ## Next actions
 
-1. Commit/push `REQUEST W-CORE-007`.
-2. Create its detached worktree from the current integration HEAD.
-3. Dispatch a fresh Sol/ultra transactional pending-statistics implementation.
+1. Wait for/review `RESPONSE W-CORE-007` without overlapping source edits.
+2. Integrate only a clean numerical header/source commit.
+3. Run the focused synchronized report and require all 39 checks GREEN.
 
 ## Focused verification targets
 
