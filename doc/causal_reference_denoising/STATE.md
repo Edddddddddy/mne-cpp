@@ -100,7 +100,9 @@ Its corrected Luna/max setup was accepted from exact base `473d9eeed` as
 Dispatch: `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5194881491`.
 
 `W-DOC-001` is prepared as a separate Luna/max task adding one learning guide;
-it is disjoint from active queue-test and example files.
+it is disjoint from active queue-test and example files. Its visible worktree
+setup was accepted from exact base `fa832d51d` as
+`client-new-thread:7c8c1a8c-3952-4f9e-9229-d9f7257a2ccb`.
 `W-EXAMPLE-001` proactively returned exact-base Luna/max commit `708db5425`
 from visible thread `019fd2e5-43ca-79c3-822c-20ef795608f1`; it adds only the
 registered focused example CMake/main files. Manager provenance/dependency/

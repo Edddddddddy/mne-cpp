@@ -3269,3 +3269,13 @@ hidden reasoning is not.
   evidence schema and restrictions.
 - Coordination: await only proactive reviewer response; disjoint learning-guide
   work may proceed without queue source/test overlap.
+
+### E-311 - Eigen/streaming guide task creation accepted
+
+- Result: new visible Luna/max worktree setup accepted as
+  `client-new-thread:7c8c1a8c-3952-4f9e-9229-d9f7257a2ccb`.
+- Base/scope: exact `fa832d51d`, one new learning-guide file only; complete
+  implemented Eigen/EWLS/streaming/queue/provenance content and no invented
+  algorithm seam.
+- Coordination: no polling or overlap with Sol queue review/plugin source.
+- Next: commit/push creation evidence and publish/read back issue #7.
