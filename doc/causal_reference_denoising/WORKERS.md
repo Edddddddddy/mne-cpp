@@ -3570,3 +3570,13 @@ does not continuously poll them.
   dependency/rt_server/subagent/polling and proactive manager RESPONSE.
 - Coordination: final thread ID was not returned and will not be polled; await
   only the worker-pushed result.
+
+### PUBLISH W-QUEUE-TEST-001-START
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5194234831`.
+- Read-back: exact base/model/scope, A/B/C deep-copy/FIFO/metadata/Full/Timeout
+  contract, expected missing-header RED, isolated FIFF handle and no-polling/
+  no-rt_server rules match the durable request.
+- Status: tracer dispatch is public; manager awaits only the worker-pushed
+  RESPONSE and does not edit the same focused test source concurrently.

@@ -2820,3 +2820,12 @@ hidden reasoning is not.
 - Coordination: no final thread ID, no polling or overlapping test edit;
   worker must proactively send `RESPONSE W-QUEUE-TEST-001`.
 - Next: commit/push creation evidence and publish dispatch to issue #5.
+
+### E-271 - Queue tracer dispatch published
+
+- Publish/read-back: issue #5 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5194234831`
+  matches exact base, Luna/max model, one-file RED scope, A/B/C oracle,
+  forward-declared FIFF handle isolation and restrictions.
+- Next: no polling or overlapping test edit; resume from proactive
+  `RESPONSE W-QUEUE-TEST-001` or new user direction.

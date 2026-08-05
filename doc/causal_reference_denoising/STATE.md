@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T01:19:00+08:00
+Last updated: 2026-08-06T01:23:00+08:00
 
 ## Recovery order
 
@@ -59,10 +59,9 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 
 ## Next actions
 
-1. Publish the queue tracer dispatch to issue #5.
-2. Await only worker-pushed `RESPONSE W-QUEUE-TEST-001`; do not poll.
-3. After valid RED, dispatch a separate Sol/ultra queue implementation task.
-4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+1. Await only worker-pushed `RESPONSE W-QUEUE-TEST-001`; do not poll.
+2. After valid RED, dispatch a separate Sol/ultra queue implementation task.
+3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 
