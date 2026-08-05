@@ -4055,6 +4055,21 @@ does not continuously poll them.
 - Finding: none. Accept for cherry-pick; populated Release GREEN remains
   required before queue coverage is sent to formal Sol/ultra review.
 
+### VALIDATION W-QUEUE-TEST-003
+
+- Integration: worker `cff55a01e` cherry-picked as `422c5264c`.
+- Focused build: populated Visual Studio Release target compiles and links;
+  only known Eigen C4819 warnings occur.
+- Runtime: synchronized hidden process exits zero; QtTest reports 8 passed,
+  zero failed/skipped/blacklisted. Lifecycle wake remains bounded at 62 ms
+  after a 63 ms stop delay against the 3000 ms natural timeout.
+- New oracle: every invalid configuration/input/destination assertion passes,
+  followed by exact null-metadata payload recovery and Timeout. All processor,
+  FIFO/drop-newest and lifecycle regressions remain GREEN.
+- Restrictions: no full mne_scan, rt_server or vendor repair.
+- Decision: focused queue coverage complete; publish GREEN and start formal
+  Sol/ultra concurrency/realtime review after worker retirement evidence.
+
 ### REQUEST W-EXAMPLE-001
 
 - From / to: manager thread

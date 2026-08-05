@@ -72,10 +72,9 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 
 ## Next actions
 
-1. Reuse the completed Luna/max lifecycle conversation for one adjacent public
-   validation slot covering invalid configuration/block/destination without
-   consuming state, then complete independent Sol/ultra queue review. Retain
-   the implementation conversation for a narrow fix until that gate passes.
+1. Publish final focused queue GREEN, content-verify/archive the completed
+   Luna/max test conversation, then dispatch independent Sol/ultra queue review.
+   Retain the implementation conversation for a narrow fix until that gate.
 2. Create the already-durable `W-DOC-001` visible Luna/max task while example
    work remains non-overlapping; do not poll either task.
 
@@ -88,9 +87,9 @@ adjacent queue-validation slice only.
 Manager will not poll or overlap its focused test-source edit. Public dispatch:
 `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5195009989`.
 It proactively returned exact-base commit `cff55a01e`, adding one focused slot
-for invalid configuration/block/destination state preservation. Manager review,
-scope and sentinel/capacity oracle pass; integration and populated Release
-execution are next.
+for invalid configuration/block/destination state preservation. Manager review
+passes; it is integrated as `422c5264c`. Populated Release reports 8/0/0 and
+exit zero, including a 62 ms stop wake.
 
 Non-overlapping issue #7 work is prepared as `W-EXAMPLE-001`: a focused
 Eigen/streaming example target that directly exercises the completed numerical

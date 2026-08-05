@@ -3203,3 +3203,14 @@ hidden reasoning is not.
   sentinels make state consumption or mutation observable.
 - Decision: no finding; cherry-pick after this review is pushed, then execute
   the complete populated Release focused suite before formal queue review.
+
+### E-304 - Focused queue coverage is complete and GREEN
+
+- Integration: worker `cff55a01e` cherry-picked as `422c5264c`.
+- Build/runtime: populated Release compiles/links and exits zero with 8 passed,
+  no failures/skips/blacklist. Stop wake remains 62 ms versus 3000 ms timeout.
+- Coverage: processor mapping/disarm/reconfigure; queue deep-copy/FIFO/metadata,
+  drop-newest/capacity reuse, stop/reconfigure, and invalid config/input/output
+  state preservation are all GREEN.
+- Next: commit/push code/evidence, publish issue #5, verify/archive the final
+  Luna/max test worker, then dispatch independent Sol/ultra formal review.
