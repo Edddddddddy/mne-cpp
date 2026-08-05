@@ -3157,3 +3157,18 @@ hidden reasoning is not.
   warmup, generation, update events, freeze and reset are runtime-sensitive.
 - Decision: no finding; cherry-pick after this review is durable, then build/run
   the focused Release example in the populated workspace.
+
+### E-300 - Focused causal denoising example is GREEN
+
+- Integration: worker `708db5425` cherry-picked as `26ca3b73e`.
+- Build: populated Release config enables examples and builds only
+  `ex_causal_reference_denoising`; link succeeds with known Eigen warnings.
+- Runtime: process exits zero with `example invariants: PASS`. Five learning
+  blocks end at generation four, freeze holds generation with zero events, and
+  reset/bypass returns generation zero plus warmup two. All exact non-target,
+  bypass and finite-output checks pass.
+- Interpretation: output RMS drops to roughly 0.31-0.34 after learning from
+  roughly 1.17-1.41 input RMS, illustrating the algorithm without adding a new
+  tuning or acceptance gate.
+- Next: commit/push integration and evidence, publish/read back issue #7, then
+  verify/archive the one-shot example conversation.

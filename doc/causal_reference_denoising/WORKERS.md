@@ -4180,3 +4180,21 @@ does not continuously poll them.
   and reset generation/history.
 - Finding: none. Accept for cherry-pick; populated Release build/run and exact
   console output remain mandatory before publishing GREEN or retiring worker.
+
+### VALIDATION W-EXAMPLE-001
+
+- Integration: worker `708db5425` cherry-picked as `26ca3b73e`.
+- Configure/build: populated Visual Studio Release configuration enables
+  examples, then target `ex_causal_reference_denoising` alone compiles/links;
+  only known Eigen C4819 code-page warnings occur.
+- Runtime: hidden synchronized process exits zero and ends with
+  `example invariants: PASS`. Learning stage generations are 0,1,2,3,4 with
+  one accepted update and zero rejects on stages two through five. ApplyOnly
+  holds generation four with zero call-local events; reset/bypass reports
+  generation zero and warmup two.
+- Output evidence: R/M/P=2/1/8; post-model target RMS is about 0.31-0.34 while
+  input RMS is about 1.17-1.41, and every built-in exact preservation/finite
+  output assertion passes. These values are illustrative, not a new effect gate.
+- Restrictions: no full mne_scan, rt_server, FIFF client link or vendor repair.
+- Decision: focused example GREEN; publish issue #7 evidence, content-verify
+  and archive the one-shot worker after the evidence is durable.

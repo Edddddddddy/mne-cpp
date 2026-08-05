@@ -100,7 +100,9 @@ it is disjoint from active queue-test and example files.
 `W-EXAMPLE-001` proactively returned exact-base Luna/max commit `708db5425`
 from visible thread `019fd2e5-43ca-79c3-822c-20ef795608f1`; it adds only the
 registered focused example CMake/main files. Manager provenance/dependency/
-behavior review passes; integration and populated Release build/run are next.
+behavior review passes; it is integrated as `26ca3b73e`. Populated Release
+build/run exits zero with `example invariants: PASS`; learning reaches model
+generation four, freeze emits zero updates and reset restores generation zero.
 3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
