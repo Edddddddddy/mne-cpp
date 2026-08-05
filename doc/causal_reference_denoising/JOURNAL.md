@@ -1872,3 +1872,12 @@ hidden reasoning is not.
   picks, FIFO/overflow and block-boundary behavior run without mne_scan or
   rt_server.
 - Next: await the core review gate before dispatching any plugin implementation.
+
+### E-193 - Formal core reviewer status requested
+
+- Actor: manager.
+- Evidence: repeated bounded waits still show `/root/r_core_001` running; the
+  read-only worktree remains clean at `f0a0e14d7`.
+- Action: record a non-blocking coverage/provisional-findings/remaining-work
+  request before forwarding, with no scope change or duplicate review.
+- Next: forward and continue bounded waiting.

@@ -2387,3 +2387,14 @@ The manager records and forwards all cross-worker messages here before acting.
 - Method: use codebase-design to assess interface depth/locality; inspect only,
   with no edit, stage, rt_server execution or nested subagent.
 - Status: no finding or gate conclusion yet; formal response remains pending.
+
+### REQUEST R-CORE-001-STATUS
+
+- From / to: manager / `/root/r_core_001`.
+- Blocking: no; exact commit and read-only formal scope remain unchanged.
+- Context: repeated bounded waits show the reviewer running and its detached
+  worktree remains clean.
+- Question: at the next safe boundary, report reviewed areas, any provisional
+  P0-P2 candidate or absence so far, remaining work and blocker. Do not finalize
+  early, edit, run rt_server or spawn subagents.
+- Status: recorded before forwarding.
