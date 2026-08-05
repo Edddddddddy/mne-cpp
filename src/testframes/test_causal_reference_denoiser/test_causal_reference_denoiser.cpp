@@ -12,6 +12,7 @@
 
 #include <Eigen/Dense>
 
+#include <algorithm>
 #include <cmath>
 #include <limits>
 
@@ -78,6 +79,7 @@ private slots:
     void appliesAndLearnsCausallyAcrossEpochs();
     void rejectsSelectedNonFiniteAtomically_data();
     void rejectsSelectedNonFiniteAtomically();
+    void preservesChunkBoundaryEquivalence();
 };
 
 //=============================================================================================================
@@ -451,6 +453,132 @@ void TestCausalReferenceDenoiser::rejectsSelectedNonFiniteAtomically()
     QVERIFY(subjectProbe(2, 0) == 103.0);
     QVERIFY(std::abs(controlProbe(1, 0)) <= 1e-4);
     QVERIFY(std::abs(subjectProbe(1, 0)) <= 1e-4);
+}
+
+//=============================================================================================================
+
+void TestCausalReferenceDenoiser::preservesChunkBoundaryEquivalence()
+{
+    CausalReferenceDenoiserConfig config;
+    config.samplingFrequencyHz = 1000.0;
+    config.channelCount = 5;
+    config.maxBlockSamples = 32;
+    config.referenceRows = VectorXi(2);
+    config.referenceRows << 0, 1;
+    config.targetRows = VectorXi(2);
+    config.targetRows << 2, 3;
+    config.tapCount = 3;
+    config.adaptationIntervalSamples = 4;
+    config.memoryTimeSeconds = 30.0;
+    config.regularization = 1e-6;
+
+    CausalReferenceDenoiser completeDenoiser;
+    CausalReferenceDenoiser chunkedDenoiser;
+    QVERIFY(completeDenoiser.configure(config) == DenoiserStatus::Configured);
+    QVERIFY(chunkedDenoiser.configure(config) == DenoiserStatus::Configured);
+
+    constexpr Eigen::Index streamLength = 21;
+    constexpr Eigen::Index probeLength = 5;
+    const auto reference0 = [](int sample) {
+        const double t = static_cast<double>(sample);
+        return 0.75 * std::sin(0.29 * t) + 0.20 * std::cos(0.07 * t);
+    };
+    const auto reference1 = [](int sample) {
+        const double t = static_cast<double>(sample);
+        return 0.55 * std::cos(0.23 * t) - 0.30 * std::sin(0.13 * t);
+    };
+    const auto clean2 = [](int sample) {
+        const double t = static_cast<double>(sample);
+        return 0.25 * std::sin(0.17 * t) + 0.05 * std::cos(0.41 * t);
+    };
+    const auto clean3 = [](int sample) {
+        const double t = static_cast<double>(sample);
+        return -0.18 * std::cos(0.19 * t) + 0.07 * std::sin(0.37 * t);
+    };
+    const auto makeStream = [&](int firstSample, Eigen::Index sampleCount) {
+        MatrixXd stream(5, sampleCount);
+        for (Eigen::Index column = 0; column < sampleCount; ++column) {
+            const int sample = firstSample + static_cast<int>(column);
+            const double currentReference0 = reference0(sample);
+            const double currentReference1 = reference1(sample);
+            const double laggedReference0 = reference0(sample - 1);
+            const double laggedReference1 = reference1(sample - 1);
+            const double twiceLaggedReference0 = reference0(sample - 2);
+            const double twiceLaggedReference1 = reference1(sample - 2);
+
+            stream(0, column) = currentReference0;
+            stream(1, column) = currentReference1;
+            stream(2, column) = 1.7 * currentReference0 - 0.8 * currentReference1
+                                + 0.6 * laggedReference0 + 1.1 * laggedReference1
+                                - 0.35 * twiceLaggedReference0 + 0.45 * twiceLaggedReference1
+                                + clean2(sample);
+            stream(3, column) = -0.9 * currentReference0 + 1.3 * currentReference1
+                                + 0.85 * laggedReference0 - 0.55 * laggedReference1
+                                + 0.25 * twiceLaggedReference0 + 0.70 * twiceLaggedReference1
+                                + clean3(sample);
+            stream(4, column) = 100.0 + 0.5 * static_cast<double>(sample)
+                                + 0.1 * std::cos(0.20 * static_cast<double>(sample));
+        }
+        return stream;
+    };
+
+    const MatrixXd originalStream = makeStream(0, streamLength);
+    MatrixXd completeOutput = originalStream;
+    const DenoiserProcessResult completeResult =
+        completeDenoiser.process(completeOutput, DenoisingMode::ApplyAndLearn);
+    QVERIFY(completeResult.status == DenoiserProcessStatus::Processed);
+
+    MatrixXd chunkedOutput(5, streamLength);
+    const Eigen::Index chunkSizes[] = {1, 3, 2, 5, 4, 6};
+    Eigen::Index chunkStart = 0;
+    for (const Eigen::Index chunkSize : chunkSizes) {
+        MatrixXd chunk = originalStream.middleCols(chunkStart, chunkSize);
+        const DenoiserProcessResult chunkResult =
+            chunkedDenoiser.process(chunk, DenoisingMode::ApplyAndLearn);
+        QVERIFY(chunkResult.status == DenoiserProcessStatus::Processed);
+        chunkedOutput.middleCols(chunkStart, chunkSize) = chunk;
+        chunkStart += chunkSize;
+    }
+    QCOMPARE(chunkStart, streamLength);
+
+    const auto relativeDifference = [](const MatrixXd& first, const MatrixXd& second) {
+        const double denominator = std::max(first.norm(), 1.0);
+        return (first - second).norm() / denominator;
+    };
+
+    const double streamRelativeDifference =
+        relativeDifference(completeOutput, chunkedOutput);
+    qInfo() << "stream relative difference" << streamRelativeDifference;
+    QVERIFY(streamRelativeDifference <= 1e-10);
+
+    const Eigen::Index exactRows[] = {0, 1, 4};
+    for (const Eigen::Index row : exactRows) {
+        for (Eigen::Index column = 0; column < streamLength; ++column) {
+            QVERIFY(completeOutput(row, column) == originalStream(row, column));
+            QVERIFY(chunkedOutput(row, column) == originalStream(row, column));
+        }
+    }
+
+    const MatrixXd originalProbe = makeStream(static_cast<int>(streamLength), probeLength);
+    MatrixXd completeProbe = originalProbe;
+    MatrixXd chunkedProbe = originalProbe;
+    const DenoiserProcessResult completeProbeResult =
+        completeDenoiser.process(completeProbe, DenoisingMode::ApplyOnly);
+    const DenoiserProcessResult chunkedProbeResult =
+        chunkedDenoiser.process(chunkedProbe, DenoisingMode::ApplyOnly);
+    QVERIFY(completeProbeResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(chunkedProbeResult.status == DenoiserProcessStatus::Processed);
+
+    const double probeRelativeDifference =
+        relativeDifference(completeProbe, chunkedProbe);
+    qInfo() << "probe relative difference" << probeRelativeDifference;
+    QVERIFY(probeRelativeDifference <= 1e-10);
+    for (const Eigen::Index row : exactRows) {
+        for (Eigen::Index column = 0; column < probeLength; ++column) {
+            QVERIFY(completeProbe(row, column) == originalProbe(row, column));
+            QVERIFY(chunkedProbe(row, column) == originalProbe(row, column));
+        }
+    }
 }
 
 //=============================================================================================================
