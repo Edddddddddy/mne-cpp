@@ -1515,3 +1515,14 @@ hidden reasoning is not.
   is implemented in one test-only slot.
 - Scope: final checks/commit remain; no subagents or expansion.
 - Decision: record before inspection and await the complete clean response.
+
+### E-158 - Application overflow test response received
+
+- Actor: `/root/w_test_core_013` and manager.
+- Response: clean one-slot commit `a5f37e5bd`; one learned target overflows and
+  one remains finite, requiring atomic whole-sample target fallback plus normal
+  future-model integrity.
+- Expected RED: current output contains `-Inf` and a huge partial subtraction;
+  first failure is all-finite output.
+- Decision: record before acting; perform exact diff/oracle review and reproduce
+  populated runtime RED if accepted.

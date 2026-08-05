@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T21:30:00+08:00
+Last updated: 2026-08-05T21:48:00+08:00
 
 ## Recovery order
 
@@ -34,13 +34,12 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-`W-TEST-CORE-013` is active as `/root/w_test_core_013` on Sol/ultra in detached
-worktree `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-013` at
-`d991e1e9a`.
+`W-TEST-CORE-013` returned one-test commit `a5f37e5bd`; manager exact review,
+integration and runtime RED reproduction are pending.
 
 ## Next actions
 
-1. Await/review `RESPONSE W-TEST-CORE-013` without overlapping test edits.
+1. Review exact commit `a5f37e5bd` and mixed-target oracle.
 2. Integrate only the one-slot contract and reproduce runtime RED.
 3. Dispatch source fallback implementation only after RED evidence.
 

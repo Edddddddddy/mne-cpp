@@ -1920,3 +1920,21 @@ The manager records and forwards all cross-worker messages here before acting.
   residuals `<=1e-5`.
 - Scope/lifecycle: no expansion and no subagents; final commit pending.
 - Next: continue the same worker only.
+
+### RESPONSE W-TEST-CORE-013
+
+- Commit: `a5f37e5bda129bf29d3bf497e9912e8fa71893f1` on base
+  `d991e1e9a`; one focused test slot/source, 88 insertions.
+- Matrices: training rows `[[1,2],[2,4],[0.5,1],[100,101]]`;
+  overflow probe `[[DBL_MAX],[7],[11],[102]]`; normal probe
+  `[[3],[6],[1.5],[103]]`.
+- Model: one accepted boundary/generation one; weights near `1.99999998` and
+  `0.499999995`. Overflow predictions are infinity and about `8.988e307`.
+- Fallback oracle: Processed, exact all-finite complete probe, generation one,
+  zero events, input/output `sqrt(85)` and noise zero. Normal probe later has
+  exact non-targets and residuals below `1e-5`.
+- Expected current RED: existing loop writes `-Inf` to target one and about
+  `-8.988e307` to target two; first failure should be `overflowProbe.allFinite()`.
+- Evidence: clean one-file commit/diff; detached runtime unavailable due known
+  ignored dependency/build gap; no repair and no subagents.
+- Manager status: response durable; exact review follows.
