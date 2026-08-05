@@ -38,6 +38,17 @@ The manager records and forwards all cross-worker messages here before acting.
 - Evidence remains in this ledger and git history before archival.
 - Status: recorded before action.
 
+### RETIREMENT RESPONSE CLEANUP-001
+
+- Result: all 11 requested threads were archived successfully:
+  `W-DESIGN-A`, `W-DESIGN-B`, `W-DESIGN-A2`, `W-DESIGN-B2`,
+  `W-TEST-CORE-001`, `W-CORE-001`, `W-TEST-CORE-002`, failed `W-CORE-002`,
+  `W-CORE-002-R`, `W-TEST-CORE-003`, and `W-CORE-003`.
+- Retained: selected reusable `W-DESIGN-C` thread
+  `019fcdde-a032-7640-8e86-b71d00375642` and the manager task.
+- Worktree policy: no app-owned worktree was manually deleted.
+- Status: complete.
+
 ## Planning workers
 
 ### W-DESIGN-A - Minimal interface

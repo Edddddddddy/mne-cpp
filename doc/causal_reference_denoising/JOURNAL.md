@@ -444,3 +444,12 @@ hidden reasoning is not.
   core workers through `W-CORE-003`; keep the selected reusable design-C
   conversation and the manager task.
 - Next: commit this record, perform archive calls, and record exact results.
+
+### E-047 - First worker retirement set completed
+
+- Actor: manager and Codex app.
+- Response: `CLEANUP-001` archived all 11 requested non-reusable threads.
+- Retained: `W-DESIGN-C` and the manager task remain available because their
+  context is still related/reusable.
+- Result: lifecycle policy is active; no worktree was manually removed.
+- Next: dispatch the already logged `W-TEST-CORE-004` request on Luna/max.
