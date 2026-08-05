@@ -612,3 +612,13 @@ hidden reasoning is not.
 - Model rule reaffirmed: Luna/max for bounded test/implementation tasks;
   Sol/ultra for manager-selected high-risk math/concurrency/review work.
 - Next: integrate and run the complete focused test report.
+
+### E-064 - Atomic nonfinite slice is GREEN
+
+- Actor: manager.
+- Integrated commit: `b8d865917`.
+- Evidence: focused Release build and synchronized Qt report with 33 passes,
+  zero failures, and exit code 0.
+- Result: selected reference/target nonfinite blocks are atomic pass-through and
+  leave streaming state unchanged.
+- Next: publish/retire, then create chunk-equivalence acceptance test.

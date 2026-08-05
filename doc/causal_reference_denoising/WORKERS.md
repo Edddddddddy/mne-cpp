@@ -699,3 +699,34 @@ The manager records and forwards all cross-worker messages here before acting.
 - Resolution: the manager's bounded thread wait returned the completed turn and
   full structured response; commit/diff were verified directly. No re-dispatch
   or duplicate implementation was created.
+
+### MANAGER VALIDATION W-CORE-005-GREEN
+
+- Integrated commit: `b8d865917`.
+- Focused Release build: succeeded.
+- Synchronized Qt report: 33 passed, 0 failed, exit code 0.
+- Decision: selected nonfinite atomicity/state immutability is GREEN.
+
+### RETIREMENT REQUEST CLEANUP-005
+
+- Archive completed `W-CORE-005` thread
+  `019fd049-160c-7902-b82a-a587ce0a995e` after this record is committed.
+- Status: pending.
+
+### REQUEST W-TEST-CORE-006
+
+- From / to: manager / `W-TEST-CORE`.
+- Model/environment: `gpt-5.6-luna`, `max`, new worktree; no subagents.
+- Blocking: yes for chunk-equivalence acceptance evidence.
+- Task: add one test slot processing the same deterministic finite multichannel
+  stream with identical configs through (a) one maximum-size block and (b)
+  several irregular chunks that cross warmup and multiple adaptation epochs.
+  Compare assembled outputs and a common post-stream ApplyOnly probe at relative
+  tolerance `<=1e-10`; require all non-target rows exact. Use at least two
+  references, two targets, three taps, and update interval four.
+- Scope: test source only; no production/CMake. If current implementation passes
+  immediately, report GREEN characterization rather than forcing a RED.
+- Required response: `RESPONSE W-TEST-CORE-006` with commit, deterministic
+  stream/chunks, command/evidence limitation, and whether RED or immediate
+  GREEN; confirm no subagents.
+- Status: recorded before dispatch.

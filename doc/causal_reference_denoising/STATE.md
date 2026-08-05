@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T13:04:00+08:00
+Last updated: 2026-08-05T13:09:00+08:00
 
 ## Recovery order
 
@@ -19,8 +19,9 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-Atomic selected-NaN/Inf pass-through/state immutability is a valid compile RED.
-The next vertical slice is its bounded preflight-scan GREEN.
+Atomic selected-NaN/Inf pass-through/state immutability is GREEN. The next
+contract is finite-stream chunk-boundary equivalence at `1e-10` relative
+tolerance.
 
 ## Completed
 
@@ -33,14 +34,15 @@ The next vertical slice is its bounded preflight-scan GREEN.
 
 ## Running workers
 
-`W-CORE-005` returned commit `3040ef33e`; the manager recovered the complete
-result through the thread wait API after the user reported a missing notice.
+`W-TEST-CORE-006` is queued for a fresh Luna/max worktree after retiring
+completed `W-CORE-005`.
 
 ## Next actions
 
-1. Cherry-pick `3040ef33e`.
-2. Run the complete focused Qt report and require GREEN.
-3. Record/retire the worker, then continue the next core contract.
+1. Publish atomic nonfinite GREEN and archive `W-CORE-005`.
+2. Dispatch `W-TEST-CORE-006` for chunk-boundary equivalence.
+3. Accept immediate GREEN if the existing sample-wise implementation passes;
+   otherwise reproduce RED and issue a fix request.
 
 ## Focused verification targets
 
