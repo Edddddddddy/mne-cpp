@@ -660,6 +660,9 @@ The manager records and forwards all cross-worker messages here before acting.
 ### REQUEST W-CORE-005
 
 - From / to: manager / `W-CORE`.
+- Client setup ID: `client-new-thread:f5ea9d28-754d-47f4-8acf-1c126f5c76d3`.
+- Thread: `019fd049-160c-7902-b82a-a587ce0a995e`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/bb5c/mne-cpp-main`.
 - Model/environment: `gpt-5.6-luna`, `max`, new worktree; no subagents.
 - Blocking: yes.
 - Task: add `NonFiniteInput` and, after shape validation but before any state or
@@ -670,4 +673,4 @@ The manager records and forwards all cross-worker messages here before acting.
   solver, malloc, or plugin changes.
 - Required response: `RESPONSE W-CORE-005` with commit, loop ordering, evidence,
   limitations, and next RED; confirm no subagents.
-- Status: recorded before dispatch.
+- Status: active; direct bounded snapshot confirmed startup.

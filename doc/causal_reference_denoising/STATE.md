@@ -33,11 +33,11 @@ The next vertical slice is its bounded preflight-scan GREEN.
 
 ## Running workers
 
-`W-CORE-005` is queued for a fresh Luna/max worktree after test-worker archive.
+`W-CORE-005` is active on Luna/max in worktree `bb5c`.
 
 ## Next actions
 
-1. Archive `W-TEST-CORE-005` and dispatch `W-CORE-005`.
+1. Wait for `RESPONSE W-CORE-005`.
 2. Review the selected-row preflight scan.
 3. Run the complete focused Qt report and require GREEN.
 
