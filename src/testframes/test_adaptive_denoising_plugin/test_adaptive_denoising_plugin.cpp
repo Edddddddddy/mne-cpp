@@ -99,6 +99,20 @@ AdaptiveDenoisingStreamDescriptor streamWithChannels(
     return AdaptiveDenoisingStreamDescriptor{1000.0, channels};
 }
 
+AdaptiveDenoisingStreamDescriptor streamWithGoodReferences(Index referenceCount)
+{
+    AdaptiveDenoisingStreamDescriptor stream;
+    stream.samplingFrequencyHz = 1000.0;
+    stream.channels.reserve(static_cast<std::size_t>(referenceCount + 1));
+
+    for (Index reference = 0; reference < referenceCount; ++reference) {
+        stream.channels.push_back({FIFFV_REF_MEG_CH, false});
+    }
+
+    stream.channels.push_back({FIFFV_MEG_CH, false});
+    return stream;
+}
+
 bool rowEquals(const MatrixXd& actual, const MatrixXd& expected, Index row) noexcept
 {
     for (Index column = 0; column < expected.cols(); ++column) {
@@ -144,10 +158,69 @@ private slots:
     void mapsRowsTrainsAndAppliesOnly();
     void invalidConfigurationDisarmsLearnedModel();
     void validReconfigureResetsAndRelearnsModel();
+    void acceptsInclusiveLegalBoundaries_data();
+    void acceptsInclusiveLegalBoundaries();
     void queuePreservesFifoDropNewestAndMetadata();
     void queueStopWakesWaiterAndReconfigureStartsFresh();
     void queueRejectsInvalidInputsWithoutConsumingState();
 };
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingPlugin::acceptsInclusiveLegalBoundaries_data()
+{
+    QTest::addColumn<int>("tapCount");
+    QTest::addColumn<int>("adaptationIntervalSamples");
+    QTest::addColumn<double>("memoryTimeSeconds");
+    QTest::addColumn<double>("regularization");
+    QTest::addColumn<int>("referenceCount");
+    QTest::addColumn<int>("targetCount");
+    QTest::addColumn<int>("featureCount");
+
+    QTest::newRow("taps=32") << 32 << 128 << 30.0 << 1e-3 << 1 << 1 << 32;
+    QTest::newRow("adaptation-interval=2048")
+        << 4 << 2048 << 30.0 << 1e-3 << 1 << 1 << 4;
+    QTest::newRow("memory=1") << 4 << 128 << 1.0 << 1e-3 << 1 << 1 << 4;
+    QTest::newRow("memory=300") << 4 << 128 << 300.0 << 1e-3 << 1 << 1 << 4;
+    QTest::newRow("regularization=1") << 4 << 128 << 30.0 << 1.0 << 1 << 1 << 4;
+    QTest::newRow("P=256") << 32 << 128 << 30.0 << 1e-3 << 8 << 1 << 256;
+}
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingPlugin::acceptsInclusiveLegalBoundaries()
+{
+    QFETCH(int, tapCount);
+    QFETCH(int, adaptationIntervalSamples);
+    QFETCH(double, memoryTimeSeconds);
+    QFETCH(double, regularization);
+    QFETCH(int, referenceCount);
+    QFETCH(int, targetCount);
+    QFETCH(int, featureCount);
+
+    const AdaptiveDenoisingStreamDescriptor stream =
+        streamWithGoodReferences(static_cast<Index>(referenceCount));
+    AdaptiveDenoisingSettings settings;
+    settings.tapCount = static_cast<Index>(tapCount);
+    settings.adaptationIntervalSamples = static_cast<Index>(adaptationIntervalSamples);
+    settings.memoryTimeSeconds = memoryTimeSeconds;
+    settings.regularization = regularization;
+
+    AdaptiveDenoisingProcessor processor;
+    const AdaptiveDenoisingConfigureResult configureResult =
+        processor.configure(stream, kBlockSamples, settings);
+
+    QVERIFY(configureResult.status == AdaptiveDenoisingConfigureStatus::Ready);
+    QCOMPARE(configureResult.referenceCount, Index(referenceCount));
+    QCOMPARE(configureResult.targetCount, Index(targetCount));
+    QCOMPARE(configureResult.featureCount, Index(featureCount));
+
+    const AdaptiveDenoisingConfigureResult snapshot = processor.configuration();
+    QVERIFY(snapshot.status == AdaptiveDenoisingConfigureStatus::Ready);
+    QCOMPARE(snapshot.referenceCount, Index(referenceCount));
+    QCOMPARE(snapshot.targetCount, Index(targetCount));
+    QCOMPARE(snapshot.featureCount, Index(featureCount));
+}
 
 //=============================================================================================================
 
