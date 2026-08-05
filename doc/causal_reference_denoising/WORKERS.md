@@ -1251,3 +1251,12 @@ The manager records and forwards all cross-worker messages here before acting.
 - Status: active as `/root/w_core_006_r`. The failed clean worktree was removed;
   replacement worktree was created from `810e11d65`; Sol/high accepted the
   unchanged header/source-only and no-subagent scope.
+
+### REQUEST W-CORE-006-R-STATUS
+
+- From / to: manager / `/root/w_core_006_r`.
+- Blocking: no; implementation scope is unchanged.
+- Context: repeated bounded waits show the replacement running while its
+  isolated worktree remains clean.
+- Question: report concise progress/blocker state at the next safe boundary.
+- Status: recorded before forwarding.

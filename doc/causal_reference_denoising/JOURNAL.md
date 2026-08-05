@@ -1024,3 +1024,11 @@ hidden reasoning is not.
 - Worktree/model: detached `mne-cpp-worker-w-core-006-r` at `810e11d65`,
   Sol/high, no subagents.
 - Next: wait for complete header/source commit; no overlapping edits.
+
+### E-107 - Replacement diagnostics worker status requested
+
+- Actor: manager.
+- Evidence: repeated bounded waits show `/root/w_core_006_r` running; detached
+  worktree remains clean at `810e11d65`.
+- Action: non-blocking status request with no scope change or duplicate worker.
+- Next: await progress/blocker response.
