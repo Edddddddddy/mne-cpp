@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T19:30:00+08:00
+Last updated: 2026-08-05T19:38:00+08:00
 
 ## Recovery order
 
@@ -34,14 +34,15 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-No worker is running. `W-CORE-007` was integrated as `9142415b7`; its clean,
-content-matched detached worktree was removed and it will not be reused.
+`W-TEST-CORE-011` is active as `/root/w_test_core_011` on Sol/high in detached
+worktree `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-011` at
+`aebe2fafb`.
 
 ## Next actions
 
-1. Commit/push `REQUEST W-TEST-CORE-011`.
-2. Dispatch the rank-deficient loaded-LDLT characterization worker.
-3. Use that guard before adding strict positive-pivot acceptance checks.
+1. Await/review `RESPONSE W-TEST-CORE-011` without overlapping test edits.
+2. Integrate and run the focused report; immediate GREEN is acceptable.
+3. Use the characterization before strict positive-pivot hardening.
 
 ## Focused verification targets
 

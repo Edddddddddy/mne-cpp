@@ -1271,3 +1271,13 @@ hidden reasoning is not.
   and task scope are intact and no worker was dispatched prematurely.
 - Next: commit this event locally, retry the same branch push, and proceed only
   after the remote contains both durable records.
+
+### E-132 - Rank-deficient test worker active
+
+- Actor: manager and `/root/w_test_core_011`.
+- Recovery: the identical branch push retry succeeded; no duplicate request or
+  worker was created after the transient SSL failure.
+- Worktree/model: detached `mne-cpp-worker-w-test-core-011` at `aebe2fafb`,
+  Sol/high, one test slot/source and no subagents.
+- Next: await structured response; manager will not edit the overlapping test
+  source while the worker is active.
