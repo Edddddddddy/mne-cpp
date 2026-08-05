@@ -3007,3 +3007,11 @@ hidden reasoning is not.
   blocker; final client-link P3 remains explicit.
 - Next: commit/push request, create/record Luna/max worktree and publish issue
   #7 dispatch without polling either active worker.
+
+### E-287 - First example task creation call failed locally
+
+- Cause: manager-side JavaScript template interpolation treated an unescaped
+  CMake `${...}` prompt token as a JavaScript identifier before the app call.
+- Effect: no task, worktree, repository or GitHub mutation occurred.
+- Next: commit/push the failure record and retry the same W-EXAMPLE-001 request
+  with an escaped prompt; do not create any second logical task.

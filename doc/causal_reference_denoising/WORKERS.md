@@ -3937,3 +3937,13 @@ does not continuously poll them.
   confirmation. Proactively notify manager and stop.
 - Lifecycle: one-shot; benchmark and guide remain separate later tasks.
 - Status: recorded before visible task creation.
+
+### SYSTEM FAILURE W-EXAMPLE-001-CREATE-1
+
+- Result: the local create-thread orchestration script failed before calling
+  the app because an unescaped CMake `${...}` token in its JavaScript template
+  prompt was interpreted as a JavaScript variable.
+- Side effects: none. No thread, worktree, code, GitHub or dependency change
+  was created.
+- Decision: preserve the exact request and retry once with a plain/escaped
+  prompt string. This is not a duplicate task dispatch.
