@@ -630,3 +630,13 @@ hidden reasoning is not.
 - Result: `W-CORE-005` returned `archived: true`; response delivery, commit, and
   GREEN report are durable.
 - Next: create fresh Luna/max `W-TEST-CORE-006`.
+
+### E-066 - Chunk-equivalence test worker active
+
+- Actor: manager.
+- Request: `W-TEST-CORE-006`.
+- Thread: `019fd0cc-9f37-7dd0-9051-4086072efabe`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/639d/mne-cpp-main`.
+- Result: Luna/max is active with one public-interface test slot and no
+  subagents.
+- Next: wait for `RESPONSE W-TEST-CORE-006`.

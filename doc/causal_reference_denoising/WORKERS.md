@@ -716,6 +716,9 @@ The manager records and forwards all cross-worker messages here before acting.
 ### REQUEST W-TEST-CORE-006
 
 - From / to: manager / `W-TEST-CORE`.
+- Client setup ID: `client-new-thread:3edaf3ba-109e-432c-81f0-760ecb78c893`.
+- Thread: `019fd0cc-9f37-7dd0-9051-4086072efabe`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/639d/mne-cpp-main`.
 - Model/environment: `gpt-5.6-luna`, `max`, new worktree; no subagents.
 - Blocking: yes for chunk-equivalence acceptance evidence.
 - Task: add one test slot processing the same deterministic finite multichannel
@@ -729,4 +732,4 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-TEST-CORE-006` with commit, deterministic
   stream/chunks, command/evidence limitation, and whether RED or immediate
   GREEN; confirm no subagents.
-- Status: recorded before dispatch.
+- Status: active; direct snapshot confirms TDD and no-subagent scope.

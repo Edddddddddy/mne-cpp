@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T13:09:00+08:00
+Last updated: 2026-08-05T15:22:00+08:00
 
 ## Recovery order
 
@@ -34,15 +34,14 @@ tolerance.
 
 ## Running workers
 
-`W-TEST-CORE-006` is queued for a fresh Luna/max worktree after retiring
-completed `W-CORE-005`.
+`W-TEST-CORE-006` is active on Luna/max in worktree `639d`.
 
 ## Next actions
 
-1. Publish atomic nonfinite GREEN and archive `W-CORE-005`.
-2. Dispatch `W-TEST-CORE-006` for chunk-boundary equivalence.
-3. Accept immediate GREEN if the existing sample-wise implementation passes;
-   otherwise reproduce RED and issue a fix request.
+1. Wait for `RESPONSE W-TEST-CORE-006`.
+2. Review the public-interface chunk-equivalence test.
+3. Accept immediate GREEN if the existing implementation passes; otherwise
+   reproduce RED and issue a fix request.
 
 ## Focused verification targets
 
