@@ -558,3 +558,33 @@ The manager records and forwards all cross-worker messages here before acting.
   report their identifiers/status in the final response, and complete the
   original header/source task alone. Formal review remains manager-owned.
 - Status: recorded before forwarding.
+
+### RESPONSE W-CORE-004
+
+- Conclusion: implemented and committed the general causal EWLS numerical core.
+- Commit: `f3a909941b535abaf5e97bdacce4ba960b059051`.
+- Changed files: `causalreferencedenoiser.h/.cpp` only.
+- State: PImpl owns row copies, `R x (L-1)` history, `P=R*L` feature,
+  `M` raw/prediction vectors, `G(PxP)`, `H(MxP)`, committed `W(MxP)`, solve
+  matrix/RHS/candidate scratch, and sized `LDLT<MatrixXd>`.
+- Ordering: history column 0 is lag 1; `phi[lR+r]=r_r(t-l)`; first `L-1`
+  samples warm history; committed W applies before raw-target EWLS update; an
+  accepted boundary candidate affects later samples only.
+- Loading: `A = sym(G) + regularization * s * I`, with
+  `s=max(epsilon,max_i(abs(sym(G)_ii)))`; solve uses LDLT without inverse and
+  commits only finite successful candidates.
+- Allocation claim: default construction holds null `unique_ptr`; configure
+  builds/sizes a candidate Impl before swap; process contains no explicit
+  allocation/lock/string and reuses sized storage. Malloc guard is not yet run.
+- Worker evidence: diff check and a numerical oracle passed; clean-worktree
+  configure stopped at missing ignored Eigen baseline, so no compiled GREEN was
+  claimed.
+- Delegation correction: nested threads
+  `019fd019-994e-7380-9be9-105d31501639` and
+  `019fd019-b14a-7473-95c9-6d18c5cb91ff` were both interrupted; findings were
+  disregarded.
+- Suggested next RED: selected NaN/Inf must atomically pass through without
+  changing history or learning state.
+- Manager static review: causal/tap ordering and transaction boundaries match
+  the tracer; only target rows are written. Accepted for cherry-pick, with
+  Eigen API compilation and runtime still required.

@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T12:07:00+08:00
+Last updated: 2026-08-05T12:24:00+08:00
 
 ## Recovery order
 
@@ -33,14 +33,15 @@ vertical slice is the high-risk numerical streaming implementation.
 
 ## Running workers
 
-`W-CORE-004` is active on Sol/ultra in worktree `9bd8` because it introduces
-the EWLS math, cross-block state, LDLT solve, and hot-path constraints.
+`W-CORE-004` returned commit `f3a909941`; manager static review accepted it for
+integration and main-workspace compile/runtime validation.
 
 ## Next actions
 
-1. Wait for `RESPONSE W-CORE-004`.
-2. Review its numerical state/math and diff.
-3. Validate the causal tracer GREEN in the main workspace.
+1. Cherry-pick `f3a909941`.
+2. Build the focused target and run the synchronized Qt report.
+3. Return a revision request on any compile/runtime failure; otherwise record
+   causal tracer GREEN.
 
 ## Focused verification targets
 

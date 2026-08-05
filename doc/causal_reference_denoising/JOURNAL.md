@@ -522,3 +522,15 @@ hidden reasoning is not.
   requires the worker to stop/disregard them, report identifiers/status, spawn
   no more, and finish alone. Formal review stays with the manager.
 - Next: commit and forward the correction, then continue bounded waiting.
+
+### E-055 - Causal EWLS implementation response reviewed
+
+- Actor: `W-CORE-004` and manager.
+- Response: `RESPONSE W-CORE-004`, commit `f3a909941`.
+- Evidence: two numerical files, transactional PImpl allocation, tap-major
+  history/features, preallocated EWLS/LDLT state, and future-only model commit.
+- Delegation result: both unauthorized nested reviewers were interrupted and
+  disregarded, as required.
+- Decision: accept for cherry-pick and main-workspace compile/runtime checks;
+  do not claim hot-path allocation proof until the dedicated guard test.
+- Next: build and run only `test_causal_reference_denoiser`.
