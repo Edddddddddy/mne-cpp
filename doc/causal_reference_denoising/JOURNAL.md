@@ -2658,3 +2658,14 @@ hidden reasoning is not.
   and proactive `RESPONSE R-PROC-001` to the manager.
 - Coordination: no final thread ID was returned and the manager will not poll;
   next publish dispatch evidence to issue #4 after this record is pushed.
+
+### E-257 - Processor formal review dispatch published
+
+- Publish: issue #4 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5193766737`.
+- Read-back: exact SHA/model/scope/finding format and no-mutation/no-rt_server/
+  no-polling rules match `REQUEST R-PROC-001`.
+- Gate: issue #4 stays open until the independent Sol/ultra response has P0/P1
+  zero and every P2 resolved or explicitly deferred.
+- Next: do not poll; resume when the reviewer proactively sends its RESPONSE or
+  the user supplies new direction.

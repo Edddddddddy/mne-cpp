@@ -3316,3 +3316,13 @@ does not continuously poll them.
   manager RESPONSE notification.
 - Coordination: setup did not return a final thread ID. The manager will not
   poll setup or review; it awaits only the reviewer-pushed RESPONSE.
+
+### PUBLISH R-PROC-001-START
+
+- GitHub issue #4 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5193766737`.
+- Read-back: exact snapshot `96ca3eb44`, Sol/ultra read-only scope, P0-P3
+  format, no-mutation/no-rt_server constraints and proactive RESPONSE contract
+  all match the durable request.
+- Status: review dispatch is public and complete; issue #4 remains open while
+  the manager awaits only the reviewer-pushed result.

@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T23:36:00+08:00
+Last updated: 2026-08-05T23:41:00+08:00
 
 ## Recovery order
 
@@ -58,13 +58,12 @@ Sol/ultra issue #4 review is the next gate before the nonblocking queue.
 
 ## Next actions
 
-1. Publish issue #4 evidence that independent processor review was dispatched.
-2. Await only the reviewer-pushed `RESPONSE R-PROC-001`; do not poll.
-3. Resolve every P0/P1 and any P2 finding; publish the formal review and close
+1. Await only the reviewer-pushed `RESPONSE R-PROC-001`; do not poll.
+2. Resolve every P0/P1 and any P2 finding; publish the formal review and close
    issue #4 when its gate is satisfied.
-4. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
+3. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
    concurrency implementation and independent review.
-5. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 
