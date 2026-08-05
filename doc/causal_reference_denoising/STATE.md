@@ -111,6 +111,10 @@ GREEN is published at
 `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195038508`.
 Queue-test and example worker scoped blobs exactly match integration; both
 one-shot conversations were app-archived without worktree deletion.
+
+`R-QUEUE-001` visible Sol/ultra review setup was accepted from exact snapshot
+`3d7328683` as `client-new-thread:1030c8cd-96dd-4ad6-a650-927118f3d03f`.
+Manager will not poll; reviewer must proactively return its structured gate.
 3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.

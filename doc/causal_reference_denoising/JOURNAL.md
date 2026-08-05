@@ -3251,3 +3251,12 @@ hidden reasoning is not.
   GitHub mutation, dependency repair, full scan, rt_server, subagent or polling.
 - Next: commit/push request, create/record the visible worktree and publish
   issue #5 dispatch; do not poll the reviewer.
+
+### E-309 - Queue formal review task creation accepted
+
+- Result: new visible Sol/ultra worktree setup accepted as
+  `client-new-thread:1030c8cd-96dd-4ad6-a650-927118f3d03f` on local host.
+- Snapshot: exact `3d7328683`; prompt preserves read-only review, full queue
+  concurrency/lifecycle scope, P0-P3 schema and proactive response.
+- Next: commit/push creation evidence and publish/read back issue #5; do not
+  poll or overlap review with speculative production edits.
