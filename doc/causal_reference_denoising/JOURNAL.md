@@ -2033,3 +2033,38 @@ hidden reasoning is not.
   `471533e32d0824c57509f8c411db9a72e5d329c3`; Git worktree removal succeeded.
 - Lifecycle: one-shot agent not reused. Numerical core phase is complete.
 - Next: define and test the first plugin-private data processor seam.
+
+### E-208 - FIFF focused-build baseline characterized
+
+- Actor: manager; targeted dependency build only, no mne_scan/rt_server.
+- Attempt one: outer 120-second timeout left partial Release objects and no
+  compiler diagnosis; no residual build process remained.
+- Attempt two: incremental `mne_fiff` build reached existing sources and failed
+  uniformly in installed Qt 5.15.2 `qlist.h`: MSVC 14.51's STL no longer
+  provides `stdext::make_checked_array_iterator` (`C2653`/`C3861`).
+- Scope decision: do not patch vendor Qt or start a broad FIFF/toolchain fix.
+  First adapter tests use immutable `{fiffKind,isBad}` row descriptors with real
+  FIFF constants; the real plugin conversion loop stays local and the existing
+  P3 client-link smoke verifies it on a supported toolchain before final gate.
+- Next: freeze the plugin-private processor interface around this data seam and
+  dispatch a behavioral FIFF-kind/bad-row RED tracer.
+
+### E-209 - Plugin-private processor interface frozen
+
+- Actor: manager using codebase-design after measured FIFF baseline failure.
+- Seam: immutable sampling/kind/bad descriptor and numerical settings enter a
+  concrete worker-owned processor; configure returns fixed status/counts,
+  process uses existing DenoisingMode/result, reset/configuration are local.
+- Safety: every invalid/missing configure disarms old weights; Ready reconfigure
+  resets. Disabled/frozen/enabled map to Bypass/ApplyOnly/ApplyAndLearn outside
+  the processor. No public registry/strategy/FIFF dependency is added.
+- Next: create one behavioral mapping/row-preservation RED tracer.
+
+### E-210 - First plugin-data RED tracer request prepared
+
+- Actor: manager under TDD and the selected processor seam.
+- Request: `W-TEST-PLUGIN-DATA-001`, Sol/high, six descriptor rows covering
+  good/bad REF and MEG plus STIM/misc; train/probe proves only good MEG changes.
+- Build seam: Qt Core/Test + Eigen and direct numerical source, no mne_fiff or
+  mne_scan; initial RED is the absent processor header.
+- Next: commit/push, create exact detached worktree and dispatch.

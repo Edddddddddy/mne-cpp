@@ -227,14 +227,98 @@ thread all information needed to handle a layout transition at the same block
 boundary as its samples. UI pending settings/reset state remains a separate
 UI-to-worker boundary and is never locked by the acquisition callback.
 
-The focused `test_adaptive_denoising_plugin` target compiles the private queue
-and processor sources directly and links only Qt Core/Test, Eigen,
-`mne_fiff`, and `mne_rtprocessing` (plus unavoidable transitive library
-requirements). It does not link the mne_scan GUI plugin framework just to test
-FIFF picks, queue behavior or block processing. `scShared`, `scMeas`, Widgets,
-plugin metadata and `AbstractAlgorithm` enter only the real
-`scan_adaptivedenoising` target and any later lifecycle integration slice that
-genuinely exercises them.
+The focused `test_adaptive_denoising_plugin` target compiles private queue,
+processor and numerical sources directly and initially links only Qt Core/Test
+and Eigen. Its worker-owned processor consumes an immutable data-only stream
+descriptor: sampling frequency plus one `{fiffKind, isBad}` entry per row. Tests
+use the real FIFF integer constants to prove REF_MEG/MEG/STIM/other selection,
+bad exclusion and behavior, without requiring construction/linkage of the full
+FIFF library. The real plugin has one local conversion loop from `FiffInfo`
+(`ch.kind` and `bads.contains(ch.ch_name)`) to this descriptor at the worker
+metadata boundary.
+
+This split is required by a measured baseline/toolchain incompatibility rather
+than by the desired production architecture: with MSVC 14.51 and the installed
+Qt 5.15.2 headers, building existing `mne_fiff` fails inside Qt `qlist.h`
+because the new STL removed `stdext::make_checked_array_iterator`. No plugin
+source participates in that failure. Do not patch vendor Qt or broaden this
+feature into a repository-wide FIFF/toolchain migration. The real
+`FiffInfo` conversion and shared/static client linkage are verified by the
+tracked `R-CORE-LINK-001` smoke on a supported compiler/Qt combination (or a
+separately approved narrow compatibility fix) before final integration.
+
+`scShared`, `scMeas`, Widgets, plugin metadata and `AbstractAlgorithm` enter
+only the real `scan_adaptivedenoising` target and a later lifecycle slice that
+genuinely exercises them; basic mapping, queue and processor tests stay outside
+the full mne_scan GUI dependency graph.
+
+The selected plugin-private processor seam is concrete and has no strategy or
+registry interface:
+
+```cpp
+struct AdaptiveDenoisingChannelDescriptor {
+    int fiffKind;
+    bool isBad;
+};
+
+struct AdaptiveDenoisingStreamDescriptor {
+    double samplingFrequencyHz;
+    std::vector<AdaptiveDenoisingChannelDescriptor> channels;
+};
+
+struct AdaptiveDenoisingSettings {
+    Eigen::Index tapCount = 4;
+    Eigen::Index adaptationIntervalSamples = 128;
+    double memoryTimeSeconds = 30.0;
+    double regularization = 1e-3;
+};
+
+enum class AdaptiveDenoisingConfigureStatus : std::uint8_t {
+    Ready,
+    InvalidMetadata,
+    MissingReferences,
+    MissingTargets,
+    InvalidSettings
+};
+
+struct AdaptiveDenoisingConfigureResult {
+    AdaptiveDenoisingConfigureStatus status;
+    Eigen::Index referenceCount;
+    Eigen::Index targetCount;
+    Eigen::Index featureCount;
+};
+
+class AdaptiveDenoisingProcessor final {
+public:
+    AdaptiveDenoisingConfigureResult configure(
+        const AdaptiveDenoisingStreamDescriptor& stream,
+        Eigen::Index maxBlockSamples,
+        const AdaptiveDenoisingSettings& settings);
+    RTPROCESSINGLIB::DenoiserProcessResult process(
+        Eigen::Ref<Eigen::MatrixXd> block,
+        RTPROCESSINGLIB::DenoisingMode mode) noexcept;
+    void reset() noexcept;
+    AdaptiveDenoisingConfigureResult configuration() const noexcept;
+};
+```
+
+`configure` runs only on the processing thread at a block boundary. It validates
+finite positive sampling frequency, descriptor count/block bound and UI setting
+ranges, selects good `FIFFV_REF_MEG_CH` rows as references and good
+`FIFFV_MEG_CH` rows as targets, and delegates feature-limit validation to the
+numerical config. Every configure attempt commits the adapter availability:
+invalid/missing layouts disarm the old numerical model so later `process` calls
+cannot accidentally apply weights from previous metadata. While disarmed,
+`process` preserves the whole block and reports the numerical NotConfigured
+shape of diagnostics; no string is constructed there. A Ready configure creates
+a new numerical configuration and resets the model. `configuration()` is a
+fixed-size worker/UI snapshot.
+
+The real `FiffInfo` conversion treats each row bad when
+`info.bads.contains(ch.ch_name)`; STIM, misc, bad MEG/reference and all unrelated
+rows are never selected and therefore must remain value-identical. Enabled/
+frozen controls map outside this processor to ApplyAndLearn/ApplyOnly;
+disabled maps to BypassTrackHistory so causal reference history continues.
 
 ## Acceptance criteria
 

@@ -2580,3 +2580,33 @@ The manager records and forwards all cross-worker messages here before acting.
   Worktree was clean at exact `6c39f16db3`; worker/integration focused-test
   hashes both equal `471533e32d0824c57509f8c411db9a72e5d329c3`; verified Git
   worktree removal succeeded. One-shot agent will not be reused.
+
+### REQUEST W-TEST-PLUGIN-DATA-001
+
+- From / to: manager / first plugin-data TDD tracer worker.
+- Planned execution: detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-plugin-data-001` from the exact
+  integration HEAD recorded after request commit.
+- Model/environment: `gpt-5.6-sol`, `high`; no nested subagents.
+- Blocking: yes for `W-PLUGIN-DATA-001`.
+- Task: add focused target `test_adaptive_denoising_plugin` plus exactly one
+  behavioral public/private seam RED slot for the SPEC processor interface.
+  Use six rows: good REF_MEG, bad REF_MEG, good MEG, bad MEG, STIM and misc,
+  expressed with real FIFF constants and data-only descriptors. Configure one
+  tap, interval/max block two, 30-second memory and `1e-8` regularization; require
+  Ready counts 1/1/1. Train two samples where good target is `2*goodRef`, then
+  ApplyOnly a future sample and require that good target residual is `<=1e-5`.
+  At both stages require exact preservation of good/bad reference, bad MEG,
+  STIM and misc rows, finite output, one accepted generation and zero rejects.
+- Initial target boundary: compile test plus numerical source directly with Qt
+  Core/Test and Eigen; include library/plugin roots, do not link mne_fiff,
+  mne_rtprocessing or mne_scan. Initial RED should be missing
+  `adaptivedenoising/adaptivedenoisingprocessor.h`; production source is not
+  authorized in this task.
+- Files: new test source/CMake and top-level testframe registration only. No
+  production/plugin header/source, queue, UI, vendor/toolchain fix, dependency,
+  benchmark/example or rt_server.
+- Required response: `RESPONSE W-TEST-PLUGIN-DATA-001` with commit, exact test
+  matrices/oracles, CMake dependency proof, RED evidence or honest infrastructure
+  limit, changed files/clean status and no-subagent confirmation.
+- Status: request recorded before worktree creation/dispatch.
