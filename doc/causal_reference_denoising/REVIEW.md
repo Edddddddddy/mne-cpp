@@ -12,7 +12,8 @@
 
 ## Core numerical review
 
-Pending.
+Formal independent review `R-CORE-001` is prepared after quantitative GREEN;
+reviewer assignment and findings are pending.
 
 ### Diagnostics seam pre-review
 

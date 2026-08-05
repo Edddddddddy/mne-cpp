@@ -1817,3 +1817,23 @@ hidden reasoning is not.
 - Network: the first failure-record push also met a transient GitHub SSL
   connection error; local commits remain intact.
 - Next: commit this cleanup record and retry branch push/issue publication.
+
+### E-188 - Synthetic milestone published after retry
+
+- Actor: manager using the GitHub workflow.
+- Result: branch push recovered and issue #2 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5190907402`
+  publishes the measured 58.6541 dB/0.000113195 GREEN evidence.
+- Cleanup: W-TEST-CORE-015 worktree retirement is complete; no duplicate code,
+  task or GitHub comment was created.
+- Next: prepare independent formal core review.
+
+### E-189 - Formal core review request prepared
+
+- Actor: manager under the code-review fallback and codebase-design workflow.
+- Request: `R-CORE-001`, Sol/ultra, exact integration HEAD, read-only/no edits,
+  no subagents; inspect interface depth, numerical transactions, streaming
+  causality, finite safety, diagnostics and hot-path real-time constraints.
+- Gate: report P0-P3 with exact evidence; P0/P1 zero and P2 resolved/deferred
+  are required before plugin-data work begins.
+- Next: commit/push, create the isolated review worktree and dispatch.

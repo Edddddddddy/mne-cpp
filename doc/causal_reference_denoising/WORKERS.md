@@ -2350,3 +2350,31 @@ The manager records and forwards all cross-worker messages here before acting.
   succeeded. The one-shot agent will not be reused.
 - Publish status: issue comment still pending retry; the failure-record commit
   push also encountered a transient GitHub SSL connection error.
+- Final status: complete. Branch retry succeeded; quantitative evidence was
+  published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5190907402`.
+
+### REQUEST R-CORE-001
+
+- From / to: manager / independent formal core reviewer.
+- Planned execution: detached read-only worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-review-r-core-001` at the exact integration
+  HEAD recorded after request commit; agent identifier recorded after dispatch.
+- Model/environment: `gpt-5.6-sol`, `ultra`; no edits and no subagents.
+- Blocking: yes for starting plugin-data implementation.
+- Review scope: public header, numerical source, focused CMake/test source and
+  durable SPEC/evidence. Independently inspect deep-module interface/locality,
+  config transactionality, causal tap/history/update-boundary semantics, EWLS
+  forgetting/loading/LDLT acceptance, pending/committed state transactions,
+  modes, nonfinite/overflow behavior, diagnostics, chunk invariance, target-only
+  writes and configured hot-path real-time safety.
+- Evidence audit: distinguish code proof from tests; validate the Release
+  43/0/1 quantitative metrics, Debug 43/0/0 effective malloc guard and exact
+  chunk equivalence recorded in the ledgers. Do not run `mne_rt_server`.
+- Finding format: P0-P3, stable ID, exact file/line, evidence, impact, requested
+  fix and required test. Explicitly state when no finding exists at a priority.
+  P0/P1 must be zero; P2 must be fixed or explicitly deferred before core close.
+- Required response: `RESPONSE R-CORE-001` with reviewed commit, inspection/
+  validation performed, prioritized findings, residual risks, overall gate
+  recommendation and no-edit/no-subagent confirmation.
+- Status: request recorded before worktree creation/dispatch.

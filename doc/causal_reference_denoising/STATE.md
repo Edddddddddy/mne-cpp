@@ -35,14 +35,14 @@ clean projection-amplitude error. Formal independent core review is next.
 
 ## Running workers
 
-No implementation worker is running. The completed one-shot synthetic worker
-and detached worktree are pending verified retirement after evidence publish.
+No worker is running. The synthetic one-shot worker is safely retired and its
+GREEN evidence is published; formal independent core review is being prepared.
 
 ## Next actions
 
-1. Push/publish the synthetic GREEN milestone and retire its one-shot worker.
-2. Dispatch independent Sol/ultra formal core review with no edit authority.
-3. Resolve any P0-P2 finding, then begin the plugin-data TDD slice.
+1. Dispatch independent Sol/ultra formal core review with no edit authority.
+2. Resolve any P0-P2 finding.
+3. Begin the plugin-data TDD slice only after the core review gate closes.
 
 ## Focused verification targets
 
