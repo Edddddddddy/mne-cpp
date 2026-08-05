@@ -1799,3 +1799,17 @@ The manager records and forwards all cross-worker messages here before acting.
 - Question: report concise progress, chosen overflow-safe relative comparison,
   analytic tolerance and any blocker; no rescope or subagents.
 - Status: recorded before forwarding.
+
+### RESPONSE W-TEST-CORE-012-STATUS
+
+- Conclusion: no blocker; required records/skills read and the one-slot,
+  two-section test-only patch is implemented.
+- Large RMS: selected target `[+M,-M,+M,-M]`, `M=DBL_MAX/4`, exact block
+  preservation and overflow-safe `abs(actual/M - 1) <= 8*epsilon`, avoiding
+  direct large subtraction or squaring.
+- Analytic RMS: `W=2/(1+1e-8)`; expected input `sqrt(148)`, output residual RMS
+  from `[10-3W,14-4W]`, and noise `W*sqrt(12.5)`. Combined `1e-12` absolute and
+  relative tolerance covers diagnostics and target samples.
+- Scope/lifecycle: final diff review/available validation/commit pending; no
+  subagents and no scope change.
+- Next: await clean commit response; do not duplicate.

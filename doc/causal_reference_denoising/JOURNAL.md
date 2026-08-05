@@ -1415,3 +1415,11 @@ hidden reasoning is not.
 - Action: prepare one non-blocking progress/comparison/tolerance request without
   changing scope or creating a duplicate.
 - Next: commit/push, forward and continue bounded waiting.
+
+### E-147 - Stable RMS test patch complete
+
+- Actor: `/root/w_test_core_012` and manager.
+- Result: no blocker; overflow-safe large-value ratio and analytic ApplyOnly
+  RMS equations/tolerances are implemented in one test-only slot.
+- Scope: final worker checks/commit remain; no subagents or expansion.
+- Decision: record before inspecting; continue the same worker only.
