@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T03:53:00+08:00
+Last updated: 2026-08-05T11:55:00+08:00
 
 ## Recovery order
 
@@ -33,11 +33,11 @@ slice is the first causal EWLS streaming tracer RED.
 
 ## Running workers
 
-`W-TEST-CORE-004` is queued for Luna/max dispatch in a new worktree.
+`W-TEST-CORE-004` is active on Luna/max in worktree `725c`.
 
 ## Next actions
 
-1. Dispatch `W-TEST-CORE-004` and persist its identifiers.
+1. Wait for `RESPONSE W-TEST-CORE-004`.
 2. Review its one causal-epoch streaming test.
 3. Reproduce RED before implementing streaming state.
 

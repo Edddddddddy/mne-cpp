@@ -453,3 +453,14 @@ hidden reasoning is not.
   context is still related/reusable.
 - Result: lifecycle policy is active; no worktree was manually removed.
 - Next: dispatch the already logged `W-TEST-CORE-004` request on Luna/max.
+
+### E-048 - Causal EWLS tracer worker active
+
+- Actor: manager.
+- Request: `W-TEST-CORE-004`.
+- Thread: `019fd00e-e7ff-7220-96b2-1310acbebf25`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/725c/mne-cpp-main`.
+- Result: Luna/max is active with one-file causal-tracer test scope.
+- Lifecycle note: the app cleaned archived worker worktrees; the manager did
+  not manually remove them.
+- Next: wait for `RESPONSE W-TEST-CORE-004`.

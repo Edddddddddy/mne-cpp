@@ -462,6 +462,9 @@ The manager records and forwards all cross-worker messages here before acting.
 ### REQUEST W-TEST-CORE-004
 
 - From / to: manager / `W-TEST-CORE`.
+- Client setup ID: `client-new-thread:4d463d8d-4f14-4a23-aa69-a84c23e9718b`.
+- Thread: `019fd00e-e7ff-7220-96b2-1310acbebf25`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/725c/mne-cpp-main`.
 - Model/environment: `gpt-5.6-luna`, `max`, new isolated worktree.
 - Blocking: yes, before numerical streaming implementation.
 - Task: add exactly one test slot for a three-channel stream with reference row
@@ -476,4 +479,4 @@ The manager records and forwards all cross-worker messages here before acting.
   nonfinite/malloc cases yet.
 - Required response: `RESPONSE W-TEST-CORE-004`, commit, exact synthetic values,
   expected RED evidence, and limitations.
-- Status: recorded before dispatch.
+- Status: active; direct bounded snapshot confirmed startup.
