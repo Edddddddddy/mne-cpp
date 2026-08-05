@@ -3403,3 +3403,17 @@ does not continuously poll them.
 - Lifecycle: one-shot; manager archives after exact integration/content and
   populated Release verification.
 - Status: recorded before visible work conversation creation.
+
+### RESPONSE W-PROC-MOVE-001-CREATE
+
+- Result: visible saved-project worktree creation accepted asynchronously.
+- Client setup ID:
+  `client-new-thread:a72b97b8-3a57-4239-aae3-bdc670aa52ad`.
+- Host/model: local, `gpt-5.6-luna`, `max`; satisfies the project model rule.
+- Exact branch base at dispatch:
+  `46a413609b0d691ad3d66503c04967df00b22d41`.
+- Prompt integrity: exact two-file special-member/trait slice, codebase-design
+  and TDD reads, no source/CMake/core/plugin expansion, no dependency repair,
+  no subagents/rt_server/polling and proactive manager RESPONSE.
+- Coordination: final thread ID is setup-owned and was not returned. Manager
+  will not poll; await only the worker-pushed result.

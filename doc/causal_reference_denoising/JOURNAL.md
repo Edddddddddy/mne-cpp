@@ -2707,3 +2707,15 @@ hidden reasoning is not.
   header plus focused test source; no source/CMake/core/plugin expansion.
 - Next: commit/push this decision/request, create the worktree conversation,
   record its identity, then publish the P2 fix dispatch to issue #4.
+
+### E-261 - Processor ownership fix task creation accepted
+
+- Result: new visible Luna/max worktree setup accepted as
+  `client-new-thread:a72b97b8-3a57-4239-aae3-bdc670aa52ad` from exact request
+  base `46a413609`.
+- Scope: processor header plus focused test source only; explicit default/
+  deleted copy-move declarations and five C++14 type traits.
+- Coordination: no final thread ID returned and no polling; worker must
+  proactively send `RESPONSE W-PROC-MOVE-001`.
+- Next: commit/push creation evidence and publish the finding/fix dispatch to
+  issue #4.

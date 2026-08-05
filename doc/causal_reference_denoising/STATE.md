@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T00:14:00+08:00
+Last updated: 2026-08-06T00:20:00+08:00
 
 ## Recovery order
 
@@ -52,18 +52,20 @@ items are tracked as nonblocking follow-up.
 
 ## Running workers
 
-- `W-PROC-MOVE-001` is prepared for a new visible Luna/max minimal fix
-  conversation after this REQUEST commit is pushed. It will change only the
-  processor header and focused test source.
+- `W-PROC-MOVE-001` visible Luna/max worktree setup is accepted asynchronously
+  as client task `client-new-thread:a72b97b8-3a57-4239-aae3-bdc670aa52ad`
+  from exact base `46a413609`. It may change only the processor header and
+  focused test source, then must proactively send its RESPONSE.
 
 ## Next actions
 
-1. Dispatch the recorded Luna/max `W-PROC-MOVE-001` fix conversation.
-2. Publish the formal review/fix evidence and close issue #4 after focused
+1. Publish the P2 finding and ownership-fix dispatch to issue #4.
+2. Await only worker-pushed `RESPONSE W-PROC-MOVE-001`; do not poll.
+3. Publish the formal review/fix evidence and close issue #4 after focused
    Release remains GREEN.
-3. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
+4. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
    concurrency implementation and independent review.
-4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+5. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 
