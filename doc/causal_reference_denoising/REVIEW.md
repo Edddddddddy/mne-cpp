@@ -14,6 +14,12 @@
 
 Pending.
 
+### Diagnostics seam pre-review
+
+Pending. This read-only design review will define the minimum fixed-size
+process diagnostics and numerical-solve rejection semantics before the next
+test, without reviewing or changing plugin/UI code.
+
 ## Final integration review
 
 Pending.

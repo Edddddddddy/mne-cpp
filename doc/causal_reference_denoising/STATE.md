@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T16:25:00+08:00
+Last updated: 2026-08-05T16:30:00+08:00
 
 ## Recovery order
 
@@ -19,8 +19,8 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-Atomic selected-NaN/Inf behavior, chunk-boundary equivalence, and reset-to-
-fresh-state semantics are GREEN. The next contract is non-learning mode state.
+Atomic selected-NaN/Inf behavior, chunk equivalence, reset, and all three mode
+semantics are GREEN. Next is fixed-size diagnostics/solve-rejection design.
 
 ## Completed
 
@@ -33,15 +33,14 @@ fresh-state semantics are GREEN. The next contract is non-learning mode state.
 
 ## Running workers
 
-`W-TEST-CORE-008` returned test commit `ec69672b6`; its response mistyped the
-full SHA, reconciled from clean worktree HEAD as
-`ec69672b6ebda8871de7a8787dabb3f58047e51a`. Diff review is pending.
+None. `W-TEST-CORE-008` is integrated and GREEN; issue publication/worktree
+cleanup are pending before a diagnostics seam review.
 
 ## Next actions
 
-1. Review reconciled commit `ec69672b6` against the analytic contract.
-2. Integrate the ApplyOnly/Bypass non-learning and history test.
-3. Integrate that narrow contract before diagnostics and malloc-guard work.
+1. Publish 37/0 mode evidence and retire the clean isolated worker worktree.
+2. Dispatch Sol/ultra read-only diagnostics/solve-failure seam review.
+3. Record findings in `REVIEW.md`, then issue one focused RED test request.
 
 ## Focused verification targets
 

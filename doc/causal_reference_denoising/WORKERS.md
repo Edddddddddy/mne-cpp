@@ -1006,3 +1006,24 @@ The manager records and forwards all cross-worker messages here before acting.
   `1e-5`; any adversarial learning or stale history produces order-one errors.
 - Decision: accept reconciled commit `ec69672b6ebda8871de7a8787dabb3f58047e51a`
   for cherry-pick and populated-workspace runtime validation.
+
+### MANAGER VALIDATION W-TEST-CORE-008-GREEN
+
+- Integrated commit: `58c4646ae`.
+- Focused Release build: success, with only known Eigen/MSVC C4819 warnings.
+- Synchronized report: 37 passed, zero failed, process exit code 0.
+- Both `ApplyOnly` and `BypassTrackHistory` analytic rows pass, proving the
+  committed model is unchanged, history advances, ApplyOnly subtracts it, and
+  Bypass preserves the block for this contract.
+- Decision: immediate GREEN; no production fix.
+
+### RETIREMENT REQUEST CLEANUP-008
+
+- After committing/pushing validation, publish mode evidence to issue #2.
+- Verify detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-008` is clean at actual
+  commit `ec69672b6ebda8871de7a8787dabb3f58047e51a` and content-matches
+  integrated `58c4646ae`, then remove it via Git worktree management.
+- Collaboration agent `/root/w_test_core_008` is one-shot and completed; do
+  not reuse it.
+- Status: recorded before cleanup/publish.

@@ -856,3 +856,22 @@ hidden reasoning is not.
   forgetting perturbation; unintended learning or missing history is much
   larger.
 - Decision: accept resolved commit `ec69672b6`; integrate and run focused tests.
+
+### E-088 - All three mode semantics are GREEN
+
+- Actor: manager.
+- Integrated test: `58c4646ae`.
+- Evidence: focused Release build succeeds; synchronized report has 37 passes,
+  zero failures, exit code 0. ApplyOnly and Bypass analytic rows both pass.
+- Result: committed model preservation, causal history tracking, ApplyOnly
+  subtraction, and exact Bypass are covered without a production change.
+- Next: publish/retire, then review the diagnostics and solver-failure seam.
+
+### E-089 - Generic code-review skill fallback recorded
+
+- Actor: manager.
+- Catalog evidence: this session exposes `codebase-design`, TDD, and GitHub
+  workflow skills but no generic skill named `code-review`.
+- Decision: use the documented fallback: independent Sol/ultra read-only
+  reviewer, codebase-design vocabulary, and structured P0-P3 findings in
+  `REVIEW.md`. No plugin installation is inferred.
