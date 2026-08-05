@@ -3024,3 +3024,13 @@ hidden reasoning is not.
 - Scope/coordination: examples-only three-file task, no overlap with queue test,
   no polling or rt_server; worker must proactively return its response.
 - Next: commit/push creation evidence and publish/read back issue #7 dispatch.
+
+### E-289 - Focused example dispatch published
+
+- Publish/read-back: issue #7 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5194881491`
+  matches exact base, Luna/max model, examples-only scope, teaching stages,
+  isolated dependency seam and restrictions.
+- Coordination: queue lifecycle and example workers own disjoint files; manager
+  polls neither and awaits proactive responses while continuing read-only
+  planning for plugin integration.

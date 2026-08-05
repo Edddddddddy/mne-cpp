@@ -3963,3 +3963,13 @@ does not continuously poll them.
   polling and proactive response notification.
 - Coordination: no final thread ID was returned; manager will not poll and
   awaits only the worker-pushed RESPONSE after issue #7 dispatch.
+
+### PUBLISH W-EXAMPLE-001-START
+
+- GitHub issue #7 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5194881491`.
+- Read-back: exact base/model/setup ID, examples-only three-file scope,
+  deterministic channel-time/tap-major stages, fixed runtime invariants,
+  isolated Qt Core/Eigen build and no-polling/no-rt_server restrictions match
+  the durable request.
+- Status: public dispatch complete; manager does not poll either active worker.
