@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T17:44:00+08:00
+Last updated: 2026-08-05T17:52:00+08:00
 
 ## Recovery order
 
@@ -19,8 +19,8 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-Atomic selected-NaN/Inf behavior, chunk equivalence, reset, and all three mode
-semantics are GREEN. Next is fixed-size diagnostics/solve-rejection design.
+Core behavior and fixed diagnostics lifecycle are GREEN. Next is transactional
+finite-overflow epoch rejection/recovery (`R-SOLVE-001`).
 
 ## Completed
 
@@ -33,16 +33,14 @@ semantics are GREEN. Next is fixed-size diagnostics/solve-rejection design.
 
 ## Running workers
 
-Diagnostics lifecycle compile RED is integrated. Replacement `W-CORE-006-R`
-also hit a response-stream disconnect, but its complete two-file implementation
-passed manager static review and was recovered as commit `eb342faf5`.
+None. Recovered diagnostics implementation is GREEN. Its clean worktree is
+ready for retirement; `W-TEST-CORE-010` is prepared.
 
 ## Next actions
 
-1. Commit the durable recovery SHA and cherry-pick `eb342faf5`.
-2. Run the focused build and synchronized report.
-3. Integrate and validate diagnostics lifecycle GREEN before the separate
-   transactional solve-rejection RED.
+1. Publish diagnostics GREEN evidence and remove the clean recovery worktree.
+2. Create/dispatch Sol/ultra `W-TEST-CORE-010`.
+3. Reproduce runtime RED for mixed rejected/recovered boundaries.
 
 ## Focused verification targets
 

@@ -1314,3 +1314,48 @@ The manager records and forwards all cross-worker messages here before acting.
   evidence and known limitations are captured in the recovery review above.
 - Next: integrate and run populated-workspace compile/runtime; no worker GREEN
   is claimed.
+
+### MANAGER VALIDATION W-CORE-006-R-GREEN
+
+- Integrated production commit: `b5f29fff1`.
+- Focused Release build: success, including diagnostics header/source and test;
+  only known Eigen/MSVC C4819 warnings.
+- Synchronized report: 38 passed, zero failed, exit code 0.
+- Lifecycle/RMS slot passes exactly; all prior core tests remain GREEN.
+- Decision: fixed diagnostics lifecycle is GREEN. Transactional `G/H` and
+  application overflow findings remain open by design.
+
+### RETIREMENT REQUEST CLEANUP-010
+
+- After committing/pushing GREEN evidence, publish it to issue #2.
+- Verify recovery worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-core-006-r` is clean at
+  `eb342faf5`, content-matches integrated `b5f29fff1`, and remove via Git
+  worktree management. Both transport-failed implementation agents are not
+  reusable.
+- Status: recorded before cleanup/publish.
+
+### REQUEST W-TEST-CORE-010
+
+- From / to: manager / transactional solve-rejection test worker.
+- Execution: collaboration subagent in detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-010`; identifier recorded
+  after dispatch.
+- Model/environment: `gpt-5.6-sol`, `ultra`; no nested subagents.
+- Model decision: extreme finite arithmetic, mixed boundary diagnostics, epoch
+  forgetting and recovery make this a high-risk numerical contract.
+- Blocking: yes for P1 `R-SOLVE-001` and completion of P1 `R-DIAG-001`.
+- Task: add exactly one public-interface Qt slot using one reference, one target,
+  one tap, interval two and a single eight-sample ApplyAndLearn block. Epoch 1
+  uses refs `[0,0]`, targets `[0,0]` and must accept a zero model. Epochs 2/3
+  use finite refs `[DBL_MAX/2, DBL_MAX/2]` with zero targets and must each reject
+  their poisoned candidates. Epoch 4 uses refs `[1,2]`, targets `[2,4]` and must
+  recover/accept. Require status Processed, per-call accepted/rejected `2/2`,
+  generation2, exact reference preservation, finite target output and analytic
+  target RMS. Then ApplyOnly probe ref3/target6 must be near zero with generation2
+  and zero call-local events. This is a runtime RED against poisoned in-place
+  `G/H`, not a compile RED.
+- Scope: test source only; no production/CMake/plugin/dependency/rt_server.
+- Required response: `RESPONSE W-TEST-CORE-010`, commit, exact stream/oracle,
+  expected current RED, evidence/infra limitation, and no-subagent confirmation.
+- Status: recorded before cleanup/worktree setup/dispatch.

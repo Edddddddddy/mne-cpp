@@ -18,7 +18,7 @@ Pending.
 
 Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
 
-#### R-DIAG-001 - P1 - Open
+#### R-DIAG-001 - P1 - In progress
 
 - Location: `causalreferencedenoiser.h:68` and
   `causalreferencedenoiser.cpp:161,183-201,341-352`.
@@ -26,6 +26,9 @@ Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
   silently, so accepts/rejects, generation, warmup and RMS are unobservable.
 - Fix: selected fixed-size diagnostics in `SPEC.md`; aggregate every boundary.
 - Required test: lifecycle plus multiple/mixed boundary event counts.
+- Progress: fixed result/lifecycle is GREEN in `b5f29fff1` with test
+  `a0fcf0e68`; mixed accepted/rejected boundary proof remains in
+  `W-TEST-CORE-010`.
 
 #### R-SOLVE-001 - P1 - Open
 
@@ -63,11 +66,13 @@ Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
 - Required test: trained finite model plus extreme finite probe never silently
   returns nonfinite `Processed` output.
 
-#### R-STATUS-001 - P3 - Open
+#### R-STATUS-001 - P3 - Closed
 
 - Location: `causalreferencedenoiser.cpp:282-286`.
 - Evidence: unconfigured module is conflated with invalid shape.
 - Fix/test: `NotConfigured` with unchanged block, zero snapshot and NaN RMS.
+- Resolution: implemented in `b5f29fff1`; diagnostics lifecycle test passes in
+  the 38/0 synchronized report.
 
 No P0 finding. P1 findings must be closed before core completion; all P2
 findings will be fixed or explicitly deferred in issue #2.

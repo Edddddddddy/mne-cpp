@@ -1071,3 +1071,21 @@ hidden reasoning is not.
   document change, as expected; the main-workspace durable record remains
   intact and is committed before cherry-pick.
 - Next: integrate `eb342faf5` and run the focused target/report.
+
+### E-112 - Fixed diagnostics lifecycle is GREEN
+
+- Actor: manager.
+- Integrated production: `b5f29fff1`.
+- Evidence: focused Release build succeeds; synchronized Qt report has 38
+  passes, zero failures and exit code 0.
+- Review effect: close P3 `R-STATUS-001`; P1 `R-DIAG-001` remains in progress
+  until mixed boundary counts are tested.
+- Next: publish/retire and dispatch extreme finite transactional RED.
+
+### E-113 - Transactional rejection test request prepared
+
+- Actor: manager under reviewer P1 and TDD.
+- Request: `W-TEST-CORE-010`, Sol/ultra, one test slot/source, no subagents.
+- Stream: zero-model accept, two finite-overflow rejections, normal recovery
+  accept in one block, then future probe; expected events `2/2`, generation2.
+- Next: commit/push, clean recovery worktree, create test worktree, dispatch.
