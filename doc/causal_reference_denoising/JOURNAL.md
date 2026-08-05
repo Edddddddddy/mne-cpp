@@ -2220,3 +2220,17 @@ hidden reasoning is not.
   branch, file or worker execution exists.
 - Next: commit/push this no-side-effect failure, then retry the existing
   `W-PROC-TEST-001` request once with the exact declared project target schema.
+
+### E-223 - First visible Luna/max processor worker accepted
+
+- Actor: manager and Codex app saved-project task creation.
+- Dispatch: corrected target schema accepted client setup ID
+  `client-new-thread:6b3b6649-8bc8-4b37-ba95-1cc2e6e25068`, local host,
+  Luna/max, app-managed worktree from exact integration base `eef062192`.
+- Integrity: the prompt contains the complete authorized test-only request,
+  recovery/skill reads, no-subagent/no-rt_server rules and the manager thread ID
+  for active final notification.
+- Coordination: do not call wait/read/list to monitor this worker. Continue only
+  when its explicit `RESPONSE W-PROC-TEST-001` arrives in this manager thread.
+- Next: commit/push the creation response, publish dispatch evidence to issue
+  #4, then leave the worker independent.

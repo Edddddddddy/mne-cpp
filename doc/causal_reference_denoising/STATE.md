@@ -50,20 +50,20 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 
 ## Running workers
 
-- None. Internal subagent `/root/w_test_plugin_data_001` failed with a stream
-  disconnect before producing code and is superseded by the visible-work-
-  conversation policy. Its detached worktree was verified clean at
-  `cdc07b283` before retirement.
+- `W-PROC-TEST-001`: visible Luna/max saved-project worktree conversation for
+  issue #4. Creation accepted with client setup ID
+  `client-new-thread:6b3b6649-8bc8-4b37-ba95-1cc2e6e25068` from exact
+  integration base `eef062192`; final thread ID is setup-owned. The worker must
+  actively return `RESPONSE W-PROC-TEST-001`; the manager does not poll.
 
 ## Next actions
 
-1. Dispatch the first minimal plugin-processor test task under issue #4 to a new visible work
-   conversation using Luna/max or Sol as risk requires.
-2. Receive its explicit RESPONSE without polling, then review/integrate the
+1. Receive the explicit `RESPONSE W-PROC-TEST-001` without polling, then
+   review/integrate the
    exact RED tracer before dispatching the GREEN implementation slice.
-3. After issue #4 reaches a milestone commit, open a separate visible
+2. After issue #4 reaches a milestone commit, open a separate visible
    Sol/ultra review conversation before integration.
-4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 

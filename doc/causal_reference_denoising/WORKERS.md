@@ -2724,3 +2724,17 @@ does not continuously poll them.
 - Decision: preserve the same single request and retry once with the declared
   `target: {type: project, projectId, environment}` schema. This is not a
   duplicate task dispatch.
+
+### RESPONSE W-PROC-TEST-001-CREATE
+
+- Result: corrected visible-thread creation was accepted.
+- Client setup ID: `client-new-thread:6b3b6649-8bc8-4b37-ba95-1cc2e6e25068`.
+- Host/project: local saved Git project `mne-cpp-main`, isolated app-managed
+  worktree starting from branch `codex/causal-reference-denoising` at exact
+  manager HEAD `eef0621925c4c08f2c8e942b110ab636887e9b71`.
+- Model: `gpt-5.6-luna`, `max`.
+- Notification contract: initial prompt includes manager thread
+  `019fcdc3-4a1e-76d1-8140-1bd521219297` and requires worker-initiated final
+  `send_message_to_thread`; no manager polling or internal subagent is used.
+- Status: setup accepted asynchronously; final thread ID was not returned and
+  will not be polled. Await only the worker-pushed RESPONSE.
