@@ -998,3 +998,21 @@ hidden reasoning is not.
 - Worktree/model: detached `mne-cpp-worker-w-core-006` at `8637bb118`, Sol/high,
   no subagents.
 - Next: wait for the numerical header/source response; no overlapping edits.
+
+### E-104 - Diagnostics implementation worker transport failure
+
+- Actor: `/root/w_core_006` runtime and manager.
+- Result: the worker response stream disconnected before completion; no
+  structured response or commit is accepted.
+- Classification: external transport failure, not product RED/GREEN.
+- Decision: record first, then inspect isolated worktree. Retire/recreate the
+  one-shot worker if it lacks a complete clean commit; do not reuse blindly.
+
+### E-105 - Failed diagnostics worker has no recoverable edit
+
+- Actor: manager.
+- Evidence: `mne-cpp-worker-w-core-006` is clean at `8637bb118`, with no diff
+  and no implementation commit.
+- Decision: retire the failed agent/worktree and dispatch fresh Sol/high
+  `W-CORE-006-R` under the unchanged, already durable implementation scope.
+- Next: commit/push, remove the clean worktree, create replacement, dispatch.

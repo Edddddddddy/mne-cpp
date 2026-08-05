@@ -1215,3 +1215,37 @@ The manager records and forwards all cross-worker messages here before acting.
 - Status: active. Test worker was clean/content-matched and removed; new
   implementation worktree was created from `8637bb118`; Sol/high accepted the
   header/source-only and no-subagent scope.
+
+### RESPONSE W-CORE-006-ERROR
+
+- Result: agent turn failed before structured completion because the Codex
+  response stream disconnected while sending to the backend.
+- Classification: external worker transport failure, not a compile/test/code
+  finding. No commit or scope claim is accepted yet.
+- Decision: record before inspecting the isolated worktree. If work is not a
+  complete clean commit, retire the non-reusable agent and use a fresh
+  replacement under the same durable request.
+
+### RECOVERY/RETIREMENT W-CORE-006
+
+- Inspection: detached worktree remains clean at base `8637bb118`; there is no
+  diff and no implementation commit to recover.
+- Decision: do not reuse `/root/w_core_006`. Remove its verified clean worktree
+  and create a fresh replacement; no code is lost.
+- Status: recorded before cleanup.
+
+### REQUEST W-CORE-006-R
+
+- From / to: manager / fresh diagnostics lifecycle implementation replacement.
+- Execution: collaboration subagent in detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-core-006-r`; identifier recorded
+  after dispatch.
+- Model/environment: `gpt-5.6-sol`, `high`; no nested subagents.
+- Blocking/scope: identical to `REQUEST W-CORE-006`. Implement only the fixed
+  diagnostics lifecycle GREEN in numerical header/source: NotConfigured,
+  fixed snapshot, generation/boundary outcome counters, post-call warmup and
+  allocation-free scaled RMS. Do not add transactional pending stats,
+  application fallback, tests/CMake/plugin changes, or dependency repairs.
+- Required response: `RESPONSE W-CORE-006-R` with a complete clean commit and
+  the same evidence fields as the original request.
+- Status: recorded before cleanup/worktree setup/dispatch.

@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T17:23:00+08:00
+Last updated: 2026-08-05T17:29:00+08:00
 
 ## Recovery order
 
@@ -33,13 +33,14 @@ semantics are GREEN. Next is fixed-size diagnostics/solve-rejection design.
 
 ## Running workers
 
-Diagnostics lifecycle compile RED is integrated. `W-CORE-006` is active as
-`/root/w_core_006` on Sol/high in detached worktree `mne-cpp-worker-w-core-006`.
+Diagnostics lifecycle compile RED is integrated. `W-CORE-006` failed because
+its response stream disconnected and left a clean unchanged worktree. Fresh
+replacement `W-CORE-006-R` is prepared.
 
 ## Next actions
 
-1. Wait for and review `RESPONSE W-CORE-006`.
-2. Integrate only numerical header/source changes.
+1. Remove the verified clean failed worktree and dispatch `W-CORE-006-R`.
+2. Review/integrate only a complete header/source replacement response.
 3. Integrate and validate diagnostics lifecycle GREEN before the separate
    transactional solve-rejection RED.
 
