@@ -3328,3 +3328,11 @@ hidden reasoning is not.
 - Decision: do not start plugin source work speculatively. Record the questions
   in `SPEC.md`, take the formal queue gate, then freeze the smallest native-
   ownership/bootstrap/row-transition seam before worker dispatch.
+
+### E-317 - Plugin ingress risks published for discussion
+
+- Publish/read-back: issue #6 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5195227638`
+  exactly records ownership bridging, first-shape bootstrap and row-transition
+  evidence plus the deliberate wait for formal queue review.
+- Scope: discussion only; no source/interface/vendor mutation.

@@ -4428,3 +4428,13 @@ does not continuously poll them.
 - Connector write and API read-back exactly match Sol/ultra setup ID, snapshot,
   review surface/questions, P0-P3 gate and read-only restrictions.
 - Status: public dispatch complete; manager will not poll the reviewer.
+
+### DISCUSSION PLUGIN-INGRESS-001
+
+- GitHub issue #6 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5195227638`.
+- Connector write/API read-back exactly record the real QSharedPointer versus
+  std::shared_ptr ownership mismatch, first-callback exact-shape bootstrap and
+  row-count transition visibility risk.
+- Decision: no speculative plugin source until formal queue review and a
+  smallest-seam follow-up; no AbstractAlgorithm/global measurement change.
