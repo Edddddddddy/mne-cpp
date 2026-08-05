@@ -474,3 +474,23 @@ hidden reasoning is not.
 - Decision: accept for integration and require a clean missing-`Processed` RED
   before production streaming state begins.
 - Next: cherry-pick and build only the focused target.
+
+### E-050 - Causal EWLS tracer RED reproduced
+
+- Actor: manager.
+- Integrated test commit: `fb0a42385`.
+- Evidence: focused build reached the new test and failed only because
+  `DenoiserProcessStatus::Processed` is absent, with C2838/C2065 at the two
+  intended assertions.
+- Result: valid compile RED.
+- Next: archive the one-shot test worker and dispatch high-risk `W-CORE-004`.
+
+### E-051 - Sol selected for first streaming implementation
+
+- Actor: manager under the user model-selection rule.
+- Decision: use Sol/ultra rather than Luna/max for `W-CORE-004` because the
+  slice combines numerical conditioning, causal state ordering, Eigen storage,
+  LDLT, and allocation-free hot-path requirements.
+- Scope: only the existing causal tracer GREEN; later safety/edge behaviors
+  remain separate RED slices.
+- Next: commit the request, archive `W-TEST-CORE-004`, then dispatch Sol/ultra.

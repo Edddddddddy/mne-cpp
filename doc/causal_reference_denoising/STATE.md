@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T12:03:00+08:00
+Last updated: 2026-08-05T12:07:00+08:00
 
 ## Recovery order
 
@@ -19,8 +19,8 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-All current configuration and shape behaviors are GREEN. The next vertical
-slice is the first causal EWLS streaming tracer RED.
+The first causal EWLS streaming tracer is a valid compile RED. The next
+vertical slice is the high-risk numerical streaming implementation.
 
 ## Completed
 
@@ -33,14 +33,14 @@ slice is the first causal EWLS streaming tracer RED.
 
 ## Running workers
 
-`W-TEST-CORE-004` returned commit `37edd7ef5`; manager static review accepted
-the one-slot tracer for integration and RED reproduction.
+`W-CORE-004` is queued for Sol/ultra because it introduces the EWLS math,
+cross-block state, LDLT solve, and hot-path allocation constraints.
 
 ## Next actions
 
-1. Cherry-pick `37edd7ef5`.
-2. Reproduce the expected missing-`Processed` compile RED.
-3. Dispatch the streaming numerical implementation only after valid RED.
+1. Archive completed one-shot `W-TEST-CORE-004`.
+2. Dispatch `W-CORE-004` and persist its identifiers.
+3. Review and validate the causal tracer GREEN.
 
 ## Focused verification targets
 

@@ -495,3 +495,43 @@ The manager records and forwards all cross-worker messages here before acting.
 - Manager static review: the two eligible feature vectors `[2,1]` and `[3,2]`
   are independent and identify weights `[2,3]`; the test observes warmup,
   tap-major order, boundary commit, and target-only write. Accepted.
+
+### MANAGER VALIDATION W-TEST-CORE-004-RED
+
+- Integrated commit: `fb0a42385`.
+- Command: focused Release target build.
+- Expected failure: MSVC C2838/C2065 at test lines 287 and 298 because
+  `DenoiserProcessStatus::Processed` is not declared.
+- Result: valid compile RED; streaming implementation may begin.
+
+### RETIREMENT REQUEST CLEANUP-002
+
+- Archive completed one-shot `W-TEST-CORE-004` thread
+  `019fd00e-e7ff-7220-96b2-1310acbebf25` after this record is committed.
+- Status: pending action.
+
+### REQUEST W-CORE-004
+
+- From / to: manager / high-risk numerical `W-CORE`.
+- Model/environment: `gpt-5.6-sol`, `ultra`, new isolated worktree.
+- Model decision: Sol is selected because this slice simultaneously introduces
+  causal indexing, recursive EWLS math, Eigen LDLT, transactional preallocation,
+  and real-time hot-path constraints.
+- Blocking: yes.
+- Task: make only the causal epoch tracer GREEN with a general Eigen
+  implementation. Add `Processed`; move allocated state behind a private Impl
+  constructed transactionally in `configure`; preallocate row copies, lag
+  history, feature/raw/prediction vectors, `G`, `H`, committed `W`, candidate
+  weights, solve matrix, and sized LDLT. Reset candidate state on configure.
+  For each eligible sample build tap-major features, apply committed `W` first,
+  learn from raw targets only in `ApplyAndLearn`, exponentially forget per
+  sample, and solve at exact update boundaries with scale-aware diagonal
+  loading and LDLT (no inverse). Commit only successful finite candidates for
+  later samples. Always advance history; warmup consumes `tapCount-1` samples.
+- Real-time scope: `process` remains `noexcept` and performs no explicit
+  allocation, lock, or string work; configure is the allocation phase.
+- Exclusions: no new tests/CMake/plugin; no chunk-equivalence, nonfinite atomic
+  pass-through, diagnostics, malloc guard, or benchmark in this slice.
+- Required response: `RESPONSE W-CORE-004`, commit SHA, files, state shapes,
+  solve/loading definition, validation evidence/limitations, and next RED.
+- Status: recorded before dispatch.
