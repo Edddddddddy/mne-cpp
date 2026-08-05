@@ -1863,7 +1863,10 @@ The manager records and forwards all cross-worker messages here before acting.
   `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-012` is clean at
   `c302fbfff` and its test content matches integrated `ada68a56b`; remove it
   through Git worktree management. The one-shot agent is not reusable.
-- Status: recorded before publish/cleanup.
+- Status: complete. Stable-RMS evidence published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5190370219`.
+  Worktree was clean at `c302fbfff`, its test exactly matched integrated
+  `ada68a56b`, and Git worktree removal succeeded. The agent is not reusable.
 
 ### REQUEST W-TEST-CORE-013
 

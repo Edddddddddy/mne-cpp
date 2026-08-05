@@ -1469,3 +1469,13 @@ hidden reasoning is not.
   require sample-wide unchanged finite output, RMS/state semantics and later
   normal-model integrity after a mixed overflow/finite prediction sample.
 - Next: commit/push, publish/clean stable RMS, create fresh worktree and dispatch.
+
+### E-153 - Stable RMS GREEN published and worker retired
+
+- Actor: manager under GitHub and worker lifecycle workflows.
+- Publish: issue comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5190370219`
+  records both RMS oracles and 41/0 evidence.
+- Cleanup: W-TEST-CORE-012 worktree was clean/content-matched and removed; its
+  one-shot Sol/high agent will not be reused.
+- Next: create and dispatch the durable application-overflow RED request.
