@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T15:42:00+08:00
+Last updated: 2026-08-05T16:03:00+08:00
 
 ## Recovery order
 
@@ -33,14 +33,15 @@ are GREEN. The next contract is reset and three-mode state semantics.
 
 ## Running workers
 
-`W-TEST-CORE-007` is active as collaboration agent `/root/w_test_core_007` on
-Sol/ultra in detached worktree `mne-cpp-worker-w-test-core-007`.
+`W-TEST-CORE-007` produced one scoped test-file modification but did not finish
+commit/response after repeated bounded waits and explicit finish guidance. Its
+interruption is recorded; manager recovery/review is next.
 
 ## Next actions
 
-1. Wait for `RESPONSE W-TEST-CORE-007` while inspecting later core gaps
-   read-only.
-2. Review and integrate the reset-to-fresh-state test response.
+1. Interrupt the non-responsive one-shot agent without discarding its isolated
+   file modification.
+2. Review, commit, and integrate the recovered reset-to-fresh-state test.
 3. Reproduce RED or accept immediate GREEN before the next mode slice.
 
 ## Focused verification targets

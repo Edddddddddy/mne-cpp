@@ -855,3 +855,15 @@ The manager records and forwards all cross-worker messages here before acting.
   complete final static checks, commit the one test file, and return the
   required structured response now.
 - Status: recorded before forwarding.
+
+### RETIREMENT REQUEST W-TEST-CORE-007-INTERRUPT
+
+- From / to: manager / `/root/w_test_core_007`.
+- Evidence: the one-file implementation is present and passes diff check, but
+  repeated waits after both NARROW and FINISH messages produced no commit or
+  final response; worktree HEAD remains `71aefcd26`.
+- Decision: interrupt this non-responsive one-shot agent under the user worker
+  lifecycle rule. Preserve the isolated modification; manager will review and
+  may commit it only if it satisfies the already durable request.
+- Replacement: none; do not duplicate an already implemented test.
+- Status: recorded before action.

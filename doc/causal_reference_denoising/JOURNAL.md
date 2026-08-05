@@ -754,3 +754,14 @@ hidden reasoning is not.
 - Action: `REQUEST W-TEST-CORE-007-FINISH` directs the worker to stop spending
   time on unavailable build infrastructure, commit, and respond.
 - Next: receive and review the exact commit; manager owns runtime validation.
+
+### E-078 - Non-responsive reset worker scheduled for interruption
+
+- Actor: manager under the user worker lifecycle policy.
+- Evidence: implementation exists as one diff-checked test file, yet repeated
+  waits after explicit finish guidance yielded neither commit nor response.
+- Decision: record then interrupt `/root/w_test_core_007`; retain its isolated
+  working-tree modification for manager review instead of opening a duplicate
+  worker or losing work.
+- Next: inspect the exact recovered diff and accept/reject it against the
+  original public reset contract.
