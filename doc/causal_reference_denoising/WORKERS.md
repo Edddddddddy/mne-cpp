@@ -479,4 +479,19 @@ The manager records and forwards all cross-worker messages here before acting.
   nonfinite/malloc cases yet.
 - Required response: `RESPONSE W-TEST-CORE-004`, commit, exact synthetic values,
   expected RED evidence, and limitations.
-- Status: active; direct bounded snapshot confirmed startup.
+- Status: response received; pending main-workspace RED reproduction.
+
+### RESPONSE W-TEST-CORE-004
+
+- Commit: `37edd7ef50b2bea69f7515730c6871a48f680edd`.
+- Changed file: `test_causal_reference_denoiser.cpp` only.
+- Behavior: two taps and a two-eligible-sample epoch; first block uses reference
+  `[1,2,3]`, target `[5,7,12]`, and preserved `[100,101,102]`; post-boundary
+  ApplyOnly sample is `[5,19,103]`. Requires `Processed`, exact unchanged first
+  block, exact non-target rows, and target residual `<=1e-4`.
+- Worker evidence: `git diff --check` passed and worktree clean. Configure was
+  blocked by missing ignored Eigen files; no repair/copy or rt_server run.
+- Expected RED: missing `DenoiserProcessStatus::Processed`.
+- Manager static review: the two eligible feature vectors `[2,1]` and `[3,2]`
+  are independent and identify weights `[2,3]`; the test observes warmup,
+  tap-major order, boundary commit, and target-only write. Accepted.

@@ -464,3 +464,13 @@ hidden reasoning is not.
 - Lifecycle note: the app cleaned archived worker worktrees; the manager did
   not manually remove them.
 - Next: wait for `RESPONSE W-TEST-CORE-004`.
+
+### E-049 - Causal EWLS tracer response reviewed
+
+- Actor: `W-TEST-CORE` and manager.
+- Response: `RESPONSE W-TEST-CORE-004`, commit `37edd7ef5`.
+- Evidence: one test slot; independent two-tap feature samples solve the known
+  `[2,3]` model and the post-boundary sample tests future-only application.
+- Decision: accept for integration and require a clean missing-`Processed` RED
+  before production streaming state begins.
+- Next: cherry-pick and build only the focused target.
