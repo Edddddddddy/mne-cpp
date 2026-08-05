@@ -145,3 +145,19 @@ existing `noisereduction`, AdaptiveTSSS, or `AbstractAlgorithm` interface.
 - Release benchmark records p50/p95 for 1000 Hz and 128-sample blocks; on the
   development machine p95 is less than one block duration.
 - Focused tests and example pass without starting `mne_rt_server`.
+
+## Worker lifecycle and model selection
+
+- The manager decides whether a worker conversation remains reusable after its
+  response is integrated. Keep conversations whose same responsibility and
+  context remain useful; retire one-shot, failed, superseded, or stale-worktree
+  conversations after their evidence is durable.
+- The current app exposes thread archiving rather than hard deletion. Archive
+  non-reusable workers; use hard deletion instead if a supported thread-delete
+  operation becomes available. Never remove app-owned worktrees manually as a
+  substitute for conversation lifecycle management.
+- Test and implementation workers default to `gpt-5.6-luna` at `max`, the
+  highest supported Luna effort. Use `gpt-5.6-sol` when the manager judges the
+  task to require independent high-risk reasoning, especially numerical math,
+  real-time/concurrency safety, interface review, or final integration review;
+  reviewers use Sol/ultra by default.

@@ -16,6 +16,28 @@ from / to / conclusion / evidence / affected files or commit / next action
 
 The manager records and forwards all cross-worker messages here before acting.
 
+## Lifecycle and model policy
+
+- Preserve a worker conversation only when the same role, repository state,
+  and context remain reusable. Archive one-shot, failed, superseded, or stale
+  workers after their request/response/commit evidence is durable.
+- The app currently exposes archive but not hard delete. Archive is therefore
+  the implemented retirement operation; do not manually delete app-managed
+  worktrees. If hard thread deletion becomes supported, it may replace archive.
+- Default test/implementation model: `gpt-5.6-luna`, `max` (Luna's highest
+  supported effort). Use `gpt-5.6-sol` for manager-selected high-risk math,
+  real-time/concurrency, architecture, or review tasks; formal reviewers use
+  Sol/ultra.
+
+### RETIREMENT REQUEST CLEANUP-001
+
+- Keep: selected reusable design conversation `W-DESIGN-C`.
+- Archive after this record is committed: rejected design A/B and replacement
+  attempts; completed one-shot execution workers W-TEST-CORE-001 through 003,
+  W-CORE-001, failed W-CORE-002, its successful replacement, and W-CORE-003.
+- Evidence remains in this ledger and git history before archival.
+- Status: recorded before action.
+
 ## Planning workers
 
 ### W-DESIGN-A - Minimal interface
@@ -417,3 +439,30 @@ The manager records and forwards all cross-worker messages here before acting.
 - Manager static review: empty reference rejection short-circuits before the
   feature-cap division, tap count is proven positive, helpers do not allocate,
   and all assignments remain after validation. Accepted for cherry-pick.
+
+### MANAGER VALIDATION W-CORE-003-GREEN
+
+- Integrated commit: `e80e02098`.
+- Focused Release build: succeeded.
+- Synchronized Qt report: 30 passed, 0 failed, exit code 0.
+- Decision: configure validation is GREEN. Next RED is one end-to-end causal
+  epoch tracer, not another validation case.
+
+### REQUEST W-TEST-CORE-004
+
+- From / to: manager / `W-TEST-CORE`.
+- Model/environment: `gpt-5.6-luna`, `max`, new isolated worktree.
+- Blocking: yes, before numerical streaming implementation.
+- Task: add exactly one test slot for a three-channel stream with reference row
+  0, target row 1, preserved row 2, two taps, and a two-sample update interval.
+  Feed one warmup sample plus two independent feature samples in
+  `ApplyAndLearn`; require a new `DenoiserProcessStatus::Processed`, unchanged
+  first block, then feed one post-boundary sample in `ApplyOnly` and require the
+  known current+lag reference noise to be removed within `1e-4` while reference
+  and preserved rows remain exact. This observes tap order, warmup, causal
+  commit ordering, and target-only write in one vertical behavior.
+- Scope: test source only; no production/CMake, chunk-equivalence/reset/
+  nonfinite/malloc cases yet.
+- Required response: `RESPONSE W-TEST-CORE-004`, commit, exact synthetic values,
+  expected RED evidence, and limitations.
+- Status: recorded before dispatch.

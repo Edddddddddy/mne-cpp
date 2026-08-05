@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T03:50:00+08:00
+Last updated: 2026-08-05T03:53:00+08:00
 
 ## Recovery order
 
@@ -19,8 +19,8 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-The 26-row configuration-invariant behavior is a valid runtime RED. The next
-vertical slice is its minimum validation-only GREEN.
+All current configuration and shape behaviors are GREEN. The next vertical
+slice is the first causal EWLS streaming tracer RED.
 
 ## Completed
 
@@ -33,14 +33,13 @@ vertical slice is its minimum validation-only GREEN.
 
 ## Running workers
 
-`W-CORE-003` returned commit `f91bab110`; manager static review accepted the
-single-file validation implementation for integration and GREEN validation.
+`W-TEST-CORE-004` is queued for Luna/max dispatch in a new worktree.
 
 ## Next actions
 
-1. Cherry-pick `f91bab110`.
-2. Re-run the focused Qt report synchronously.
-3. Require all configuration rows and existing tests GREEN.
+1. Dispatch `W-TEST-CORE-004` and persist its identifiers.
+2. Review its one causal-epoch streaming test.
+3. Reproduce RED before implementing streaming state.
 
 ## Focused verification targets
 

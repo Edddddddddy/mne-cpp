@@ -414,3 +414,33 @@ hidden reasoning is not.
 - Decision: accept for integration; runtime GREEN remains unclaimed until the
   synchronized focused Qt run passes.
 - Next: cherry-pick and run the text-report test.
+
+### E-044 - Configuration validation is GREEN
+
+- Actor: manager.
+- Integrated commit: `e80e02098`.
+- Evidence: focused Release build succeeded; synchronized Qt report contains
+  30 passes, zero failures, and exit code 0.
+- Result: all current configure and shape behaviors are accepted.
+- Next: publish evidence and dispatch the first causal EWLS streaming tracer.
+
+### E-045 - Worker lifecycle rule added by user
+
+- Actor: user and manager.
+- Decision: retire non-reusable subagent conversations and create fresh ones
+  when needed; retain related conversations that remain reusable. The manager
+  selects Luna/max or Sol according to task risk and role.
+- Platform mapping: the app exposes archive rather than hard thread deletion,
+  so archive is the safe retirement operation; app-owned worktrees are not
+  manually removed.
+- Next: persist the rule in `SPEC.md` and `WORKERS.md`, then archive the logged
+  one-shot/failed/superseded threads while retaining selected `W-DESIGN-C`.
+
+### E-046 - First worker retirement set prepared
+
+- Actor: manager.
+- Request: `CLEANUP-001`.
+- Scope: archive rejected design alternatives and completed/failed one-shot
+  core workers through `W-CORE-003`; keep the selected reusable design-C
+  conversation and the manager task.
+- Next: commit this record, perform archive calls, and record exact results.
