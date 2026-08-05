@@ -2808,3 +2808,17 @@ does not continuously poll them.
   `019fd204-2ae1-7153-bc52-d33d952b5598` through the app. Do not manually
   delete its app-owned worktree.
 - Status: recorded before publication/archival.
+
+### RETIREMENT PRECHECK W-PROC-TEST-001
+
+- GitHub RED evidence:
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5193087026`;
+  read-back matches worker/integration commits, exact command/error and
+  dependency isolation.
+- Worker worktree remains clean/detached at exact `095633f159`.
+- Content identity: worker and integration hashes match for all three files:
+  top CMake `284eb5a3...`, focused CMake `f52cf0cd...`, test source
+  `efca6b30...`.
+- Decision: thread `019fd204-2ae1-7153-bc52-d33d952b5598` is a completed
+  one-shot role and may now be archived through the app. Its app-owned worktree
+  is not manually removed.

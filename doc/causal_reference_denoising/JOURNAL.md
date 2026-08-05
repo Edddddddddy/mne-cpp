@@ -2293,3 +2293,13 @@ hidden reasoning is not.
 - Lifecycle: publish this evidence, verify worker/integration content and clean
   state, then archive the completed visible test thread without manually
   deleting its app-owned worktree.
+
+### E-228 - Processor tracer RED published and retirement precheck passed
+
+- Publish: issue #4 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5193087026`
+  was read back with the intended build failure and dependency boundary.
+- Verification: visible worker worktree is clean at `095633f159`; all three
+  authorized file hashes exactly equal integrated content.
+- Decision: after this record is committed/pushed, archive the completed visible
+  test conversation. Do not delete its app-owned worktree manually.
