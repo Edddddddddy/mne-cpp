@@ -87,6 +87,7 @@ private slots:
     void rejectsPoisonedEpochsAndRecoversWithinBlock();
     void acceptsLoadedRankDeficientEpoch();
     void reportsStableRmsForLargeBypassAndAnalyticApplyOnly();
+    void fallsBackAtomicallyWhenPredictionOverflows();
 };
 
 //=============================================================================================================
@@ -1181,6 +1182,93 @@ void TestCausalReferenceDenoiser::reportsStableRmsForLargeBypassAndAnalyticApply
         QVERIFY(withinTolerance(probeBlock(1, 0), expectedFirstResidual));
         QVERIFY(withinTolerance(probeBlock(1, 1), expectedSecondResidual));
     }
+}
+
+//=============================================================================================================
+
+void TestCausalReferenceDenoiser::fallsBackAtomicallyWhenPredictionOverflows()
+{
+    CausalReferenceDenoiserConfig config;
+    config.samplingFrequencyHz = 1000.0;
+    config.channelCount = 4;
+    config.maxBlockSamples = 2;
+    config.referenceRows = VectorXi(1);
+    config.referenceRows << 0;
+    config.targetRows = VectorXi(2);
+    config.targetRows << 1, 2;
+    config.tapCount = 1;
+    config.adaptationIntervalSamples = 2;
+    config.memoryTimeSeconds = 300.0;
+    config.regularization = 1e-8;
+
+    CausalReferenceDenoiser denoiser;
+    QVERIFY(denoiser.configure(config) == DenoiserStatus::Configured);
+
+    MatrixXd trainingBlock(4, 2);
+    trainingBlock << 1.0, 2.0,
+                     2.0, 4.0,
+                     0.5, 1.0,
+                     100.0, 101.0;
+    const MatrixXd originalTrainingBlock = trainingBlock;
+
+    const DenoiserProcessResult trainingResult =
+        denoiser.process(trainingBlock, DenoisingMode::ApplyAndLearn);
+
+    QVERIFY(trainingResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(trainingBlock.allFinite());
+    QVERIFY((trainingBlock.array() == originalTrainingBlock.array()).all());
+    QVERIFY(trainingResult.diagnostics.modelGeneration == 1);
+    QVERIFY(trainingResult.diagnostics.modelUpdatesAccepted == 1);
+    QVERIFY(trainingResult.diagnostics.modelUpdatesRejected == 0);
+
+    // The learned weights are approximately 2 and 0.5. At DBL_MAX the first
+    // target prediction overflows while the second prediction remains finite,
+    // so the selected fallback must preserve every target at this sample.
+    MatrixXd overflowProbe(4, 1);
+    overflowProbe << std::numeric_limits<double>::max(),
+                     7.0,
+                     11.0,
+                     102.0;
+    const MatrixXd originalOverflowProbe = overflowProbe;
+
+    const DenoiserProcessResult overflowResult =
+        denoiser.process(overflowProbe, DenoisingMode::ApplyOnly);
+    const double expectedFallbackRms = std::sqrt(85.0);
+
+    QVERIFY(overflowResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(overflowProbe.allFinite());
+    QVERIFY((overflowProbe.array() == originalOverflowProbe.array()).all());
+    QVERIFY(overflowResult.diagnostics.modelGeneration == 1);
+    QVERIFY(overflowResult.diagnostics.modelUpdatesAccepted == 0);
+    QVERIFY(overflowResult.diagnostics.modelUpdatesRejected == 0);
+    QVERIFY(std::isfinite(overflowResult.diagnostics.inputRms));
+    QVERIFY(std::isfinite(overflowResult.diagnostics.outputRms));
+    QVERIFY(std::isfinite(overflowResult.diagnostics.estimatedNoiseRms));
+    QVERIFY(std::abs(overflowResult.diagnostics.inputRms - expectedFallbackRms)
+            <= 1e-12);
+    QVERIFY(std::abs(overflowResult.diagnostics.outputRms - expectedFallbackRms)
+            <= 1e-12);
+    QVERIFY(overflowResult.diagnostics.estimatedNoiseRms == 0.0);
+
+    MatrixXd normalProbe(4, 1);
+    normalProbe << 3.0,
+                   6.0,
+                   1.5,
+                   103.0;
+    const MatrixXd originalNormalProbe = normalProbe;
+
+    const DenoiserProcessResult normalResult =
+        denoiser.process(normalProbe, DenoisingMode::ApplyOnly);
+
+    QVERIFY(normalResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(normalProbe.allFinite());
+    QVERIFY(normalProbe(0, 0) == originalNormalProbe(0, 0));
+    QVERIFY(normalProbe(3, 0) == originalNormalProbe(3, 0));
+    QVERIFY(std::abs(normalProbe(1, 0)) <= 1e-5);
+    QVERIFY(std::abs(normalProbe(2, 0)) <= 1e-5);
+    QVERIFY(normalResult.diagnostics.modelGeneration == 1);
+    QVERIFY(normalResult.diagnostics.modelUpdatesAccepted == 0);
+    QVERIFY(normalResult.diagnostics.modelUpdatesRejected == 0);
 }
 
 //=============================================================================================================
