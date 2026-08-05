@@ -9,6 +9,7 @@
 //=============================================================================================================
 
 #include <adaptivedenoising/adaptivedenoisingprocessor.h>
+#include <adaptivedenoising/adaptivedenoisingblockqueue.h>
 
 #include <fiff/fiff_constants.h>
 
@@ -18,6 +19,7 @@
 #include <cstdint>
 #include <initializer_list>
 #include <limits>
+#include <memory>
 #include <type_traits>
 #include <vector>
 
@@ -120,6 +122,13 @@ bool matrixEquals(const MatrixXd& actual, const MatrixXd& expected) noexcept
     return true;
 }
 
+bool sameOwner(
+    const std::shared_ptr<const FIFFLIB::FiffInfo>& first,
+    const std::shared_ptr<const FIFFLIB::FiffInfo>& second) noexcept
+{
+    return !first.owner_before(second) && !second.owner_before(first);
+}
+
 } // namespace
 
 //=============================================================================================================
@@ -132,6 +141,7 @@ private slots:
     void mapsRowsTrainsAndAppliesOnly();
     void invalidConfigurationDisarmsLearnedModel();
     void validReconfigureResetsAndRelearnsModel();
+    void queuePreservesFifoDropNewestAndMetadata();
 };
 
 //=============================================================================================================
@@ -578,6 +588,92 @@ void TestAdaptiveDenoisingPlugin::validReconfigureResetsAndRelearnsModel()
 
     for (Index column = 0; column < kBlockSamples; ++column) {
         QVERIFY(std::abs(futureProbe(2, column)) <= 1e-5);
+    }
+}
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingPlugin::queuePreservesFifoDropNewestAndMetadata()
+{
+    AdaptiveDenoisingBlockQueue queue;
+    AdaptiveDenoisingBlockQueueConfig config;
+    config.channelCount = 2;
+    config.maxBlockSamples = 4;
+    config.capacity = 2;
+
+    QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::Ready);
+
+    MatrixXd blockA(2, 3);
+    blockA(0, 0) = 1.0;
+    blockA(0, 1) = 2.0;
+    blockA(0, 2) = 3.0;
+    blockA(1, 0) = 11.0;
+    blockA(1, 1) = 12.0;
+    blockA(1, 2) = 13.0;
+    const MatrixXd originalA = blockA;
+
+    MatrixXd blockB(2, 4);
+    blockB(0, 0) = 21.0;
+    blockB(0, 1) = 22.0;
+    blockB(0, 2) = 23.0;
+    blockB(0, 3) = 24.0;
+    blockB(1, 0) = 31.0;
+    blockB(1, 1) = 32.0;
+    blockB(1, 2) = 33.0;
+    blockB(1, 3) = 34.0;
+    const MatrixXd originalB = blockB;
+
+    MatrixXd blockC(2, 2);
+    blockC(0, 0) = 41.0;
+    blockC(0, 1) = 42.0;
+    blockC(1, 0) = 51.0;
+    blockC(1, 1) = 52.0;
+    const MatrixXd originalC = blockC;
+
+    const std::shared_ptr<int> ownerA = std::make_shared<int>(1);
+    const std::shared_ptr<int> ownerB = std::make_shared<int>(2);
+    const std::shared_ptr<int> ownerC = std::make_shared<int>(3);
+    const std::shared_ptr<const FIFFLIB::FiffInfo> metadataA(ownerA, nullptr);
+    const std::shared_ptr<const FIFFLIB::FiffInfo> metadataB(ownerB, nullptr);
+    const std::shared_ptr<const FIFFLIB::FiffInfo> metadataC(ownerC, nullptr);
+
+    QVERIFY(!sameOwner(metadataA, metadataB));
+    QVERIFY(!sameOwner(metadataA, metadataC));
+    QVERIFY(!sameOwner(metadataB, metadataC));
+
+    QVERIFY(queue.tryPush(blockA, metadataA) == AdaptiveDenoisingQueuePushStatus::Pushed);
+    QVERIFY(queue.tryPush(blockB, metadataB) == AdaptiveDenoisingQueuePushStatus::Pushed);
+
+    blockA.array() += 1000.0;
+    blockB.array() += 2000.0;
+
+    QVERIFY(queue.tryPush(blockC, metadataC) == AdaptiveDenoisingQueuePushStatus::Full);
+
+    AdaptiveDenoisingQueuedBlock destination;
+    destination.data.resize(2, 4);
+
+    QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(destination.sampleCount, Index(3));
+    QVERIFY(sameOwner(destination.fiffInfo, metadataA));
+    for (Index row = 0; row < originalA.rows(); ++row) {
+        QVERIFY(rowEquals(destination.data, originalA, row));
+    }
+
+    QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(destination.sampleCount, Index(4));
+    QVERIFY(sameOwner(destination.fiffInfo, metadataB));
+    for (Index row = 0; row < originalB.rows(); ++row) {
+        QVERIFY(rowEquals(destination.data, originalB, row));
+    }
+
+    QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Timeout);
+
+    QVERIFY(queue.tryPush(blockC, metadataC) == AdaptiveDenoisingQueuePushStatus::Pushed);
+    QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(destination.sampleCount, Index(2));
+    QVERIFY(sameOwner(destination.fiffInfo, metadataC));
+    for (Index row = 0; row < originalC.rows(); ++row) {
+        QVERIFY(rowEquals(destination.data, originalC, row));
     }
 }
 
