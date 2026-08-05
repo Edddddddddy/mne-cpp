@@ -3466,3 +3466,18 @@ hidden reasoning is not.
   snapshot, TDD recovery and no subagent/poll/full-scan/server restrictions.
 - Next: commit/push creation evidence, publish/read back issue #3 and do not
   poll or overlap its test-source edit.
+
+### E-330 - Processor boundary QA published and core contract requested
+
+- Publish/read-back: issue #3 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5195752602`
+  exactly records the processor boundary worker and scope.
+- New request: `W-QA-CORE-CONTRACT-001`, visible Luna/max worktree on exact
+  `7eb04cbfa`; only the numerical public header and core focused test may change.
+- Contract: compact local documentation, explicit deleted copy/move and C++14
+  traits/noexcept checks close `R-CORE-LOCALITY-001` without changing runtime
+  behavior or inventing an interface.
+- Independence: core files do not overlap the active processor test, learning
+  guide or queue review.
+- Next: commit/push request, create/publicly dispatch the visible task and await
+  proactive responses only.

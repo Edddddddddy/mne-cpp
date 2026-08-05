@@ -4464,6 +4464,45 @@ does not continuously poll them.
 - Coordination: manager will not poll or overlap the focused test source.
   Await only proactive structured response after public issue #3 dispatch.
 
+### PUBLISH W-QA-PROC-BOUNDARY-001-START
+
+- GitHub issue #3 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5195752602`.
+- Connector write and CLI API read-back exactly record the Luna/max visible
+  worker, exact base/scope, six Ready boundaries, P=256 counts, preserved P=288
+  disarm coverage and no-overlap/no-server restrictions.
+
+### REQUEST W-QA-CORE-CONTRACT-001
+
+- From / to: manager / new visible Luna/max core-contract conversation.
+- GitHub issue: `Edddddddddy/mne-cpp#3`; finding
+  `R-CORE-LOCALITY-001` (P3).
+- Exact base: `7eb04cbfa6aa9cbd09594c6aa2d6fe6aebcc43db` on
+  `codex/causal-reference-denoising`; separate Codex worktree.
+- Authorized files only:
+  `src/libraries/rtprocessing/causalreferencedenoiser.h` and
+  `src/testframes/test_causal_reference_denoiser/test_causal_reference_denoiser.cpp`.
+- Interface task: add compact Doxygen beside the public declarations covering
+  rows-by-time shapes; unique/disjoint selected rows and P<=256; transactional
+  allocation/exception behavior; only targets mutable; three mode semantics;
+  state-preserving invalid/nonfinite calls; post-configure single-owner hot
+  path with no allocation/lock/string/Qt/FIFF; reset semantics and fixed result.
+- Ownership policy: explicitly declare noexcept default construction and delete
+  copy/move construction/assignment. Do not invent move support, registry,
+  getter, strategy or new public method.
+- Compile contract: add namespace-scope C++14 `static_assert`s for nothrow
+  default construction, non-copy/non-move traits, noexcept `reset()`, and
+  noexcept `process()` using a valid `Eigen::MatrixXd`/Ref expression without
+  runtime test or implementation edit.
+- Verification: run complete focused Release/Debug if available, otherwise
+  report the known isolated Eigen limitation honestly. Run diff/scope checks,
+  commit exact-parent changes and return contract/traits/results.
+- Restrictions: read full codebase-design and TDD skills; gpt-5.6-luna/max;
+  no nested subagent, manager polling, implementation/CMake/dependency/docs/
+  plugin/queue edit, full scan, full mne_scan, vendor repair or rt_server.
+  Proactively send `RESPONSE W-QA-CORE-CONTRACT-001` and stop.
+- Status: request durable before task creation.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread
