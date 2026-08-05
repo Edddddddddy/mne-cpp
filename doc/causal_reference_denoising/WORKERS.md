@@ -1726,3 +1726,20 @@ The manager records and forwards all cross-worker messages here before acting.
 - Remaining untouched: RMS coverage, application fallback, malloc guard,
   synthetic/plugin/dependency/rt_server work. No subagents.
 - Manager status: response durable; exact commit review follows.
+
+### MANAGER REVIEW W-CORE-008
+
+- Scope/base: accepted. Exact commit `e09e3da5c` is clean on `230697fed` and
+  changes one numerical source file by 12 insertions/one deletion.
+- Predicate review: `solveMatrix` finiteness still gates compute; LDLT Success
+  and `isPositive()` precede an explicit fixed-size loop requiring each `D`
+  pivot finite and `>0`; the preallocated RHS is materialized and checked
+  finite; solve Success and finite candidate weights remain final gates.
+- Transaction: all new returns occur before existing committed `G/H/W`
+  assignments. Rejection therefore preserves the selected pending-epoch
+  discard/aging/generation semantics.
+- Real-time/API: scalar loop and preallocated dense check add no explicit
+  allocation, lock or string. Eigen methods are used consistently with the
+  existing sized LDLT object.
+- Decision: accept for cherry-pick and populated compile/runtime. P2 closes
+  only if rank-one and poisoned-recovery cases remain GREEN in the 40-check run.

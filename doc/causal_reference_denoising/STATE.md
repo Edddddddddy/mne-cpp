@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T20:25:00+08:00
+Last updated: 2026-08-05T20:32:00+08:00
 
 ## Recovery order
 
@@ -34,13 +34,13 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-`W-CORE-008` returned one-source commit `e09e3da5c`; manager commit-level
-review, integration and populated 40-check validation are pending.
+`W-CORE-008` commit `e09e3da5c` passed manager commit-level review;
+integration and populated 40-check validation are pending.
 
 ## Next actions
 
-1. Review exact commit `e09e3da5c` and predicate ordering.
-2. Integrate only if the bounded strict-acceptance change is correct.
+1. Commit/push the manager review record.
+2. Cherry-pick exact commit `e09e3da5c`.
 3. Require the synchronized 40-check report to remain GREEN.
 
 ## Focused verification targets
