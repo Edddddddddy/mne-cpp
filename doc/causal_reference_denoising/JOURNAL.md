@@ -1386,3 +1386,13 @@ hidden reasoning is not.
   actually-subtracted-noise RMS for `w=2/(1+1e-8)`.
 - Next: commit/push, publish solver GREEN, clean its one-shot worktree, create a
   fresh test worktree and dispatch.
+
+### E-144 - Strict solver GREEN published and worker retired
+
+- Actor: manager under GitHub and worker lifecycle workflows.
+- Publish: issue comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5190277167`
+  records strict predicate and 40/0 evidence.
+- Cleanup: W-CORE-008 worktree was clean/content-matched and removed; the
+  one-shot Sol/ultra agent will not be reused.
+- Next: create and dispatch the already durable stable-RMS test request.
