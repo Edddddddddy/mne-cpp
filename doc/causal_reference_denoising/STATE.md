@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T23:38:00+08:00
+Last updated: 2026-08-05T18:45:00+08:00
 
 ## Recovery order
 
@@ -19,9 +19,10 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-Core behavior, fixed diagnostics lifecycle and transactional finite-overflow
-epoch rejection/recovery are GREEN. Both P1 findings are closed; focused
-runtime has 39 passes and zero failures.
+Core numerical contracts and the effective Debug Eigen malloc guard are GREEN.
+The focused Debug report has 43 passes, zero failures and zero skips. The
+quantitative synthetic acceptance test is now in progress before formal core
+review.
 
 ## Completed
 
@@ -34,14 +35,15 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-No worker is running. Effective Debug malloc guard `b719d7ccd` is GREEN with
-43 passes and no skip; its one-shot test worktree cleanup is pending.
+- `/root/w_test_core_015`: Sol/ultra, one-shot synthetic quantitative
+  acceptance test in detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-015` at `ea5870cf2`.
 
 ## Next actions
 
-1. Commit/push guard evidence and `W-TEST-CORE-015` synthetic request.
-2. Publish/cleanup the malloc-guard milestone.
-3. Dispatch quantitative synthetic acceptance on Sol/ultra.
+1. Receive and review `W-TEST-CORE-015` without overlapping its test source.
+2. Run populated Release/Debug focused validation and publish measured gates.
+3. Retire the one-shot worker, then dispatch independent Sol/ultra core review.
 
 ## Focused verification targets
 

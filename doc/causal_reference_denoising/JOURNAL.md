@@ -1723,3 +1723,18 @@ hidden reasoning is not.
 - Cleanup: W-TEST-CORE-014 worktree was clean/content-matched and removed; its
   one-shot Sol/ultra agent will not be reused.
 - Next: create and dispatch the durable synthetic acceptance request.
+
+### E-180 - Quantitative synthetic acceptance worker active
+
+- Actor: manager and `/root/w_test_core_015`.
+- Worktree/model: detached
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-015` at exact base
+  `ea5870cf2`, Sol/ultra, test source only and no subagents.
+- Scope: one deterministic continuous two-reference/four-tap acceptance slot;
+  require at least 10 dB environmental-noise reduction and at most 2 percent
+  clean projection-amplitude error after steady-state training.
+- Delivery recovery: task `019fd049-160c-7902-b82a-a587ce0a995e` remains
+  resolved by the previously durable response/integration record; no duplicate
+  code or replacement worker was created for it.
+- Next: await the structured response while independently inspecting the
+  current public test seam; do not overlap the worker's test source.

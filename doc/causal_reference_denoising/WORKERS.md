@@ -2238,4 +2238,6 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-TEST-CORE-015` with commit, generator/weights/
   block counts and causal construction, exact metric equations, expected margin,
   evidence/classification and no-subagent confirmation.
-- Status: request recorded before cleanup/worktree creation/dispatch.
+- Status: active as collaboration agent `/root/w_test_core_015`. Detached
+  worktree is clean at exact integration base `ea5870cf2`; Sol/ultra accepted
+  the one-slot, test-source-only scope and the nested-subagent prohibition.
