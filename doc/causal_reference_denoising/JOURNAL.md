@@ -1590,3 +1590,13 @@ hidden reasoning is not.
 - Scope: bypass/warmup unchanged, no subagents, detached runtime limitation
   remains known.
 - Decision: record and continue the same worker only.
+
+### E-166 - Application overflow fallback response received
+
+- Actor: `/root/w_core_009` and manager.
+- Response: clean one-source commit `ae8824219` implements complete validation
+  before zero-or-write-all, then actual-noise RMS, raw-target learning/history.
+- Evidence: clean diff/HEAD, no explicit hot-path allocation primitive, known
+  detached runtime limitation and no subagents.
+- Decision: record before acting; perform exact commit review and populated
+  42-check validation only after acceptance.

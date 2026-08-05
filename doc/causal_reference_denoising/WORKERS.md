@@ -2025,3 +2025,23 @@ The manager records and forwards all cross-worker messages here before acting.
   because of the known ignored dependency/build gap; static/diff checks remain.
 - Scope/lifecycle: source-only semantics unchanged and no subagents.
 - Next: await implemented clean commit; no duplicate/rescope.
+
+### RESPONSE W-CORE-009
+
+- Commit: `ae8824219b33056b66dc50c6576a11c573aea701`.
+- Changed file: numerical source only.
+- Order: capture raw targets/compute preallocated prediction; validate every
+  prediction and residual before writes/noise; on any nonfinite zero prediction
+  and leave all targets raw, otherwise write all residuals; accumulate actual
+  prediction; learn from raw targets; advance history.
+- Atomicity/real-time: no rollback buffer because validation precedes every
+  target write; only stack bool/double, scalar loops and in-place zero on
+  existing storage. `process` stays noexcept without explicit allocation,
+  lock or string.
+- Preserved: Processed status, history, generation/events, solver transaction,
+  scaled RMS, valid subtraction and non-target rows.
+- Evidence: exact clean base, pre-stage/staged/committed diff checks and clean
+  detached HEAD. Compiled/runtime remains manager-owned due known ignored
+  dependency/build gap.
+- Remaining: malloc guard, synthetic acceptance and plugin work. No subagents.
+- Manager status: response durable; exact commit review follows.
