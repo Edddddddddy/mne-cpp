@@ -4419,6 +4419,14 @@ does not continuously poll them.
   durable. This one-shot benchmark conversation may be app-archived without
   deleting or mutating its worktree.
 
+### RESPONSE W-BENCH-001-RETIRE
+
+- App archived completed visible thread
+  `019fd300-a9e2-7f93-8063-32450ff1d543` successfully after exact content and
+  GREEN prechecks.
+- No manual deletion or mutation of the app-owned worktree occurred. Any later
+  example/benchmark correction must use a new minimal Luna/max task.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread

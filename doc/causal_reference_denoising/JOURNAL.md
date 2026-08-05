@@ -3439,3 +3439,10 @@ hidden reasoning is not.
   `86d1bc04f`; clean worker status was reported and all evidence is durable.
 - Next: commit/push this precheck, archive the completed one-shot benchmark
   conversation through the app only, then record the retirement result.
+
+### E-327 - Completed benchmark worker archived
+
+- App archived visible thread `019fd300-a9e2-7f93-8063-32450ff1d543` after
+  exact blob, Release gate and GitHub evidence became durable.
+- Safety: no manual worktree deletion or mutation. Future benchmark changes
+  require a new minimal Luna/max task.
