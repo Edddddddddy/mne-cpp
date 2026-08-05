@@ -14,6 +14,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <limits>
 
 //=============================================================================================================
@@ -88,6 +89,7 @@ private slots:
     void acceptsLoadedRankDeficientEpoch();
     void reportsStableRmsForLargeBypassAndAnalyticApplyOnly();
     void fallsBackAtomicallyWhenPredictionOverflows();
+    void meetsQuantitativeSyntheticAcceptance();
     void processDoesNotAllocateAfterConfigure();
 };
 
@@ -1270,6 +1272,176 @@ void TestCausalReferenceDenoiser::fallsBackAtomicallyWhenPredictionOverflows()
     QVERIFY(normalResult.diagnostics.modelGeneration == 1);
     QVERIFY(normalResult.diagnostics.modelUpdatesAccepted == 0);
     QVERIFY(normalResult.diagnostics.modelUpdatesRejected == 0);
+}
+
+//=============================================================================================================
+
+void TestCausalReferenceDenoiser::meetsQuantitativeSyntheticAcceptance()
+{
+    constexpr Eigen::Index referenceCount = 2;
+    constexpr Eigen::Index tapCount = 4;
+    constexpr Eigen::Index featureCount = referenceCount * tapCount;
+    constexpr Eigen::Index blockSamples = 128;
+    constexpr Eigen::Index trainingBlockCount = 768;
+    constexpr Eigen::Index trainingSampleCount = trainingBlockCount * blockSamples;
+    constexpr Eigen::Index evaluationSampleCount = blockSamples;
+    constexpr Eigen::Index totalSampleCount = trainingSampleCount + evaluationSampleCount;
+    constexpr double twoPi = 6.283185307179586476925286766559;
+
+    CausalReferenceDenoiserConfig config;
+    config.samplingFrequencyHz = 1000.0;
+    config.channelCount = 3;
+    config.maxBlockSamples = blockSamples;
+    config.referenceRows = VectorXi(referenceCount);
+    config.referenceRows << 0, 1;
+    config.targetRows = VectorXi(1);
+    config.targetRows << 2;
+    config.tapCount = tapCount;
+    config.adaptationIntervalSamples = blockSamples;
+    config.memoryTimeSeconds = 30.0;
+    config.regularization = 1e-3;
+
+    // Precompute one uninterrupted finite stream. Independent fixed xorshift32
+    // excitations, short AR memories, and multisine terms keep both references
+    // broadband while generator/filter state remains continuous across blocks.
+    MatrixXd references(referenceCount, totalSampleCount);
+    std::uint32_t generatorState0 = 0xA341316Cu;
+    std::uint32_t generatorState1 = 0xC8013EA4u;
+    const auto nextExcitation = [](std::uint32_t& state) {
+        state ^= state << 13;
+        state ^= state >> 17;
+        state ^= state << 5;
+        const double unit = static_cast<double>(state)
+                            / static_cast<double>(std::numeric_limits<std::uint32_t>::max());
+        return 2.0 * unit - 1.0;
+    };
+
+    double referenceMemory0 = 0.0;
+    double referenceMemory1 = 0.0;
+    for (Eigen::Index sample = 0; sample < totalSampleCount; ++sample) {
+        referenceMemory0 = 0.35 * referenceMemory0
+                           + 0.65 * nextExcitation(generatorState0);
+        referenceMemory1 = -0.25 * referenceMemory1
+                           + 0.75 * nextExcitation(generatorState1);
+        const double time = static_cast<double>(sample);
+        references(0, sample) = referenceMemory0
+                                + 0.30 * std::sin(0.071 * time)
+                                + 0.20 * std::cos(0.173 * time);
+        references(1, sample) = referenceMemory1
+                                + 0.25 * std::cos(0.097 * time)
+                                - 0.18 * std::sin(0.257 * time);
+    }
+    QVERIFY(references.allFinite());
+
+    VectorXd knownWeights(featureCount);
+    knownWeights << 1.40, -1.10,
+                    0.80,  0.65,
+                   -0.55,  0.45,
+                    0.35, -0.25;
+
+    // Construct y_noise(t) from phi(t)=[r0(t),r1(t),r0(t-1),r1(t-1),...].
+    // Samples before t=0 are exactly zero, matching the denoiser's causal
+    // prehistory; its first tapCount-1 samples are therefore warmup only.
+    RowVectorXd environmentalNoise(totalSampleCount);
+    for (Eigen::Index sample = 0; sample < totalSampleCount; ++sample) {
+        double noise = 0.0;
+        Eigen::Index weight = 0;
+        for (Eigen::Index lag = 0; lag < tapCount; ++lag) {
+            for (Eigen::Index reference = 0; reference < referenceCount; ++reference) {
+                const double referenceValue = sample >= lag
+                                                  ? references(reference, sample - lag)
+                                                  : 0.0;
+                noise += knownWeights(weight) * referenceValue;
+                ++weight;
+            }
+        }
+        environmentalNoise(sample) = noise;
+    }
+    QVERIFY(environmentalNoise.allFinite());
+
+    CausalReferenceDenoiser denoiser;
+    QVERIFY(denoiser.configure(config) == DenoiserStatus::Configured);
+
+    MatrixXd trainingBlock(config.channelCount, blockSamples);
+    std::uint64_t acceptedUpdates = 0;
+    std::uint64_t rejectedUpdates = 0;
+    std::uint64_t modelGeneration = 0;
+    for (Eigen::Index blockIndex = 0; blockIndex < trainingBlockCount; ++blockIndex) {
+        const Eigen::Index firstSample = blockIndex * blockSamples;
+        trainingBlock.topRows(referenceCount) =
+            references.middleCols(firstSample, blockSamples);
+        trainingBlock.row(2) = environmentalNoise.segment(firstSample, blockSamples);
+
+        const DenoiserProcessResult trainingResult =
+            denoiser.process(trainingBlock, DenoisingMode::ApplyAndLearn);
+
+        QVERIFY(trainingResult.status == DenoiserProcessStatus::Processed);
+        QVERIFY(trainingBlock.allFinite());
+        QVERIFY((trainingBlock.topRows(referenceCount).array()
+                 == references.middleCols(firstSample, blockSamples).array()).all());
+        acceptedUpdates += trainingResult.diagnostics.modelUpdatesAccepted;
+        rejectedUpdates += trainingResult.diagnostics.modelUpdatesRejected;
+        modelGeneration = trainingResult.diagnostics.modelGeneration;
+    }
+
+    const Eigen::Index eligibleTrainingSamples = trainingSampleCount - (tapCount - 1);
+    const std::uint64_t expectedAcceptedUpdates = static_cast<std::uint64_t>(
+        eligibleTrainingSamples / config.adaptationIntervalSamples);
+    QVERIFY(acceptedUpdates == expectedAcceptedUpdates);
+    QVERIFY(rejectedUpdates == 0);
+    QVERIFY(modelGeneration == expectedAcceptedUpdates);
+
+    RowVectorXd clean(evaluationSampleCount);
+    for (Eigen::Index sample = 0; sample < evaluationSampleCount; ++sample) {
+        const Eigen::Index absoluteSample = trainingSampleCount + sample;
+        const double timeSeconds = static_cast<double>(absoluteSample)
+                                   / config.samplingFrequencyHz;
+        clean(sample) = 0.65 * std::sin(twoPi * 62.5 * timeSeconds + 0.31);
+    }
+
+    const RowVectorXd evaluationNoise =
+        environmentalNoise.segment(trainingSampleCount, evaluationSampleCount);
+    MatrixXd evaluationBlock(config.channelCount, evaluationSampleCount);
+    evaluationBlock.topRows(referenceCount) =
+        references.middleCols(trainingSampleCount, evaluationSampleCount);
+    evaluationBlock.row(2) = evaluationNoise + clean;
+
+    const DenoiserProcessResult evaluationResult =
+        denoiser.process(evaluationBlock, DenoisingMode::ApplyOnly);
+
+    QVERIFY(evaluationResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(evaluationBlock.allFinite());
+    QVERIFY((evaluationBlock.topRows(referenceCount).array()
+             == references.middleCols(trainingSampleCount,
+                                       evaluationSampleCount).array()).all());
+    QVERIFY(evaluationResult.diagnostics.featureCount == featureCount);
+    QVERIFY(evaluationResult.diagnostics.modelGeneration == expectedAcceptedUpdates);
+    QVERIFY(evaluationResult.diagnostics.modelUpdatesAccepted == 0);
+    QVERIFY(evaluationResult.diagnostics.modelUpdatesRejected == 0);
+
+    const RowVectorXd output = evaluationBlock.row(2);
+    const RowVectorXd residualNoise = output - clean;
+    const double sampleCount = static_cast<double>(evaluationSampleCount);
+    const double environmentalNoiseRms = std::sqrt(evaluationNoise.squaredNorm()
+                                                   / sampleCount);
+    const double residualNoiseRms = std::sqrt(residualNoise.squaredNorm()
+                                              / sampleCount);
+    QVERIFY(environmentalNoiseRms > 0.0);
+    QVERIFY(residualNoiseRms > 0.0);
+    const double noiseReductionDb =
+        20.0 * std::log10(environmentalNoiseRms / residualNoiseRms);
+
+    const double cleanEnergy = clean.squaredNorm();
+    QVERIFY(cleanEnergy > 0.0);
+    const double projectedCleanAmplitude = output.dot(clean) / cleanEnergy;
+    const double cleanAmplitudeError = std::abs(projectedCleanAmplitude - 1.0);
+
+    qInfo() << "synthetic environmental-noise reduction (dB)" << noiseReductionDb
+            << "clean projection amplitude error" << cleanAmplitudeError;
+    QVERIFY(std::isfinite(noiseReductionDb));
+    QVERIFY(std::isfinite(cleanAmplitudeError));
+    QVERIFY(noiseReductionDb >= 10.0);
+    QVERIFY(cleanAmplitudeError <= 0.02);
 }
 
 //=============================================================================================================
