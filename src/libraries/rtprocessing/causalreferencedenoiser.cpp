@@ -286,6 +286,24 @@ DenoiserProcessResult CausalReferenceDenoiser::process(Eigen::Ref<Eigen::MatrixX
         return DenoiserProcessResult{DenoiserProcessStatus::InvalidShape};
     }
 
+    for (Eigen::Index reference = 0; reference < m_impl->referenceCount; ++reference) {
+        const Eigen::Index row = m_impl->referenceRows(reference);
+        for (Eigen::Index sample = 0; sample < block.cols(); ++sample) {
+            if (!std::isfinite(block(row, sample))) {
+                return DenoiserProcessResult{DenoiserProcessStatus::NonFiniteInput};
+            }
+        }
+    }
+
+    for (Eigen::Index target = 0; target < m_impl->targetCount; ++target) {
+        const Eigen::Index row = m_impl->targetRows(target);
+        for (Eigen::Index sample = 0; sample < block.cols(); ++sample) {
+            if (!std::isfinite(block(row, sample))) {
+                return DenoiserProcessResult{DenoiserProcessStatus::NonFiniteInput};
+            }
+        }
+    }
+
     Impl& state = *m_impl;
     const bool bypass = mode == DenoisingMode::BypassTrackHistory;
     const bool learn = mode == DenoisingMode::ApplyAndLearn;

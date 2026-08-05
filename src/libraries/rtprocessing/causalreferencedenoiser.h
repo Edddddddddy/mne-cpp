@@ -44,6 +44,7 @@ enum class DenoiserStatus {
 enum class DenoiserProcessStatus {
     Bypassed,
     InvalidShape,
+    NonFiniteInput,
     Processed
 };
 
