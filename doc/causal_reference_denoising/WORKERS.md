@@ -1831,3 +1831,18 @@ The manager records and forwards all cross-worker messages here before acting.
   runtime unavailable only due known ignored baseline/build gap.
 - Classification/lifecycle: immediate GREEN expected, no forced RED and no
   subagents. Manager exact review follows.
+
+### MANAGER REVIEW W-TEST-CORE-012
+
+- Scope/base: accepted; exact commit `c302fbfff` is clean on `a7bb413ca` and
+  adds exactly one test slot/source with no production/build change.
+- Overflow oracle: true RMS of four alternating `+/-M` samples is exactly `M`;
+  `actual/M-1` is the correct bounded comparison and avoids overflow from
+  direct large subtraction/squaring. `8*epsilon` is tight but realistic.
+- ApplyOnly oracle: recursive forgetting preserves `H=2G`; relative loading
+  produces `W=2/(1+reg)` up to rounding. Input, output residual and actually
+  subtracted prediction RMS equations match the selected diagnostics semantics;
+  combined `1e-12` tolerances are materially tighter than the signal scale.
+- State/sensitivity: the training boundary must accept; an unlearned or wrong
+  prediction fails sample and RMS checks; reference preservation is explicit.
+- Decision: accept for cherry-pick and populated immediate-GREEN execution.

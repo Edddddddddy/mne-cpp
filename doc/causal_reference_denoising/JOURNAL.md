@@ -1433,3 +1433,11 @@ hidden reasoning is not.
   runtime limitation and no subagents.
 - Decision: record before acting; perform exact review and populated runtime if
   accepted.
+
+### E-149 - Stable RMS characterization accepted
+
+- Actor: manager under diagnostics semantics and TDD review.
+- Review: exact one-slot/test-only scope; overflow-safe ratio and analytic
+  `W=2/(1+reg)` diagnostics equations/tolerances are correct and sensitive.
+- Decision: accept `c302fbfff`; commit the review, cherry-pick and run the
+  focused synchronized report before closing P2 `R-RMS-001`.
