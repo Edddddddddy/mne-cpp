@@ -1938,3 +1938,19 @@ The manager records and forwards all cross-worker messages here before acting.
 - Evidence: clean one-file commit/diff; detached runtime unavailable due known
   ignored dependency/build gap; no repair and no subagents.
 - Manager status: response durable; exact review follows.
+
+### MANAGER REVIEW W-TEST-CORE-013
+
+- Scope/base: accepted. Exact commit `a5f37e5bd` is clean on `d991e1e9a` and
+  changes one test source/slot only.
+- Overflow proof: target-one weight near two times `DBL_MAX` must overflow;
+  target-two weight near one-half remains finite. Requiring the complete probe
+  exact distinguishes selected sample-wide atomic fallback from partial per-
+  target subtraction.
+- RMS/state: raw target RMS is `sqrt((7^2+11^2)/2)=sqrt(85)`; exact passthrough
+  makes output equal and actually-subtracted noise zero. Generation/events and
+  later analytic normal probe prove no committed-model corruption.
+- Sensitivity: current implementation necessarily violates all-finite/exact
+  output before later assertions; this is a genuine public-interface runtime RED.
+- Decision: accept for cherry-pick and focused RED reproduction; no production
+  edit is authorized before failure evidence is captured.

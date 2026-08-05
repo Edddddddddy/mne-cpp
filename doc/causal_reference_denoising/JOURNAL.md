@@ -1526,3 +1526,12 @@ hidden reasoning is not.
   first failure is all-finite output.
 - Decision: record before acting; perform exact diff/oracle review and reproduce
   populated runtime RED if accepted.
+
+### E-159 - Application overflow test accepted
+
+- Actor: manager under selected fallback semantics and TDD.
+- Review: exact one-slot/test-only scope; mixed overflow/finite predictions
+  distinguish sample-wide atomic fallback, with correct RMS/state and future
+  model-integrity oracles.
+- Decision: accept `a5f37e5bd`; commit the review, integrate and reproduce the
+  intended runtime RED before implementation.

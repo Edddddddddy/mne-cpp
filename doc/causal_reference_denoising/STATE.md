@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T21:48:00+08:00
+Last updated: 2026-08-05T21:55:00+08:00
 
 ## Recovery order
 
@@ -34,12 +34,12 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-`W-TEST-CORE-013` returned one-test commit `a5f37e5bd`; manager exact review,
-integration and runtime RED reproduction are pending.
+`W-TEST-CORE-013` commit `a5f37e5bd` passed manager exact review; integration
+and runtime RED reproduction are pending.
 
 ## Next actions
 
-1. Review exact commit `a5f37e5bd` and mixed-target oracle.
+1. Commit/push the manager review record.
 2. Integrate only the one-slot contract and reproduce runtime RED.
 3. Dispatch source fallback implementation only after RED evidence.
 
