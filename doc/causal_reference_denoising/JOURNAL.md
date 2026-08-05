@@ -677,3 +677,22 @@ hidden reasoning is not.
   partitioning for this acceptance stream at the required `1e-10` tolerance.
 - Next: publish the milestone, retire the one-shot worker, and start reset/mode
   state-semantics TDD on a fresh Luna/max worker.
+
+### E-070 - Chunk-equivalence milestone published and worker retired
+
+- Actor: manager, GitHub, and Codex app.
+- Publish result: branch pushed through `57d5e2535`; issue #2 comment
+  `5188904172` records the zero relative errors and 34/0 focused report.
+- Retirement result: `W-TEST-CORE-006` thread
+  `019fd0cc-9f37-7dd0-9051-4086072efabe` returned `archived: true`.
+- Next: dispatch the already specified isolated reset-contract worker.
+
+### E-071 - Reset contract worker request prepared
+
+- Actor: manager under the user model-selection and TDD rules.
+- Request: `W-TEST-CORE-007`, exactly one test-only public-interface behavior.
+- Model decision: Sol/ultra because observable reset equivalence must detect
+  retained lag history, epoch statistics, committed weights, or counters.
+- Isolation: detached worktree at
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-007`; no nested agents.
+- Next: commit the request, create the worktree from current HEAD, and dispatch.

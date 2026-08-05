@@ -768,4 +768,32 @@ The manager records and forwards all cross-worker messages here before acting.
 - Archive completed one-shot `W-TEST-CORE-006` thread
   `019fd0cc-9f37-7dd0-9051-4086072efabe` after this record is committed and
   published.
-- Status: recorded before action.
+- Status: complete; issue milestone published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5188904172`
+  and the app returned `archived: true`.
+
+### REQUEST W-TEST-CORE-007
+
+- From / to: manager / independent reset-contract test worker.
+- Execution: collaboration subagent in detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-007` based on current
+  integration HEAD; agent identifier is recorded after dispatch.
+- Model/environment: `gpt-5.6-sol`, `ultra`; no nested subagents.
+- Model decision: reset correctness spans causal lag history, partial epoch
+  statistics, committed weights, and counters, so independent high-risk state
+  reasoning is preferred over the default bounded Luna path.
+- Blocking: yes for the reset contract.
+- Task: add exactly one public-interface test proving `reset()` returns a
+  configured denoiser to the same observable state as a freshly configured
+  control. First drive the subject through warmup, at least one committed model,
+  and a partial next epoch; call reset; then feed identical deterministic
+  training/ApplyOnly probe blocks to subject and fresh control and require
+  matching statuses and outputs at relative tolerance `<=1e-12`, with all
+  non-target rows exact. The sequence must fail if any history, `G/H`, pending
+  epoch count, or committed `W` survives reset.
+- Scope: test source only; no production/CMake/plugin/dependency edits, no
+  rt_server. Immediate GREEN is allowed and must be reported honestly.
+- Required response: `RESPONSE W-TEST-CORE-007`, commit SHA, exact priming and
+  reset/control sequence, changed files, validation evidence/infra limitation,
+  RED or GREEN classification, and confirmation of no nested subagents.
+- Status: request recorded before worktree setup and dispatch.

@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T15:34:00+08:00
+Last updated: 2026-08-05T15:38:00+08:00
 
 ## Recovery order
 
@@ -33,15 +33,14 @@ are GREEN. The next contract is reset and three-mode state semantics.
 
 ## Running workers
 
-None. `W-TEST-CORE-006` is complete and ready for archival after its durable
-GREEN evidence is committed and published.
+None. `W-TEST-CORE-006` is complete, published, and archived. The recorded
+next request is `W-TEST-CORE-007`, pending isolated-worktree setup/dispatch.
 
 ## Next actions
 
-1. Commit and publish chunk-equivalence GREEN evidence; archive the one-shot
-   test worker.
-2. Dispatch a fresh Luna/max test worker for reset and mode-state semantics.
-3. Integrate the next narrow RED/GREEN slice before broader acceptance tests.
+1. Create the isolated worktree and dispatch Sol/ultra `W-TEST-CORE-007`.
+2. Review and integrate the reset-to-fresh-state test response.
+3. Reproduce RED or accept immediate GREEN before the next mode slice.
 
 ## Focused verification targets
 
