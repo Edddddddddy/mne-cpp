@@ -1738,3 +1738,13 @@ hidden reasoning is not.
   code or replacement worker was created for it.
 - Next: await the structured response while independently inspecting the
   current public test seam; do not overlap the worker's test source.
+
+### E-181 - Synthetic acceptance worker status requested
+
+- Actor: manager.
+- Evidence: repeated bounded waits still show `/root/w_test_core_015` running;
+  its detached worktree remains clean at `ea5870cf2`.
+- Action: record a non-blocking generator/weights/training/margin/blocker status
+  request before forwarding, with no scope change or duplicate worker.
+- Next: forward the request and continue bounded waiting/read-only adapter seam
+  reconnaissance.

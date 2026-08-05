@@ -2241,3 +2241,15 @@ The manager records and forwards all cross-worker messages here before acting.
 - Status: active as collaboration agent `/root/w_test_core_015`. Detached
   worktree is clean at exact integration base `ea5870cf2`; Sol/ultra accepted
   the one-slot, test-source-only scope and the nested-subagent prohibition.
+
+### REQUEST W-TEST-CORE-015-STATUS
+
+- From / to: manager / `/root/w_test_core_015`.
+- Blocking: no; the single synthetic acceptance slot remains unchanged.
+- Context: repeated bounded waits report the agent running while its detached
+  worktree remains clean at the exact request base.
+- Question: at the next safe boundary, report concise progress, chosen
+  deterministic generator/known weights/training duration, expected metric
+  margins and any blocker. Do not rescope, edit production code or use
+  subagents.
+- Status: recorded before forwarding.
