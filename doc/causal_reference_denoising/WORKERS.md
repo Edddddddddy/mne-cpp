@@ -3483,3 +3483,21 @@ does not continuously poll them.
   compile-time noncopyable/nonmovable and no contradictory moved-from state can
   be formed. Issue #4 is ready for publication/retirement closure.
 - No full mne_scan or rt_server was run; user untracked paths remain untouched.
+
+### PUBLISH/RETIREMENT PRECHECK W-PROC-MOVE-001
+
+- Issue #4 GREEN/review closure comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5194141013`;
+  read-back matches commits, 5/0/0 report, P0/P1/P2 zero and no-rt_server
+  evidence.
+- Final QA P3 deferral comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5194141240`;
+  read-back tracks `R-PROC-LOCALITY-001` and `R-PROC-BOUNDARY-001` with exact
+  requested follow-up.
+- Worker worktree is clean/detached at exact `b49f27699`.
+- Worker/integration content hashes match for both authorized files: header
+  `ec7a273b4200b1d4178b2cc7802ff0573cece115`, focused test
+  `14cfc9a0db4e64ae4ed6b0b96d0db7cbe2fefdb4`.
+- Decision: one-shot Luna/max thread
+  `019fd29c-2487-77a3-bfee-512054491941` may be archived through the app. Do
+  not manually delete or modify its app-owned worktree.

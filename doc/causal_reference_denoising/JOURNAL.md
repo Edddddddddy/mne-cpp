@@ -2764,3 +2764,15 @@ hidden reasoning is not.
   milestone. P3 locality/max-bound coverage move to final QA issue #3.
 - Next: commit/push code and evidence, publish review closure, verify/archive
   the worker, then close issue #4 and update epic #2.
+
+### E-266 - Processor review closure published and worker verified
+
+- Issue #4: formal P2 closure and 5/0/0 GREEN published/read back at
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5194141013`.
+- Issue #3: both nonblocking processor P3s published/read back at
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5194141240`.
+- Worker: clean exact `b49f27699`; both authorized file hashes equal integrated
+  `4a57c3ca5` content.
+- Decision: after this precheck is committed/pushed, archive the one-shot
+  Luna/max thread through the app without deleting its worktree, then close
+  issue #4 and update epic #2.

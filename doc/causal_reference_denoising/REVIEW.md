@@ -215,6 +215,8 @@ tracked.
   fail closed rather than use old ownership for new metadata.
 - Verification: header contract review against SPEC and compile-time ownership/
   noexcept checks.
+- Tracking: deferred to final QA issue #3 at
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5194141240`.
 
 #### R-PROC-BOUNDARY-001 - P3 - Open
 
@@ -225,6 +227,7 @@ tracked.
   yet a narrowing regression could pass the focused suite.
 - Later correction/test: Ready rows for taps 32, interval 2048, memory 1/300,
   regularization 1 and P=256, retaining an over-cap disarm case.
+- Tracking: deferred to final QA issue #3 in the same comment above.
 
 ### Processor formal gate decision
 
