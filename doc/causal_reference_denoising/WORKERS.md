@@ -3182,3 +3182,24 @@ does not continuously poll them.
   manager will verify and archive the conversation before formal review.
 - Status: forwarded successfully to the existing thread with no model override;
   it remains Luna/max. No new conversation or polling.
+
+### RESPONSE W-PROC-TEST-003
+
+- Reusable Luna/max thread: `019fd266-902d-77e1-b40a-a754eaac6222`.
+- Delta parent/commit: accepted worker commit `aa75e2520b`; new delta
+  `2cbca78eb56b9d50b6d8dcec649e7600b8470350`.
+- Scope: one new slot `validReconfigureResetsAndRelearnsModel` in the focused
+  test source; two existing behaviors and all 19 invalid cases are unchanged.
+- Oracle: train two-row `target=2*ref` generation one; Ready-reconfigure same
+  processor to `{MISC, REF_MEG, MEG}`; immediate ApplyOnly 3x16 probe is complete
+  matrix identity with generation/events zero; learn new `target=3*ref` mapping
+  to generation/accepted/rejected `1/1/0`; future `17/51` probe is finite, keeps
+  misc/reference exact and target residual `<=1e-5`.
+- Evidence: one authorized test-source commit, diff/clean checks pass. Runtime
+  not claimed because the app worktree retains the known ignored Eigen gap; no
+  dependency repair/copy, production/CMake/core change, rt_server, subagent or
+  manager polling.
+- TDD classification: expected immediate-GREEN public-interface acceptance of
+  existing reconfigure/reset behavior.
+- Status: response recorded before manager exact delta review. Conversation is
+  retained until acceptance/archival.

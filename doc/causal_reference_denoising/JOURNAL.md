@@ -2573,3 +2573,17 @@ hidden reasoning is not.
   zero-model post-reconfigure probe and new `target=3*ref` relearning/probe.
 - Coordination: no new conversation, subagent or polling. Await only proactive
   RESPONSE.
+
+### E-250 - Valid reconfigure/reset tracer response received
+
+- Actor: reusable Luna/max thread
+  `019fd266-902d-77e1-b40a-a754eaac6222` and manager.
+- Delta: `2cbca78eb5` on accepted worker parent `aa75e2520b`, one focused test-
+  source slot only.
+- Behavior: old two-row learned model, changed three-row Ready reconfigure,
+  immediate zero-generation whole-matrix pass-through, then new `3*ref`
+  relearning and near-zero future residual with exact misc/reference rows.
+- Evidence: diff/clean passes; runtime remains manager-owned because of the
+  known app-worktree Eigen gap; no scope expansion/rt_server/subagent/polling.
+- Next: commit/push response, inspect exact delta and execute populated focused
+  Release. On GREEN archive this completed test role before formal review.

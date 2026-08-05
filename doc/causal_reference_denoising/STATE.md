@@ -51,17 +51,17 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 ## Running workers
 
 - Reusable Luna/max processor-test conversation, thread
-  `019fd266-902d-77e1-b40a-a754eaac6222` remains available. Amended test is
-  integrated as `6a721991c`; populated Release build/run exits zero for mapping
-  plus 19-case invalid/missing disarm coverage. Same-role follow-up
-  `W-PROC-TEST-003` is prepared for changed-layout valid reconfigure reset and
-  relearning; it is not yet forwarded.
+  `019fd266-902d-77e1-b40a-a754eaac6222` proactively returned delta commit
+  `2cbca78eb5` on accepted worker parent `aa75e2520b`. It adds only the changed-
+  layout valid reconfigure/reset/relearn tracer. Exact manager review and
+  populated execution are pending; conversation remains unarchived.
 
 ## Next actions
 
-1. Forward `W-PROC-TEST-003` to the same relevant Luna/max conversation for the
-   separate valid-reconfigure-reset/relearning tracer.
-2. Validate the returned focused test, then begin independent Sol/ultra issue
+1. Review exact delta `2cbca78eb5`, integrate and run the populated focused
+   target.
+2. If GREEN, archive the completed processor-test conversation and begin an
+   independent visible Sol/ultra issue
    #4 processor milestone review if no further behavior gap remains.
 3. After issue #4 reaches a milestone commit, open a separate visible
    Sol/ultra review conversation before integration.
