@@ -2416,3 +2416,28 @@ hidden reasoning is not.
 - Decision: after this record is committed/pushed, archive the completed Luna/
   max visible implementation conversation without manually deleting its
   app-owned worktree.
+
+### E-238 - Processor implementation conversation archived
+
+- Actor: manager and Codex app thread lifecycle.
+- Result: visible thread `019fd258-04db-7982-b1f6-c7010727c03c` archived after
+  GREEN publication and exact clean/content verification. App worktree was not
+  manually removed.
+- Next: create a fresh reusable Luna/max processor-test conversation for
+  invalid/missing classification and stale-model disarm acceptance.
+
+### E-239 - Processor invalid/disarm acceptance request prepared
+
+- Actor: manager under issue #4 and TDD.
+- Request: `W-PROC-TEST-002`, Luna/max, one public behavior/test-source commit.
+  Each data case first learns a model, then requires invalid/missing configure
+  to zero the adapter snapshot and make a future ApplyOnly block exact
+  NotConfigured pass-through with NaN RMS.
+- Coverage: metadata validity, missing ref/target, every UI setting bound/
+  finiteness and core feature-cap rejection. Immediate GREEN is expected from
+  current implementation and must be reported honestly.
+- Reuse: retain this relevant processor-test conversation for a following
+  separate valid-reconfigure-reset tracer; do not archive after the first
+  response if its worktree remains usable.
+- Next: commit/push this lifecycle/request record, create the visible worktree
+  conversation and record its returned identity/base before publication.

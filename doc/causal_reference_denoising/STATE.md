@@ -50,17 +50,17 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 
 ## Running workers
 
-- None executing. `W-PROC-GREEN-001` is integrated as `a602bdff4`; populated
-  Release focused build and one-slot executable pass with exit zero. Visible
-  thread `019fd258-04db-7982-b1f6-c7010727c03c` is pending GREEN publication,
-  clean/content verification and archival.
+- None executing. `W-PROC-GREEN-001` is integrated, published and its visible
+  thread archived. Reusable Luna/max processor-coverage request
+  `W-PROC-TEST-002` is prepared to validate all invalid/missing classifications
+  and stale-model disarm; it is not yet dispatched.
 
 ## Next actions
 
-1. Publish processor first GREEN to issue #4 and archive its verified one-shot
-   visible implementation conversation.
-2. Add the next invalid/missing-layout and stale-model-disarm tracer before
-   widening processor behavior.
+1. Dispatch the invalid/missing-layout and stale-model-disarm acceptance tracer
+   to a reusable visible Luna/max processor-test conversation.
+2. Validate the returned focused test, then reuse that same relevant
+   conversation for the separate valid-reconfigure-reset tracer.
 3. After issue #4 reaches a milestone commit, open a separate visible
    Sol/ultra review conversation before integration.
 4. Deliver the engineering MVP first: processor, nonblocking queue, plugin

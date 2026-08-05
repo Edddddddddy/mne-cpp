@@ -2977,3 +2977,48 @@ does not continuously poll them.
 - Decision: completed one-shot thread
   `019fd258-04db-7982-b1f6-c7010727c03c` may be archived through the app; its
   app-owned worktree remains untouched by the manager.
+
+### RETIREMENT RESPONSE W-PROC-GREEN-001
+
+- App result: visible thread `019fd258-04db-7982-b1f6-c7010727c03c` archived
+  successfully after all evidence and identity checks were durable.
+- App-owned worktree was not manually deleted or modified.
+- Status: complete; this implementation conversation will not be reused.
+
+### REQUEST W-PROC-TEST-002
+
+- From / to: manager thread
+  `019fcdc3-4a1e-76d1-8140-1bd521219297` / new visible reusable processor-test
+  conversation.
+- GitHub issue: `Edddddddddy/mne-cpp#4`.
+- Model/environment: `gpt-5.6-luna`, `max`, saved Git project worktree from the
+  current integration branch; no internal/nested subagents.
+- Blocking: yes for processor milestone review.
+- Behavior: one public-interface test slot proves every invalid/missing
+  configure attempt disarms a previously learned model. For each case, create a
+  fresh processor, Ready-configure/train one ref and one target through one
+  accepted interval, submit the invalid candidate, require the exact adapter
+  status and zero returned/configuration counts, then ApplyOnly a finite probe
+  and require NotConfigured, complete matrix identity, zero diagnostic snapshot/
+  events and NaN RMS.
+- Required cases in the one behavior: invalid metadata (nonfinite/nonpositive
+  fs, empty channels, nonpositive max block); MissingReferences; MissingTargets;
+  settings outside every UI bound/nonfinite (taps, interval, memory,
+  regularization); and a UI-valid reference-count/tap combination exceeding the
+  core 256-feature cap, classified InvalidSettings.
+- TDD classification: the production implementation already expresses this
+  approved contract, so honest immediate GREEN is expected. Do not fabricate a
+  RED or edit production when the public behavior passes.
+- Authorized file: focused test source only. Add no CMake/processor/core/queue/
+  plugin/UI/example/benchmark/dependency change and do not run rt_server.
+- Verification: build/run focused Release if dependencies permit, otherwise
+  report the known ignored Eigen baseline; manager owns populated execution.
+  Diff check and commit the single authorized file.
+- Reuse policy: keep this conversation/worktree after response because the same
+  processor-test responsibility will receive a later separate valid-
+  reconfigure-reset tracer if this behavior is accepted.
+- Required response: begin `RESPONSE W-PROC-TEST-002`; include exact base/
+  commit, case table, priming/disarm/probe oracle, evidence/classification,
+  changed file, clean status and no-subagent confirmation. Actively send to the
+  manager thread and stop without polling.
+- Status: request recorded before visible work conversation creation.
