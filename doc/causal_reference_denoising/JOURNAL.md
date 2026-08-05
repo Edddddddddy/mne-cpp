@@ -2210,3 +2210,13 @@ hidden reasoning is not.
   thread `019fcdc3-4a1e-76d1-8140-1bd521219297`; manager will not poll it.
 - Next: commit/push this request, create the saved-project worktree conversation
   from the integration branch, then durably record its returned thread ID/base.
+
+### E-222 - First visible-thread creation call rejected before dispatch
+
+- Actor: Codex app argument validator and manager.
+- Failure: `create_thread` returned invalid arguments because the saved-project
+  ID was outside the target object rather than in the schema-required location.
+- Evidence/impact: no thread ID or client setup ID was returned; no worktree,
+  branch, file or worker execution exists.
+- Next: commit/push this no-side-effect failure, then retry the existing
+  `W-PROC-TEST-001` request once with the exact declared project target schema.

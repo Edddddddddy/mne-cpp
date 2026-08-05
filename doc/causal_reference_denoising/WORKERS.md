@@ -2714,3 +2714,13 @@ does not continuously poll them.
   actively send it to the manager thread via `send_message_to_thread`; do not
   wait for or poll the manager.
 - Status: request recorded before visible work conversation creation.
+
+### SYSTEM FAILURE W-PROC-TEST-001-CREATE-1
+
+- Result: the app rejected the first `create_thread` call as invalid arguments
+  because `projectId` was supplied at the top level rather than inside the
+  project target object.
+- Side effects: none; no thread, worktree, branch or code change was created.
+- Decision: preserve the same single request and retry once with the declared
+  `target: {type: project, projectId, environment}` schema. This is not a
+  duplicate task dispatch.
