@@ -23,6 +23,10 @@ does not continuously poll them.
 
 ## Lifecycle and model policy
 
+- User-confirmed hard rule: every newly created work conversation uses either
+  `gpt-5.6-luna` at `max` (Luna's highest available effort) or
+  `gpt-5.6-sol`; concurrency, realtime safety, architecture and formal review
+  use Sol/ultra. Do not dispatch this project to Terra or another model.
 - Preserve a worker conversation only when the same role, repository state,
   and context remain reusable. Archive one-shot, failed, superseded, or stale
   workers after their request/response/commit evidence is durable.

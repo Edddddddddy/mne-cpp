@@ -2352,3 +2352,14 @@ hidden reasoning is not.
 - Verification: GitHub read-back matches the submitted dispatch body.
 - Next: no overlapping processor/CMake edit and no thread polling. Resume only
   from worker-pushed `RESPONSE W-PROC-GREEN-001` or new user direction.
+
+### E-233 - Worker model restriction reconfirmed
+
+- Actor: user and manager.
+- Rule: every future visible work conversation must use Luna at its highest
+  available effort (`gpt-5.6-luna`, `max`) or manager-selected Sol. Use
+  Sol/ultra for concurrency, realtime safety, architecture and formal review;
+  do not use Terra or another model for this project.
+- Current compliance: active `W-PROC-GREEN-001` is already Luna/max.
+- Decision: apply this as a hard dispatch check before every future thread
+  creation and record the selected model in each REQUEST/creation response.
