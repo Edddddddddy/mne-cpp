@@ -1362,3 +1362,39 @@ The manager records and forwards all cross-worker messages here before acting.
   expected current RED, evidence/infra limitation, and no-subagent confirmation.
 - Status: active. Worktree created from `ff0fc018d`; Sol/ultra accepted the
   single-slot/no-subagent extreme arithmetic scope.
+
+### RESPONSE W-TEST-CORE-010
+
+- Commit: `3d38866c537706ea9072811cc7bd7e7a1126ca4a`.
+- Changed file: focused numerical test source only; one Qt slot, 68 insertions.
+- Oracle: eight-sample learning block has zero epoch accepted, two
+  `H=DBL_MAX/2` epochs rejected, and final `[1,2] -> [2,4]` epoch accepted.
+  Require Processed, events `2/2`, generation2, exact refs, finite unchanged
+  targets and RMS `sqrt(2.5)/sqrt(2.5)/0`.
+- Probe: ApplyOnly ref3/target6 must have finite residual `<=1e-5`, generation2,
+  zero per-call events and exact ref.
+- Expected current RED: poisoned in-place stats produce events `1/3`,
+  generation1, zero weights and probe residual6.
+- Evidence: committed diff check passes and worktree is clean. Detached runtime
+  is unavailable only due missing ignored Eigen/build baseline; no repair.
+- Scope/lifecycle: no production/CMake/plugin/dependency/rt_server changes and
+  no subagents.
+- Manager status: response is durable; exact diff review follows.
+
+### MANAGER REVIEW W-TEST-CORE-010
+
+- Scope: accepted; commit `3d38866c5` changes only the focused numerical test
+  source and adds exactly one public-interface slot.
+- Epoch oracle: interval two yields four boundaries. The initial zero epoch is
+  a valid zero-model accept; each `DBL_MAX/2` epoch overflows its outer product
+  despite finite selected input and must reject; the final finite `[1,2]` to
+  `[2,4]` epoch must recover and accept for call-local events `2/2` and
+  cumulative generation two.
+- Output/RMS oracle: the committed zero model is applied throughout the
+  learning block, so targets remain exact and selected-target RMS is
+  `sqrt((2^2 + 4^2) / 8) = sqrt(2.5)` with zero subtracted-noise RMS. The
+  post-boundary ApplyOnly probe observes the recovered approximately-2 model.
+- Sensitivity: current in-place poisoned `G/H` cannot recover and is expected
+  to report `1/3`, generation one and a probe residual of six.
+- Decision: accept for cherry-pick and populated-workspace runtime RED. No
+  production change is authorized before that RED is captured.

@@ -1098,3 +1098,24 @@ hidden reasoning is not.
 - Worktree/model: detached `mne-cpp-worker-w-test-core-010` at `ff0fc018d`,
   Sol/ultra, no subagents.
 - Next: wait for one-slot test response; no overlapping test edits.
+
+### E-115 - Transactional rejection test response received
+
+- Actor: `/root/w_test_core_010` and manager.
+- Response: one-slot commit `3d38866c5` with accepted/rejected generation oracle
+  `2/2`, two extreme finite poisoned epochs, recovery epoch and future probe.
+- Evidence: one file/68 insertions, clean diff/worktree, no subagents; detached
+  runtime limitation is the known ignored Eigen baseline.
+- Decision: record before acting; inspect exact assertions, then reproduce
+  current poisoned-statistics runtime RED in the main workspace.
+
+### E-116 - Transactional rejection test accepted
+
+- Actor: manager using the selected transactional diagnostics seam and TDD.
+- Review: exact one-slot/test-only scope; four-boundary event oracle, finite
+  extreme-input rejection, unchanged first-block output, stable RMS and future
+  recovered-model probe are internally consistent.
+- Expected RED: current in-place statistics remain poisoned after the first
+  extreme epoch, producing events `1/3`, generation one and probe residual six.
+- Decision: accept `3d38866c5`; commit the durable review, then integrate and
+  reproduce runtime RED before dispatching production work.

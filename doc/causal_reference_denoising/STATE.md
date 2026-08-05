@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T17:56:00+08:00
+Last updated: 2026-08-05T18:20:00+08:00
 
 ## Recovery order
 
@@ -33,14 +33,14 @@ finite-overflow epoch rejection/recovery (`R-SOLVE-001`).
 
 ## Running workers
 
-`W-TEST-CORE-010` is active as `/root/w_test_core_010` on Sol/ultra in detached
-worktree `mne-cpp-worker-w-test-core-010`.
+`W-TEST-CORE-010` returned test commit `3d38866c5`; manager diff/oracle review
+accepted it. Populated-workspace runtime RED reproduction is pending.
 
 ## Next actions
 
-1. Wait for/review `RESPONSE W-TEST-CORE-010`.
-2. Integrate its single test and reproduce runtime RED.
-3. Reproduce runtime RED for mixed rejected/recovered boundaries.
+1. Commit the durable response/review record.
+2. Integrate the single test and reproduce runtime RED.
+3. Dispatch the transactional pending-statistics implementation only after RED.
 
 ## Focused verification targets
 
