@@ -4427,6 +4427,33 @@ does not continuously poll them.
 - No manual deletion or mutation of the app-owned worktree occurred. Any later
   example/benchmark correction must use a new minimal Luna/max task.
 
+### REQUEST W-QA-PROC-BOUNDARY-001
+
+- From / to: manager / new visible Luna/max focused-test conversation.
+- GitHub issue: `Edddddddddy/mne-cpp#3`; finding
+  `R-PROC-BOUNDARY-001` (P3).
+- Exact base: `8030221b51c5ba38d2f6d4c4e7c46c6420c055e7` on
+  `codex/causal-reference-denoising`; separate Codex worktree.
+- Authorized edit: only
+  `src/testframes/test_adaptive_denoising_plugin/test_adaptive_denoising_plugin.cpp`.
+  Do not edit production, CMake, queue, plugin, docs, dependencies or builds.
+- Test task: add one data-driven public-interface QtTest slot proving Ready at
+  each inclusive legal adapter boundary: taps 32, interval 2048, memory 1,
+  memory 300, regularization 1, and exact feature count P=256. Each row uses a
+  fresh processor, valid metadata/settings and exact expected R/M/P snapshot.
+- P=256 oracle: eight good REF_MEG rows, one good MEG target, taps 32, valid
+  remaining settings; expect Ready counts R/M/P = 8/1/256. Retain all existing
+  P=288 invalid/disarm coverage unchanged.
+- Prefer minimal accepted rows that isolate one boundary at a time. No large
+  training run is required; configure/configuration behavior is the seam.
+- Verification: compile/run the full populated focused target if dependencies
+  exist in the worker; otherwise report the existing clean-worktree Eigen gap
+  honestly. Run diff checks and return exact base/commit/file/oracles/results.
+- Restrictions: gpt-5.6-luna/max, no nested subagents, manager polling, full
+  repository scan, full mne_scan, vendor repair or rt_server. Proactively send
+  `RESPONSE W-QA-PROC-BOUNDARY-001` and stop.
+- Status: request durable before task creation.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread

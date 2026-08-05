@@ -3446,3 +3446,14 @@ hidden reasoning is not.
   exact blob, Release gate and GitHub evidence became durable.
 - Safety: no manual worktree deletion or mutation. Future benchmark changes
   require a new minimal Luna/max task.
+
+### E-328 - Processor boundary QA test requested
+
+- Request: `W-QA-PROC-BOUNDARY-001`, new visible Luna/max test-only worktree
+  on exact `8030221b5` for final-QA finding `R-PROC-BOUNDARY-001`.
+- Oracle: Ready at taps 32, interval 2048, memory 1/300, regularization 1 and
+  exact P=256 with precise snapshot counts; existing P=288 rejection remains.
+- Isolation: one focused test source only, no production/CMake/queue/plugin/
+  docs/dependency overlap with active queue review or learning guide.
+- Next: commit/push request, create the visible worktree, publish issue #3 and
+  await only its proactive response.
