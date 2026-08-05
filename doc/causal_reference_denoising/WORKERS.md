@@ -2001,3 +2001,13 @@ The manager records and forwards all cross-worker messages here before acting.
   limitation, remaining work and no-subagent confirmation.
 - Status: active as collaboration agent `/root/w_core_009`. Detached worktree
   created clean at `1cfae4696`; Sol/ultra accepted source-only scope.
+
+### REQUEST W-CORE-009-STATUS
+
+- From / to: manager / `/root/w_core_009`.
+- Blocking: no; source-only fallback scope is unchanged.
+- Context: bounded waits show the worker running while its detached worktree is
+  still clean at the request base.
+- Question: report concise progress, exact validation/write ordering and any
+  blocker at the next safe boundary; no rescope or subagents.
+- Status: recorded before forwarding.

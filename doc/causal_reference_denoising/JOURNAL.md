@@ -1572,3 +1572,12 @@ hidden reasoning is not.
 - Scope: validate all target predictions/residuals before sample-wide write;
   zero actually-subtracted prediction on fallback; preserve learning/history.
 - Next: await structured response without overlapping source edits.
+
+### E-164 - Overflow fallback worker status requested
+
+- Actor: manager.
+- Evidence: Sol/ultra agent remains running and isolated worktree remains clean
+  after bounded waits.
+- Action: prepare one non-blocking progress/ordering request without changing
+  scope or dispatching a duplicate.
+- Next: commit/push, forward and continue bounded waiting.
