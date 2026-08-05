@@ -2535,3 +2535,6 @@ The manager records and forwards all cross-worker messages here before acting.
 - Worker validation: immediate GREEN; reported Release 44/0/1 and Debug
   45/0/0, plus diff check. Manager must independently verify these populated
   results before closing P2.
+- Durable publish: local response-record commit succeeded; its first branch
+  push failed with transient GitHub `SSL_ERROR_SYSCALL`. No remote state or
+  code retry is claimed yet.
