@@ -227,6 +227,15 @@ thread all information needed to handle a layout transition at the same block
 boundary as its samples. UI pending settings/reset state remains a separate
 UI-to-worker boundary and is never locked by the acquisition callback.
 
+The focused `test_adaptive_denoising_plugin` target compiles the private queue
+and processor sources directly and links only Qt Core/Test, Eigen,
+`mne_fiff`, and `mne_rtprocessing` (plus unavoidable transitive library
+requirements). It does not link the mne_scan GUI plugin framework just to test
+FIFF picks, queue behavior or block processing. `scShared`, `scMeas`, Widgets,
+plugin metadata and `AbstractAlgorithm` enter only the real
+`scan_adaptivedenoising` target and any later lifecycle integration slice that
+genuinely exercises them.
+
 ## Acceptance criteria
 
 - Correlated environmental noise is reduced by at least 10 dB after warmup.

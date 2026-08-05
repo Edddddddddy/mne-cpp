@@ -1903,3 +1903,14 @@ hidden reasoning is not.
   weight and materially distinguishes correct forgetting from lambda=1.
 - Decision: wait for the reviewer's final stable ID/required test before
   dispatching a one-slot test worker; do not preempt or edit production code.
+
+### E-196 - Focused adapter test dependency boundary selected
+
+- Actor: manager using repository CMake patterns and codebase-design locality.
+- Decision: compile plugin-private queue/processor sources directly into
+  `test_adaptive_denoising_plugin`; link Qt Core/Test, Eigen, mne_fiff and
+  mne_rtprocessing only, apart from unavoidable transitive requirements.
+- Boundary: scShared/scMeas/Widgets/AbstractAlgorithm belong to the real plugin
+  or a later true lifecycle slice, not basic FIFF-pick/queue/processor tests.
+- Next: retain this seam but wait for formal core review closure before any
+  adapter target implementation.
