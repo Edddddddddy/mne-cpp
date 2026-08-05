@@ -711,7 +711,7 @@ The manager records and forwards all cross-worker messages here before acting.
 
 - Archive completed `W-CORE-005` thread
   `019fd049-160c-7902-b82a-a587ce0a995e` after this record is committed.
-- Status: pending.
+- Status: complete; app returned `archived: true`.
 
 ### REQUEST W-TEST-CORE-006
 

@@ -622,3 +622,11 @@ hidden reasoning is not.
 - Result: selected reference/target nonfinite blocks are atomic pass-through and
   leave streaming state unchanged.
 - Next: publish/retire, then create chunk-equivalence acceptance test.
+
+### E-065 - Atomic nonfinite implementation worker retired
+
+- Actor: manager and Codex app.
+- Request: `CLEANUP-005`.
+- Result: `W-CORE-005` returned `archived: true`; response delivery, commit, and
+  GREEN report are durable.
+- Next: create fresh Luna/max `W-TEST-CORE-006`.
