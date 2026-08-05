@@ -2203,7 +2203,10 @@ The manager records and forwards all cross-worker messages here before acting.
   `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-014` is clean at
   `ecd252fba` and its focused CMake/test content matches integrated `b719d7ccd`;
   remove it through Git worktree management. Agent is not reusable.
-- Status: recorded before publish/cleanup.
+- Status: complete. Effective guard evidence published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5190727524`.
+  Worktree was clean at `ecd252fba`, its CMake/test content exactly matched
+  integrated `b719d7ccd`, and Git worktree removal succeeded. Agent not reused.
 
 ### REQUEST W-TEST-CORE-015
 

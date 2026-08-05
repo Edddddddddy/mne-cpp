@@ -1713,3 +1713,13 @@ hidden reasoning is not.
   ApplyOnly evaluation, >=10 dB noise reduction and <=2% clean projection error.
 - Next: commit/push, publish/clean guard worker, create fresh synthetic test
   worktree and dispatch.
+
+### E-179 - Malloc guard GREEN published and worker retired
+
+- Actor: manager under GitHub and worker lifecycle workflows.
+- Publish: issue comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5190727524`
+  records effective Debug 43/0/no-skip evidence.
+- Cleanup: W-TEST-CORE-014 worktree was clean/content-matched and removed; its
+  one-shot Sol/ultra agent will not be reused.
+- Next: create and dispatch the durable synthetic acceptance request.
