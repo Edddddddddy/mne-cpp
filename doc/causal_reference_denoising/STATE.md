@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T15:38:00+08:00
+Last updated: 2026-08-05T15:42:00+08:00
 
 ## Recovery order
 
@@ -33,12 +33,13 @@ are GREEN. The next contract is reset and three-mode state semantics.
 
 ## Running workers
 
-None. `W-TEST-CORE-006` is complete, published, and archived. The recorded
-next request is `W-TEST-CORE-007`, pending isolated-worktree setup/dispatch.
+`W-TEST-CORE-007` is active as collaboration agent `/root/w_test_core_007` on
+Sol/ultra in detached worktree `mne-cpp-worker-w-test-core-007`.
 
 ## Next actions
 
-1. Create the isolated worktree and dispatch Sol/ultra `W-TEST-CORE-007`.
+1. Wait for `RESPONSE W-TEST-CORE-007` while inspecting later core gaps
+   read-only.
 2. Review and integrate the reset-to-fresh-state test response.
 3. Reproduce RED or accept immediate GREEN before the next mode slice.
 

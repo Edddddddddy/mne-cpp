@@ -775,7 +775,7 @@ The manager records and forwards all cross-worker messages here before acting.
 ### REQUEST W-TEST-CORE-007
 
 - From / to: manager / independent reset-contract test worker.
-- Execution: collaboration subagent in detached worktree
+- Execution: collaboration subagent `/root/w_test_core_007` in detached worktree
   `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-007` based on current
   integration HEAD; agent identifier is recorded after dispatch.
 - Model/environment: `gpt-5.6-sol`, `ultra`; no nested subagents.
@@ -796,4 +796,5 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-TEST-CORE-007`, commit SHA, exact priming and
   reset/control sequence, changed files, validation evidence/infra limitation,
   RED or GREEN classification, and confirmation of no nested subagents.
-- Status: request recorded before worktree setup and dispatch.
+- Status: active. Detached worktree was created at integration commit
+  `71aefcd26`; the Sol/ultra agent accepted the no-nested-subagent request.

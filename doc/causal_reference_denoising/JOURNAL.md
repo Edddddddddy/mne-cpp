@@ -696,3 +696,13 @@ hidden reasoning is not.
 - Isolation: detached worktree at
   `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-007`; no nested agents.
 - Next: commit the request, create the worktree from current HEAD, and dispatch.
+
+### E-072 - Reset contract worker active
+
+- Actor: manager and collaboration agent `/root/w_test_core_007`.
+- Worktree: `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-007`, detached
+  from integration commit `71aefcd26`.
+- Model: `gpt-5.6-sol`, `ultra`; no nested subagents are authorized.
+- Result: the exact test-only reset request is active.
+- Next: inspect later core gaps read-only while waiting for the structured
+  response; do not edit the overlapping test source in the manager workspace.
