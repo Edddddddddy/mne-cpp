@@ -50,18 +50,17 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 
 ## Running workers
 
-- None executing. `W-PROC-TEST-001` returned and is integrated as `daae515ed`;
-  populated Release build reaches the intended C1083 missing processor-header
-  RED. Its visible one-shot thread
-  `019fd204-2ae1-7153-bc52-d33d952b5598` is pending evidence publication and
-  archival. No production processor exists yet.
+- None executing. `W-PROC-TEST-001` is integrated as `daae515ed`, valid RED
+  evidence is published, and visible thread
+  `019fd204-2ae1-7153-bc52-d33d952b5598` is archived. Minimal GREEN processor
+  request `W-PROC-GREEN-001` is prepared but not yet dispatched.
 
 ## Next actions
 
-1. Publish the valid processor tracer RED to issue #4 and archive its one-shot
-   visible work conversation after content/clean verification.
-2. Dispatch the minimal GREEN processor implementation to a new visible
+1. Dispatch the minimal GREEN processor implementation to a new visible
    Luna/max work conversation.
+2. Validate focused GREEN, then add the next invalid/missing-layout tracer
+   before widening processor behavior.
 3. After issue #4 reaches a milestone commit, open a separate visible
    Sol/ultra review conversation before integration.
 4. Deliver the engineering MVP first: processor, nonblocking queue, plugin

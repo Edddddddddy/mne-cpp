@@ -2303,3 +2303,26 @@ hidden reasoning is not.
   authorized file hashes exactly equal integrated content.
 - Decision: after this record is committed/pushed, archive the completed visible
   test conversation. Do not delete its app-owned worktree manually.
+
+### E-229 - First visible test conversation archived
+
+- Actor: manager and Codex app thread lifecycle.
+- Result: thread `019fd204-2ae1-7153-bc52-d33d952b5598` archived successfully
+  after clean/content/evidence verification. Its app-owned worktree was not
+  manually removed.
+- Next: register and dispatch a fresh Luna/max visible conversation for the
+  minimal processor GREEN implementation; do not reuse the test-only worker.
+
+### E-230 - Minimal processor GREEN request prepared
+
+- Actor: manager under issue #4 and the valid RED tracer.
+- Request: `W-PROC-GREEN-001`, Luna/max, concrete processor header/source plus
+  focused CMake only. It selects good REF_MEG/MEG descriptors, delegates to the
+  numerical module and must make the existing single tracer GREEN.
+- Safety: candidate-only Ready commit; every invalid/missing configure disarms
+  stale weights; unarmed process is exact pass-through with fixed NotConfigured
+  diagnostics. No queue/plugin/UI/test/core/dependency expansion.
+- Notification: worker must push its final RESPONSE to the manager thread; no
+  polling or subagents.
+- Next: commit/push this lifecycle/request record, create a fresh visible
+  saved-project worktree conversation, then record its returned identity/base.

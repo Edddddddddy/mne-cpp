@@ -2822,3 +2822,52 @@ does not continuously poll them.
 - Decision: thread `019fd204-2ae1-7153-bc52-d33d952b5598` is a completed
   one-shot role and may now be archived through the app. Its app-owned worktree
   is not manually removed.
+
+### RETIREMENT RESPONSE W-PROC-TEST-001
+
+- App result: visible thread `019fd204-2ae1-7153-bc52-d33d952b5598` archived
+  successfully.
+- Worktree policy: the app-owned path was not manually deleted or modified.
+- Durable evidence: response, exact review, integrated RED, content hashes and
+  issue #4 comment all precede archival.
+- Status: complete; this one-shot conversation will not be reused.
+
+### REQUEST W-PROC-GREEN-001
+
+- From / to: manager thread
+  `019fcdc3-4a1e-76d1-8140-1bd521219297` / new visible processor implementation
+  work conversation.
+- GitHub issue: `Edddddddddy/mne-cpp#4`.
+- Model/environment: `gpt-5.6-luna`, `max`, saved Git project worktree from the
+  current integration branch; no internal/nested subagents.
+- Blocking: yes for further processor tests and all queue/plugin work.
+- Task: make only the existing `mapsRowsTrainsAndAppliesOnly` tracer GREEN by
+  adding the frozen concrete plugin-private `AdaptiveDenoisingProcessor` header
+  and source and adding that source to the focused test target.
+- Required implementation: expose the exact SPEC/test data-only descriptors,
+  settings defaults, configure statuses/counts and `configure/process/reset/
+  configuration` methods in namespace `ADAPTIVEDENOISINGPLUGIN`; select good
+  REF_MEG/MEG rows by FIFF kind and bad flag; configure/reset/delegate to
+  `CausalReferenceDenoiser`; return fixed NotConfigured/NaN diagnostics and
+  preserve the whole block while no numerical model is armed. Configuration is
+  worker-thread only; process remains `noexcept`, allocation/string/lock-free.
+- Configuration safety: construct a candidate numerical model and commit it only
+  on Ready; every invalid/missing attempt disarms the old model so stale weights
+  cannot be applied. Implement the fixed status classification needed by the
+  method, but add no new public seam, algorithm registry or speculative plugin
+  behavior.
+- Authorized files: new
+  `src/applications/mne_scan/plugins/adaptivedenoising/
+  adaptivedenoisingprocessor.{h,cpp}` and the focused test CMake only. No test
+  source change, queue, plugin class, UI, global CMake registration, example,
+  benchmark, core change, vendor/dependency repair or rt_server.
+- Verification: build/run `test_adaptive_denoising_plugin` if the worktree
+  dependencies permit; otherwise report the known clean-worktree Eigen baseline
+  and manager will validate in the populated workspace. Run diff checks and
+  commit only authorized files.
+- Required response: begin `RESPONSE W-PROC-GREEN-001`; include base/commit,
+  interface/ownership and disarm semantics, changed files, build/test evidence
+  or honest infrastructure limit, remaining untested behavior, clean status and
+  no-subagent confirmation. Actively send it to the manager thread using
+  `send_message_to_thread`, then stop without polling.
+- Status: request recorded before visible work conversation creation.
