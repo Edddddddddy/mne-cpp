@@ -875,3 +875,19 @@ hidden reasoning is not.
 - Decision: use the documented fallback: independent Sol/ultra read-only
   reviewer, codebase-design vocabulary, and structured P0-P3 findings in
   `REVIEW.md`. No plugin installation is inferred.
+
+### E-090 - Mode milestone published and worker cleaned
+
+- Actor: manager, GitHub, and Git worktree management.
+- Result: issue comment `5189222318` records 37/0 mode evidence; the clean
+  `W-TEST-CORE-008` worktree content matched integration and was removed.
+- Next: start read-only diagnostics seam review.
+
+### E-091 - Diagnostics seam review request prepared
+
+- Actor: manager using codebase-design and review fallback.
+- Request: `R-DIAGNOSTICS-001`, Sol/ultra, read-only, no subagents.
+- Focus: minimal fixed-size result fields, multi-boundary update/rejection
+  reporting, error/mode/reset/RMS semantics, recoverable finite-overflow/LDLT
+  behavior, and focused test ordering.
+- Next: commit/push request and dispatch reviewer on the current snapshot.
