@@ -600,3 +600,15 @@ hidden reasoning is not.
 - Result: Luna/max is active with numerical header/source-only scope and no
   subagent authority.
 - Next: wait for `RESPONSE W-CORE-005`.
+
+### E-063 - Atomic nonfinite response delivery reconciled
+
+- Actor: user, manager, and `W-CORE-005`.
+- User report: the worker UI said its result was sent, but the manager notice
+  appeared missing.
+- Resolution: the bounded wait API returned the completed structured response,
+  commit `3040ef33e`, and no-subagent confirmation. Direct git inspection
+  verified the two-file diff; no duplicate worker was started.
+- Model rule reaffirmed: Luna/max for bounded test/implementation tasks;
+  Sol/ultra for manager-selected high-risk math/concurrency/review work.
+- Next: integrate and run the complete focused test report.

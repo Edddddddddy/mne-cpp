@@ -673,4 +673,29 @@ The manager records and forwards all cross-worker messages here before acting.
   solver, malloc, or plugin changes.
 - Required response: `RESPONSE W-CORE-005` with commit, loop ordering, evidence,
   limitations, and next RED; confirm no subagents.
-- Status: active; direct bounded snapshot confirmed startup.
+- Status: response received through manager wait API; pending validation.
+
+### RESPONSE W-CORE-005
+
+- Commit: `3040ef33ea12f31c36973e88fe25d51f97ef6f38`.
+- Changed files: `causalreferencedenoiser.h/.cpp` only.
+- Implementation: adds `NonFiniteInput`; after shape validation it scans
+  configured reference rows, then target rows, over ascending samples before
+  taking mutable state or writing scratch/block/state. Nonselected rows are not
+  scanned.
+- Allocation/state argument: scalar index loops only; every nonfinite return is
+  before mutation, so block and PImpl state remain unchanged.
+- Worker evidence: diff check/worktree clean; clean build unavailable due the
+  ignored Eigen baseline; no dependency repair or rt_server.
+- Suggested next RED: nonselected NaN/Inf must not be rejected.
+- Lifecycle/model: no subagents; Luna/max.
+- Manager static review: placement and selected-row scope match the contract;
+  accepted for cherry-pick and focused runtime validation.
+
+### RESPONSE DELIVERY W-CORE-005
+
+- User report: thread `019fd049-160c-7902-b82a-a587ce0a995e` indicated a result
+  was sent but the manager notice was not visible.
+- Resolution: the manager's bounded thread wait returned the completed turn and
+  full structured response; commit/diff were verified directly. No re-dispatch
+  or duplicate implementation was created.

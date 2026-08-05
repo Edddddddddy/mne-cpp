@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T12:59:00+08:00
+Last updated: 2026-08-05T13:04:00+08:00
 
 ## Recovery order
 
@@ -33,13 +33,14 @@ The next vertical slice is its bounded preflight-scan GREEN.
 
 ## Running workers
 
-`W-CORE-005` is active on Luna/max in worktree `bb5c`.
+`W-CORE-005` returned commit `3040ef33e`; the manager recovered the complete
+result through the thread wait API after the user reported a missing notice.
 
 ## Next actions
 
-1. Wait for `RESPONSE W-CORE-005`.
-2. Review the selected-row preflight scan.
-3. Run the complete focused Qt report and require GREEN.
+1. Cherry-pick `3040ef33e`.
+2. Run the complete focused Qt report and require GREEN.
+3. Record/retire the worker, then continue the next core contract.
 
 ## Focused verification targets
 
