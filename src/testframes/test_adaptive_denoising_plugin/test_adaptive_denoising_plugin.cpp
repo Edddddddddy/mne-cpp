@@ -146,6 +146,7 @@ private slots:
     void validReconfigureResetsAndRelearnsModel();
     void queuePreservesFifoDropNewestAndMetadata();
     void queueStopWakesWaiterAndReconfigureStartsFresh();
+    void queueRejectsInvalidInputsWithoutConsumingState();
 };
 
 //=============================================================================================================
@@ -809,6 +810,136 @@ void TestAdaptiveDenoisingPlugin::queueStopWakesWaiterAndReconfigureStartsFresh(
     }
 
     QVERIFY(queue.waitPop(freshDestination, 0) == AdaptiveDenoisingQueuePopStatus::Timeout);
+}
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingPlugin::queueRejectsInvalidInputsWithoutConsumingState()
+{
+    AdaptiveDenoisingBlockQueue queue;
+    AdaptiveDenoisingBlockQueueConfig validConfig;
+    validConfig.channelCount = 2;
+    validConfig.maxBlockSamples = 4;
+    validConfig.capacity = 1;
+
+    AdaptiveDenoisingBlockQueueConfig invalidConfig = validConfig;
+    invalidConfig.channelCount = 0;
+    QVERIFY(queue.configure(invalidConfig)
+            == AdaptiveDenoisingQueueConfigureStatus::InvalidConfiguration);
+
+    invalidConfig = validConfig;
+    invalidConfig.maxBlockSamples = 0;
+    QVERIFY(queue.configure(invalidConfig)
+            == AdaptiveDenoisingQueueConfigureStatus::InvalidConfiguration);
+
+    invalidConfig = validConfig;
+    invalidConfig.capacity = 0;
+    QVERIFY(queue.configure(invalidConfig)
+            == AdaptiveDenoisingQueueConfigureStatus::InvalidConfiguration);
+
+    invalidConfig = validConfig;
+    invalidConfig.capacity = static_cast<std::size_t>(std::numeric_limits<int>::max()) + 1U;
+    QVERIFY(queue.configure(invalidConfig)
+            == AdaptiveDenoisingQueueConfigureStatus::InvalidConfiguration);
+
+    QVERIFY(queue.configure(validConfig) == AdaptiveDenoisingQueueConfigureStatus::Ready);
+    queue.stop();
+
+    invalidConfig = validConfig;
+    invalidConfig.channelCount = 0;
+    QVERIFY(queue.configure(invalidConfig)
+            == AdaptiveDenoisingQueueConfigureStatus::InvalidConfiguration);
+
+    invalidConfig = validConfig;
+    invalidConfig.maxBlockSamples = 0;
+    QVERIFY(queue.configure(invalidConfig)
+            == AdaptiveDenoisingQueueConfigureStatus::InvalidConfiguration);
+
+    invalidConfig = validConfig;
+    invalidConfig.capacity = 0;
+    QVERIFY(queue.configure(invalidConfig)
+            == AdaptiveDenoisingQueueConfigureStatus::InvalidConfiguration);
+
+    invalidConfig = validConfig;
+    invalidConfig.capacity = static_cast<std::size_t>(std::numeric_limits<int>::max()) + 1U;
+    QVERIFY(queue.configure(invalidConfig)
+            == AdaptiveDenoisingQueueConfigureStatus::InvalidConfiguration);
+
+    QVERIFY(queue.configure(validConfig) == AdaptiveDenoisingQueueConfigureStatus::Ready);
+
+    const std::shared_ptr<const FIFFLIB::FiffInfo> nullMetadata;
+
+    MatrixXd wrongRows = MatrixXd::Constant(3, 3, -1.0);
+    MatrixXd zeroColumns(2, 0);
+    MatrixXd tooManyColumns = MatrixXd::Constant(2, 5, -2.0);
+    QVERIFY(queue.tryPush(wrongRows, nullMetadata)
+            == AdaptiveDenoisingQueuePushStatus::InvalidBlock);
+    QVERIFY(queue.tryPush(zeroColumns, nullMetadata)
+            == AdaptiveDenoisingQueuePushStatus::InvalidBlock);
+    QVERIFY(queue.tryPush(tooManyColumns, nullMetadata)
+            == AdaptiveDenoisingQueuePushStatus::InvalidBlock);
+
+    MatrixXd firstBlock(2, 3);
+    firstBlock(0, 0) = 1.0;
+    firstBlock(0, 1) = 2.0;
+    firstBlock(0, 2) = 3.0;
+    firstBlock(1, 0) = 11.0;
+    firstBlock(1, 1) = 12.0;
+    firstBlock(1, 2) = 13.0;
+    const MatrixXd expectedFirstBlock = firstBlock;
+    QVERIFY(queue.tryPush(firstBlock, nullMetadata)
+            == AdaptiveDenoisingQueuePushStatus::Pushed);
+
+    MatrixXd secondBlock(2, 2);
+    secondBlock(0, 0) = 21.0;
+    secondBlock(0, 1) = 22.0;
+    secondBlock(1, 0) = 31.0;
+    secondBlock(1, 1) = 32.0;
+    QVERIFY(queue.tryPush(secondBlock, nullMetadata)
+            == AdaptiveDenoisingQueuePushStatus::Full);
+
+    AdaptiveDenoisingQueuedBlock wrongRowsDestination;
+    wrongRowsDestination.data = MatrixXd::Constant(3, 4, -10.0);
+    wrongRowsDestination.sampleCount = 310;
+    const auto wrongRowsOwner = std::make_shared<int>(310);
+    wrongRowsDestination.fiffInfo =
+        std::shared_ptr<const FIFFLIB::FiffInfo>(wrongRowsOwner, nullptr);
+    const MatrixXd expectedWrongRowsData = wrongRowsDestination.data;
+    const auto expectedWrongRowsMetadata = wrongRowsDestination.fiffInfo;
+
+    QVERIFY(queue.waitPop(wrongRowsDestination, 0)
+            == AdaptiveDenoisingQueuePopStatus::InvalidDestination);
+    QVERIFY(matrixEquals(wrongRowsDestination.data, expectedWrongRowsData));
+    QCOMPARE(wrongRowsDestination.sampleCount, Index(310));
+    QVERIFY(sameOwner(wrongRowsDestination.fiffInfo, expectedWrongRowsMetadata));
+    QVERIFY(wrongRowsDestination.fiffInfo.get() == nullptr);
+
+    AdaptiveDenoisingQueuedBlock wrongColumnsDestination;
+    wrongColumnsDestination.data = MatrixXd::Constant(2, 3, -20.0);
+    wrongColumnsDestination.sampleCount = 320;
+    const auto wrongColumnsOwner = std::make_shared<int>(320);
+    wrongColumnsDestination.fiffInfo =
+        std::shared_ptr<const FIFFLIB::FiffInfo>(wrongColumnsOwner, nullptr);
+    const MatrixXd expectedWrongColumnsData = wrongColumnsDestination.data;
+    const auto expectedWrongColumnsMetadata = wrongColumnsDestination.fiffInfo;
+
+    QVERIFY(queue.waitPop(wrongColumnsDestination, 0)
+            == AdaptiveDenoisingQueuePopStatus::InvalidDestination);
+    QVERIFY(matrixEquals(wrongColumnsDestination.data, expectedWrongColumnsData));
+    QCOMPARE(wrongColumnsDestination.sampleCount, Index(320));
+    QVERIFY(sameOwner(wrongColumnsDestination.fiffInfo, expectedWrongColumnsMetadata));
+    QVERIFY(wrongColumnsDestination.fiffInfo.get() == nullptr);
+
+    AdaptiveDenoisingQueuedBlock destination;
+    destination.data = MatrixXd::Constant(2, 4, -30.0);
+    QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(destination.sampleCount, Index(3));
+    QVERIFY(!destination.fiffInfo);
+    for (Index row = 0; row < expectedFirstBlock.rows(); ++row) {
+        QVERIFY(rowEquals(destination.data, expectedFirstBlock, row));
+    }
+
+    QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Timeout);
 }
 
 //=============================================================================================================
