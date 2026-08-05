@@ -744,3 +744,13 @@ hidden reasoning is not.
 - Evidence: this crosses post-reset warmup and a new boundary; retained model,
   history, statistics, or epoch count can affect observable outputs/state.
 - Status: validation and commit remain in progress; no subagents.
+
+### E-077 - Reset worker asked to finish without unavailable build
+
+- Actor: manager.
+- Evidence: the detached worktree now contains exactly one modified test file,
+  110 inserted lines, and passes `git diff --check`; it still lacks the ignored
+  populated-main Eigen baseline.
+- Action: `REQUEST W-TEST-CORE-007-FINISH` directs the worker to stop spending
+  time on unavailable build infrastructure, commit, and respond.
+- Next: receive and review the exact commit; manager owns runtime validation.

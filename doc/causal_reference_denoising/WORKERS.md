@@ -843,3 +843,15 @@ The manager records and forwards all cross-worker messages here before acting.
   probe against a freshly configured control.
 - Scope/lifecycle: test source only; no design expansion and no subagents.
 - Status: worker validation and commit are in progress.
+
+### REQUEST W-TEST-CORE-007-FINISH
+
+- From / to: manager / `/root/w_test_core_007`.
+- Blocking: no; implementation file is already present and one-file scoped.
+- Evidence: manager read-only checks show 110 inserted test lines and a clean
+  `git diff --check`; the known clean-worktree Eigen limitation makes further
+  build attempts non-actionable.
+- Instruction: do not spend more time on unavailable build infrastructure;
+  complete final static checks, commit the one test file, and return the
+  required structured response now.
+- Status: recorded before forwarding.
