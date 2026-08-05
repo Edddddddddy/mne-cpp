@@ -2414,3 +2414,35 @@ The manager records and forwards all cross-worker messages here before acting.
   allocation/evidence provenance.
 - Remaining: edge cases, noexcept/integer boundaries, CMake and evidence audit.
   No blocker, edits, rt_server or subagents; reviewer continues.
+
+### RESPONSE R-CORE-001
+
+- Reviewed commit: exact clean detached `f0a0e14d7`; no edits, staging,
+  comments, rt_server or subagents.
+- Inspections: durable records/codebase-design, public header, complete source,
+  library/focused CMake and all 1,546 test lines; C++14, deep-interface locality,
+  transactions, causality, EWLS/LDLT, modes, finite safety, diagnostics, reset,
+  chunking, target writes, integer/noexcept and hot-path behavior.
+- P0/P1: none.
+- P2 `R-CORE-FORGET-001`: no public lambda-dependent analytic forgetting
+  expectation. Stationary relationships and same-implementation equivalence
+  can pass if decay is missing/wrong; even the synthetic gate still passes with
+  lambda forced to one. Required test: `fs=1`, `tau=1/log(2)`, one ref/tap/
+  target, interval two, refs `[1,1,1,1]`, targets `[0,1,0,0]`; after two
+  accepts require future prediction from `G=1.875`, `H=0.25`,
+  `W=H/(G*(1+regularization))`.
+- P3 `R-CORE-LOCALITY-001`: essential config/orientation/mode/error/ownership/
+  allocation/copy-move semantics live in SPEC rather than compact public-header
+  Doxygen. Add contract text and explicit copy/move policy with trait/noexcept
+  compile checks later.
+- P3 `R-CORE-LINK-001`: isolated test compiles source directly and cannot catch
+  actual shared/static `mne_rtprocessing` client-link/export regressions. Retain
+  isolation but add/schedule a client-link smoke before final integration.
+- Evidence audit: independent synthetic oracle reproduced 58.6541397394941 dB
+  and `0.000113194967413`; existing matching Release executable exited zero.
+  Debug malloc and exact chunk-zero counts remain durable ledger evidence, not
+  independently rerun. No machine-readable report is committed.
+- Residual risks: guard is P=8 not P=256/rejection/overflow; allocation failure
+  lacks fault injection; extreme `fs*tau` rounding to zero/one uncharacterized.
+- Gate recommendation: hold only for the sole P2 analytic test; then core may
+  proceed while tracking the two P3s.

@@ -12,13 +12,44 @@
 
 ## Core numerical review
 
-Formal independent review `R-CORE-001` is active on Sol/ultra against exact
-commit `f0a0e14d7`, in a read-only detached worktree with no subagents.
+Formal independent review `R-CORE-001` completed on Sol/ultra against exact
+commit `f0a0e14d7`, read-only and without subagents. P0 and P1 are zero. The
+core gate is held for one P2 test-evidence finding; two P3s remain tracked.
 
-Provisional status (not a final gate decision): P0 none, P1 none; one P2 test-
-evidence candidate because no current public oracle has a lambda-dependent
-analytic forgetting expectation. The reviewer is continuing edge/noexcept/
-integer/CMake/evidence checks before assigning final stable finding IDs.
+#### R-CORE-FORGET-001 - P2 - Open
+
+- Location: `SPEC.md:94-100,208-210`;
+  `causalreferencedenoiser.cpp:114-115,203-225`;
+  `test_causal_reference_denoiser.cpp:75-93,471-593,1279-1444`.
+- Evidence: recurrence looks correct, but no public oracle has a lambda-
+  dependent analytic expectation. Stationary exact relationships keep
+  `H=W*G`, chunk tests compare the same implementation, and the synthetic
+  test remains above both gates when lambda is replaced by one.
+- Impact: deleted/misplaced within-epoch or cross-epoch decay can pass the
+  suite, leaving the explicit forgetting acceptance criterion unmet.
+- Required fix/test: no production change indicated. Add `fs=1`,
+  `tau=1/log(2)` (`lambda=0.5`), one ref/tap/target, interval two, reference
+  `[1,1,1,1]`, target `[0,1,0,0]`; after two accepts require an ApplyOnly
+  prediction with `G=1.875`, `H=0.25`,
+  `W=H/(G*(1+regularization))`.
+
+#### R-CORE-LOCALITY-001 - P3 - Open
+
+- Location: `causalreferencedenoiser.h:55-105`.
+- Evidence/impact: essential invariants, orientation, modes/epochs, atomic
+  errors, ownership, allocation/exception and implicit noncopy/nonmove policy
+  are non-local to the public header, increasing caller reconstruction cost.
+- Requested later fix: compact Doxygen contract, explicit copy/move policy and
+  C++14 trait/noexcept compile checks.
+
+#### R-CORE-LINK-001 - P3 - Open
+
+- Location: focused test `CMakeLists.txt:13-16,27-39`; library
+  `CMakeLists.txt:25,52,67`.
+- Evidence/impact: direct source compilation preserves isolation but cannot
+  detect real shared/static library export/client-link regressions.
+- Requested later fix: retain isolated test and add a small supported-form
+  `mne_rtprocessing` client-link smoke before final integration.
 
 ### Diagnostics seam pre-review
 

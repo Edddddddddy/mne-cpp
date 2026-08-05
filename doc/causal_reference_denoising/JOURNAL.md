@@ -1914,3 +1914,17 @@ hidden reasoning is not.
   or a later true lifecycle slice, not basic FIFF-pick/queue/processor tests.
 - Next: retain this seam but wait for formal core review closure before any
   adapter target implementation.
+
+### E-197 - Formal independent core review completed
+
+- Actor: `/root/r_core_001` and manager.
+- Result: exact read-only `f0a0e14d7` review finds no P0/P1, one P2 forgetting-
+  oracle gap, and two P3 locality/linkage items. No production defect is claimed.
+- P2 evidence: current stationary/same-implementation tests and even the
+  quantitative synthetic gate are insensitive to lambda=1. Required analytic
+  stream gives lambda 0.5 and final `G=1.875`, `H=0.25` after two epochs.
+- Gate: hold core only for `R-CORE-FORGET-001`; track header contract and real
+  client-link smoke P3s for later integration.
+- Integrity: reviewer changed nothing, ran no rt_server and used no subagents.
+- Next: commit/push findings, safely retire the review worktree, then dispatch
+  a one-slot public forgetting test worker.

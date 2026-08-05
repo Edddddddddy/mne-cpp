@@ -35,15 +35,16 @@ clean projection-amplitude error. Formal independent core review is next.
 
 ## Running workers
 
-- `/root/r_core_001`: Sol/ultra independent formal core reviewer, read-only in
-  `C:/Users/lcy/Desktop/meg/mne-cpp-review-r-core-001` at `f0a0e14d7`; no
-  edits or subagents.
+Formal reviewer `R-CORE-001` is complete: P0/P1 are zero, one P2 analytic
+forgetting-test gap is open, and two P3 integration/documentation items are
+tracked. Its read-only worktree is pending verified retirement.
 
 ## Next actions
 
-1. Receive and durably record `R-CORE-001` findings.
-2. Resolve any P0-P2 finding.
-3. Begin the plugin-data TDD slice only after the core review gate closes.
+1. Add the independent lambda-dependent public forgetting oracle required by
+   `R-CORE-FORGET-001` and rerun the focused suite.
+2. Close/publish P2 and retire the review/test one-shot worktrees.
+3. Begin plugin-data TDD; track P3 locality/link smoke for later integration.
 
 ## Focused verification targets
 
