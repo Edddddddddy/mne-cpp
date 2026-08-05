@@ -84,6 +84,7 @@ private slots:
     void nonLearningModesPreserveModelAndAdvanceHistory_data();
     void nonLearningModesPreserveModelAndAdvanceHistory();
     void reportsDiagnosticsAcrossLifecycle();
+    void rejectsPoisonedEpochsAndRecoversWithinBlock();
 };
 
 //=============================================================================================================
@@ -932,6 +933,73 @@ void TestCausalReferenceDenoiser::reportsDiagnosticsAcrossLifecycle()
     QVERIFY(resetBypassResult.diagnostics.inputRms == 9.0);
     QVERIFY(resetBypassResult.diagnostics.outputRms == 9.0);
     QVERIFY(resetBypassResult.diagnostics.estimatedNoiseRms == 0.0);
+}
+
+//=============================================================================================================
+
+void TestCausalReferenceDenoiser::rejectsPoisonedEpochsAndRecoversWithinBlock()
+{
+    CausalReferenceDenoiserConfig config;
+    config.samplingFrequencyHz = 1000.0;
+    config.channelCount = 2;
+    config.maxBlockSamples = 8;
+    config.referenceRows = VectorXi(1);
+    config.referenceRows << 0;
+    config.targetRows = VectorXi(1);
+    config.targetRows << 1;
+    config.tapCount = 1;
+    config.adaptationIntervalSamples = 2;
+    config.memoryTimeSeconds = 300.0;
+    config.regularization = 1e-8;
+
+    CausalReferenceDenoiser denoiser;
+    QVERIFY(denoiser.configure(config) == DenoiserStatus::Configured);
+
+    const double extremeReference = std::numeric_limits<double>::max() / 2.0;
+    MatrixXd learningBlock(2, 8);
+    learningBlock << 0.0, 0.0,
+                     extremeReference, extremeReference,
+                     extremeReference, extremeReference,
+                     1.0, 2.0,
+                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 4.0;
+    const RowVectorXd originalReferences = learningBlock.row(0);
+    const RowVectorXd originalTargets = learningBlock.row(1);
+
+    const DenoiserProcessResult learningResult =
+        denoiser.process(learningBlock, DenoisingMode::ApplyAndLearn);
+    const double expectedLearningRms = std::sqrt(2.5);
+
+    QVERIFY(learningResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY((learningBlock.row(0).array() == originalReferences.array()).all());
+    QVERIFY(learningBlock.row(1).allFinite());
+    QVERIFY((learningBlock.row(1).array() == originalTargets.array()).all());
+    QVERIFY(learningResult.diagnostics.modelUpdatesAccepted == 2);
+    QVERIFY(learningResult.diagnostics.modelUpdatesRejected == 2);
+    QVERIFY(learningResult.diagnostics.modelGeneration == 2);
+    QVERIFY(std::abs(learningResult.diagnostics.inputRms - expectedLearningRms)
+            <= 1e-12);
+    QVERIFY(std::abs(learningResult.diagnostics.outputRms - expectedLearningRms)
+            <= 1e-12);
+    QVERIFY(learningResult.diagnostics.estimatedNoiseRms == 0.0);
+
+    MatrixXd probeBlock(2, 1);
+    probeBlock << 3.0,
+                  6.0;
+    const double originalProbeReference = probeBlock(0, 0);
+
+    const DenoiserProcessResult probeResult =
+        denoiser.process(probeBlock, DenoisingMode::ApplyOnly);
+
+    QVERIFY(probeResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(probeBlock(0, 0) == originalProbeReference);
+    QVERIFY(std::isfinite(probeBlock(1, 0)));
+    QVERIFY(std::abs(probeBlock(1, 0)) <= 1e-5);
+    QVERIFY(probeResult.diagnostics.modelGeneration == 2);
+    QVERIFY(probeResult.diagnostics.modelUpdatesAccepted == 0);
+    QVERIFY(probeResult.diagnostics.modelUpdatesRejected == 0);
+    QVERIFY(std::isfinite(probeResult.diagnostics.inputRms));
+    QVERIFY(std::isfinite(probeResult.diagnostics.outputRms));
+    QVERIFY(std::isfinite(probeResult.diagnostics.estimatedNoiseRms));
 }
 
 //=============================================================================================================
