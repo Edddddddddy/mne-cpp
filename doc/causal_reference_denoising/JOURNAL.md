@@ -3172,3 +3172,24 @@ hidden reasoning is not.
   tuning or acceptance gate.
 - Next: commit/push integration and evidence, publish/read back issue #7, then
   verify/archive the one-shot example conversation.
+
+### E-301 - Focused example GREEN published
+
+- Publish/read-back: issue #7 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195038508`
+  exactly records commits, dependency seam, Release PASS, generation/freeze/
+  reset and illustrative RMS values with restrictions.
+- Next: content-verify/archive the one-shot example worker after durable record.
+
+### E-302 - Final queue validation response received
+
+- Actor: retained Luna/max thread
+  `019fd2e0-188f-7a62-a89c-7ceefa15f6cd` and manager.
+- Delta: exact-base `cff55a01e`, one focused test-source slot/131 insertions.
+  It characterizes invalid config bounds, producer shapes and consumer
+  destinations as state-preserving, then proves valid null-metadata recovery.
+- Worker evidence: exact parent/scope/diff/clean checks pass; isolated runtime
+  remains honestly blocked by ignored Eigen files without repair. No subagent,
+  polling, full scan or rt_server.
+- Next: commit/push response, inspect exact diff and sentinels/capacity oracle,
+  then integrate and run populated Release only if accepted.

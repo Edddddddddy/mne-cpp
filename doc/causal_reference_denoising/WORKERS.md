@@ -4018,6 +4018,27 @@ does not continuously poll them.
   valid null-metadata recovery oracles, proactive response and restrictions.
 - Status: public dispatch complete; manager does not poll or overlap the file.
 
+### RESPONSE W-QUEUE-TEST-003
+
+- From / to: retained visible Luna/max queue-test thread
+  `019fd2e0-188f-7a62-a89c-7ceefa15f6cd` / manager.
+- Exact base/commit: `701f5bed955fde2050438e6e4d8440f6fbe1766b` /
+  `cff55a01e785e0b7d44bd333e1fc3a024c06717e`; exact requested parent.
+- Scope: 131 insertions in the focused test source only; production/CMake and
+  all existing slots unchanged; initial/final worker state clean.
+- Configuration: fresh and stopped queues reject zero channel/block/capacity
+  and capacity 2147483648, then a 2x4/capacity-one configuration is Ready.
+- Producer: 3x3, 2x0 and 2x5 inputs return InvalidBlock; a distinct 2x3 null-
+  metadata block then enters, and a second valid block returns Full.
+- Consumer: wrong 3x4 and 2x3 destinations return InvalidDestination without
+  changing complete matrix/sampleCount/alias-owner sentinels or consuming the
+  pending block. Exact 2x4 pop returns the original leading 2x3 values/count
+  and null metadata, followed by Timeout.
+- Evidence: diff/one-file/clean checks pass; isolated configure is blocked by
+  the known ignored Eigen gap without repair or runtime claim. Luna/max, no
+  subagent, polling, full scan or rt_server.
+- Status: response durable before manager diff review or cherry-pick.
+
 ### REQUEST W-EXAMPLE-001
 
 - From / to: manager thread
@@ -4198,3 +4219,13 @@ does not continuously poll them.
 - Restrictions: no full mne_scan, rt_server, FIFF client link or vendor repair.
 - Decision: focused example GREEN; publish issue #7 evidence, content-verify
   and archive the one-shot worker after the evidence is durable.
+
+### PUBLISH W-EXAMPLE-001-GREEN
+
+- GitHub issue #7 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195038508`.
+- Connector write and CLI API read-back exactly match worker/integration
+  commits, three-file scope, Qt Core/Eigen seam, populated Release success,
+  stage/generation/RMS evidence, illustrative-only interpretation and no full
+  scan/rt_server/vendor-repair restrictions.
+- Status: public GREEN durable; worker content/retirement verification remains.
