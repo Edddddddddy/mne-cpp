@@ -80,6 +80,7 @@ private slots:
     void rejectsSelectedNonFiniteAtomically_data();
     void rejectsSelectedNonFiniteAtomically();
     void preservesChunkBoundaryEquivalence();
+    void resetRestoresFreshConfiguredState();
 };
 
 //=============================================================================================================
@@ -577,6 +578,115 @@ void TestCausalReferenceDenoiser::preservesChunkBoundaryEquivalence()
         for (Eigen::Index column = 0; column < probeLength; ++column) {
             QVERIFY(completeProbe(row, column) == originalProbe(row, column));
             QVERIFY(chunkedProbe(row, column) == originalProbe(row, column));
+        }
+    }
+}
+
+//=============================================================================================================
+
+void TestCausalReferenceDenoiser::resetRestoresFreshConfiguredState()
+{
+    CausalReferenceDenoiserConfig config;
+    config.samplingFrequencyHz = 1000.0;
+    config.channelCount = 4;
+    config.maxBlockSamples = 6;
+    config.referenceRows = VectorXi(1);
+    config.referenceRows << 0;
+    config.targetRows = VectorXi(1);
+    config.targetRows << 1;
+    config.tapCount = 3;
+    config.adaptationIntervalSamples = 3;
+    config.memoryTimeSeconds = 300.0;
+    config.regularization = 1e-8;
+
+    CausalReferenceDenoiser subject;
+    QVERIFY(subject.configure(config) == DenoiserStatus::Configured);
+
+    // The first two samples warm causal history. The next three independent
+    // features commit weights [2, -3, 4], and the final sample both observes
+    // that model and starts the next adaptation epoch.
+    MatrixXd subjectPrime(4, 6);
+    subjectPrime << 1.0, 0.0, 0.0, 1.0, 0.0, 2.0,
+                    10.0, -5.0, 4.0, 2.0, -3.0, 8.0,
+                    100.0, 101.0, 102.0, 103.0, 104.0, 105.0,
+                    -50.0, -49.0, -48.0, -47.0, -46.0, -45.0;
+    const MatrixXd originalSubjectPrime = subjectPrime;
+
+    const DenoiserProcessResult primeResult =
+        subject.process(subjectPrime, DenoisingMode::ApplyAndLearn);
+
+    QVERIFY(primeResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(std::abs(subjectPrime(1, 5)) <= 1e-5);
+    const Eigen::Index exactRows[] = {0, 2, 3};
+    for (const Eigen::Index row : exactRows) {
+        for (Eigen::Index column = 0; column < subjectPrime.cols(); ++column) {
+            QVERIFY(subjectPrime(row, column) == originalSubjectPrime(row, column));
+        }
+    }
+
+    subject.reset();
+
+    CausalReferenceDenoiser control;
+    QVERIFY(control.configure(config) == DenoiserStatus::Configured);
+
+    // Train a deliberately different model after reset. A retained model or
+    // history changes this output immediately; retained statistics or a
+    // partial-epoch count changes the model observed by the later probe.
+    MatrixXd originalTraining(4, 5);
+    originalTraining << 1.0, 0.0, 0.0, 1.0, 0.0,
+                        7.0, -6.0, -2.0, -4.0, 1.5,
+                        200.0, 201.0, 202.0, 203.0, 204.0,
+                        -100.0, -99.0, -98.0, -97.0, -96.0;
+    MatrixXd subjectTraining = originalTraining;
+    MatrixXd controlTraining = originalTraining;
+
+    const DenoiserProcessResult subjectTrainingResult =
+        subject.process(subjectTraining, DenoisingMode::ApplyAndLearn);
+    const DenoiserProcessResult controlTrainingResult =
+        control.process(controlTraining, DenoisingMode::ApplyAndLearn);
+
+    QVERIFY(subjectTrainingResult.status == controlTrainingResult.status);
+    QVERIFY(controlTrainingResult.status == DenoiserProcessStatus::Processed);
+
+    const auto relativeDifference = [](const MatrixXd& first, const MatrixXd& second) {
+        const double denominator = std::max(second.norm(), 1.0);
+        return (first - second).norm() / denominator;
+    };
+
+    const double trainingRelativeDifference =
+        relativeDifference(subjectTraining, controlTraining);
+    qInfo() << "reset training relative difference" << trainingRelativeDifference;
+    QVERIFY(trainingRelativeDifference <= 1e-12);
+    for (const Eigen::Index row : exactRows) {
+        for (Eigen::Index column = 0; column < originalTraining.cols(); ++column) {
+            QVERIFY(subjectTraining(row, column) == originalTraining(row, column));
+            QVERIFY(controlTraining(row, column) == originalTraining(row, column));
+        }
+    }
+
+    MatrixXd originalProbe(4, 2);
+    originalProbe << 2.0, -1.0,
+                     -10.0, 7.0,
+                     205.0, 206.0,
+                     -95.0, -94.0;
+    MatrixXd subjectProbe = originalProbe;
+    MatrixXd controlProbe = originalProbe;
+
+    const DenoiserProcessResult subjectProbeResult =
+        subject.process(subjectProbe, DenoisingMode::ApplyOnly);
+    const DenoiserProcessResult controlProbeResult =
+        control.process(controlProbe, DenoisingMode::ApplyOnly);
+
+    QVERIFY(subjectProbeResult.status == controlProbeResult.status);
+    QVERIFY(controlProbeResult.status == DenoiserProcessStatus::Processed);
+    const double probeRelativeDifference = relativeDifference(subjectProbe, controlProbe);
+    qInfo() << "reset probe relative difference" << probeRelativeDifference;
+    QVERIFY(probeRelativeDifference <= 1e-12);
+    QVERIFY(controlProbe.row(1).norm() <= 1e-5);
+    for (const Eigen::Index row : exactRows) {
+        for (Eigen::Index column = 0; column < originalProbe.cols(); ++column) {
+            QVERIFY(subjectProbe(row, column) == originalProbe(row, column));
+            QVERIFY(controlProbe(row, column) == originalProbe(row, column));
         }
     }
 }
