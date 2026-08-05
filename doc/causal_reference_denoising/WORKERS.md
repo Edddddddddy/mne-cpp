@@ -3869,3 +3869,17 @@ does not continuously poll them.
 - Lifecycle: one-shot unless manager explicitly reuses it for one immediately
   adjacent queue-validation test after acceptance.
 - Status: recorded before visible task creation.
+
+### RESPONSE W-QUEUE-TEST-002-CREATE
+
+- Result: new visible saved-project worktree creation accepted asynchronously.
+- Client setup ID:
+  `client-new-thread:0b964bc3-a775-4fbf-88c3-657beb2570a5`.
+- Host/model: local, `gpt-5.6-luna`, `max`.
+- Exact branch base: `f77bf44cee08b54445b672119bccd3789b67f663`.
+- Prompt integrity: one focused test-source slot, public-only waiter timing,
+  main-thread assertions, guaranteed join discipline, idempotent stop/stopped
+  statuses/fresh reconfigure/metadata owner oracle, no production/CMake/vendor/
+  rt_server/subagent/polling and proactive RESPONSE notification.
+- Coordination: no final thread ID was returned and setup will not be polled;
+  manager awaits only the worker-pushed response after public dispatch.

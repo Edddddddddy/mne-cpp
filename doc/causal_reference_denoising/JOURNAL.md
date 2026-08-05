@@ -2972,3 +2972,15 @@ hidden reasoning is not.
   public-interface failure exists. No rt_server or full scan.
 - Next: commit/push request, create/record the visible task, publish dispatch,
   then continue other non-overlapping management work or await proactive reply.
+
+### E-284 - Queue lifecycle tracer creation accepted
+
+- Result: visible Luna/max worktree setup accepted as
+  `client-new-thread:0b964bc3-a775-4fbf-88c3-657beb2570a5` from exact
+  `f77bf44ce`.
+- Contract: one test-source slot for active configure, timed waiter stop wake,
+  idempotent stop, stopped statuses and fresh queue data/metadata/Timeout.
+- Safety: finite timeout prevents a broken wake from hanging; all assertions
+  remain on the main test thread and consumer join precedes assertions.
+- Next: commit/push creation evidence, publish/read back issue #5 dispatch and
+  await only the proactive response without overlapping test edits.
