@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T02:45:00+08:00
+Last updated: 2026-08-06T03:02:00+08:00
 
 ## Recovery order
 
@@ -62,13 +62,17 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
   Its proactive response returned exact-base commit `039b58d1b`; manager
   provenance/diff/interface review passes. It is integrated as `73f05da14`;
   populated focused Release reports 6/0/0 with process exit zero.
+- `W-QUEUE-TEST-002` proactively returned exact-base Luna/max commit
+  `da315d81e`, adding one focused public lifecycle slot for AlreadyRunning,
+  bounded stop wake, idempotent stop, stopped statuses and fresh reconfigure.
+  The response is durable; manager diff review, integration and populated
+  Release execution are next.
 
 ## Next actions
 
-1. Await the proactive `W-QUEUE-TEST-002` RESPONSE without polling or
-   overlapping the focused test
-   source; retain the Sol implementation conversation only for a narrow fix if
-   the follow-up exposes a defect.
+1. Inspect exact `da315d81e`, integrate only if the public test is robust, and
+   run the populated focused Release executable. Retain the Sol implementation
+   conversation only for a narrow fix if the follow-up exposes a defect.
 2. Use the wait window only for read-only planning or truly non-overlapping
    example/document work; do not begin plugin integration before queue coverage.
 

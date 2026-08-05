@@ -3894,6 +3894,27 @@ does not continuously poll them.
 - Status: public dispatch complete. Manager will not poll or overlap the test
   source and awaits only the worker-pushed RESPONSE.
 
+### RESPONSE W-QUEUE-TEST-002
+
+- From / to: visible Luna/max thread
+  `019fd2e0-188f-7a62-a89c-7ceefa15f6cd` / manager.
+- Exact base/commit: `f77bf44cee08b54445b672119bccd3789b67f663` /
+  `da315d81ecfbf43f9e27f2013970abe3fa38715e`; parent is the requested base.
+- Scope: one focused test-source file only, adding
+  `queueStopWakesWaiterAndReconfigureStartsFresh`; production queue unchanged.
+- Synchronization: configure 2x4/capacity-one, reject active reconfigure, start
+  one finite 3000 ms public waiter into a preallocated destination, record only
+  atomics in the consumer, then stop twice and join before all Qt assertions.
+  The oracle requires `Stopped` in less than 1500 ms and logs entry/wait/timing
+  values to distinguish wakeup from natural timeout.
+- Lifecycle oracle: push/pop return Stopped after stop; a joined reconfigure is
+  Ready, transports a distinct 2x2 matrix and aliasing metadata owner exactly,
+  then returns Timeout on the fresh empty queue, proving no stale token/data.
+- Worker evidence: one-file commit, clean status and diff checks pass. Isolated
+  execution is honestly unclaimed because ignored Eigen baseline files are
+  absent; no vendor repair, full scan, rt_server, subagent or manager polling.
+- Status: response recorded before manager diff review or cherry-pick.
+
 ### REQUEST W-EXAMPLE-001
 
 - From / to: manager thread

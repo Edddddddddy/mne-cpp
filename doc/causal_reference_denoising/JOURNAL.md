@@ -3045,3 +3045,19 @@ hidden reasoning is not.
   queue test or future plugin source.
 - Next: commit/push, create/record the visible task and publish issue #7
   dispatch without polling active workers.
+
+### E-291 - Queue lifecycle test response received
+
+- Actor: visible Luna/max thread
+  `019fd2e0-188f-7a62-a89c-7ceefa15f6cd` and manager.
+- Delta: exact-base `da315d81e`, one focused test-source slot only; production
+  queue/CMake/core/plugin files remain untouched.
+- Oracle: active configure rejection, one finite waiter, bounded stop wake and
+  idempotence, stopped push/pop, then fresh configure with exact matrix and
+  metadata-owner FIFO plus empty Timeout. Consumer records only atomics and all
+  Qt assertions follow join.
+- Evidence limit: the clean worker worktree has the known ignored Eigen gap;
+  worker made no dependency repair or runtime claim and used no subagent,
+  polling, full scan or rt_server.
+- Next: commit/push the response, inspect exact provenance/diff/test robustness,
+  then integrate and execute in the populated Release workspace if accepted.
