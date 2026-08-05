@@ -1396,3 +1396,13 @@ hidden reasoning is not.
 - Cleanup: W-CORE-008 worktree was clean/content-matched and removed; the
   one-shot Sol/ultra agent will not be reused.
 - Next: create and dispatch the already durable stable-RMS test request.
+
+### E-145 - Stable RMS test worker active
+
+- Actor: manager and `/root/w_test_core_012`.
+- Worktree/model: detached `mne-cpp-worker-w-test-core-012` at `a7bb413ca`,
+  Sol/high, exactly one test slot/source and no subagents.
+- Scope: large finite Bypass RMS plus analytic ApplyOnly input/output/noise RMS;
+  no production or build-system edit.
+- Next: await structured response; manager will not edit the overlapping test
+  source while the worker is active.

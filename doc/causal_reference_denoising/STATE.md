@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T20:42:00+08:00
+Last updated: 2026-08-05T20:50:00+08:00
 
 ## Recovery order
 
@@ -34,14 +34,15 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-No worker is running. Strict LDLT commit `3faa0ca14` is GREEN with 40 passes;
-its one-shot implementation worktree remains pending verified cleanup.
+`W-TEST-CORE-012` is active as `/root/w_test_core_012` on Sol/high in detached
+worktree `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-012` at
+`a7bb413ca`.
 
 ## Next actions
 
-1. Commit/push P2 solver closure and the stable-RMS test request.
-2. Publish solver evidence and remove the clean implementation worktree.
-3. Dispatch `W-TEST-CORE-012` for large-finite/analytic RMS coverage.
+1. Await/review `RESPONSE W-TEST-CORE-012` without overlapping test edits.
+2. Integrate and run the focused report; immediate GREEN is expected.
+3. Close R-RMS-001 only with large-finite and analytic evidence.
 
 ## Focused verification targets
 

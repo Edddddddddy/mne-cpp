@@ -1787,4 +1787,5 @@ The manager records and forwards all cross-worker messages here before acting.
   or change the existing scaled-sum implementation.
 - Required response: `RESPONSE W-TEST-CORE-012` with commit, exact matrices and
   RMS equations/tolerances, evidence/classification and no-subagent confirmation.
-- Status: request recorded before cleanup/worktree creation/dispatch.
+- Status: active as collaboration agent `/root/w_test_core_012`. Detached
+  worktree created clean at `a7bb413ca`; Sol/high accepted one-slot scope.
