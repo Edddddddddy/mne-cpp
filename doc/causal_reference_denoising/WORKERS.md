@@ -2551,3 +2551,27 @@ The manager records and forwards all cross-worker messages here before acting.
   events, exact reference rows and finite output guard state/selection.
 - Decision: accept for cherry-pick. Manager populated Release and Debug reports
   determine P2 closure; worker-reported counts are supporting evidence only.
+
+### MANAGER VALIDATION W-TEST-CORE-016-GREEN
+
+- Integrated commit: `1b542b18a`.
+- Release: focused build succeeds; synchronized report has 44 passes, zero
+  failures, one intentional Debug-only malloc-guard skip and exit code zero.
+- Debug: focused build succeeds; synchronized report explicitly identifies
+  Debug and has 45 passes, zero failures/skips and exit code zero, so the Eigen
+  runtime guard remains effective.
+- Oracle: expected/observed forgetting probe target is `-0.1332...`; one accept
+  per training block, generations one/two, exact references and zero rejects
+  all pass. Synthetic metrics remain 58.6541 dB/0.000113195 and chunk
+  differences remain zero in both reports.
+- Decision: close `R-CORE-FORGET-001`. Formal core gate passes with P0/P1 zero,
+  no open P2 and two tracked P3s.
+
+### RETIREMENT REQUEST CLEANUP-021
+
+- Publish formal core review and analytic P2 GREEN evidence to issue #2.
+- Verify detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-016` is clean at
+  `6c39f16db3` and its focused test content matches integrated `1b542b18a`;
+  remove through Git worktree management. One-shot agent is not reusable.
+- Status: recorded before action.

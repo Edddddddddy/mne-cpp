@@ -16,7 +16,7 @@ Formal independent review `R-CORE-001` completed on Sol/ultra against exact
 commit `f0a0e14d7`, read-only and without subagents. P0 and P1 are zero. The
 core gate is held for one P2 test-evidence finding; two P3s remain tracked.
 
-#### R-CORE-FORGET-001 - P2 - Open
+#### R-CORE-FORGET-001 - P2 - Closed
 
 - Location: `SPEC.md:94-100,208-210`;
   `causalreferencedenoiser.cpp:114-115,203-225`;
@@ -32,6 +32,10 @@ core gate is held for one P2 test-evidence finding; two P3s remain tracked.
   `[1,1,1,1]`, target `[0,1,0,0]`; after two accepts require an ApplyOnly
   prediction with `G=1.875`, `H=0.25`,
   `W=H/(G*(1+regularization))`.
+- Resolution: test commit `1b542b18a` adds the independent two-epoch public
+  oracle. Manager Release report is 44/0/1 and effective Debug report is
+  45/0/0; expected and observed future target `-0.1332...` agree within
+  `1e-12`. Synthetic metrics and exact chunk equivalence remain GREEN.
 
 #### R-CORE-LOCALITY-001 - P3 - Open
 
@@ -50,6 +54,15 @@ core gate is held for one P2 test-evidence finding; two P3s remain tracked.
   detect real shared/static library export/client-link regressions.
 - Requested later fix: retain isolated test and add a small supported-form
   `mne_rtprocessing` client-link smoke before final integration.
+
+### Formal core gate decision
+
+- P0: zero.
+- P1: zero.
+- P2: zero open; `R-CORE-FORGET-001` closed by independent analytic evidence.
+- P3: `R-CORE-LOCALITY-001` and `R-CORE-LINK-001` tracked for later
+  integration.
+- Decision: numerical core may proceed to plugin-data TDD.
 
 ### Diagnostics seam pre-review
 

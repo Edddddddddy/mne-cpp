@@ -2007,3 +2007,17 @@ hidden reasoning is not.
   `R-CORE-FORGET-001`. Tight tolerance rejects all documented decay mistakes.
 - Decision: accept `6c39f16db3`; commit/push review records, cherry-pick and
   independently run populated Release plus effective Debug suites.
+
+### E-206 - Analytic forgetting P2 and formal core gate are GREEN
+
+- Actor: manager.
+- Integrated test: `1b542b18a`; Release synchronized 44/0/1, Debug synchronized
+  45/0/0, both exit zero and only known Eigen/MSVC C4819 warnings.
+- Oracle: expected/observed future target `-0.1332...` agrees within `1e-12`;
+  exact references, events/generation and finite output pass.
+- Regression: 58.6541 dB/0.000113195 synthetic gates, exact chunk differences
+  and effective Debug malloc guard remain GREEN.
+- Review decision: close `R-CORE-FORGET-001`; P0/P1 zero, no open P2. Track
+  locality/link P3s and allow plugin-data TDD.
+- Next: commit/push, publish issue evidence and safely retire the one-shot test
+  worktree before dispatching plugin work.

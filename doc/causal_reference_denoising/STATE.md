@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T19:10:00+08:00
+Last updated: 2026-08-05T19:40:00+08:00
 
 ## Recovery order
 
@@ -20,10 +20,10 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 ## Current phase
 
 Core numerical contracts, effective Debug Eigen malloc guard and quantitative
-synthetic acceptance are GREEN. Release reports 43 passes, zero failures and
+synthetic acceptance are GREEN. Release reports 44 passes, zero failures and
 one intentional guard skip, with 58.6541 dB noise reduction and 0.000113195
-clean projection-amplitude error. Formal review has P0/P1 zero and holds the
-core gate only for the analytic forgetting-test P2.
+clean projection-amplitude error. Formal review has P0/P1 zero; its sole P2 is
+now GREEN through an independent analytic forgetting oracle. Core gate passed.
 
 ## Completed
 
@@ -36,16 +36,14 @@ core gate only for the analytic forgetting-test P2.
 
 ## Running workers
 
-- `/root/w_test_core_016`: Sol/high, one-shot public analytic forgetting test in
-  detached worktree `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-016`
-  at exact base `12ab4e621`; test source only, no subagents.
+No implementation worker is running. Completed `W-TEST-CORE-016` and its
+detached worktree await verified retirement after issue evidence publish.
 
 ## Next actions
 
-1. Add the independent lambda-dependent public forgetting oracle required by
-   `R-CORE-FORGET-001` and rerun the focused suite.
-2. Close/publish P2 and retire the review/test one-shot worktrees.
-3. Begin plugin-data TDD; track P3 locality/link smoke for later integration.
+1. Publish core review/P2 closure and retire `W-TEST-CORE-016`.
+2. Begin the plugin-data TDD tracer for FIFF row resolution.
+3. Track P3 header locality and real-library link smoke for later integration.
 
 ## Focused verification targets
 
