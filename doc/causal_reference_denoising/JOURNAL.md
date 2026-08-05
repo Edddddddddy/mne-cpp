@@ -817,3 +817,11 @@ hidden reasoning is not.
 - Model: Sol/high, proportional to bounded test-only state reasoning; no
   subagents.
 - Next: commit/push the request, create its detached worktree, and dispatch.
+
+### E-084 - Non-learning mode worker active
+
+- Actor: manager and `/root/w_test_core_008`.
+- Worktree: `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-008`, detached
+  at integration commit `b27b328d9`.
+- Model: Sol/high; exact analytic one-slot scope and no-subagent rule accepted.
+- Next: wait for the structured response while avoiding overlapping test edits.

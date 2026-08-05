@@ -940,7 +940,7 @@ The manager records and forwards all cross-worker messages here before acting.
 ### REQUEST W-TEST-CORE-008
 
 - From / to: manager / non-learning-mode contract worker.
-- Execution: collaboration subagent in detached worktree
+- Execution: collaboration subagent `/root/w_test_core_008` in detached worktree
   `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-008` based on the current
   integration HEAD; identifier recorded after dispatch.
 - Model/environment: `gpt-5.6-sol`, `high`; no nested subagents.
@@ -963,4 +963,5 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-TEST-CORE-008`, commit, data rows, exact
   training/adversarial/probe values, tolerances, evidence/infra limitation,
   classification, and no-subagent confirmation.
-- Status: request recorded before worktree setup/dispatch.
+- Status: active. Detached worktree was created from integration commit
+  `b27b328d9`; Sol/high agent accepted the no-subagent request.

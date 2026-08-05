@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T16:16:00+08:00
+Last updated: 2026-08-05T16:19:00+08:00
 
 ## Recovery order
 
@@ -33,12 +33,12 @@ fresh-state semantics are GREEN. The next contract is non-learning mode state.
 
 ## Running workers
 
-None. `W-TEST-CORE-007` is published and fully retired; its detached worktree
-was safely removed. `W-TEST-CORE-008` is recorded for dispatch.
+`W-TEST-CORE-008` is active as collaboration agent `/root/w_test_core_008` on
+Sol/high in detached worktree `mne-cpp-worker-w-test-core-008`.
 
 ## Next actions
 
-1. Create an isolated detached worktree and dispatch `W-TEST-CORE-008`.
+1. Wait for and review `RESPONSE W-TEST-CORE-008`.
 2. Integrate the ApplyOnly/Bypass non-learning and history test.
 3. Integrate that narrow contract before diagnostics and malloc-guard work.
 
