@@ -2068,3 +2068,13 @@ hidden reasoning is not.
 - Build seam: Qt Core/Test + Eigen and direct numerical source, no mne_fiff or
   mne_scan; initial RED is the absent processor header.
 - Next: commit/push, create exact detached worktree and dispatch.
+
+### E-211 - First plugin-data RED tracer worker active
+
+- Actor: manager and `/root/w_test_plugin_data_001`.
+- Worktree/model: clean detached
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-plugin-data-001` at exact
+  `cdc07b283`, Sol/high, test/CMake only, no subagents.
+- Scope: one six-row train/probe behavior slot plus focused dependency-isolated
+  target; initial RED is absent processor header.
+- Next: await response without overlapping test/CMake edits.

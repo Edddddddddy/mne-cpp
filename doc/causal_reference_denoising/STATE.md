@@ -36,13 +36,14 @@ now GREEN through an independent analytic forgetting oracle. Core gate passed.
 
 ## Running workers
 
-No worker is running. Core review/P2 closure is published and all completed
-core/review worktrees are safely retired. Plugin-data TDD is next.
+- `/root/w_test_plugin_data_001`: Sol/high, one-shot first plugin-data RED
+  tracer in detached
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-plugin-data-001` at exact
+  `cdc07b283`; test/CMake only, no subagents.
 
 ## Next actions
 
-1. Freeze the plugin-private processor interface and add a FIFF row-selection
-   behavioral RED tracer.
+1. Receive/review/integrate the behavioral FIFF-kind/bad-row RED tracer.
 2. Implement the minimal worker-owned processor/configure seam to GREEN.
 3. Add the nonblocking drop-newest queue tracer/implementation next.
 
