@@ -50,16 +50,15 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 
 ## Running workers
 
-- `W-PROC-GREEN-001`: visible Luna/max saved-project worktree conversation for
-  issue #4, accepted with client setup ID
-  `client-new-thread:aa50ed99-db64-4f34-addb-ea3b71e91ba2` from exact
-  integration base `9a99e80c3`. It owns only processor header/source and focused
-  test CMake. The manager does not poll; worker must actively return RESPONSE.
+- None executing. Visible Luna/max `W-PROC-GREEN-001`, thread
+  `019fd258-04db-7982-b1f6-c7010727c03c`, proactively returned clean three-file
+  commit `46b600f910` from exact base `9a99e80c3`. Response is durable; manager
+  exact diff review and populated focused GREEN validation are pending.
 
 ## Next actions
 
-1. Receive `RESPONSE W-PROC-GREEN-001` without polling, review its exact diff
-   and run the populated focused target before integration.
+1. Review exact worker commit `46b600f910`, then run the populated focused
+   target before integration.
 2. After GREEN, add the next invalid/missing-layout tracer
    before widening processor behavior.
 3. After issue #4 reaches a milestone commit, open a separate visible

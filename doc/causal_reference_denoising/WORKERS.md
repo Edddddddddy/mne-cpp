@@ -2890,3 +2890,30 @@ does not continuously poll them.
   worker-pushed `RESPONSE W-PROC-GREEN-001`.
 - GitHub dispatch evidence:
   `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5193135833`.
+
+### RESPONSE W-PROC-GREEN-001
+
+- Visible thread: `019fd258-04db-7982-b1f6-c7010727c03c`.
+- Base/commit: exact parent
+  `9a99e80c39d731cbc4f9ed552df9632c754c923d`; returned commit
+  `46b600f910a7638791f6bc6b5dccb9af6813a933`.
+- Interface: adds the frozen data-only descriptors/settings defaults, configure
+  statuses/result and final concrete processor in namespace
+  `ADAPTIVEDENOISINGPLUGIN`.
+- Ownership/safety: configure validates metadata/UI ranges, selects good
+  REF_MEG/MEG rows, configures a candidate numerical model and swaps only after
+  success. Every invalid/missing/core-rejected attempt clears old ownership and
+  publishes zero counts, preventing stale-layout weights.
+- Process: armed calls delegate directly; unarmed calls preserve the complete
+  block and report NotConfigured with zero snapshot/events and quiet-NaN RMS.
+  Reset delegates only while armed; configuration returns the fixed snapshot.
+- Scope: exactly processor header/source plus focused test CMake; no test/core/
+  queue/plugin/UI/example/benchmark/dependency/rt_server change.
+- Worker verification: commit diff check and clean status pass. Runtime focused
+  GREEN was not claimed because the clean worktree retains the known missing
+  ignored Eigen `Macros.h`/`buildtests.in` baseline; no dependency repair/copy.
+- Realtime claim: adapter process adds no allocation, lock, string, Qt/FiffInfo,
+  registry or strategy seam beyond numerical delegation.
+- Model/process policy: Luna/max, no subagents, no manager polling, no
+  mne_rt_server.
+- Status: response recorded before manager inspects the worker diff.
