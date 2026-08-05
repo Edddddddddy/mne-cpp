@@ -819,3 +819,17 @@ The manager records and forwards all cross-worker messages here before acting.
   retained lag history, `G/H`, pending count, and committed `W`.
 - Lifecycle: no nested subagents.
 - Next: continue the same worker; do not duplicate or rescope.
+
+### REQUEST W-TEST-CORE-007-NARROW
+
+- From / to: manager / `/root/w_test_core_007`.
+- Blocking: no; accelerates the already authorized single test.
+- Guidance: stop further design expansion and implement now. A sufficient
+  black-box proof may use a small tap/interval configuration, prime only the
+  subject through one model commit plus a partial next epoch, reset it, then
+  process an identical post-reset stream on subject/fresh control that crosses
+  warmup and at least one new boundary, followed by an identical ApplyOnly
+  probe. This ordering detects retained `W/history` immediately and retained
+  `G/H/pending-count` at or after the new boundary.
+- Scope: unchanged; test source only, one slot, no subagents.
+- Status: recorded before forwarding.

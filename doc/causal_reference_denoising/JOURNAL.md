@@ -724,3 +724,13 @@ hidden reasoning is not.
 - Progress: the worker is designing one public sequence that independently
   exposes retained history, statistics, pending count, and model weights.
 - Decision: continue the same Sol/ultra worker without duplicate dispatch.
+
+### E-075 - Reset test implementation narrowed
+
+- Actor: manager.
+- Evidence: later bounded waits still show a clean worktree, so no partial edit
+  exists to protect or review.
+- Action: `REQUEST W-TEST-CORE-007-NARROW` asks the existing worker to stop
+  design expansion and implement the sufficient prime/reset/new-boundary/probe
+  black-box sequence now.
+- Scope/model remain unchanged; no duplicate worker is created.
