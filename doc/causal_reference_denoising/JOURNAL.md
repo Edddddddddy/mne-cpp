@@ -573,3 +573,12 @@ hidden reasoning is not.
   comparison proves all relevant streaming state is unchanged by rejection.
 - Decision: accept for integration and require missing-`NonFiniteInput` RED.
 - Next: cherry-pick and build only the focused target.
+
+### E-060 - Atomic nonfinite RED reproduced
+
+- Actor: manager.
+- Integrated test commit: `1eaa5ba41`.
+- Evidence: focused compile failed only on missing `NonFiniteInput` at the
+  intended assertion, C2838/C2065.
+- Result: valid RED; bounded preflight implementation may begin.
+- Next: archive the test worker and dispatch fresh Luna/max `W-CORE-005`.

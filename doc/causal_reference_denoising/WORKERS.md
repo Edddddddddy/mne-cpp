@@ -643,3 +643,31 @@ The manager records and forwards all cross-worker messages here before acting.
 - Manager static review: the sequence detects history, epoch-statistic, and
   model mutation while preserving explicit nonfinite payload semantics.
   Accepted for cherry-pick.
+
+### MANAGER VALIDATION W-TEST-CORE-005-RED
+
+- Integrated commit: `1eaa5ba41`.
+- Expected failure: focused Release compile reached test line 412 and failed
+  C2838/C2065 because `DenoiserProcessStatus::NonFiniteInput` is absent.
+- Result: valid compile RED.
+
+### RETIREMENT REQUEST CLEANUP-004
+
+- Archive one-shot `W-TEST-CORE-005` thread
+  `019fd040-bb35-7e83-9dc8-ee2abfbb21d1` after this record is committed.
+- Status: pending.
+
+### REQUEST W-CORE-005
+
+- From / to: manager / `W-CORE`.
+- Model/environment: `gpt-5.6-luna`, `max`, new worktree; no subagents.
+- Blocking: yes.
+- Task: add `NonFiniteInput` and, after shape validation but before any state or
+  block mutation, allocation-free loop scans over every selected reference and
+  target value in the complete block. On any NaN/Inf return the new status and
+  leave block and PImpl state untouched. Nonselected rows are not scanned.
+- Scope: numerical header/source only; no tests/CMake, diagnostics, chunk/reset,
+  solver, malloc, or plugin changes.
+- Required response: `RESPONSE W-CORE-005` with commit, loop ordering, evidence,
+  limitations, and next RED; confirm no subagents.
+- Status: recorded before dispatch.

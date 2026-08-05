@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T12:56:00+08:00
+Last updated: 2026-08-05T12:59:00+08:00
 
 ## Recovery order
 
@@ -19,8 +19,8 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-The first causal EWLS streaming tracer is GREEN. The next vertical slice is
-atomic selected-NaN/Inf pass-through with state immutability.
+Atomic selected-NaN/Inf pass-through/state immutability is a valid compile RED.
+The next vertical slice is its bounded preflight-scan GREEN.
 
 ## Completed
 
@@ -33,14 +33,13 @@ atomic selected-NaN/Inf pass-through with state immutability.
 
 ## Running workers
 
-`W-TEST-CORE-005` returned commit `9ef2ffe08`; manager static review accepted
-the two-row state-immutability test for integration and RED reproduction.
+`W-CORE-005` is queued for a fresh Luna/max worktree after test-worker archive.
 
 ## Next actions
 
-1. Cherry-pick `9ef2ffe08` and reproduce compile RED.
-2. Archive the one-shot test worker.
-3. Dispatch the small Luna/max production fix only after valid RED.
+1. Archive `W-TEST-CORE-005` and dispatch `W-CORE-005`.
+2. Review the selected-row preflight scan.
+3. Run the complete focused Qt report and require GREEN.
 
 ## Focused verification targets
 
