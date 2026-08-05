@@ -1759,3 +1759,15 @@ hidden reasoning is not.
 - Decision: keep the same one-slot/test-source-only worker; no duplicate,
   production edit or nested subagent.
 - Next: await the clean committed test response.
+
+### E-183 - Quantitative synthetic acceptance response received
+
+- Actor: `/root/w_test_core_015` and manager.
+- Response: clean one-test-source commit `bae282c347` adds the deterministic
+  768-block streaming acceptance slot with exact tap-major causal construction.
+- Expected evidence: 58.654 dB noise reduction and `1.132e-4` clean projection
+  error, with exact references, finite output and zero rejected updates.
+- Scope/lifecycle: no production/build/plugin/dependency/rt_server change and no
+  subagents; the worker is one-shot.
+- Decision: response is durable before acting. Review the exact commit, then
+  cherry-pick only if causality, counting, metric sensitivity and scope pass.

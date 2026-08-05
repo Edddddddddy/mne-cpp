@@ -2271,3 +2271,31 @@ The manager records and forwards all cross-worker messages here before acting.
   projection-amplitude error, wide versus the 10 dB and 0.02 gates.
 - Scope/lifecycle: source-only single slot, no production change or subagents;
   patch, validation and commit remain in progress.
+
+### RESPONSE W-TEST-CORE-015
+
+- Commit: `bae282c347cfb578d6a78109eeb92dfb885125ae` on exact requested
+  base `ea5870cf2`.
+- Changed file/scope: focused numerical test source only; one public-interface
+  Qt slot, no production/header/CMake/plugin/dependency/benchmark/example or
+  rt_server change.
+- Generator: uninterrupted 98,432-sample stream from xorshift32 seeds
+  `0xA341316C` and `0xC8013EA4`, AR coefficients `0.35/-0.25`, and
+  deterministic multisine terms.
+- Causal noise: known tap-major weights
+  `[1.40,-1.10,0.80,0.65,-0.55,0.45,0.35,-0.25]`, exact current-to-three-lag
+  ordering and explicit zero prehistory. The first three samples only warm up.
+- Training/state: 768 128-sample ApplyAndLearn blocks; expect 767 accepted
+  complete epochs, zero rejected and 125 pending samples. Evaluate one
+  continuing ApplyOnly block with a 0.65-amplitude 62.5 Hz clean sinusoid.
+- Metrics: `rms(x)=sqrt(sum(x^2)/128)`, reduction is
+  `20*log10(rms(noise)/rms(output-clean))`, and amplitude error is
+  `abs(dot(output,clean)/dot(clean,clean)-1)`.
+- Independent oracle: noise RMS `1.11545669742232`, residual RMS
+  `0.00130240402120637`, reduction `58.654139739579` dB and amplitude error
+  `1.13194967407138e-4`; margins are +48.654 dB and 0.0198868.
+- Evidence/classification: exact reference preservation, finite output and zero
+  rejected updates are asserted; metrics use qInfo. Static diff checks and
+  clean detached HEAD pass. Runtime is manager-owned due the known ignored
+  detached dependencies; immediate GREEN is analytically expected.
+- Lifecycle: no subagents. Manager exact review and populated execution follow.
