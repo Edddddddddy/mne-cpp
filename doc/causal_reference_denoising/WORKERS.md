@@ -1469,3 +1469,22 @@ The manager records and forwards all cross-worker messages here before acting.
 - Question: at the next safe boundary, report concise progress, current design
   choice and any blocker; do not broaden scope or spawn subagents.
 - Status: recorded before forwarding.
+
+### RESPONSE W-CORE-007-STATUS
+
+- Conclusion: no blocker; required records and codebase-design/TDD skills were
+  fully read and the detached base was clean before edits.
+- Current patch: committed `G(PxP)/H(MxP)` are separate from pending
+  `Gp(PxP)/Hp(MxP)` and candidate `Gc(PxP)/Hc(MxP)`, plus scalar epoch decay
+  `d`.
+- Recurrence: each eligible sample applies `d <- lambda*d`,
+  `Gp <- lambda*Gp + phi*phi^T`, and
+  `Hp <- lambda*Hp + y*phi^T`. A boundary composes
+  `Gc=d*G+Gp`, `Hc=d*H+Hp`.
+- Transaction: a finite successful LDLT commits `G/H/W`; rejection ages only
+  committed `G/H` by `d`, retains weights/generation, and both paths clear the
+  pending matrices/count/decay.
+- Scope/lifecycle: source-only implementation, no public header change and no
+  subagents. Static review/available validation is in progress; detached Eigen
+  baseline may prevent runtime.
+- Next: await the complete clean commit response; no duplicate or rescope.

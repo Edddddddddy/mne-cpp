@@ -1187,3 +1187,13 @@ hidden reasoning is not.
 - Action: prepare a non-blocking progress/blocker request without changing the
   implementation contract or dispatching a duplicate.
 - Next: commit/push, forward the status request, then continue bounded waiting.
+
+### E-124 - Transactional worker reports source patch complete
+
+- Actor: `/root/w_core_007` and manager.
+- Result: no blocker; committed/pending/candidate `G/H` storage and elapsed
+  epoch decay implement the selected composition and rejection transaction.
+- Scope: source only, no public-interface change, no subagents; final static
+  review and available validation remain active.
+- Decision: record before inspecting the isolated diff; continue the same
+  worker and do not duplicate implementation.
