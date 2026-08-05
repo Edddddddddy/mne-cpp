@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T00:02:00+08:00
+Last updated: 2026-08-06T00:09:00+08:00
 
 ## Recovery order
 
@@ -52,22 +52,20 @@ items are tracked as nonblocking follow-up.
 
 ## Running workers
 
-- None. The completed read-only reviewer is ready for archival after its
-  response and worktree integrity evidence are committed/pushed.
+- None. The completed read-only reviewer is archived after exact-SHA, clean-
+  status and scoped-content verification. No app-owned worktree was manually
+  deleted.
 
 ## Next actions
 
-1. Archive completed reviewer thread
-   `019fd288-1f93-7df1-8e55-78bc930ad73a` without manually deleting its
-   app-owned worktree.
-2. Resolve P2 `R-PROC-MOVE-001` with an explicit noncopyable/nonmovable worker-
+1. Resolve P2 `R-PROC-MOVE-001` with an explicit noncopyable/nonmovable worker-
    owned interface and C++14 type-trait verification through a new Luna/max
    minimal work conversation.
-3. Publish the formal review/fix evidence and close issue #4 after focused
+2. Publish the formal review/fix evidence and close issue #4 after focused
    Release remains GREEN.
-4. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
+3. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
    concurrency implementation and independent review.
-5. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 
