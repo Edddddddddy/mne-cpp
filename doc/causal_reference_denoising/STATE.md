@@ -67,7 +67,8 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
   bounded stop wake, idempotent stop, stopped statuses and fresh reconfigure.
   Manager review passes; it is integrated as `90f5cdbf3`. Populated Release
   reports 7/0/0, process exit zero and a 63 ms stop wake versus the 3000 ms
-  natural timeout.
+  natural timeout. GREEN is published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5194971349`.
 
 ## Next actions
 

@@ -3086,3 +3086,15 @@ hidden reasoning is not.
   newest behavior remain GREEN; neither full scan nor rt_server ran.
 - Next: commit/push the integrated test and evidence, publish issue #5 GREEN,
   then complete invalid-input coverage and independent concurrency review.
+
+### E-294 - Queue lifecycle GREEN published and corrected
+
+- Publish: issue #5 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5194971349`.
+- Read-back caught a manager-side PowerShell escaping defect in two Markdown-
+  quoted tokens. The same comment was immediately patched to plain text and
+  read back again with exact commits, 7/0/0 result and 63 ms wake evidence.
+- Effect: GitHub presentation only; no source, test, build or repository state
+  changed. Future CLI bodies avoid PowerShell-interpreted Markdown backticks.
+- Next: record one adjacent invalid-input queue tracer request before reusing
+  the lifecycle Luna/max conversation.

@@ -3949,6 +3949,17 @@ does not continuously poll them.
 - Decision: lifecycle slice GREEN. One adjacent validation slice plus formal
   Sol/ultra concurrency review remain before closing queue issue #5.
 
+### PUBLISH W-QUEUE-TEST-002-GREEN
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5194971349`.
+- First write defect: PowerShell interpreted Markdown backticks preceding the
+  base SHA and target name as escape sequences, so read-back exposed control
+  characters in those two fields. No code/test/repository state was affected.
+- Correction: the same comment was patched in place using plain SHA/target
+  text; a second API read-back exactly matches commits, 7/0/0 result, 63 ms
+  wake evidence, lifecycle oracle, restrictions and remaining review work.
+
 ### REQUEST W-EXAMPLE-001
 
 - From / to: manager thread
