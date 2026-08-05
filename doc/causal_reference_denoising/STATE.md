@@ -50,18 +50,18 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 
 ## Running workers
 
-- None executing. Visible Luna/max conversation `W-PROC-TEST-001`, thread
-  `019fd204-2ae1-7153-bc52-d33d952b5598`, returned clean test-only commit
-  `095633f159` from exact base `eef062192` without polling or subagents. Its
-  response is durable; manager exact diff review and populated RED reproduction
-  are pending before integration.
+- None executing. `W-PROC-TEST-001` returned and is integrated as `daae515ed`;
+  populated Release build reaches the intended C1083 missing processor-header
+  RED. Its visible one-shot thread
+  `019fd204-2ae1-7153-bc52-d33d952b5598` is pending evidence publication and
+  archival. No production processor exists yet.
 
 ## Next actions
 
-1. Review exact worker commit `095633f159`, then reproduce the intended missing-
-   processor-header RED in the populated workspace before integration.
-2. Integrate the accepted RED tracer and dispatch the minimal GREEN processor
-   implementation to a new visible Luna/max work conversation.
+1. Publish the valid processor tracer RED to issue #4 and archive its one-shot
+   visible work conversation after content/clean verification.
+2. Dispatch the minimal GREEN processor implementation to a new visible
+   Luna/max work conversation.
 3. After issue #4 reaches a milestone commit, open a separate visible
    Sol/ultra review conversation before integration.
 4. Deliver the engineering MVP first: processor, nonblocking queue, plugin

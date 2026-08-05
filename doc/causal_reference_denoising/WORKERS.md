@@ -2784,3 +2784,27 @@ does not continuously poll them.
 - Decision: record/push this review, cherry-pick the worker commit, then the
   populated manager build must produce the intended missing-processor-header
   RED before any production implementation request.
+
+### MANAGER VALIDATION W-PROC-TEST-001-RED
+
+- Integrated test commit: `daae515ed` (cherry-pick of exact worker
+  `095633f159`).
+- Configure: `cmake -S src -B build-causal-reference-denoising` succeeded and
+  generated the new focused target without mne_fiff/mne_scan linkage.
+- RED command: `cmake --build build-causal-reference-denoising --target
+  test_adaptive_denoising_plugin --config Release -- /m:2`.
+- Result: exit code 1 at the intended first test-source failure, MSVC C1083 on
+  missing `adaptivedenoising/adaptivedenoisingprocessor.h` at line 11. The
+  numerical source compiled; only known Eigen/MSVC C4819 code-page warnings
+  accompanied the failure.
+- Decision: valid behavioral RED accepted. A production worker may implement
+  only the frozen processor seam required to make this tracer GREEN.
+
+### RETIREMENT REQUEST W-PROC-TEST-001
+
+- Verify visible worker worktree is clean at exact `095633f159` and the three
+  test/CMake file contents match integrated `daae515ed`.
+- Publish RED evidence to issue #4, then archive thread
+  `019fd204-2ae1-7153-bc52-d33d952b5598` through the app. Do not manually
+  delete its app-owned worktree.
+- Status: recorded before publication/archival.
