@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T01:45:00+08:00
+Last updated: 2026-08-06T01:51:00+08:00
 
 ## Recovery order
 
@@ -55,11 +55,13 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 
 - `W-QUEUE-TEST-001` is integrated as `b3ff9afc1`. Populated Release build
   reaches the intended C1083 missing `adaptivedenoisingblockqueue.h`; valid RED
-  is accepted. Publication/worker retirement precede Sol/ultra implementation.
+  is accepted and published. Worker clean/content precheck passes; archival
+  precedes Sol/ultra implementation.
 
 ## Next actions
 
-1. Publish valid RED to issue #5, verify/archive the one-shot Luna/max tracer.
+1. Archive the verified one-shot Luna/max tracer through the app without
+   manually deleting its worktree.
 2. Record and dispatch a separate Sol/ultra queue implementation task.
 3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm

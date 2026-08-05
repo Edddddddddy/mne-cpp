@@ -3631,3 +3631,15 @@ does not continuously poll them.
   exists and no unrelated dependency/link/full-scan/rt_server failure masks it.
 - Decision: Sol/ultra production implementation may begin after RED publication
   and one-shot tracer retirement.
+
+### PUBLISH/RETIREMENT PRECHECK W-QUEUE-TEST-001
+
+- GitHub RED comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5194354446`;
+  read-back matches worker/integration commits, exact C1083 and behavior scope.
+- Worker worktree `C:/Users/lcy/.codex/worktrees/6cbb/mne-cpp-main` is clean and
+  detached at exact `ad3e54bf`.
+- Focused test content hash matches integration:
+  `c0e6b3808a7569b9af990cc15190b8a5cc4b57cd`.
+- Decision: one-shot thread `019fd2ad-308f-7282-bdaa-0b321de8df06` may be
+  archived through the app. Do not manually delete or alter its worktree.

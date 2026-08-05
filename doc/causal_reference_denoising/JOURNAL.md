@@ -2862,3 +2862,13 @@ hidden reasoning is not.
 - Decision: genuine interface RED accepted. Publish it, content-verify/archive
   the Luna/max tracer, then dispatch Sol/ultra production work with no test
   source changes.
+
+### E-275 - Queue RED published and tracer worker verified
+
+- Publish/read-back: issue #5 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5194354446`
+  matches exact C1083, commits, scope and restrictions.
+- Worker: clean detached exact `ad3e54bf`; focused test hash equals integrated
+  `b3ff9afc1` content.
+- Next: commit/push precheck, archive the one-shot Luna/max thread without
+  deleting its app worktree, then record Sol/ultra implementation request.
