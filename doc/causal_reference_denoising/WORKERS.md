@@ -932,4 +932,35 @@ The manager records and forwards all cross-worker messages here before acting.
   `7640f3750` and remove it with Git worktree management. The test is reachable
   on integration as `679fc427b`.
 - Publish the 35/0 zero-error evidence to issue #2.
-- Status: recorded before cleanup/publish actions.
+- Status: complete. Issue evidence published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5189127958`;
+  clean worktree content was verified identical to integrated test and Git
+  worktree removal succeeded. The collaboration agent is completed.
+
+### REQUEST W-TEST-CORE-008
+
+- From / to: manager / non-learning-mode contract worker.
+- Execution: collaboration subagent in detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-008` based on the current
+  integration HEAD; identifier recorded after dispatch.
+- Model/environment: `gpt-5.6-sol`, `high`; no nested subagents.
+- Model decision: this is a bounded analytic state test rather than numerical
+  implementation/review, so Sol/high is sufficient and more proportional than
+  Sol/ultra; the user-approved model family is preserved.
+- Blocking: yes for completion of the three-mode public contract.
+- Task: add exactly one data-driven public-interface Qt test with rows for
+  `ApplyOnly` and `BypassTrackHistory`. Train a small denoiser on independent
+  features to a known two-tap model. Feed an adversarial block of exactly one
+  adaptation interval using the selected non-learning mode; assert ApplyOnly
+  subtracts the known model while Bypass preserves the entire block. Then feed
+  a common analytically generated ApplyOnly probe whose features depend on the
+  adversarial block's final references. Require near-zero target residual and
+  exact non-target rows. The test must fail if either mode learns or fails to
+  advance causal history.
+- Scope: one test source only; no production/CMake/plugin/dependency changes,
+  no rt_server, immediate GREEN allowed. Do not compare two possibly wrong
+  denoisers as the oracle; use the analytic known model/output.
+- Required response: `RESPONSE W-TEST-CORE-008`, commit, data rows, exact
+  training/adversarial/probe values, tolerances, evidence/infra limitation,
+  classification, and no-subagent confirmation.
+- Status: request recorded before worktree setup/dispatch.

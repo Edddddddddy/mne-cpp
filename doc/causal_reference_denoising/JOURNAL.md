@@ -797,3 +797,23 @@ hidden reasoning is not.
 - Result: no production edit is needed for reset semantics.
 - Next: publish evidence, clean the non-reusable detached worktree, then test
   ApplyOnly/Bypass non-learning state against analytically known weights.
+
+### E-082 - Reset milestone published and isolated worker retired
+
+- Actor: manager, GitHub, Git worktree management, and collaboration runtime.
+- Result: issue comment `5189127958` records 35/0 and zero reset errors; detached
+  worktree `mne-cpp-worker-w-test-core-007` was verified clean/content-matched
+  and removed; the agent is completed.
+- Next: start the independently isolated non-learning-mode contract.
+
+### E-083 - Non-learning mode worker request prepared
+
+- Actor: manager under TDD and user model-selection rules.
+- Request: `W-TEST-CORE-008`, one analytic data-driven slot for ApplyOnly and
+  BypassTrackHistory.
+- Oracle: known two-tap weights and outputs, not cross-comparison of two
+  implementations; adversarial interval detects learning and later probe
+  detects both model change and missing history advancement.
+- Model: Sol/high, proportional to bounded test-only state reasoning; no
+  subagents.
+- Next: commit/push the request, create its detached worktree, and dispatch.

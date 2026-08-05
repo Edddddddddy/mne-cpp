@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T16:12:00+08:00
+Last updated: 2026-08-05T16:16:00+08:00
 
 ## Recovery order
 
@@ -33,14 +33,13 @@ fresh-state semantics are GREEN. The next contract is non-learning mode state.
 
 ## Running workers
 
-None. `W-TEST-CORE-007` is integrated and GREEN; publication and isolated
-worktree cleanup are pending.
+None. `W-TEST-CORE-007` is published and fully retired; its detached worktree
+was safely removed. `W-TEST-CORE-008` is recorded for dispatch.
 
 ## Next actions
 
-1. Publish reset GREEN evidence and remove the clean, non-reusable detached
-   worktree after verifying its commit is integrated.
-2. Dispatch a fresh test worker for ApplyOnly/Bypass non-learning semantics.
+1. Create an isolated detached worktree and dispatch `W-TEST-CORE-008`.
+2. Integrate the ApplyOnly/Bypass non-learning and history test.
 3. Integrate that narrow contract before diagnostics and malloc-guard work.
 
 ## Focused verification targets
