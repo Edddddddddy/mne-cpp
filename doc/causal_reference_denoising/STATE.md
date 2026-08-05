@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T02:15:00+08:00
+Last updated: 2026-08-06T02:25:00+08:00
 
 ## Recovery order
 
@@ -60,16 +60,15 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
   as a new visible Sol/ultra implementation task from exact base `930480bf3`;
   setup ID is `client-new-thread:e551ef42-5b43-48d0-a0e1-ddb5863854d4`.
   Its proactive response returned exact-base commit `039b58d1b`; manager
-  provenance/diff/interface review passes. Populated Release GREEN and
-  integration are pending.
+  provenance/diff/interface review passes. It is integrated as `73f05da14`;
+  populated focused Release reports 6/0/0 with process exit zero.
 
 ## Next actions
 
-1. Cherry-pick accepted worker commit `039b58d1b` and run the populated focused
-   Release target; record genuine GREEN or failure before assigning lifecycle
-   tests.
-2. If GREEN, publish evidence and issue the next minimal lifecycle/concurrency
-   tracer without broadening into the plugin shell yet.
+1. Publish/read back the 6/0/0 queue GREEN on issue #5.
+2. Record and dispatch one new visible Luna/max stop-wake/reconfigure lifecycle
+   tracer; retain the Sol implementation conversation only for a narrow fix if
+   the follow-up exposes a defect.
 3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.

@@ -3802,3 +3802,23 @@ does not continuously poll them.
   queue milestone.
 - Finding: none in the authorized GREEN implementation slice. Accept for
   cherry-pick and populated Release compile/runtime; no GREEN is claimed yet.
+
+### MANAGER VALIDATION W-QUEUE-GREEN-001-GREEN
+
+- Integrated production commit: `73f05da14` (cherry-pick of exact worker
+  `039b58d1b`).
+- Configure/build: populated focused CMake generation succeeded; Release target
+  compiled and linked the queue, processor, numerical core, test and Qt moc.
+  Only the known Eigen/MSVC C4819 code-page warnings occurred.
+- Runtime: hidden synchronized QtTest run wrote a durable text report and
+  returned process exit code zero.
+- Report: 6 passed, zero failed/skipped/blacklisted. The new
+  `queuePreservesFifoDropNewestAndMetadata` tracer passes with all three existing
+  processor behaviors plus init/cleanup.
+- Behavioral conclusion: configured capacity-two slots deep-copy caller data,
+  preserve FIFO matrix/metadata ownership pairing, drop newest on Full without
+  corrupting indices, return Timeout when drained and accept the later C block.
+- Decision: first queue vertical slice is genuinely GREEN. Publish evidence,
+  then add the next lifecycle behavior before formal concurrency review.
+- Restrictions: no full mne_scan or rt_server; user untracked paths remain
+  untouched.
