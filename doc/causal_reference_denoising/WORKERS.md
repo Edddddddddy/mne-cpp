@@ -3719,3 +3719,13 @@ does not continuously poll them.
 - Coordination: setup returned no final thread ID and will not be polled. The
   manager awaits only the worker-pushed RESPONSE after issue dispatch is
   published.
+
+### PUBLISH W-QUEUE-GREEN-001-START
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5194438436`.
+- Read-back: exact request base, Sol/ultra model decision, three-file scope,
+  immutable RED tracer, PImpl/SPSC/semaphore/stop/reconfigure/hot-path gates,
+  setup ID and no-polling/no-rt_server contract all match the durable request.
+- Status: implementation dispatch is public. The manager will not poll or edit
+  the same queue/CMake scope and awaits only the worker-pushed RESPONSE.

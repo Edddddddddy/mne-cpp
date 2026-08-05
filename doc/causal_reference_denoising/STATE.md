@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T02:05:00+08:00
+Last updated: 2026-08-06T02:10:00+08:00
 
 ## Recovery order
 
@@ -62,8 +62,10 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 
 ## Next actions
 
-1. Publish the recorded Sol/ultra `W-QUEUE-GREEN-001` dispatch to issue #5.
-2. Await only its proactive RESPONSE; do not poll.
+1. Await only the proactive `RESPONSE W-QUEUE-GREEN-001`; do not poll or edit
+   the authorized queue/CMake scope concurrently.
+2. On response, first record/push it, then inspect the exact commit and run the
+   populated focused Release target before integrating.
 3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.

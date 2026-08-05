@@ -2899,3 +2899,14 @@ hidden reasoning is not.
   The worker must proactively send `RESPONSE W-QUEUE-GREEN-001`.
 - Next: commit/push creation evidence, publish/read back the dispatch on issue
   #5, then wait only for the worker response or new user direction.
+
+### E-278 - Queue implementation dispatch published
+
+- Publish/read-back: issue #5 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5194438436`
+  matches exact base `930480bf3`, Sol/ultra selection, authorized files,
+  existing RED, SPSC/semaphore/stop/no-allocation contract and restrictions.
+- Coordination: the visible task setup ID is durable; no final thread ID has
+  been returned. The manager will not poll or overlap the queue/CMake edits.
+- Next: end this management slice and resume only from the worker's proactive
+  `RESPONSE W-QUEUE-GREEN-001` or new user direction.
