@@ -2538,3 +2538,16 @@ The manager records and forwards all cross-worker messages here before acting.
 - Durable publish: local response-record commit succeeded; its first branch
   push failed with transient GitHub `SSL_ERROR_SYSCALL`. No remote state or
   code retry is claimed yet.
+
+### MANAGER REVIEW W-TEST-CORE-016
+
+- Scope/base: accepted. Exact `6c39f16db3` is clean on requested
+  `12ab4e621` and adds one slot/test source only (87 lines).
+- Recurrence: two separate interval-two blocks independently exercise within-
+  epoch decay and cross-epoch committed aging; scalar relative-loading math and
+  final `-0.133200133200133` probe target match the final review requirement.
+- Sensitivity: `1e-12` absolute tolerance is far tighter than differences from
+  lambda one, missing pending decay or missing committed aging. Generation/
+  events, exact reference rows and finite output guard state/selection.
+- Decision: accept for cherry-pick. Manager populated Release and Debug reports
+  determine P2 closure; worker-reported counts are supporting evidence only.

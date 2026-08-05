@@ -1998,3 +1998,12 @@ hidden reasoning is not.
   needed.
 - Next: retain the local durable record, review exact worker diff, and retry the
   branch push before publishing final P2 closure.
+
+### E-205 - Analytic forgetting test accepted for integration
+
+- Actor: manager under final review/TDD criteria.
+- Review: exact one-source/one-slot diff; independent lambda 0.5 recurrence,
+  two epoch boundaries, scalar loading and future ApplyOnly observation match
+  `R-CORE-FORGET-001`. Tight tolerance rejects all documented decay mistakes.
+- Decision: accept `6c39f16db3`; commit/push review records, cherry-pick and
+  independently run populated Release plus effective Debug suites.
