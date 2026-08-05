@@ -3036,3 +3036,5 @@ does not continuously poll them.
   reconfigure-reset tracer if clean and relevant.
 - Status: final thread ID is setup-owned and will not be polled. Await only the
   worker-pushed `RESPONSE W-PROC-TEST-002`.
+- GitHub dispatch evidence:
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5193332420`.

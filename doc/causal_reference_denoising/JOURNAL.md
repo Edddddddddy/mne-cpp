@@ -2455,3 +2455,13 @@ hidden reasoning is not.
 - Coordination: worker actively notifies manager; no thread polling.
 - Next: commit/push creation evidence, publish dispatch to issue #4, then leave
   the worker independent.
+
+### E-241 - Processor invalid/disarm coverage dispatch published
+
+- Actor: manager using GitHub connector after creation record `69dc32cd5`.
+- Evidence: issue #4 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5193332420`
+  was read back with exact base/model/setup, acceptance case set, immediate-
+  GREEN classification, reuse and no-polling/no-rt_server rules.
+- Next: no overlapping test-source edit and no thread polling. Resume from the
+  worker-pushed `RESPONSE W-PROC-TEST-002` or new user direction.
