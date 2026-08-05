@@ -786,3 +786,14 @@ hidden reasoning is not.
   worktree lacks ignored Eigen baseline files.
 - Decision: accept the response and commit; integrate and run only the populated
   main-workspace focused target.
+
+### E-081 - Reset-to-fresh-state contract is GREEN
+
+- Actor: manager.
+- Integrated test: `679fc427b`.
+- Evidence: focused Release build succeeded; synchronized Qt report has 35
+  passes, zero failures, exit code 0, and both reset training/probe relative
+  differences equal zero.
+- Result: no production edit is needed for reset semantics.
+- Next: publish evidence, clean the non-reusable detached worktree, then test
+  ApplyOnly/Bypass non-learning state against analytically known weights.

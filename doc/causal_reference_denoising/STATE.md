@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T16:08:00+08:00
+Last updated: 2026-08-05T16:12:00+08:00
 
 ## Recovery order
 
@@ -19,8 +19,8 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-Atomic selected-NaN/Inf behavior and finite-stream chunk-boundary equivalence
-are GREEN. The next contract is reset and three-mode state semantics.
+Atomic selected-NaN/Inf behavior, chunk-boundary equivalence, and reset-to-
+fresh-state semantics are GREEN. The next contract is non-learning mode state.
 
 ## Completed
 
@@ -33,14 +33,15 @@ are GREEN. The next contract is reset and three-mode state semantics.
 
 ## Running workers
 
-`W-TEST-CORE-007` response was recovered successfully for accepted test commit
-`7640f3750`. Integration and populated-workspace validation are pending.
+None. `W-TEST-CORE-007` is integrated and GREEN; publication and isolated
+worktree cleanup are pending.
 
 ## Next actions
 
-1. Integrate the reviewed reset-to-fresh-state test `7640f3750`.
-2. Build and run the synchronized focused Qt report.
-3. Reproduce RED or accept immediate GREEN before the next mode slice.
+1. Publish reset GREEN evidence and remove the clean, non-reusable detached
+   worktree after verifying its commit is integrated.
+2. Dispatch a fresh test worker for ApplyOnly/Bypass non-learning semantics.
+3. Integrate that narrow contract before diagnostics and malloc-guard work.
 
 ## Focused verification targets
 

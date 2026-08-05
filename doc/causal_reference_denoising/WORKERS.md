@@ -911,3 +911,25 @@ The manager records and forwards all cross-worker messages here before acting.
   changes and no subagents.
 - Manager decision: response matches the recovered/reviewed commit; accept for
   cherry-pick and populated-workspace execution.
+
+### MANAGER VALIDATION W-TEST-CORE-007-GREEN
+
+- Integrated commit: `679fc427b`.
+- Focused Release build: success, with only known Eigen/MSVC C4819 code-page
+  warnings.
+- Synchronized runtime: 35 passed, zero failed, exit code 0.
+- Reset evidence: post-reset training relative difference zero and future
+  ApplyOnly probe relative difference zero against a freshly configured control.
+- Decision: reset clears observable causal history, EWLS statistics, pending
+  epoch position, and committed weights for this contract; no production change.
+
+### RETIREMENT REQUEST CLEANUP-007
+
+- Retire completed collaboration agent `/root/w_test_core_007`; it is no longer
+  reusable after the interrupted/response-recovery lifecycle.
+- After this validation is committed/pushed, verify detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-007` is clean at
+  `7640f3750` and remove it with Git worktree management. The test is reachable
+  on integration as `679fc427b`.
+- Publish the 35/0 zero-error evidence to issue #2.
+- Status: recorded before cleanup/publish actions.
