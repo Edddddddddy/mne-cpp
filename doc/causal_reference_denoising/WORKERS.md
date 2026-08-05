@@ -2515,3 +2515,23 @@ The manager records and forwards all cross-worker messages here before acting.
   doing only a read-only include reference to the populated dependency and will
   not edit either worktree.
 - Status: commit/complete response pending.
+
+### RESPONSE W-TEST-CORE-016
+
+- Commit/base: `6c39f16db34ef1aeaf0a0ebcca9a9216051db5d0` on exact
+  `12ab4e621`; clean detached HEAD and no divergence.
+- Scope: one focused test slot/source only; no production/header/CMake/plugin/
+  dependency/benchmark/example/rt_server change and no subagents.
+- Matrices/config: blocks `[[1,1],[0,1]]`, `[[1,1],[0,0]]`, probe
+  `[[1],[0]]`; fs one, tau `1/log(2)`, lambda 0.5, one ref/target/tap,
+  interval/block two, regularization `1e-3`.
+- Recurrence: epoch one `G=1.5,H=1`; epoch-two pending `G=1.5,H=0`;
+  committed decay `0.25`; final `G=1.875,H=0.25`; loaded
+  `W=0.133200133200133`, so probe target is `-W` within `1e-12`.
+- Sensitivity: lambda one `0.24975024975025`; missing within-epoch decay
+  `0.0999000999000999`; missing committed aging `0.333000333000333`.
+- Assertions: one accept/zero reject per block, generations one then two, exact
+  references, finite output and analytic probe equality.
+- Worker validation: immediate GREEN; reported Release 44/0/1 and Debug
+  45/0/0, plus diff check. Manager must independently verify these populated
+  results before closing P2.

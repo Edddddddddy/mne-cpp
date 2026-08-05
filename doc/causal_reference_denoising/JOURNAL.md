@@ -1976,3 +1976,14 @@ hidden reasoning is not.
 - Infrastructure: detached Eigen/Core absence blocks isolated compile; no copy
   or repair occurred, and any remaining dependency reference is read-only.
 - Decision: continue same worker to clean commit; manager owns populated runtime.
+
+### E-203 - Analytic forgetting test response received
+
+- Actor: `/root/w_test_core_016` and manager.
+- Response: clean one-source commit `6c39f16db3` implements the exact final
+  review oracle and reports Release 44/0/1 plus Debug 45/0/0.
+- Sensitivity: lambda one, missing within-epoch decay and missing committed
+  aging predict three distinct weights far beyond the `1e-12` tolerance.
+- Integrity: no production/plugin/dependency/rt_server change or subagents.
+- Decision: response is durable before acting; exact diff review and independent
+  populated Release/Debug verification follow.
