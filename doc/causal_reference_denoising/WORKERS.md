@@ -1999,4 +1999,5 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-CORE-009` with commit, exact validation/write/
   learn/history ordering, atomicity and no-allocation argument, evidence/infra
   limitation, remaining work and no-subagent confirmation.
-- Status: request recorded before cleanup/worktree creation/dispatch.
+- Status: active as collaboration agent `/root/w_core_009`. Detached worktree
+  created clean at `1cfae4696`; Sol/ultra accepted source-only scope.

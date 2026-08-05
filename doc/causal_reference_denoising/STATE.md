@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T22:05:00+08:00
+Last updated: 2026-08-05T22:15:00+08:00
 
 ## Recovery order
 
@@ -34,14 +34,14 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-No worker is running. Application-overflow test `eee23de46` has a valid runtime
-RED: 41 prior passes and one intended all-finite failure; cleanup pending.
+`W-CORE-009` is active as `/root/w_core_009` on Sol/ultra in detached worktree
+`C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-core-009` at `1cfae4696`.
 
 ## Next actions
 
-1. Commit/push RED evidence and `REQUEST W-CORE-009`.
-2. Publish RED and verify/remove the one-shot test worktree.
-3. Dispatch the source-only sample-wide fallback implementation on Sol/ultra.
+1. Await/review `RESPONSE W-CORE-009` without overlapping source edits.
+2. Integrate only validate-before-write sample-wide fallback.
+3. Require all 42 focused checks GREEN before closing P2.
 
 ## Focused verification targets
 
