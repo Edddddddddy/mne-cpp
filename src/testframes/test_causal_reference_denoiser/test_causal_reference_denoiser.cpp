@@ -86,6 +86,7 @@ private slots:
     void reportsDiagnosticsAcrossLifecycle();
     void rejectsPoisonedEpochsAndRecoversWithinBlock();
     void acceptsLoadedRankDeficientEpoch();
+    void reportsStableRmsForLargeBypassAndAnalyticApplyOnly();
 };
 
 //=============================================================================================================
@@ -1065,6 +1066,121 @@ void TestCausalReferenceDenoiser::acceptsLoadedRankDeficientEpoch()
     QVERIFY(probeResult.diagnostics.modelUpdatesRejected == 0);
     QVERIFY(probeBlock(0, 0) == originalProbeBlock(0, 0));
     QVERIFY(probeBlock(1, 0) == originalProbeBlock(1, 0));
+}
+
+//=============================================================================================================
+
+void TestCausalReferenceDenoiser::reportsStableRmsForLargeBypassAndAnalyticApplyOnly()
+{
+    {
+        CausalReferenceDenoiserConfig config;
+        config.samplingFrequencyHz = 1000.0;
+        config.channelCount = 2;
+        config.maxBlockSamples = 4;
+        config.referenceRows = VectorXi(1);
+        config.referenceRows << 0;
+        config.targetRows = VectorXi(1);
+        config.targetRows << 1;
+        config.tapCount = 1;
+        config.adaptationIntervalSamples = 2;
+        config.memoryTimeSeconds = 300.0;
+        config.regularization = 1e-8;
+
+        CausalReferenceDenoiser denoiser;
+        QVERIFY(denoiser.configure(config) == DenoiserStatus::Configured);
+
+        const double largeFiniteTarget = std::numeric_limits<double>::max() / 4.0;
+        MatrixXd bypassBlock(2, 4);
+        bypassBlock << 1.0, -2.0, 3.0, -4.0,
+                       largeFiniteTarget, -largeFiniteTarget,
+                       largeFiniteTarget, -largeFiniteTarget;
+        const MatrixXd originalBypassBlock = bypassBlock;
+
+        const DenoiserProcessResult bypassResult =
+            denoiser.process(bypassBlock, DenoisingMode::BypassTrackHistory);
+        const double largeRmsRelativeTolerance =
+            8.0 * std::numeric_limits<double>::epsilon();
+
+        QVERIFY(bypassResult.status == DenoiserProcessStatus::Bypassed);
+        QVERIFY(originalBypassBlock.row(1).allFinite());
+        QVERIFY((bypassBlock.array() == originalBypassBlock.array()).all());
+        QVERIFY(std::isfinite(bypassResult.diagnostics.inputRms));
+        QVERIFY(std::isfinite(bypassResult.diagnostics.outputRms));
+        QVERIFY(std::abs(bypassResult.diagnostics.inputRms / largeFiniteTarget - 1.0)
+                <= largeRmsRelativeTolerance);
+        QVERIFY(std::abs(bypassResult.diagnostics.outputRms / largeFiniteTarget - 1.0)
+                <= largeRmsRelativeTolerance);
+        QVERIFY(bypassResult.diagnostics.estimatedNoiseRms == 0.0);
+    }
+
+    {
+        CausalReferenceDenoiserConfig config;
+        config.samplingFrequencyHz = 1000.0;
+        config.channelCount = 2;
+        config.maxBlockSamples = 2;
+        config.referenceRows = VectorXi(1);
+        config.referenceRows << 0;
+        config.targetRows = VectorXi(1);
+        config.targetRows << 1;
+        config.tapCount = 1;
+        config.adaptationIntervalSamples = 2;
+        config.memoryTimeSeconds = 300.0;
+        config.regularization = 1e-8;
+
+        CausalReferenceDenoiser denoiser;
+        QVERIFY(denoiser.configure(config) == DenoiserStatus::Configured);
+
+        MatrixXd trainingBlock(2, 2);
+        trainingBlock << 1.0, 2.0,
+                         2.0, 4.0;
+        const DenoiserProcessResult trainingResult =
+            denoiser.process(trainingBlock, DenoisingMode::ApplyAndLearn);
+
+        QVERIFY(trainingResult.status == DenoiserProcessStatus::Processed);
+        QVERIFY(trainingResult.diagnostics.modelGeneration == 1);
+        QVERIFY(trainingResult.diagnostics.modelUpdatesAccepted == 1);
+        QVERIFY(trainingResult.diagnostics.modelUpdatesRejected == 0);
+
+        MatrixXd probeBlock(2, 2);
+        probeBlock << 3.0, 4.0,
+                      10.0, 14.0;
+        const MatrixXd originalProbeBlock = probeBlock;
+
+        const DenoiserProcessResult probeResult =
+            denoiser.process(probeBlock, DenoisingMode::ApplyOnly);
+
+        const double weight = 2.0 / (1.0 + config.regularization);
+        const double expectedFirstResidual = 10.0 - 3.0 * weight;
+        const double expectedSecondResidual = 14.0 - 4.0 * weight;
+        const double expectedInputRms = std::sqrt(148.0);
+        const double expectedOutputRms =
+            std::sqrt((expectedFirstResidual * expectedFirstResidual
+                       + expectedSecondResidual * expectedSecondResidual) / 2.0);
+        const double expectedNoiseRms = weight * std::sqrt(12.5);
+        const double relativeTolerance = 1e-12;
+        const double absoluteTolerance = 1e-12;
+        const auto withinTolerance = [relativeTolerance, absoluteTolerance](double actual,
+                                                                            double expected) {
+            return std::abs(actual - expected)
+                   <= absoluteTolerance + relativeTolerance * std::abs(expected);
+        };
+
+        QVERIFY(probeResult.status == DenoiserProcessStatus::Processed);
+        QVERIFY(probeBlock.allFinite());
+        QVERIFY((probeBlock.row(0).array() == originalProbeBlock.row(0).array()).all());
+        QVERIFY(probeResult.diagnostics.modelGeneration == 1);
+        QVERIFY(probeResult.diagnostics.modelUpdatesAccepted == 0);
+        QVERIFY(probeResult.diagnostics.modelUpdatesRejected == 0);
+        QVERIFY(std::isfinite(probeResult.diagnostics.inputRms));
+        QVERIFY(std::isfinite(probeResult.diagnostics.outputRms));
+        QVERIFY(std::isfinite(probeResult.diagnostics.estimatedNoiseRms));
+        QVERIFY(withinTolerance(probeResult.diagnostics.inputRms, expectedInputRms));
+        QVERIFY(withinTolerance(probeResult.diagnostics.outputRms, expectedOutputRms));
+        QVERIFY(withinTolerance(probeResult.diagnostics.estimatedNoiseRms,
+                                expectedNoiseRms));
+        QVERIFY(withinTolerance(probeBlock(1, 0), expectedFirstResidual));
+        QVERIFY(withinTolerance(probeBlock(1, 1), expectedSecondResidual));
+    }
 }
 
 //=============================================================================================================
