@@ -254,11 +254,22 @@ struct CausalReferenceDenoiser::Impl
 
         decomposition.compute(solveMatrix);
         if (decomposition.info() != Eigen::Success
-            || !decomposition.vectorD().allFinite()) {
+            || !decomposition.isPositive()) {
             return false;
         }
 
+        for (Eigen::Index pivot = 0; pivot < featureCount; ++pivot) {
+            const double pivotValue = decomposition.vectorD()(pivot);
+            if (!std::isfinite(pivotValue) || pivotValue <= 0.0) {
+                return false;
+            }
+        }
+
         solveRightHandSide.noalias() = candidateCross.transpose();
+        if (!solveRightHandSide.allFinite()) {
+            return false;
+        }
+
         candidateWeightsTranspose.noalias() = decomposition.solve(solveRightHandSide);
         if (decomposition.info() != Eigen::Success
             || !candidateWeightsTranspose.allFinite()) {
