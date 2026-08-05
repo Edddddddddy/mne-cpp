@@ -1291,3 +1291,12 @@ hidden reasoning is not.
   expectation with detached runtime limitation.
 - Decision: record before acting; inspect the exact rank/ridge assertions, then
   integrate and run the populated-workspace report if accepted.
+
+### E-134 - Rank-deficient characterization accepted
+
+- Actor: manager under TDD and P2 review criteria.
+- Review: exact one-slot/test-only scope; tap-major eligible features form a
+  proven rank-one span and the loaded analytic future residual is about
+  `6.144e-7` against a `1e-5` threshold.
+- Decision: accept `148870f87`; commit the review, cherry-pick, and run the
+  populated focused report before strict pivot hardening.

@@ -1618,3 +1618,19 @@ The manager records and forwards all cross-worker messages here before acting.
 - Classification/lifecycle: immediate GREEN characterization expected; no
   production/build/plugin/dependency/rt_server change and no subagents.
 - Manager status: response durable; exact diff/oracle review follows.
+
+### MANAGER REVIEW W-TEST-CORE-011
+
+- Scope/base: accepted; exact commit `148870f87` is clean on `aebe2fafb` and
+  changes only the focused test source with one slot.
+- Rank proof: after warmup, tap-major vectors are exactly
+  `[2s,4s,s,2s]^T = s*v` for `s={1,2,4,8}`, so the four-dimensional normal
+  matrix has rank one before loading.
+- Oracle: `y=3*r0=6s`; the next probe feature is `16v` and target 96. Relative
+  loading `1e-8` gives a ridge residual about `6.144e-7`, safely inside the
+  nontrivial `1e-5` tolerance while rejecting a zero/unlearned model.
+- State/rows: one warmup plus four eligible samples produces exactly one
+  boundary; old model keeps training exact, diagnostics require `1/0` and
+  generation one, and both reference rows are value-preserved.
+- Decision: accept for cherry-pick and populated-workspace immediate-GREEN
+  characterization. No production change is inferred from worker evidence.
