@@ -3022,3 +3022,17 @@ does not continuously poll them.
   changed file, clean status and no-subagent confirmation. Actively send to the
   manager thread and stop without polling.
 - Status: request recorded before visible work conversation creation.
+
+### RESPONSE W-PROC-TEST-002-CREATE
+
+- Result: visible saved-project worktree creation accepted asynchronously.
+- Client setup ID: `client-new-thread:9b5ed006-e485-4b72-94f5-c37db3fb1d76`.
+- Model/host: `gpt-5.6-luna`, `max`, local; satisfies the user hard model rule.
+- Exact branch base: `a868914ca6a41cba17762c35bfb602e36feb5f5e`.
+- Prompt integrity: one test-source behavior, complete invalid/missing/feature-
+  cap cases, prime/disarm/probe oracle, immediate-GREEN classification, no
+  production/dependency/rt_server/subagent and manager active-notification rule.
+- Reuse: keep the conversation after this response for the separate valid-
+  reconfigure-reset tracer if clean and relevant.
+- Status: final thread ID is setup-owned and will not be polled. Await only the
+  worker-pushed `RESPONSE W-PROC-TEST-002`.

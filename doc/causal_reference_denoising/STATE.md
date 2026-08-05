@@ -50,16 +50,15 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 
 ## Running workers
 
-- None executing. `W-PROC-GREEN-001` is integrated, published and its visible
-  thread archived. Reusable Luna/max processor-coverage request
-  `W-PROC-TEST-002` is prepared to validate all invalid/missing classifications
-  and stale-model disarm; it is not yet dispatched.
+- `W-PROC-TEST-002`: visible reusable Luna/max processor-test conversation,
+  client setup `client-new-thread:9b5ed006-e485-4b72-94f5-c37db3fb1d76`,
+  exact integration base `a868914ca`. It owns only the focused test source and
+  must proactively return RESPONSE; manager does not poll.
 
 ## Next actions
 
-1. Dispatch the invalid/missing-layout and stale-model-disarm acceptance tracer
-   to a reusable visible Luna/max processor-test conversation.
-2. Validate the returned focused test, then reuse that same relevant
+1. Receive/review/validate `RESPONSE W-PROC-TEST-002` without polling.
+2. Reuse that same relevant
    conversation for the separate valid-reconfigure-reset tracer.
 3. After issue #4 reaches a milestone commit, open a separate visible
    Sol/ultra review conversation before integration.

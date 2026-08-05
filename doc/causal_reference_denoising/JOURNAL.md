@@ -2441,3 +2441,17 @@ hidden reasoning is not.
   response if its worktree remains usable.
 - Next: commit/push this lifecycle/request record, create the visible worktree
   conversation and record its returned identity/base before publication.
+
+### E-240 - Reusable processor coverage conversation accepted
+
+- Actor: manager and Codex app saved-project task creation.
+- Dispatch: Luna/max client setup
+  `client-new-thread:9b5ed006-e485-4b72-94f5-c37db3fb1d76` accepted from exact
+  integration base `a868914ca`.
+- Scope: one test-source acceptance behavior covering metadata, missing picks,
+  every settings bound and feature-cap disarm; immediate GREEN expected.
+- Lifecycle: retain this relevant conversation after response for the separate
+  valid-reconfigure-reset test rather than archiving/recreating it.
+- Coordination: worker actively notifies manager; no thread polling.
+- Next: commit/push creation evidence, publish dispatch to issue #4, then leave
+  the worker independent.
