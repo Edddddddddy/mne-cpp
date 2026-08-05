@@ -2993,3 +2993,17 @@ hidden reasoning is not.
   join safety and restrictions.
 - Coordination: do not poll or edit the focused test source. Read-only planning
   or non-overlapping example/document work may proceed while awaiting response.
+
+### E-286 - Focused streaming example request prepared
+
+- Request: `W-EXAMPLE-001`, new visible Luna/max task under issue #7.
+- Scope: examples registration plus new example CMake/main only; no overlap
+  with queue lifecycle test or plugin implementation.
+- Teaching behavior: deterministic continuous references, tap-major target
+  noise, preserved rows, block warmup/learning/freeze/reset/bypass and fixed
+  diagnostics printed through the public numerical interface.
+- Dependency choice: compile numerical source directly with Qt Core/Eigen to
+  keep focused verification outside the known full mne_rtprocessing/FIFF link
+  blocker; final client-link P3 remains explicit.
+- Next: commit/push request, create/record Luna/max worktree and publish issue
+  #7 dispatch without polling either active worker.

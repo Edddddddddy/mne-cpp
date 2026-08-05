@@ -76,6 +76,10 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 `client-new-thread:0b964bc3-a775-4fbf-88c3-657beb2570a5`.
 Its public dispatch is
 `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5194824674`.
+
+Non-overlapping issue #7 work is prepared as `W-EXAMPLE-001`: a focused
+Eigen/streaming example target that directly exercises the completed numerical
+interface without FIFF, full mne_scan or mne_rt_server.
 3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.

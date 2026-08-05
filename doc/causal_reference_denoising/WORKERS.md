@@ -3893,3 +3893,47 @@ does not continuously poll them.
   no-subagent/no-polling/no-rt_server restrictions match the durable request.
 - Status: public dispatch complete. Manager will not poll or overlap the test
   source and awaits only the worker-pushed RESPONSE.
+
+### REQUEST W-EXAMPLE-001
+
+- From / to: manager thread
+  `019fcdc3-4a1e-76d1-8140-1bd521219297` / new visible example work
+  conversation.
+- GitHub issue: `Edddddddddy/mne-cpp#7`.
+- Model/environment: `gpt-5.6-luna`, `max`, new saved-project worktree from the
+  current branch; no internal/nested subagents.
+- Independence: modifies only examples registration and a new example
+  directory, so it may run while `W-QUEUE-TEST-002` owns the focused test
+  source. It does not consume the queue/plugin seam.
+- Task: add focused target `ex_causal_reference_denoising` with a deterministic
+  C++14/Eigen stream that uses the public `CausalReferenceDenoiser` interface.
+  Demonstrate channel-by-time matrices, two reference rows, one target, one
+  preserved row, four tap-major lags, 128-sample blocks, warmup, multiple
+  ApplyAndLearn blocks, ApplyOnly freeze, reset and BypassTrackHistory.
+- Observable teaching output: print config dimensions (`R/M/P`), each stage's
+  status/warmup/generation/accepted/rejected counts and input/output/estimated-
+  noise RMS. Print and enforce exact preserved reference/unrelated rows, finite
+  target output, generation growth during learning, zero call-local updates in
+  freeze and generation reset after reset. Exit nonzero on a violated invariant.
+- Synthetic data: explicit deterministic reference formulas and known
+  tap-major environmental weights plus a clean sinusoid; maintain one
+  continuous causal reference stream across block boundaries. Algorithm effect
+  is illustrative here; do not duplicate or retune the quantitative unit-test
+  gate.
+- Focused dependency seam: add one examples top-level registration, new example
+  CMake and `main.cpp`. Compile `causalreferencedenoiser.cpp` directly, include
+  `${CMAKE_SOURCE_DIR}/libraries`, define `MNE_RTPROCESSING_LIBRARY`, and link
+  only Qt Core and Eigen. Do not link mne_rtprocessing/mne_fiff/mne_scan or
+  repair the known toolchain baseline; actual client-link remains final QA P3.
+- Authorized files: `src/examples/CMakeLists.txt` and new
+  `src/examples/ex_causal_reference_denoising/{CMakeLists.txt,main.cpp}` only.
+  No numerical/test/plugin/queue/docs/vendor/dependency/rt_server changes.
+- Required verification: focused Release build/run if dependencies permit,
+  complete console/report output and exit code; otherwise honest ignored Eigen
+  limitation. Exact diff/clean commit checks.
+- Required response: `RESPONSE W-EXAMPLE-001` with base/commit, matrices/
+  generator/weights/stage sequence, output invariants, CMake dependency proof,
+  build/run evidence or limitation, files/clean status and no-subagent/no-poll
+  confirmation. Proactively notify manager and stop.
+- Lifecycle: one-shot; benchmark and guide remain separate later tasks.
+- Status: recorded before visible task creation.
