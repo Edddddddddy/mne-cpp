@@ -3336,3 +3336,17 @@ hidden reasoning is not.
   exactly records ownership bridging, first-shape bootstrap and row-transition
   evidence plus the deliberate wait for formal queue review.
 - Scope: discussion only; no source/interface/vendor mutation.
+
+### E-318 - Focused benchmark response received
+
+- Actor: visible Luna/max thread
+  `019fd300-a9e2-7f93-8063-32450ff1d543` and manager.
+- Delta: exact-base `79eff3b3a`, one example-main edit adding only
+  `--benchmark`; default teaching mode is claimed unchanged.
+- Workload/timing: 270 rows, P=64, 100 warmup plus 1000 timed complete process
+  calls; input restore outside timer; nearest-rank p50/p95/max and strict 128 ms
+  gate with row/finite/status checks.
+- Evidence limit: isolated ignored-Eigen gap prevents worker run; it performed
+  no repair or fabricated percentile and used no subagent/poll/full scan/server.
+- Next: commit/push response, inspect exact one-file diff and timer boundaries,
+  then integrate and run populated Release only if accepted.

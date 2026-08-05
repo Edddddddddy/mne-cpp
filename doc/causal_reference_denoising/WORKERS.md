@@ -4269,6 +4269,32 @@ does not continuously poll them.
   restrictions.
 - Status: public dispatch complete; manager will not poll or edit example main.
 
+### RESPONSE W-BENCH-001
+
+- From / to: visible Luna/max benchmark thread
+  `019fd300-a9e2-7f93-8063-32450ff1d543` / manager.
+- Exact base/commit: `60b394ab2b30509e46b11c16ee3121d99488414b` /
+  `79eff3b3ac6119955c6288bd50030d515736f1a5`; exact parent, clean detached
+  initial/final worktree and one authorized example-main file.
+- Default mode: existing teaching output/invariants are preserved; only
+  `--benchmark` dispatch is added.
+- Workload: 270 rows = 16 references + 250 targets + four preserved, P=64,
+  1000 Hz/128 samples, four taps, one epoch per block, 30 s/1e-3 settings.
+  Deterministic finite xorshift/AR/multisine-style data is prepared before timing.
+- Timing: one configure, exactly 100 untimed and 1000 timed ApplyAndLearn calls.
+  Same-sized work data is restored with raw contiguous copy before each timer;
+  the interval contains clocks, complete process/solve and preallocated timing
+  write only, with no per-block I/O/container growth.
+- Oracle: every call Processed; representative selected target finite; all
+  references/preserved rows exact. Nearest-rank percentile is
+  `rank=ceil(q*N)`, value `sorted[rank-1]`; report p50/p95/max, generations and
+  events, and exit failure unless p95 is strictly below 128 ms.
+- Worker evidence: isolated VS18 configure is blocked by the known ignored
+  Eigen gap; a VS2022 attempt also lacks v143. No vendor repair or runtime
+  percentile claim. Generated temporary/build outputs were cleaned. Luna/max,
+  no subagent, polling, full scan or rt_server.
+- Status: response durable before manager provenance/code/timing review.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread
