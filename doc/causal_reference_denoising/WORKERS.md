@@ -3702,3 +3702,20 @@ does not continuously poll them.
 - Lifecycle: retain until manager accepts GREEN because a focused follow-up may
   be useful only if the same implementation context remains current.
 - Status: recorded before visible task creation.
+
+### RESPONSE W-QUEUE-GREEN-001-CREATE
+
+- Result: visible saved-project worktree creation was accepted asynchronously.
+- Client setup ID:
+  `client-new-thread:e551ef42-5b43-48d0-a0e1-ddb5863854d4`.
+- Host/model: local, `gpt-5.6-sol`, `ultra`; the saved project is a Git
+  repository and the task uses an app-managed worktree.
+- Exact branch base at dispatch:
+  `930480bf301a05a51e12f7c24be3b93a29ddf9bb`.
+- Prompt integrity: exact three-file authorization, immutable integrated RED,
+  semaphore/index/stop/reconfigure contract, recovery and skill reads,
+  no-dependency-repair/no-subagent/no-rt_server/no-polling restrictions and
+  proactive `RESPONSE W-QUEUE-GREEN-001` notification to the manager.
+- Coordination: setup returned no final thread ID and will not be polled. The
+  manager awaits only the worker-pushed RESPONSE after issue dispatch is
+  published.

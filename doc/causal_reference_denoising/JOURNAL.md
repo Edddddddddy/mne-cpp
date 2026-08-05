@@ -2885,3 +2885,17 @@ hidden reasoning is not.
   authorized.
 - Next: commit/push request, create task, record identity and publish dispatch
   to issue #5 without polling.
+
+### E-277 - Queue implementation task creation accepted
+
+- Actor: manager and Codex visible task creation.
+- Result: Sol/ultra app-managed worktree setup accepted as
+  `client-new-thread:e551ef42-5b43-48d0-a0e1-ddb5863854d4` from exact request
+  base `930480bf3`.
+- Contract: only queue header/source plus focused CMake; existing RED test is
+  immutable. The prompt includes SPSC publication, one-shot producer acquire,
+  timed consumer, stop wake, fresh reconfigure and no-allocation constraints.
+- Coordination: no final thread ID was returned; the manager will not poll.
+  The worker must proactively send `RESPONSE W-QUEUE-GREEN-001`.
+- Next: commit/push creation evidence, publish/read back the dispatch on issue
+  #5, then wait only for the worker response or new user direction.

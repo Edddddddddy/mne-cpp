@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T02:00:00+08:00
+Last updated: 2026-08-06T02:05:00+08:00
 
 ## Recovery order
 
@@ -56,13 +56,13 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 - `W-QUEUE-TEST-001` is integrated as `b3ff9afc1`. Populated Release build
   reaches the intended C1083 missing `adaptivedenoisingblockqueue.h`; valid RED
   is accepted and published. Worker clean/content precheck passes; archival
-  completed without manual worktree deletion. `W-QUEUE-GREEN-001` is prepared
-  for a new visible Sol/ultra implementation conversation after push.
+  completed without manual worktree deletion. `W-QUEUE-GREEN-001` was created
+  as a new visible Sol/ultra implementation task from exact base `930480bf3`;
+  setup ID is `client-new-thread:e551ef42-5b43-48d0-a0e1-ddb5863854d4`.
 
 ## Next actions
 
-1. Dispatch the recorded Sol/ultra `W-QUEUE-GREEN-001` implementation task and
-   publish it to issue #5.
+1. Publish the recorded Sol/ultra `W-QUEUE-GREEN-001` dispatch to issue #5.
 2. Await only its proactive RESPONSE; do not poll.
 3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
