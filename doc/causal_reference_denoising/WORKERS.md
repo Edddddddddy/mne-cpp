@@ -1706,3 +1706,23 @@ The manager records and forwards all cross-worker messages here before acting.
   manager-owned due the known detached baseline gap.
 - Scope/lifecycle: 40/0 rank-one behavior expected unchanged; no subagents.
 - Next: worker is finishing static checks/commit; do not duplicate or rescope.
+
+### RESPONSE W-CORE-008
+
+- Commit: `e09e3da5c641c6c48e4e74211458e746b2f4c9b6`.
+- Changed file: numerical source only.
+- Acceptance order: finite solve matrix; LDLT compute; Success; positive
+  factorization; every `D` pivot finite and strictly positive; materialized RHS
+  finite; solve; solve Success; finite candidate weights; only then commit
+  candidate `G/H/W`.
+- Transaction: every failure returns false before committed writes, reusing the
+  existing rejection diagnostics and pending cleanup. Loading, recurrence,
+  tolerances and public interface are unchanged.
+- Evidence: exact clean base `230697fed`, pre-stage/staged/committed diff checks,
+  clean detached HEAD and one source file. Detached compile/runtime remains
+  unavailable due the known ignored dependency/build gap.
+- Expected characterization: immediate 40/0 GREEN; loaded rank-one equations
+  remain positive after loading and poisoned candidates remain rejected.
+- Remaining untouched: RMS coverage, application fallback, malloc guard,
+  synthetic/plugin/dependency/rt_server work. No subagents.
+- Manager status: response durable; exact commit review follows.

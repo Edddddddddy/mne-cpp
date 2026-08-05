@@ -1348,3 +1348,13 @@ hidden reasoning is not.
   compile/runtime remains manager-owned; no subagents.
 - Decision: record before inspecting the isolated diff; await the clean commit
   response without duplicate implementation.
+
+### E-140 - Strict LDLT hardening response received
+
+- Actor: `/root/w_core_008` and manager.
+- Response: clean one-source commit `e09e3da5c` adds Success, positivity,
+  strict-finite-pivot, finite-RHS and finite-weight gates before atomic commit.
+- Evidence: clean exact base/diff/HEAD, no subagents and documented detached
+  runtime limitation; 40/0 characterization is expected.
+- Decision: record before acting; perform exact commit review and populated
+  compilation/runtime only after acceptance.
