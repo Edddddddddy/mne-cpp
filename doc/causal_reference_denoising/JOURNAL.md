@@ -916,3 +916,12 @@ hidden reasoning is not.
   resolved.
 - Scope: read-only, no subagents, no rt_server.
 - Decision: continue the same review; do not preempt its interface conclusion.
+
+### E-095 - Diagnostics reviewer asked to conclude
+
+- Actor: manager.
+- Evidence: review inputs are complete, no blocker exists, and several later
+  bounded waits produced no new dependency or question.
+- Action: `REQUEST R-DIAGNOSTICS-001-FINISH` asks for the structured conclusion
+  now, without plugin expansion or code edits.
+- Next: receive one final interface/finding set and retire the reviewer.

@@ -1078,3 +1078,13 @@ The manager records and forwards all cross-worker messages here before acting.
   EWLS rejection policy.
 - Scope/lifecycle: strictly read-only, no subagents, no rt_server.
 - Next: continue the same review without duplicate dispatch.
+
+### REQUEST R-DIAGNOSTICS-001-FINISH
+
+- From / to: manager / `/root/r_diagnostics_001`.
+- Blocking: no; scope and evidence set are unchanged.
+- Context: reviewer reported no blocker and completed source/test inspection;
+  multiple later bounded waits produced no additional request.
+- Instruction: conclude the design choice now and return the required structured
+  final response; do not expand into plugin design or implementation.
+- Status: recorded before forwarding.
