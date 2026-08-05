@@ -2166,3 +2166,21 @@ hidden reasoning is not.
 - Next: commit/push this authorization record, create the five issues through
   the GitHub connector, update epic #2, then durably register the first tracer
   REQUEST before creating its visible work conversation.
+
+### E-219 - Five engineering child issues created
+
+- Actor: manager using the GitHub connector after authorization record
+  `fdbb29cbc` was pushed.
+- Created:
+  - `#4` AdaptiveDenoisingProcessor mapping and focused tests;
+  - `#5` nonblocking input queue and worker lifecycle;
+  - `#6` scan_adaptivedenoising plugin and minimal teaching controls;
+  - `#7` causal denoising example, benchmark and Eigen guide;
+  - `#3` final integration verification and review closure.
+- Each issue links parent epic #2, the integration branch, worker sequence,
+  focused acceptance and the `mne_rt_server` prohibition.
+- Ordering note: GitHub assigned #3 to the QA creation that completed first;
+  issue numbers do not encode execution order. Execution remains #4, #5, #6,
+  #7, then #3.
+- Next: commit/push the returned issue identities, then update epic #2 body with
+  completed core gates and the linked child checklist.

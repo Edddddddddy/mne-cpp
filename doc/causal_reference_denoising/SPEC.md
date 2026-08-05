@@ -23,14 +23,14 @@ controls/diagnostics, then example/benchmark/learning documentation. The user
 accepts the focused targets and example; full `mne_scan + mne_rt_server` is not
 required.
 
-The proposed GitHub work breakdown keeps issue #2 as the feature epic and uses
-five remaining child issues:
+The GitHub work breakdown keeps issue #2 as the feature epic and uses five
+remaining child issues:
 
-1. Plugin processor, channel mapping and focused adapter tests.
-2. Nonblocking drop-newest queue and processing-thread lifecycle.
-3. `scan_adaptivedenoising` plugin shell, block-boundary settings and minimal UI.
-4. Synthetic example, real-time benchmark and Eigen/streaming learning docs.
-5. Focused integration verification, tracked P3 closure and final review.
+1. `#4`: plugin processor, channel mapping and focused adapter tests.
+2. `#5`: nonblocking drop-newest queue and processing-thread lifecycle.
+3. `#6`: `scan_adaptivedenoising` plugin shell, block-boundary settings and minimal UI.
+4. `#7`: synthetic example, real-time benchmark and Eigen/streaming learning docs.
+5. `#3`: focused integration verification, tracked P3 closure and final review.
 
 Each child issue is split into reviewable minimal REQUEST blocks. Tests and
 production GREEN changes are separate blocks where practical, but speed takes

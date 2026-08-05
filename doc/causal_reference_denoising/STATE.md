@@ -16,6 +16,12 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 - Remote branch: `origin/codex/causal-reference-denoising` published and tracked.
 - GitHub issue: `Edddddddddy/mne-cpp#2`.
 - Old issue: `Edddddddddy/mne-cpp#1`, closed as superseded by issue #2.
+- Engineering child issues:
+  - `#4` processor mapping and focused tests;
+  - `#5` nonblocking queue and worker lifecycle;
+  - `#6` plugin shell and minimal teaching controls;
+  - `#7` example, benchmark and Eigen guide;
+  - `#3` final QA and review closure.
 
 ## Current phase
 
@@ -51,9 +57,8 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 
 ## Next actions
 
-1. Create the approved five child issues and link their dependency/order from
-   epic #2.
-2. Dispatch the first minimal plugin-processor test task to a new visible work
+1. Update epic #2 with completed core gates and links to child issues #3-#7.
+2. Dispatch the first minimal plugin-processor test task under issue #4 to a new visible work
    conversation using Luna/max or Sol as risk requires.
 3. Receive its explicit RESPONSE without polling, then open a separate visible
    Sol/ultra review conversation before integration.
