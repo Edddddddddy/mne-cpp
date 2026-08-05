@@ -4284,3 +4284,49 @@ does not continuously poll them.
   CMake `d9912a44`, main `ccdcdbf4`.
 - Review, populated Release PASS and GitHub evidence are durable. The one-shot
   example thread may be app-archived without deleting/modifying its worktree.
+
+### RESPONSE W-QUEUE-TEST-003-RETIRE
+
+- App archived completed visible thread
+  `019fd2e0-188f-7a62-a89c-7ceefa15f6cd` successfully.
+- No manual worktree deletion or mutation occurred; implementation thread
+  `019fd2bd-b720-7b30-8d65-780a0b500924` remains available only for review-
+  driven narrow fixes.
+
+### RESPONSE W-EXAMPLE-001-RETIRE
+
+- App archived completed visible thread
+  `019fd2e5-43ca-79c3-822c-20ef795608f1` successfully.
+- No manual worktree deletion or mutation occurred. Later benchmark work must
+  use a new minimal Luna/max task rather than reviving this one-shot example.
+
+### REQUEST R-QUEUE-001
+
+- From / to: manager / new independent visible review conversation.
+- GitHub issue: `Edddddddddy/mne-cpp#5`.
+- Model/environment: `gpt-5.6-sol`, `ultra`, new saved-project worktree from
+  the exact current integration branch; no internal/nested subagents.
+- Mode: read-only formal code review. Do not edit, stage, commit, push, mutate
+  GitHub, repair dependencies, run full mne_scan or run rt_server.
+- Required recovery: read `STATE.md`, `SPEC.md`, complete relevant queue
+  REQUEST/RESPONSE sections in `WORKERS.md`, `REVIEW.md`, and `JOURNAL.md`
+  tail. Read the complete `codebase-design` skill and relevant deepening guide.
+- Exact review surface: queue header/source, focused plugin-test CMake and all
+  queue QtTest slots. Inspect numerical/processor/plugin plans only enough to
+  judge the seam and intended caller lifecycle.
+- Review questions: concrete-module depth/locality; SPSC ownership assumptions;
+  free/filled semaphore and ring-index publication; stop races before/during
+  push/pop and pending-data discard; stopped reconfigure/destruction quiescence;
+  transactional configure; matrix/metadata FIFO/deep-copy lifetime; shared_ptr
+  operations; drop-newest; invalid-operation state preservation; timeout edge
+  behavior; truthful noexcept; and hot-path no-allocation/no-lock/no-retry claims.
+- Evidence: independently inspect exact snapshot/diff ancestry and durable 8/0/0
+  report. A fresh build is optional if the known isolated Eigen gap exists; do
+  not claim manager runtime as independently reproduced.
+- Required response: `RESPONSE R-QUEUE-001` with reviewed SHA and clean status,
+  prioritized P0-P3 findings (ID, exact file/line, evidence, impact, correction,
+  required test), explicit P0/P1/P2 counts, residual plugin-lifecycle risks and
+  PASS/HOLD gate recommendation. Proactively notify manager and stop; no polling.
+- Lifecycle: one-shot independent reviewer; archive after response/evidence is
+  durable and all blocking findings are resolved or assigned.
+- Status: recorded and will be committed/pushed before task creation.

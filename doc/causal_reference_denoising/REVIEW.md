@@ -14,6 +14,12 @@
 - Fixes are returned to a new or still-relevant Luna/max or Sol implementation
   conversation through a logged `REQUEST`/`RESPONSE` exchange.
 
+## Queue formal review pending
+
+- `R-QUEUE-001`: independent visible Sol/ultra review of the concrete
+  preallocated SPSC queue, stop/reconfigure lifecycle, public tests and
+  realtime constraints. No finding exists until the reviewer returns evidence.
+
 ## Core numerical review
 
 Formal independent review `R-CORE-001` completed on Sol/ultra against exact

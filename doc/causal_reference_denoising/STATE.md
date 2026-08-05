@@ -72,9 +72,9 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 
 ## Next actions
 
-1. Publish final focused queue GREEN, content-verify/archive the completed
-   Luna/max test conversation, then dispatch independent Sol/ultra queue review.
-   Retain the implementation conversation for a narrow fix until that gate.
+1. Dispatch independent Sol/ultra queue concurrency/realtime review from the
+   current exact integration snapshot. Retain the implementation conversation
+   for a narrow fix until that gate passes.
 2. Create the already-durable `W-DOC-001` visible Luna/max task while example
    work remains non-overlapping; do not poll either task.
 
@@ -110,7 +110,7 @@ generation four, freeze emits zero updates and reset restores generation zero.
 GREEN is published at
 `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5195038508`.
 Queue-test and example worker scoped blobs exactly match integration; both
-one-shot conversations are ready for app archival without worktree deletion.
+one-shot conversations were app-archived without worktree deletion.
 3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.

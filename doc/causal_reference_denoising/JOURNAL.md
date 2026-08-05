@@ -3230,3 +3230,24 @@ hidden reasoning is not.
 - Evidence: reviews, populated Release runs and GitHub comments are durable.
 - Next: commit/push precheck, archive both completed visible conversations via
   the app only, then record retirement and prepare formal queue review.
+
+### E-307 - Completed queue-test and example workers archived
+
+- App archived visible threads `019fd2e0-188f-7a62-a89c-7ceefa15f6cd` and
+  `019fd2e5-43ca-79c3-822c-20ef795608f1` after exact content/GREEN/GitHub
+  prechecks were durable.
+- Safety: no manual deletion or mutation of either app-owned worktree.
+- Retention: Sol queue implementation thread remains available only for a
+  narrow review-driven correction.
+
+### E-308 - Independent queue formal review requested
+
+- Request: `R-QUEUE-001`, new visible Sol/ultra read-only review at the exact
+  integration snapshot after this request commit.
+- Focus: concrete deep-module seam, SPSC publication, semaphore/index ordering,
+  stop/push/pop races, discard/reconfigure quiescence, metadata lifetime,
+  transactional/noexcept/no-allocation claims and focused test sensitivity.
+- Output: P0-P3 findings with exact evidence/fix/tests plus PASS/HOLD; no edits,
+  GitHub mutation, dependency repair, full scan, rt_server, subagent or polling.
+- Next: commit/push request, create/record the visible worktree and publish
+  issue #5 dispatch; do not poll the reviewer.
