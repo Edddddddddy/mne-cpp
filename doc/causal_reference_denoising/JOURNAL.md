@@ -545,3 +545,12 @@ hidden reasoning is not.
   and target-only write are accepted for the current tracer.
 - Next: publish evidence, retire the non-reusable implementation threads, and
   dispatch atomic nonfinite RED on Luna/max.
+
+### E-057 - Causal implementation threads retired
+
+- Actor: manager and Codex app.
+- Request: `CLEANUP-003`.
+- Result: `W-CORE-004` and both interrupted unauthorized nested reviewer
+  threads returned `archived: true`.
+- Evidence remains durable in commits, test reports, and `WORKERS.md`.
+- Next: create fresh Luna/max `W-TEST-CORE-005`.

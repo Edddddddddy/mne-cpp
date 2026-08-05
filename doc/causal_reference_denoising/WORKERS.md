@@ -603,7 +603,7 @@ The manager records and forwards all cross-worker messages here before acting.
   `019fd018-8939-7e72-9fc8-17085c79806e` and interrupted nested threads
   `019fd019-994e-7380-9be9-105d31501639` and
   `019fd019-b14a-7473-95c9-6d18c5cb91ff` after this record is committed.
-- Status: pending action.
+- Status: complete; all three app calls returned `archived: true`.
 
 ### REQUEST W-TEST-CORE-005
 
