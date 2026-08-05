@@ -1170,3 +1170,11 @@ hidden reasoning is not.
   Sol/ultra fix scope under `R-SOLVE-001`.
 - Next: commit/push this record, publish the concise issue comment, then record
   its returned URL without changing worker scope.
+
+### E-122 - Transactional RED published to issue #2
+
+- Actor: manager through the authenticated GitHub workflow.
+- Result: issue comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5189966843`
+  records test commit, 38/1 evidence, failure semantics and the bounded P1 fix.
+- Next: continue waiting for `W-CORE-007`; no duplicate worker or scope change.
