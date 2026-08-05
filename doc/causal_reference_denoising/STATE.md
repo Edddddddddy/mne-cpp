@@ -35,9 +35,9 @@ clean projection-amplitude error. Formal independent core review is next.
 
 ## Running workers
 
-Formal reviewer `R-CORE-001` is complete: P0/P1 are zero, one P2 analytic
-forgetting-test gap is open, and two P3 integration/documentation items are
-tracked. Its read-only worktree is pending verified retirement.
+Formal reviewer `R-CORE-001` is complete and safely retired: P0/P1 are zero,
+one P2 analytic forgetting-test gap is open, and two P3 integration/
+documentation items are tracked. A focused P2 test task is being prepared.
 
 ## Next actions
 

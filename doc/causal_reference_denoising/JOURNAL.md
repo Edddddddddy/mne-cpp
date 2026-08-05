@@ -1928,3 +1928,22 @@ hidden reasoning is not.
 - Integrity: reviewer changed nothing, ran no rt_server and used no subagents.
 - Next: commit/push findings, safely retire the review worktree, then dispatch
   a one-slot public forgetting test worker.
+
+### E-198 - Formal core reviewer safely retired
+
+- Actor: manager under worker lifecycle policy.
+- Verification: detached review worktree clean at exact `f0a0e14d7`; Git-
+  managed removal succeeded and the path no longer exists.
+- Lifecycle: completed one-shot reviewer will not be reused; findings remain
+  durable in WORKERS/REVIEW/JOURNAL.
+- Next: prepare the P2 forgetting test request.
+
+### E-199 - Analytic forgetting P2 test request prepared
+
+- Actor: manager under TDD and final `R-CORE-FORGET-001`.
+- Request: `W-TEST-CORE-016`, Sol/high, one public test slot/source and no
+  subagents; two sequential interval-two epochs with independent lambda 0.5 and
+  future prediction `W=0.25/(1.875*(1+regularization))`.
+- Sensitivity: lambda one, missing within-epoch decay or missing committed-stat
+  aging produce materially different future output.
+- Next: commit/push, create exact detached worktree and dispatch.

@@ -2446,3 +2446,40 @@ The manager records and forwards all cross-worker messages here before acting.
   lacks fault injection; extreme `fs*tau` rounding to zero/one uncharacterized.
 - Gate recommendation: hold only for the sole P2 analytic test; then core may
   proceed while tracking the two P3s.
+
+### RETIREMENT RESPONSE CLEANUP-020
+
+- Review worktree `C:/Users/lcy/Desktop/meg/mne-cpp-review-r-core-001` was
+  clean at exact reviewed `f0a0e14d7`; verified Git worktree removal succeeded.
+- Reviewer made no code/GitHub mutations and is a completed one-shot role; it
+  will not be reused. Durable findings remain in this ledger and REVIEW.md.
+
+### REQUEST W-TEST-CORE-016
+
+- From / to: manager / analytic forgetting acceptance test worker.
+- Planned execution: detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-016` from the exact
+  integration HEAD recorded after request commit.
+- Model/environment: `gpt-5.6-sol`, `high`; no nested subagents.
+- Model decision: this is a bounded one-slot public analytic oracle with fully
+  specified scalar equations; Sol/high is sufficient while formal review used
+  Sol/ultra.
+- Blocking: yes for P2 `R-CORE-FORGET-001` and core gate closure.
+- Task: add exactly one public-interface Qt test slot. Configure one reference,
+  one target, one tap, two-sample max block/update interval, `fs=1`,
+  `memoryTimeSeconds=1/log(2)` so independently `lambda=0.5`, and a supported
+  fixed regularization. Process two sequential ApplyAndLearn blocks whose full
+  stream has references `[1,1,1,1]` and raw targets `[0,1,0,0]`. Require one
+  accepted update per block, zero rejects, generation two and exact references.
+  Then ApplyOnly a future `r=1`, raw-target-zero sample and require output equal
+  `-W` with `G=1.875`, `H=0.25`,
+  `W=H/(G*(1+regularization))` at a tight analytic tolerance. Log expected and
+  observed values. This must distinguish lambda=1, missing within-epoch decay
+  and missing committed-stat aging.
+- Scope: focused test source only, exactly one slot; no production/header/CMake/
+  plugin/dependency/benchmark/example/rt_server. Honest immediate GREEN is
+  expected; do not force RED or modify the recurrence.
+- Required response: `RESPONSE W-TEST-CORE-016` with commit, exact matrices,
+  step-by-step analytic recurrence/loading, sensitivity alternatives,
+  evidence/classification, changed file/clean status and no-subagent confirmation.
+- Status: request recorded before worktree creation/dispatch.
