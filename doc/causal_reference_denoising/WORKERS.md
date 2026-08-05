@@ -3244,3 +3244,16 @@ does not continuously poll them.
   `019fd266-902d-77e1-b40a-a754eaac6222` through the app.
 - Do not manually delete its app-owned worktree.
 - Status: recorded before publication/archival.
+
+### RETIREMENT PRECHECK W-PROC-TEST-COVERAGE
+
+- GitHub final coverage evidence:
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5193676575`;
+  read-back matches delta/integration commits, reset/relearn oracle and formal-
+  review readiness.
+- Reusable worker worktree is clean/detached at exact `2cbca78eb5`.
+- Focused test source hash is identical between worker and integration:
+  `8d41bbefcd6f64431eb822aa9466fbaa21143023`.
+- Decision: thread `019fd266-902d-77e1-b40a-a754eaac6222` completed its reusable
+  processor-test responsibility and may be archived. App-owned worktree remains
+  manager-untouched.
