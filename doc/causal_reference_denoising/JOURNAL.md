@@ -1748,3 +1748,14 @@ hidden reasoning is not.
   request before forwarding, with no scope change or duplicate worker.
 - Next: forward the request and continue bounded waiting/read-only adapter seam
   reconnaissance.
+
+### E-182 - Synthetic acceptance design confirmed
+
+- Actor: `/root/w_test_core_015` and manager.
+- Result: no blocker; continuous fixed xorshift/AR/multisine references, known
+  eight-coefficient tap-major noise and 768 training blocks are selected.
+- Expected margins: about 58.65 dB noise reduction and `1.13e-4` clean
+  projection-amplitude error, materially wider than the 10 dB/0.02 gates.
+- Decision: keep the same one-slot/test-source-only worker; no duplicate,
+  production edit or nested subagent.
+- Next: await the clean committed test response.

@@ -2253,3 +2253,21 @@ The manager records and forwards all cross-worker messages here before acting.
   margins and any blocker. Do not rescope, edit production code or use
   subagents.
 - Status: recorded before forwarding.
+
+### RESPONSE W-TEST-CORE-015-STATUS
+
+- Conclusion: no blocker; exact base, durable records, codebase-design/TDD
+  skills and current public seam are verified.
+- Generator: one uninterrupted 98,432-sample two-reference stream from fixed
+  xorshift32 seeds, independent AR mixes `0.35` and `-0.25`, and deterministic
+  multisine terms.
+- Causal model: tap-major weights
+  `[1.4,-1.1,0.8,0.65,-0.55,0.45,0.35,-0.25]` with explicit zero prehistory.
+- Training/evaluation: 768 full 128-sample ApplyAndLearn blocks (98.304 s,
+  more than three 30-second memory constants), then one continuing 128-sample
+  ApplyOnly block with a 0.65-amplitude 62.5 Hz clean sinusoid. Expected 767
+  accepted epochs after the three-sample warmup.
+- Independent oracle: about 58.65 dB noise reduction and `1.13e-4` clean
+  projection-amplitude error, wide versus the 10 dB and 0.02 gates.
+- Scope/lifecycle: source-only single slot, no production change or subagents;
+  patch, validation and commit remain in progress.
