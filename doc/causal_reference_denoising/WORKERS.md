@@ -3643,3 +3643,62 @@ does not continuously poll them.
   `c0e6b3808a7569b9af990cc15190b8a5cc4b57cd`.
 - Decision: one-shot thread `019fd2ad-308f-7282-bdaa-0b321de8df06` may be
   archived through the app. Do not manually delete or alter its worktree.
+
+### RETIREMENT RESPONSE W-QUEUE-TEST-001
+
+- App result: one-shot Luna/max tracer thread
+  `019fd2ad-308f-7282-bdaa-0b321de8df06` archived successfully after valid RED,
+  exact content and clean worktree evidence were durable.
+- Worktree policy: app-owned path
+  `C:/Users/lcy/.codex/worktrees/6cbb/mne-cpp-main` was not manually deleted or
+  modified by the manager.
+- Status: complete; the tracer conversation will not be reused.
+
+### REQUEST W-QUEUE-GREEN-001
+
+- From / to: manager thread
+  `019fcdc3-4a1e-76d1-8140-1bd521219297` / new visible queue implementation
+  conversation.
+- GitHub issue: `Edddddddddy/mne-cpp#5`.
+- Model/environment: `gpt-5.6-sol`, `ultra`, new saved-project worktree from
+  `codex/causal-reference-denoising`; no internal/nested subagents.
+- Model decision: preallocated SPSC ownership, semaphore ordering, stop wakeup
+  and no-wait producer safety make this a concurrency/realtime slice.
+- Blocking: yes for queue lifecycle tests and plugin work.
+- Task: make only the integrated
+  `queuePreservesFifoDropNewestAndMetadata` tracer GREEN by implementing the
+  frozen `AdaptiveDenoisingBlockQueue` header/source and adding its source to
+  the focused test CMake. Do not edit the test.
+- Implementation contract: concrete noncopyable/nonmovable PImpl queue;
+  configure validates positive rows/max samples/capacity fitting QSemaphore's
+  integer count, allocates all fixed matrix slots transactionally and starts an
+  empty running queue; already-running configure returns `AlreadyRunning`.
+  Producer checks running/shape, performs exactly one
+  `QSemaphore::tryAcquire(1,0)`, returns Full without index/slot change, deep-
+  copies only valid columns, retains metadata and publishes once. Consumer
+  requires a preallocated exact max-size destination, uses one timed acquire,
+  copies valid columns plus sampleCount/metadata in FIFO order, releases the
+  slot and leaves destination tail unspecified.
+- Stop/lifecycle: atomic running flag; `stop()` is noexcept/idempotent, rejects
+  future pushes and releases one filled semaphore token to wake a timed waiter.
+  A woken/stopped consumer returns Stopped without reading a slot. Reconfigure
+  after stop creates fresh state; caller must quiesce producer/consumer before
+  reconfigure/destruction. Pending blocks may be discarded on stop.
+- Realtime: push/pop/stop perform no heap allocation, retry, busy wait, lock,
+  string or FIFF dereference. Shared metadata may be null and is transported
+  by ownership. Configure is the only allocation phase and may propagate
+  allocation exceptions while retaining old stopped state.
+- Authorized files: new
+  `adaptivedenoising/adaptivedenoisingblockqueue.{h,cpp}` and focused test
+  CMake only. No test/processor/core/plugin/UI/global CMake/dependency/vendor/
+  example or rt_server change.
+- Verification: exact diff/scope checks; build/run focused Release if isolated
+  dependencies permit, otherwise report known Eigen limitation. Do not repair
+  dependencies. Manager owns populated GREEN.
+- Required response: `RESPONSE W-QUEUE-GREEN-001` with exact base/commit,
+  interface and state/slot shapes, semaphore/index/order and stop semantics,
+  no-allocation argument, changed files, evidence/limitations, clean status and
+  no-subagent/no-polling confirmation. Proactively notify manager, then stop.
+- Lifecycle: retain until manager accepts GREEN because a focused follow-up may
+  be useful only if the same implementation context remains current.
+- Status: recorded before visible task creation.

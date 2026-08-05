@@ -2872,3 +2872,16 @@ hidden reasoning is not.
   `b3ff9afc1` content.
 - Next: commit/push precheck, archive the one-shot Luna/max thread without
   deleting its app worktree, then record Sol/ultra implementation request.
+
+### E-276 - Queue tracer archived and Sol implementation prepared
+
+- Retirement: Luna/max thread `019fd2ad-308f-7282-bdaa-0b321de8df06` archived
+  successfully; app-owned worktree remains manager-untouched.
+- Implementation request: `W-QUEUE-GREEN-001`, new visible Sol/ultra task,
+  concrete PImpl SPSC queue, preallocated slots, single zero-time producer
+  acquire, timed pop, atomic stop wake and fresh reconfigure.
+- Scope: new queue header/source plus focused CMake only; integrated tracer is
+  immutable, and no FIFF dereference/plugin/core/dependency/rt_server work is
+  authorized.
+- Next: commit/push request, create task, record identity and publish dispatch
+  to issue #5 without polling.
