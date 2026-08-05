@@ -2752,3 +2752,15 @@ hidden reasoning is not.
   the three runtime slots remain unchanged.
 - Decision: no finding; commit may be cherry-picked after this review is
   durable. P2 closes only after populated Release builds and exits zero.
+
+### E-265 - Processor ownership P2 is GREEN and closed
+
+- Integration: worker `b49f27699` cherry-picked as `4a57c3ca5`.
+- Compile: populated Release builds/links; five C++14 traits prove nothrow
+  default construction plus deleted copy/move under the actual project setup.
+- Runtime: QtTest reports 5 passed, zero failed/skipped/blacklisted and process
+  exit zero. All original mapping/disarm/reconfigure behaviors remain GREEN.
+- Decision: close `R-PROC-MOVE-001`; P0/P1/P2 are now zero for the processor
+  milestone. P3 locality/max-bound coverage move to final QA issue #3.
+- Next: commit/push code and evidence, publish review closure, verify/archive
+  the worker, then close issue #4 and update epic #2.

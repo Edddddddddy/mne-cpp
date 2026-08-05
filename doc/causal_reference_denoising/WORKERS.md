@@ -3466,3 +3466,20 @@ does not continuously poll them.
   `R-PROC-MOVE-001`.
 - Decision: accept for cherry-pick and populated focused Release build/run.
   P2 remains open until compiled traits and all three runtime slots are GREEN.
+
+### MANAGER VALIDATION W-PROC-MOVE-001-GREEN
+
+- Integrated commit: `4a57c3ca5` (cherry-pick of exact worker
+  `b49f27699`).
+- Build: populated Release target `test_adaptive_denoising_plugin` compiled and
+  linked successfully. The five C++14 type traits compiled under the project
+  MSVC/Qt configuration; only known Eigen C4819 code-page warnings occurred.
+- Runtime report: QtTest 5.15.2 reports 5 passed, zero failed/skipped/
+  blacklisted; all three behavior slots plus init/cleanup pass in 1 ms and the
+  process exits zero.
+- Behavioral preservation: mapping/train/ApplyOnly, all 19 invalid-disarm
+  cases and valid reconfigure/reset/relearn remain GREEN.
+- Decision: close P2 `R-PROC-MOVE-001`. The selected interface is now
+  compile-time noncopyable/nonmovable and no contradictory moved-from state can
+  be formed. Issue #4 is ready for publication/retirement closure.
+- No full mne_scan or rt_server was run; user untracked paths remain untouched.

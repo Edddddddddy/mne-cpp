@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T00:36:00+08:00
+Last updated: 2026-08-06T00:44:00+08:00
 
 ## Recovery order
 
@@ -52,18 +52,19 @@ items are tracked as nonblocking follow-up.
 
 ## Running workers
 
-- `W-PROC-MOVE-001` Luna/max commit `b49f27699` passed manager exact diff and
-  interface review. It has the requested parent, only two authorized files,
-  truthful noexcept default construction, deleted copy/move and five C++14
-  traits. Cherry-pick and populated focused Release validation are next.
+- `W-PROC-MOVE-001` is integrated as `4a57c3ca5`. Populated Release compiled
+  the five C++14 traits and the focused Qt report is 5 passed, zero failed/
+  skipped, exit zero. P2 `R-PROC-MOVE-001` is closed; worker publication,
+  content verification and archival remain before issue #4 closure.
 
 ## Next actions
 
-1. Cherry-pick accepted worker commit `b49f27699`.
-2. Build/run complete `test_adaptive_denoising_plugin` Release in the populated
-   manager workspace and close P2 only on GREEN.
-3. Publish the formal review/fix evidence and close issue #4 after focused
-   Release remains GREEN.
+1. Publish formal review/P2 closure evidence to issue #4 and defer the two P3s
+   to final QA issue #3.
+2. Verify exact worker commit/content and archive the completed one-shot
+   Luna/max conversation without manually deleting its app worktree.
+3. Close issue #4 and update epic #2 after publication/archival evidence is
+   durable.
 4. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
    concurrency implementation and independent review.
 5. Deliver the engineering MVP first: processor, nonblocking queue, plugin

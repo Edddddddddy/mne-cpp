@@ -175,7 +175,7 @@ data-only processor module suitably deep and the mapping/disarm/reset behavior
 consistent with SPEC. P0/P1 are zero; one P2 blocks issue #4 and two P3s remain
 tracked.
 
-#### R-PROC-MOVE-001 - P2 - Open
+#### R-PROC-MOVE-001 - P2 - Closed
 
 - Location: `adaptivedenoisingprocessor.h:78-103`;
   `adaptivedenoisingprocessor.cpp:145-162,176-179`.
@@ -198,7 +198,11 @@ tracked.
 - Fix review: exact worker commit `b49f27699` on requested base adds only the
   five special-member declarations and five namespace-scope C++14 traits in
   the two authorized files. Manager interface/diff review found no issue;
-  populated compile/runtime validation is pending before closure.
+  integrated as `4a57c3ca5`.
+- Resolution: populated Release compiled the traits and QtTest reports 5/0/0
+  with process exit zero. Explicit deleted copy/move prevents construction of
+  the contradictory moved-from state; every original runtime behavior remains
+  GREEN.
 
 #### R-PROC-LOCALITY-001 - P3 - Open
 
@@ -226,11 +230,12 @@ tracked.
 
 - P0: zero.
 - P1: zero.
-- P2: `R-PROC-MOVE-001` open and blocking issue #4.
+- P2: zero open; `R-PROC-MOVE-001` closed by explicit ownership and compiled
+  C++14 traits.
 - P3: `R-PROC-LOCALITY-001` and `R-PROC-BOUNDARY-001` tracked for later
   processor/final-QA follow-up.
-- Decision: HOLD until explicit ownership policy plus trait verification are
-  integrated and complete focused Release remains GREEN.
+- Decision: processor formal gate passes. Track both P3s in final QA issue #3;
+  they do not block closing processor issue #4 or beginning queue work.
 
 #### R-PROC-TEST-MEMORY-001 - P2 - Closed
 
