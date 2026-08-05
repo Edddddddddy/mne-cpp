@@ -1488,3 +1488,12 @@ hidden reasoning is not.
 - Scope: two-target mixed overflow/finite prediction sample-wide fallback and
   later committed-model integrity; no production edit.
 - Next: await structured response; manager will not edit overlapping test code.
+
+### E-155 - Application overflow worker status requested
+
+- Actor: manager.
+- Evidence: the high-risk test agent remains running and its isolated worktree
+  is still clean after bounded waits.
+- Action: prepare one non-blocking progress/oracle request without changing
+  scope or creating a duplicate.
+- Next: commit/push, forward and continue waiting.

@@ -1896,3 +1896,13 @@ The manager records and forwards all cross-worker messages here before acting.
   no-subagent confirmation.
 - Status: active as collaboration agent `/root/w_test_core_013`. Detached
   worktree created clean at `d991e1e9a`; Sol/ultra accepted the one-slot scope.
+
+### REQUEST W-TEST-CORE-013-STATUS
+
+- From / to: manager / `/root/w_test_core_013`.
+- Blocking: no; fallback test scope remains unchanged.
+- Context: bounded waits show the worker running while the detached worktree
+  remains clean at its request base.
+- Question: report concise progress, mixed-target overflow oracle and any
+  blocker at the next safe boundary; no rescope or subagents.
+- Status: recorded before forwarding.
