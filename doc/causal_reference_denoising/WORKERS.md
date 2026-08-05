@@ -1789,3 +1789,13 @@ The manager records and forwards all cross-worker messages here before acting.
   RMS equations/tolerances, evidence/classification and no-subagent confirmation.
 - Status: active as collaboration agent `/root/w_test_core_012`. Detached
   worktree created clean at `a7bb413ca`; Sol/high accepted one-slot scope.
+
+### REQUEST W-TEST-CORE-012-STATUS
+
+- From / to: manager / `/root/w_test_core_012`.
+- Blocking: no; one-slot RMS scope remains unchanged.
+- Context: repeated bounded waits show the worker running while its detached
+  worktree remains clean at the request base.
+- Question: report concise progress, chosen overflow-safe relative comparison,
+  analytic tolerance and any blocker; no rescope or subagents.
+- Status: recorded before forwarding.

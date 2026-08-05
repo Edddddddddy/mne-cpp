@@ -1406,3 +1406,12 @@ hidden reasoning is not.
   no production or build-system edit.
 - Next: await structured response; manager will not edit the overlapping test
   source while the worker is active.
+
+### E-146 - Stable RMS worker status requested
+
+- Actor: manager.
+- Evidence: worker remains running and isolated worktree remains clean after
+  bounded waits.
+- Action: prepare one non-blocking progress/comparison/tolerance request without
+  changing scope or creating a duplicate.
+- Next: commit/push, forward and continue bounded waiting.
