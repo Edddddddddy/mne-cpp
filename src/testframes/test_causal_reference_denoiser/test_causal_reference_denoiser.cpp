@@ -85,6 +85,7 @@ private slots:
     void nonLearningModesPreserveModelAndAdvanceHistory();
     void reportsDiagnosticsAcrossLifecycle();
     void rejectsPoisonedEpochsAndRecoversWithinBlock();
+    void acceptsLoadedRankDeficientEpoch();
 };
 
 //=============================================================================================================
@@ -1000,6 +1001,70 @@ void TestCausalReferenceDenoiser::rejectsPoisonedEpochsAndRecoversWithinBlock()
     QVERIFY(std::isfinite(probeResult.diagnostics.inputRms));
     QVERIFY(std::isfinite(probeResult.diagnostics.outputRms));
     QVERIFY(std::isfinite(probeResult.diagnostics.estimatedNoiseRms));
+}
+
+//=============================================================================================================
+
+void TestCausalReferenceDenoiser::acceptsLoadedRankDeficientEpoch()
+{
+    CausalReferenceDenoiserConfig config;
+    config.samplingFrequencyHz = 1000.0;
+    config.channelCount = 3;
+    config.maxBlockSamples = 5;
+    config.referenceRows = VectorXi(2);
+    config.referenceRows << 0, 1;
+    config.targetRows = VectorXi(1);
+    config.targetRows << 2;
+    config.tapCount = 2;
+    config.adaptationIntervalSamples = 4;
+    config.memoryTimeSeconds = 300.0;
+    config.regularization = 1e-8;
+
+    CausalReferenceDenoiser denoiser;
+    QVERIFY(denoiser.configure(config) == DenoiserStatus::Configured);
+
+    // After one warmup sample, the P=4 eligible features are
+    // v, 2v, 4v, and 8v for v=[2,4,1,2]^T, hence they span rank one.
+    // Every target follows the same relationship y(t)=3*r0(t).
+    MatrixXd learningBlock(3, 5);
+    learningBlock << 1.0, 2.0, 4.0, 8.0, 16.0,
+                     2.0, 4.0, 8.0, 16.0, 32.0,
+                     3.0, 6.0, 12.0, 24.0, 48.0;
+    const MatrixXd originalLearningBlock = learningBlock;
+
+    const DenoiserProcessResult learningResult =
+        denoiser.process(learningBlock, DenoisingMode::ApplyAndLearn);
+
+    QVERIFY(learningResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY((learningBlock.array() == originalLearningBlock.array()).all());
+    QVERIFY(learningResult.diagnostics.featureCount == 4);
+    QVERIFY(learningResult.diagnostics.modelUpdatesAccepted == 1);
+    QVERIFY(learningResult.diagnostics.modelUpdatesRejected == 0);
+    QVERIFY(learningResult.diagnostics.modelGeneration == 1);
+    QVERIFY((learningBlock.row(0).array()
+             == originalLearningBlock.row(0).array()).all());
+    QVERIFY((learningBlock.row(1).array()
+             == originalLearningBlock.row(1).array()).all());
+
+    // Continuing the geometric references gives feature 16v and analytic
+    // target 3*32=96 under the same rank-one relationship.
+    MatrixXd probeBlock(3, 1);
+    probeBlock << 32.0,
+                  64.0,
+                  96.0;
+    const MatrixXd originalProbeBlock = probeBlock;
+
+    const DenoiserProcessResult probeResult =
+        denoiser.process(probeBlock, DenoisingMode::ApplyOnly);
+
+    QVERIFY(probeResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(probeBlock.allFinite());
+    QVERIFY(std::abs(probeBlock(2, 0)) <= 1e-5);
+    QVERIFY(probeResult.diagnostics.modelGeneration == 1);
+    QVERIFY(probeResult.diagnostics.modelUpdatesAccepted == 0);
+    QVERIFY(probeResult.diagnostics.modelUpdatesRejected == 0);
+    QVERIFY(probeBlock(0, 0) == originalProbeBlock(0, 0));
+    QVERIFY(probeBlock(1, 0) == originalProbeBlock(1, 0));
 }
 
 //=============================================================================================================
