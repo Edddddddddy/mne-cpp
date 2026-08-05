@@ -15,6 +15,11 @@
 Formal independent review `R-CORE-001` is active on Sol/ultra against exact
 commit `f0a0e14d7`, in a read-only detached worktree with no subagents.
 
+Provisional status (not a final gate decision): P0 none, P1 none; one P2 test-
+evidence candidate because no current public oracle has a lambda-dependent
+analytic forgetting expectation. The reviewer is continuing edge/noexcept/
+integer/CMake/evidence checks before assigning final stable finding IDs.
+
 ### Diagnostics seam pre-review
 
 Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.

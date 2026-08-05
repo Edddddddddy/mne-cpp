@@ -2398,3 +2398,19 @@ The manager records and forwards all cross-worker messages here before acting.
   P0-P2 candidate or absence so far, remaining work and blocker. Do not finalize
   early, edit, run rt_server or spawn subagents.
 - Status: recorded before forwarding.
+
+### RESPONSE R-CORE-001-STATUS
+
+- Exact review state: detached `f0a0e14d7` remains clean/read-only; all durable
+  recovery records, full codebase-design skill, public header/source, relevant
+  CMake and all 1,546 focused test lines are inspected.
+- Provisional priorities: no P0 and no P1. One provisional P2 evidence gap:
+  SPEC requires forgetting coverage, but every current oracle is stationary or
+  same-implementation equivalence; a missing/wrong lambda recurrence could pass
+  without a lambda-dependent analytic expectation.
+- Implementation view so far: recurrence and state transactions are internally
+  consistent; no production defect claimed yet.
+- Provisional P3 areas: public-contract locality/documentation and narrow
+  allocation/evidence provenance.
+- Remaining: edge cases, noexcept/integer boundaries, CMake and evidence audit.
+  No blocker, edits, rt_server or subagents; reviewer continues.

@@ -1881,3 +1881,14 @@ hidden reasoning is not.
 - Action: record a non-blocking coverage/provisional-findings/remaining-work
   request before forwarding, with no scope change or duplicate review.
 - Next: forward and continue bounded waiting.
+
+### E-194 - Core review provisional status received
+
+- Actor: `/root/r_core_001` and manager.
+- Coverage: full public core seam/source, relevant CMake, 1,546 test lines and
+  durable evidence inspected at clean exact `f0a0e14d7`.
+- Provisional result: P0 none, P1 none; candidate P2 test gap because forgetting
+  has no independent lambda-dependent analytic public oracle. Implementation
+  recurrence/transactions appear internally consistent so far.
+- Decision: record but do not fix/close before the final stable finding. The
+  reviewer continues noexcept/integer/CMake/evidence audit without blockers.
