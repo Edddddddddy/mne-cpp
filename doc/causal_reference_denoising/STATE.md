@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T22:38:00+08:00
+Last updated: 2026-08-05T22:48:00+08:00
 
 ## Recovery order
 
@@ -34,14 +34,14 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-`W-CORE-009` commit `ae8824219` passed manager exact review; integration and
-populated 42-check validation are pending.
+No worker is running. Application fallback commit `2aac482d9` is GREEN with
+42 passes; its one-shot implementation worktree remains pending cleanup.
 
 ## Next actions
 
-1. Commit/push the manager review record.
-2. Integrate only validate-before-write sample-wide fallback.
-3. Require all 42 focused checks GREEN before closing P2.
+1. Commit/push P2 closure and `W-TEST-CORE-014` malloc-guard request.
+2. Publish/cleanup the application-fallback milestone.
+3. Dispatch the focused Eigen runtime malloc-guard test on Sol/ultra.
 
 ## Focused verification targets
 

@@ -71,7 +71,7 @@ Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
 - Resolution: scaled accumulation is implemented in `b5f29fff1`; test
   `ada68a56b` passes both required oracles in a 41/0 synchronized report.
 
-#### R-APPLY-001 - P2 - In progress
+#### R-APPLY-001 - P2 - Closed
 
 - Location: `causalreferencedenoiser.cpp:328-332`.
 - Evidence: finite weights/features can yield nonfinite prediction/residual,
@@ -84,6 +84,9 @@ Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
   history/transactional learning state; public diagnostics surface unchanged.
 - RED evidence: test `eee23de46`; synchronized report has 41 prior passes and
   the single intended all-finite output failure, exit code one.
+- Resolution: source fallback `2aac482d9` validates all target predictions/
+  residuals before any write and zeroes actual subtraction on fallback. The
+  synchronized report is GREEN with 42 passes and zero failures.
 
 #### R-STATUS-001 - P3 - Closed
 
@@ -93,8 +96,8 @@ Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
 - Resolution: implemented in `b5f29fff1`; diagnostics lifecycle test passes in
   the 38/0 synchronized report.
 
-No P0 finding. P1 findings must be closed before core completion; all P2
-findings will be fixed or explicitly deferred in issue #2.
+No P0-P2 numerical finding remains open. Hot-path malloc proof, synthetic
+acceptance and formal independent core review remain before core completion.
 
 ## Final integration review
 

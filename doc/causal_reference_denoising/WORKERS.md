@@ -2062,3 +2062,49 @@ The manager records and forwards all cross-worker messages here before acting.
   all targets only after validation.
 - Decision: accept for cherry-pick and populated build/runtime; close P2 only
   after the 42/0 report.
+
+### MANAGER VALIDATION W-CORE-009-GREEN
+
+- Integrated production commit: `2aac482d9`.
+- Focused Release build: success; only known Eigen/MSVC C4819 warnings.
+- Synchronized Qt report: 42 passed, zero failed, exit code zero.
+- Mixed overflow/finite prediction sample falls back atomically; RMS/state and
+  future normal-model integrity pass with every prior contract.
+- Decision: close P2 `R-APPLY-001`; no P0-P2 numerical review finding remains.
+
+### RETIREMENT REQUEST CLEANUP-017
+
+- Publish 42/0 application-fallback evidence to issue #2.
+- Verify detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-core-009` is clean at
+  `ae8824219` and its source content matches integrated `2aac482d9`; remove it
+  through Git worktree management. The one-shot agent is not reusable.
+- Status: recorded before publish/cleanup.
+
+### REQUEST W-TEST-CORE-014
+
+- From / to: manager / Eigen hot-path malloc-guard test worker.
+- Planned execution: detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-014` from current
+  integration HEAD; identifier recorded after dispatch.
+- Model/environment: `gpt-5.6-sol`, `ultra`; no nested subagents.
+- Model decision: runtime allocation assertions around dynamic Eigen LDLT and
+  matrix expressions are a real-time safety gate, so Sol/ultra is selected.
+- Blocking: yes for core real-time acceptance and formal core review.
+- Task: add `EIGEN_RUNTIME_NO_MALLOC` to the focused test target and exactly one
+  Qt slot proving configured `process()` does not allocate. Allocate/configure
+  every matrix before the guard. With Eigen assertions active, disable malloc,
+  call ApplyAndLearn on a finite stream that crosses multi-tap warmup and one
+  full update boundary (therefore exercising feature products, candidate
+  composition, LDLT solve, diagnostics and history), restore malloc immediately,
+  then assert Processed/one acceptance/generation, finite output and exact
+  non-target rows. Also guard a preallocated ApplyOnly probe using committed
+  weights. The slot may explicitly skip when `EIGEN_NO_DEBUG` is defined; the
+  manager will build/run Debug for effective guard evidence.
+- Scope: focused test source and its CMake only; no production/header/plugin/
+  dependency or rt_server. Do not change denoiser code, vendor Eigen, add a
+  global allocator hook, benchmark or synthetic acceptance.
+- Required response: `RESPONSE W-TEST-CORE-014` with commit, exact config/data
+  and guarded regions, compile-definition/debug assertion explanation,
+  evidence/infra limitation and no-subagent confirmation.
+- Status: request recorded before cleanup/worktree creation/dispatch.

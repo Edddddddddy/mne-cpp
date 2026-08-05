@@ -1609,3 +1609,24 @@ hidden reasoning is not.
   explicit allocation primitive is added.
 - Decision: accept `ae8824219`; commit review, cherry-pick and require 42/0
   before closing P2 `R-APPLY-001`.
+
+### E-168 - Application overflow fallback is GREEN
+
+- Actor: manager.
+- Integrated production: `2aac482d9`.
+- Evidence: focused Release build succeeds; synchronized report has 42 passes,
+  zero failures and exit code zero. Mixed-target atomicity, RMS/state and future
+  model integrity pass.
+- Review effect: close P2 `R-APPLY-001`; all known P0-P2 findings are closed.
+- Next: publish/retire and add an effective Debug Eigen malloc guard.
+
+### E-169 - Hot-path malloc guard request prepared
+
+- Actor: manager under TDD and real-time acceptance.
+- Request: `W-TEST-CORE-014`, Sol/ultra, one test slot plus focused CMake only,
+  no subagents; define `EIGEN_RUNTIME_NO_MALLOC`, guard a warmup+boundary LDLT
+  call and a committed-model ApplyOnly call with all buffers preallocated.
+- Verification plan: slot may skip under `EIGEN_NO_DEBUG`; manager will run the
+  Debug target so Eigen assertions make the guard effective.
+- Next: commit/push, publish/clean fallback worker, create fresh test worktree
+  and dispatch.
