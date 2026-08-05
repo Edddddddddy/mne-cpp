@@ -1161,3 +1161,12 @@ hidden reasoning is not.
   same-block recovery, with later P2 findings explicitly excluded.
 - Next: await the structured commit response; manager will not edit overlapping
   numerical files while the worker is active.
+
+### E-121 - Transactional RED issue update prepared
+
+- Actor: manager under the GitHub milestone workflow.
+- Planned issue #2 evidence: integrated test `d1ffa0904`, focused Release build
+  success, synchronized 38-pass/one-intended-failure report, and active bounded
+  Sol/ultra fix scope under `R-SOLVE-001`.
+- Next: commit/push this record, publish the concise issue comment, then record
+  its returned URL without changing worker scope.
