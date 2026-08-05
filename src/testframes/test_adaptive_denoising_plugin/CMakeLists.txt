@@ -12,6 +12,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS ${QT_REQUIRED_COMPONENTS}
 
 set(SOURCES
     test_adaptive_denoising_plugin.cpp
+    ${CMAKE_SOURCE_DIR}/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingprocessor.cpp
     ${CMAKE_SOURCE_DIR}/libraries/rtprocessing/causalreferencedenoiser.cpp
 )
 
