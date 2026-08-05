@@ -3769,3 +3769,36 @@ does not continuously poll them.
   manager polling, full mne_scan or rt_server.
 - Status: response is durable before manager commit inspection. The visible
   conversation remains reusable only for a narrow same-context follow-up.
+
+### MANAGER REVIEW W-QUEUE-GREEN-001
+
+- Provenance/scope: exact commit `039b58d1b` has requested parent `930480bf3`,
+  passes diff check and changes exactly the two new queue files plus one focused
+  CMake source registration. The integrated public tracer is unchanged.
+- Deep-module seam: accepted. Four public operations hide slot allocation,
+  ring ownership, semaphore capacity/publication, stop wake and metadata
+  pairing. No strategy/registry/FIFF definition or caller-side ring state leaks
+  through the interface.
+- Transaction: invalid/active checks precede allocation; a fully constructed
+  candidate owns all slots/semaphores and becomes running before swap. Any
+  construction exception leaves the previous stopped PImpl untouched; success
+  discards it only after committing a fresh empty queue.
+- SPSC order: producer/consumer indices are single-thread-owned. A successful
+  producer acquires one free token, writes the complete slot, advances once and
+  releases one filled token; Full has no write/index change. Consumer acquires
+  one filled token, copies/clears one slot, advances once and releases one free
+  token. Scalar copy order matches Eigen's column-major layout.
+- Stop safety: atomic active-to-stopped exchange is idempotent and contributes
+  one wake token. A blocked empty consumer wakes, observes stopped and reads no
+  slot; stopped queue state is intentionally disposable. In-flight operations
+  may finish, while caller quiescence is required before replacement/destruction.
+- Hot path: no resize/container growth/retry/busy wait/string/FIFF access or
+  explicit lock. Shared-pointer ownership transfer/clear performs no control-
+  block allocation; destination-owner destruction occurs on the worker side.
+- Residual coverage assigned to the next vertical slice: invalid dimensions,
+  AlreadyRunning, invalid block/destination, stop wake/idempotence, restart,
+  FIFO after overflow and producer-drop accounting are not all observed by the
+  first tracer. Formal Sol/ultra concurrency review still follows the completed
+  queue milestone.
+- Finding: none in the authorized GREEN implementation slice. Accept for
+  cherry-pick and populated Release compile/runtime; no GREEN is claimed yet.

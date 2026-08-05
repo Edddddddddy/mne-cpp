@@ -60,15 +60,16 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
   as a new visible Sol/ultra implementation task from exact base `930480bf3`;
   setup ID is `client-new-thread:e551ef42-5b43-48d0-a0e1-ddb5863854d4`.
   Its proactive response returned exact-base commit `039b58d1b`; manager
-  review, populated Release GREEN and integration are pending.
+  provenance/diff/interface review passes. Populated Release GREEN and
+  integration are pending.
 
 ## Next actions
 
-1. Inspect exact worker commit `039b58d1b`, its three-file scope and queue
-   concurrency semantics; do not integrate before this response record is
-   pushed.
-2. If static review passes, cherry-pick and run the populated focused Release
-   target; record genuine GREEN or failure before assigning lifecycle tests.
+1. Cherry-pick accepted worker commit `039b58d1b` and run the populated focused
+   Release target; record genuine GREEN or failure before assigning lifecycle
+   tests.
+2. If GREEN, publish evidence and issue the next minimal lifecycle/concurrency
+   tracer without broadening into the plugin shell yet.
 3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.

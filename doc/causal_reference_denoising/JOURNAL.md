@@ -2934,3 +2934,16 @@ hidden reasoning is not.
   changes, force pushes, unrelated algorithms or other out-of-plan mutations.
 - Next: execute the existing queue review/integration pipeline, then continue
   with queue lifecycle, plugin/UI, example/docs and final QA tasks.
+
+### E-281 - Queue implementation accepted by manager review
+
+- Provenance: exact `039b58d1b` on requested `930480bf3`; two new queue files
+  plus focused CMake only, clean diff and immutable tracer.
+- Architecture: concrete deep module keeps PImpl slots, semaphores, indices,
+  stop wake and metadata ownership local behind four operations; no hypothetical
+  strategy/FIFF seam appears.
+- Concurrency: one-token free/filled handoff and single-owned indices implement
+  FIFO/drop-newest; atomic stop wake intentionally makes stopped pending state
+  disposable, with quiescence before reconfigure/destruction.
+- Decision: no finding for this slice. Commit may be cherry-picked after this
+  review is durable; runtime GREEN and lifecycle coverage remain mandatory.
