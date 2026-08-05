@@ -3073,3 +3073,16 @@ hidden reasoning is not.
   distinct fresh matrix/metadata/Timeout sequence cover active-state mutation,
   wake idempotence and stale token/data leakage through public behavior.
 - Decision: no finding; cherry-pick is authorized after this review is pushed.
+
+### E-293 - Queue lifecycle slice is GREEN
+
+- Integration: worker `da315d81e` cherry-picked as `90f5cdbf3`.
+- Build: populated Release focused target compiles and links; only known Eigen
+  C4819 code-page warnings occur.
+- Runtime: hidden synchronized process exits zero with 7 passed and zero
+  failed/skipped/blacklisted. Stop wake is observed at 63 ms after a 64 ms
+  stop delay, well below both the 1500 ms assertion and 3000 ms natural wait.
+- Regression: processor mapping/disarm/reconfigure and first queue FIFO/drop-
+  newest behavior remain GREEN; neither full scan nor rt_server ran.
+- Next: commit/push the integrated test and evidence, publish issue #5 GREEN,
+  then complete invalid-input coverage and independent concurrency review.

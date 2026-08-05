@@ -3933,6 +3933,22 @@ does not continuously poll them.
 - Finding: none. Accept for cherry-pick; runtime GREEN remains required in the
   populated Release workspace before this lifecycle slice closes.
 
+### VALIDATION W-QUEUE-TEST-002
+
+- Integration: worker `da315d81e` cherry-picked as `90f5cdbf3`.
+- Focused build: populated Visual Studio Release target
+  `test_adaptive_denoising_plugin` compiles and links successfully; output is
+  `out/Release/apps/test_adaptive_denoising_plugin.exe`. Only the known Eigen
+  code-page C4819 warnings are present.
+- Synchronized hidden run: process exit zero; QtTest reports 7 passed, zero
+  failed/skipped/blacklisted. The lifecycle slot logs `stopDelayMs 64`,
+  `observedElapsedMs 63`, `enteredBeforeStop true`, `waitingBeforeStop true`
+  against a 3000 ms waiter timeout and 1500 ms wake bound.
+- Regression: all three processor slots and the original queue FIFO/drop-newest
+  slot remain GREEN. No full mne_scan or rt_server was run.
+- Decision: lifecycle slice GREEN. One adjacent validation slice plus formal
+  Sol/ultra concurrency review remain before closing queue issue #5.
+
 ### REQUEST W-EXAMPLE-001
 
 - From / to: manager thread

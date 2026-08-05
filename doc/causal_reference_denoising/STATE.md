@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T03:02:00+08:00
+Last updated: 2026-08-06T03:10:00+08:00
 
 ## Recovery order
 
@@ -65,21 +65,22 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 - `W-QUEUE-TEST-002` proactively returned exact-base Luna/max commit
   `da315d81e`, adding one focused public lifecycle slot for AlreadyRunning,
   bounded stop wake, idempotent stop, stopped statuses and fresh reconfigure.
-  Manager provenance/diff/thread-safety review passes; integration and
-  populated Release execution are next.
+  Manager review passes; it is integrated as `90f5cdbf3`. Populated Release
+  reports 7/0/0, process exit zero and a 63 ms stop wake versus the 3000 ms
+  natural timeout.
 
 ## Next actions
 
-1. Cherry-pick accepted `da315d81e` and run the populated focused Release
-   executable. Retain the Sol implementation
-   conversation only for a narrow fix if the follow-up exposes a defect.
-2. Use the wait window only for read-only planning or truly non-overlapping
-   example/document work; do not begin plugin integration before queue coverage.
+1. Publish lifecycle GREEN, then add one adjacent public validation slice for
+   invalid configuration/block/destination and complete independent Sol/ultra
+   queue concurrency review. Retain the implementation conversation for a
+   narrow fix until that formal gate passes.
+2. Create the already-durable `W-DOC-001` visible Luna/max task while example
+   work remains non-overlapping; do not poll either task.
 
-`W-QUEUE-TEST-002` setup was accepted from exact base `f77bf44ce` as
-`client-new-thread:0b964bc3-a775-4fbf-88c3-657beb2570a5`.
-Its public dispatch is
-`https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5194824674`.
+`W-QUEUE-TEST-002` completed from exact base `f77bf44ce` as worker commit
+`da315d81e`; its one-shot conversation may be reused for the immediately
+adjacent queue-validation slice only.
 
 Non-overlapping issue #7 work is prepared as `W-EXAMPLE-001`: a focused
 Eigen/streaming example target that directly exercises the completed numerical
