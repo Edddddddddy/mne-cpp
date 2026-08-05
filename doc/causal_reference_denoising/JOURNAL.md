@@ -1675,3 +1675,14 @@ hidden reasoning is not.
 - Correction: each test region snapshots `is_malloc_allowed()` before disabling
   and restores that explicit snapshot immediately after process.
 - Next: await the complete clean test/CMake commit.
+
+### E-175 - Hot-path malloc guard response received
+
+- Actor: `/root/w_test_core_014` and manager.
+- Response: clean commit `ecd252fba` adds focused runtime guard definition and
+  one slot guarding warmup+boundary LDLT plus committed ApplyOnly.
+- Effectiveness: Debug assertions are required; Release explicitly skips. Flag
+  snapshot/restore and allocation/assertion placement are correct.
+- Evidence: clean diff/commit, analytic residual oracle, known detached runtime
+  limitation and no subagents.
+- Decision: record before acting; perform exact review then populated Debug run.

@@ -2147,3 +2147,23 @@ The manager records and forwards all cross-worker messages here before acting.
   process; immediately restore the snapshot. Both guarded regions use this
   sequence.
 - Decision: accepted correction; no scope change. Await complete commit.
+
+### RESPONSE W-TEST-CORE-014
+
+- Commit: `ecd252fbaae7c452fe39d3a9461fdb7a0ad10814`.
+- Changed files: focused test CMake and test source only; exactly one slot.
+- Config/data: 1000 Hz, five rows, refs `{0,1}`, targets `{2,3}`, preserved row
+  four, four taps (`P=8`), interval four. Seven-sample constant relationship
+  covers three warmup plus four eligible samples and a loaded LDLT boundary.
+- Guard: snapshot `is_malloc_allowed`, disable, call ApplyAndLearn, restore
+  immediately; separately guard preallocated ApplyOnly. All buffers/copies/state
+  pre-exist and all Qt assertions follow restoration.
+- Assertions: one accepted generation, finite diagnostics/output, exact
+  non-target rows; ApplyOnly target residuals below `1e-6`, positive noise RMS
+  and exact non-targets.
+- Build semantics: target defines `EIGEN_RUNTIME_NO_MALLOC`; Debug assertions
+  abort on allocation. `EIGEN_NO_DEBUG` explicitly QSKIPs so Release cannot be
+  misreported as effective evidence.
+- Evidence: clean scoped commit/diff; analytic probe residuals about `6e-9` and
+  `-8e-9`. Detached runtime unavailable due known baseline/build gap; no repair.
+- Lifecycle: no subagents. Manager exact review/Debug execution follow.

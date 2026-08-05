@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T23:00:00+08:00
+Last updated: 2026-08-05T23:20:00+08:00
 
 ## Recovery order
 
@@ -34,13 +34,12 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-`W-TEST-CORE-014` is active as `/root/w_test_core_014` on Sol/ultra in detached
-worktree `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-014` at
-`7c29b4f55`.
+`W-TEST-CORE-014` returned scoped commit `ecd252fba`; manager exact review,
+integration and effective Debug guard execution are pending.
 
 ## Next actions
 
-1. Await/review `RESPONSE W-TEST-CORE-014` without overlapping test/CMake edits.
+1. Review exact commit `ecd252fba` and guard effectiveness/restoration.
 2. Integrate scoped guard test and build/run Debug for effective assertions.
 3. Require guard success before synthetic acceptance.
 
