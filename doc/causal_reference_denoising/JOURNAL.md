@@ -1507,3 +1507,11 @@ hidden reasoning is not.
   local repository are intact.
 - Next: commit this event, retry the same non-force push, then forward the
   already recorded status request without duplicate dispatch.
+
+### E-157 - Application overflow RED patch complete
+
+- Actor: `/root/w_test_core_013` and manager.
+- Result: no blocker; exact two-target training/mixed-overflow/integrity oracle
+  is implemented in one test-only slot.
+- Scope: final checks/commit remain; no subagents or expansion.
+- Decision: record before inspection and await the complete clean response.

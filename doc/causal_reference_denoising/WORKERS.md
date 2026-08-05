@@ -1906,3 +1906,17 @@ The manager records and forwards all cross-worker messages here before acting.
 - Question: report concise progress, mixed-target overflow oracle and any
   blocker at the next safe boundary; no rescope or subagents.
 - Status: recorded before forwarding.
+
+### RESPONSE W-TEST-CORE-013-STATUS
+
+- Conclusion: no blocker; one-source/one-slot patch is implemented and final
+  diff/available runtime checks are next.
+- Training: ref `[1,2]`, targets `[2,4]` and `[0.5,1]`, preserved `[100,101]`;
+  one accepted boundary/generation one with weights near two and one-half.
+- Mixed probe: `[DBL_MAX,7,11,102]^T`; first prediction overflows while second
+  stays finite. Require Processed, exact sample-wide finite pass-through,
+  generation one, zero events, input/output `sqrt(85)` and noise zero.
+- Integrity probe: `[3,6,1.5,103]^T`; exact non-target rows and both target
+  residuals `<=1e-5`.
+- Scope/lifecycle: no expansion and no subagents; final commit pending.
+- Next: continue the same worker only.
