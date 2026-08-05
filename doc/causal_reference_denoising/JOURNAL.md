@@ -2532,3 +2532,17 @@ hidden reasoning is not.
   cherry-pick/populated run and retain the worker conversation for the next
   separate reset tracer.
 - Next: commit/push closure, cherry-pick `aa75e2520b` and run focused Release.
+
+### E-247 - Processor invalid/missing disarm coverage is GREEN
+
+- Actor: manager after integrating amended test as `6a721991c`.
+- Evidence: focused Release build/link succeeds and executable exits zero; only
+  known Eigen C4819 warnings occur.
+- Coverage: first mapping tracer plus 19 learned-model invalid/missing/feature-
+  cap disarm cases, exact NotConfigured pass-through, zero diagnostics and NaN
+  RMS all pass. Positive `0.5` memory case protects the UI lower bound.
+- Decision: close this acceptance slice without production changes. Retain the
+  same relevant Luna/max test conversation for one separate valid-
+  reconfigure-reset behavior.
+- Next: commit/push GREEN evidence, publish issue #4 comment, then durably
+  request the reset tracer before sending a follow-up to the existing thread.

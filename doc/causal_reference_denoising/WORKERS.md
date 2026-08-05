@@ -3131,3 +3131,21 @@ does not continuously poll them.
   or other test revision is required.
 - Decision: accept replacement for cherry-pick and populated focused execution;
   keep the reusable conversation active for the later reset tracer.
+
+### MANAGER VALIDATION W-PROC-TEST-002-GREEN
+
+- Integrated test commit: `6a721991c` (cherry-pick of amended
+  `aa75e2520b`).
+- Build: focused Release target recompiled and linked successfully; only known
+  Eigen/MSVC C4819 code-page warnings occurred.
+- Run: `out/Release/apps/test_adaptive_denoising_plugin.exe -txt` returned
+  process exit code zero.
+- Behavioral result: original mapping/train/probe tracer and all 19 fresh-
+  processor prime/invalid-disarm/NotConfigured-probe cases pass. Coverage
+  includes adapter-specific memory `0.5` lower-bound sensitivity and the
+  `P=288` numerical feature-cap rejection.
+- Review state: P2 `R-PROC-TEST-MEMORY-001` is closed; no production fix was
+  required.
+- Lifecycle: keep reusable thread
+  `019fd266-902d-77e1-b40a-a754eaac6222` active for a separate valid-
+  reconfigure-reset test request; do not archive or recreate it yet.

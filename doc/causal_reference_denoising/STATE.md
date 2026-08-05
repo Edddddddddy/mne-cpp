@@ -51,17 +51,16 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 ## Running workers
 
 - Reusable Luna/max processor-test conversation, thread
-  `019fd266-902d-77e1-b40a-a754eaac6222`, proactively returned amended clean
-  test-only commit `aa75e2520b` with exact parent `a868914ca`. It changes the
-  lower-memory case to `0.5`; manager exact diff review/populated execution are
-  pending before closing P2 and integration.
+  `019fd266-902d-77e1-b40a-a754eaac6222` remains available. Amended test is
+  integrated as `6a721991c`; populated Release build/run exits zero for mapping
+  plus 19-case invalid/missing disarm coverage. Next same-role request is the
+  separate valid-reconfigure-reset tracer.
 
 ## Next actions
 
-1. Confirm amended `aa75e2520b` only applies the two requested line changes,
-   close P2, integrate and run the populated focused target.
-2. If GREEN, reuse that same relevant
-   conversation for the separate valid-reconfigure-reset tracer.
+1. Publish invalid/missing disarm GREEN evidence to issue #4.
+2. Reuse the same relevant Luna/max conversation for the separate valid-
+   reconfigure-reset tracer.
 3. After issue #4 reaches a milestone commit, open a separate visible
    Sol/ultra review conversation before integration.
 4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
