@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T18:45:00+08:00
+Last updated: 2026-08-05T19:10:00+08:00
 
 ## Recovery order
 
@@ -19,10 +19,10 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-Core numerical contracts and the effective Debug Eigen malloc guard are GREEN.
-The focused Debug report has 43 passes, zero failures and zero skips. The
-quantitative synthetic acceptance test is now in progress before formal core
-review.
+Core numerical contracts, effective Debug Eigen malloc guard and quantitative
+synthetic acceptance are GREEN. Release reports 43 passes, zero failures and
+one intentional guard skip, with 58.6541 dB noise reduction and 0.000113195
+clean projection-amplitude error. Formal independent core review is next.
 
 ## Completed
 
@@ -35,15 +35,14 @@ review.
 
 ## Running workers
 
-- `/root/w_test_core_015`: Sol/ultra, one-shot synthetic quantitative
-  acceptance test in detached worktree
-  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-015` at `ea5870cf2`.
+No implementation worker is running. The completed one-shot synthetic worker
+and detached worktree are pending verified retirement after evidence publish.
 
 ## Next actions
 
-1. Receive and review `W-TEST-CORE-015` without overlapping its test source.
-2. Run populated Release/Debug focused validation and publish measured gates.
-3. Retire the one-shot worker, then dispatch independent Sol/ultra core review.
+1. Push/publish the synthetic GREEN milestone and retire its one-shot worker.
+2. Dispatch independent Sol/ultra formal core review with no edit authority.
+3. Resolve any P0-P2 finding, then begin the plugin-data TDD slice.
 
 ## Focused verification targets
 

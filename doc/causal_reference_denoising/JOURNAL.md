@@ -1781,3 +1781,17 @@ hidden reasoning is not.
 - Decision: accept `bae282c347` for cherry-pick. Only populated Release runtime
   metrics may establish the >=10 dB and <=2 percent gates.
 - Next: commit this review, cherry-pick and run the focused synchronized test.
+
+### E-185 - Quantitative synthetic acceptance is GREEN
+
+- Actor: manager.
+- Integrated test: `a079df377`; focused Release build succeeds with only known
+  Eigen/MSVC C4819 warnings.
+- Runtime evidence: synchronized 43 passed, zero failed, one intentional
+  Release malloc-guard skip, exit code zero; chunk differences remain zero.
+- Measured metrics: 58.6541 dB environmental-noise reduction and
+  `0.000113195` clean projection-amplitude error, widely passing 10 dB/0.02.
+- Decision: core quantitative gate is satisfied. Preserve the prior Debug
+  43/0/0 run as the effective allocation-guard evidence.
+- Next: push/publish, verify and remove the one-shot worktree, then dispatch
+  independent Sol/ultra core review.

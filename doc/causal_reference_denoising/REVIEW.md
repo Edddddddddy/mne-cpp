@@ -96,8 +96,18 @@ Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
 - Resolution: implemented in `b5f29fff1`; diagnostics lifecycle test passes in
   the 38/0 synchronized report.
 
-No P0-P2 numerical finding remains open. Hot-path malloc proof, synthetic
-acceptance and formal independent core review remain before core completion.
+No P0-P2 numerical finding remains open. Hot-path malloc proof and synthetic
+acceptance are GREEN; formal independent core review remains before core
+completion.
+
+### Quantitative core acceptance evidence
+
+- Integrated test: `a079df377`.
+- Release report: 43 passed, zero failed, one intentional Debug-only malloc-
+  guard skip, exit code zero.
+- Measured gates: 58.6541 dB environmental-noise reduction and `0.000113195`
+  clean projection-amplitude error. Both pass with wide margin.
+- Existing exact finite-stream chunk equivalence remains zero in the same run.
 
 ## Final integration review
 

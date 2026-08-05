@@ -2318,3 +2318,26 @@ The manager records and forwards all cross-worker messages here before acting.
   fail materially for an unlearned, mis-lagged or corrupt model.
 - Decision: accept for cherry-pick and populated Release execution. Runtime
   metrics, not the independent oracle alone, determine quantitative GREEN.
+
+### MANAGER VALIDATION W-TEST-CORE-015-GREEN
+
+- Integrated commit: `a079df377`.
+- Release build: focused target succeeds with only the known Eigen/MSVC C4819
+  code-page warnings.
+- Synchronized report: 43 passed, zero failed, one intentional Release skip for
+  the Debug-only Eigen malloc guard; process exit code zero.
+- Quantitative metrics: 58.6541 dB environmental-noise reduction and
+  `0.000113195` clean projection-amplitude error, versus the >=10 dB and <=0.02
+  hard gates. Chunk equivalence remains exactly zero in the same report.
+- Decision: quantitative core acceptance is GREEN. The earlier Debug 43/0/0
+  report remains the effective malloc-allocation proof.
+
+### RETIREMENT REQUEST CLEANUP-019
+
+- Publish the measured Release metrics and 43/0/1 report to issue #2.
+- Verify detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-015` is clean at
+  `bae282c347` and its focused test content matches integrated `a079df377`;
+  remove it through Git worktree management. The one-shot Sol/ultra agent is
+  not reusable.
+- Status: recorded before action.
