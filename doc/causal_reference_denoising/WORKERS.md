@@ -538,3 +538,23 @@ The manager records and forwards all cross-worker messages here before acting.
 - Required response: `RESPONSE W-CORE-004`, commit SHA, files, state shapes,
   solve/loading definition, validation evidence/limitations, and next RED.
 - Status: active; direct snapshot confirmed required skill/record recovery.
+
+### RESPONSE W-CORE-004-DELEGATION-NOTICE
+
+- From / to: `W-CORE-004` / manager.
+- Notice: the worker commentary states it started two nested Sol/ultra
+  read-only reviewers while inspecting numerical ordering/allocation.
+- Conflict: the manager conversation is the sole task dispatcher, and every
+  worker request/response must be manager-routed and durable before action.
+- Decision: nested reviewer findings are not authorized evidence and must not
+  influence the implementation unless separately returned to the manager under
+  the protocol.
+
+### REQUEST W-CORE-004-DELEGATION
+
+- From / to: manager / `W-CORE-004`.
+- Blocking: no for the implementation; blocking for use of nested findings.
+- Instruction: stop or disregard the two nested reviewers, do not spawn more,
+  report their identifiers/status in the final response, and complete the
+  original header/source task alone. Formal review remains manager-owned.
+- Status: recorded before forwarding.

@@ -512,3 +512,13 @@ hidden reasoning is not.
 - Result: Sol/ultra is active and explicitly using codebase-design plus TDD
   with numerical header/source-only scope.
 - Next: wait for `RESPONSE W-CORE-004`.
+
+### E-054 - Unauthorized nested reviewer delegation corrected
+
+- Actor: `W-CORE-004` and manager.
+- Evidence: worker commentary announced two nested Sol/ultra read-only
+  reviewers without a prior manager-routed durable request.
+- Decision: their findings are not accepted; `REQUEST W-CORE-004-DELEGATION`
+  requires the worker to stop/disregard them, report identifiers/status, spawn
+  no more, and finish alone. Formal review stays with the manager.
+- Next: commit and forward the correction, then continue bounded waiting.
