@@ -2910,3 +2910,27 @@ hidden reasoning is not.
   been returned. The manager will not poll or overlap the queue/CMake edits.
 - Next: end this management slice and resume only from the worker's proactive
   `RESPONSE W-QUEUE-GREEN-001` or new user direction.
+
+### E-279 - Queue implementation response received
+
+- Actor: visible Sol/ultra thread
+  `019fd2bd-b720-7b30-8d65-780a0b500924` and manager.
+- Delta: exact-base commit `039b58d1b`, two new queue files plus focused CMake;
+  existing tracer is unchanged and worker reports clean/diff checks.
+- Implementation claim: concrete preallocated PImpl SPSC queue with one-shot
+  producer acquire, FIFO semaphore publication, timed consumer, atomic stop
+  wake and fresh stopped-state reconfigure.
+- Evidence limit: isolated worktree has the known ignored Eigen gap, so worker
+  correctly does not claim runtime GREEN or repair dependencies.
+- Next: commit/push this response, then independently inspect exact provenance,
+  complete diff and memory/order/lifecycle semantics before cherry-pick.
+
+### E-280 - User requested uninterrupted progress to acceptance
+
+- Direction: continue through the engineering-first MVP, focused verification
+  and review until the feature is ready for user acceptance; do not stop after
+  routine worker or milestone handoffs.
+- Scope preservation: persistence does not authorize rt_server, vendor/toolchain
+  changes, force pushes, unrelated algorithms or other out-of-plan mutations.
+- Next: execute the existing queue review/integration pipeline, then continue
+  with queue lifecycle, plugin/UI, example/docs and final QA tasks.

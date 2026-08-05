@@ -3729,3 +3729,43 @@ does not continuously poll them.
   setup ID and no-polling/no-rt_server contract all match the durable request.
 - Status: implementation dispatch is public. The manager will not poll or edit
   the same queue/CMake scope and awaits only the worker-pushed RESPONSE.
+
+### RESPONSE W-QUEUE-GREEN-001
+
+- Visible Sol/ultra thread: `019fd2bd-b720-7b30-8d65-780a0b500924`.
+- Exact base/commit:
+  `930480bf301a05a51e12f7c24be3b93a29ddf9bb` /
+  `039b58d1b1cb2b7d79b8d8db27839a3c9f7ad81b`; worker reports a clean
+  detached HEAD whose parent is the requested base.
+- Scope: new queue header/source plus focused test CMake only; the integrated
+  RED test and processor/core/plugin/UI/global CMake remain unchanged.
+- Interface/ownership: concrete final PImpl queue, explicit noexcept default
+  construction, out-of-line destruction and deleted copy/move. Header only
+  forward-declares `FIFFLIB::FiffInfo`.
+- State: immutable configured dimensions/capacity, pre-sized matrix slots with
+  sample count/metadata ownership, free/filled semaphores, atomic running flag
+  and single-owner producer/consumer indices.
+- Configure: rejects invalid dimensions/count and active reconfigure; builds a
+  fully allocated candidate and publishes it only after successful construction,
+  preserving prior stopped ownership if allocation throws.
+- Producer: validates shape/running, performs one zero-time free-slot acquire,
+  returns Full without mutation, copies only valid columns/metadata, advances
+  once and publishes one filled token.
+- Consumer: validates exact preallocated destination, performs one timed filled
+  acquire, returns Stopped after a stop wake without reading a slot, otherwise
+  copies valid columns/sample count/metadata in FIFO order, advances once and
+  releases one free token. Unused destination tail is untouched.
+- Stop/reconfigure: one acq_rel running exchange makes stop idempotent and the
+  first transition releases one wake token. Caller quiescence is documented
+  before reconfigure/destruction; a later configure installs a fresh queue and
+  pending stopped blocks may be discarded.
+- Realtime claim: all matrices/container/semaphores allocate at configure;
+  hot paths use scalar copies, shared ownership operations, indices, atomics
+  and semaphore calls without resize/growth/retry/busy wait/explicit locks/
+  strings/FIFF access.
+- Worker validation: exact scope/diff checks pass. Isolated CMake stops before
+  target generation at the known ignored Eigen `Macros.h`/`buildtests.in` gap;
+  no dependency repair or local runtime GREEN is claimed. No subagents,
+  manager polling, full mne_scan or rt_server.
+- Status: response is durable before manager commit inspection. The visible
+  conversation remains reusable only for a narrow same-context follow-up.
