@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T23:31:00+08:00
+Last updated: 2026-08-05T23:36:00+08:00
 
 ## Recovery order
 
@@ -50,19 +50,21 @@ Sol/ultra issue #4 review is the next gate before the nonblocking queue.
 
 ## Running workers
 
-- `R-PROC-001` is prepared for a new visible Sol/ultra read-only processor
-  milestone review conversation. Dispatch occurs only after this REQUEST is
-  committed and pushed; the final thread/worktree identity will then be added.
+- `R-PROC-001` visible Sol/ultra read-only processor review setup is accepted
+  asynchronously as client task
+  `client-new-thread:fade23aa-de07-4aff-964c-e41e113aa385`, reviewing exact
+  integration snapshot `96ca3eb44`. The reviewer must proactively send its
+  RESPONSE; the manager does not poll it.
 
 ## Next actions
 
-1. Dispatch the recorded independent visible Sol/ultra read-only issue #4
-   processor milestone review conversation and publish its start evidence.
-2. Resolve every P0/P1 and any P2 finding; publish the formal review and close
+1. Publish issue #4 evidence that independent processor review was dispatched.
+2. Await only the reviewer-pushed `RESPONSE R-PROC-001`; do not poll.
+3. Resolve every P0/P1 and any P2 finding; publish the formal review and close
    issue #4 when its gate is satisfied.
-3. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
+4. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
    concurrency implementation and independent review.
-4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+5. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 

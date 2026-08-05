@@ -2647,3 +2647,14 @@ hidden reasoning is not.
   subagents or manager polling; reviewer must proactively send its RESPONSE.
 - Next: commit/push this request, create the saved-project worktree review
   conversation, then record its exact identity before publishing dispatch.
+
+### E-256 - Processor formal review creation accepted
+
+- Actor: manager and Codex visible task creation.
+- Result: Sol/ultra worktree setup accepted as
+  `client-new-thread:fade23aa-de07-4aff-964c-e41e113aa385` against exact
+  request snapshot `96ca3eb44`.
+- Contract: read-only review, no subagents or rt_server, mandatory P0-P3 report
+  and proactive `RESPONSE R-PROC-001` to the manager.
+- Coordination: no final thread ID was returned and the manager will not poll;
+  next publish dispatch evidence to issue #4 after this record is pushed.

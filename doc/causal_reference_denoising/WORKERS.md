@@ -3301,3 +3301,18 @@ does not continuously poll them.
   send it to the manager thread using `send_message_to_thread`, then stop
   without polling the manager.
 - Status: recorded before visible review conversation creation.
+
+### RESPONSE R-PROC-001-CREATE
+
+- Result: visible saved-project worktree creation accepted asynchronously.
+- Client setup ID:
+  `client-new-thread:fade23aa-de07-4aff-964c-e41e113aa385`.
+- Host/model: local, `gpt-5.6-sol`, `ultra`.
+- Exact requested review snapshot:
+  `96ca3eb44ab448aefc1cfa0048064e926df6340a`.
+- Prompt integrity: read-only exact-SHA audit includes processor depth/locality,
+  mapping, disarm/reset, real-time/exception properties, dependency isolation,
+  focused evidence, P0-P3 format, no edits/subagents/rt_server and proactive
+  manager RESPONSE notification.
+- Coordination: setup did not return a final thread ID. The manager will not
+  poll setup or review; it awaits only the reviewer-pushed RESPONSE.
