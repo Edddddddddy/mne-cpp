@@ -3521,3 +3521,39 @@ does not continuously poll them.
 - Remaining child order is #5 queue/lifecycle, #6 plugin/UI, #7 example/docs,
   then #3 final QA. No conventional PR is created because histories remain
   unrelated.
+
+### REQUEST W-QUEUE-TEST-001
+
+- From / to: manager thread
+  `019fcdc3-4a1e-76d1-8140-1bd521219297` / new visible queue tracer work
+  conversation.
+- GitHub issue: `Edddddddddy/mne-cpp#5`.
+- Model/environment: `gpt-5.6-luna`, `max`, new saved-project worktree from
+  `codex/causal-reference-denoising`; no internal/nested subagents.
+- Blocking: yes for queue implementation.
+- TDD behavior: add exactly one new focused Qt slot through the frozen
+  `AdaptiveDenoisingBlockQueue` interface. Configure two rows, max four samples
+  and capacity two. Push distinct 2x3 block A and 2x4 block B with distinct
+  shared metadata control blocks, mutate the caller matrices afterward, then
+  require a 2x2 block C push to return Full. Pop into a preallocated 2x4
+  destination with timeout zero: A then B must preserve original deep-copied
+  valid columns, exact sample counts and metadata ownership order. Empty pop
+  returns Timeout; then C can be pushed/popped, proving Full did not advance or
+  overwrite the ring.
+- Metadata test seam: queue header forward-declares `FIFFLIB::FiffInfo`. The
+  test creates aliasing `shared_ptr<const FiffInfo>` handles with null element
+  pointers but distinct live owner control blocks and compares ownership using
+  `owner_before`; it never constructs/dereferences FIFF or links mne_fiff.
+- Authorized file: focused processor test source only. Preserve all three
+  existing processor slots. Do not add queue production/CMake/core/plugin/UI/
+  dependency/vendor/example changes or run rt_server.
+- Expected RED: missing
+  `<adaptivedenoising/adaptivedenoisingblockqueue.h>`. If the clean worktree
+  Eigen baseline blocks CMake first, report honestly and do not copy/repair it;
+  manager owns populated RED reproduction.
+- Required response: `RESPONSE W-QUEUE-TEST-001` with exact base/commit,
+  matrices/status/ownership oracle, expected RED or infrastructure evidence,
+  changed file/clean status and no-subagent/no-polling confirmation. Actively
+  notify the manager thread, then stop.
+- Lifecycle: one-shot; archive after accepted/integrated RED and content proof.
+- Status: recorded before visible task creation.

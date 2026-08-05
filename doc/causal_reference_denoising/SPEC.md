@@ -252,6 +252,79 @@ thread all information needed to handle a layout transition at the same block
 boundary as its samples. UI pending settings/reset state remains a separate
 UI-to-worker boundary and is never locked by the acquisition callback.
 
+The selected plugin-private queue interface transports `FiffInfo` ownership
+without including or inspecting its definition. The header forward-declares
+`FIFFLIB::FiffInfo`; only the later plugin adapter dereferences it.
+
+```cpp
+enum class AdaptiveDenoisingQueueConfigureStatus : std::uint8_t {
+    Ready,
+    InvalidConfiguration,
+    AlreadyRunning
+};
+
+enum class AdaptiveDenoisingQueuePushStatus : std::uint8_t {
+    Pushed,
+    Full,
+    InvalidBlock,
+    Stopped
+};
+
+enum class AdaptiveDenoisingQueuePopStatus : std::uint8_t {
+    Popped,
+    Timeout,
+    Stopped,
+    InvalidDestination
+};
+
+struct AdaptiveDenoisingBlockQueueConfig {
+    Eigen::Index channelCount;
+    Eigen::Index maxBlockSamples;
+    std::size_t capacity;
+};
+
+struct AdaptiveDenoisingQueuedBlock {
+    Eigen::MatrixXd data; // caller preallocates channelCount x maxBlockSamples
+    Eigen::Index sampleCount;
+    std::shared_ptr<const FIFFLIB::FiffInfo> fiffInfo;
+};
+
+class AdaptiveDenoisingBlockQueue final {
+public:
+    AdaptiveDenoisingBlockQueue() noexcept;
+    ~AdaptiveDenoisingBlockQueue();
+    AdaptiveDenoisingBlockQueue(const AdaptiveDenoisingBlockQueue&) = delete;
+    AdaptiveDenoisingBlockQueue& operator=(const AdaptiveDenoisingBlockQueue&) = delete;
+    AdaptiveDenoisingBlockQueue(AdaptiveDenoisingBlockQueue&&) = delete;
+    AdaptiveDenoisingBlockQueue& operator=(AdaptiveDenoisingBlockQueue&&) = delete;
+
+    AdaptiveDenoisingQueueConfigureStatus configure(
+        const AdaptiveDenoisingBlockQueueConfig& config);
+    AdaptiveDenoisingQueuePushStatus tryPush(
+        Eigen::Ref<const Eigen::MatrixXd> block,
+        std::shared_ptr<const FIFFLIB::FiffInfo> fiffInfo) noexcept;
+    AdaptiveDenoisingQueuePopStatus waitPop(
+        AdaptiveDenoisingQueuedBlock& destination,
+        int timeoutMilliseconds) noexcept;
+    void stop() noexcept;
+};
+```
+
+`configure` is transactional, allocates every fixed-size matrix slot and starts
+an empty queue; it is rejected while already running. The producer validates
+`0 < block.cols() <= maxBlockSamples` and exact row count, performs exactly one
+zero-time free-slot semaphore acquire, deep-copies the valid columns, retains
+the shared immutable metadata handle and publishes the slot. `Full` does not
+advance or overwrite either ring position, so the newest input is dropped.
+
+The consumer provides a preallocated `channelCount x maxBlockSamples` matrix;
+`waitPop` copies only the valid leading columns and returns `sampleCount` plus
+the metadata handle in the same FIFO order. The unused destination tail is
+unspecified. `stop()` wakes a timed waiter and prevents new pushes; a later
+successful configure creates fresh preallocated state. Push/pop/stop perform
+no heap allocation, string construction or busy wait. Null metadata is
+transported faithfully so the later worker can fail closed on missing metadata.
+
 The focused `test_adaptive_denoising_plugin` target compiles private queue,
 processor and numerical sources directly and initially links only Qt Core/Test
 and Eigen. Its worker-owned processor consumes an immutable data-only stream

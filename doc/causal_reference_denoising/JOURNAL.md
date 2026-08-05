@@ -2794,3 +2794,18 @@ hidden reasoning is not.
 - Decision: processor milestone is complete. Begin issue #5 with one Luna/max
   public/private-seam tracer for drop-newest, FIFO and metadata pairing; queue
   implementation remains a separate Sol/ultra concurrency task.
+
+### E-269 - Queue interface and first tracer request frozen
+
+- Interface: plugin-private concrete queue preallocates matrix slots at
+  configure, forward-declares/retains immutable FiffInfo handles, uses one
+  zero-time producer acquire, timed consumer pop and stop wakeup. Caller owns a
+  preallocated output matrix; no FIFF parsing exists at this seam.
+- First vertical behavior: capacity-two A/B deep copy and FIFO metadata pairing,
+  C returns Full/drop-newest, drain returns Timeout, then C can enter normally.
+- Test isolation: one focused test-source slot, no mne_fiff link or production
+  queue code; expected RED is missing queue header.
+- Request/model: `W-QUEUE-TEST-001`, new visible Luna/max; no subagent,
+  manager polling or rt_server.
+- Next: commit/push interface/request, create task, record identity and publish
+  dispatch to issue #5.

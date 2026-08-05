@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T01:04:00+08:00
+Last updated: 2026-08-06T01:13:00+08:00
 
 ## Recovery order
 
@@ -53,14 +53,15 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 
 ## Running workers
 
-- None. The next task is a new visible Luna/max issue #5 queue tracer after its
-  minimal REQUEST is committed/pushed.
+- `W-QUEUE-TEST-001` is prepared for a new visible Luna/max issue #5 tracer
+  conversation after this interface/request commit is pushed.
 
 ## Next actions
 
-1. Record and dispatch issue #5 Luna/max drop-newest/FIFO/metadata-pairing RED
-   tracer, followed by a Sol/ultra concurrency implementation and review.
-2. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+1. Dispatch recorded Luna/max `W-QUEUE-TEST-001` tracer, then publish it to
+   issue #5.
+2. After valid RED, dispatch a separate Sol/ultra queue implementation task.
+3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 
