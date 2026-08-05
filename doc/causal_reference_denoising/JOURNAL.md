@@ -1089,3 +1089,12 @@ hidden reasoning is not.
 - Stream: zero-model accept, two finite-overflow rejections, normal recovery
   accept in one block, then future probe; expected events `2/2`, generation2.
 - Next: commit/push, clean recovery worktree, create test worktree, dispatch.
+
+### E-114 - Transactional rejection test worker active
+
+- Actor: manager and `/root/w_test_core_010`.
+- Publish/cleanup: diagnostics issue comment `5189807403`; clean recovery
+  worktree removed after content match.
+- Worktree/model: detached `mne-cpp-worker-w-test-core-010` at `ff0fc018d`,
+  Sol/ultra, no subagents.
+- Next: wait for one-slot test response; no overlapping test edits.

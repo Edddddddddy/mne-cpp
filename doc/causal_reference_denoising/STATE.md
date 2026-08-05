@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T17:52:00+08:00
+Last updated: 2026-08-05T17:56:00+08:00
 
 ## Recovery order
 
@@ -33,13 +33,13 @@ finite-overflow epoch rejection/recovery (`R-SOLVE-001`).
 
 ## Running workers
 
-None. Recovered diagnostics implementation is GREEN. Its clean worktree is
-ready for retirement; `W-TEST-CORE-010` is prepared.
+`W-TEST-CORE-010` is active as `/root/w_test_core_010` on Sol/ultra in detached
+worktree `mne-cpp-worker-w-test-core-010`.
 
 ## Next actions
 
-1. Publish diagnostics GREEN evidence and remove the clean recovery worktree.
-2. Create/dispatch Sol/ultra `W-TEST-CORE-010`.
+1. Wait for/review `RESPONSE W-TEST-CORE-010`.
+2. Integrate its single test and reproduce runtime RED.
 3. Reproduce runtime RED for mixed rejected/recovered boundaries.
 
 ## Focused verification targets
