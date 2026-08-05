@@ -3098,3 +3098,16 @@ hidden reasoning is not.
   changed. Future CLI bodies avoid PowerShell-interpreted Markdown backticks.
 - Next: record one adjacent invalid-input queue tracer request before reusing
   the lifecycle Luna/max conversation.
+
+### E-295 - Final queue validation tracer requested
+
+- Request: `W-QUEUE-TEST-003`, final reuse of the visible Luna/max lifecycle
+  test conversation; one focused public test slot only.
+- Oracle: invalid config bounds, invalid producer shapes and invalid consumer
+  destinations must return fixed statuses without consuming capacity/pending
+  data or mutating destination sentinels. A later valid 2x3 null-metadata block
+  must pass through the same capacity-one queue exactly, followed by Timeout.
+- Scope: test source only; queue/CMake/plugin/core/example/docs/vendor remain
+  immutable, and no full scan or rt_server is authorized.
+- Next: commit/push the request, send it to the retained task with the exact
+  new branch base, then publish/read back the dispatch without polling.

@@ -72,10 +72,10 @@ in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 
 ## Next actions
 
-1. Publish lifecycle GREEN, then add one adjacent public validation slice for
-   invalid configuration/block/destination and complete independent Sol/ultra
-   queue concurrency review. Retain the implementation conversation for a
-   narrow fix until that formal gate passes.
+1. Reuse the completed Luna/max lifecycle conversation for one adjacent public
+   validation slot covering invalid configuration/block/destination without
+   consuming state, then complete independent Sol/ultra queue review. Retain
+   the implementation conversation for a narrow fix until that gate passes.
 2. Create the already-durable `W-DOC-001` visible Luna/max task while example
    work remains non-overlapping; do not poll either task.
 

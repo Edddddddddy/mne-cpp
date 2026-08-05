@@ -3960,6 +3960,40 @@ does not continuously poll them.
   text; a second API read-back exactly matches commits, 7/0/0 result, 63 ms
   wake evidence, lifecycle oracle, restrictions and remaining review work.
 
+### REQUEST W-QUEUE-TEST-003
+
+- From / to: manager / reusable visible Luna/max queue-test conversation
+  `019fd2e0-188f-7a62-a89c-7ceefa15f6cd`.
+- GitHub issue: `Edddddddddy/mne-cpp#5`; model remains `gpt-5.6-luna`, `max`.
+- Blocking: yes for focused queue coverage before formal concurrency review.
+- Task: add exactly one public-interface QtTest slot
+  `queueRejectsInvalidInputsWithoutConsumingState` to the focused test source;
+  production queue and CMake remain immutable.
+- Configuration rows: on fresh/stopped queues require InvalidConfiguration for
+  channelCount zero, maxBlockSamples zero, capacity zero and capacity one above
+  `int` maximum, without allocation. Then configure 2x4/capacity-one Ready.
+- Producer rows: exact invalid row-count, zero-column and five-column matrices
+  each return InvalidBlock and do not consume capacity. A valid distinct 2x3
+  matrix with null metadata must then push successfully; a second valid block
+  returns Full while the first remains pending.
+- Consumer rows: wrong-row and wrong-column preallocated destinations each
+  return InvalidDestination without consuming the pending block or mutating
+  their matrix/sampleCount/metadata sentinels. A valid exact 2x4 destination
+  then pops the original 2x3 matrix, reports sampleCount three and transports
+  null metadata; a zero-time second pop returns Timeout.
+- Test design: compare only valid leading columns in the successful pop, but
+  compare complete invalid destinations against sentinels. Preserve all seven
+  existing passes. Do not inspect queue internals, use timing, or edit any
+  production/CMake/core/plugin/example/docs/vendor/dependency file.
+- Verification: attempt focused Release if dependencies permit; otherwise
+  report the known clean-worktree Eigen limitation honestly. Return exact
+  base/commit, matrices/status/state-preservation oracle, file/clean checks and
+  no-subagent/no-polling/no-full-scan/no-rt_server confirmation as
+  `RESPONSE W-QUEUE-TEST-003`, proactively notifying manager.
+- Lifecycle: final reuse of this test conversation for queue issue #5; archive
+  after manager integration/GREEN/content verification.
+- Status: recorded and will be committed/pushed before follow-up dispatch.
+
 ### REQUEST W-EXAMPLE-001
 
 - From / to: manager thread
