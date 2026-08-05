@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T15:30:12+08:00
+Last updated: 2026-08-05T15:34:00+08:00
 
 ## Recovery order
 
@@ -19,9 +19,8 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-Atomic selected-NaN/Inf pass-through/state immutability is GREEN. The next
-contract is finite-stream chunk-boundary equivalence at `1e-10` relative
-tolerance.
+Atomic selected-NaN/Inf behavior and finite-stream chunk-boundary equivalence
+are GREEN. The next contract is reset and three-mode state semantics.
 
 ## Completed
 
@@ -34,15 +33,15 @@ tolerance.
 
 ## Running workers
 
-`W-TEST-CORE-006` has returned test commit `8aa84d032`; manager diff review
-and populated-workspace validation are pending.
+None. `W-TEST-CORE-006` is complete and ready for archival after its durable
+GREEN evidence is committed and published.
 
 ## Next actions
 
-1. Review commit `8aa84d032` and record the scope decision.
-2. Cherry-pick the accepted public-interface chunk-equivalence test.
-3. Accept immediate GREEN if the existing implementation passes; otherwise
-   reproduce RED and issue a fix request.
+1. Commit and publish chunk-equivalence GREEN evidence; archive the one-shot
+   test worker.
+2. Dispatch a fresh Luna/max test worker for reset and mode-state semantics.
+3. Integrate the next narrow RED/GREEN slice before broader acceptance tests.
 
 ## Focused verification targets
 

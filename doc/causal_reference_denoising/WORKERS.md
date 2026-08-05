@@ -755,4 +755,17 @@ The manager records and forwards all cross-worker messages here before acting.
 - Manager review: accepted. The one-slot public-interface test covers warmup,
   four fixed update epochs, irregular boundaries, future model equivalence,
   and exact preservation of all non-target rows without production coupling.
-- Manager status: populated-main-workspace execution is next.
+- Manager validation: cherry-picked as `b6f5b9204`; focused Release build
+  succeeded. The synchronized Qt report contains 34 passes, zero failures,
+  and exit code 0. Both the assembled stream and common ApplyOnly probe report
+  relative difference exactly zero; all configured non-target rows remain
+  value-identical.
+- Classification: immediate GREEN characterization; no production fix is
+  required for this slice.
+
+### RETIREMENT REQUEST CLEANUP-006
+
+- Archive completed one-shot `W-TEST-CORE-006` thread
+  `019fd0cc-9f37-7dd0-9051-4086072efabe` after this record is committed and
+  published.
+- Status: recorded before action.

@@ -663,3 +663,17 @@ hidden reasoning is not.
   preservation of reference/unselected rows.
 - Decision: accept commit `8aa84d032`; commit the durable response/review record
   before cherry-pick, then build and run the focused target.
+
+### E-069 - Chunk-equivalence contract is GREEN
+
+- Actor: manager.
+- Integrated test commit: `b6f5b9204`.
+- Build evidence: the focused Release target compiled and linked successfully;
+  only the known Eigen/MSVC C4819 code-page warnings appeared.
+- Runtime evidence: synchronized Qt report contains 34 passes, zero failures,
+  and process exit code 0. Stream and future ApplyOnly probe relative errors
+  are both exactly zero; reference and unselected rows are exact.
+- Result: finite-stream output and learned state are independent of block
+  partitioning for this acceptance stream at the required `1e-10` tolerance.
+- Next: publish the milestone, retire the one-shot worker, and start reset/mode
+  state-semantics TDD on a fresh Luna/max worker.
