@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T23:41:00+08:00
+Last updated: 2026-08-06T00:02:00+08:00
 
 ## Recovery order
 
@@ -37,7 +37,9 @@ state on every invalid or missing layout, and resets/relearns on valid layout
 changes. The populated Release focused executable exits zero for the mapping,
 19 invalid/disarm cases, and valid reconfigure/reset/relearn behavior. The
 completed reusable Luna/max test conversation is archived. Independent
-Sol/ultra issue #4 review is the next gate before the nonblocking queue.
+Sol/ultra review `R-PROC-001` completed at exact `96ca3eb44`: P0/P1 are zero,
+one P2 ownership-policy finding blocks issue #4, and two P3 evidence/locality
+items are tracked as nonblocking follow-up.
 
 ## Completed
 
@@ -50,20 +52,22 @@ Sol/ultra issue #4 review is the next gate before the nonblocking queue.
 
 ## Running workers
 
-- `R-PROC-001` visible Sol/ultra read-only processor review setup is accepted
-  asynchronously as client task
-  `client-new-thread:fade23aa-de07-4aff-964c-e41e113aa385`, reviewing exact
-  integration snapshot `96ca3eb44`. The reviewer must proactively send its
-  RESPONSE; the manager does not poll it.
+- None. The completed read-only reviewer is ready for archival after its
+  response and worktree integrity evidence are committed/pushed.
 
 ## Next actions
 
-1. Await only the reviewer-pushed `RESPONSE R-PROC-001`; do not poll.
-2. Resolve every P0/P1 and any P2 finding; publish the formal review and close
-   issue #4 when its gate is satisfied.
-3. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
+1. Archive completed reviewer thread
+   `019fd288-1f93-7df1-8e55-78bc930ad73a` without manually deleting its
+   app-owned worktree.
+2. Resolve P2 `R-PROC-MOVE-001` with an explicit noncopyable/nonmovable worker-
+   owned interface and C++14 type-trait verification through a new Luna/max
+   minimal work conversation.
+3. Publish the formal review/fix evidence and close issue #4 after focused
+   Release remains GREEN.
+4. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
    concurrency implementation and independent review.
-4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+5. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 

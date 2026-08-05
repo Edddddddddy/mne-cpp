@@ -2669,3 +2669,19 @@ hidden reasoning is not.
   zero and every P2 resolved or explicitly deferred.
 - Next: do not poll; resume when the reviewer proactively sends its RESPONSE or
   the user supplies new direction.
+
+### E-258 - Processor formal review response received
+
+- Actor: visible Sol/ultra reviewer thread
+  `019fd288-1f93-7df1-8e55-78bc930ad73a` and manager.
+- Snapshot/integrity: exact clean detached `96ca3eb44`; manager independently
+  confirmed the app worktree and all four scoped file hashes match integration.
+- Result: P0/P1 zero; P2 `R-PROC-MOVE-001` holds issue #4 because implicit move
+  can leave a moved-from Ready snapshot with no numerical ownership.
+- Decision: choose explicit noncopyable/nonmovable worker ownership, add C++14
+  trait verification and rerun complete focused Release. This keeps the
+  interface honest without adding a move seam the plugin does not need.
+- P3 disposition: locality documentation and accepted-max/P=256 coverage are
+  recorded as nonblocking later follow-up, preserving engineering-first scope.
+- Next: commit/push this response, archive the clean one-shot reviewer, then
+  record and dispatch a new Luna/max minimal P2 fix conversation.

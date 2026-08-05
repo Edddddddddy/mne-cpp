@@ -3326,3 +3326,36 @@ does not continuously poll them.
   all match the durable request.
 - Status: review dispatch is public and complete; issue #4 remains open while
   the manager awaits only the reviewer-pushed result.
+
+### RESPONSE R-PROC-001
+
+- Visible reviewer thread: `019fd288-1f93-7df1-8e55-78bc930ad73a`;
+  `gpt-5.6-sol`, `ultra`, read-only.
+- Reviewed exact snapshot:
+  `96ca3eb44ab448aefc1cfa0048064e926df6340a`; initial/final worktree status
+  clean and detached.
+- Inspection: full processor header/source, focused CMake/test, relevant
+  numerical ownership/delegation, frozen SPEC, worker provenance and all three
+  issue #4 GREEN comments. No independent build was claimed because the clean
+  review worktree has the known ignored Eigen gap.
+- Architecture result: concrete data-only module is suitably deep; the small
+  interface centralizes mapping, classification, disarm/reset, diagnostics and
+  numerical delegation with no Qt/FiffInfo/strategy/registry leak. Mapping,
+  invalid disarm, valid reset/relearn and armed/unarmed hot paths match SPEC.
+- Priorities: P0 zero; P1 zero; one blocking P2 `R-PROC-MOVE-001`; two
+  nonblocking P3s `R-PROC-LOCALITY-001` and `R-PROC-BOUNDARY-001`.
+- P2 evidence: implicit C++14 move transfers `m_denoiser` but copies the Ready
+  scalar snapshot, so a moved-from processor can report Ready while process is
+  NotConfigured pass-through. Requested policy is explicit deletion of copy and
+  move, or a custom consistent move; add C++14 type-trait verification and run
+  the complete focused Release executable.
+- P3 summary: compact header-local contract/exception documentation and exact
+  accepted upper-bound/P=256 tests are missing; current source behavior is
+  correct and these do not block the processor gate.
+- Gate: HOLD issue #4 until P2 is fixed and focused Release rerun. Do not reopen
+  numerical algorithm review.
+- Integrity verification by manager: app worktree
+  `C:/Users/lcy/.codex/worktrees/f01a/mne-cpp-main` is clean at exact reviewed
+  SHA and all four scoped file hashes equal integration content. No reviewer
+  edit, stage, commit, push, GitHub mutation, dependency repair, subagent,
+  full mne_scan or rt_server run occurred.

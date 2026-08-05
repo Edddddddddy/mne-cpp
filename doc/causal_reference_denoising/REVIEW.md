@@ -167,12 +167,62 @@ completion.
 
 Pending.
 
-## Processor milestone pre-review
+## Processor milestone review
 
-Formal independent processor review `R-PROC-001` is prepared for a new visible
-Sol/ultra read-only conversation after the complete mapping/disarm/reconfigure
-focused suite reached populated Release GREEN. Its exact dispatch SHA, thread
-identity and findings will be recorded after creation/response.
+Formal independent review `R-PROC-001` completed on Sol/ultra against exact
+clean snapshot `96ca3eb44`. Code, test and provenance audit found the concrete
+data-only processor module suitably deep and the mapping/disarm/reset behavior
+consistent with SPEC. P0/P1 are zero; one P2 blocks issue #4 and two P3s remain
+tracked.
+
+#### R-PROC-MOVE-001 - P2 - Open
+
+- Location: `adaptivedenoisingprocessor.h:78-103`;
+  `adaptivedenoisingprocessor.cpp:145-162,176-179`.
+- Evidence: no special members are declared. C++14 deletes copy through the
+  `unique_ptr` but generates noexcept move. Move transfers `m_denoiser` while
+  copying the scalar Ready snapshot, leaving the source reporting Ready from
+  `configuration()` but NotConfigured from `process()`.
+- Impact: a future worker/container refactor can publish Ready while silently
+  passing data through, violating ownership consistency and interface locality.
+- Required fix: select explicit worker ownership. Prefer an explicit noexcept
+  default constructor and deleted copy/move construction/assignment. If moves
+  remain, custom moves must transfer model/snapshot together and disarm source.
+- Required verification: C++14 type-trait static assertions for the selected
+  policy; if moves remain, configured move behavior tests; complete focused
+  Release executable remains GREEN.
+
+#### R-PROC-LOCALITY-001 - P3 - Open
+
+- Location: `adaptivedenoisingprocessor.h:2-5,32-103`.
+- Evidence/impact: worker ownership, inclusive UI ranges, selection, returned-
+  failure disarm, Ready reset, allocation/exception behavior and hot-path rules
+  are non-local to the public declarations.
+- Later correction: compact Doxygen plus explicit copy/move policy. State that
+  allocation exceptions propagate while preserving old state so callers must
+  fail closed rather than use old ownership for new metadata.
+- Verification: header contract review against SPEC and compile-time ownership/
+  noexcept checks.
+
+#### R-PROC-BOUNDARY-001 - P3 - Open
+
+- Location: `adaptivedenoisingprocessor.cpp:49-58,125-135`;
+  focused processor test `:133-141,275-404`.
+- Evidence/impact: invalid low/high cases and P=288 are covered, but inclusive
+  legal maxima and exact P=256 acceptance are not. Source is currently correct,
+  yet a narrowing regression could pass the focused suite.
+- Later correction/test: Ready rows for taps 32, interval 2048, memory 1/300,
+  regularization 1 and P=256, retaining an over-cap disarm case.
+
+### Processor formal gate decision
+
+- P0: zero.
+- P1: zero.
+- P2: `R-PROC-MOVE-001` open and blocking issue #4.
+- P3: `R-PROC-LOCALITY-001` and `R-PROC-BOUNDARY-001` tracked for later
+  processor/final-QA follow-up.
+- Decision: HOLD until explicit ownership policy plus trait verification are
+  integrated and complete focused Release remains GREEN.
 
 #### R-PROC-TEST-MEMORY-001 - P2 - Closed
 
