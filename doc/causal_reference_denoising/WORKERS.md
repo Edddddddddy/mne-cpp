@@ -1056,4 +1056,5 @@ The manager records and forwards all cross-worker messages here before acting.
 - Output: `RESPONSE R-DIAGNOSTICS-001` with recommended declaration sketch,
   semantics table in prose, findings with priority/file/line/evidence/fix/test,
   explicitly rejected alternatives, and no-edit/no-subagent confirmation.
-- Status: recorded before dispatch.
+- Status: active as collaboration agent `/root/r_diagnostics_001`; Sol/ultra
+  accepted the read-only/no-subagent scope.

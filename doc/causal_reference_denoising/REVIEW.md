@@ -16,7 +16,7 @@ Pending.
 
 ### Diagnostics seam pre-review
 
-`R-DIAGNOSTICS-001` is prepared for Sol/ultra. It will define the minimum
+`R-DIAGNOSTICS-001` is active as `/root/r_diagnostics_001` on Sol/ultra. It will define the minimum
 fixed-size process diagnostics and numerical-solve rejection semantics before
 the next test, without reviewing or changing plugin/UI code.
 
