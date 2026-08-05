@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T00:24:00+08:00
+Last updated: 2026-08-06T00:30:00+08:00
 
 ## Recovery order
 
@@ -52,19 +52,22 @@ items are tracked as nonblocking follow-up.
 
 ## Running workers
 
-- `W-PROC-MOVE-001` visible Luna/max worktree setup is accepted asynchronously
-  as client task `client-new-thread:a72b97b8-3a57-4239-aae3-bdc670aa52ad`
-  from exact base `46a413609`. It may change only the processor header and
-  focused test source, then must proactively send its RESPONSE.
+- `W-PROC-MOVE-001` Luna/max thread
+  `019fd29c-2487-77a3-bfee-512054491941` returned exact-base two-file commit
+  `b49f27699`. Response is durable; manager diff review, integration and
+  populated focused Release validation are next.
 
 ## Next actions
 
-1. Await only worker-pushed `RESPONSE W-PROC-MOVE-001`; do not poll.
-2. Publish the formal review/fix evidence and close issue #4 after focused
+1. Inspect exact worker commit/diff against `46a413609`, then cherry-pick only
+   if the special-member and type-trait scope is exact.
+2. Build/run complete `test_adaptive_denoising_plugin` Release in the populated
+   manager workspace and close P2 only on GREEN.
+3. Publish the formal review/fix evidence and close issue #4 after focused
    Release remains GREEN.
-3. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
+4. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
    concurrency implementation and independent review.
-4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+5. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 

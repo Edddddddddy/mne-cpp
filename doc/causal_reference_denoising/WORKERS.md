@@ -3427,3 +3427,24 @@ does not continuously poll them.
   no-polling/no-rt_server rules all match durable records.
 - Status: P2 fix dispatch is public; issue #4 remains open pending worker
   response, manager integration and complete focused Release GREEN.
+
+### RESPONSE W-PROC-MOVE-001
+
+- Visible Luna/max thread: `019fd29c-2487-77a3-bfee-512054491941`.
+- Exact base/commit:
+  `46a413609b0d691ad3d66503c04967df00b22d41` /
+  `b49f27699c75868a70c43909149464d076c5129f`.
+- Header change: explicit noexcept default constructor; deleted copy
+  constructor/assignment and move constructor/assignment.
+- Focused test change: adds `<type_traits>` and five namespace-scope C++14
+  static assertions for nothrow default construction, noncopyability and
+  nonmovability. Existing three Qt runtime slots remain unchanged.
+- Worker evidence: exactly the two authorized files; unstaged/staged/committed
+  diff checks and clean detached status pass.
+- Infrastructure: clean worktree configuration stopped before test compilation
+  on the known ignored Eigen `Macros.h`/`buildtests.in` gap. No pre-fix RED or
+  post-fix GREEN is claimed, and no dependency was copied/repaired/staged.
+- Restrictions/lifecycle: no source/CMake/core/plugin change, full mne_scan,
+  rt_server, subagent or manager polling. Manager owns exact diff review and
+  populated Release validation before P2 closure.
+- Status: response recorded before manager commit inspection.
