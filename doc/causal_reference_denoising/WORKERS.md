@@ -4325,6 +4325,17 @@ does not continuously poll them.
   `79eff3b3a`, all-target oracle, diff/clean evidence and unchanged restrictions.
 - Status: recorded and will be committed/pushed before follow-up dispatch.
 
+### RESPONSE W-BENCH-001-REVISE-DISPATCH
+
+- Result: retained visible thread
+  `019fd300-a9e2-7f93-8063-32450ff1d543` accepted the follow-up with explicit
+  Luna/max.
+- Prompt preserves exact parent/one-file scope and changes only the finite
+  helper/call to rows 16..265 after the timer. Generator/workload/default/
+  timing/percentile/gate remain immutable.
+- Coordination: manager will not poll or edit example main; await proactive
+  replacement response.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread

@@ -3361,3 +3361,10 @@ hidden reasoning is not.
 - Decision: hold integration. Commit/push a narrow revise request to the same
   Luna/max task for all-target/all-sample checks and an amended exact-parent
   commit; do not change generator/timer/default mode.
+
+### E-320 - Benchmark finite-target revision dispatched
+
+- Result: retained visible Luna/max thread accepted the narrow follow-up.
+- Scope: same exact parent and example-main file; only all rows 16..265 finite
+  verification after timing may change. All workload/timer/default behavior is
+  frozen and manager will not poll.
