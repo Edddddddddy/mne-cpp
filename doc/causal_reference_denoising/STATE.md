@@ -50,15 +50,16 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 
 ## Running workers
 
-- `W-PROC-TEST-002`: visible reusable Luna/max processor-test conversation,
-  client setup `client-new-thread:9b5ed006-e485-4b72-94f5-c37db3fb1d76`,
-  exact integration base `a868914ca`. It owns only the focused test source and
-  must proactively return RESPONSE; manager does not poll.
+- Reusable Luna/max processor-test conversation, thread
+  `019fd266-902d-77e1-b40a-a754eaac6222`, returned clean test-only commit
+  `0d8aeafec1` from exact base `a868914ca`. Its 19-case invalid/missing disarm
+  response is durable; exact review and populated run are pending. Keep this
+  relevant conversation for the next valid-reconfigure-reset tracer if accepted.
 
 ## Next actions
 
-1. Receive/review/validate `RESPONSE W-PROC-TEST-002` without polling.
-2. Reuse that same relevant
+1. Review exact `0d8aeafec1`, integrate and run the populated focused target.
+2. If GREEN, reuse that same relevant
    conversation for the separate valid-reconfigure-reset tracer.
 3. After issue #4 reaches a milestone commit, open a separate visible
    Sol/ultra review conversation before integration.

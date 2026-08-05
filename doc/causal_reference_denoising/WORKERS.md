@@ -3038,3 +3038,29 @@ does not continuously poll them.
   worker-pushed `RESPONSE W-PROC-TEST-002`.
 - GitHub dispatch evidence:
   `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5193332420`.
+
+### RESPONSE W-PROC-TEST-002
+
+- Visible reusable thread: `019fd266-902d-77e1-b40a-a754eaac6222`.
+- Base/commit: exact parent
+  `a868914ca6a41cba17762c35bfb602e36feb5f5e`; returned commit
+  `0d8aeafec1471e7d38323ba308f88def8375e294`.
+- Scope: focused test source only; preserves the original mapping/training slot
+  and adds one public invalid/missing-disarm behavior.
+- Cases/status: four InvalidMetadata (zero/NaN fs, empty channels, zero max
+  block); two MissingReferences; two MissingTargets; ten InvalidSettings across
+  tap/interval/memory/regularization low/high/nonfinite bounds; and UI-valid
+  nine-reference/tap-32 feature cap `P=288` mapped to InvalidSettings.
+- Prime oracle: every case uses a fresh Ready 2-row processor and one 16-sample
+  ApplyAndLearn epoch with generation/accepted/rejected `1/1/0`.
+- Disarm/probe oracle: invalid configure and configuration snapshot have exact
+  status and zero counts; subsequent finite ApplyOnly is NotConfigured, keeps
+  the complete 2x16 matrix exact, reports zero snapshot/events and NaN RMS.
+- Worker evidence: single-file diff/clean checks pass. Focused runtime is not
+  claimed because the reusable app worktree retains the known ignored Eigen
+  baseline gap; no dependency repair/copy/stage, rt_server, subagent or manager
+  polling occurred.
+- TDD classification: expected immediate GREEN acceptance of an already
+  implemented contract; no artificial RED or production edit.
+- Status: response recorded before manager inspects the exact diff. Conversation
+  remains unarchived for planned reuse after acceptance.

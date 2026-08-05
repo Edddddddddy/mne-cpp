@@ -2465,3 +2465,20 @@ hidden reasoning is not.
   GREEN classification, reuse and no-polling/no-rt_server rules.
 - Next: no overlapping test-source edit and no thread polling. Resume from the
   worker-pushed `RESPONSE W-PROC-TEST-002` or new user direction.
+
+### E-242 - Processor invalid/disarm acceptance response received
+
+- Actor: reusable Luna/max thread
+  `019fd266-902d-77e1-b40a-a754eaac6222` and manager.
+- Response: exact-base, clean single-test-source commit `0d8aeafec1` covering 19
+  metadata/missing-pick/settings/feature-cap cases.
+- Per-case contract: learn generation one, invalid configure returns exact
+  status and zero snapshot, then finite ApplyOnly is whole-block exact
+  NotConfigured pass-through with zero diagnostics and NaN RMS.
+- Evidence classification: immediate GREEN expected from existing production;
+  detached runtime unavailable only because of the known ignored Eigen gap. No
+  dependency repair, production change, rt_server, subagent or polling.
+- Reuse: keep the thread/worktree after acceptance for one separate valid-
+  reconfigure-reset tracer.
+- Next: commit/push response, inspect exact diff and run populated focused
+  Release before integration/reuse.
