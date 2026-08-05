@@ -1846,3 +1846,49 @@ The manager records and forwards all cross-worker messages here before acting.
 - State/sensitivity: the training boundary must accept; an unlearned or wrong
   prediction fails sample and RMS checks; reference preservation is explicit.
 - Decision: accept for cherry-pick and populated immediate-GREEN execution.
+
+### MANAGER VALIDATION W-TEST-CORE-012-GREEN
+
+- Integrated test commit: `ada68a56b`.
+- Focused Release build: success; only known Eigen/MSVC C4819 warnings.
+- Synchronized Qt report: 41 passed, zero failed, exit code zero.
+- Large finite Bypass RMS and analytic ApplyOnly input/output/noise RMS all
+  pass; all prior contracts remain GREEN.
+- Decision: close P2 `R-RMS-001`.
+
+### RETIREMENT REQUEST CLEANUP-015
+
+- Publish 41/0 stable-RMS evidence to issue #2.
+- Verify detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-012` is clean at
+  `c302fbfff` and its test content matches integrated `ada68a56b`; remove it
+  through Git worktree management. The one-shot agent is not reusable.
+- Status: recorded before publish/cleanup.
+
+### REQUEST W-TEST-CORE-013
+
+- From / to: manager / finite application-overflow safety test worker.
+- Planned execution: detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-013` from current
+  integration HEAD; identifier recorded after dispatch.
+- Model/environment: `gpt-5.6-sol`, `ultra`; no nested subagents.
+- Model decision: the test fixes multi-target atomicity, floating-point overflow
+  and real-time state semantics, so Sol/ultra is selected.
+- Blocking: yes for P2 `R-APPLY-001`.
+- Task: add exactly one public-interface Qt slot. Configure one reference, two
+  targets, one preserved row, one tap and interval two. Train one boundary on
+  refs `[1,2]`, targets `2r` and `0.5r`, producing finite committed weights.
+  ApplyOnly a one-sample probe with ref `DBL_MAX`, raw targets `[7,11]` and a
+  preserved sentinel. The first prediction must overflow while the second is
+  finite; require sample-wide fallback: Processed status, entire probe exactly
+  unchanged and finite, generation unchanged, zero events, input/output RMS
+  `sqrt(85)` and estimated-noise RMS zero. Then a normal ApplyOnly probe
+  `[r=3, targets=6,1.5]` must still denoise both targets near zero, proving the
+  committed model was retained.
+- Scope: test source only; exactly one slot, no production/header/CMake/plugin/
+  dependency or rt_server. This must be an honest runtime RED against current
+  partial/nonfinite writes; do not implement fallback in the test task.
+- Required response: `RESPONSE W-TEST-CORE-013` with commit, exact matrices,
+  overflow and atomicity argument, RMS/state oracle, expected RED, evidence and
+  no-subagent confirmation.
+- Status: request recorded before cleanup/worktree creation/dispatch.

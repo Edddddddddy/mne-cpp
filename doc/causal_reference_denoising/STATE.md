@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T21:12:00+08:00
+Last updated: 2026-08-05T21:22:00+08:00
 
 ## Recovery order
 
@@ -34,14 +34,14 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-`W-TEST-CORE-012` commit `c302fbfff` passed manager exact review; integration
-and populated runtime characterization are pending.
+No worker is running. Stable RMS test `ada68a56b` is GREEN with 41 passes; its
+one-shot test worktree remains pending verified cleanup.
 
 ## Next actions
 
-1. Commit/push the manager review record.
-2. Integrate and run the focused report; immediate GREEN is expected.
-3. Close R-RMS-001 only with large-finite and analytic evidence.
+1. Commit/push RMS closure, fallback semantics and `W-TEST-CORE-013` request.
+2. Publish/cleanup the stable-RMS milestone.
+3. Dispatch the finite application-overflow RED test on Sol/ultra.
 
 ## Focused verification targets
 

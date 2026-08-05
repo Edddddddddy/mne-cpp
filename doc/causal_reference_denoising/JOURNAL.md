@@ -1441,3 +1441,31 @@ hidden reasoning is not.
   `W=2/(1+reg)` diagnostics equations/tolerances are correct and sensitive.
 - Decision: accept `c302fbfff`; commit the review, cherry-pick and run the
   focused synchronized report before closing P2 `R-RMS-001`.
+
+### E-150 - Stable RMS diagnostics are GREEN
+
+- Actor: manager.
+- Integrated test: `ada68a56b`.
+- Evidence: focused Release build succeeds; synchronized report has 41 passes,
+  zero failures and exit code zero. Large-finite and analytic RMS contracts pass.
+- Review effect: close P2 `R-RMS-001`.
+- Next: publish/retire and create the finite application-overflow RED.
+
+### E-151 - Application overflow fallback selected
+
+- Actor: manager using the existing deep-module seam and P2 finding.
+- Decision: if any finite-input prediction/residual is nonfinite, leave every
+  target at that sample raw, treat actually subtracted prediction as zero,
+  retain Processed status, and advance history/transactional learning normally.
+- Rationale: sample-wide atomicity avoids partial target corruption; passthrough
+  avoids scientifically arbitrary saturation; no rollback buffer or public
+  diagnostics expansion is needed.
+- Next: test first with one overflowing and one finite target prediction.
+
+### E-152 - Application overflow test request prepared
+
+- Actor: manager under TDD and P2 `R-APPLY-001`.
+- Request: `W-TEST-CORE-013`, Sol/ultra, one test source/slot, no subagents;
+  require sample-wide unchanged finite output, RMS/state semantics and later
+  normal-model integrity after a mixed overflow/finite prediction sample.
+- Next: commit/push, publish/clean stable RMS, create fresh worktree and dispatch.

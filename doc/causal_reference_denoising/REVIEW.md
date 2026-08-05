@@ -62,14 +62,16 @@ Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
   positive pivots and finite RHS/weights before commit.
 - Resolution: synchronized report remains 40/0 GREEN after hardening.
 
-#### R-RMS-001 - P2 - Open
+#### R-RMS-001 - P2 - Closed
 
 - Location: result header and `causalreferencedenoiser.cpp:289-352`.
 - Evidence: RMS is absent; direct squaring may overflow for valid finite input.
 - Fix: fixed scalar scaled-sum-of-squares accumulators.
 - Required test: large finite Bypass RMS and analytic ApplyOnly RMS.
+- Resolution: scaled accumulation is implemented in `b5f29fff1`; test
+  `ada68a56b` passes both required oracles in a 41/0 synchronized report.
 
-#### R-APPLY-001 - P2 - Open
+#### R-APPLY-001 - P2 - In progress
 
 - Location: `causalreferencedenoiser.cpp:328-332`.
 - Evidence: finite weights/features can yield nonfinite prediction/residual,
@@ -77,6 +79,9 @@ Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
 - Fix: define a finite-output application fallback before synthetic acceptance.
 - Required test: trained finite model plus extreme finite probe never silently
   returns nonfinite `Processed` output.
+- Selected policy: atomic sample-wide target pass-through, zero actually-
+  subtracted prediction diagnostics, valid Processed block and advancing
+  history/transactional learning state; public diagnostics surface unchanged.
 
 #### R-STATUS-001 - P3 - Closed
 

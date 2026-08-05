@@ -173,6 +173,17 @@ Committed finite `G/H` are kept separate from preallocated pending-epoch
 statistics. A poisoned/failed epoch is discarded after aging committed `G/H`
 by its elapsed forgetting; a later epoch can recover without allocation.
 
+If finite committed weights and finite selected input nevertheless produce a
+non-finite prediction or target residual, application falls back atomically for
+that sample: every selected target value at that sample remains at its original
+finite value and the prediction actually subtracted for diagnostics is zero.
+The valid block remains `Processed`; causal reference history advances, and an
+ApplyAndLearn call may still feed the raw target/feature into the transactional
+epoch so any poisoned candidate is rejected at its normal boundary. This
+sample-wide policy avoids partial target corruption, saturation, rollback
+buffers, and a new public diagnostics/event seam while guaranteeing finite
+output for finite selected input.
+
 ## Plugin behavior
 
 Add `adaptivedenoising` / `scan_adaptivedenoising` without changing the
