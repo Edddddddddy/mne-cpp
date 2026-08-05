@@ -2011,3 +2011,17 @@ The manager records and forwards all cross-worker messages here before acting.
 - Question: report concise progress, exact validation/write ordering and any
   blocker at the next safe boundary; no rescope or subagents.
 - Status: recorded before forwarding.
+
+### RESPONSE W-CORE-009-STATUS
+
+- Conclusion: no implementation blocker; required records/skills and exact
+  clean base are verified; integrated RED and process loop inspected.
+- Planned order: input RMS/current refs; feature; raw targets; preallocated
+  prediction; scalar validation of all prediction/residual pairs before any
+  write/noise accumulation; on failure zero prediction and leave targets raw,
+  otherwise write every residual; then accumulate actually-subtracted
+  prediction; learn transactionally from raw targets; advance history.
+- Bypass/warmup remain history-only. Detached compile/runtime unavailable only
+  because of the known ignored dependency/build gap; static/diff checks remain.
+- Scope/lifecycle: source-only semantics unchanged and no subagents.
+- Next: await implemented clean commit; no duplicate/rescope.

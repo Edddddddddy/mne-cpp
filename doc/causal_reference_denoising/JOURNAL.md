@@ -1581,3 +1581,12 @@ hidden reasoning is not.
 - Action: prepare one non-blocking progress/ordering request without changing
   scope or dispatching a duplicate.
 - Next: commit/push, forward and continue bounded waiting.
+
+### E-165 - Overflow fallback ordering confirmed
+
+- Actor: `/root/w_core_009` and manager.
+- Result: no blocker; worker confirmed validate-before-write, zero-or-write-all,
+  then actual-noise RMS, raw-target learning and history order.
+- Scope: bypass/warmup unchanged, no subagents, detached runtime limitation
+  remains known.
+- Decision: record and continue the same worker only.
