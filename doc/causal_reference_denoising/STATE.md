@@ -33,14 +33,14 @@ vertical slice is the high-risk numerical streaming implementation.
 
 ## Running workers
 
-`W-CORE-004` is queued for Sol/ultra because it introduces the EWLS math,
-cross-block state, LDLT solve, and hot-path allocation constraints.
+`W-CORE-004` is active on Sol/ultra in worktree `9bd8` because it introduces
+the EWLS math, cross-block state, LDLT solve, and hot-path constraints.
 
 ## Next actions
 
-1. Archive completed one-shot `W-TEST-CORE-004`.
-2. Dispatch `W-CORE-004` and persist its identifiers.
-3. Review and validate the causal tracer GREEN.
+1. Wait for `RESPONSE W-CORE-004`.
+2. Review its numerical state/math and diff.
+3. Validate the causal tracer GREEN in the main workspace.
 
 ## Focused verification targets
 

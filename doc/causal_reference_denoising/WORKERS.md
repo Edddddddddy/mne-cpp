@@ -513,6 +513,9 @@ The manager records and forwards all cross-worker messages here before acting.
 ### REQUEST W-CORE-004
 
 - From / to: manager / high-risk numerical `W-CORE`.
+- Client setup ID: `client-new-thread:403e8243-3d5d-453b-ae59-ebcdddb7d7b7`.
+- Thread: `019fd018-8939-7e72-9fc8-17085c79806e`.
+- Worktree: `C:/Users/lcy/.codex/worktrees/9bd8/mne-cpp-main`.
 - Model/environment: `gpt-5.6-sol`, `ultra`, new isolated worktree.
 - Model decision: Sol is selected because this slice simultaneously introduces
   causal indexing, recursive EWLS math, Eigen LDLT, transactional preallocation,
@@ -534,4 +537,4 @@ The manager records and forwards all cross-worker messages here before acting.
   pass-through, diagnostics, malloc guard, or benchmark in this slice.
 - Required response: `RESPONSE W-CORE-004`, commit SHA, files, state shapes,
   solve/loading definition, validation evidence/limitations, and next RED.
-- Status: recorded before dispatch.
+- Status: active; direct snapshot confirmed required skill/record recovery.
