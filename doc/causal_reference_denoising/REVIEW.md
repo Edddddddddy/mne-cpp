@@ -239,6 +239,8 @@ tracked.
   processor/final-QA follow-up.
 - Decision: processor formal gate passes. Track both P3s in final QA issue #3;
   they do not block closing processor issue #4 or beginning queue work.
+- GitHub: issue #4 closed as completed; epic #2 marks the processor milestone
+  checked.
 
 #### R-PROC-TEST-MEMORY-001 - P2 - Closed
 

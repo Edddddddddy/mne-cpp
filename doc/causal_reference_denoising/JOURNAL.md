@@ -2784,3 +2784,13 @@ hidden reasoning is not.
 - Safety: no manual deletion or modification of the app-owned worktree.
 - Next: commit/push retirement response, close issue #4, mark the processor
   milestone complete in epic #2, then prepare issue #5 queue tracer.
+
+### E-268 - Processor milestone closed on GitHub
+
+- Issue #4: closed with state reason completed after all acceptance and review
+  evidence plus worker archival were durable.
+- Epic #2: processor child checkbox changed to complete and current status now
+  records focused 5/0/0 with P0/P1/P2 zero open; remaining order starts at #5.
+- Decision: processor milestone is complete. Begin issue #5 with one Luna/max
+  public/private-seam tracer for drop-newest, FIFO and metadata pairing; queue
+  implementation remains a separate Sol/ultra concurrency task.

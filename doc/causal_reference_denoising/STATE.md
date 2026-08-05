@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T00:58:00+08:00
+Last updated: 2026-08-06T01:04:00+08:00
 
 ## Recovery order
 
@@ -38,8 +38,8 @@ changes. The populated Release focused executable exits zero for the mapping,
 19 invalid/disarm cases, and valid reconfigure/reset/relearn behavior. The
 completed reusable Luna/max test conversation is archived. Independent
 Sol/ultra review `R-PROC-001` completed at exact `96ca3eb44`: P0/P1 are zero,
-one P2 ownership-policy finding blocks issue #4, and two P3 evidence/locality
-items are tracked as nonblocking follow-up.
+P2 ownership is fixed/verified, and two P3 evidence/locality items are tracked
+in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
 
 ## Completed
 
@@ -49,23 +49,18 @@ items are tracked as nonblocking follow-up.
 - Preserved `.codex-build/`, `src/build/`, `doc/mne_scan_technical_document.md`, and `codex/babymeg-stability`.
 - Created `codex/causal-reference-denoising` from local `master`.
 - Selected the concrete deep-module interface in `SPEC.md`.
+- Completed/closed issue #4 processor mapping, focused tests and formal review.
 
 ## Running workers
 
-- `W-PROC-MOVE-001` is integrated as `4a57c3ca5`. Populated Release compiled
-  the five C++14 traits and the focused Qt report is 5 passed, zero failed/
-  skipped, exit zero. P2 `R-PROC-MOVE-001` is closed; issue #4 evidence and
-  final-QA P3 deferral are published/read back. Worker exact content/clean
-  precheck passes and the one-shot worker is archived without manual worktree
-  deletion. Issue #4 and epic #2 update are next.
+- None. The next task is a new visible Luna/max issue #5 queue tracer after its
+  minimal REQUEST is committed/pushed.
 
 ## Next actions
 
-1. Close issue #4 and update epic #2 after publication/archival evidence is
-   durable.
-2. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra
-   concurrency implementation and independent review.
-3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+1. Record and dispatch issue #5 Luna/max drop-newest/FIFO/metadata-pairing RED
+   tracer, followed by a Sol/ultra concurrency implementation and review.
+2. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 
