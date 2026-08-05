@@ -1228,3 +1228,15 @@ hidden reasoning is not.
   allocation/lock/string is introduced.
 - Decision: accept `0e5519417` for cherry-pick and focused build/runtime; later
   P2 strict-pivot/application-overflow findings remain open.
+
+### E-128 - Transactional epoch recovery is GREEN
+
+- Actor: manager.
+- Integrated production: `9142415b7`.
+- Evidence: focused Release build succeeds; synchronized report has 39 passes,
+  zero failures and exit code zero. The mixed `2/2` event/generation oracle and
+  future recovered-model probe pass with all prior contracts.
+- Review effect: close P1 `R-SOLVE-001` and P1 `R-DIAG-001`; no P0/P1 core
+  finding remains.
+- Next: commit/push, publish GREEN to issue #2, then verify/content-match/remove
+  the completed one-shot worker worktree before selecting the next P2 RED.

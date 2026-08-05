@@ -18,7 +18,7 @@ Pending.
 
 Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
 
-#### R-DIAG-001 - P1 - In progress
+#### R-DIAG-001 - P1 - Closed
 
 - Location: `causalreferencedenoiser.h:68` and
   `causalreferencedenoiser.cpp:161,183-201,341-352`.
@@ -28,9 +28,11 @@ Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
 - Required test: lifecycle plus multiple/mixed boundary event counts.
 - Progress: fixed result/lifecycle is GREEN in `b5f29fff1` with test
   `a0fcf0e68`; mixed accepted/rejected boundary proof is integrated as
-  `d1ffa0904` and currently exposes the intended `R-SOLVE-001` RED.
+  `d1ffa0904` and passes after transactional implementation `9142415b7`.
+- Resolution: synchronized report has 39 passes, zero failures; a valid block
+  reports mixed accepted/rejected events `2/2` and generation two.
 
-#### R-SOLVE-001 - P1 - In progress
+#### R-SOLVE-001 - P1 - Closed
 
 - Location: `causalreferencedenoiser.cpp:183-197,334-344`.
 - Evidence: finite inputs can overflow in-place outer products; solve returns
@@ -41,6 +43,9 @@ Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
   accepted epoch in the same call, with finite output and future probe.
 - RED evidence: `d1ffa0904`; focused report has 38 passes and the single
   intended accepted-count failure, process exit code one.
+- Resolution: `9142415b7` separates committed, pending and candidate stats;
+  failed epochs are discarded after aging committed stats. The same report is
+  GREEN with 39 passes and zero failures.
 
 #### R-SOLVE-002 - P2 - Open
 

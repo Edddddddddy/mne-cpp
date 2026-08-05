@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T19:12:00+08:00
+Last updated: 2026-08-05T19:20:00+08:00
 
 ## Recovery order
 
@@ -19,9 +19,9 @@ After context compaction or a handoff, read this file, then `SPEC.md`,
 
 ## Current phase
 
-Core behavior and fixed diagnostics lifecycle are GREEN. Transactional
-finite-overflow epoch rejection/recovery (`R-SOLVE-001`) now has a valid
-runtime RED: 38 passed and one intended failure.
+Core behavior, fixed diagnostics lifecycle and transactional finite-overflow
+epoch rejection/recovery are GREEN. Both P1 findings are closed; focused
+runtime has 39 passes and zero failures.
 
 ## Completed
 
@@ -34,14 +34,14 @@ runtime RED: 38 passed and one intended failure.
 
 ## Running workers
 
-`W-CORE-007` source commit `0e5519417` passed manager commit-level review;
-integration and populated-workspace GREEN validation are pending.
+No worker is running. `W-CORE-007` was integrated as `9142415b7`; its one-shot
+detached worktree remains pending verified cleanup.
 
 ## Next actions
 
-1. Commit/push the manager review record.
-2. Cherry-pick exact commit `0e5519417`.
-3. Run the focused synchronized report and require all 39 checks GREEN.
+1. Commit/push and publish the 39/0 P1 closure evidence to issue #2.
+2. Verify/remove the clean one-shot implementation worktree.
+3. Select the next P2 numerical RED before core formal review.
 
 ## Focused verification targets
 

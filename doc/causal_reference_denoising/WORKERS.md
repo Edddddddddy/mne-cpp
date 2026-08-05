@@ -1547,3 +1547,25 @@ The manager records and forwards all cross-worker messages here before acting.
   application overflow.
 - Decision: accept for cherry-pick and populated-workspace compiled/runtime
   validation. GREEN is not claimed until the synchronized 39-check report.
+
+### MANAGER VALIDATION W-CORE-007-GREEN
+
+- Integrated production commit: `9142415b7`.
+- Focused Release build: success; only known Eigen/MSVC C4819 code-page
+  warnings.
+- Synchronized Qt report: 39 passed, zero failed, process exit code zero.
+- Recovery evidence: the mixed block now accepts/rejects `2/2`, reaches
+  generation two, retains finite unchanged learning output and applies the
+  recovered model to the future probe. Every prior behavior remains GREEN.
+- Decision: close P1 `R-SOLVE-001` and P1 `R-DIAG-001`. P2 strict pivots,
+  stable extreme RMS/application fallback and hot-path malloc proof remain.
+
+### RETIREMENT REQUEST CLEANUP-012
+
+- After committing/pushing GREEN evidence, publish it to issue #2.
+- Verify detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-core-007` is clean at
+  `0e5519417`, and its numerical source content matches integrated `9142415b7`.
+- Remove it through Git worktree management. Completed agent
+  `/root/w_core_007` is one-shot and must not be reused.
+- Status: recorded before publish/cleanup.
