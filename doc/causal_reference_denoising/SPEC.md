@@ -199,6 +199,34 @@ existing `noisereduction`, AdaptiveTSSS, or `AbstractAlgorithm` interface.
 - Diagnostics: status, row/feature counts, warmup, model generation, RMS values,
   and dropped blocks.
 
+### Adapter data seam refinement
+
+The existing `UTILSLIB::CircularBuffer` is not the v1 input seam: its
+`push()` uses a 1000 ms semaphore timeout and existing mne_scan algorithms
+retry in a busy loop. Changing that global type would broaden risk to unrelated
+plugins. `adaptivedenoising` instead owns two private, focused components:
+
+- A bounded single-producer/single-consumer block queue preallocates its slot
+  array. `tryPush(block, fiffInfo)` performs exactly one
+  `QSemaphore::tryAcquire(1, 0)`; on failure it returns immediately so the
+  plugin can atomically increment `droppedBlocks` and drop that newest block.
+  On success the slot deep-copies the matrix before the measurement callback
+  returns and retains the shared immutable metadata pointer. There is no retry,
+  sleep, busy wait or settings/model work in the callback. Worker-side pop may
+  use an interruptible/timed wait; clear/resize occurs only while stopped.
+- A worker-owned adapter processor resolves good reference/target rows from
+  `FiffInfo`, owns `CausalReferenceDenoiser`, compares layout/settings at each
+  dequeued block boundary, and either reconfigures transactionally or forwards
+  the exact block with a bounded status reason. It is compiled into both the
+  plugin and the focused adapter test, so FIFF selection, metadata change,
+  settings boundaries and row-preserving processing do not require launching
+  the full mne_scan GUI.
+
+The queued metadata/block pair preserves FIFO ordering and gives the processing
+thread all information needed to handle a layout transition at the same block
+boundary as its samples. UI pending settings/reset state remains a separate
+UI-to-worker boundary and is never locked by the acquisition callback.
+
 ## Acceptance criteria
 
 - Correlated environmental noise is reduced by at least 10 dB after warmup.

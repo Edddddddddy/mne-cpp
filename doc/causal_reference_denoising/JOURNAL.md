@@ -1857,3 +1857,18 @@ hidden reasoning is not.
   depth/locality criteria; no edits, staging, rt_server or subagents.
 - Decision: no finding is inferred from a start notification; await the full
   prioritized formal response.
+
+### E-192 - Plugin data seam refined from repository evidence
+
+- Actor: manager using codebase-design while formal core review runs read-only.
+- Evidence: `UTILSLIB::CircularBuffer::push` waits up to 1000 ms and the
+  existing noisereduction callback retries it in a busy loop; neither satisfies
+  the new plugin's acquisition-thread contract.
+- Decision: keep a plugin-private bounded queue with one zero-timeout tryPush,
+  drop-newest accounting, queued block/metadata pairs and worker-only adapter
+  processor/reconfiguration. Do not alter the global circular buffer or
+  `AbstractAlgorithm`.
+- Test seam: compile private queue/processor into a focused adapter test so FIFF
+  picks, FIFO/overflow and block-boundary behavior run without mne_scan or
+  rt_server.
+- Next: await the core review gate before dispatching any plugin implementation.
