@@ -2964,3 +2964,16 @@ does not continuously poll them.
   `019fd258-04db-7982-b1f6-c7010727c03c` through the app.
 - Do not manually delete the app-owned worktree.
 - Status: recorded before publication/archival.
+
+### RETIREMENT PRECHECK W-PROC-GREEN-001
+
+- GitHub GREEN evidence:
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5193285229`;
+  read-back matches commits, focused exit-zero evidence and next tracer.
+- Visible worker worktree remains clean/detached at exact `46b600f910`.
+- Content identity: worker/integration hashes match for processor header
+  `5f91b46b...`, processor source `1ea6b059...` and focused CMake
+  `29228c07...`.
+- Decision: completed one-shot thread
+  `019fd258-04db-7982-b1f6-c7010727c03c` may be archived through the app; its
+  app-owned worktree remains untouched by the manager.
