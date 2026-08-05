@@ -117,6 +117,62 @@ model and reports a numerical status.
 After configuration, `process` performs no heap allocation, locking, Qt/FIFF
 access, or string construction. Cost is `O(N(P^2 + MP)) + O(P^3/K)`.
 
+## Selected fixed-size diagnostics contract
+
+Primary block validity remains orthogonal to model-update events. A valid
+`ApplyAndLearn` block is `Processed` even if update boundaries are rejected;
+accepted/rejected boundary counts are per call and may both exceed one.
+
+```cpp
+enum class DenoiserProcessStatus : std::uint8_t {
+    NotConfigured,
+    InvalidShape,
+    NonFiniteInput,
+    Bypassed,
+    Processed
+};
+
+struct DenoiserProcessDiagnostics {
+    Eigen::Index referenceRowCount;
+    Eigen::Index targetRowCount;
+    Eigen::Index featureCount;
+    Eigen::Index warmupSamplesRemaining;
+    std::uint64_t modelGeneration;
+    std::uint64_t modelUpdatesAccepted;
+    std::uint64_t modelUpdatesRejected;
+    double inputRms;
+    double outputRms;
+    double estimatedNoiseRms;
+};
+
+struct DenoiserProcessResult {
+    DenoiserProcessStatus status;
+    DenoiserProcessDiagnostics diagnostics;
+};
+```
+
+The result is the sole diagnostics snapshot; no getter, event vector, Qt/FIFF
+type, string, or runtime strategy seam is added. `droppedBlocks` remains
+adapter-owned. Counts describe the committed configuration and the post-call
+state. `modelGeneration` increments once per accepted boundary and resets to
+zero on configure/reset. `warmupSamplesRemaining` is post-call. Bypass advances
+history but pauses the learning epoch; ApplyOnly does the same while applying
+the committed model. Shape/nonfinite errors preserve state, report the
+committed snapshot and zero update-event counts, and use quiet NaN RMS values.
+An unconfigured call reports zero snapshot fields and quiet NaN RMS values.
+
+For valid calls, RMS covers all selected targets and all columns, including
+pass-through warmup. Input is original target data, output is returned target
+data, and estimated noise is the prediction actually subtracted. Bypass has
+equal input/output RMS and zero noise RMS. RMS accumulation must use scaled
+sum-of-squares so large finite values do not overflow the diagnostics.
+
+At a rejected boundary, output/history remain processed with the old committed
+model, generation is unchanged, and the per-call rejection count increments.
+Committed finite `G/H` are kept separate from preallocated pending-epoch
+statistics. A poisoned/failed epoch is discarded after aging committed `G/H`
+by its elapsed forgetting; a later epoch can recover without allocation.
+
 ## Plugin behavior
 
 Add `adaptivedenoising` / `scan_adaptivedenoising` without changing the

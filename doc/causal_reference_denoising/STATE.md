@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T16:38:00+08:00
+Last updated: 2026-08-05T17:02:00+08:00
 
 ## Recovery order
 
@@ -33,14 +33,16 @@ semantics are GREEN. Next is fixed-size diagnostics/solve-rejection design.
 
 ## Running workers
 
-Read-only diagnostics seam review `R-DIAGNOSTICS-001` is active as
-`/root/r_diagnostics_001` on Sol/ultra.
+`R-DIAGNOSTICS-001` is complete. Its minimal fixed-size result seam and P1/P2
+solve/RMS findings are selected. `W-TEST-CORE-009` is prepared for dispatch.
 
 ## Next actions
 
-1. Wait for `RESPONSE R-DIAGNOSTICS-001`.
-2. Record its findings and selected minimum interface in `REVIEW.md`/`SPEC.md`.
-3. Record findings in `REVIEW.md`, then issue one focused RED test request.
+1. Create a detached worktree and dispatch diagnostics lifecycle test
+   `W-TEST-CORE-009`.
+2. Reproduce its compile RED in the populated workspace.
+3. Implement only that interface/lifecycle GREEN before transactional solve
+   rejection.
 
 ## Focused verification targets
 

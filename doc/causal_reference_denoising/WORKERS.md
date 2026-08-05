@@ -1088,3 +1088,55 @@ The manager records and forwards all cross-worker messages here before acting.
 - Instruction: conclude the design choice now and return the required structured
   final response; do not expand into plugin design or implementation.
 - Status: recorded before forwarding.
+
+### RESPONSE R-DIAGNOSTICS-001
+
+- Conclusion: keep primary block validity orthogonal to fixed-size model-update
+  events. Valid blocks remain `Processed`; per-call accepted/rejected counts and
+  post-call generation preserve mixed/multiple boundary information.
+- Selected fields: configured reference/target/feature counts, post-call warmup,
+  cumulative model generation, per-call accepted/rejected model updates, and
+  input/output/actually-subtracted-noise RMS.
+- Error/mode semantics: `NotConfigured` is distinct; invalid shape/nonfinite are
+  atomic and report quiet-NaN RMS; Bypass/ApplyOnly advance history but pause
+  partial learning epochs; reset clears generation and numerical state.
+- Rejection transaction: separate committed finite `G/H` from preallocated
+  pending epoch statistics. Poisoned/failed epochs are discarded; committed
+  stats are aged by elapsed decay and remain recoverable; output/history are
+  not rolled back.
+- Findings: P1 absent diagnostics/observable update outcomes; P1 poisoned
+  in-place `G/H` is permanently unrecoverable; P2 LDLT acceptance is too weak;
+  P2 RMS absent/naive squaring would overflow; P2 application overflow policy
+  is undefined; P3 unconfigured conflates invalid shape.
+- Rejected alternatives: numerical primary failure for solve rejection, last-
+  solve boolean, cumulative-only counters, dynamic events/strings, diagnostics
+  getter, retaining poisoned stats, clearing all committed stats, history/output
+  rollback, and a strategy registry.
+- Scope/evidence: reviewed snapshot `2f6b6c8d6`; read-only, no edits/commit/tests,
+  no rt_server and no subagents.
+- Manager decision: accept the fixed-size surface and rejection transaction;
+  implement test-first in the reviewer's minimum order.
+
+### REQUEST W-TEST-CORE-009
+
+- From / to: manager / diagnostics lifecycle test worker.
+- Execution: collaboration subagent in detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-009`; identifier recorded
+  after dispatch.
+- Model/environment: `gpt-5.6-sol`, `high`; no nested subagents.
+- Blocking: yes for diagnostics production work.
+- Task: add exactly one public-interface Qt slot that first processes a finite
+  block before configure and requires `NotConfigured`, unchanged block, zero
+  snapshot/count fields and quiet-NaN RMS. Configure one ref/one target/three
+  taps/update interval two, then exercise one-sample Bypass warmup, one-sample
+  ApplyOnly warmup completion, a two-sample ApplyAndLearn accepted boundary,
+  and reset followed by Bypass. Check configured counts, post-call warmup,
+  generation, per-call events, statuses, exact block preservation where
+  required, and analytic input/output/noise RMS. Old zero model means the first
+  learning epoch output remains unchanged while generation becomes one.
+- Scope: test source only; no production/CMake/plugin/dependency/rt_server,
+  exactly one slot, expected compile RED on missing diagnostics/NotConfigured.
+- Required response: `RESPONSE W-TEST-CORE-009` with commit, exact sequence and
+  RMS oracle, expected compile failure, evidence/infra limitation, and no-
+  subagent confirmation.
+- Status: recorded before worktree setup/dispatch.

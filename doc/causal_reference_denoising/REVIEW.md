@@ -16,9 +16,61 @@ Pending.
 
 ### Diagnostics seam pre-review
 
-`R-DIAGNOSTICS-001` is active as `/root/r_diagnostics_001` on Sol/ultra. It will define the minimum
-fixed-size process diagnostics and numerical-solve rejection semantics before
-the next test, without reviewing or changing plugin/UI code.
+Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
+
+#### R-DIAG-001 - P1 - Open
+
+- Location: `causalreferencedenoiser.h:68` and
+  `causalreferencedenoiser.cpp:161,183-201,341-352`.
+- Evidence: result contains only primary status; update rejection returns
+  silently, so accepts/rejects, generation, warmup and RMS are unobservable.
+- Fix: selected fixed-size diagnostics in `SPEC.md`; aggregate every boundary.
+- Required test: lifecycle plus multiple/mixed boundary event counts.
+
+#### R-SOLVE-001 - P1 - Open
+
+- Location: `causalreferencedenoiser.cpp:183-197,334-344`.
+- Evidence: finite inputs can overflow in-place outer products; solve returns
+  but poisoned `gram/cross` remain infinite and can never recover.
+- Fix: committed/pending transactional statistics and failed-epoch discard with
+  elapsed forgetting.
+- Required test: multiple extreme finite rejected epochs followed by a normal
+  accepted epoch in the same call, with finite output and future probe.
+
+#### R-SOLVE-002 - P2 - Open
+
+- Location: `causalreferencedenoiser.cpp:187-200`.
+- Evidence: Eigen `Success` plus finite `D` does not prove strictly positive,
+  nonsingular factorization.
+- Fix: require positive factorization, every pivot strictly positive, finite RHS
+  and finite candidate weights.
+- Required test: loaded rank-deficient data accepts; invalid candidate does not
+  increment generation.
+
+#### R-RMS-001 - P2 - Open
+
+- Location: result header and `causalreferencedenoiser.cpp:289-352`.
+- Evidence: RMS is absent; direct squaring may overflow for valid finite input.
+- Fix: fixed scalar scaled-sum-of-squares accumulators.
+- Required test: large finite Bypass RMS and analytic ApplyOnly RMS.
+
+#### R-APPLY-001 - P2 - Open
+
+- Location: `causalreferencedenoiser.cpp:328-332`.
+- Evidence: finite weights/features can yield nonfinite prediction/residual,
+  currently written while returning `Processed`.
+- Fix: define a finite-output application fallback before synthetic acceptance.
+- Required test: trained finite model plus extreme finite probe never silently
+  returns nonfinite `Processed` output.
+
+#### R-STATUS-001 - P3 - Open
+
+- Location: `causalreferencedenoiser.cpp:282-286`.
+- Evidence: unconfigured module is conflated with invalid shape.
+- Fix/test: `NotConfigured` with unchanged block, zero snapshot and NaN RMS.
+
+No P0 finding. P1 findings must be closed before core completion; all P2
+findings will be fixed or explicitly deferred in issue #2.
 
 ## Final integration review
 

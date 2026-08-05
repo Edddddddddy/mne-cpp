@@ -925,3 +925,22 @@ hidden reasoning is not.
 - Action: `REQUEST R-DIAGNOSTICS-001-FINISH` asks for the structured conclusion
   now, without plugin expansion or code edits.
 - Next: receive one final interface/finding set and retire the reviewer.
+
+### E-096 - Diagnostics seam review completed
+
+- Actor: `/root/r_diagnostics_001` and manager.
+- Result: selected one fixed-size result snapshot with configured counts,
+  post-call warmup/generation, per-call accept/reject counts and stable RMS.
+- Semantics: solve rejection is an update event on a valid processed block, not
+  a primary atomic error; committed/pending EWLS stats become transactional.
+- Findings: two P1, three P2, one P3, no P0; all are recorded in `REVIEW.md`.
+- Scope: reviewer was read-only and spawned no subagents.
+- Next: implement the first compile-RED diagnostics lifecycle test.
+
+### E-097 - Diagnostics lifecycle test request prepared
+
+- Actor: manager under TDD and selected seam.
+- Request: `W-TEST-CORE-009`, one test source/slot, Sol/high, no subagents.
+- Sequence: NotConfigured, Bypass warmup, ApplyOnly warmup completion, one
+  accepted ApplyAndLearn boundary, reset snapshot; analytic RMS at every call.
+- Next: commit/push records, create detached worktree, dispatch.
