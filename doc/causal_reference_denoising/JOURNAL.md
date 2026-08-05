@@ -494,3 +494,11 @@ hidden reasoning is not.
 - Scope: only the existing causal tracer GREEN; later safety/edge behaviors
   remain separate RED slices.
 - Next: commit the request, archive `W-TEST-CORE-004`, then dispatch Sol/ultra.
+
+### E-052 - Causal tracer test worker retired
+
+- Actor: manager and Codex app.
+- Request: `CLEANUP-002`.
+- Result: one-shot `W-TEST-CORE-004` returned `archived: true`; its test commit,
+  response, and RED evidence were already durable.
+- Next: create the new Sol/ultra `W-CORE-004` worktree.
