@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T23:23:32+08:00
+Last updated: 2026-08-05T23:31:00+08:00
 
 ## Recovery order
 
@@ -50,13 +50,14 @@ Sol/ultra issue #4 review is the next gate before the nonblocking queue.
 
 ## Running workers
 
-- None. The next worker will be a new visible Sol/ultra read-only processor
-  milestone reviewer after its REQUEST is committed and pushed.
+- `R-PROC-001` is prepared for a new visible Sol/ultra read-only processor
+  milestone review conversation. Dispatch occurs only after this REQUEST is
+  committed and pushed; the final thread/worktree identity will then be added.
 
 ## Next actions
 
-1. Record and dispatch an independent visible Sol/ultra read-only issue #4
-   processor milestone review conversation.
+1. Dispatch the recorded independent visible Sol/ultra read-only issue #4
+   processor milestone review conversation and publish its start evidence.
 2. Resolve every P0/P1 and any P2 finding; publish the formal review and close
    issue #4 when its gate is satisfied.
 3. Begin issue #5 with a Luna/max queue tracer, followed by a Sol/ultra

@@ -3266,3 +3266,38 @@ does not continuously poll them.
 - Durable evidence: all worker responses, exact reviews, integrated GREEN runs,
   source identity and issue #4 publications precede archival.
 - Status: complete; this processor-test conversation will not be reused.
+
+### REQUEST R-PROC-001
+
+- From / to: manager thread
+  `019fcdc3-4a1e-76d1-8140-1bd521219297` / new visible processor milestone
+  review conversation.
+- GitHub issue: `Edddddddddy/mne-cpp#4`.
+- Model/environment: `gpt-5.6-sol`, `ultra`, saved Git project worktree from
+  `codex/causal-reference-denoising`; no internal or nested subagents.
+- Blocking: yes for closing issue #4 and beginning queue implementation.
+- Review snapshot: exact integration HEAD after this REQUEST commit; confirm
+  the SHA and keep the review worktree clean/read-only.
+- Review scope: processor header/source, focused test CMake/source, the frozen
+  processor interface and issue #4 evidence. Inspect the concrete deep-module
+  seam, interface depth/locality, C++14 ownership/noexcept traits, good
+  REF_MEG/MEG mapping, bad/STIM/misc preservation, metadata/settings status
+  classification, invalid/missing stale-model disarm, valid reconfigure reset
+  and relearn, unarmed diagnostics/pass-through, configure/process allocation
+  and exception behavior, and focused dependency isolation.
+- Evidence audit: distinguish code proof from tests and durable manager runs;
+  confirm the populated Release executable exits zero for mapping/train/probe,
+  all 19 invalid/missing disarm cases, and changed-layout reset/relearn. Do not
+  run full `mne_scan` or `mne_rt_server`.
+- Finding format: P0-P3 with stable ID, exact file/line, evidence, impact,
+  requested correction and required test. Explicitly state zero findings at
+  each empty priority. P0/P1 must be zero; every P2 must be fixed or explicitly
+  deferred before issue #4 closes.
+- Mutation policy: read-only; no edit, stage, commit, push, GitHub comment,
+  issue change, dependency/vendor repair or subagent.
+- Required response: begin `RESPONSE R-PROC-001`; include reviewed SHA,
+  inspections/evidence, prioritized findings, residual risks, gate
+  recommendation, clean status and no-edit/no-subagent confirmation. Actively
+  send it to the manager thread using `send_message_to_thread`, then stop
+  without polling the manager.
+- Status: recorded before visible review conversation creation.

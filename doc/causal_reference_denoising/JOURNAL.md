@@ -2634,3 +2634,16 @@ hidden reasoning is not.
 - Safety: no manual deletion or mutation of the app-managed worktree occurred.
 - Next: commit/push this response, then record and dispatch a new visible
   Sol/ultra read-only processor milestone review.
+
+### E-255 - Processor formal review request prepared
+
+- Actor: manager using the `codebase-design` review vocabulary.
+- Request: `R-PROC-001`, new visible Sol/ultra read-only conversation for issue
+  #4, reviewing the exact post-request integration HEAD.
+- Gate: processor interface depth/locality, mapping, disarm/reset ownership,
+  hot-path constraints, dependency isolation and focused evidence; findings
+  use P0-P3 with exact location/evidence/fix/test.
+- Restrictions: no edits, GitHub mutation, rt_server, dependency repair,
+  subagents or manager polling; reviewer must proactively send its RESPONSE.
+- Next: commit/push this request, create the saved-project worktree review
+  conversation, then record its exact identity before publishing dispatch.

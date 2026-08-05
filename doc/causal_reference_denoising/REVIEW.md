@@ -169,6 +169,11 @@ Pending.
 
 ## Processor milestone pre-review
 
+Formal independent processor review `R-PROC-001` is prepared for a new visible
+Sol/ultra read-only conversation after the complete mapping/disarm/reconfigure
+focused suite reached populated Release GREEN. Its exact dispatch SHA, thread
+identity and findings will be recorded after creation/response.
+
 #### R-PROC-TEST-MEMORY-001 - P2 - Closed
 
 - Location: worker commit `0d8aeafec1`, focused processor test source line 320.
