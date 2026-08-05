@@ -1553,3 +1553,13 @@ hidden reasoning is not.
   on fallback, otherwise subtract all, then accumulate actually-subtracted RMS.
 - Next: commit/push, publish RED, clean test worktree, create implementation
   worktree and dispatch.
+
+### E-162 - Application overflow RED published and test worker retired
+
+- Actor: manager under GitHub and worker lifecycle workflows.
+- Publish: issue comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5190474486`
+  records 41/1 evidence and selected sample-wide fallback.
+- Cleanup: W-TEST-CORE-013 worktree was clean/content-matched and removed; its
+  one-shot Sol/ultra agent will not be reused.
+- Next: create and dispatch the durable source implementation request.
