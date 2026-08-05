@@ -2676,3 +2676,41 @@ does not continuously poll them.
   only the manager integration worktree.
 - Recoverability: no code or uncommitted change was removed; the failed request
   and correction remain fully recorded in this ledger and Git history.
+
+### REQUEST W-PROC-TEST-001
+
+- From / to: manager thread
+  `019fcdc3-4a1e-76d1-8140-1bd521219297` / new visible processor-test work
+  conversation.
+- GitHub issue: `Edddddddddy/mne-cpp#4`.
+- Model/environment: `gpt-5.6-luna`, `max`, saved Git project worktree starting
+  from `codex/causal-reference-denoising`; no internal or nested subagents.
+- Blocking: yes for every processor production change.
+- Task: add focused target `test_adaptive_denoising_plugin` and exactly one Qt
+  public/private-seam behavioral RED slot. Use six descriptor rows: good
+  REF_MEG, bad REF_MEG, good MEG, bad MEG, STIM and misc, expressed with real
+  FIFF constants. Configure fs 1000 Hz, max block/update interval 16, one tap,
+  30-second memory and `1e-8` regularization. Train a 6x16 block whose good
+  reference is `1..16`, good target is twice it and every non-target row has a
+  distinct sentinel sequence. Require Ready counts `1/1/1`, exactly one
+  accepted generation, zero rejects and value-identical non-target rows. Then
+  ApplyOnly probe good reference/target `17/34`; require finite output, exact
+  non-target values and good-target residual `<=1e-5`.
+- CMake seam: register the new testframe directory; compile the test plus the
+  existing numerical `causalreferencedenoiser.cpp` directly; include library
+  and plugin roots; link only Qt Core/Test and Eigen. Do not link mne_fiff,
+  mne_rtprocessing, scShared, scMeas or mne_scan.
+- Authorized files: `src/testframes/CMakeLists.txt` and new
+  `src/testframes/test_adaptive_denoising_plugin/{CMakeLists.txt,
+  test_adaptive_denoising_plugin.cpp}` only. Do not add processor production
+  header/source, queue, plugin, UI, example, benchmark, dependency or vendor fix.
+- Expected RED: missing
+  `<adaptivedenoising/adaptivedenoisingprocessor.h>`. If clean-worktree ignored
+  Eigen files block configuration first, report that honestly and do not copy,
+  repair or stage dependencies; the manager owns populated-workspace RED.
+- Required response: commit SHA/base, exact matrices/oracles, changed files,
+  dependency proof, available RED evidence or infrastructure limitation, clean
+  status and no-subagent confirmation. Begin `RESPONSE W-PROC-TEST-001`, then
+  actively send it to the manager thread via `send_message_to_thread`; do not
+  wait for or poll the manager.
+- Status: request recorded before visible work conversation creation.

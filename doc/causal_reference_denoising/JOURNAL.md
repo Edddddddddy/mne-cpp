@@ -2197,3 +2197,16 @@ hidden reasoning is not.
 - Next: register `REQUEST W-PROC-TEST-001` on issue #4, commit/push it, then
   create a new visible Luna/max worktree conversation. No internal subagent and
   no manager polling is permitted.
+
+### E-221 - First visible processor tracer request prepared
+
+- Actor: manager under issue #4, TDD and the frozen processor seam.
+- Request: `W-PROC-TEST-001`, Luna/max, one six-row 6x16 train/probe Qt slot
+  plus focused CMake only; intended RED is the absent processor header.
+- Scope protection: no processor production code, queue, plugin/UI, ignored
+  dependency repair or rt_server. The focused target links Qt Core/Test and
+  Eigen and compiles the numerical source directly.
+- Notification: worker must push its final structured response to manager
+  thread `019fcdc3-4a1e-76d1-8140-1bd521219297`; manager will not poll it.
+- Next: commit/push this request, create the saved-project worktree conversation
+  from the integration branch, then durably record its returned thread ID/base.
