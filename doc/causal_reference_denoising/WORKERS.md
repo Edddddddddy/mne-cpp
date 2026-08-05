@@ -4009,6 +4009,15 @@ does not continuously poll them.
 - Coordination: manager will not poll or edit the focused test source. Formal
   review starts only after this response is inspected, integrated and GREEN.
 
+### PUBLISH W-QUEUE-TEST-003-START
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5195009989`.
+- GitHub connector write plus CLI API read-back exactly match the Luna/max
+  thread, base `701f5bed9`, one test-file scope, invalid state-preservation and
+  valid null-metadata recovery oracles, proactive response and restrictions.
+- Status: public dispatch complete; manager does not poll or overlap the file.
+
 ### REQUEST W-EXAMPLE-001
 
 - From / to: manager thread
@@ -4154,3 +4163,20 @@ does not continuously poll them.
   the known ignored Eigen baseline gap, with no dependency/vendor repair or
   runtime claim. Luna/max, no subagent, polling, full scan or rt_server.
 - Status: response recorded before manager provenance/diff review or integration.
+
+### MANAGER REVIEW W-EXAMPLE-001
+
+- Provenance: exact `708db5425` on requested `473d9eeed`; clean three-file
+  examples-only diff with 407 insertions and no numerical/plugin/test/docs or
+  dependency change.
+- Seam: target directly compiles the concrete numerical source, exposes only
+  the existing public header, links Qt Core/Eigen and uses the repository's
+  existing example install/output conventions. No FIFF/scan/client-link claim
+  is hidden; that separate final-QA P3 remains explicit.
+- Teaching behavior: rows-by-time construction, two causal reference formulas,
+  tap-major weights and global sample index make cross-block history visible.
+  Assertions sensitively cover exact preserved rows, finite target, statuses,
+  R/M/P diagnostics, warmup, future learning generation, frozen zero events
+  and reset generation/history.
+- Finding: none. Accept for cherry-pick; populated Release build/run and exact
+  console output remain mandatory before publishing GREEN or retiring worker.

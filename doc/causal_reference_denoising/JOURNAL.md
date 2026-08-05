@@ -3137,3 +3137,23 @@ hidden reasoning is not.
   or a fabricated runtime result.
 - Next: commit/push response, inspect exact three-file diff and teaching/runtime
   assertions, then integrate and run populated Release only if accepted.
+
+### E-298 - Final queue validation dispatch published
+
+- Publish/read-back: issue #5 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5195009989`
+  exactly matches Luna/max thread/base, one-file invalid-state tracer and no-
+  polling/no-production/no-rt_server restrictions.
+- Next: await only the worker's proactive structured response.
+
+### E-299 - Focused example accepted by manager review
+
+- Provenance: exact `708db5425` on `473d9eeed`, three authorized example files
+  and clean diff. No dependency, source module, test or plugin edit exists.
+- Architecture/learning: the public concrete numerical seam remains isolated;
+  deterministic row/time generation, tap-major weights and global sample index
+  expose causal cross-block state without adding a hypothetical abstraction.
+- Assertions: exact non-target preservation, finite targets, R/M/P, status,
+  warmup, generation, update events, freeze and reset are runtime-sensitive.
+- Decision: no finding; cherry-pick after this review is durable, then build/run
+  the focused Release example in the populated workspace.
