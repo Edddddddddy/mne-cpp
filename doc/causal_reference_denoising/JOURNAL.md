@@ -1535,3 +1535,21 @@ hidden reasoning is not.
   model-integrity oracles.
 - Decision: accept `a5f37e5bd`; commit the review, integrate and reproduce the
   intended runtime RED before implementation.
+
+### E-160 - Application overflow runtime RED reproduced
+
+- Actor: manager under TDD.
+- Integrated test: `eee23de46`.
+- Evidence: focused Release build succeeds; synchronized report has 41 passes,
+  one intended `overflowProbe.allFinite()` failure and exit code one. All prior
+  behavior stays GREEN.
+- Next: publish/retire and dispatch source-only atomic fallback implementation.
+
+### E-161 - Application overflow implementation request prepared
+
+- Actor: manager under selected SPEC policy and P2 `R-APPLY-001`.
+- Request: `W-CORE-009`, Sol/ultra, source only, no subagents; validate all
+  predictions/residuals before writes, zero prediction and leave all targets raw
+  on fallback, otherwise subtract all, then accumulate actually-subtracted RMS.
+- Next: commit/push, publish RED, clean test worktree, create implementation
+  worktree and dispatch.

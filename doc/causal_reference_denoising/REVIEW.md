@@ -82,6 +82,8 @@ Completed by `/root/r_diagnostics_001` on Sol/ultra against `2f6b6c8d6`.
 - Selected policy: atomic sample-wide target pass-through, zero actually-
   subtracted prediction diagnostics, valid Processed block and advancing
   history/transactional learning state; public diagnostics surface unchanged.
+- RED evidence: test `eee23de46`; synchronized report has 41 prior passes and
+  the single intended all-finite output failure, exit code one.
 
 #### R-STATUS-001 - P3 - Closed
 

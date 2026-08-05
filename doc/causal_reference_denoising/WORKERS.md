@@ -1954,3 +1954,46 @@ The manager records and forwards all cross-worker messages here before acting.
   output before later assertions; this is a genuine public-interface runtime RED.
 - Decision: accept for cherry-pick and focused RED reproduction; no production
   edit is authorized before failure evidence is captured.
+
+### MANAGER VALIDATION W-TEST-CORE-013-RED
+
+- Integrated test commit: `eee23de46`.
+- Focused Release build: success; only known Eigen/MSVC C4819 warnings.
+- Synchronized Qt report: 41 passed, one failed, exit code one. The unique
+  failure is `overflowProbe.allFinite()` in the new slot; all prior contracts
+  remain GREEN.
+- Decision: valid runtime RED for P2 `R-APPLY-001`; production fallback may
+  begin under the selected SPEC semantics.
+
+### RETIREMENT REQUEST CLEANUP-016
+
+- Publish the 41/1 RED evidence to issue #2.
+- Verify detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-013` is clean at
+  `a5f37e5bd` and its test content matches integrated `eee23de46`; remove it
+  through Git worktree management. The one-shot agent is not reusable.
+- Status: recorded before publish/cleanup.
+
+### REQUEST W-CORE-009
+
+- From / to: manager / application-overflow fallback implementation worker.
+- Planned execution: detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-core-009` from current integration
+  HEAD; identifier recorded after dispatch.
+- Model/environment: `gpt-5.6-sol`, `ultra`; no nested subagents.
+- Blocking: yes for P2 `R-APPLY-001` and synthetic acceptance.
+- Task: make only `fallsBackAtomicallyWhenPredictionOverflows` GREEN. After
+  computing the preallocated prediction vector, validate all target predictions
+  and raw-target-minus-prediction residuals before any target write or noise-RMS
+  accumulation. If any is nonfinite, set the preallocated prediction vector to
+  zero and leave every target at that sample raw; otherwise subtract all target
+  predictions. Then accumulate the prediction actually subtracted. Preserve raw
+  target learning, transactional epoch rejection, history advancement and
+  Processed status exactly as selected in SPEC.
+- Scope: numerical source only; no tests/header/CMake/plugin/dependency or
+  rt_server. Do not add a public status/diagnostic field, saturate/clamp values,
+  change solver/RMS logic, malloc guard or synthetic/plugin work.
+- Required response: `RESPONSE W-CORE-009` with commit, exact validation/write/
+  learn/history ordering, atomicity and no-allocation argument, evidence/infra
+  limitation, remaining work and no-subagent confirmation.
+- Status: request recorded before cleanup/worktree creation/dispatch.

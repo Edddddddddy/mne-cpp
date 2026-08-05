@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T21:55:00+08:00
+Last updated: 2026-08-05T22:05:00+08:00
 
 ## Recovery order
 
@@ -34,14 +34,14 @@ runtime has 39 passes and zero failures.
 
 ## Running workers
 
-`W-TEST-CORE-013` commit `a5f37e5bd` passed manager exact review; integration
-and runtime RED reproduction are pending.
+No worker is running. Application-overflow test `eee23de46` has a valid runtime
+RED: 41 prior passes and one intended all-finite failure; cleanup pending.
 
 ## Next actions
 
-1. Commit/push the manager review record.
-2. Integrate only the one-slot contract and reproduce runtime RED.
-3. Dispatch source fallback implementation only after RED evidence.
+1. Commit/push RED evidence and `REQUEST W-CORE-009`.
+2. Publish RED and verify/remove the one-shot test worktree.
+3. Dispatch the source-only sample-wide fallback implementation on Sol/ultra.
 
 ## Focused verification targets
 
