@@ -971,3 +971,21 @@ hidden reasoning is not.
   accepted generation, reset snapshot, and `sqrt(84.5)` oracle are consistent.
 - Decision: accept `bdfca52d3`; integrate and build only the focused target to
   reproduce missing-interface RED.
+
+### E-101 - Diagnostics lifecycle compile RED reproduced
+
+- Actor: manager.
+- Integrated test: `a0fcf0e68`.
+- Evidence: focused compile fails on unknown diagnostics type, missing
+  NotConfigured, and absent result diagnostics member at the intended slot.
+- Result: valid RED; no unrelated production failure or rt_server execution.
+- Next: retire the test worker and dispatch bounded hot-path implementation.
+
+### E-102 - Diagnostics lifecycle implementation request prepared
+
+- Actor: manager under TDD and selected diagnostics seam.
+- Request: `W-CORE-006`, Sol/high, numerical header/source only, no subagents.
+- Scope: fixed result, post-call snapshot, stable scaled RMS, generation and
+  boundary event aggregation. Transactional pending statistics remain a later
+  independent RED/GREEN slice.
+- Next: commit/push, clean test worktree, create implementation worktree, dispatch.

@@ -1168,3 +1168,48 @@ The manager records and forwards all cross-worker messages here before acting.
 - Lifecycle: post-call warmup transitions `2 -> 1 -> 0`; reset plus one bypass
   correctly expects warmup1 and generation0.
 - Decision: accept `bdfca52d3` for cherry-pick and intended compile RED.
+
+### MANAGER VALIDATION W-TEST-CORE-009-RED
+
+- Integrated test commit: `a0fcf0e68`.
+- Focused Release compile reaches the new slot and fails on exactly the selected
+  absent interface: unknown `DenoiserProcessDiagnostics`, missing
+  `DenoiserProcessStatus::NotConfigured`, and no `DenoiserProcessResult::diagnostics`.
+- Known Eigen C4819 warnings are non-fatal; no rt_server run.
+- Decision: valid compile RED; fixed-size lifecycle implementation may begin.
+
+### RETIREMENT REQUEST CLEANUP-009
+
+- After this RED/request record is committed, verify detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-test-core-009` is clean at
+  `bdfca52d3` and content-matches integrated `a0fcf0e68`, then remove it via Git
+  worktree management. Completed one-shot agent is not reusable.
+- Status: recorded before cleanup.
+
+### REQUEST W-CORE-006
+
+- From / to: manager / diagnostics lifecycle implementation worker.
+- Execution: collaboration subagent in detached worktree
+  `C:/Users/lcy/Desktop/meg/mne-cpp-worker-w-core-006`; identifier recorded after
+  dispatch.
+- Model/environment: `gpt-5.6-sol`, `high`; no nested subagents.
+- Model decision: bounded header/source implementation, but RMS and result
+  aggregation execute on the real-time hot path, so Sol/high is selected.
+- Blocking: yes.
+- Task: make only the existing diagnostics lifecycle slot GREEN. Add
+  `NotConfigured`, fixed `DenoiserProcessDiagnostics`, and result member exactly
+  as selected in `SPEC.md`. Track cumulative generation in Impl/reset. Make the
+  existing boundary solve return accepted/rejected outcome so each valid call
+  aggregates per-call counters and increments generation only on acceptance.
+  Return zero/NaN unconfigured diagnostics and committed snapshot plus NaN RMS
+  for shape/nonfinite errors. For valid calls, compute selected-target input,
+  returned-output, and actually-subtracted-prediction RMS with allocation-free
+  scaled sum-of-squares; report post-call warmup. Bypass/ApplyOnly behavior and
+  every existing algorithm result must remain unchanged.
+- Scope: numerical header/source only; no test/CMake/plugin changes. Do not add
+  transactional pending `G/H`, large-application fallback, malloc guard, or new
+  tests in this slice. No explicit allocation/lock/string work in process.
+- Required response: `RESPONSE W-CORE-006`, commit, declaration and aggregation
+  details, stable RMS algorithm, solve outcome/generation semantics, evidence/
+  infra limitation, next RED, and no-subagent confirmation.
+- Status: recorded before test-worker cleanup/worktree setup/dispatch.

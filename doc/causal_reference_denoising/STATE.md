@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-05T17:14:00+08:00
+Last updated: 2026-08-05T17:19:00+08:00
 
 ## Recovery order
 
@@ -33,15 +33,15 @@ semantics are GREEN. Next is fixed-size diagnostics/solve-rejection design.
 
 ## Running workers
 
-`W-TEST-CORE-009` returned test commit `bdfca52d3`; manager diff review and
-populated-workspace compile RED reproduction are pending.
+Diagnostics lifecycle test is integrated and compile RED. `W-CORE-006` is
+prepared to implement only the fixed snapshot/lifecycle GREEN.
 
 ## Next actions
 
-1. Review `bdfca52d3` and its RMS/lifecycle oracle.
-2. Reproduce its compile RED in the populated workspace.
-3. Implement only that interface/lifecycle GREEN before transactional solve
-   rejection.
+1. Retire `W-TEST-CORE-009` and its clean worktree.
+2. Create a detached worktree and dispatch Sol/high `W-CORE-006`.
+3. Integrate and validate diagnostics lifecycle GREEN before the separate
+   transactional solve-rejection RED.
 
 ## Focused verification targets
 
