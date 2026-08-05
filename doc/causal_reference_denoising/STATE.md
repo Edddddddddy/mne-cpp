@@ -51,18 +51,17 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 ## Running workers
 
 - Reusable Luna/max processor-test conversation, thread
-  `019fd266-902d-77e1-b40a-a754eaac6222` proactively returned delta commit
-  `2cbca78eb5` on accepted worker parent `aa75e2520b`. It adds only the changed-
-  layout valid reconfigure/reset/relearn tracer. Exact manager review and
-  populated execution are pending; conversation remains unarchived.
+  `019fd266-902d-77e1-b40a-a754eaac6222` completed its role. Delta is integrated
+  as `d977e98ed`; populated Release build/run exits zero for all three processor
+  behaviors. GREEN publication, content verification and archival are pending
+  before the independent Sol/ultra processor milestone review.
 
 ## Next actions
 
-1. Review exact delta `2cbca78eb5`, integrate and run the populated focused
-   target.
-2. If GREEN, archive the completed processor-test conversation and begin an
-   independent visible Sol/ultra issue
-   #4 processor milestone review if no further behavior gap remains.
+1. Publish valid-reconfigure GREEN, verify/retire the completed Luna/max test
+   conversation.
+2. Create an independent visible Sol/ultra read-only issue #4 processor
+   milestone review conversation.
 3. After issue #4 reaches a milestone commit, open a separate visible
    Sol/ultra review conversation before integration.
 4. Deliver the engineering MVP first: processor, nonblocking queue, plugin

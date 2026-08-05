@@ -3222,3 +3222,25 @@ does not continuously poll them.
 - Decision: accept for cherry-pick and populated Release execution. After GREEN
   archive the completed reusable tester and start independent Sol/ultra
   processor milestone review.
+
+### MANAGER VALIDATION W-PROC-TEST-003-GREEN
+
+- Integrated delta: `d977e98ed` (cherry-pick of `2cbca78eb5`).
+- Build/run: focused Release target recompiles/links successfully and
+  `test_adaptive_denoising_plugin.exe -txt` returns exit zero; only known
+  Eigen/MSVC C4819 warnings occur.
+- Behavioral result: changed three-row Ready reconfigure resets old model and
+  generation, immediate ApplyOnly block is complete matrix identity, new
+  `target=3*ref` generation is accepted and future residual/row-preservation
+  gates pass. Original mapping and 19 disarm cases remain GREEN in the same run.
+- Decision: issue #4 implementation/test behavior is ready for independent
+  Sol/ultra milestone review after worker retirement.
+
+### RETIREMENT REQUEST W-PROC-TEST-COVERAGE
+
+- Publish the final coverage GREEN to issue #4.
+- Verify reusable worker worktree is clean at exact `2cbca78eb5` and the focused
+  test source equals integrated `d977e98ed`; then archive thread
+  `019fd266-902d-77e1-b40a-a754eaac6222` through the app.
+- Do not manually delete its app-owned worktree.
+- Status: recorded before publication/archival.

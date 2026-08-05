@@ -2599,3 +2599,18 @@ hidden reasoning is not.
 - Finding: none; no production/CMake change is indicated.
 - Next: commit/push review evidence, cherry-pick the delta and run populated
   focused Release. On GREEN retire the reusable tester and prepare formal review.
+
+### E-252 - Processor valid reconfigure/reset coverage is GREEN
+
+- Actor: manager after integrating delta as `d977e98ed`.
+- Evidence: focused Release build/link succeeds and executable exits zero; only
+  known Eigen C4819 warnings occur.
+- Behavior: changed-layout Ready reconfigure produces zero-generation complete
+  matrix identity, then new `3*ref` learning reaches generation one and future
+  near-zero residual while misc/reference rows remain exact. Prior mapping and
+  19 invalid/disarm cases pass in the same executable.
+- Gate: processor implementation/behavior coverage is ready for independent
+  Sol/ultra issue #4 review after publishing evidence and retiring the completed
+  reusable Luna/max test conversation.
+- Next: commit/push, publish, content/clean verify, archive, then prepare the
+  read-only formal review request.
