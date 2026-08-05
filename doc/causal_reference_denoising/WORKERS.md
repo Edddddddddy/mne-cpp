@@ -2740,3 +2740,28 @@ does not continuously poll them.
   will not be polled. Await only the worker-pushed RESPONSE.
 - GitHub dispatch evidence:
   `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5192068833`.
+
+### RESPONSE W-PROC-TEST-001
+
+- Visible thread: `019fd204-2ae1-7153-bc52-d33d952b5598`.
+- Base/commit: exact parent
+  `eef0621925c4c08f2c8e942b110ab636887e9b71`; returned commit
+  `095633f159397130b13baffc4450b5d0cf87aa1d`.
+- Scope: exactly the top testframe registration plus new focused test CMake and
+  one Qt slot `mapsRowsTrainsAndAppliesOnly`; no production file.
+- Train oracle: six rows, 16 samples, good reference `1..16`, good target twice
+  it, distinct bad-reference/bad-MEG/STIM/misc sentinels; Ready counts `1/1/1`,
+  Processed, generation/accepted/rejected `1/1/0`, exact non-target rows.
+- Probe oracle: a 6x16 ApplyOnly block with good reference/target `17/34`,
+  distinct non-target sentinels, all-finite output, exact non-target rows and
+  every good-target absolute residual `<=1e-5`.
+- Dependency evidence: focused target compiles the existing numerical source
+  directly, includes library/plugin roots and links only Qt Core/Test + Eigen;
+  no mne_fiff/mne_rtprocessing/scShared/scMeas/mne_scan.
+- RED evidence: direct MSVC compilation reaches expected C1083 missing
+  `adaptivedenoising/adaptivedenoisingprocessor.h`. Clean-worktree CMake first
+  encounters the known ignored Eigen `Macros.h`/`buildtests.in` baseline; no
+  dependency repair/copy/stage or rt_server run occurred.
+- Integrity: only three authorized files changed; cached and commit diff checks
+  passed; worktree is clean/detached; no subagents and no manager polling.
+- Status: response recorded before manager inspects the worker diff.

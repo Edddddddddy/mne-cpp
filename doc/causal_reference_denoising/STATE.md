@@ -50,20 +50,21 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 
 ## Running workers
 
-- `W-PROC-TEST-001`: visible Luna/max saved-project worktree conversation for
-  issue #4. Creation accepted with client setup ID
-  `client-new-thread:6b3b6649-8bc8-4b37-ba95-1cc2e6e25068` from exact
-  integration base `eef062192`; final thread ID is setup-owned. The worker must
-  actively return `RESPONSE W-PROC-TEST-001`; the manager does not poll.
+- None executing. Visible Luna/max conversation `W-PROC-TEST-001`, thread
+  `019fd204-2ae1-7153-bc52-d33d952b5598`, returned clean test-only commit
+  `095633f159` from exact base `eef062192` without polling or subagents. Its
+  response is durable; manager exact diff review and populated RED reproduction
+  are pending before integration.
 
 ## Next actions
 
-1. Receive the explicit `RESPONSE W-PROC-TEST-001` without polling, then
-   review/integrate the
-   exact RED tracer before dispatching the GREEN implementation slice.
-2. After issue #4 reaches a milestone commit, open a separate visible
+1. Review exact worker commit `095633f159`, then reproduce the intended missing-
+   processor-header RED in the populated workspace before integration.
+2. Integrate the accepted RED tracer and dispatch the minimal GREEN processor
+   implementation to a new visible Luna/max work conversation.
+3. After issue #4 reaches a milestone commit, open a separate visible
    Sol/ultra review conversation before integration.
-3. Deliver the engineering MVP first: processor, nonblocking queue, plugin
+4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 
