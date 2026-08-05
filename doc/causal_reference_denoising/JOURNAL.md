@@ -706,3 +706,12 @@ hidden reasoning is not.
 - Result: the exact test-only reset request is active.
 - Next: inspect later core gaps read-only while waiting for the structured
   response; do not edit the overlapping test source in the manager workspace.
+
+### E-073 - Reset worker status requested
+
+- Actor: manager.
+- Evidence: repeated bounded waits show `/root/w_test_core_007` still running;
+  the detached worktree remains clean at `71aefcd26`.
+- Action: sent non-blocking `REQUEST W-TEST-CORE-007-STATUS` for a concise
+  progress/blocker note without changing scope.
+- Next: continue bounded waiting; do not duplicate the task.
