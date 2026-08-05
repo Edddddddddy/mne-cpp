@@ -1681,3 +1681,13 @@ The manager records and forwards all cross-worker messages here before acting.
   characterization status, remaining findings and no-subagent confirmation.
 - Status: active as collaboration agent `/root/w_core_008`. Detached worktree
   created clean at `230697fed`; Sol/ultra accepted the source-only scope.
+
+### REQUEST W-CORE-008-STATUS
+
+- From / to: manager / `/root/w_core_008`.
+- Blocking: no; the strict-acceptance scope is unchanged.
+- Context: repeated bounded waits show the agent running while the detached
+  worktree remains clean at its base.
+- Question: report concise progress, selected Eigen predicates/API confidence
+  and any blocker at the next safe boundary; no rescope or subagents.
+- Status: recorded before forwarding.

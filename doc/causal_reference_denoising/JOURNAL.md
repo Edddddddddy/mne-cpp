@@ -1329,3 +1329,12 @@ hidden reasoning is not.
   Sol/ultra, numerical source only and no subagents.
 - Next: await structured response; no overlapping numerical source edit by the
   manager while the worker is active.
+
+### E-138 - Strict LDLT worker status requested
+
+- Actor: manager.
+- Evidence: the Sol/ultra agent remains running and its isolated worktree is
+  still clean at `230697fed` after bounded waits.
+- Action: prepare one non-blocking progress/API/blocker request without
+  changing scope or dispatching a duplicate.
+- Next: commit/push, forward the request, and continue bounded waiting.
