@@ -3149,3 +3149,35 @@ does not continuously poll them.
 - Lifecycle: keep reusable thread
   `019fd266-902d-77e1-b40a-a754eaac6222` active for a separate valid-
   reconfigure-reset test request; do not archive or recreate it yet.
+
+### REQUEST W-PROC-TEST-003
+
+- From / to: manager / existing reusable visible Luna/max processor-test thread
+  `019fd266-902d-77e1-b40a-a754eaac6222`.
+- GitHub issue: `Edddddddddy/mne-cpp#4`; blocking processor milestone review.
+- Behavior: add one public-interface slot proving a Ready valid reconfiguration
+  to a changed row layout resets the old learned model and can relearn the new
+  mapping.
+- Oracle: train initial two-row ref0/target1 model `target=2*ref` through one
+  accepted generation. Ready-reconfigure to three rows `{misc, good REF_MEG,
+  good MEG}` with the same valid settings; require Ready counts `1/1/1` and
+  configuration snapshot. Immediately ApplyOnly a 3x16 block with distinct misc
+  sentinel, ref 17 and target 34; require Processed, generation/events zero and
+  complete matrix identity, proving old weights/reset state do not cross layout.
+  Then ApplyAndLearn one interval with new target `3*ref`, require generation/
+  accepted/rejected `1/1/0` and exact misc/reference rows; a future ApplyOnly
+  probe ref/target `17/51` must leave misc/reference exact and target residual
+  `<=1e-5`.
+- TDD classification: acceptance of existing configured-reset contract;
+  immediate GREEN expected. Do not manufacture RED or edit production.
+- Authorized file: focused test source only. Preserve both existing slots; no
+  CMake/processor/core/queue/plugin/UI/example/dependency/rt_server.
+- Commit: add a new delta commit on top of reusable worker HEAD `aa75e2520b`;
+  do not amend the accepted disarm commit. Run diff/clean checks and available
+  focused evidence.
+- Required response: `RESPONSE W-PROC-TEST-003` with parent/delta SHA, exact
+  matrices/layout/generation oracle, evidence, changed file and no-subagent/
+  no-polling confirmation; proactively notify manager then stop.
+- Lifecycle: after acceptance this processor-test responsibility is complete;
+  manager will verify and archive the conversation before formal review.
+- Status: recorded before forwarding.

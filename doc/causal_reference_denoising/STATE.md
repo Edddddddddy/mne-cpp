@@ -53,14 +53,16 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 - Reusable Luna/max processor-test conversation, thread
   `019fd266-902d-77e1-b40a-a754eaac6222` remains available. Amended test is
   integrated as `6a721991c`; populated Release build/run exits zero for mapping
-  plus 19-case invalid/missing disarm coverage. Next same-role request is the
-  separate valid-reconfigure-reset tracer.
+  plus 19-case invalid/missing disarm coverage. Same-role follow-up
+  `W-PROC-TEST-003` is prepared for changed-layout valid reconfigure reset and
+  relearning; it is not yet forwarded.
 
 ## Next actions
 
-1. Publish invalid/missing disarm GREEN evidence to issue #4.
-2. Reuse the same relevant Luna/max conversation for the separate valid-
-   reconfigure-reset tracer.
+1. Forward `W-PROC-TEST-003` to the same relevant Luna/max conversation for the
+   separate valid-reconfigure-reset/relearning tracer.
+2. Validate the returned focused test, then begin independent Sol/ultra issue
+   #4 processor milestone review if no further behavior gap remains.
 3. After issue #4 reaches a milestone commit, open a separate visible
    Sol/ultra review conversation before integration.
 4. Deliver the engineering MVP first: processor, nonblocking queue, plugin

@@ -2546,3 +2546,19 @@ hidden reasoning is not.
   reconfigure-reset behavior.
 - Next: commit/push GREEN evidence, publish issue #4 comment, then durably
   request the reset tracer before sending a follow-up to the existing thread.
+
+### E-248 - Disarm GREEN published and valid reconfigure request prepared
+
+- Publish: issue #4 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/4#issuecomment-5193567045`
+  was read back with amended/integrated commits, 19-case GREEN, closed P2 and
+  no-rt_server evidence.
+- Next behavior: `W-PROC-TEST-003` reuses the same Luna/max thread to prove a
+  changed three-row Ready reconfigure clears old weights/generation and then
+  relearns the new `target=3*ref` mapping.
+- Scope: one new focused test slot/source delta on top of `aa75e2520b`; no
+  production or CMake change. Immediate GREEN expected.
+- Lifecycle: after this response/acceptance the reusable processor-test role is
+  complete and may be archived before independent Sol/ultra milestone review.
+- Next: commit/push this publish/request record, forward to the existing thread
+  without a model override, and do not poll.
