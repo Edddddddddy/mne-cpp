@@ -78,6 +78,7 @@ private slots:
     void rejectsInvalidConfiguration_data();
     void rejectsInvalidConfiguration();
     void appliesAndLearnsCausallyAcrossEpochs();
+    void appliesAnalyticForgettingAcrossEpochs();
     void rejectsSelectedNonFiniteAtomically_data();
     void rejectsSelectedNonFiniteAtomically();
     void preservesChunkBoundaryEquivalence();
@@ -350,6 +351,92 @@ void TestCausalReferenceDenoiser::appliesAndLearnsCausallyAcrossEpochs()
     QVERIFY(postBoundaryBlock(0, 0) == 5.0);
     QVERIFY(postBoundaryBlock(2, 0) == 103.0);
     QVERIFY(std::abs(postBoundaryBlock(1, 0)) <= 1e-4);
+}
+
+//=============================================================================================================
+
+void TestCausalReferenceDenoiser::appliesAnalyticForgettingAcrossEpochs()
+{
+    CausalReferenceDenoiserConfig config;
+    config.samplingFrequencyHz = 1.0;
+    config.channelCount = 2;
+    config.maxBlockSamples = 2;
+    config.referenceRows = VectorXi(1);
+    config.referenceRows << 0;
+    config.targetRows = VectorXi(1);
+    config.targetRows << 1;
+    config.tapCount = 1;
+    config.adaptationIntervalSamples = 2;
+    config.memoryTimeSeconds = 1.0 / std::log(2.0);
+    config.regularization = 1e-3;
+
+    CausalReferenceDenoiser denoiser;
+    QVERIFY(denoiser.configure(config) == DenoiserStatus::Configured);
+
+    MatrixXd firstBlock(2, 2);
+    firstBlock << 1.0, 1.0,
+                  0.0, 1.0;
+    const MatrixXd originalFirstBlock = firstBlock;
+
+    const DenoiserProcessResult firstResult =
+        denoiser.process(firstBlock, DenoisingMode::ApplyAndLearn);
+
+    QVERIFY(firstResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(firstBlock.allFinite());
+    QVERIFY((firstBlock.row(0).array() == originalFirstBlock.row(0).array()).all());
+    QVERIFY(firstResult.diagnostics.modelUpdatesAccepted == 1);
+    QVERIFY(firstResult.diagnostics.modelUpdatesRejected == 0);
+    QVERIFY(firstResult.diagnostics.modelGeneration == 1);
+
+    MatrixXd secondBlock(2, 2);
+    secondBlock << 1.0, 1.0,
+                   0.0, 0.0;
+    const MatrixXd originalSecondBlock = secondBlock;
+
+    const DenoiserProcessResult secondResult =
+        denoiser.process(secondBlock, DenoisingMode::ApplyAndLearn);
+
+    QVERIFY(secondResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(secondBlock.allFinite());
+    QVERIFY((secondBlock.row(0).array() == originalSecondBlock.row(0).array()).all());
+    QVERIFY(secondResult.diagnostics.modelUpdatesAccepted == 1);
+    QVERIFY(secondResult.diagnostics.modelUpdatesRejected == 0);
+    QVERIFY(secondResult.diagnostics.modelGeneration == 2);
+
+    // Independently, lambda=0.5. Epoch one accumulates
+    // G=0.5*1+1=1.5 and H=0.5*0+1=1. Epoch two has pending
+    // G=0.5*1+1=1.5 and H=0.5*0+0=0, then composes the committed
+    // statistics aged by lambda^2=0.25: G=1.5*0.25+1.5=1.875 and
+    // H=1*0.25+0=0.25. Scalar relative loading gives G*(1+regularization).
+    const double expectedGram = 1.875;
+    const double expectedCross = 0.25;
+    const double expectedWeight = expectedCross
+                                  / (expectedGram * (1.0 + config.regularization));
+    const double expectedTarget = -expectedWeight;
+    const double tolerance = 1e-12;
+
+    // Sensitivity: lambda=1 gives W=1/(4*(1+regularization)); omitting
+    // within-epoch decay gives W=0.25/(2.5*(1+regularization)); omitting
+    // committed-stat aging gives W=1/(3*(1+regularization)). Each is
+    // materially different from 0.25/(1.875*(1+regularization)).
+    MatrixXd probeBlock(2, 1);
+    probeBlock << 1.0,
+                  0.0;
+    const MatrixXd originalProbeBlock = probeBlock;
+
+    const DenoiserProcessResult probeResult =
+        denoiser.process(probeBlock, DenoisingMode::ApplyOnly);
+
+    qInfo() << "analytic forgetting expected target" << expectedTarget
+            << "observed target" << probeBlock(1, 0)
+            << "expected weight" << expectedWeight;
+    QVERIFY(probeResult.status == DenoiserProcessStatus::Processed);
+    QVERIFY(probeBlock.allFinite());
+    QVERIFY(probeBlock(0, 0) == originalProbeBlock(0, 0));
+    QVERIFY(probeResult.diagnostics.modelUpdatesAccepted == 0);
+    QVERIFY(probeResult.diagnostics.modelUpdatesRejected == 0);
+    QVERIFY(probeResult.diagnostics.modelGeneration == 2);
+    QVERIFY(std::abs(probeBlock(1, 0) - expectedTarget) <= tolerance);
 }
 
 //=============================================================================================================
