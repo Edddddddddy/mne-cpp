@@ -57,10 +57,11 @@ poll workers; workers return a structured RESPONSE to the manager when done.
 
 ## Next actions
 
-1. Update epic #2 with completed core gates and links to child issues #3-#7.
-2. Dispatch the first minimal plugin-processor test task under issue #4 to a new visible work
+1. Dispatch the first minimal plugin-processor test task under issue #4 to a new visible work
    conversation using Luna/max or Sol as risk requires.
-3. Receive its explicit RESPONSE without polling, then open a separate visible
+2. Receive its explicit RESPONSE without polling, then review/integrate the
+   exact RED tracer before dispatching the GREEN implementation slice.
+3. After issue #4 reaches a milestone commit, open a separate visible
    Sol/ultra review conversation before integration.
 4. Deliver the engineering MVP first: processor, nonblocking queue, plugin
    shell and minimal controls. Do not spend further time tuning algorithm

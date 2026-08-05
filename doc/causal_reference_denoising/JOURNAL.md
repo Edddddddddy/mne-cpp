@@ -2184,3 +2184,16 @@ hidden reasoning is not.
   #7, then #3.
 - Next: commit/push the returned issue identities, then update epic #2 body with
   completed core gates and the linked child checklist.
+
+### E-220 - Epic #2 converted to the engineering execution index
+
+- Actor: manager using the GitHub connector after issue identities were durable
+  in commit `a662b787c`.
+- Mutation: replaced issue #2 body with measured current status, checked
+  numerical-core work, ordered links to #4/#5/#6/#7/#3, engineering-first
+  acceptance, provenance and explicit non-goals.
+- Verification: read-back confirms #2 remains open and contains all five child
+  links, Release/Debug/quantitative evidence and the no-PR/no-rt_server rules.
+- Next: register `REQUEST W-PROC-TEST-001` on issue #4, commit/push it, then
+  create a new visible Luna/max worktree conversation. No internal subagent and
+  no manager polling is permitted.
