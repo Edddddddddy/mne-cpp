@@ -2496,3 +2496,22 @@ The manager records and forwards all cross-worker messages here before acting.
   sensitivity alternatives, progress and blocker. Do not rescope, edit
   production code or spawn subagents.
 - Status: recorded before forwarding.
+
+### RESPONSE W-TEST-CORE-016-STATUS
+
+- Base/scope: exact clean detached `12ab4e621`; one public slot in focused test
+  source only, with no production/header/CMake edits or subagents.
+- Matrices: first block `[[1,1],[0,1]]`, second `[[1,1],[0,0]]`, future probe
+  `[[1],[0]]`.
+- Oracle: lambda 0.5 gives epoch-one pending `G=1.5,H=1`; epoch-two pending
+  `G=1.5,H=0`; committed aging by `lambda^2=0.25` gives final
+  `G=1.875,H=0.25`; scalar loading yields
+  `W=H/(G*(1+1e-3))` and probe target `-W`, tolerance `1e-12`.
+- Sensitivity: lambda one gives `1/(4*(1+r))`; missing within-epoch decay gives
+  `0.25/(2.5*(1+r))`; missing committed aging gives `1/(3*(1+r))`, all
+  materially different from the selected oracle.
+- Validation: diff check GREEN. Detached compile stopped before test compilation
+  because ignored Eigen/Core is absent; nothing was copied/repaired. Worker is
+  doing only a read-only include reference to the populated dependency and will
+  not edit either worktree.
+- Status: commit/complete response pending.

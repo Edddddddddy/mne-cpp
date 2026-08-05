@@ -1966,3 +1966,13 @@ hidden reasoning is not.
 - Action: record a non-blocking recurrence/tolerance/sensitivity/blocker status
   request before forwarding; no duplicate or scope change.
 - Next: forward and continue bounded waiting.
+
+### E-202 - Forgetting oracle implementation status confirmed
+
+- Actor: `/root/w_test_core_016` and manager.
+- Result: one-source/one-slot patch implements exact two-block matrices and
+  lambda-dependent `G=1.875,H=0.25` future prediction with `1e-12` tolerance.
+- Sensitivity: three decay mistakes produce separately documented weights.
+- Infrastructure: detached Eigen/Core absence blocks isolated compile; no copy
+  or repair occurred, and any remaining dependency reference is read-only.
+- Decision: continue same worker to clean commit; manager owns populated runtime.
