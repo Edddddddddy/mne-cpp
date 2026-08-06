@@ -6772,6 +6772,18 @@ does not continuously poll them.
 - One task-list resolution maps the setup to visible thread
   `019fd71e-6cf2-7e52-a410-29c374cb0e09`, app worktree `f36c`; it is active on
   the requested exact scope. No further listing/polling is needed.
+- Bounded progress snapshot: worker is still active; isolated CMake reaches
+  MSVC/Qt then stops at the known incomplete ignored Eigen checkout. It is
+  checking only for a usable read-only populated baseline and otherwise will
+  return the limitation explicitly. No response/commit is accepted yet.
+
+### Conversation cleanup rule reaffirmed
+
+- User again requires timely cleanup. Archive every one-shot/failed/spent
+  visible conversation immediately after response, exact clean/scope review,
+  integration and durable test/GitHub evidence. Retain only conversations with
+  a concrete same-responsibility follow-up: atomic POSIX fix, final queue review
+  and SPEC wording until their gates close. Never manually delete app worktrees.
 
 ### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
 

@@ -5050,3 +5050,12 @@ hidden reasoning is not.
   No remote mutation occurs; local branch is clean and ahead by one tracked
   commit, with only the three preserved untracked user paths.
 - Persist the network failure locally, then retry the ordinary branch push once.
+
+### E-496 - User reaffirms timely conversation cleanup
+
+- User asks development to continue and unnecessary conversations to be cleaned
+  at suitable points. The spent concurrency thread is already archived.
+- Keep only the active minimal timing worker and conversations with a concrete
+  queued same-responsibility use (atomic POSIX fix, final queue review, SPEC
+  wording). Archive each one-shot task after durable integration/evidence; do
+  not manually delete app-owned worktrees.
