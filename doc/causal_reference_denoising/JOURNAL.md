@@ -4237,3 +4237,24 @@ hidden reasoning is not.
   public contract, ownership traits and all runtime slots remain unchanged.
 - Decision: integrate the original commit and its delta in order, then run the
   complete populated Release/Debug numerical suite before closing the P1/P3.
+
+### E-406 - Queue-v2 formal review returns HOLD
+
+- Fresh Sol/ultra reviewer completed exact clean `e4964aaed`: P0=0, P1=1,
+  P2=2, P3=0. No repository or external mutation occurred.
+- P1 proves Windows Qt 5.15.2 QSemaphore uses a mutex fallback, so the current
+  producer path can block/lazily allocate and its noexcept claim is unsafe.
+  P2s require real overlapping SPSC/stop/preservation coverage and observable
+  native metadata lifetime retention.
+- Decision: keep plugin integration held. After this response is committed and
+  pushed, dispatch a test-first public tracer plus Sol/ultra atomic queue fix;
+  retain the formal reviewer until fixes and final decision are durable.
+
+### E-407 - Core contract integrated; populated Release passes
+
+- Worker commits integrated in order as `47b54efed` and `0848634a3`.
+- Focused Release compiles/links with the portable traits and exits zero; only
+  existing Eigen C4819 warnings occur. Explicit QtTest reporter output remains
+  suppressed, so no new emitted count is claimed.
+- Debug build/run and complete evidence reconciliation remain before closing
+  core C++14/locality findings.

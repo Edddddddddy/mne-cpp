@@ -14,7 +14,7 @@
 - Fixes are returned to a new or still-relevant Luna/max or Sol implementation
   conversation through a logged `REQUEST`/`RESPONSE` exchange.
 
-## Queue formal review pending
+## Queue formal review
 
 - `R-QUEUE-001`: independent visible Sol/ultra review of the concrete
   preallocated SPSC queue, stop/reconfigure lifecycle, public tests and
@@ -72,6 +72,54 @@
   the full focused executable exits zero on every invocation; the public test
   structure is effective 15/0/0 with no skip/fail escape. The renamed token is
   absent and no concurrency/public behavior changed.
+
+### R-QUEUE-V2-001 formal gate - Hold
+
+- Reviewed exact clean snapshot `e4964aaed` in a fresh visible Sol/ultra
+  read-only conversation. Counts: P0=0, P1=1, P2=2, P3=0.
+- The queue remains a deep concrete plugin-private module and its ring/order/
+  rectangle/metadata logic is statically coherent. The gate is held because
+  the Windows dependency invalidates the realtime contract and public tests do
+  not yet cover the required concurrency/lifetime states.
+
+#### R-QUEUE-V2-QSEMAPHORE-001 - P1 - Open
+
+- Location: `adaptivedenoisingblockqueue.h:85-89,108-129` and
+  `adaptivedenoisingblockqueue.cpp:90-91,147-175,195-237`.
+- Evidence: installed Qt 5.15.2 on Windows selects `QtDummyFutex`; its
+  `QSemaphore` fallback protects operations with `QMutexLocker`. A zero token
+  timeout does not prevent blocking on that mutex, first contention may lazily
+  allocate `QMutexPrivate`, and the calls are not declared noexcept.
+- Impact: the DirectConnection acquisition callback can block or allocate
+  after configure; an allocation exception crossing queue noexcept terminates.
+- Required fix: remove `QSemaphore` from the producer path. Use SPSC atomics
+  for slot availability/publication and a preconstructed nonallocating,
+  nonblocking consumer/stop notification adapter without weakening the frozen
+  acquisition contract.
+- Required verification: Windows overlapping SPSC stress, post-configure
+  allocation counting, FIFO metadata/sequence integrity and bounded producer
+  latency; platform/source audit proving no QSemaphore/QMutex producer path.
+
+#### R-QUEUE-V2-CONCURRENCY-TEST-001 - P2 - Open
+
+- Location: focused plugin test `:693-778,782-910,915-1157`.
+- Evidence: successful push/pop tests are same-thread; the only consumer thread
+  marks entry before `waitPop`; no producer/stop race, pending-block discard or
+  successful overlapping publication is exercised. Timeout/Stopped paths lack
+  complete sentinel preservation assertions.
+- Required test: sustained overlapping public SPSC sequence/rectangle/metadata
+  traffic with Full accounting; bounded producer/consumer stop races; pending
+  discard plus fresh configure; whole destination/extents/metadata preservation
+  for Timeout and Stopped.
+
+#### R-QUEUE-V2-METADATA-LIFETIME-001 - P2 - Open
+
+- Location: focused plugin test `:151-165,730-776,1076-1156`.
+- Evidence: raw pointer identity is checked while caller handles remain alive;
+  retained native control-block lifetime is not observed.
+- Required test: custom-deleter/liveness handles, clear callers immediately
+  after push, require no deletion before pop and exactly-once deletion after
+  popped handles clear; assert nothrow mutable-to-const conversion.
 
 ## Learning guide review
 

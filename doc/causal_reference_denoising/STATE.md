@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T15:48:00+08:00
+Last updated: 2026-08-06T16:02:00+08:00
 
 ## Recovery order
 
@@ -308,3 +308,19 @@ same-responsibility implementation conversations that may receive review fixes.
   Luna/max UI/settings/diagnostics, focused lifecycle coverage where the local
   dependency graph permits, learning-guide reconciliation, final Sol/ultra
   review and issue closure.
+
+## Latest response checkpoint
+
+- Integration HEAD is `0848634a3`: accepted core-contract commit `47b54efed`
+  plus portable C++14 delta `0848634a3` are integrated. Populated Release
+  target compiles/links and its executable exits zero; Debug and complete
+  evidence reconciliation remain before core P1/P3 closure.
+- Fresh queue-v2 formal review `R-QUEUE-V2-001` proactively returned against
+  exact clean `e4964aaed` with gate HOLD: P0=0, P1=1, P2=2, P3=0. P1 finds
+  that Windows Qt 5.15.2 `QSemaphore` uses a `QMutex` fallback that can block
+  and lazily allocate in the producer path, contradicting the frozen realtime
+  contract and making queue noexcept unsafe. P2s require real overlapping SPSC/
+  stop/preservation tests and observable native metadata lifetime coverage.
+- Next blocking queue action: split a Luna/max public-interface test tracer from
+  a Sol/ultra atomic-SPSC/nonallocating-wake implementation. Plugin-data
+  integration remains held until all queue P0/P1/P2 findings are closed.

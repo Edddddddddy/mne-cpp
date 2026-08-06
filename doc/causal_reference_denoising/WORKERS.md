@@ -5925,3 +5925,47 @@ does not continuously poll them.
 - Decision: no finding. Integrate `2682034d0` followed by `bc061b834`, then
   build/run the complete populated Release and Debug focused targets before
   closing `R-CORE-CXX14-NOEXCEPT-001` and `R-CORE-LOCALITY-001`.
+
+### RESPONSE R-QUEUE-V2-001
+
+- From/to: fresh visible Sol/ultra queue-v2 reviewer / manager; source thread
+  `019fd5d8-380d-7563-8644-264426bda199`.
+- Exact review snapshot/state: `e4964aaed44b5030ad4490e0ee7744d796b387cb`,
+  clean detached before/after. Read-only review made no edit, commit, push,
+  GitHub/dependency/task mutation, subagent, polling or server action.
+- Gate: HOLD with P0=0, P1=1, P2=2, P3=0.
+- P1 `R-QUEUE-V2-QSEMAPHORE-001`: installed Windows Qt 5.15.2 selects the
+  dummy-futex `QSemaphore` fallback, whose acquire/release/available operations
+  take `QMutex`; first contention may allocate `QMutexPrivate`. Consequently
+  producer `tryPush` can block/allocate and the dependency is not noexcept.
+  Required direction is atomic SPSC publication/availability plus a
+  preconstructed nonallocating notification seam used only for consumer wake.
+- P2 `R-QUEUE-V2-CONCURRENCY-TEST-001`: successful FIFO/publication tests are
+  sequential and the empty-waiter marker can precede the actual wait. Add
+  sustained overlapping SPSC traffic, producer/consumer stop races, pending-
+  block discard/fresh-reconfigure and complete Timeout/Stopped destination
+  preservation through the public interface.
+- P2 `R-QUEUE-V2-METADATA-LIFETIME-001`: current fake-handle tests keep caller
+  owners alive and compare only raw data pointers. Add custom-deleter/liveness
+  counters, clear callers after push, prove retention through pop and exactly-
+  once destruction; assert nothrow mutable-to-const conversion.
+- Accepted static behavior: deep concrete queue seam, transactional configure,
+  SPSC index ownership/publication order, rectangle/extents/tail/drop-newest,
+  stop/fresh-PImpl isolation under caller quiescence, native Qt ownership and
+  plugin admission/in-flight caller ordering are otherwise coherent.
+- Evidence distinction: prior populated process-zero/effective 15-case result
+  is manager evidence; reviewer performed independent provenance/blob/source/
+  Qt implementation audit and no independent build/run.
+- Status: response durable before fix-task dispatch or production mutation.
+
+### BUILD RESPONSE W-QA-CORE-CONTRACT-001-RELEASE
+
+- Integration: original worker commit and delta became `47b54efed` and
+  `0848634a3` in order, with no conflict.
+- Populated Release focused target compiles and links successfully under MSVC
+  14.51 C++14; only existing Eigen C4819 code-page warnings occur. The complete
+  executable returns process exit zero.
+- QtTest output remains suppressed by this local harness even with an explicit
+  text reporter, so no newly emitted total is claimed. Runtime slots are
+  unchanged and the new namespace-scope traits necessarily compiled. Debug
+  execution remains required before closing the findings.
