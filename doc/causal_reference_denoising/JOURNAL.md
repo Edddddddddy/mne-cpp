@@ -5140,3 +5140,11 @@ hidden reasoning is not.
 - If WSL remains unavailable, worker must still return an exact clean test
   commit and explicit environment limitation; manager will not fabricate RED
   runtime evidence. Production Sol fix follows source/test review.
+
+### E-505 - POSIX EINTR tracer setup accepted
+
+- App accepts new visible Luna/max worktree setup
+  `client-new-thread:c4c3d466-a99d-4429-8804-0e68220c357a` from exact requested
+  ref `d5fd0e4ee`, focused test/CMake only.
+- Publish the dispatch on issue #5 and await proactive response without task
+  polling or worktree inspection.

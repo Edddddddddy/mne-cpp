@@ -6848,6 +6848,9 @@ does not continuously poll them.
 - Required response: exact commit/parent/two-file scope, deterministic wrapper
   proof, WSL RED if service is available, otherwise explicit environment block,
   Windows syntax/build non-regression if available, diff-check and clean status.
+- Visible Luna/max worktree setup accepted as
+  `client-new-thread:c4c3d466-a99d-4429-8804-0e68220c357a` from exact requested
+  ref. Await proactive response; do not poll or inspect its worktree.
 
 ### Conversation cleanup rule reaffirmed
 
