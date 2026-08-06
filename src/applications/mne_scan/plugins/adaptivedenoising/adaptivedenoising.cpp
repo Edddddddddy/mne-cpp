@@ -101,8 +101,10 @@ public:
     bool tryEnterProducer() noexcept
     {
         std::uint32_t observed = producerState.load(std::memory_order_acquire);
+        // Accept only the zero-to-one transition so concurrent callbacks cannot violate the queue's SPSC
+        // producer precondition.
         if((observed & kProducerClosedBit) != 0u
-           || (observed & kProducerCountMask) == kProducerCountMask) {
+           || (observed & kProducerCountMask) != 0u) {
             return false;
         }
 
