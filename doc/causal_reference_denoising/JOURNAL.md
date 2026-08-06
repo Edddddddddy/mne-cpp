@@ -4757,3 +4757,11 @@ hidden reasoning is not.
 - GitHub verifies #7 CLOSED/COMPLETED. The completed Luna/max guide conversation
   is app-archived; no manual worktree deletion occurs. Update epic #2 milestone
   state after this durable record.
+
+### E-463 - Epic #2 checklist update rejected locally
+
+- The first edit passes a multi-line issue body as a normal PowerShell argument;
+  `gh` splits it and rejects before sending a GitHub request. No issue or
+  repository state changes.
+- Persist the failure, then retry once through standard input with
+  `--body-file -` and authenticated read-back.

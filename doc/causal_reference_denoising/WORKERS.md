@@ -6769,6 +6769,14 @@ does not continuously poll them.
   integration and replay evidence became durable. Its app worktree was not
   manually modified or deleted.
 
+### FAILURE EPIC-2-DOC-CHECK-1
+
+- First `gh issue edit` attempt passed the multi-line body as a normal PowerShell
+  argument. Argument splitting made `gh` reject locally with an unknown flag
+  before any GitHub request/mutation.
+- Repository and issue #2 remain unchanged. Retry once by piping the exact
+  replaced body to `gh issue edit --body-file -`, then read back the checkbox.
+
 ### DISCUSSION SPEC-QUEUE-ATOMIC-CONSISTENCY-001
 
 - The later atomic-correction section was authoritative, but the earlier
