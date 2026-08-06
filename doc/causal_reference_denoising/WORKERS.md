@@ -8660,6 +8660,49 @@ does not continuously poll them.
   Issue #8 remains the explicit follow-up. Independent UI review still gates
   issue #6/final QA closure.
 
+### PUBLICATION / ARCHIVED W-PLUGIN-UI-WIRE-001
+
+- plugin #6 / `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5209032275`.
+- QA #3 / `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5209032379`.
+- read-back / both issues remain OPEN; latest comments contain exact integration,
+  real-target and focused regression evidence plus the formal-review hold.
+- archive / completed visible Sol/ultra thread
+  `019fd8b9-bf4c-7ad2-a647-786634476d30` is app-archived; its app worktree is
+  not manually deleted.
+- local ref / after detached/not-attached and merged proofs, delete only
+  `codex/worker-ui-wire-base`. Feature/integration refs remain intact.
+
+### REQUEST R-PLUGIN-UI-001
+
+- from / manager thread `019fcdc3-4a1e-76d1-8140-1bd521219297`.
+- to / new visible app-managed project worktree conversation.
+- model / `gpt-5.6-sol` / `ultra`; independent, read-only, no internal/nested
+  subagent and no manager polling/read/wait.
+- exact snapshot / pushed
+  `7a33d537b403c2be0d7ee04bcb49f376c83673b7`.
+- skill / read complete codebase-design SKILL.md and DEEPENING.md plus recovery
+  files in the fixed order before audit.
+- scope / final Adaptive Denoising plugin UI/integration gate: diagnostics,
+  widget, plugin h/cpp, relevant plugin CMake, queue/processor/core interfaces,
+  focused UI/plugin tests and durable SPEC/review evidence. Do not treat issue-#8
+  deferred real lifecycle/destructor work as fixed or reopen it absent regression.
+- review / deep view/adapter seam, fixed metatype and GUI formatting locality,
+  fresh widget lifetime, pending snapshot mutex/locality, settings/reset
+  monotonicity, exactly one snapshot per popped block, configure/reset/mode order,
+  acquisition callback identity/nonblocking isolation, exception disarm/output
+  suppression, restart/stop diagnostics, CMake/MOC/static/shared wiring and test
+  sensitivity.
+- provenance / verify exact worker/integration commits and independently compare
+  the parent/final acquisition callback. Distinguish reviewer source/provenance
+  evidence from manager v142 target link and Release/Debug runtime evidence.
+- findings / structured P0-P3 with ID, exact file/line, evidence, impact, fix and
+  required test. PASS requires P0/P1 zero and every P2 fixed or explicitly
+  durably deferred. State exact reviewed SHA and initial/final clean detached
+  proof. Make no source/test/docs/GitHub/dependency mutation.
+- restrictions / no full mne_scan, no mne_rt_server, no vendor repair and no
+  task/worktree mutation. Proactively return `RESPONSE R-PLUGIN-UI-001`; manager
+  owns any correction, issue closure and final acceptance.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are

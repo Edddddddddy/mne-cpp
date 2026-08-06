@@ -6288,3 +6288,25 @@ hidden reasoning is not.
 - Persist/push and publish the exact integration evidence. Archive the completed
   wiring worker and dispatch a fresh read-only Sol/ultra UI review; do not close
   issue #6/#3/#2 before that gate.
+
+### E-623 - Exact integration evidence published and worker archived
+
+- Issue #6 publication/read-back succeeds at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5209032275`;
+  final-QA cross-link succeeds at
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5209032379`.
+  Both issues remain OPEN for formal review.
+- Archive completed Sol/ultra wiring thread
+  `019fd8b9-bf4c-7ad2-a647-786634476d30`; never manually delete its app
+  worktree. After detached/merged proof, delete only local temporary base ref
+  `codex/worker-ui-wire-base`.
+
+### E-624 - Final independent UI review request frozen
+
+- Freeze read-only Sol/ultra `R-PLUGIN-UI-001` at exact pushed snapshot
+  `7a33d537b403c2be0d7ee04bcb49f376c83673b7`. It audits the deep view/adapter
+  seam, callback isolation, pending-state/block order, failure/output/lifecycle
+  behavior, CMake/test sensitivity and evidence attribution.
+- Issue #8 remains an explicit deferral, not a fix. PASS requires P0/P1 zero
+  and each P2 fixed or durably deferred. Commit/push this request before creating
+  the app review worktree; reviewer is strictly read-only and proactive.

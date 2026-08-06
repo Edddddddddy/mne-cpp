@@ -834,3 +834,12 @@ same-responsibility implementation conversations that may receive review fixes.
   differences zero and quantitative result `58.6541 dB / 0.000113195`.
 - Next blocking gate: persist/push/publish this integration, archive the completed
   wiring worker and dispatch a new independent visible Sol/ultra UI review.
+- Exact integration evidence is published at issue #6 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5209032275`
+  and final-QA #3 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5209032379`;
+  both stay OPEN for formal review.
+- Completed Sol/ultra wiring task is app-archived and its merged local-only base
+  ref is deleted after detached/merged proof. New read-only `R-PLUGIN-UI-001`
+  is durably requested from exact pushed snapshot
+  `7a33d537b403c2be0d7ee04bcb49f376c83673b7`.
