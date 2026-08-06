@@ -4717,3 +4717,13 @@ hidden reasoning is not.
 - Retained visible documentation thread accepts the exact one-file request with
   explicit Luna/max settings. It owns only `LEARNING_GUIDE.md` from
   `fb748082f` and must proactively respond; manager will not poll or overlap it.
+
+### E-459 - Final learning-guide replacement received
+
+- Luna/max returns amended full-guide replacement `6333b995d` on original exact
+  parent `fa832d51d`, one new file only. It reports no QSemaphore, the final
+  atomic/native-wake/zero-allocation seam and exact benchmark reproduction plus
+  recorded `2.725/4.317/8.557 ms` evidence.
+- Worker focused Release/benchmark, link/fence/diff/clean checks pass; no full
+  application/server/vendor work. Persist response before manager provenance,
+  content/command/link review and integration decision.

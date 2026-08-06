@@ -6705,6 +6705,26 @@ does not continuously poll them.
   guide-only request with explicit `gpt-5.6-luna` / `max` overrides. Await its
   proactive response; do not poll or overlap the learning-guide file.
 
+### RESPONSE W-DOC-001-REVISE-2
+
+- Retained Luna/max thread proactively returned replacement commit
+  `6333b995ded9dd6445c0a440f157211b95db4271` with original exact parent
+  `fa832d51d3b9aa463490cf3afbc2037f71843f41`. It amends the complete guide
+  rather than adding a delta parent; exact scope remains one new
+  `LEARNING_GUIDE.md`.
+- Queue section now reports always-lock-free SPSC sequences, acquire/release
+  publication/reuse, Windows event/POSIX pipe wake, bounded rechecks,
+  idempotent stop/quiescence, producer constraints and sustained/zero-allocation
+  public coverage. Worker reports no `QSemaphore` remains.
+- Benchmark section adds focused Release build/run commands, 1000 Hz/270 rows/
+  128 samples/16 references/250 targets/4 preserved/4 taps/P64, 100 warmup plus
+  1000 timed blocks and recorded nearest-rank p50/p95/max
+  `2.725/4.317/8.557 ms`; strict p95 `<128 ms` is labelled engineering evidence.
+- Worker reports focused Release build and benchmark PASS, eight links resolve,
+  fourteen fences balance, diff-check and clean one-file worktree pass. No full
+  mne_scan, mne_rt_server, vendor/dependency/source/test/subagent work occurred.
+- Response is durable before manager exact replacement/content review.
+
 ### DISCUSSION SPEC-QUEUE-ATOMIC-CONSISTENCY-001
 
 - The later atomic-correction section was authoritative, but the earlier
