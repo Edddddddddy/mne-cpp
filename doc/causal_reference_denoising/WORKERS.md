@@ -6691,6 +6691,24 @@ does not continuously poll them.
   ignored Eigen checkout; no vendor repair or server/full application run.
 - Status: response durable; manager provenance/diff/oracle review pending.
 
+### REQUEST W-QUEUE-CONCURRENCY-TEST-002-REVISE-1
+
+- From: manager. To: retained Luna/max processor/queue-test thread
+  `019fd69f-9196-7a82-9c3f-941076fb84fa`. Blocking: yes.
+- Base: exact worker commit `7aa5360a2`; authorized file remains only the
+  focused test source. Do not amend/rewrite the accepted parent; return one
+  small delta commit.
+- Problem: the active-stop marker is written before the public long wait, so a
+  pre-call scheduling pause can still make an immediate post-stop call appear
+  to prove a blocked wake.
+- Required response: time the complete consumer stop-wait call, publish its
+  elapsed duration with the returned `Stopped` status, and after join require a
+  positive lower bound (at least 5 ms) and the existing prompt upper bound.
+  Preserve forced wrap/reuse, every payload/extents/metadata/tail/preservation
+  oracle, allocation count, finite deadlines and post-join Qt assertions.
+- Evidence: exact delta/parent/scope/clean proof and full focused MSVC Release-
+  style result plus repeats; no production/CMake/vendor/server/full app change.
+
 ### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
 
 - First read-only app project-list call produced no result within 60 seconds and

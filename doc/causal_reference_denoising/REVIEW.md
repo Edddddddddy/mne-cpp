@@ -638,3 +638,23 @@ tracked.
   below-min case name, keeps exact InvalidSettings plus complete learned-model
   disarm/probe assertions, and has the same requested parent. Direct comparison
   to the rejected commit shows only the two requested line changes.
+
+#### R-QUEUE-STOP-WAIT-ELAPSED-001 - P2 - Open
+
+- Snapshot: worker test commit `7aa5360a2`, function
+  `queueStopRacesActiveProducerAndConsumer`, around worker lines 2077-2085 and
+  2212-2218.
+- Evidence: `consumerStopWaitStarted` is published immediately before the
+  long-timeout public `waitPop`; main waits for that marker, sleeps 20 ms and
+  stops. A scheduling pause after the marker but before the public call lets
+  stop happen first, so the later immediate `Stopped` result can satisfy all
+  current assertions without the tested call having blocked.
+- Impact: this leaves the exact false-green class identified by formal finding
+  `R-QUEUE-V2-CONCURRENCY-TEST-001` partially open despite otherwise correct
+  forced wrap/reuse and payload/preservation coverage.
+- Required correction: measure the complete stop-wait public call on the
+  consumer thread, publish the elapsed duration with its `Stopped` result, and
+  assert a positive lower bound plus the existing prompt upper bound after
+  join. Preserve finite fallback stop/join behavior and all existing oracles.
+- Required verification: MSVC Release-style complete focused suite plus repeats;
+  exact one-test-file delta and no production/CMake change.

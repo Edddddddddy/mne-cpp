@@ -4932,3 +4932,16 @@ hidden reasoning is not.
   19/0/0 with three repeats and zero counted producer allocations.
 - Persist this response before manager exact provenance, one-file diff and
   public-oracle review. No integration claim is made yet.
+
+### E-483 - Concurrency manager review requests one elapsed-wait correction
+
+- Exact parent/object/one-file scope/diff-check and current-base test-blob
+  identity pass. Forced initial capacity fill, consumer pop before producer
+  completion, distinct wrapped push, `pushed > capacity`, FIFO/rectangle/
+  native-owner/tail and zero-allocation oracles are regression-sensitive.
+- One P2 remains: the active-stop marker precedes the public wait and the test
+  does not record that wait's elapsed time. A pre-call scheduling pause can
+  still produce an immediate post-stop `Stopped` false green.
+- Prepare a same-thread Luna/max one-file delta from `7aa5360a2` requiring the
+  stopped wait to have a positive measured duration and prompt upper bound.
+  Do not integrate the large test commit until this narrow correction returns.
