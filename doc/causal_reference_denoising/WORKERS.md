@@ -7231,3 +7231,33 @@ does not continuously poll them.
 - GitHub issue #6 body is updated and read back to match this distinction, the
   accepted SPSC admission fix, held integration order and fresh-widget/pending-
   snapshot UI seam. Title/number/open state are unchanged.
+
+### REVIEW W-QUEUE-POSIX-EINTR-TEST-001
+
+- Exact object `c4b13a220` has parent `d5fd0e4ee`, changes only the focused
+  test CMake/source, and passes `git diff --check`.
+- The Linux GNU/Clang guard and `-Wl,--wrap=write` condition match. The wrapper
+  is caller-thread-local, injects exactly one pre-transfer `EINTR`, delegates
+  all other writes, and each public test requires the wrapper count to be one.
+- Producer test retains exact variable rectangle/extents/native metadata/tail;
+  stop test retains complete destination/extents/metadata. Both use finite
+  completion and fallback cleanup. Windows/Apple compilation is unaffected.
+- P2: both consumer markers precede the public `waitPop` and elapsed assertions
+  accept zero. A scheduling pause between marker and call can let push/stop
+  occur first, so the later immediate Popped/Stopped result may false-green the
+  lost-wake implementation. Do not integrate until a positive lower bound is
+  compiled into both prompt tests.
+
+### REQUEST W-QUEUE-POSIX-EINTR-TEST-001-REVISE-1
+
+- from / manager thread `019fcdc3-4a1e-76d1-8140-1bd521219297`
+- to / retained Luna/max thread `019fd779-c771-7f40-8ce7-b23cdc7fa175`
+- blocking / yes, before EINTR tracer integration and atomic production fix
+- exact parent / `c4b13a220f163511e5d84ed6378fc7545edd4965`
+- scope / `test_adaptive_denoising_plugin.cpp` only; CMake and production are
+  immutable
+- request / add a named 5 ms prompt-wait lower bound and require both complete
+  public wait durations to be `>=5 ms` while retaining `<500 ms`, all wrapper,
+  payload/preservation, finite cleanup and conditional-compilation oracles.
+- response / new delta commit, exact parent/scope/diff-check, focused evidence
+  if available, truthful WSL limitation, proactive structured response only.

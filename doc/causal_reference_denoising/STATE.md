@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T20:12:00+08:00
+Last updated: 2026-08-06T22:52:56+08:00
 
 ## Recovery order
 
@@ -533,3 +533,19 @@ same-responsibility implementation conversations that may receive review fixes.
 - Estimated continuous work is 3-5 hours if WSL/Qt adds no new blocker. A
   persistent WSL outage may leave Linux runtime evidence explicitly environment-
   deferred, but does not prevent Windows focused engineering acceptance.
+
+## Active checkpoint - POSIX EINTR tracer review
+
+- `W-QUEUE-POSIX-EINTR-TEST-001` returned exact-parent two-file commit
+  `c4b13a220`. Manager provenance, GNU/Clang-only link wrapping, one-shot
+  thread-local EINTR injection, wrapper-count, payload/preservation and finite
+  cleanup review pass.
+- P2 `R-QUEUE-EINTR-BLOCKED-WAIT-001` remains before integration: both prompt
+  tests currently require only elapsed `>=0` and `<500 ms`. Because the ready
+  marker is published before the public `waitPop`, a pre-call scheduling pause
+  can let the push/stop happen first and make the lost-wake implementation look
+  prompt. The same Luna/max conversation must add `>=5 ms` lower bounds for
+  both complete public wait calls in a test-only delta from `c4b13a220`.
+- WSL is still unavailable at service startup. No POSIX RED/GREEN runtime is
+  claimed until the environment recovers; Windows focused non-regression and
+  source-level evidence remain required after integration.

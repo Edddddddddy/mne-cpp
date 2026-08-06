@@ -5189,3 +5189,22 @@ hidden reasoning is not.
 - WSL remains unavailable and no runtime RED is claimed. Persist the response,
   then inspect exact provenance, conditional Windows safety, wrapper firing,
   public payload/preservation and finite cleanup before integration.
+
+### E-511 - EINTR tracer manager review opens one sensitivity P2
+
+- Exact parent `d5fd0e4ee`, two authorized files and diff-check pass. Guarded
+  linker wrapping, caller-local one-shot injection, wrapper count, exact public
+  payload/preservation and finite cleanup are accepted.
+- Both ready markers precede the public wait and both elapsed gates accept zero.
+  A pre-call scheduling pause can therefore make a lost wake false-green.
+- Record `R-QUEUE-EINTR-BLOCKED-WAIT-001` and request a narrow Luna/max test-
+  only delta requiring both complete public waits to last at least 5 ms while
+  remaining below 500 ms. Production and CMake stay unchanged.
+
+### E-512 - EINTR tracer lower-bound revision prepared
+
+- Retain visible Luna/max thread `019fd779-c771-7f40-8ce7-b23cdc7fa175` for
+  this same-responsibility correction from exact parent `c4b13a220`.
+- The response must be a new one-test-file delta, not an amend, and must retain
+  every existing conditional wrapper, prompt, payload/preservation and finite-
+  cleanup oracle. Manager will await the proactive response without polling.

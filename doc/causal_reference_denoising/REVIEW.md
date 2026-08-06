@@ -665,3 +665,23 @@ tracked.
   `Stopped`, `>=5 ms` and `<1500 ms`. Populated MSVC Release compiles/links;
   the complete executable and three immediate repeats return `0,0,0,0` with all
   forced wrap/reuse/FIFO/metadata/tail/allocation oracles retained. Closed.
+
+#### R-QUEUE-EINTR-BLOCKED-WAIT-001 - P2 - Open
+
+- Snapshot: worker tracer commit `c4b13a220`, functions
+  `queuePopsPromptlyAfterInterruptedProducerSignal` and
+  `queueStopsPromptlyAfterInterruptedStopSignal`.
+- Evidence: both consumer threads publish `consumerWaiting` immediately before
+  the public long-timeout `waitPop`; producer/main waits for that marker and
+  sleeps 50 ms. Both elapsed assertions accept zero and only require `<500 ms`.
+- Impact: if the consumer is paused after the marker but before entering
+  `waitPop`, the producer publication or stop can occur first. The later call
+  sees the atomic state immediately and passes even though the injected native
+  wake was lost, so the intended POSIX regression can false-green.
+- Required correction: in both tests measure the already complete public call
+  and require elapsed `>=5 ms` and `<500 ms`, retaining wrapper count one,
+  exact Popped payload/tail, complete Stopped destination preservation and all
+  finite fallback cleanup.
+- Required verification: exact-parent one-test-file delta, diff-check, Windows
+  conditional non-regression, and POSIX runtime when WSL is available. An
+  unavailable WSL service must be recorded rather than treated as test output.
