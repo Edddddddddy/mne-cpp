@@ -37,6 +37,19 @@
   control-block allocation. The later worker-side `constCast` is not part of
   acquisition hot-path evidence.
 
+### Queue-v2 manager pre-integration review
+
+- Reviewed worker commit `90b423e3c` with exact parent `9b526eb14` and only
+  `adaptivedenoisingblockqueue.h/.cpp` changed.
+- No manager finding. The maximum-dimension/native-owner interface is a deep
+  plugin-private seam; configure remains transactional; producer/consumer
+  commit points, destination/ring preservation, stop discard semantics and
+  fresh-PImpl token isolation are coherent under explicit caller quiescence.
+- The fixed scalar hot paths and installed Qt nothrow handle contract support
+  the promised no Eigen allocation/resize/retry/explicit-lock/string/FIFF work.
+- This is not the formal milestone gate. Require populated Release GREEN and a
+  fresh exact-snapshot Sol/ultra concurrency/realtime review after integration.
+
 ## Learning guide review
 
 #### R-DOC-QUEUE-V2-001 - P2 - Open

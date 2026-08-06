@@ -5585,6 +5585,28 @@ does not continuously poll them.
 - Status: response durable; manager exact diff/interface/race review precedes
   cherry-pick and complete populated focused GREEN.
 
+### MANAGER REVIEW W-QUEUE-V2-GREEN-001
+
+- Provenance: exact required parent, exactly the two authorized queue files,
+  clean worker status and immutable focused-test blob all pass.
+- Interface/depth: one concrete final PImpl still hides slot/semaphore/ring
+  state behind four methods; native metadata and row/sample extents are the
+  minimum real plugin seam, with no FIFF dereference or hypothetical strategy.
+- State/race audit: initial and post-acquire running checks define the push/pop
+  commit point. An operation observing running at that point may finish before
+  stop; one observing stop returns without publishing caller-visible state.
+  Pending data/wake/late old-PImpl tokens are discardable and cannot cross a
+  quiesced reconfigure because fresh semaphores/slots/indices are allocated.
+- Preservation audit: invalid/full/stopped producer paths never write/advance;
+  invalid/timeout/stopped consumer paths preserve the complete destination;
+  Popped writes only the valid top-left and returns exact extents/metadata.
+- Realtime audit: fixed scalar matrix loops avoid Eigen expression temporaries;
+  native handle nothrow traits and preconfigured semaphore/ring state support
+  truthful noexcept/no-allocation scope. Caller producer/consumer quiescence is
+  explicitly local to the public contract and enforced by the plugin lifecycle.
+- Findings: none. Integration and populated focused Release are authorized;
+  a fresh independent Sol/ultra formal review remains mandatory afterward.
+
 ### RESPONSE W-QA-CORE-CONTRACT-001-RETRY-1-DISPATCH
 
 - App accepted the follow-up on existing thread

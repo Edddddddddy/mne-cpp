@@ -4075,3 +4075,14 @@ hidden reasoning is not.
 - Isolated build remains blocked only by the ignored Eigen gap; exact scope and
   clean proof pass. Next: persist, then manager full two-file review before
   cherry-pick/populated GREEN/fresh formal review.
+
+### E-388 - Queue-v2 manager review passes
+
+- Full h/cpp review confirms exact parent/scope, deep concrete interface,
+  transactional candidate publication, one-acquire SPSC commit points,
+  row/sample/top-left preservation and fresh-PImpl stop isolation.
+- No finding. The explicit caller-quiescence precondition matches the frozen
+  plugin admission/in-flight lifecycle. Hot paths use fixed scalar copies and
+  native Qt ownership only.
+- Decision: commit/push review, cherry-pick `90b423e3c`, build/run the complete
+  populated Release focused executable, then dispatch a fresh Sol/ultra review.

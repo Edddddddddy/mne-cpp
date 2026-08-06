@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T14:38:00+08:00
+Last updated: 2026-08-06T14:42:00+08:00
 
 ## Recovery order
 
@@ -235,7 +235,7 @@ same-responsibility implementation conversations that may receive review fixes.
 
 ## Current checkpoint override
 
-- Integration/remote HEAD: `c4fd012bd`; tracked state is synchronized. The
+- Integration/remote HEAD: `26f3ba72b`; tracked state is synchronized. The
   only untracked paths are the three preserved user paths listed in the plan.
 - Active blocking task: `W-QUEUE-V2-GREEN-001`, Sol/ultra setup
   `client-new-thread:97461215-c1b8-488b-90bd-984aad5d9fd3`, exact requested
@@ -244,7 +244,8 @@ same-responsibility implementation conversations that may receive review fixes.
   clean at the exact base. The same reusable Sol/ultra conversation returned
   exact-parent two-file implementation commit `90b423e3c` with a clean
   worktree and full concurrency evidence. Manager review/populated GREEN are
-  next. Recovery publication: issue #5 comment
+  next. Exact two-file manager review now passes with no finding; cherry-pick
+  and populated GREEN are authorized. Recovery publication: issue #5 comment
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201026440`.
 - Active non-overlapping task: `W-PLUGIN-DATA-001`, Sol/ultra setup
   `client-new-thread:bb93c4e1-6aa9-4ee4-9d52-de30ff1b0489`, exact requested
