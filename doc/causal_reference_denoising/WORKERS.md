@@ -5640,6 +5640,30 @@ does not continuously poll them.
   unchanged public/concurrency/test surface and proactive structured RESPONSE.
 - No duplicate worker/worktree was created; manager will not poll it.
 
+### PUBLISH W-QUEUE-V2-GREEN-001-QT-RED
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201209614`.
+- API read-back confirms integrated SHA, focused compile command/error class,
+  P1 classification, name-only Sol/ultra fix gate and no server/full scan.
+
+### RESPONSE W-QUEUE-V2-GREEN-001-FIX-1
+
+- Exact required parent: `90b423e3c93ab744855d71069dec1cae08691f47`.
+- Delta: `33b3eea1d483507d2667b13e4644930b91a628fd`; clean worker status.
+- Exact scope: five insertions/five deletions in
+  `adaptivedenoisingblockqueue.cpp` only. Private vector declaration/reserve/
+  emplace/producer index/consumer index change from `slots` to `queueSlots`.
+- No public interface, state shape/layout, ordering, atomics, semaphores, copy
+  loops, tests, CMake, docs, vendor or dependency behavior changed.
+- Evidence: installed Qt 5.15.2 maps `slots` to `Q_SLOTS`; token probe changes
+  unsafe identifier count 5→0 and `queueSlots` count 0→5. Exact parent/scope/
+  name-only/diff/clean checks pass.
+- Isolated Eigen baseline remains absent, so worker makes no Release claim and
+  performs no dependency repair. Manager owns populated rerun.
+- Constraints: Sol/ultra, no subagent/poll/full scan/mne_scan/vendor/rt_server.
+- Status: response durable; manager mechanical-delta review precedes cherry-pick.
+
 ### RESPONSE W-QA-CORE-CONTRACT-001-RETRY-1-DISPATCH
 
 - App accepted the follow-up on existing thread

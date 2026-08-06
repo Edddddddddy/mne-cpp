@@ -65,6 +65,9 @@
 - Required verification: populated focused Release compiles/links, complete
   QtTest exits zero, exact source-only mechanical delta. Formal review remains
   after GREEN.
+- Fix received: exact-parent delta `33b3eea1d` changes only the five private
+  `slots` tokens to `queueSlots`; token/diff/scope/clean proof passes. Finding
+  remains open until manager populated Release compiles and all tests pass.
 
 ## Learning guide review
 

@@ -4104,3 +4104,19 @@ hidden reasoning is not.
   rename request with Sol/ultra from parent `90b423e3c`.
 - No duplicate worker was created and no concurrency/public/test logic may
   change. Await proactive delta, then manager diff and populated rebuild.
+
+### E-391 - Queue-v2 compile RED published
+
+- Issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201209614`.
+- API read-back confirms the exact integrated RED, P1 root cause, minimal fix
+  gate and no full-scan/server action.
+
+### E-392 - Queue-v2 Qt keyword fix response received
+
+- Sol/ultra returned exact-parent one-source-file delta `33b3eea1d`.
+- Delta is mechanically limited to five `slots`→`queueSlots` tokens; Qt 5.15.2
+  macro evidence changes the unsafe token count from five to zero. All other
+  queue concurrency/interface/test files are unchanged and worker is clean.
+- Next: manager exact-delta review, cherry-pick and complete populated Release
+  compile/run; only that run can close the P1.
