@@ -6467,6 +6467,15 @@ does not continuously poll them.
 - No task, worktree, repository or external state changed. Retry once with the
   same exact base/model/scope using plain prompt text.
 
+### CREATED W-QUEUE-ALLOC-TEST-001
+
+- Corrected app call accepted visible Luna/max worktree setup
+  `client-new-thread:c4ec3fcf-866e-41d9-8c7d-9fd4680dc7f2`, host `local`, from
+  exact ref `9b7b1c779`.
+- Prompt contains the one-test-file global-allocation/thread-local counted-region
+  contract and proactive response rule. No final thread ID exists yet; do not
+  poll setup.
+
 ### RETIREMENT-READY W-QUEUE-ATOMIC-TEST-001
 
 - Thread `019fd5fa-f207-7fe3-9189-8d77fc9cfade` is one-shot. Exact commit,

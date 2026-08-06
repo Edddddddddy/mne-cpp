@@ -4609,3 +4609,11 @@ hidden reasoning is not.
   from being issued. No app/repository/external mutation exists.
 - Persist the failure and retry once with plain-text prompt; task contract and
   exact base remain unchanged.
+
+### E-447 - Allocation tracer task setup accepted
+
+- App accepts visible Luna/max setup
+  `client-new-thread:c4ec3fcf-866e-41d9-8c7d-9fd4680dc7f2` from exact
+  `9b7b1c779` with focused test-only scope.
+- Next commit/push creation evidence, publish/read back issue #5 dispatch and
+  await proactive RESPONSE without polling.
