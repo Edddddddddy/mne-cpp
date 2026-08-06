@@ -5348,3 +5348,12 @@ hidden reasoning is not.
 - Combined Windows 19/0/0 plus repeats and Linux 21/0/0 addresses the remaining
   production POSIX finding. Persist/push, publish issue #5 evidence, then send
   the exact snapshot to the retained independent Sol/ultra reviewer.
+
+### E-528 - Cross-platform queue evidence published; formal review prepared
+
+- Issue #5 comment/read-back succeeds at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5207390978`.
+- Prepare retained independent Sol/ultra reviewer against exact pushed snapshot
+  `5aa43160b`. It must re-audit all previous queue findings, atomic/native wake,
+  forced EINTR progress, public concurrency/lifetime tests and live SPEC, and
+  return a read-only PASS/HOLD with P0-P3 evidence.

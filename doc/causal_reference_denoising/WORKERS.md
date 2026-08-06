@@ -7420,3 +7420,27 @@ does not continuously poll them.
   within their prompt bounds.
 - Combined manager evidence is Windows 19/0/0 plus three repeat exits and POSIX
   21/0/0 including both forced EINTR cases. Dispatch exact-snapshot formal review.
+
+### REQUEST R-QUEUE-ATOMIC-003
+
+- from / manager thread `019fcdc3-4a1e-76d1-8140-1bd521219297`
+- to / retained independent review thread
+  `019fd5d8-380d-7563-8644-264426bda199`
+- model / `gpt-5.6-sol` / `ultra`
+- exact snapshot / `5aa43160b64bf0a96d2918331ca8c28d4dc078ab`
+- mode / read-only formal review; no edits, commits, pushes or GitHub mutation
+- scope / complete atomic queue header/source, focused tests/CMake, live SPEC
+  queue contract, plugin caller compatibility only as necessary, prior findings
+  and durable Windows/POSIX evidence.
+- required decisions / P0-P3 findings with exact files/lines/evidence/fix/tests;
+  explicitly close or retain `R-QUEUE-V2-QSEMAPHORE-001`, concurrency/lifetime,
+  POSIX EINTR, SPEC locality and test-sensitivity findings; verify deep module,
+  producer realtime/no-allocation/no-lock, SPSC ordering/wrap, stop races,
+  transactional resources, lost-wake progress and public preservation.
+- gate / PASS only if P0/P1 are zero and every P2 is fixed or explicitly
+  justified for deferral; distinguish manager/worker runtime claims from
+  independently reproduced evidence.
+- response / proactive `RESPONSE R-QUEUE-ATOMIC-003`; exact SHA/clean state,
+  prioritized findings and PASS/HOLD. No manager polling or subagent/server.
+- public evidence / issue #5 read-back at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5207390978`.
