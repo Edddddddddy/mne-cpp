@@ -865,3 +865,6 @@ same-responsibility implementation conversations that may receive review fixes.
   `7a33d537b`; its latest bounded event report confirms the intended deep
   view/adapter seam and exact two-file blob stability with no finding or blocker.
   Do not poll again; await the proactive gate response before closing #6/#3/#2.
+- Completed one-shot `W-QUEUE-SPEC-001` task `019fd69f-...` is archived after
+  detached/clean proof and exact diff-hash equality between worker `96055bf13`
+  and integrated `c56f19269`. Its app-managed worktree is intentionally intact.

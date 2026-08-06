@@ -6369,3 +6369,13 @@ hidden reasoning is not.
 - Stop polling. Read-only issue audit confirms #6, #3 and epic #2 are the only
   MVP issues awaiting the final gate; #8 remains OPEN by design. Closure order
   is #6, #3, then #2 only after a proactive PASS.
+
+### E-631 - Obsolete queue-SPEC conversation archived
+
+- Identify app worktree `17e6` as completed one-shot task `W-QUEUE-SPEC-001`
+  (`019fd69f-9196-7a82-9c3f-94295c3cbeb5`). It is detached and clean at worker
+  commit `96055bf13`.
+- The worker and integrated `c56f19269` commit patches have the identical Git
+  diff hash `02f753e7897eb655401aba58404b36e960e32514`; the integration commit is an
+  ancestor of current HEAD. Archive the task through the app and leave its
+  app-managed worktree untouched.
