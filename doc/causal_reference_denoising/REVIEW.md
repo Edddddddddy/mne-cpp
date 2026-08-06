@@ -467,6 +467,24 @@ Pending.
   Issue #5 and plugin integration remain blocked until the response is durable,
   manager-reviewed and all required P0-P2 closure conditions are met.
 
+#### R-QUEUE-ATOMIC-002 response - HOLD
+
+- Exact `9535bf8c7`, clean/read-only Sol/ultra review: P0=0, P1=0, P2=2,
+  P3=1. Original QSemaphore P1 and metadata-lifetime P2 close.
+- `R-QUEUE-ATOMIC-POSIX-EINTR-001` P2: POSIX signal discards a recoverable
+  pre-transfer EINTR, so push/stop may wait for the complete consumer timeout.
+  Fix private wake or bound the consumer recheck slice and add deterministic
+  link/private-seam POSIX fault injection for both publication and stop.
+- `R-QUEUE-V2-CONCURRENCY-TEST-001` P2 remains: current readiness/attempt markers
+  precede public calls and sustained assertions permit only capacity pushes
+  followed by a later drain. Require forced slot reuse while both threads are
+  live and an actually blocked empty wait before stop, with sensitive payload/
+  extents/metadata/tail/sentinel oracles.
+- `R-QUEUE-ATOMIC-SPEC-LOCALITY-001` P3: SPEC `538-550` contradicts current
+  atomic wake and untouched-tail contract. Reconcile doc and search for stale
+  prescriptive semaphore wording.
+- Gate remains HOLD because neither P2 is fixed or explicitly deferred.
+
 ### R-DOC-QUEUE-V2-001 / R-DOC-BENCHMARK-EVIDENCE-002 - P2 open
 
 - Exact held guide `fb748082f` correctly documents queue-v2 rectangles/extents/

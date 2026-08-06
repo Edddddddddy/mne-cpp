@@ -6574,6 +6574,42 @@ does not continuously poll them.
   `gpt-5.6-sol` / `ultra` overrides. It owns read-only review of `9535bf8c7` and
   must proactively return; manager will not continuously poll it.
 
+### RESPONSE R-QUEUE-ATOMIC-002
+
+- Reviewer: retained visible Sol/ultra thread
+  `019fd5d8-380d-7563-8644-264426bda199`; exact clean detached snapshot
+  `9535bf8c77ea02cb650d56b97816c9ef88198b6a`, read-only throughout.
+- Gate: HOLD; P0=0, P1=0, P2=2, P3=1.
+- CLOSED original `R-QUEUE-V2-QSEMAPHORE-001`: production contains no Qt
+  semaphore/mutex/wait and producer work is lock-free atomics, scalar copy,
+  nothrow native owner move and one nonblocking native signal.
+- CLOSED original `R-QUEUE-V2-METADATA-LIFETIME-001`: public test clears caller
+  owners after push, proves liveness through pop and exactly-once deletion after
+  destination clear; installed Qt native refcount operations are noexcept.
+- OPEN P2 `R-QUEUE-ATOMIC-POSIX-EINTR-001` at queue cpp `150-155,339-340,
+  399-423,428-433`: one POSIX nonblocking pipe write discards EINTR. If it is
+  interrupted before transfer after the consumer's last atomic recheck, push or
+  stop remains discoverable only after the full wait timeout, contradicting the
+  prompt sticky-wake contract. Required: private non-lossy/bounded fallback with
+  no producer allocation/lock/wait/unbounded retry plus deterministic POSIX
+  fault-injection test for push and stop.
+- OPEN P2 `R-QUEUE-V2-CONCURRENCY-TEST-001` at focused test `1451-1511,
+  1513-1638,1660-1672,1706-1807,1828-1838` and old waiter `994-1033`:
+  sustained traffic may accept only capacity before consumer drain; stop may
+  occur before public push/wait calls. Current assertions can therefore pass
+  without concurrent slot reuse or an actually blocked waiter. Required public
+  deterministic phases: pushed > capacity, pop before producer completion,
+  successful prelude, positive blocked-wait elapsed bound, live producer stop,
+  full rectangle/extents/metadata/tail/sentinel checks.
+- OPEN P3 `R-QUEUE-ATOMIC-SPEC-LOCALITY-001` at SPEC `538-550`: stale zero-time
+  free-slot semaphore and unspecified consumer-tail wording contradict current
+  atomic/native wake and untouched-tail interface. Doc-only reconciliation and
+  targeted historical/rejection-only semaphore search required.
+- Static atomic wrap/publication/reuse, Windows event, transactional resource,
+  rectangle/extents/drop/metadata behavior are otherwise accepted. Reviewer
+  independently claims source/provenance/Qt-header audit, not build/runtime;
+  manager/worker executable evidence is clearly separated.
+
 ### ARCHIVED W-QUEUE-ALLOC-TEST-001
 
 - App archive succeeds for one-shot Luna/max thread

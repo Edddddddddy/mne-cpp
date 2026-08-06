@@ -4782,3 +4782,15 @@ hidden reasoning is not.
 - Stop repeating the same failing path. Use the installed GitHub connector's
   typed issue update for the one checkbox mutation, followed by independent CLI
   read-back.
+
+### E-466 - Atomic queue formal re-review returns HOLD
+
+- Retained Sol/ultra reviewer returns exact clean/read-only `9535bf8c7` gate:
+  P0=0, P1=0, P2=2, P3=1. Original Windows QSemaphore P1 and native-owner
+  lifetime P2 close; atomic sequence/Windows/resource behavior is accepted.
+- New P2: POSIX one-shot pipe signal discards EINTR, allowing a push/stop wake
+  to wait the full timeout. Existing concurrency slots also admit schedules
+  without concurrent slot reuse or an actually entered blocked wait.
+- P3: SPEC still prescribes the rejected semaphore and calls the destination
+  tail unspecified. Persist all exact findings before TDD correction dispatch.
+  Queue issue #5 and plugin integration remain blocked.

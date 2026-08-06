@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T19:31:00+08:00
+Last updated: 2026-08-06T20:12:00+08:00
 
 ## Recovery order
 
@@ -437,6 +437,12 @@ same-responsibility implementation conversations that may receive review fixes.
   Sol/ultra settings. One-shot allocation thread `019fd670-c791-7000-8a5f-4538396a54d6`
   is app-archived after exact commit/integration/canonical evidence; its app
   worktree was not manually removed.
+  The reviewer returned HOLD on exact `9535bf8c7`: P0=0, P1=0, P2=2, P3=1.
+  The old Windows QSemaphore P1 and native-metadata-lifetime P2 are closed.
+  Open blockers are POSIX `write(EINTR)` prompt-wake resilience and regression-
+  sensitive forced concurrent reuse/blocked-stop tests; SPEC also retains one
+  stale semaphore/unspecified-tail paragraph. Queue/plugin integration remains
+  blocked while TDD corrections and a fresh retained-reviewer gate run.
 - Accepted but deliberately not integrated until the atomic queue gate:
   plugin data commit `5f4718722` plus exact-parent SPSC admission fix
   `34a8096f1`. Retain its Sol/ultra conversation for same-responsibility fixes.
