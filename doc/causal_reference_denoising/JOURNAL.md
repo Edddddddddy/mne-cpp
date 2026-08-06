@@ -5902,3 +5902,23 @@ hidden reasoning is not.
   `1099/1099/0`, performance gate PASS.
 - Correct the manager harness with explicit per-executable invocations after
   persisting lifecycle PASS; no code/dependency/server mutation is involved.
+
+### E-585 - Worker lifecycle issue closes and epic advances
+
+- PASS publication/read-back succeeds on issue #5 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5208587267`
+  and issue #6 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208587498`.
+- Issue #5 is verified CLOSED/COMPLETED; issue #6 stays OPEN for UI. Epic #2 is
+  verified OPEN with child #5 checked. Issue #8 stays OPEN for the two explicit
+  residual lifecycle findings.
+
+### E-586 - UI RED tracer request is ready for visible dispatch
+
+- Freeze exact code base `4cec85cbe6ed53bb07e5ebdf8f6de96675e7c204`
+  and one three-path Luna/max TDD scope. The focused target links only Qt Core/
+  Widgets/Test and Eigen and is expected to RED on the absent widget seam.
+- The tracer observes stable controls/signals/diagnostic labels only. It cannot
+  modify production or import FIFF/scShared/scMeas/plugin dependencies.
+- Commit/push this request before creating the app-managed worktree; then await
+  its proactive response without continuous polling.

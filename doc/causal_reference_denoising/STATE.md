@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-07T03:30:16+08:00
+Last updated: 2026-08-07T03:34:00+08:00
 
 ## Recovery order
 
@@ -695,5 +695,7 @@ same-responsibility implementation conversations that may receive review fixes.
   The SPSC producer, Busy drop accounting, atomic lock-free and static
   registration findings are closed. Destructor boundedness and the real-plugin
   lifecycle harness remain explicitly deferred, not fixed, under open issue #8.
-  The teaching UI gate is now released; first persist/publish this review and
-  close issue #5, then dispatch the prepared Luna/max RED tracer.
+  The teaching UI gate is now released. PASS is published on issues #5/#6;
+  issue #5 is CLOSED/COMPLETED and epic #2 checks #5. The next blocking task is
+  `W-PLUGIN-UI-TEST-001`, a new visible Luna/max TDD RED tracer from exact code
+  base `4cec85cbe6ed53bb07e5ebdf8f6de96675e7c204`.

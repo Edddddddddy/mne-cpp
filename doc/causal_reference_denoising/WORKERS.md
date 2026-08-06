@@ -8118,3 +8118,48 @@ does not continuously poll them.
   `1099/1099/0`, and p95 `<128 ms` PASS.
 - correction / after lifecycle review persistence, run each test/example with
   an explicit argument path/reporter and capture independent exit/totals.
+
+### PUBLICATION R-PLUGIN-DATA-002 / CLOSURE ISSUE-5
+
+- review comment / issue #5
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5208587267`.
+- plugin comment / issue #6
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208587498`.
+- state / authenticated read-back confirms issue #5 CLOSED with reason
+  COMPLETED, issue #6 OPEN, issue #2 OPEN and epic child `#5` checked.
+- residual / issue #8 remains OPEN and continues to own both explicitly
+  deferred lifecycle/teardown findings.
+
+### REQUEST W-PLUGIN-UI-TEST-001
+
+- from / manager thread `019fcdc3-4a1e-76d1-8140-1bd521219297`
+- to / new visible app-managed worktree conversation
+- model / `gpt-5.6-luna` / `max`
+- blocking / yes, first vertical UI slice after lifecycle PASS
+- exact base / `4cec85cbe6ed53bb07e5ebdf8f6de96675e7c204`
+- skill / read complete `tdd` skill; use public Qt behavior only and one tracer
+  test, not implementation-detail/source-text tests.
+- scope / edit only `src/testframes/CMakeLists.txt` plus new
+  `src/testframes/test_adaptive_denoising_ui/CMakeLists.txt` and
+  `test_adaptive_denoising_ui.cpp`. Production plugin/widget, queue, processor,
+  numerical, other tests, vendor and dependency files are immutable.
+- target / register `test_adaptive_denoising_ui`; compile the future
+  plugin-private setup-widget source directly and include its fixed diagnostics
+  header; link only Qt Core/Widgets/Test and Eigen. Do not link
+  `scan_adaptivedenoising`, `mne_fiff`, `mne_rtprocessing`, `scShared` or
+  `scMeas`.
+- RED / current widget/header/source do not exist. Configuration/build must
+  reach the missing production UI seam; do not manufacture another failure or
+  copy/repair the isolated ignored Eigen baseline.
+- controls / test the exact SPEC object names, ranges/defaults and the seven
+  typed signals: enabled/frozen, taps, update interval, memory, regularization
+  and reset.
+- diagnostics / deliver one fixed POD diagnostics value through the public
+  widget slot and assert the fourteen exact value-label names expose plugin/
+  configure/process status, R/M/P, warmup, generation, accepted/rejected, three
+  RMS values and drops. Add portable C++14 copy/metatype checks; no private
+  state, QString/container/owner in the data type.
+- response / proactive `RESPONSE W-PLUGIN-UI-TEST-001` with exact parent/
+  commit/three paths, test slot/oracles, intended RED command/output, dependency
+  proof and clean status. No subagent, manager polling, full app or
+  `mne_rt_server`.
