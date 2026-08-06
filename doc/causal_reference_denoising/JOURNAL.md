@@ -5148,3 +5148,19 @@ hidden reasoning is not.
   ref `d5fd0e4ee`, focused test/CMake only.
 - Publish the dispatch on issue #5 and await proactive response without task
   polling or worktree inspection.
+
+### E-506 - EINTR tracer dispatch published
+
+- Issue #5 comment/read-back succeeds at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5206063282`.
+  It records the closed concurrency-test correction, canonical zero exits,
+  Linux wrapper task setup and truthful current WSL outage boundary.
+
+### E-507 - User requests current completion estimate and continuation
+
+- Manager reports approximately 75-80% complete and a 3-5 hour continuous-work
+  estimate absent new WSL/Qt blockers. Remaining path is POSIX fix/final queue
+  PASS, held plugin integration/review, minimal UI/block-boundary tests and final
+  focused validation/issue closure.
+- User immediately instructs continuation. Continue autonomously to acceptance;
+  do not stop at the estimate.

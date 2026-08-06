@@ -520,3 +520,16 @@ same-responsibility implementation conversations that may receive review fixes.
   Sol/ultra atomic worker the private bounded-recheck fix; run Windows/WSL
   focused tests; obtain a fresh retained Sol/ultra queue PASS; only then
   integrate the held plugin-data commits and begin the Luna/max teaching UI.
+
+### Completion estimate update
+
+- Engineering progress is approximately 75-80%. Numerical core, processor,
+  atomic queue, regression-sensitive Windows concurrency/no-allocation tests,
+  example, benchmark and learning guide are complete.
+- Remaining critical path: deterministic POSIX EINTR tracer and private bounded
+  recheck fix; final Sol queue PASS; held plugin-data integration/review; minimal
+  teaching UI and block-boundary tests; final focused Release/Debug/example/
+  benchmark review and issue closure.
+- Estimated continuous work is 3-5 hours if WSL/Qt adds no new blocker. A
+  persistent WSL outage may leave Linux runtime evidence explicitly environment-
+  deferred, but does not prevent Windows focused engineering acceptance.
