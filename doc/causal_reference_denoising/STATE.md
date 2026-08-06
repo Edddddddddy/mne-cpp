@@ -503,3 +503,20 @@ same-responsibility implementation conversations that may receive review fixes.
 - After queue review passes: integrate/formally review plugin data, implement
   programmatic minimal UI, add focused block-boundary settings/lifecycle
   evidence, run final targets/review, update and close issues #5/#6/#7/#3/#2.
+
+## Active checkpoint - 2026-08-06 late
+
+- Branch/remote include queue SPEC correction `c56f19269`, POSIX EINTR tracer
+  preparation `deefd580f`, and the first bounded concurrency-task progress
+  record `e2df78dd8`. No production/test source changed in those records; only
+  the three preserved user paths remain untracked.
+- `W-QUEUE-CONCURRENCY-TEST-002` remains the sole active code worker. One
+  cursor-based completion wait reports that its deterministic sustained reuse
+  and stop-race gates are implemented; MSVC 14.51 C++14 syntax passes and the
+  worker is performing a temporary focused Release link/run. No commit or
+  response is accepted yet, and manager does not inspect the worker worktree.
+- The next strict order remains: integrate that public concurrency evidence;
+  dispatch the prepared WSL `--wrap=write` EINTR RED tracer; send the retained
+  Sol/ultra atomic worker the private bounded-recheck fix; run Windows/WSL
+  focused tests; obtain a fresh retained Sol/ultra queue PASS; only then
+  integrate the held plugin-data commits and begin the Luna/max teaching UI.

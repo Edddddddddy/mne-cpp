@@ -4904,3 +4904,14 @@ hidden reasoning is not.
   gates in place and a C++14/QtTest syntax check in progress.
 - This is not a completed response or integration decision. Do not poll again;
   await the proactive structured response while working only on disjoint files.
+
+### E-480 - Cursor-based concurrency completion wait advances evidence
+
+- One 120-second cursor-based event wait times out with the task still active;
+  it is not a polling loop. Latest progress reports MSVC 14.51 C++14 syntax
+  success using temporary MOC/read-only Eigen and a temporary focused Release
+  link/run in progress. The isolated CMake configure remains blocked only by
+  the already documented incomplete ignored Eigen checkout.
+- Existing integration focused executable still returns zero, but no new test
+  total or new-gate acceptance is claimed. Await the worker's proactive final
+  response before reviewing or integrating its one-file delta.
