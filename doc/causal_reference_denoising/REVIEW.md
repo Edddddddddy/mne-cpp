@@ -451,9 +451,11 @@ Pending.
   is complete for this target and the thread-local counted region is exactly the
   producer's public `tryPush` call, including by-value metadata construction.
 - This is accepted test design, not yet executable evidence. The canonical
-  populated Release target must compile/link and report zero counted producer
-  allocations before the queue formal reviewer may close
-  `R-QUEUE-V2-QSEMAPHORE-001`.
+  populated MSVC Release target now compiles/links; the full run and five
+  immediate repeats all exit zero. Because zero counted producer allocations
+  is a hard in-slot assertion, executable evidence is GREEN. The retained
+  independent Sol/ultra queue reviewer must still close or replace the original
+  P1/P2 findings before issue #5 passes.
 
 ### R-BENCH-FINITE-001 - P2 - Closed
 

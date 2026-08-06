@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T19:14:00+08:00
+Last updated: 2026-08-06T19:31:00+08:00
 
 ## Recovery order
 
@@ -425,7 +425,11 @@ same-responsibility implementation conversations that may receive review fixes.
   and producer-only counted boundary. Response is durable; manager provenance,
   source review passes with no finding: exact parent/scope/current-base blob,
   replacement completeness, static initialization and counted-boundary cleanup
-  are correct. Integration and canonical Release execution are next.
+  are correct. It is integrated as `34aff76b6`; canonical populated MSVC Release
+  compiles/links, its full main run exits zero, and five immediate full repeats
+  all exit zero. The hard in-slot assertion therefore proves zero counted
+  producer allocations. Qt reporter streams remain empty, so no manager total
+  is claimed. Independent Sol/ultra atomic-queue re-review is the next gate.
 - Accepted but deliberately not integrated until the atomic queue gate:
   plugin data commit `5f4718722` plus exact-parent SPSC admission fix
   `34a8096f1`. Retain its Sol/ultra conversation for same-responsibility fixes.

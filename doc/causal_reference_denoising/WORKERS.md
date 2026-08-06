@@ -6530,6 +6530,21 @@ does not continuously poll them.
 - Decision: ACCEPT with no manager P0-P3. Cherry-pick and canonical populated
   Release build/run are required before using this as formal queue evidence.
 
+### VALIDATION W-QUEUE-ALLOC-TEST-001
+
+- Worker delta is integrated as `34aff76b6` and pushed. Canonical populated
+  MSVC Release target `test_adaptive_denoising_plugin` compiles and links; only
+  existing Eigen C4819 code-page warnings appear.
+- The complete executable main run exits zero. Five immediate complete repeats
+  also return `0,0,0,0,0` with no timeout or deadlock.
+- The zero-allocation check is a hard `QCOMPARE` inside the sustained public
+  SPSC slot, so a zero process result proves it passed together with the
+  existing FIFO/drop/extents/metadata/deep-copy/tail/latency assertions.
+- Qt text reporter invocation still emits no file or stream; do not infer or
+  publish a manager test-total count. Exact worker cross-platform totals remain
+  separate evidence. This one-shot Luna test conversation is retirement-ready
+  after formal-review dispatch no longer needs it.
+
 ### RETIREMENT-READY W-QUEUE-ATOMIC-TEST-001
 
 - Thread `019fd5fa-f207-7fe3-9189-8d77fc9cfade` is one-shot. Exact commit,
