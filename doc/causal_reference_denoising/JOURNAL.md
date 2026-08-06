@@ -4915,3 +4915,20 @@ hidden reasoning is not.
 - Existing integration focused executable still returns zero, but no new test
   total or new-gate acceptance is claimed. Await the worker's proactive final
   response before reviewing or integrating its one-file delta.
+
+### E-481 - Oversized completion-wait request rejected locally
+
+- A requested 180-second app wait exceeds the tool's 120-second maximum and is
+  rejected during argument validation. It causes no task, repository or
+  external-state mutation; the corrected bounded wait uses 120 seconds.
+
+### E-482 - Concurrency sensitivity response received
+
+- Luna/max thread `019fd69f-9196-7a82-9c3f-941076fb84fa` proactively returns
+  clean exact-parent one-test-file commit `7aa5360a2`.
+- It reports regression-sensitive forced slot reuse and true blocked-wait/stop
+  phases, with exact public FIFO/rectangle/extents/native-owner/tail and full
+  non-success preservation assertions. Manual MSVC Release-style execution is
+  19/0/0 with three repeats and zero counted producer allocations.
+- Persist this response before manager exact provenance, one-file diff and
+  public-oracle review. No integration claim is made yet.

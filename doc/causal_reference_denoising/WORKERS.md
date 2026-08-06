@@ -6672,6 +6672,25 @@ does not continuously poll them.
 - No response/commit is accepted yet. Manager will not poll again; integration
   waits for the worker's proactive structured `RESPONSE`.
 
+### RESPONSE W-QUEUE-CONCURRENCY-TEST-002
+
+- From visible Luna/max thread
+  `019fd69f-9196-7a82-9c3f-941076fb84fa`.
+- Exact parent `2530c78642c4742ffcb06bed99e4d7048192de64`; commit
+  `7aa5360a2a17f9f550679eb55f63d6837cf4a490`; one changed path only:
+  `test_adaptive_denoising_plugin.cpp`; worker worktree clean.
+- Sustained public SPSC now gates an initial capacity fill, requires a consumer
+  pop before producer completion, forces a later distinct wrapped-slot push and
+  asserts `pushed > capacity`, exact accepted FIFO/extents/native metadata/
+  payload/tail plus zero producer allocations.
+- Stop coverage reports a successful push/pop prelude, measured positive empty
+  wait, live producer at stop, finite deadlines/joins, and complete Popped/
+  Timeout/Stopped payload/extents/metadata/tail or preservation oracles.
+- Worker MSVC 14.51 C++14 Release-style manual build reports 19/0/0 plus three
+  repeat zero exits. Isolated CMake remains blocked only by its incomplete
+  ignored Eigen checkout; no vendor repair or server/full application run.
+- Status: response durable; manager provenance/diff/oracle review pending.
+
 ### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
 
 - First read-only app project-list call produced no result within 60 seconds and
