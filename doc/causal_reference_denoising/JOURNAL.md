@@ -6337,3 +6337,13 @@ hidden reasoning is not.
 - Stop polling. On proactive PASS, publish/close #6, close final QA #3, update
   and close epic #2, while leaving issue #8 OPEN as the explicit follow-up. A
   HOLD instead requires a minimal correction cycle before any closure.
+
+### E-628 - Issue-#8 UI runtime deferral made explicit
+
+- Read-only closeout audit finds #8 covers lifecycle/metadata but does not name
+  the new UI block-boundary/diagnostics runtime cases. Update only its required-
+  work and acceptance lists to include settings/freeze/reset coalescence at
+  dequeued block boundaries and explicit queued diagnostics/exceptions/drops.
+- Authenticated read-back confirms both markers and issue state OPEN. This
+  clarifies the deferred real-plugin harness; it does not close or fix either
+  existing deferred finding.

@@ -916,3 +916,13 @@ tracked.
   toolset mismatch, not the only available environment.
 - No vendor patch or full app/server run is involved. Mark manager-addressed;
   final Sol/ultra review and final-QA publication close the finding.
+
+### Issue-#8 UI lifecycle deferral reconciliation
+
+- Open follow-up #8 already owns the real plugin lifecycle/destructor harness.
+  Its required-work matrix now explicitly includes enabled/frozen/numerical-
+  settings coalescence, reset only at dequeued block boundaries, and fixed
+  diagnostics through the queued GUI connection (including exceptions/drops).
+- This is a durable test-coverage deferral, not a code fix. The current source
+  still has manager source/order/target evidence but no real plugin lifecycle
+  runtime. #8 remains OPEN after MVP acceptance.

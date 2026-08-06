@@ -853,3 +853,7 @@ same-responsibility implementation conversations that may receive review fixes.
 - One 60-second event wait times out with reviewer active and following the
   mandated recovery sequence; STATE/SPEC are complete and WORKERS is next. It
   reports no finding, blocker or input request. Do not poll again.
+- Follow-up issue #8 remains OPEN and now explicitly includes runtime regression
+  for UI settings/freeze/reset application only at dequeued block boundaries and
+  fixed queued diagnostics. This makes the real-plugin test deferral complete;
+  no current finding is relabeled fixed.
