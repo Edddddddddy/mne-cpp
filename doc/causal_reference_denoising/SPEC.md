@@ -448,6 +448,24 @@ snapshot. The fixed diagnostics value mirrors only the existing processor
 configuration result and numerical process diagnostics plus dropped blocks; it
 does not introduce another model or duplicate source of truth.
 
+### Queue producer allocation evidence
+
+After atomic production is integrated, add one Windows-focused acceptance slot
+in a separate Luna/max test task. The test executable may install complete
+C++14 global scalar/array `new`/`delete` replacements, but counting is enabled
+by a test `thread_local` flag only around the producer thread's `tryPush()`
+calls. Queue configuration, matrix/metadata construction, result storage,
+thread construction, logging and assertions occur while counting is disabled.
+
+The producer uses precreated blocks and native metadata handles while a
+consumer drains through the public interface. Accepted/full outcomes retain
+the existing exact FIFO oracle; post-configure counted allocations must be
+zero. Report call-latency percentiles/max outside the measured call and retain
+the existing generous one-second hard bound to detect actual capacity waiting
+without making ordinary Windows scheduler preemption a flaky functional gate.
+This test does not inspect private ring state or parse source text; the later
+Sol/ultra review separately audits the Windows API/no-QSemaphore dependency.
+
 The plugin target links only the dependencies it uses: Qt Core/Widgets,
 `mne_utils`, `mne_fiff`, `mne_rtprocessing`, Eigen, `scShared` and `scMeas`.
 It does not inherit the broad dependency set of `noisereduction` and does not

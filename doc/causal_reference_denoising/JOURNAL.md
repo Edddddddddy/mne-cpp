@@ -4486,3 +4486,12 @@ hidden reasoning is not.
 - Explicit queued diagnostics plus QObject auto-disconnect make fresh-widget
   destruction safe; the POD mirrors existing processor/numerical scalars rather
   than adding a parallel model.
+
+### E-432 - Queue allocation tracer prepared, not dispatched
+
+- Formal P1 closure needs producer-thread post-configure allocation evidence in
+  addition to the now-GREEN public concurrency/lifetime suite.
+- Frozen future Luna/max slot counts global C++ allocations only while one
+  producer executes `tryPush`; every setup/consumer/log/assert action is outside
+  the flag. Zero allocations plus existing FIFO/latency oracles are required.
+- Dispatch waits for atomic implementation acceptance to avoid file overlap.

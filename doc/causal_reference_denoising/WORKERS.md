@@ -6368,3 +6368,17 @@ does not continuously poll them.
   in the plugin PImpl pending snapshot.
 - The diagnostics POD reuses existing configure/process enum and scalar fields
   plus dropped blocks. It must not become a second state model.
+
+### PREPARED W-QUEUE-ALLOC-TEST-001
+
+- Not dispatched; wait for accepted atomic production so test and production
+  never overlap.
+- Future Luna/max scope is the focused test source only. Add a Windows producer-
+  thread allocation-counting slot using complete C++14 global new/delete
+  replacements gated by a thread-local flag only around `tryPush()`.
+- All configuration/workload/metadata/thread/result/logging work occurs outside
+  the counted region. Require zero counted allocations, preserve public FIFO/
+  extents/metadata outcomes, report latency distribution and retain the current
+  nonflaky one-second hard upper bound.
+- Source/platform/no-QSemaphore proof remains a Sol/ultra review responsibility;
+  the public test must not inspect private state or parse implementation text.
