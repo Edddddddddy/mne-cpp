@@ -5470,3 +5470,11 @@ hidden reasoning is not.
   PowerShell rejects the complete script before MOC or file creation.
 - Simplify the command by assigning matches/counts to standalone variables, then
   rerun the unchanged MOC and update-path contract checks.
+
+### E-542 - Standalone MOC lacks AbstractAlgorithm include context
+
+- MOC now runs and fails at `Q_INTERFACES` with `Undefined interface` because
+  the command supplied no repository include root for the included abstract
+  plugin interface. This differs from worker's target-context MOC success.
+- Find the actual `abstractalgorithm.h` location and rerun standalone MOC with
+  the correct include roots and metadata file; no production edit.

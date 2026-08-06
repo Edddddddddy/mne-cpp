@@ -7554,3 +7554,9 @@ does not continuously poll them.
 - Revision 2 / the no-cleanup command reaches PowerShell parsing but an inline
   nested count expression has an unmatched subexpression delimiter. Parser
   exits before MOC. Retry with each count assigned to a simple variable.
+- Revision 3 / simplified command executes MOC, which reports `Undefined
+  interface` because the standalone invocation lacks the project include root
+  that defines `SCSHAREDLIB::AbstractAlgorithm` for `Q_INTERFACES`.
+- This is an incomplete standalone MOC environment, not a header verdict. Locate
+  the repository interface include root and rerun with the plugin JSON plus all
+  required include paths.
