@@ -3612,3 +3612,12 @@ hidden reasoning is not.
   new abstraction or runtime change.
 - Next: commit/push code/evidence, publish/read back issue #3, verify worker/
   integration blob equality and archive the one-shot comments task.
+
+### E-344 - Processor locality closure published and retirement-ready
+
+- Publish/read-back: issue #3 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5200025095`
+  exactly records the comment-only contract and declaration hash.
+- Content: worker/integration header blobs both equal `60ee16231`; clean worker
+  status and evidence are durable.
+- Next: commit/push precheck, archive through the app only and record result.

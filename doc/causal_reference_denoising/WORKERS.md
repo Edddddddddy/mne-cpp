@@ -4705,6 +4705,20 @@ does not continuously poll them.
 - Decision: close P3 `R-PROC-LOCALITY-001`; publish issue #3 after this record
   is committed/pushed, then verify blob equality and archive the one-shot task.
 
+### PUBLISH W-QA-PROC-LOCALITY-001-GREEN
+
+- GitHub issue #3 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5200025095`.
+- Authenticated `gh` write/API read-back exactly record commits, comments-only
+  scope, local contract, identical declaration hash and unchanged prior tests.
+
+### RETIREMENT PRECHECK W-QA-PROC-LOCALITY-001
+
+- Worker reported clean detached `1d60ed4f7`; its sole processor-header blob
+  `60ee16231` exactly equals integrated HEAD.
+- Review and public evidence are durable. The one-shot comments worker may be
+  app-archived without deleting or mutating its worktree.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread
