@@ -8193,6 +8193,17 @@ does not continuously poll them.
 - verification / connector body update followed by authenticated `gh issue
   view` read-back. No source/branch/worker or epic mutation.
 
+### RESOLVED GITHUB ISSUE-5-BODY-CLOSEOUT
+
+- update / issue #5 body now records atomic/worker acceptance, exact
+  R-PLUGIN-DATA-002 PASS and explicit issue-#8 residual deferrals; the stale
+  active-review and remaining-acceptance text is removed.
+- formatting / the first structured replacement omitted one blank line before
+  `Parent epic`; an immediate body-only correction restores Markdown spacing.
+- read-back / issue remains CLOSED/COMPLETED; PASS/follow-up text is present,
+  stale text is absent and spacing oracle passes. Title/comments/epic/source/
+  branch/worker state are unchanged.
+
 ### PUBLICATION R-PLUGIN-DATA-002 / CLOSURE ISSUE-5
 
 - review comment / issue #5

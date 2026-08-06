@@ -5993,3 +5993,13 @@ hidden reasoning is not.
   to state the exact PASS and issue-#8 residual deferrals.
 - Preserve issue title, CLOSED/COMPLETED state, comments, epic and all source/
   worker state. Read back before recording success.
+
+### E-594 - Closed queue/lifecycle issue body is current
+
+- Connector replacement removes the stale active-review section and records
+  exact lifecycle PASS plus open issue-#8 residuals. A first pass misses one
+  blank line before `Parent epic`; a bounded body-only spacing correction fixes
+  the rendering without semantic change.
+- Authenticated read-back confirms issue #5 remains CLOSED/COMPLETED, contains
+  PASS/follow-up text, contains no stale review/remaining-acceptance text and
+  preserves correct Markdown spacing.
