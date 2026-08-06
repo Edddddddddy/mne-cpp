@@ -4805,3 +4805,11 @@ hidden reasoning is not.
   SPEC-only atomic/native-wake/untouched-tail reconciliation.
 - POSIX EINTR fault-injection tracer follows the test response/integration to
   avoid same-file overlap; retained Sol/ultra production fix follows that RED.
+
+### E-468 - Correction task project lookup timed out
+
+- A read-only app project-list call yields no result within 60 seconds and is
+  terminated; it creates no task/worktree and changes no repository/external
+  state.
+- Persist this no-side-effect timeout, then make one short bounded retry. Do not
+  convert project discovery into a polling loop.

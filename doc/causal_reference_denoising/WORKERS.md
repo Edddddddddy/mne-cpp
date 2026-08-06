@@ -6652,6 +6652,14 @@ does not continuously poll them.
   Exact one-file comment-only commit/parent/diff/clean proof; Luna/max, no build,
   server, subagent or manager polling; proactively return structured RESPONSE.
 
+### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
+
+- First read-only app project-list call produced no result within 60 seconds and
+  was terminated to preserve manager commentary cadence. No task/worktree,
+  repository or external state changed.
+- Retry once with a short bounded read; if still unavailable, use a previously
+  verified saved-project identifier rather than polling.
+
 ### ARCHIVED W-QUEUE-ALLOC-TEST-001
 
 - App archive succeeds for one-shot Luna/max thread
