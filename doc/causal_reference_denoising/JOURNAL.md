@@ -5463,3 +5463,10 @@ hidden reasoning is not.
   rejected before launch. No file, MOC output or test evidence is produced.
 - Use a deterministic output path inside the existing ignored focused build
   directory and leave it as a build artifact, avoiding any deletion operation.
+
+### E-541 - No-cleanup MOC command has a PowerShell parser error
+
+- The third harness attempt contains an unmatched nested `$()` count expression;
+  PowerShell rejects the complete script before MOC or file creation.
+- Simplify the command by assigning matches/counts to standalone variables, then
+  rerun the unchanged MOC and update-path contract checks.

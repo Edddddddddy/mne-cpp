@@ -7551,3 +7551,6 @@ does not continuously poll them.
   execution. Policy therefore disallows the explicit removal operation itself.
   Retry by writing MOC output under the existing ignored focused build tree and
   leave it as a normal build artifact; no cleanup command.
+- Revision 2 / the no-cleanup command reaches PowerShell parsing but an inline
+  nested count expression has an unmatched subexpression delimiter. Parser
+  exits before MOC. Retry with each count assigned to a simple variable.
