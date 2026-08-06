@@ -332,6 +332,16 @@ introduced.
   queued Qt signals and display configure/process status, R/M/P, warmup,
   generation, input/output/estimated-noise RMS and atomic dropped count.
 
+The legacy output initializer is not const-correct: input `info()` returns
+`QSharedPointer<FiffInfo>`, the queue intentionally retains it as
+`QSharedPointer<const FiffInfo>`, while
+`RealTimeMultiSampleArray::initFromFiffInfo` accepts only
+`QSharedPointer<FiffInfo>`. The worker may use one explicit Qt `constCast` only
+at that output-initialization adapter call. Neither the plugin nor output path
+may mutate the metadata object; all FIFF inspection remains const. This local
+compatibility bridge is preferable to weakening queue ownership or changing
+the global measurement interface within this feature.
+
 The plugin target links only the dependencies it uses: Qt Core/Widgets,
 `mne_utils`, `mne_fiff`, `mne_rtprocessing`, Eigen, `scShared` and `scMeas`.
 It does not inherit the broad dependency set of `noisereduction` and does not

@@ -3825,3 +3825,17 @@ hidden reasoning is not.
   evidence verification.
 - Safety: no manual worktree deletion or mutation. The Sol/ultra production
   task stays unarchived because a same-context review fix may still be needed.
+
+### E-364 - Real plugin scaffold and metadata bridge audited
+
+- Evidence: `AbstractAlgorithm` requires clone/init/unload/start/stop/type/name/
+  setupWidget/run; RTMSA input/output connectors use DirectConnection notify,
+  `info()` returns native `QSharedPointer<FiffInfo>`, and output
+  `initFromFiffInfo` still accepts only the non-const handle.
+- Decision: keep queue transport logically immutable as
+  `QSharedPointer<const FiffInfo>`. Permit one explicit Qt const-cast only at
+  the legacy output initializer and never mutate metadata. Do not change the
+  global measurement interface for this feature.
+- Sequencing: prepare the plugin caller task, but dispatch it only after the
+  queue-v2 GREEN implementation exists. This preserves interface locality and
+  gives the plugin worker a real compile surface rather than speculative names.

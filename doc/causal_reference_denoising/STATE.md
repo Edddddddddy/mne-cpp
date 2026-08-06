@@ -187,6 +187,13 @@ installation: the directory exists but contains no MSBuild/compiler, and
 MSVC 14.51. `R-CORE-LINK-001` therefore remains environment-deferred without
 vendor or toolchain modification.
 
+Read-only plugin scaffold audit confirms the existing AbstractAlgorithm and
+RTMSA connector pattern. The frozen plugin implementation will use one explicit
+Qt const-cast only to call the legacy non-const output FiffInfo initializer;
+metadata remains logically immutable. Plugin source dispatch waits for queue-v2
+GREEN so the worker can compile/audit against a real interface instead of an
+imagined one.
+
 ## Focused verification targets
 
 - `test_causal_reference_denoiser`
