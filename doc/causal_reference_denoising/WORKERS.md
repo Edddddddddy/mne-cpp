@@ -6786,6 +6786,15 @@ does not continuously poll them.
   argument array/splat so the complete body is one `--body` argument, followed
   by authenticated read-back.
 
+### FAILURE EPIC-2-DOC-CHECK-3
+
+- Explicit PowerShell argument-array invocation still passes the multi-line body
+  through the legacy native parser as split arguments; `gh` rejects locally
+  before any request. Issue #2 remains unchanged after three CLI forms.
+- Stop CLI retries. Use the installed GitHub connector's structured
+  `update_issue` call with one replacement body, then authenticate the result by
+  independent `gh issue view` read-back.
+
 ### DISCUSSION SPEC-QUEUE-ATOMIC-CONSISTENCY-001
 
 - The later atomic-correction section was authoritative, but the earlier

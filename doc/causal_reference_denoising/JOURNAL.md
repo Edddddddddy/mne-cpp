@@ -4773,3 +4773,12 @@ hidden reasoning is not.
   is still unchanged.
 - Persist the second no-side-effect failure. Retry with explicit argument-array
   splatting so the multi-line body remains one argument, then read back state.
+
+### E-465 - Epic #2 CLI update path abandoned
+
+- Explicit argument-array splatting is also split by the local legacy native
+  argument parser; `gh` rejects before network mutation. Issue #2 remains
+  unchanged after three distinct CLI encodings.
+- Stop repeating the same failing path. Use the installed GitHub connector's
+  typed issue update for the one checkbox mutation, followed by independent CLI
+  read-back.
