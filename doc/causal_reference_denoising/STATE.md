@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-07T03:56:18+08:00
+Last updated: 2026-08-07T04:03:41+08:00
 
 ## Recovery order
 
@@ -749,3 +749,7 @@ same-responsibility implementation conversations that may receive review fixes.
   beginning convention/source inspection; there is no commit, blocker or input
   request yet. Do not poll again. The later Sol/ultra two-source wiring request
   is prepared below but remains undispatched until widget GREEN is integrated.
+- Later event waits show the exact four-file implementation in place with clean
+  diff; the worker is attempting only an isolated focused UI build and will
+  fall back to MOC/C++14 probes if its app worktree lacks a usable generated
+  build. No commit/final response is accepted yet; stop status polling now.

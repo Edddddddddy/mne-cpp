@@ -8323,6 +8323,20 @@ does not continuously poll them.
 - next / no repeated polling; await proactive response and do not inspect its
   worktree.
 
+### WAIT W-PLUGIN-UI-GREEN-001-002
+
+- harness failure / manager first requests a 180-second app event timeout, but
+  the tool maximum is 120 seconds and rejects the call before waiting or task
+  mutation. Retry only with the supported bound.
+- corrected waits / one 120-second event wait shows the four authorized paths
+  implemented and diff-check clean while source/CMake validation begins; one
+  later 60-second event wait shows only a focused isolated build attempt.
+- worker boundary / no populated build directory in its app worktree; it is
+  trying the repository/Qt toolchain without dependency copying or full app/
+  server, then will use MOC/C++14 syntax probes if blocked.
+- result / still active; no commit/final response or accepted test claim. Stop
+  status waits now and await the proactive response.
+
 ### PREPARED REQUEST W-PLUGIN-UI-WIRE-001
 
 - state / dispatch only after widget GREEN integration and populated focused

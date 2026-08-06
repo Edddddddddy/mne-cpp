@@ -6066,3 +6066,12 @@ hidden reasoning is not.
   pending snapshot under GUI/worker mutex, one copy per dequeued block,
   configure/reset/mode ordering, fresh widget connections and queued fixed
   diagnostics, with the acquisition callback frozen.
+
+### E-601 - Widget implementation reaches focused verification
+
+- Manager's first long event wait requests unsupported 180 seconds and is
+  rejected before waiting; corrected 120/60-second waits remain event-based and
+  reveal no blocker or scope drift.
+- Luna/max reports the exact four-file implementation and clean diff, then begins
+  an isolated focused target attempt with MOC/C++14 fallback. It has not returned
+  a commit or GREEN claim. Stop status waits and await the proactive response.
