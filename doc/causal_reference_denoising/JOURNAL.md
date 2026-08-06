@@ -4565,3 +4565,15 @@ hidden reasoning is not.
   exact atomic queue request.
 - Persist the ID, then use at most one bounded app wait; do not continuously
   poll or read its worktree.
+
+### E-442 - Atomic queue production response received
+
+- Sol/ultra worker proactively returns clean exact-parent queue-only commit
+  `0a8202e405` with the frozen lock-free sequence and Windows event/POSIX pipe
+  implementation; no public/test/CMake/dependency file changes.
+- Worker Windows and WSL public suites both report 19/0/0 with nanosecond-scale
+  producer maxima and multiple repeat zero exits. Isolated CMake is still
+  blocked only by its ignored incomplete Eigen; no repair occurs.
+- Response is durable before manager provenance/code/race review. P1 remains
+  open through canonical populated execution, allocation counting and formal
+  re-review.

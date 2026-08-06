@@ -401,7 +401,10 @@ same-responsibility implementation conversations that may receive review fixes.
   `client-new-thread:3fb21cfc-1d5b-40a1-b6ef-fb57b91db17b`),
   exact source base `41a2b76fb`, queue header/source only. Public dispatch:
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202544531`.
-  Do not poll; await proactive RESPONSE.
+  It proactively returned exact-parent two-file commit `0a8202e405` with clean
+  status, atomic sequence/native wake proof, Windows 19/0/0 plus five repeats
+  and WSL 19/0/0 plus three repeats. Manager review/canonical populated build
+  remain before integration.
 - Accepted but deliberately not integrated until the atomic queue gate:
   plugin data commit `5f4718722` plus exact-parent SPSC admission fix
   `34a8096f1`. Retain its Sol/ultra conversation for same-responsibility fixes.

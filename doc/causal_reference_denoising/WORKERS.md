@@ -6349,6 +6349,44 @@ does not continuously poll them.
   thread as `019fd64b-2553-7102-91d6-1f8d35720823`, active in app worktree
   `8553`, with the exact task title/prompt. This is not repeated polling.
 
+### RESPONSE W-QUEUE-ATOMIC-GREEN-001
+
+- From/to: visible Sol/ultra atomic queue worker
+  `019fd64b-2553-7102-91d6-1f8d35720823` / manager.
+- Exact parent/commit: `41a2b76fb3de1db6d0b2542eec792144e826f73d` /
+  `0a8202e405c41fba809052719b1c1164e1d4591b`; clean detached worktree,
+  diff-check, and exactly queue header/source only.
+- Public seam is unchanged. QSemaphore/QMutex/Qt waits are removed. Explicit
+  atomic state is lock-free `unsigned int`; owner-local indices plus monotonic
+  published sequences use release/acquire order and unsigned wrap distance with
+  capacity below half the modulus.
+- Producer final running observation precedes any write; a successful observed
+  operation may finish Pushed after concurrent stop. Consumer checks stop before
+  pending data and again before destination mutation. Stop release-exchanges
+  once and signals once; fresh configured PImpl owns independent state/resource.
+- Windows candidate creates one auto-reset event; producer/stop call one
+  `SetEvent`, consumer performs deadline-bounded `WaitForSingleObject` rechecks.
+  POSIX candidate creates nonblocking CLOEXEC pipe; producer/stop make one byte
+  write attempt, consumer bounded-polls/drains/rechecks. Publication precedes
+  signalling and sticky state closes the empty-check/wait lost-wake window.
+- Transaction/noexcept audit: all slots/native wake allocate during candidate
+  configure only; failures destroy candidate and preserve the stopped old PImpl.
+  Producer contains only atomic checks, scalar rectangle copy, fixed extent/
+  handle/index work, release publication and one native signal; no allocation,
+  Qt semaphore/mutex, wait, retry, string, FIFF or throwing dependency.
+- Worker Windows manual Release using current public test: 19/0/0, exit zero;
+  overlap pushed/full/popped 300/212/300, max producer call 4100 ns, stop wake
+  64 ms versus 3000 ms; five further runs exit zero. WSL GCC/Qt POSIX branch:
+  19/0/0, 186/326/186, max 3996 ns, stop wake 50 ms; three further runs zero.
+- Isolated CMake configure remains blocked by its ignored incomplete Eigen. No
+  vendor/dependency copy/repair occurred. Worker did not add allocation counter
+  because tests were immutable; manager still owns canonical populated run and
+  separate Luna/max allocation tracer.
+- Restrictions: Sol/ultra, no internal subagent, manager polling, full scan/
+  mne_scan, mne_rt_server, GitHub or unrelated mutation.
+- Status: response durable before manager provenance/code/race review,
+  integration, canonical CMake execution or formal finding closure.
+
 ### RETIREMENT-READY W-QUEUE-ATOMIC-TEST-001
 
 - Thread `019fd5fa-f207-7fe3-9189-8d77fc9cfade` is one-shot. Exact commit,

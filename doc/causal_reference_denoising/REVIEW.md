@@ -104,6 +104,12 @@
 - Required verification: Windows overlapping SPSC stress, post-configure
   allocation counting, FIFO metadata/sequence integrity and bounded producer
   latency; platform/source audit proving no QSemaphore/QMutex producer path.
+- Production response received: exact-parent two-file `0a8202e405` removes all
+  Qt synchronization, uses compile-time lock-free unsigned sequences plus the
+  selected Windows event/POSIX pipe wake, and reports unchanged public tests
+  19/0/0 on both platforms with five/three repeats. Windows max producer call
+  is 4100 ns; POSIX 3996 ns. Finding stays open through manager code review,
+  canonical populated build, allocation tracer and independent re-review.
 
 #### R-QUEUE-V2-CONCURRENCY-TEST-001 - P2 - Open
 
