@@ -6808,6 +6808,22 @@ does not continuously poll them.
   integration and durable test/GitHub evidence. Retain only conversations with
   a concrete same-responsibility follow-up: atomic POSIX fix, final queue review
   and SPEC wording until their gates close. Never manually delete app worktrees.
+- Cleanup action: superseded pre-atomic queue-v2 implementation conversation
+  `019fd52e-1d77-7a22-a8f3-ab51728560c3` is app-archived. It has no remaining
+  responsibility; no worktree is manually deleted.
+
+### PREPARED W-QUEUE-POSIX-EINTR-GREEN-001
+
+- Dispatch only after the public WSL `--wrap=write` tracer is integrated RED.
+  Reuse retained Sol/ultra atomic implementation conversation
+  `019fd64b-2553-7102-91d6-1f8d35720823`.
+- Private fix remains inside `NativeWake`: on POSIX cap each consumer `poll`
+  slice (planned 25 ms) while preserving the caller's original steady-clock
+  deadline and outer atomic sequence/running rechecks. A producer/stop still
+  makes exactly one nonblocking `write`; no retry, allocation, lock or wait is
+  added to the producer path. Windows auto-reset-event behavior is unchanged.
+- Authorized production scope will be queue header/source only; a later narrow
+  SPEC wording follow-up may state the exact bounded recheck slice.
 
 ### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
 

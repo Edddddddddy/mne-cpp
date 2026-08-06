@@ -5076,3 +5076,14 @@ hidden reasoning is not.
   `client-new-thread:c101f7af-8999-4032-8fd3-387441e0a909` is accepted with the
   same one-file elapsed-wait requirement. It must commit before optional build
   investigation and proactively return its response.
+
+### E-499 - Superseded queue-v2 conversation archived
+
+- App archives obsolete pre-atomic queue-v2 implementation thread
+  `019fd52e-1d77-7a22-a8f3-ab51728560c3`. Atomic implementation, retained
+  formal reviewer, SPEC and plugin-data conversations remain because each has a
+  concrete queued same-responsibility follow-up.
+- Read-only source audit reconfirms the POSIX fix locality: cap only consumer
+  native poll slices (planned 25 ms) under the existing outer deadline/recheck
+  loop; keep producer/stop at one nonblocking signal attempt and Windows event
+  behavior unchanged. Dispatch follows deterministic EINTR RED.
