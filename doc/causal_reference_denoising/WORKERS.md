@@ -5607,6 +5607,31 @@ does not continuously poll them.
 - Findings: none. Integration and populated focused Release are authorized;
   a fresh independent Sol/ultra formal review remains mandatory afterward.
 
+### BUILD RESPONSE W-QUEUE-V2-GREEN-001
+
+- Integration: worker commit `90b423e3c` cherry-picked without conflict as
+  `a21e08e00`; exactly the two queue files changed.
+- Command: `cmake --build build-causal-reference-denoising --config Release
+  --target test_adaptive_denoising_plugin -- /m:2`.
+- Result: compilation fails in `adaptivedenoisingblockqueue.cpp` before link.
+  The first errors are C2208/C2059 at member declaration/uses of `slots`; Qt's
+  `slots` macro rewrites the identifier, cascading into bogus missing-member
+  errors at reserve/emplace/index/copy loops.
+- Classification: P1 `R-QUEUE-QT-SLOTS-001`, an implementation build blocker,
+  not the known Eigen/Qt dependency failure. No test executable was run.
+
+### REQUEST W-QUEUE-V2-GREEN-001-FIX-1
+
+- From/to: manager / retained Sol/ultra queue implementation conversation
+  `019fd52e-1d77-7a22-a8f3-ab51728560c3`.
+- Base: worker commit `90b423e3c`; create one delta commit on that parent.
+- Scope: `adaptivedenoisingblockqueue.cpp` only. Rename the private Impl member
+  `slots` and all its uses to a Qt-safe name such as `queueSlots`. Do not alter
+  interface, ordering, atomics, semaphores, copy loops or tests.
+- Verification: exact one-file/name-only diff, diff check, clean status; if the
+  isolated Eigen gap remains, report it honestly. Manager reruns populated
+  Release. No subagent/poll/full scan/vendor/server.
+
 ### RESPONSE W-QA-CORE-CONTRACT-001-RETRY-1-DISPATCH
 
 - App accepted the follow-up on existing thread

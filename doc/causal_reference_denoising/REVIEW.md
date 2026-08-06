@@ -50,6 +50,22 @@
 - This is not the formal milestone gate. Require populated Release GREEN and a
   fresh exact-snapshot Sol/ultra concurrency/realtime review after integration.
 
+#### R-QUEUE-QT-SLOTS-001 - P1 - Open
+
+- Location: integrated `a21e08e00`,
+  `adaptivedenoisingblockqueue.cpp:80-89,159,206`.
+- Evidence: MSVC focused Release compilation reports C2208/C2059 at the private
+  member declaration and every `.reserve`, `.emplace_back` and `[]` use. Qt
+  defines `slots` as a keyword macro, so the ordinary member identifier is not
+  available in a Qt translation unit.
+- Impact: `test_adaptive_denoising_plugin` cannot compile; no queue-v2 behavior
+  or plugin target can build.
+- Required fix: rename only the private member and all uses to a Qt-safe name;
+  preserve public interface and concurrency logic.
+- Required verification: populated focused Release compiles/links, complete
+  QtTest exits zero, exact source-only mechanical delta. Formal review remains
+  after GREEN.
+
 ## Learning guide review
 
 #### R-DOC-QUEUE-V2-001 - P2 - Open

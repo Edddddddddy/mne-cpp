@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T14:42:00+08:00
+Last updated: 2026-08-06T14:46:00+08:00
 
 ## Recovery order
 
@@ -235,7 +235,9 @@ same-responsibility implementation conversations that may receive review fixes.
 
 ## Current checkpoint override
 
-- Integration/remote HEAD: `26f3ba72b`; tracked state is synchronized. The
+- Integration HEAD: `a21e08e00`; remote currently ends at the preceding
+  manager-review commit. The tracked integration has queue-v2 cherry-picked;
+  only the three preserved user paths are untracked.
   only untracked paths are the three preserved user paths listed in the plan.
 - Active blocking task: `W-QUEUE-V2-GREEN-001`, Sol/ultra setup
   `client-new-thread:97461215-c1b8-488b-90bd-984aad5d9fd3`, exact requested
@@ -244,8 +246,11 @@ same-responsibility implementation conversations that may receive review fixes.
   clean at the exact base. The same reusable Sol/ultra conversation returned
   exact-parent two-file implementation commit `90b423e3c` with a clean
   worktree and full concurrency evidence. Manager review/populated GREEN are
-  next. Exact two-file manager review now passes with no finding; cherry-pick
-  and populated GREEN are authorized. Recovery publication: issue #5 comment
+  next. It is integrated as `a21e08e00`, but populated Release compilation
+  opens P1 `R-QUEUE-QT-SLOTS-001`: private member name `slots` collides with
+  Qt's keyword macro and prevents compilation. Return a source-only rename fix
+  to the retained Sol/ultra conversation, then rerun the complete target.
+  Recovery publication: issue #5 comment
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201026440`.
 - Active non-overlapping task: `W-PLUGIN-DATA-001`, Sol/ultra setup
   `client-new-thread:bb93c4e1-6aa9-4ee4-9d52-de30ff1b0489`, exact requested

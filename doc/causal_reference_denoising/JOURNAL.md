@@ -4086,3 +4086,14 @@ hidden reasoning is not.
   native Qt ownership only.
 - Decision: commit/push review, cherry-pick `90b423e3c`, build/run the complete
   populated Release focused executable, then dispatch a fresh Sol/ultra review.
+
+### E-389 - Queue-v2 integrated; Qt keyword build blocker found
+
+- Integration: exact two-file worker commit became `a21e08e00` without conflict.
+- Populated focused Release compile reaches queue-v2 but fails because private
+  member `slots` is expanded by Qt's keyword macro. First C2208/C2059 errors
+  originate at its declaration/reserve/emplace/index uses; Eigen warnings are
+  nonfatal and unrelated.
+- Finding: P1 `R-QUEUE-QT-SLOTS-001`. No executable/test result is claimed.
+- Decision: log/push the RED, request a one-file mechanical rename from the
+  retained Sol/ultra implementation conversation, then rebuild completely.
