@@ -6424,6 +6424,41 @@ does not continuously poll them.
   reporter once from the temp working directory without rebuilding; worker's
   independent Windows/WSL 19/0/0 remains durable.
 
+### VALIDATION W-QUEUE-ATOMIC-GREEN-001-ATTEMPT-2
+
+- A single no-rebuild retry invokes the absolute canonical executable from the
+  temp working directory with a relative Qt text reporter target. Process exits
+  zero, but the app/tool path again emits neither console nor result file.
+- Decision: stop reporter retries. Canonical claim is build/link plus main/five
+  repeat zero exits; exact 19/0/0 totals come from worker's independent Windows
+  and POSIX public-suite files.
+
+### REQUEST W-QUEUE-ALLOC-TEST-001
+
+- From/to: manager / new visible Luna/max test conversation.
+- Blocking: yes, queue P1 formal closure waits for this evidence.
+- Exact base: `9b7b1c779` (atomic production integrated; canonical tests zero).
+- Authorized file only:
+  `src/testframes/test_adaptive_denoising_plugin/test_adaptive_denoising_plugin.cpp`.
+  Queue/plugin/processor/core/CMake/docs/vendor/dependencies are immutable.
+- Install complete C++14 global scalar/array throwing/nothrow and sized where
+  required `new`/`delete` replacements in the test translation unit using
+  `malloc/free`. A thread-local boolean controls counting; a global atomic
+  counter increments only when the producer thread flag is true.
+- Extend the existing sustained overlapping SPSC public test rather than
+  duplicate its traffic: enable the flag immediately before each `tryPush` and
+  disable immediately after. All configuration, workload/metadata/result/thread
+  construction, consumer work, latency storage, logging and assertions remain
+  outside counted allocation scope. Require exactly zero allocations.
+- Preserve all current accepted-subsequence FIFO/extents/metadata/tail/Full and
+  one-second latency oracles and every other public slot. Do not inspect source
+  or ring internals; do not change production to manufacture GREEN.
+- Use TDD skill/public behavior. Build/run populated Release if available;
+  otherwise provide syntax/scope evidence and manager owns canonical run. Exact
+  one-file commit/parent/diff/clean proof; no full scan/mne_scan/mne_rt_server,
+  vendor repair or internal subagent. Proactively send
+  `RESPONSE W-QUEUE-ALLOC-TEST-001`; do not poll manager.
+
 ### RETIREMENT-READY W-QUEUE-ATOMIC-TEST-001
 
 - Thread `019fd5fa-f207-7fe3-9189-8d77fc9cfade` is one-shot. Exact commit,

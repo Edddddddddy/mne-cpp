@@ -4593,3 +4593,12 @@ hidden reasoning is not.
 - Requested absolute Qt text-output file was not created, so result-file read
   reports a nonterminating file-not-found. Do not invent totals; persist this
   limitation and retry reporter capture once without another build.
+
+### E-445 - Reporter retry stopped; allocation task prepared
+
+- Temp-directory relative reporter retry also exits zero without a file or
+  console stream. Stop retrying; canonical executable evidence is exact zero
+  exits while worker Windows/WSL artifacts provide 19/0/0 totals.
+- Prepare `W-QUEUE-ALLOC-TEST-001` from exact `9b7b1c779`, Luna/max, focused
+  test only: thread-local-counted global C++ allocation replacements wrap each
+  sustained-test producer `tryPush`; expected count is exactly zero.

@@ -406,6 +406,10 @@ same-responsibility implementation conversations that may receive review fixes.
   and WSL 19/0/0 plus three repeats. Manager provenance/code/race review passes
   with no finding; acceptance is durable. Canonical populated build remains
   after cherry-pick.
+- Atomic production is integrated as `3ff146836`. Canonical populated Release
+  compiles/links and the main run plus five repeats exit zero. Qt reporter file
+  capture failed twice without changing the process result; no further capture
+  retry is allowed. Next blocking task is the separate allocation tracer.
 - Accepted but deliberately not integrated until the atomic queue gate:
   plugin data commit `5f4718722` plus exact-parent SPSC admission fix
   `34a8096f1`. Retain its Sol/ultra conversation for same-responsibility fixes.
