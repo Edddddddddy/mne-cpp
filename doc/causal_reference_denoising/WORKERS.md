@@ -6719,6 +6719,19 @@ does not continuously poll them.
   it is forbidden to edit/amend/reset/rebuild/redo and must report either its
   exact existing delta commit or explicitly that no commit exists.
 
+### RESPONSE W-QUEUE-CONCURRENCY-TEST-002-REVISE-1
+
+- Recovery response from retained Luna/max thread: no revision delta commit
+  exists. The clean detached worktree remains at original commit `7aa5360a2`
+  with exact parent `2530c7864` and one focused-test path only.
+- The requested stopped-wait elapsed measurement/assertion is not present and
+  no revision GREEN is claimed. Existing `7aa5360a2` manual evidence remains
+  19/0/0 plus three repeats with forced reuse and zero counted allocations.
+- Manager action: integrate the accepted original concurrency improvement with
+  `R-QUEUE-STOP-WAIT-ELAPSED-001` explicitly open, validate it canonically,
+  archive this used conversation, then create a fresh Luna/max one-file task
+  for the missing elapsed-wait delta.
+
 ### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
 
 - First read-only app project-list call produced no result within 60 seconds and

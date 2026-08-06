@@ -4977,3 +4977,14 @@ hidden reasoning is not.
   may inspect its own final commit/status but must not edit, amend, reset,
   rebuild or redo work, and must proactively report either the exact existing
   delta or that no commit exists.
+
+### E-488 - Recovery confirms no timing revision commit
+
+- The retained thread proactively reports that its clean detached HEAD is still
+  original `7aa5360a2`; no child/delta commit exists and the requested elapsed-
+  wait assertion was not implemented. It correctly makes no revised GREEN
+  claim and repeats only the existing 19/0/0 plus three-run evidence.
+- Accept the reviewed forced-reuse/public-oracle improvement as a partial test
+  milestone while keeping `R-QUEUE-STOP-WAIT-ELAPSED-001` open. Integrate and
+  run the populated target, then replace the used conversation with a fresh
+  Luna/max minimal revision task per the user's cleanup rule.
