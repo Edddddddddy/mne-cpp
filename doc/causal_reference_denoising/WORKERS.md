@@ -8025,3 +8025,13 @@ does not continuously poll them.
 - gate / P0/P1 zero and every P2 fixed or explicitly durable-deferred. Reviewer
   is read-only, reports exact lines/evidence/fix/tests, and runs no full app or
   `mne_rt_server`.
+
+### PUBLICATION R-PLUGIN-DATA-002
+
+- issue / `Edddddddddy/mne-cpp#6`
+- comment / `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208534174`
+- read-back / authenticated comment ID `5208534174` matches the retained
+  Sol/ultra reviewer, exact snapshot `3dca8628eb43029ea35980e869da1a44d21b053a`,
+  five-finding scope, manager-evidence boundary and PASS rule.
+- state / await one proactive PASS/HOLD response; teaching UI remains held and
+  no duplicate reviewer is created.

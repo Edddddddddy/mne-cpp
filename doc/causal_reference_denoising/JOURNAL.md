@@ -5848,3 +5848,13 @@ hidden reasoning is not.
 - It must treat issue #8 findings as explicit deferrals, not fixes, keep all
   manager runtime/source evidence attributed, and avoid UI/harness expansion.
 - Await proactive PASS/HOLD without polling. UI remains held.
+
+### E-580 - Plugin lifecycle re-review publication verified
+
+- Issue #6 comment/read-back publishes the retained Sol/ultra task, exact
+  read-only snapshot, five prior finding dispositions, manager-evidence
+  boundary and UI hold at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208534174`.
+- No issue state or epic checkbox changes. Proceed with one bounded wait only;
+  a PASS unlocks the prepared Luna/max UI RED tracer, while a HOLD is persisted
+  before any minimal correction request.
