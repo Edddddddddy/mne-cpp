@@ -3704,3 +3704,15 @@ hidden reasoning is not.
   link deferral, queue-v2 execution and pending plugin/docs/review gates.
 - Integrity: #5/#6/#7/#3 remain unchecked/open; no unfinished milestone is
   claimed complete.
+
+### E-353 - Plugin caller lifecycle frozen
+
+- Design: one concrete AbstractAlgorithm adapter; callback only snapshots
+  native metadata and performs one zero-time push per matrix. Worker owns exact
+  data, FIFF conversion, settings/reset, configure/process, output and diagnostics.
+- Safety: configuration exceptions deliberately disarm before new-layout
+  pass-through, preventing transactional old ownership from crossing metadata.
+- Dependencies: target stays narrow at Qt Core/Widgets, utils/FIFF/
+  rtprocessing, Eigen and scShared/scMeas; no noisereduction/AdaptiveTSSS edit.
+- Next: commit/push design and publish issue #6 while queue-v2 tracer continues
+  independently.

@@ -294,6 +294,49 @@ the original exact-row implementation. Its findings must be applied to the
 native-ownership/variable-row implementation, followed by a fresh formal queue
 gate before plugin lifecycle code is accepted.
 
+### Frozen plugin caller lifecycle
+
+`AdaptiveDenoising` is the only `AbstractAlgorithm` adapter. It owns the queue,
+one worker-thread `AdaptiveDenoisingProcessor`, exact-sized worker matrix,
+pending UI snapshot, atomic dropped-block counter and input/output RTMSA
+connectors. No new base class, registry or change to `AbstractAlgorithm` is
+introduced.
+
+- `init()` creates DirectConnection input and RTMSA output connectors and the
+  teaching controls on the GUI thread. `start()` allocates the maximum queue
+  and consumer matrix before starting the worker. `stop()` stops/wakes the
+  queue, requests interruption, waits for the worker, clears output and leaves
+  a fresh later `start()` to reconfigure the queue.
+- `update()` dynamically identifies RTMSA, takes one native `info()` snapshot
+  per notification, and calls `tryPush(matrix, info)` exactly once for every
+  matrix in that notification. It never initializes output/UI, resolves FIFF
+  rows, reads settings, configures/resets a model, retries or waits. Every
+  non-`Pushed` result increments the atomic dropped-block count.
+- `run()` owns dequeue, exact-region copy and all model state. At each popped
+  block boundary it consumes one mutex-protected pending settings/reset
+  snapshot. New metadata identity, sampling rate, row count, block width or
+  settings revision rebuilds the data-only descriptor and configures a fresh
+  processor. `bads.contains(ch.ch_name)` is evaluated only here.
+- A returned invalid/missing configuration already disarms the processor. If
+  allocation throws while configuring a new layout, the worker catches it,
+  deliberately disarms through an invalid descriptor, reports a fixed
+  configuration-exception status and forwards the current block unchanged;
+  it never applies preserved old ownership to new metadata.
+- Disabled, frozen and enabled map to `BypassTrackHistory`, `ApplyOnly` and
+  `ApplyAndLearn`. Reset is consumed before the current block. Output metadata
+  is initialized/reinitialized on the worker for a new valid `FiffInfo` handle,
+  then the exact block is emitted in dequeue FIFO order whether denoising is
+  active or safely bypassed.
+- UI setters touch only the pending snapshot under a GUI/worker mutex. The
+  acquisition callback never locks it. Worker diagnostics are emitted through
+  queued Qt signals and display configure/process status, R/M/P, warmup,
+  generation, input/output/estimated-noise RMS and atomic dropped count.
+
+The plugin target links only the dependencies it uses: Qt Core/Widgets,
+`mne_utils`, `mne_fiff`, `mne_rtprocessing`, Eigen, `scShared` and `scMeas`.
+It does not inherit the broad dependency set of `noisereduction` and does not
+touch that plugin or AdaptiveTSSS.
+
 The selected plugin-private queue interface transports `FiffInfo` ownership
 without including or inspecting its definition. The header forward-declares
 `FIFFLIB::FiffInfo`; only the later plugin adapter dereferences it.

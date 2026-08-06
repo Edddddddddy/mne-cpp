@@ -4737,6 +4737,24 @@ does not continuously poll them.
   implementation and a fresh formal review. The pending original queue review
   may add concurrency findings but no longer blocks freezing this caller seam.
 
+### DISCUSSION PLUGIN-LIFECYCLE-001
+
+- Module: one concrete `AdaptiveDenoising` AbstractAlgorithm adapter owns the
+  queue, worker-owned processor/matrix, pending GUI snapshot, atomic drops and
+  RTMSA connectors; no framework/base/registry extension.
+- Callback: one `info()` snapshot per notification plus exactly one `tryPush`
+  per matrix; no output/UI init, FIFF picks, settings/model/reset work, retry or
+  wait. Any non-Pushed status increments dropped blocks.
+- Worker boundary: consume pending settings/reset, convert FIFF, compare
+  metadata/fs/rows/block width/settings, configure/reset/process, initialize
+  output metadata and emit the block/diagnostics in FIFO order.
+- Exception policy: a configure allocation exception preserves old processor
+  ownership, so plugin must catch, deliberately disarm through invalid metadata,
+  report fixed exception status and pass the new block through unchanged.
+- Modes/UI: disabled/frozen/enabled map to Bypass/ApplyOnly/ApplyAndLearn;
+  GUI-worker settings mutex is never used by callback; diagnostics use queued
+  signals. Minimal target dependencies exclude unrelated noise-reduction libs.
+
 ### PUBLISH PLUGIN-INGRESS-002
 
 - GitHub issue #6 comment:
