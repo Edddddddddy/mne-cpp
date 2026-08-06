@@ -8719,6 +8719,14 @@ does not continuously poll them.
 - next / publish exact read-only dispatch on issue #6, then use one bounded event
   wait for initial progress and await proactive PASS/HOLD without polling.
 
+### PUBLICATION R-PLUGIN-UI-001
+
+- issue / #6 comment/read-back:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5209050760`.
+- state / issue remains OPEN. Comment contains exact review snapshot, task/model,
+  P0-P2 gate, issue-#8 deferral and manager-evidence attribution boundary.
+- next / one bounded event wait only, then await proactive PASS/HOLD.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are

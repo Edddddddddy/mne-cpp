@@ -847,3 +847,6 @@ same-responsibility implementation conversations that may receive review fixes.
   `client-new-thread:7beffd28-3d95-4504-9a9d-8ecbafd1240e`; visible read-only
   Sol/ultra task `019fd8d8-c239-7941-b57b-ce57c8f55269` runs in app worktree
   `c70c`, titled `R-PLUGIN-UI-001`. Publish dispatch, then await proactive gate.
+- Exact review dispatch is published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5209050760`;
+  issue #6 remains OPEN and no final checkbox/closure occurs before PASS.

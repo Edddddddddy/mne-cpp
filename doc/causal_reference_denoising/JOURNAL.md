@@ -6320,3 +6320,11 @@ hidden reasoning is not.
   `019fd8d8-c239-7941-b57b-ce57c8f55269` in worktree `c70c`; normalize its title
   to `R-PLUGIN-UI-001`. Publish before waiting and never inspect/edit its
   worktree from manager.
+
+### E-626 - Final UI review dispatch published
+
+- Issue #6 comment/read-back succeeds at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5209050760`.
+  It records exact snapshot, Sol/ultra task, read-only scope, gate criteria,
+  issue-#8 deferral and evidence attribution.
+- Issue #6 stays OPEN; no child/epic/final-QA closure until proactive review PASS.
