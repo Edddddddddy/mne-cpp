@@ -5866,3 +5866,14 @@ hidden reasoning is not.
   and two issue-#8 deferrals, then continues exact line/contract inspection.
 - Do not poll again. Use manager time only for read-only UI/task preflight;
   production/test edits remain held until the proactive PASS/HOLD response.
+
+### E-582 - Teaching UI public seam preflight completed
+
+- Read-only source audit confirms the current setup widget is a blank QWidget,
+  and the focused testframes/plugin CMake split permits a truthful missing-UI
+  RED without the FIFF/scShared/scMeas dependency graph.
+- Freeze stable control/diagnostic-label object names and typed control signals
+  in SPEC so the Luna/max tracer tests observable Qt behavior through one seam.
+  No production/test/UI code is edited while lifecycle review remains active.
+- Authenticated issue audit confirms #2/#3/#5/#6/#8 are still open and the epic
+  checks only completed #4/#7. No premature closure or checkbox mutation.

@@ -440,6 +440,28 @@ controller base.
   defaults and read-only labels. It never directly owns numerical/queue state.
   Destroyed widgets auto-disconnect; the plugin stores no widget pointer.
 
+The focused widget seam uses stable object names so the public Qt behavior is
+testable without linking the real plugin or FIFF stack:
+
+- controls: `enabledCheckBox`, `tapCountSpinBox`,
+  `adaptationIntervalSpinBox`, `memoryTimeSecondsSpinBox`,
+  `regularizationSpinBox`, `frozenCheckBox`, `resetButton`;
+- diagnostic values: `pluginStateValue`, `configureStatusValue`,
+  `processStatusValue`, `referenceCountValue`, `targetCountValue`,
+  `featureCountValue`, `warmupSamplesValue`, `modelGenerationValue`,
+  `acceptedUpdatesValue`, `rejectedUpdatesValue`, `inputRmsValue`,
+  `outputRmsValue`, `estimatedNoiseRmsValue`, `droppedBlocksValue`;
+- typed widget signals: `enabledChanged(bool)`, `frozenChanged(bool)`,
+  `tapCountChanged(int)`, `adaptationIntervalChanged(int)`,
+  `memoryTimeSecondsChanged(double)`, `regularizationChanged(double)` and
+  `resetRequested()`.
+
+The fixed plugin-state enum is `Stopped`, `WaitingForData`, `Processing`,
+`InvalidMetadata` and `ConfigurationException`. Configure and process details
+remain the existing processor/core enums rather than duplicated strings. Tests
+drive one diagnostics value through the widget slot and observe only label text;
+all enum/number formatting remains GUI-thread implementation behind this seam.
+
 The later Luna/max UI task is limited to the plugin header/source/CMake plus a
 private diagnostics-types header and setup-widget header/source. A separate
 Sol/ultra review verifies block-boundary serialization and queued diagnostics.

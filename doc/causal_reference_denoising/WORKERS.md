@@ -7964,7 +7964,10 @@ does not continuously poll them.
 - control oracle / query stable object names and verify enabled default true;
   taps 1..32/default 4; update interval 16..2048/default 128; memory 1..300/
   default 30; regularization 1e-8..1/default 1e-3; frozen default false; reset
-  button present. Verify each edit/reset emits the corresponding widget signal.
+  button present. Exact control names are `enabledCheckBox`,
+  `tapCountSpinBox`, `adaptationIntervalSpinBox`, `memoryTimeSecondsSpinBox`,
+  `regularizationSpinBox`, `frozenCheckBox` and `resetButton`. Verify each
+  edit/reset emits the corresponding frozen typed widget signal.
 - diagnostics oracle / deliver one fixed data-only diagnostics value through
   the widget public slot and verify GUI-thread labels expose plugin/configure/
   process state, R/M/P, warmup, generation, accepted/rejected updates, three
@@ -8046,3 +8049,19 @@ does not continuously poll them.
   current-line behavior and unchanged queue/processor contracts.
 - next / no repeated polling. Continue only read-only UI/task preflight and
   await the proactive structured PASS/HOLD response.
+
+### PREFLIGHT W-PLUGIN-UI-TEST-001
+
+- source audit / current plugin `setupWidget()` is only `new QWidget`; no
+  teaching widget, diagnostics metatype, UI control signal or plugin snapshot
+  exists yet, so the focused missing-header/source tracer remains a truthful
+  RED rather than a manufactured failure.
+- build seam / `src/testframes/CMakeLists.txt` has one direct registration point;
+  the plugin CMake currently lists only the existing plugin/queue/processor/global
+  files. A new focused Widgets/Test target can compile the future widget source
+  directly without `mne_fiff`, `scShared`, `scMeas` or the plugin target.
+- frozen names / exact control, diagnostic-label and typed signal names are now
+  local in SPEC. The tracer must observe Qt public behavior only and must not
+  parse source or inspect plugin PImpl state.
+- GitHub audit / issues #2/#3/#5/#6/#8 remain OPEN; epic #2 has only #4/#7
+  checked. No closure or checkbox mutation occurs before lifecycle/UI gates.

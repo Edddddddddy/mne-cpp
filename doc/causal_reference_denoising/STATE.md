@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-07T03:23:25+08:00
+Last updated: 2026-08-07T03:27:52+08:00
 
 ## Recovery order
 
@@ -686,3 +686,7 @@ same-responsibility implementation conversations that may receive review fixes.
   three immediate closures/two issue-#8 deferrals and is checking exact current
   lines plus unchanged queue/processor contracts. UI remains blocked until its
   proactive PASS/HOLD response; do not poll again.
+- Read-only UI preflight confirms the blank current `setupWidget()` and a
+  FIFF-free focused Widgets/Test seam. Exact control/label object names and
+  typed widget signals are now frozen in SPEC; no UI code is dispatched before
+  lifecycle PASS. Issues #2/#3/#5/#6/#8 remain open without checkbox changes.
