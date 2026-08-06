@@ -6247,3 +6247,15 @@ hidden reasoning is not.
   noninterrupting finalize message requiring only that current check, exact
   parent/two-file/diff/clean proofs, commit and proactive response. Do not poll
   again or expand its verification scope.
+
+### E-619 - Plugin UI wiring response received
+
+- Sol/ultra proactively returns exact-parent two-file commit `3b9aa6b1e` with
+  the frozen pending snapshot, block-boundary configure/reset/mode sequence,
+  fresh widget connections and fixed queued diagnostics.
+- Corrected plugin/widget MOC, MSVC14.29 C++14 syntax and immutable UI 3/0/0 are
+  reported. The initial plugin MOC include-root omission is truthfully retained
+  as a harness-only failure. No full target/lifecycle-runtime claim is made.
+- Persist the response before manager object/diff/semantic review. Independently
+  verify raw acquisition callback identity and issue-#8 lifecycle preservation;
+  do not integrate on worker assertions alone.

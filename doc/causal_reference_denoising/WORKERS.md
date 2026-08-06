@@ -8578,6 +8578,46 @@ does not continuously poll them.
   respond. No new harness/test/CMake/docs/vendor/full-app/server branch.
 - next / do not poll. Await the structured response.
 
+### RESPONSE W-PLUGIN-UI-WIRE-001
+
+- result / COMPLETE.
+- parent / exact `60fdf633f83b41bb2a960c1b83ab3d6c5d608b5a`.
+- commit / `3b9aa6b1edc604729942c1f21f339f8cfbc14acf`, subject
+  `Wire adaptive denoising teaching UI`.
+- scope / exactly plugin `adaptivedenoising.h` and `adaptivedenoising.cpp`; no
+  widget/diagnostics/CMake/test/queue/processor/core/docs/vendor/dependency edit.
+- seam / header includes fixed diagnostics, exposes one diagnostics signal and
+  seven narrow control slots. PImpl owns enabled/frozen/default settings plus
+  monotonic settings/reset revisions in one mutex-protected `PendingSnapshot`.
+- widget / every setup call returns a fresh setup widget, connects seven typed
+  signals and one explicit queued diagnostics connection, and retains no widget
+  pointer.
+- worker order / one snapshot copy immediately after every successful dequeue;
+  settings/metadata configure before the whole block, a new reset sequence
+  resets next, then disabled/frozen/enabled selects BypassTrackHistory/
+  ApplyOnly/ApplyAndLearn before process. Applied revision/sequence are worker-
+  owned and reset on start.
+- diagnostics / metatype registered before worker start. Fixed Stopped,
+  WaitingForData, Processing, InvalidMetadata and ConfigurationException plus
+  configure/process/count/RMS/drop fields are emitted. Invalid structural
+  metadata disarms, diagnoses and suppresses output; configure/output-init
+  exceptions disarm/report with safe pass-through where valid output exists.
+- lifecycle / pending GUI state survives start; worker-applied state/drops reset.
+  Successful stop emits Stopped only after worker/producer quiescence and output
+  clear. Existing bounded stop and issue-#8 destructor/harness contract remain.
+- acquisition / worker compares normalized parent/commit update spans as equal,
+  SHA-256 `3bab52244b84831e5f2bbb4287d070c21265cff7c32ae8ad1db463ddf4c79a82`,
+  with one queue push site. Manager will independently compare raw spans.
+- verification / first plugin MOC probe lacks the mne_scan/libs include root and
+  reports Undefined interface; corrected plugin MOC and widget MOC both exit
+  zero. Exact source passes MSVC19.29/toolset14.29 C++14 `/Zs` with only existing
+  Eigen C4819 warnings. Immutable offscreen UI test reports `3/0/0`, exit zero.
+- limits / worker performs no full plugin/app/server build or lifecycle runtime,
+  no vendor repair and no subagent/manager polling. Issue #8 remains open.
+- proof / committed diff-check passes, exact two files, detached clean worktree.
+- manager next / independent object/diff/state/order review, integrate, rebuild
+  focused plus v142 real target, publish, archive, then new Sol/ultra UI review.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are
