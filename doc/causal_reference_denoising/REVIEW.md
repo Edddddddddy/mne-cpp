@@ -183,7 +183,7 @@ core gate is held for one P2 test-evidence finding; two P3s remain tracked.
   45/0/0; expected and observed future target `-0.1332...` agree within
   `1e-12`. Synthetic metrics and exact chunk equivalence remain GREEN.
 
-#### R-CORE-LOCALITY-001 - P3 - Open
+#### R-CORE-LOCALITY-001 - P3 - Closed
 
 - Location: `causalreferencedenoiser.h:55-105`.
 - Evidence/impact: essential invariants, orientation, modes/epochs, atomic
@@ -196,8 +196,12 @@ core gate is held for one P2 test-evidence finding; two P3s remain tracked.
   not a resolvable object. The two-file header/trait result and syntax probes
   are reported complete, but manager blob/diff review and populated Release/
   Debug remain required before closure.
+- Resolution: accepted header contract and explicit deleted copy/move policy
+  are integrated as `47b54efed`; portable traits delta is `0848634a3`.
+  Populated Release/Debug compile/link and complete executables exit zero,
+  preserving the existing runtime suite and Debug malloc guard.
 
-#### R-CORE-CXX14-NOEXCEPT-001 - P1 - Open
+#### R-CORE-CXX14-NOEXCEPT-001 - P1 - Closed
 
 - Location: held worker commit `2682034d0`, focused numerical test new
   `ProcessMember` alias/static assertion near the top of the file.
@@ -222,6 +226,10 @@ core gate is held for one P2 test-evidence finding; two P3s remain tracked.
   is limited to removal of the illegal noexcept function type and portable
   callability/result checks; the accepted header and runtime slots are
   unchanged. No new finding; populated Release/Debug remain the only gate.
+- Resolution: integrated portable delta `0848634a3`. Both populated Release
+  and Debug targets compile/link with MSVC 14.51 `/std:c++14`, and each complete
+  executable exits zero. The C2279 path is removed without asserting the
+  Eigen::Ref wrapper construction noexcept.
 
 #### R-CORE-LINK-001 - P3 - Environment-deferred
 
@@ -246,7 +254,7 @@ core gate is held for one P2 test-evidence finding; two P3s remain tracked.
 - P0: zero.
 - P1: zero.
 - P2: zero open; `R-CORE-FORGET-001` closed by independent analytic evidence.
-- P3: `R-CORE-LOCALITY-001` is under final-QA correction;
+- P3: `R-CORE-LOCALITY-001` is closed by the integrated public contract;
   `R-CORE-LINK-001` is explicitly environment-deferred with reproducible Qt/
   MSVC evidence.
 - Decision: numerical core may proceed to plugin-data TDD.

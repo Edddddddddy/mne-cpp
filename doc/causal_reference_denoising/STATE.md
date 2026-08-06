@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T16:09:00+08:00
+Last updated: 2026-08-06T16:18:00+08:00
 
 ## Recovery order
 
@@ -311,10 +311,13 @@ same-responsibility implementation conversations that may receive review fixes.
 
 ## Latest response checkpoint
 
-- Integration HEAD is `0848634a3`: accepted core-contract commit `47b54efed`
-  plus portable C++14 delta `0848634a3` are integrated. Populated Release
-  target compiles/links and its executable exits zero; Debug and complete
-  evidence reconciliation remain before core P1/P3 closure.
+- Accepted core-contract commit `47b54efed` plus portable C++14 delta
+  `0848634a3` are integrated. Populated Release and Debug targets both compile/
+  link and their complete executables exit zero; the unchanged runtime suite
+  retains the prior 44/0/1 Release and 45/0/0 Debug structure, with Debug
+  exercising the malloc guard. `R-CORE-CXX14-NOEXCEPT-001` and
+  `R-CORE-LOCALITY-001` are closed; only the already environment-deferred real
+  library-link P3 remains.
 - Fresh queue-v2 formal review `R-QUEUE-V2-001` proactively returned against
   exact clean `e4964aaed` with gate HOLD: P0=0, P1=1, P2=2, P3=0. P1 finds
   that Windows Qt 5.15.2 `QSemaphore` uses a `QMutex` fallback that can block

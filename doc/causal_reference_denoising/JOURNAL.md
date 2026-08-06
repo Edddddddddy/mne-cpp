@@ -4268,3 +4268,14 @@ hidden reasoning is not.
   atomic-SPSC test-first correction direction.
 - Next: persist a minimal Luna/max RED public-test request before creating its
   visible worktree; do not integrate the already returned plugin adapter.
+
+### E-409 - Core contract Release/Debug gate closes
+
+- Populated Debug target compiles/links with the new C++14 traits and its full
+  executable exits zero; Release already did the same. Only existing Eigen
+  code-page warnings occur.
+- Runtime slots are unchanged from the prior emitted 44/0/1 Release and 45/0/0
+  Debug evidence. Debug executes the existing malloc guard because
+  `EIGEN_NO_DEBUG` is absent and `EIGEN_RUNTIME_NO_MALLOC` is defined.
+- Decision: close core C++14 P1 and locality P3. The real library-link P3 stays
+  environment-deferred exactly as already documented; no vendor/server action.

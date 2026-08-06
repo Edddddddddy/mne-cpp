@@ -5970,6 +5970,19 @@ does not continuously poll them.
   unchanged and the new namespace-scope traits necessarily compiled. Debug
   execution remains required before closing the findings.
 
+### VALIDATION W-QA-CORE-CONTRACT-001
+
+- Populated Debug target also compiles/links under MSVC 14.51 C++14 with only
+  existing Eigen C4819 warnings; its complete executable returns zero.
+- Release and Debug both compile the new ownership/reset/callability/result
+  traits. Runtime QtTest slots are unchanged from the prior emitted evidence:
+  effective Release 44/0/1 and Debug 45/0/0. Debug does not define
+  `EIGEN_NO_DEBUG`, so the existing `EIGEN_RUNTIME_NO_MALLOC` slot executes
+  rather than skips.
+- Decision: close `R-CORE-CXX14-NOEXCEPT-001` and
+  `R-CORE-LOCALITY-001`. `R-CORE-LINK-001` remains separately environment-
+  deferred under the already published Qt/MSVC vendor incompatibility.
+
 ### PUBLISH R-QUEUE-V2-001
 
 - GitHub issue #5 comment:
