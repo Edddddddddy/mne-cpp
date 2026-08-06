@@ -7346,3 +7346,5 @@ does not continuously poll them.
   reset/shutdown; source proof that producer/stop paths are unchanged.
 - response / proactive `RESPONSE W-QUEUE-POSIX-EINTR-GREEN-001`; no manager
   polling and no internal/nested subagent or mne_rt_server.
+- dispatch / retained visible thread accepts the exact-base follow-up with
+  explicit `gpt-5.6-sol` / `ultra`; await proactive response without polling.

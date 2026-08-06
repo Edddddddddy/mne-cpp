@@ -5272,3 +5272,11 @@ hidden reasoning is not.
 - Producer and stop continue one nonblocking signal attempt with no retry,
   wait, lock or allocation. This keeps the realtime seam while bounding lost-
   signal latency. Dispatch only after this request is committed and pushed.
+
+### E-520 - Private POSIX bounded-recheck fix dispatched
+
+- Retained atomic thread accepts the exact-base one-source request with explicit
+  `gpt-5.6-sol` / `ultra`. The worker must detach to `f1151d134`; Windows,
+  producer/stop, public interface and tests are immutable.
+- Await its proactive response without polling. Publish the exact scope and the
+  current WSL evidence limitation on issue #5.
