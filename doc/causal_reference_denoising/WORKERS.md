@@ -7759,6 +7759,19 @@ does not continuously poll them.
   evidence is pushed, then create a fresh visible Sol/ultra worktree task with
   the same request and exact base.
 
+### SETUP W-PLUGIN-ADMISSION-FIX-001-RETRY-1
+
+- prior lifecycle / app archives spent thread
+  `019fd59d-fcc8-7573-964d-ed930c4100a8`; no manual worktree deletion.
+- setup / accepted as
+  `client-new-thread:58ed8491-eb34-43fc-8382-7d6a691c81ce` on local host.
+- model / new visible `gpt-5.6-sol` / `ultra`
+- environment / app-managed worktree from exact existing ref
+  `48672b02eb35de300a046079028e96ec6d1b25b6`
+- request / unchanged two-source admission/drop/atomic/destructor-contract scope;
+  explicitly ignore the archived missing worktree and prove this fresh base.
+- state / asynchronous setup accepted; await proactive response without polling.
+
 ### REQUEST W-PLUGIN-STATIC-001
 
 - from / manager

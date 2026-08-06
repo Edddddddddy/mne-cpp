@@ -5709,3 +5709,13 @@ hidden reasoning is not.
 - Do not manually bind it to another directory. After this evidence is pushed,
   app-archive the spent conversation and create a new Sol/ultra worktree task
   from the unchanged exact base. Static-registration work remains independent.
+
+### E-566 - Spent admission thread archived and replacement created
+
+- App archives `019fd59d-fcc8-7573-964d-ed930c4100a8` after its zero-mutation
+  missing-worktree response; no manual worktree deletion is attempted.
+- New Sol/ultra setup `client-new-thread:58ed8491-eb34-43fc-8382-7d6a691c81ce`
+  is accepted from exact base `48672b02eb35de300a046079028e96ec6d1b25b6`
+  with the unchanged two-source request.
+- Await its proactive response; static-registration Luna task remains active and
+  file-disjoint. UI stays held.

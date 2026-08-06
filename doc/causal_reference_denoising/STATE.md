@@ -659,8 +659,9 @@ same-responsibility implementation conversations that may receive review fixes.
   real-plugin lifecycle harness. Issue #3 and #6 comments link the deferral;
   both findings remain explicit residual work rather than being marked fixed.
 - Active fixes from exact pushed base `48672b02eb35de300a046079028e96ec6d1b25b6`:
-  the retained Sol/ultra admission thread is setup-blocked because its prior app
-  worktree no longer exists; it produced no modification and will be archived/
-  replaced. New Luna/max setup
+  the spent admission thread is archived after zero-mutation setup failure;
+  replacement Sol/ultra setup
+  `client-new-thread:58ed8491-eb34-43fc-8382-7d6a691c81ce` owns only admission/
+  drop/atomic/destructor-contract source changes. Luna/max setup
   `client-new-thread:8153b471-f290-4f15-8d7a-ac87cfeee593` owns only static
   mne_scan CMake/main registration. Their files are disjoint.
