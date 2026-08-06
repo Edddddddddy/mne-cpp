@@ -3854,3 +3854,12 @@ hidden reasoning is not.
 - Acceptance impact: formal plugin review must audit stop during callback and
   restart only after quiescence; queue v2 itself continues to require the caller
   to satisfy that precondition rather than adding a global lock.
+
+### E-366 - Producer-quiescence decision published
+
+- Publish/read-back: issue #6 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5200841976`
+  exactly records the DirectConnection race, accepting/in-flight guard, stop/
+  restart ordering and callback no-wait/no-mutex requirement.
+- Scope remains design-only. Plugin implementation still waits for queue-v2
+  GREEN and will receive this contract in its exact REQUEST.

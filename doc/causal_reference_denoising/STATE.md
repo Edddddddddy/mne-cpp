@@ -197,6 +197,8 @@ DirectConnection lifecycle also requires an atomic accepting-input/in-flight
 producer guard: stop must quiesce a callback already inside `tryPush` before a
 later start replaces the queue PImpl. The acquisition callback itself remains
 wait-free with respect to plugin lifecycle/settings synchronization.
+Public lifecycle discussion:
+`https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5200841976`.
 
 ## Focused verification targets
 
