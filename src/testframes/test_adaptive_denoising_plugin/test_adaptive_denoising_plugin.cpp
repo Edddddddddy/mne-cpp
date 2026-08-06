@@ -2574,6 +2574,7 @@ void TestAdaptiveDenoisingPlugin::queuePopsPromptlyAfterInterruptedProducerSigna
     constexpr Index kMaxChannelCount = 3;
     constexpr Index kMaxBlockSamples = 5;
     constexpr int kWaitMilliseconds = 3000;
+    constexpr int kPromptLowerBoundMilliseconds = 5;
     constexpr int kPromptUpperBoundMilliseconds = 500;
     constexpr int kReadyBudgetMilliseconds = 1000;
     constexpr int kCompletionBudgetMilliseconds = kWaitMilliseconds + 1000;
@@ -2724,7 +2725,7 @@ void TestAdaptiveDenoisingPlugin::queuePopsPromptlyAfterInterruptedProducerSigna
     QVERIFY(!invalidThreadState.load(std::memory_order_acquire));
     QCOMPARE(observedPush, AdaptiveDenoisingQueuePushStatus::Pushed);
     QCOMPARE(observedPop, AdaptiveDenoisingQueuePopStatus::Popped);
-    QVERIFY(popElapsed >= 0);
+    QVERIFY(popElapsed >= kPromptLowerBoundMilliseconds);
     QVERIFY(popElapsed < kPromptUpperBoundMilliseconds);
     QCOMPARE(interruptedWriteCount, 1);
     QVERIFY(destinationContainsBlock(
@@ -2743,6 +2744,7 @@ void TestAdaptiveDenoisingPlugin::queueStopsPromptlyAfterInterruptedStopSignal()
     constexpr Index kMaxChannelCount = 3;
     constexpr Index kMaxBlockSamples = 5;
     constexpr int kWaitMilliseconds = 3000;
+    constexpr int kPromptLowerBoundMilliseconds = 5;
     constexpr int kPromptUpperBoundMilliseconds = 500;
     constexpr int kReadyBudgetMilliseconds = 1000;
     constexpr int kCompletionBudgetMilliseconds = kWaitMilliseconds + 1000;
@@ -2844,7 +2846,7 @@ void TestAdaptiveDenoisingPlugin::queueStopsPromptlyAfterInterruptedStopSignal()
     QVERIFY(consumerFinishedAfterFallback);
     QVERIFY(!invalidThreadState.load(std::memory_order_acquire));
     QCOMPARE(observedPop, AdaptiveDenoisingQueuePopStatus::Stopped);
-    QVERIFY(popElapsed >= 0);
+    QVERIFY(popElapsed >= kPromptLowerBoundMilliseconds);
     QVERIFY(popElapsed < kPromptUpperBoundMilliseconds);
     QCOMPARE(interruptedWriteCount, 1);
     QVERIFY(destinationPreserves(
