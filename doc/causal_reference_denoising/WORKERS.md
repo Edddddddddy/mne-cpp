@@ -5886,3 +5886,26 @@ does not continuously poll them.
   `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5201120187`.
 - Authenticated API read-back confirms the held SHA, P2 evidence, exact narrow
   correction, same-conversation Luna/max amend and no-build/server scope.
+
+### RESPONSE W-QA-CORE-CONTRACT-001-REVISE-1
+
+- From/to: retained visible Luna/max core-contract conversation
+  `019fd336-0d0c-7d02-82d9-a24b511d6aaf` / manager.
+- Exact parent/delta: `2682034d0e45ecb50b67dea47b929d9d7d3b6957` /
+  `bc061b83419bf6037f021791ff8b9ca5435245c8`; worker reports a clean detached
+  worktree and exactly one changed file,
+  `test_causal_reference_denoiser.cpp`.
+- Revision: removes the C++14-illegal `ProcessMember` noexcept member-pointer
+  alias/cast; retains nothrow default, deleted copy/move and reset-noexcept
+  traits; adds portable `MatrixXd&` to `Eigen::Ref<MatrixXd>` convertibility
+  and public `process(...)` call-result type assertions. A concise comment
+  distinguishes the explicitly noexcept member body from potentially throwing
+  Eigen::Ref argument-wrapper construction.
+- Worker verification: MSVC 14.51 `/std:c++14 /EHsc /c` compiles the numerical
+  implementation and focused test after temporary Qt MOC generation, with only
+  existing Eigen C4819 warnings. Complete Eigen was read from a sibling
+  worktree without copy/repair/stage; diff/scope/clean checks pass.
+- Restrictions: Luna/max, no subagent, manager polling, full scan/mne_scan,
+  vendor repair or mne_rt_server.
+- Status: response is durable before manager provenance/delta review,
+  integration or populated Release/Debug validation.

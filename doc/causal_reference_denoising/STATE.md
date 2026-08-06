@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T15:23:00+08:00
+Last updated: 2026-08-06T15:42:00+08:00
 
 ## Recovery order
 
@@ -285,6 +285,13 @@ same-responsibility implementation conversations that may receive review fixes.
   project C++14. The retained Luna/max conversation accepted a test-only
   portable revision request before integration. Final-QA publication:
   `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5201485839`.
+  The retained Luna/max conversation has now proactively returned test-only
+  delta `bc061b834` on exact parent `2682034d0`. It removes the C++14-illegal
+  noexcept member-pointer alias, retains ownership/reset traits, and adds
+  portable MatrixXd-to-Ref convertibility plus public-call result-type checks.
+  Worker MSVC 14.51 `/std:c++14` compilation succeeds; manager provenance/
+  delta review and populated Release/Debug remain required before integration
+  and P1/P3 closure.
 - The older read-only `R-QUEUE-001` reviewed the superseded exact-row/std-owner
   v1 queue and is now app-archived after its clean exact snapshot and durable
   dispatch were verified. Queue-v2 receives a fresh formal review after GREEN.

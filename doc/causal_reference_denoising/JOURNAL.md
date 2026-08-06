@@ -4214,3 +4214,15 @@ hidden reasoning is not.
   `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5201485839`.
 - API read-back confirms provenance correction, accepted header, exact C2279
   evidence, portable Luna/max revision and populated Release/Debug requirement.
+
+### E-404 - Core-contract portable C++14 revision received
+
+- Retained Luna/max worker proactively returned exact-parent, one-test-file
+  delta `bc061b834` on `2682034d0` with a clean detached worktree.
+- The delta removes only the illegal noexcept member-pointer type check and
+  substitutes portable MatrixXd-to-Ref convertibility plus process result-type
+  assertions, retaining the accepted header/runtime slots and ownership/reset
+  traits.
+- Worker MSVC 14.51 `/std:c++14` compilation succeeds with only existing Eigen
+  warnings and no vendor mutation. Manager provenance/delta review is next;
+  populated Release/Debug remain the closure gate.

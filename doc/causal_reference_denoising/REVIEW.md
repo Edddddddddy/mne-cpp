@@ -165,6 +165,11 @@ core gate is held for one P2 test-evidence finding; two P3s remain tracked.
   by-value Eigen::Ref wrapper construction is outside the member body contract.
 - Required verification: MSVC 14.51 C++14 syntax/build, then full populated
   Release/Debug focused runs with unchanged runtime slot count.
+- Fix received: exact-parent test-only delta `bc061b834` removes the illegal
+  alias/cast and adds portable MatrixXd-to-Ref convertibility plus public-call
+  result-type assertions while retaining ownership/reset traits. Worker MSVC
+  14.51 `/std:c++14` syntax compilation succeeds. Finding stays open until
+  manager delta review, integration and complete populated Release/Debug runs.
 
 #### R-CORE-LINK-001 - P3 - Environment-deferred
 
