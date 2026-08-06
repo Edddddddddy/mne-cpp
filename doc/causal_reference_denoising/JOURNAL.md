@@ -6083,3 +6083,15 @@ hidden reasoning is not.
 - Prepare one noninterrupting finalize message: after those existing probes,
   commit exact four-file scope and respond; add no further harness/search/edit.
   Manager will run the populated target after integration.
+
+### E-603 - Teaching widget GREEN response received
+
+- Luna/max proactively returns exact-parent commit `aa7ca542c` with one plugin
+  CMake edit and three new diagnostics/widget files. Qt MOC and direct C++14
+  syntax pass; isolated incomplete Eigen prevents an executable claim.
+- A generated literal `$uiBinDir/` directory from the earlier CMake harness is
+  safely removed before staging. A post-commit full-vs-short SHA predicate error
+  is corrected without source/commit change; final exact scope and clean state
+  pass.
+- Persist before manager Git/source review. Populated focused GREEN remains the
+  acceptance gate; plugin h/cpp wiring stays undispatched.

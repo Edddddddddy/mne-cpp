@@ -8349,6 +8349,33 @@ does not continuously poll them.
 - intent / timebox validation, not interrupt code. Manager owns populated
   focused build/run after integration.
 
+### RESPONSE W-PLUGIN-UI-GREEN-001
+
+- parent / exact `7da5d498d113f9adc710dd426f2270619142f4da`.
+- commit / `aa7ca542c702596c19de1f87931819f29e0362c7`.
+- scope / exactly existing plugin `CMakeLists.txt` plus new diagnostics header
+  and setup-widget header/source; detached clean worktree, exact scope and
+  diff-check pass. Local base ref still resolves to the exact parent.
+- module / standalone programmatic teaching widget exposes the frozen controls,
+  ranges/defaults, seven typed signals, fourteen labels and one GUI-thread
+  `setDiagnostics` formatter; it owns no plugin/queue/model state.
+- diagnostics / scalar-only standard-layout/trivially-copyable/copyable value
+  with `Q_DECLARE_METATYPE`; no QString/container/owner.
+- verification / direct Qt 5.15.2 MOC passes. C++14 syntax passes using a
+  temporary external Eigen type shim; the isolated repository configure remains
+  blocked by missing ignored Eigen `Macros.h`, so no executable/full app/server
+  claim is made.
+- transient artifacts / an earlier CMake command accidentally creates one
+  generated literal `$uiBinDir/` directory inside the app worktree. Worker
+  validates the exact target, removes only that generated artifact and restores
+  the clean four-path state before commit.
+- proof harness / first post-commit predicate compares a full SHA to its short
+  display and exits nonzero despite correct printed facts; corrected full-object
+  proof passes without commit/source change.
+- manager next / exact code/CMake/interface review, integration, populated
+  focused Release build/run, publication and one-shot worker cleanup before
+  dispatching the Sol/ultra plugin wiring task.
+
 ### PREPARED REQUEST W-PLUGIN-UI-WIRE-001
 
 - state / dispatch only after widget GREEN integration and populated focused

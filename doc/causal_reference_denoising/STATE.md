@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-07T04:03:41+08:00
+Last updated: 2026-08-07T04:10:49+08:00
 
 ## Recovery order
 
@@ -757,3 +757,8 @@ same-responsibility implementation conversations that may receive review fixes.
   finishing direct Qt MOC/C++14 checks. A single noninterrupting finalize
   request is prepared: commit/respond after those checks without new validation
   branches or scope expansion.
+- `W-PLUGIN-UI-GREEN-001` returns exact-parent four-file commit
+  `aa7ca542c702596c19de1f87931819f29e0362c7`. Widget/diagnostics/CMake behavior,
+  MOC and C++14 syntax are reported complete; isolated Eigen prevents an
+  executable claim. Manager exact diff review, integration and populated
+  focused GREEN are next before Sol wiring dispatch.
