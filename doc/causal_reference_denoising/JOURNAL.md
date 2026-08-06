@@ -4149,3 +4149,20 @@ hidden reasoning is not.
   mixed-row/native-metadata slot, with no skip/fail escape in source.
 - P1 `R-QUEUE-QT-SLOTS-001` is closed. Next: push/publish GREEN and dispatch
   a fresh exact-snapshot Sol/ultra queue-v2 formal review.
+
+### E-396 - Queue-v2 focused GREEN published
+
+- Issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201314365`.
+- API read-back confirms successful Release build, effective 15/0/0 process
+  exits, P1 closure and exact GREEN head `e4964aaed`.
+
+### E-397 - Fresh queue-v2 formal review requested
+
+- Request `R-QUEUE-V2-001`: new visible Sol/ultra read-only review of exact
+  `e4964aaed`, not the archived v1 review conversation.
+- Scope covers queue/test plus minimal caller-lifecycle verification; required
+  gate is P0/P1/P2 zero with exact line/evidence findings and no repository or
+  GitHub mutation.
+- Next: commit/push request, create and publicly dispatch the visible task, then
+  await its proactive RESPONSE without polling.

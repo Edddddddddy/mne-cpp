@@ -5693,6 +5693,40 @@ does not continuously poll them.
 - `R-QUEUE-QT-SLOTS-001` closes. Fresh independent Sol/ultra formal review is
   still required before issue #5 closes.
 
+### PUBLISH W-QUEUE-V2-GREEN-001-FINAL
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201314365`.
+- API read-back confirms exact integration/fix SHAs, successful Release build,
+  effective 15/0/0 process-zero evidence, P1 closure, fresh-review gate and no
+  full mne_scan/mne_rt_server.
+
+### REQUEST R-QUEUE-V2-001
+
+- From/to: manager / new visible read-only queue-v2 reviewer.
+- Model: `gpt-5.6-sol`, `ultra`; new app-managed worktree at exact reviewed
+  snapshot `e4964aaed44b5030ad4490e0ee7744d796b387cb`.
+- Recovery/skills: read STATE, SPEC queue/plugin lifecycle sections, complete
+  relevant WORKERS/REVIEW entries and JOURNAL tail; read complete codebase-
+  design SKILL/DEEPENING. Use module/interface/seam/depth/leverage/locality.
+- Read-only scope: complete queue h/cpp, complete focused plugin test and only
+  enough processor/plugin lifecycle source to validate caller quiescence and
+  ownership assumptions. Inspect exact worker/fix provenance and manager GREEN.
+- Required review: SPSC token/index publication; stop before/during acquired
+  push/pop; artificial wake and pending-block discard; fresh-PImpl isolation;
+  producer/consumer quiescence contract; native QSharedPointer noexcept/control
+  block behavior; configure transaction/allocation; rectangle/extents/tail/
+  destination preservation; drop-newest; variable metadata/rows; Qt macro fix;
+  no-allocation/no-lock/no-retry/no-string/no-FIFF hot path; public tests'
+  sensitivity and any untested race.
+- Findings: report P0-P3 with exact file/line, evidence/impact/fix/test. P0/P1/
+  P2 must be zero for the gate. Do not edit, commit, push, mutate GitHub,
+  dependencies or tasks. No subagents, manager polling, full scan/mne_scan or
+  mne_rt_server.
+- Required response: proactive `RESPONSE R-QUEUE-V2-001` with exact SHA/clean
+  status, inspection/evidence, prioritized findings and gate recommendation.
+- Lifecycle: archive after response evidence/fixes/final decision are durable.
+
 ### RESPONSE W-QA-CORE-CONTRACT-001
 
 - Requested full base recorded in the original task:

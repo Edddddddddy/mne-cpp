@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T15:01:00+08:00
+Last updated: 2026-08-06T15:05:00+08:00
 
 ## Recovery order
 
@@ -235,8 +235,8 @@ same-responsibility implementation conversations that may receive review fixes.
 
 ## Current checkpoint override
 
-- Integration HEAD: `c87762e97`; remote is one code commit behind until this
-  GREEN record is pushed. The tracked integration has queue-v2
+- Integration/remote HEAD: `e4964aaed`; tracked state is synchronized. The
+  integration has queue-v2
   plus the compile-RED evidence committed and pushed;
   only the three preserved user paths are untracked.
   only untracked paths are the three preserved user paths listed in the plan.
@@ -254,7 +254,10 @@ same-responsibility implementation conversations that may receive review fixes.
   existing conversation returned exact-parent one-file delta `33b3eea1d`.
   Manager integrated it as `c87762e97`; populated Release now compiles/links
   and the complete focused executable exits zero, effective 15/0/0. P1 closes;
-  publish GREEN and dispatch a fresh Sol/ultra formal review. RED publication:
+  GREEN is published and a fresh exact-snapshot Sol/ultra formal review is the
+  remaining queue gate. GREEN publication:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201314365`.
+  Earlier RED publication:
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201209614`.
   Recovery publication: issue #5 comment
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201026440`.
