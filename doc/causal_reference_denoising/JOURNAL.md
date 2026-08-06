@@ -6038,3 +6038,12 @@ hidden reasoning is not.
 - Freeze `W-PLUGIN-UI-GREEN-001` from exact integrated RED base
   `7da5d498d113f9adc710dd426f2270619142f4da`. Commit/push this request before
   creating the new app-managed worktree.
+
+### E-598 - Teaching widget GREEN worktree setup accepted
+
+- Manager creates local-only `codex/worker-ui-green-base` at exact RED request
+  base `7da5d498d113f9adc710dd426f2270619142f4da` and the app accepts Luna/max setup
+  `client-new-thread:b4a1fa59-623e-40cf-b6a8-f00057a9b97e`.
+- The worker owns only diagnostics/widget/CMake. Plugin wiring and immutable
+  tracer are excluded; await proactive response without worktree inspection or
+  continuous polling.

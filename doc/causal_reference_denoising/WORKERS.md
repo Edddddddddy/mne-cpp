@@ -8294,6 +8294,21 @@ does not continuously poll them.
 - response / proactive exact-parent commit/files, deep seam, labels/signals,
   commands/results/limits and clean state. No subagent or manager polling.
 
+### SETUP W-PLUGIN-UI-GREEN-001
+
+- setup / accepted as
+  `client-new-thread:b4a1fa59-623e-40cf-b6a8-f00057a9b97e` on local host.
+- model / explicit `gpt-5.6-luna` / `max`.
+- environment / app-managed worktree from local-only ref
+  `codex/worker-ui-green-base`, manager-verified at exact
+  `7da5d498d113f9adc710dd426f2270619142f4da`.
+- scope / one existing plugin CMake plus exactly three new diagnostics/widget
+  files; plugin h/cpp and tracer are explicitly immutable.
+- cleanup / retain the local base ref only until response integration/evidence;
+  archive the one-shot task and delete the merged ref afterward without
+  manually deleting its app worktree.
+- state / asynchronous setup accepted; await proactive response without polling.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are

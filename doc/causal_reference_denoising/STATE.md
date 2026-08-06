@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-07T03:48:57+08:00
+Last updated: 2026-08-07T03:52:56+08:00
 
 ## Recovery order
 
@@ -738,3 +738,7 @@ same-responsibility implementation conversations that may receive review fixes.
   the completed Luna/max tracer task is archived and its local-only base ref is
   deleted. TDD GREEN is now split: Luna/max owns diagnostics/widget/CMake only;
   a later Sol/ultra task owns plugin h/cpp block-boundary wiring.
+- `W-PLUGIN-UI-GREEN-001` app setup is accepted as
+  `client-new-thread:b4a1fa59-623e-40cf-b6a8-f00057a9b97e` from exact RED base
+  `7da5d498d113f9adc710dd426f2270619142f4da`, using Luna/max. Await proactive
+  response; immutable plugin h/cpp and tracer files must remain untouched.
