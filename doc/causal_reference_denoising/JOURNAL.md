@@ -4953,3 +4953,10 @@ hidden reasoning is not.
 - The response contract requires elapsed `Stopped` wait >=5 ms and <1500 ms,
   full retained public oracles and a new delta commit. Manager will await the
   proactive response without inspecting the worker worktree.
+
+### E-485 - Blocked-wait revision published
+
+- Issue #5 comment/read-back succeeds at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5203794886`.
+  It records the accepted forced-wrap evidence, the remaining elapsed-wait P2,
+  exact one-test-file correction and no production/CMake scope.
