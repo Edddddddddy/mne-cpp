@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T19:08:00+08:00
+Last updated: 2026-08-06T19:14:00+08:00
 
 ## Recovery order
 
@@ -420,7 +420,10 @@ same-responsibility implementation conversations that may receive review fixes.
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202951958`.
   A single task-list lookup resolved the final visible thread as
   `019fd670-c791-7000-8a5f-4538396a54d6`, worktree `4954`. The request remains
-  the sole active queue gate; use at most one bounded wait and do not poll.
+  the sole active queue gate. It proactively returned exact-parent one-file
+  commit `ea81256b1` with the complete C++14 global allocation replacement set
+  and producer-only counted boundary. Response is durable; manager provenance,
+  source review, integration and canonical Release execution are next.
 - Accepted but deliberately not integrated until the atomic queue gate:
   plugin data commit `5f4718722` plus exact-parent SPSC admission fix
   `34a8096f1`. Retain its Sol/ultra conversation for same-responsibility fixes.

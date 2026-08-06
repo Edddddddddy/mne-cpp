@@ -6489,6 +6489,31 @@ does not continuously poll them.
   unchanged. Use at most one bounded wait; do not continuously poll or read
   the worker worktree.
 
+### RESPONSE W-QUEUE-ALLOC-TEST-001
+
+- From/to: visible Luna/max test thread
+  `019fd670-c791-7000-8a5f-4538396a54d6` / manager.
+- Exact parent: `9b7b1c779fbe6ce52001a18dc3dfbe0a11a9188d`.
+- Worker commit: `ea81256b1283982062b0e4df6007e1226e89675f`.
+- Exact scope: only
+  `src/testframes/test_adaptive_denoising_plugin/test_adaptive_denoising_plugin.cpp`;
+  detached worktree reports clean.
+- Adds malloc/free-backed C++14 global scalar/array throwing, nothrow and sized
+  allocation/deallocation replacements. Zero-size allocation is normalized;
+  throwing forms throw `bad_alloc`; nothrow forms return null.
+- A thread-local flag is enabled only for the complete producer
+  `tryPush(block, metadata)` expression. The global atomic counter increments
+  only after a successful allocation while that producer flag is true.
+- All setup, queue configuration, precreated Eigen/metadata/result storage,
+  thread construction, consumer work, joins, logging and assertions remain
+  outside the counted boundary. Existing FIFO/drop/extents/metadata/deep-copy/
+  tail/preservation/latency oracles remain unchanged; the new exact oracle is
+  zero counted producer allocations.
+- Worker diff-check passes. Runtime is honestly unclaimed because the isolated
+  worktree lacks a populated Release build and complete ignored Eigen baseline;
+  no dependency repair, full mne_scan or mne_rt_server occurred. Manager owns
+  canonical review/build/run.
+
 ### RETIREMENT-READY W-QUEUE-ATOMIC-TEST-001
 
 - Thread `019fd5fa-f207-7fe3-9189-8d77fc9cfade` is one-shot. Exact commit,
