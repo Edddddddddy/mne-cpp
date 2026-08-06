@@ -5448,3 +5448,11 @@ hidden reasoning is not.
   remain untouched. The plugin is not yet formally accepted.
 - Persist/push integration, run available target-local validation, and dispatch
   an exact-snapshot Sol/ultra lifecycle/realtime review before UI changes.
+
+### E-539 - First plugin MOC harness rejected before execution
+
+- Execution policy blocks the manager command because it includes recursive
+  temporary-directory removal. The command never starts; no file or test result
+  exists and no plugin conclusion is inferred.
+- Record the harness failure, then retry using a single temporary MOC file with
+  nonrecursive cleanup plus the same update-path token audit.

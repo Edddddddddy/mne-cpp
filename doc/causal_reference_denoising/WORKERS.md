@@ -7539,3 +7539,11 @@ does not continuously poll them.
 - Validation/review status / code is integrated but not yet accepted. Run
   target-local MOC/CMake/static checks and independent Sol/ultra lifecycle/
   realtime review before dispatching Luna/max UI work.
+
+### FAILURE VALIDATION-PLUGIN-MOC-HARNESS-001
+
+- The first manager MOC/static-check command is rejected by execution policy
+  before launch because its temporary-directory cleanup contains a recursive
+  removal. No MOC, source scan or filesystem mutation occurs.
+- This is a harness-policy failure, not plugin evidence. Retry with one temporary
+  output file and nonrecursive cleanup; do not weaken the validation scope.
