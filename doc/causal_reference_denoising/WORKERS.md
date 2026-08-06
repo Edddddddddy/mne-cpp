@@ -8065,3 +8065,56 @@ does not continuously poll them.
   parse source or inspect plugin PImpl state.
 - GitHub audit / issues #2/#3/#5/#6/#8 remain OPEN; epic #2 has only #4/#7
   checked. No closure or checkbox mutation occurs before lifecycle/UI gates.
+
+### RESPONSE R-PLUGIN-DATA-002
+
+- exact snapshot / clean detached
+  `3dca8628eb43029ea35980e869da1a44d21b053a`; initial/final status, staged and
+  unstaged diffs all empty.
+- mode / independent Sol/ultra, read-only; no source/dependency/GitHub/build/
+  test mutation and no full app/server run.
+- gate / PASS. New findings P0=0, P1=0, P2=0, P3=0; gate-relevant open counts
+  P0=0, P1=0, P2=0.
+- closed / `R-PLUGIN-SPSC-PRODUCER-001`: only a one-shot zero-to-one CAS admits
+  Entered, provisional invalidation releases its count, and stop/restart require
+  closed/quiescent admission before queue replacement.
+- closed / `R-PLUGIN-ADMISSION-DROP-001`: Closed returns before type inspection;
+  Busy reads only the RTMSA matrix list and counts exact cardinality with no
+  info/push/config/reset/output/lock/wait; Entered retains one info snapshot and
+  one push per matrix.
+- closed / `R-PLUGIN-ATOMIC-LOCKFREE-001`: actual uint32/uint64 aliases map to
+  C++14 `ATOMIC_*_LOCK_FREE == 2`; guarded members are exactly producer state and
+  dropped count.
+- closed / `R-PLUGIN-STATIC-REGISTRATION-001`: static-only target link/import,
+  no qrc initializer and unchanged shared behavior match the generated project
+  reference evidence.
+- deferred / `R-PLUGIN-DESTRUCTOR-BOUND-001`: bounded public stop plus documented
+  host retry/quiescence remains; unbounded destructor fallback is the memory-safe
+  policy until issue #8 supplies a supported lifecycle/teardown harness.
+- deferred / `R-PLUGIN-LIFECYCLE-TEST-001`: focused tests still do not compile
+  the real plugin; issue #8 explicitly owns admission/epoch/stop/restart/output/
+  metadata/destructor runtime coverage on a supported toolchain.
+- regression / worker-only FIFF mapping, disarm/fail-closed behavior, FIFO output,
+  restart ordering, queue/processor blobs and narrow dependency seam remain
+  coherent. Teaching UI is intentionally absent and is not a finding.
+- evidence boundary / reviewer source/provenance only; manager MOC/callback
+  oracle/MSVC14.29 syntax/static configure remain manager evidence. MSVC14.51
+  real target is still blocked before plugin translation units by existing Qt/
+  mne_fiff code; vendor Qt is unchanged.
+- next / publish PASS, close issue #5 with issue #8 residual link, update epic
+  #2, then dispatch `W-PLUGIN-UI-TEST-001` from the new exact pushed base.
+
+### FAILURE FINAL-FOCUSED-REPLAY-HARNESS-001
+
+- build / current Release focused core, plugin test and example targets all
+  rebuild successfully from the canonical build directory.
+- run harness / a four-task `Start-Process` table passes an empty ArgumentList
+  to the no-argument example, causing a PowerShell parameter validation error.
+  The loop then retains a stale process variable, so its displayed example exit
+  value is invalid and must not be used. Core/plugin processes returned zero but
+  their redirected files are empty, so no totals are claimed from this attempt.
+- valid partial evidence / the benchmark invocation independently exits zero at
+  p50/p95/max `2.152/2.528/3.617 ms`, generation/accepted/rejected
+  `1099/1099/0`, and p95 `<128 ms` PASS.
+- correction / after lifecycle review persistence, run each test/example with
+  an explicit argument path/reporter and capture independent exit/totals.

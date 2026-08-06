@@ -5877,3 +5877,28 @@ hidden reasoning is not.
   No production/test/UI code is edited while lifecycle review remains active.
 - Authenticated issue audit confirms #2/#3/#5/#6/#8 are still open and the epic
   checks only completed #4/#7. No premature closure or checkbox mutation.
+
+### E-583 - Plugin lifecycle re-review passes
+
+- Independent retained Sol/ultra reviewer returns PASS at exact clean/detached
+  `3dca8628eb43029ea35980e869da1a44d21b053a`, with no new P0-P3 finding and
+  gate-relevant P0/P1/P2 all zero.
+- Producer admission, exact Busy drops, callback atomic guards and static
+  registration close. Destructor boundedness and the real lifecycle harness
+  remain explicit issue-#8 deferrals with their residual risks intact.
+- Plugin/queue/processor/FIFF/output/restart source behavior remains coherent;
+  UI absence is intentionally later scope. Persist/push before GitHub closure
+  and UI work-session creation.
+
+### E-584 - Final focused replay harness records one manager error
+
+- Canonical Release builds of core, focused plugin test and example all succeed.
+  The first table-driven run passes an empty ArgumentList to the no-argument
+  example, so PowerShell rejects that launch and leaves a stale exit value; do
+  not claim example evidence from this attempt.
+- Core/plugin launches return zero but redirected reporter files are empty, so
+  no QtTest totals are inferred. The independently launched benchmark is valid:
+  p50/p95/max `2.152/2.528/3.617 ms`, generation/accepted/rejected
+  `1099/1099/0`, performance gate PASS.
+- Correct the manager harness with explicit per-executable invocations after
+  persisting lifecycle PASS; no code/dependency/server mutation is involved.

@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-07T03:27:52+08:00
+Last updated: 2026-08-07T03:30:16+08:00
 
 ## Recovery order
 
@@ -690,3 +690,10 @@ same-responsibility implementation conversations that may receive review fixes.
   FIFF-free focused Widgets/Test seam. Exact control/label object names and
   typed widget signals are now frozen in SPEC; no UI code is dispatched before
   lifecycle PASS. Issues #2/#3/#5/#6/#8 remain open without checkbox changes.
+- `R-PLUGIN-DATA-002` returns PASS at exact clean/detached SHA
+  `3dca8628eb43029ea35980e869da1a44d21b053a`: new P0/P1/P2/P3 are all zero.
+  The SPSC producer, Busy drop accounting, atomic lock-free and static
+  registration findings are closed. Destructor boundedness and the real-plugin
+  lifecycle harness remain explicitly deferred, not fixed, under open issue #8.
+  The teaching UI gate is now released; first persist/publish this review and
+  close issue #5, then dispatch the prepared Luna/max RED tracer.

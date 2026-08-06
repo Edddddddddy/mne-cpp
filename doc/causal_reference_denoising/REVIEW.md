@@ -820,3 +820,34 @@ tracked.
   their shared prerequisite is a supported host/toolchain lifecycle harness.
 - Re-review a fresh exact snapshot. PASS still requires P0/P1 zero and every P2
   either closed or durably deferred; UI remains out of scope until then.
+
+### Plugin data/lifecycle formal re-review - R-PLUGIN-DATA-002
+
+- Snapshot: exact clean/detached
+  `3dca8628eb43029ea35980e869da1a44d21b053a`.
+- Decision: PASS. New findings P0=0, P1=0, P2=0, P3=0; gate-relevant open
+  P0/P1/P2 counts are all zero.
+- `R-PLUGIN-SPSC-PRODUCER-001`: CLOSED. Zero-to-one admission, provisional
+  invalidation release and stop/restart quiescence preserve the queue SPSC seam.
+- `R-PLUGIN-ADMISSION-DROP-001`: CLOSED. Busy counts exact matrix cardinality
+  without metadata or queue work; Closed stays silent; Entered retains one
+  metadata snapshot and one push attempt per matrix.
+- `R-PLUGIN-ATOMIC-LOCKFREE-001`: CLOSED. C++14 actual-width atomic guards are
+  compiled and cover the callback admission/drop member types.
+- `R-PLUGIN-STATIC-REGISTRATION-001`: CLOSED. Static-only link/import and the
+  populated generated project reference are coherent; shared behavior and qrc
+  handling are unchanged.
+- `R-PLUGIN-DESTRUCTOR-BOUND-001`: explicitly DEFERRED, not fixed, to open issue
+  #8. The local bounded-stop contract plus memory-safe unbounded destructor
+  fallback is acceptable for this MVP; the residual hang risk remains visible.
+- `R-PLUGIN-LIFECYCLE-TEST-001`: explicitly DEFERRED, not fixed, to open issue
+  #8, which owns the supported-toolchain real-plugin lifecycle/teardown matrix.
+- Regression audit finds no change to queue/processor/test blobs, no stale FIFF
+  ownership path, no additional dependency seam and no late-output/restart
+  regression. Teaching UI is later scope and its absence is not a finding.
+- Evidence attribution: independent review is source/provenance only. Manager
+  MOC, callback oracle, MSVC14.29 syntax and static configure remain manager
+  evidence; the existing MSVC14.51 Qt/mne_fiff pre-plugin block remains an
+  environment boundary rather than runtime evidence.
+- Gate consequence: issue #5 may close with issue #8 linked, and the teaching UI
+  TDD sequence may begin.
