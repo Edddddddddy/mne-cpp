@@ -6356,3 +6356,16 @@ hidden reasoning is not.
   the missing lifecycle-runtime harness.
 - Read-back confirms all three markers and state OPEN. The deferral remains for
   runtime harness/terminal ownership work, not for basic compilation.
+
+### E-630 - Durable reconciliation pushed; final reviewer progresses
+
+- Commit and push the pending STATE/JOURNAL issue-#8 reconciliation as
+  `e6e507736`; integration and remote branch remain synchronized, with only the
+  three preserved user paths untracked.
+- One bounded event wait times out while `R-PLUGIN-UI-001` remains active. Its
+  latest commentary confirms the deep concrete setup-view/plugin seam and that
+  the two authorized UI-wiring files are byte-stable from integration through
+  the exact review snapshot. No finding, blocker or input request is present.
+- Stop polling. Read-only issue audit confirms #6, #3 and epic #2 are the only
+  MVP issues awaiting the final gate; #8 remains OPEN by design. Closure order
+  is #6, #3, then #2 only after a proactive PASS.

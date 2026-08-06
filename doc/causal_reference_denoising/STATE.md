@@ -860,3 +860,8 @@ same-responsibility implementation conversations that may receive review fixes.
 - #8's environment rationale is also current: default MSVC14.51/Qt remains
   blocked, compatible v142 real target now links, and that compile/link evidence
   is explicitly not the missing lifecycle-runtime harness.
+- Durable issue-#8 reconciliation is committed/pushed as `e6e507736`. Final
+  read-only UI reviewer `R-PLUGIN-UI-001` remains active at exact snapshot
+  `7a33d537b`; its latest bounded event report confirms the intended deep
+  view/adapter seam and exact two-file blob stability with no finding or blocker.
+  Do not poll again; await the proactive gate response before closing #6/#3/#2.
