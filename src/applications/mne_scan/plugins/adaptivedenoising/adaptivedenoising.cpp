@@ -26,9 +26,11 @@
 #include <Eigen/Core>
 
 #include <atomic>
+#include <climits>
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <type_traits>
 
 //=============================================================================================================
 // USED NAMESPACES
@@ -60,6 +62,31 @@ constexpr std::uint32_t kProducerEpochMask = 0x7FFF0000u;
 constexpr std::uint32_t kProducerEpochStep = 0x00010000u;
 constexpr std::uint32_t kProducerClosedBit = 0x80000000u;
 
+enum class ProducerAdmission : std::uint8_t {
+    Entered,
+    Busy,
+    Closed
+};
+
+template<typename UnsignedInteger>
+constexpr bool mapsToAlwaysLockFreeStandardAtomic() noexcept
+{
+    return (std::is_same<UnsignedInteger, unsigned char>::value && ATOMIC_CHAR_LOCK_FREE == 2)
+        || (std::is_same<UnsignedInteger, unsigned short>::value && ATOMIC_SHORT_LOCK_FREE == 2)
+        || (std::is_same<UnsignedInteger, unsigned int>::value && ATOMIC_INT_LOCK_FREE == 2)
+        || (std::is_same<UnsignedInteger, unsigned long>::value && ATOMIC_LONG_LOCK_FREE == 2)
+        || (std::is_same<UnsignedInteger, unsigned long long>::value && ATOMIC_LLONG_LOCK_FREE == 2);
+}
+
+static_assert(sizeof(std::uint32_t) * CHAR_BIT == 32,
+              "Adaptive Denoising producer admission requires an exact 32-bit unsigned type.");
+static_assert(sizeof(std::uint64_t) * CHAR_BIT == 64,
+              "Adaptive Denoising drop accounting requires an exact 64-bit unsigned type.");
+static_assert(mapsToAlwaysLockFreeStandardAtomic<std::uint32_t>(),
+              "Adaptive Denoising producer admission requires always-lock-free uint32 atomics.");
+static_assert(mapsToAlwaysLockFreeStandardAtomic<std::uint64_t>(),
+              "Adaptive Denoising drop accounting requires always-lock-free uint64 atomics.");
+
 } // NAMESPACE
 
 //=============================================================================================================
@@ -74,13 +101,13 @@ public:
     public:
         explicit ProducerGuard(Impl& impl) noexcept
         : m_impl(impl)
-        , m_entered(m_impl.tryEnterProducer())
+        , m_admission(m_impl.tryEnterProducer())
         {
         }
 
         ~ProducerGuard()
         {
-            if(m_entered) {
+            if(m_admission == ProducerAdmission::Entered) {
                 m_impl.leaveProducer();
             }
         }
@@ -88,42 +115,48 @@ public:
         ProducerGuard(const ProducerGuard&) = delete;
         ProducerGuard& operator=(const ProducerGuard&) = delete;
 
-        explicit operator bool() const noexcept
+        ProducerAdmission admission() const noexcept
         {
-            return m_entered;
+            return m_admission;
         }
 
     private:
-        Impl& m_impl;
-        bool  m_entered;
+        Impl&             m_impl;
+        ProducerAdmission m_admission;
     };
 
-    bool tryEnterProducer() noexcept
+    ProducerAdmission tryEnterProducer() noexcept
     {
         std::uint32_t observed = producerState.load(std::memory_order_acquire);
-        // Accept only the zero-to-one transition so concurrent callbacks cannot violate the queue's SPSC
-        // producer precondition.
-        if((observed & kProducerClosedBit) != 0u
-           || (observed & kProducerCountMask) != 0u) {
-            return false;
+        if((observed & kProducerClosedBit) != 0u) {
+            return ProducerAdmission::Closed;
+        }
+        if((observed & kProducerCountMask) != 0u) {
+            return ProducerAdmission::Busy;
         }
 
+        const std::uint32_t requestedEpoch = observed & kProducerEpochMask;
         const std::uint32_t entered = observed + 1u;
         if(!producerState.compare_exchange_strong(observed,
                                                   entered,
                                                   std::memory_order_acq_rel,
                                                   std::memory_order_acquire)) {
-            return false;
+            if((observed & kProducerClosedBit) != 0u
+               || (observed & kProducerEpochMask) != requestedEpoch) {
+                return ProducerAdmission::Closed;
+            }
+            return ProducerAdmission::Busy;
         }
 
         const std::uint32_t confirmed = producerState.load(std::memory_order_acquire);
         if((confirmed & (kProducerClosedBit | kProducerEpochMask))
            != (entered & kProducerEpochMask)) {
+            // This provisional Entered owns the successful zero-to-one transition until it reports Closed.
             leaveProducer();
-            return false;
+            return ProducerAdmission::Closed;
         }
 
-        return true;
+        return ProducerAdmission::Entered;
     }
 
     void leaveProducer() noexcept
@@ -447,7 +480,8 @@ QString AdaptiveDenoising::getBuildInfo()
 void AdaptiveDenoising::update(Measurement::SPtr pMeasurement)
 {
     Impl::ProducerGuard producerGuard(*m_impl);
-    if(!producerGuard) {
+    const ProducerAdmission admission = producerGuard.admission();
+    if(admission == ProducerAdmission::Closed) {
         return;
     }
 
@@ -457,8 +491,14 @@ void AdaptiveDenoising::update(Measurement::SPtr pMeasurement)
         return;
     }
 
-    const QSharedPointer<const FiffInfo> info = input->info();
     const QList<Eigen::MatrixXd>& matrices = input->getMultiSampleArray();
+    if(admission == ProducerAdmission::Busy) {
+        m_impl->droppedBlocks.fetch_add(static_cast<std::uint64_t>(matrices.size()),
+                                        std::memory_order_relaxed);
+        return;
+    }
+
+    const QSharedPointer<const FiffInfo> info = input->info();
     for(const Eigen::MatrixXd& matrix : matrices) {
         const AdaptiveDenoisingQueuePushStatus status = m_impl->queue.tryPush(matrix, info);
         if(status != AdaptiveDenoisingQueuePushStatus::Pushed) {

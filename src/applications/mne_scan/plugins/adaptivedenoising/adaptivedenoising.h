@@ -40,6 +40,10 @@ class ADAPTIVEDENOISINGSHARED_EXPORT AdaptiveDenoising final
 
 public:
     AdaptiveDenoising();
+    /**
+     * stop() is bounded and may fail, so the host must retry and quiesce callbacks before destruction. The
+     * destructor deliberately waits as the memory-safe terminal fallback tracked by issue #8.
+     */
     ~AdaptiveDenoising() override;
 
     QSharedPointer<SCSHAREDLIB::AbstractPlugin> clone() const override;
