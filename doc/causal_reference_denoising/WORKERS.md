@@ -5674,6 +5674,25 @@ does not continuously poll them.
   left integration HEAD/status unchanged with no CMake/MSBuild process. Retry
   the two actions separately with a normal build timeout.
 
+### BUILD RESPONSE W-QUEUE-V2-GREEN-001-FIX-1
+
+- Integration: worker delta `33b3eea1d` cherry-picked as `c87762e97`; exactly
+  one queue source and five identifier replacements.
+- Build: focused Release target `test_adaptive_denoising_plugin` compiles and
+  links successfully to `out/Release/apps/test_adaptive_denoising_plugin.exe`.
+  Only pre-existing Eigen C4819 codepage warnings occur.
+- Runtime: the complete executable was invoked three times (default, `-v1`,
+  and explicit text-output attempt) and every invocation returned process exit
+  zero. This test binary suppresses QtTest console/file reporting in the local
+  harness, so totals are derived from the public test structure: prior 14/0/0
+  plus the new variable-row/native-metadata slot gives effective 15/0/0; source
+  contains no QSKIP/QEXPECT_FAIL/QFAIL path.
+- Coverage includes all processor mapping/disarm/reset/boundary cases and all
+  queue FIFO/drop-newest/metadata, stop/reconfigure, invalid-state preservation
+  and mixed 2/4/3-row top-left/tail/extents/native-owner cases.
+- `R-QUEUE-QT-SLOTS-001` closes. Fresh independent Sol/ultra formal review is
+  still required before issue #5 closes.
+
 ### RESPONSE W-QA-CORE-CONTRACT-001
 
 - Requested full base recorded in the original task:

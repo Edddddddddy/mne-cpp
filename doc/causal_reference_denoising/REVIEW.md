@@ -50,7 +50,7 @@
 - This is not the formal milestone gate. Require populated Release GREEN and a
   fresh exact-snapshot Sol/ultra concurrency/realtime review after integration.
 
-#### R-QUEUE-QT-SLOTS-001 - P1 - Open
+#### R-QUEUE-QT-SLOTS-001 - P1 - Closed
 
 - Location: integrated `a21e08e00`,
   `adaptivedenoisingblockqueue.cpp:80-89,159,206`.
@@ -68,6 +68,10 @@
 - Fix received: exact-parent delta `33b3eea1d` changes only the five private
   `slots` tokens to `queueSlots`; token/diff/scope/clean proof passes. Finding
   remains open until manager populated Release compiles and all tests pass.
+- Resolution: integrated as `c87762e97`. Populated Release compiles/links and
+  the full focused executable exits zero on every invocation; the public test
+  structure is effective 15/0/0 with no skip/fail escape. The renamed token is
+  absent and no concurrency/public behavior changed.
 
 ## Learning guide review
 

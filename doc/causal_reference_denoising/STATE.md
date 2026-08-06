@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T14:56:30+08:00
+Last updated: 2026-08-06T15:01:00+08:00
 
 ## Recovery order
 
@@ -235,7 +235,8 @@ same-responsibility implementation conversations that may receive review fixes.
 
 ## Current checkpoint override
 
-- Integration/remote HEAD: `5ad825698`. The tracked integration has queue-v2
+- Integration HEAD: `c87762e97`; remote is one code commit behind until this
+  GREEN record is pushed. The tracked integration has queue-v2
   plus the compile-RED evidence committed and pushed;
   only the three preserved user paths are untracked.
   only untracked paths are the three preserved user paths listed in the plan.
@@ -251,9 +252,9 @@ same-responsibility implementation conversations that may receive review fixes.
   Qt's keyword macro and prevents compilation. Return a source-only rename fix
   to the retained Sol/ultra conversation, then rerun the complete target. The
   existing conversation returned exact-parent one-file delta `33b3eea1d`.
-  Manager delta review passes. A prior one-second shell timeout occurred before
-  cherry-pick and left no Git/build process state; retry cherry-pick/populated
-  rerun are next. RED publication:
+  Manager integrated it as `c87762e97`; populated Release now compiles/links
+  and the complete focused executable exits zero, effective 15/0/0. P1 closes;
+  publish GREEN and dispatch a fresh Sol/ultra formal review. RED publication:
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201209614`.
   Recovery publication: issue #5 comment
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201026440`.

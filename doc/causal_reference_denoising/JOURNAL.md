@@ -4139,3 +4139,13 @@ hidden reasoning is not.
   reported complete; isolated runtime remains unavailable due ignored Eigen.
 - Next: manager compare real-parent/current blobs, inspect full delta, then run
   populated Release/Debug before closing `R-CORE-LOCALITY-001`.
+
+### E-395 - Queue-v2 Qt fix integrated and focused Release GREEN
+
+- Delta `33b3eea1d` integrated as `c87762e97`, one source/name-only change.
+- Focused Release target compiles/links successfully; only existing Eigen
+  codepage warnings remain. Complete executable exits zero on all invocations.
+- Effective suite is 15/0/0: the earlier 14/0/0 behavior plus the queue-v2
+  mixed-row/native-metadata slot, with no skip/fail escape in source.
+- P1 `R-QUEUE-QT-SLOTS-001` is closed. Next: push/publish GREEN and dispatch
+  a fresh exact-snapshot Sol/ultra queue-v2 formal review.
