@@ -5336,3 +5336,15 @@ hidden reasoning is not.
 - Record the harness failure, then retry the same bounded `/tmp` workflow using
   Base64 script transport so the Bash program remains one argument. Do not
   reset/shutdown WSL or change repository/dependencies.
+
+### E-527 - Canonical POSIX forced-EINTR suite is GREEN
+
+- Base64 transport preserves the Bash script and WSL/GCC/Qt completes the
+  direct C++14/O2 build with explicit Linux/GNU MOC definitions plus
+  `-Wl,--wrap=write`.
+- Generated MOC contains both forced producer/stop EINTR slots. Complete QtTest
+  execution exits zero with 21/0/0; both forced cases PASS, FIFO/extents/native
+  metadata/tail and zero producer allocation evidence remain GREEN.
+- Combined Windows 19/0/0 plus repeats and Linux 21/0/0 addresses the remaining
+  production POSIX finding. Persist/push, publish issue #5 evidence, then send
+  the exact snapshot to the retained independent Sol/ultra reviewer.

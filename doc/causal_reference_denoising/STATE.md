@@ -584,3 +584,15 @@ same-responsibility implementation conversations that may receive review fixes.
   integration defect. Persistent WSL unavailability may explicitly defer the
   forced-EINTR Linux runtime evidence but does not block Windows engineering
   MVP acceptance.
+
+### Queue validation checkpoint
+
+- Private POSIX correction `f7c22717e` is integrated and pushed. Canonical
+  Windows MSVC/Qt focused suite is 19/0/0 plus three repeat zero exits.
+- Canonical WSL Ubuntu/GCC/Qt direct build uses Linux/GNU MOC guards and
+  `-Wl,--wrap=write`; both forced producer/stop EINTR slots are registered and
+  the complete suite is 21/0/0. Current Linux SPSC traffic retains zero counted
+  producer allocations.
+- Production `R-QUEUE-ATOMIC-POSIX-EINTR-001` is manager-addressed with runtime
+  evidence. A retained independent Sol/ultra exact-snapshot review is now the
+  sole remaining queue gate before integrating plugin lifecycle.

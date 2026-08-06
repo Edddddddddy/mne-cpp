@@ -692,3 +692,21 @@ tracked.
   The Linux-only slots remain unexecuted because WSL cannot start; this is an
   environment limitation, not a GREEN claim. Test-sensitivity finding closed;
   production `R-QUEUE-ATOMIC-POSIX-EINTR-001` remains open.
+
+#### R-QUEUE-ATOMIC-POSIX-EINTR-001 - P2 - Addressed pending formal review
+
+- Original evidence: one POSIX nonblocking `write` may return pre-transfer
+  `EINTR` without leaving a pipe byte, allowing a consumer to remain in a
+  full-caller-timeout `poll` after publication or stop.
+- Production correction: integration `f7c22717e` caps only POSIX consumer
+  `poll` calls to 25 ms. The existing outer deadline and atomic sequence/
+  running rechecks are unchanged. Windows wait, `tryPush`, `stop` and POSIX
+  signal executable code remain unchanged; producer/stop still make exactly
+  one nonblocking signal attempt without retry, wait, lock or allocation.
+- Verification: canonical Windows MSVC/Qt reports 19/0/0 plus three repeat
+  zero exits. WSL GCC/Qt with GNU `--wrap=write`, explicitly guarded MOC and
+  both forced EINTR slots reports 21/0/0. Payload/tail/native metadata and
+  complete Stopped preservation gates all pass.
+- Status: manager-addressed with source and cross-platform runtime evidence;
+  independent Sol/ultra reviewer must confirm closure and the overall queue
+  P0-P2 gate.

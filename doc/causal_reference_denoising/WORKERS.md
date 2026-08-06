@@ -7404,3 +7404,19 @@ does not continuously poll them.
 - Corrective action: transmit the exact script as Base64 to one bounded Bash
   process, retain `/tmp` cleanup and the explicit MOC slot-name checks, then
   run the wrapped executable once. No repository/vendor/WSL-state mutation.
+
+### VALIDATION W-QUEUE-POSIX-EINTR-GREEN-001 - POSIX forced EINTR
+
+- Base64 transport fixes only the host quoting harness; the same bounded `/tmp`
+  compile/run uses repository source read-only and cleans all temporary output.
+- MOC is explicitly given Linux/GNU predefines; manager verifies both exact
+  forced slot names in generated output before compilation. GCC 13.2/Qt 5.15.13
+  compiles with C++14/O2/pthreads and links GNU `--wrap=write`.
+- Complete WSL Ubuntu run exits zero with 21 passed, zero failed/skipped/
+  blacklisted. Both `queuePopsPromptlyAfterInterruptedProducerSignal` and
+  `queueStopsPromptlyAfterInterruptedStopSignal` PASS.
+- SPSC sample is pushed/full/popped 373/139/373, max producer call 16.466 us,
+  zero counted producer allocations; stop wake 50 ms and forced stop wait are
+  within their prompt bounds.
+- Combined manager evidence is Windows 19/0/0 plus three repeat exits and POSIX
+  21/0/0 including both forced EINTR cases. Dispatch exact-snapshot formal review.
