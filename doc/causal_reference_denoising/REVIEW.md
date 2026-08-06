@@ -758,6 +758,11 @@ tracked.
 - Impact: concurrent/reentrant data loss is silently undercounted.
 - Required fix/test: typed Busy/Closed result; prompt Busy rejection that never
   enters `tryPush`, but counts every matrix exactly and preserves admitted FIFO.
+- Correction response: worker commit `2b571453da2` adds translation-unit-private
+  Closed/Busy/Entered admission. Busy counts exact RTMSA matrix cardinality with
+  no metadata/queue access; Entered retains the frozen path; Closed is silent.
+  MOC/C++14 syntax/source oracles pass. Addressed pending manager integration and
+  fresh formal review; runtime harness remains explicitly deferred to #8.
 
 #### R-PLUGIN-LIFECYCLE-TEST-001 - P2 - Deferred candidate
 
@@ -796,6 +801,10 @@ tracked.
 - Impact: a future architecture may silently introduce a library lock.
 - Required fix/test: architecture-sensitive C++14 type/macro assertions compiled
   with the real source.
+- Correction response: `2b571453da2` maps actual uint32/uint64 aliases through
+  C++14 standard atomic lock-free macros and requires value two at compile time;
+  MSVC 14.29 C++14 `/Zs` accepts the exact source. Addressed pending integration/
+  formal review.
 
 ### Plugin lifecycle action decision
 

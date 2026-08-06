@@ -7786,6 +7786,33 @@ does not continuously poll them.
   the required transition/callback/evidence response.
 - boundary / do not add tests, CMake, harnesses or UI and do not relabel syntax/
   source proof as lifecycle runtime evidence. One noninterrupting message only.
+- dispatch / app accepts the message on the same Sol/ultra thread; worker stops
+  expansion after current MOC/compiler/source checks and proactively responds.
+
+### RESPONSE W-PLUGIN-ADMISSION-FIX-001-RETRY-1
+
+- parent / exact `48672b02eb35de300a046079028e96ec6d1b25b6`
+- commit / `2b571453da200af02ee437bbcac0a545021786cb`
+- scope / exactly `adaptivedenoising.h/.cpp`, 61 insertions/17 deletions;
+  detached clean worker state and diff-check pass.
+- transitions / Closed bit or close/epoch-invalidated CAS is Closed with no count
+  ownership and silent return; open nonzero count or same-epoch failed CAS is
+  Busy with no ownership; confirmed zero-to-one CAS is Entered and guard-owned;
+  invalidated post-CAS releases its provisional owned count before Closed.
+- callback / Closed returns before RTMSA type inspection. Busy dynamically
+  identifies RTMSA, obtains only its existing matrix list and atomically counts
+  exact cardinality; no `info()`/`tryPush`. Entered retains one `info()` snapshot,
+  one `tryPush` per matrix and one increment per non-Pushed result.
+- realtime/locality / no admission retry, lock, wait, string, FIFF selection or
+  queue call; translation-unit-private state machine adds no public strategy.
+- atomic/destructor / portable C++14 type/macro assertions require always-lock-
+  free actual uint32/uint64 atomics. Header documents bounded-stop failure,
+  required host retry/quiescence and issue #8 memory-safe terminal wait.
+- verification / Qt 5.15.2 MOC exit zero (4,310 bytes); MSVC 14.29 C++14 `/Zs`
+  exit zero with only existing Eigen C4819 warnings; deterministic source oracle
+  passes. These are not lifecycle runtime evidence.
+- next / manager direct provenance/transition/source review, integration and
+  fresh exact-snapshot Sol/ultra lifecycle review.
 
 ### REQUEST W-PLUGIN-STATIC-001
 

@@ -5784,3 +5784,14 @@ hidden reasoning is not.
 - Prepare one noninterrupting finalize message: commit/prove the current exact
   scope and respond, without adding tests/CMake/harness/UI or new validation
   branches. Await the proactive result afterward.
+
+### E-574 - Admission/drop/atomic correction response received
+
+- New Sol/ultra worker proactively returns exact-parent, exact-two-file commit
+  `2b571453da200af02ee437bbcac0a545021786cb` with typed Closed/Busy/Entered,
+  exact Busy matrix drop accounting, C++14 lock-free guards and local issue #8
+  destructor contract.
+- Qt MOC and MSVC 14.29 C++14 syntax checks pass; deterministic source oracle
+  confirms Busy has no info/push and Entered preserves one info/one push site.
+- These are source/compile, not lifecycle runtime evidence. Persist before
+  manager object/diff/state-machine review and integration.

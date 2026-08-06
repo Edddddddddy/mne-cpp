@@ -668,3 +668,6 @@ same-responsibility implementation conversations that may receive review fixes.
 - Static registration is integrated as `78d443144`: static mne_scan now links
   `scan_adaptivedenoising` and imports `AdaptiveDenoising`, with no shared-build
   or qrc change. Admission/drop/atomic source correction remains active.
+- Admission/drop/atomic worker returns exact-parent two-file commit
+  `2b571453da200af02ee437bbcac0a545021786cb`; manager review/integration is next.
+  Worker MOC and MSVC 14.29 C++14 syntax checks pass; no lifecycle runtime claim.
