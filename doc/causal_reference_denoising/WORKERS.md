@@ -6393,3 +6393,5 @@ does not continuously poll them.
 - Decision: replace only issue #5 body with the current public seam, atomic SPSC
   wake design, completed public-test evidence, active Sol task and remaining
   allocation/re-review gates. Preserve title, issue number and open state.
+- Result: `gh issue edit` succeeds; authenticated `gh issue view` read-back
+  confirms the replacement body and unchanged title/number/open state.

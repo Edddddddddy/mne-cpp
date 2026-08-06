@@ -384,3 +384,5 @@ same-responsibility implementation conversations that may receive review fixes.
   exists yet. Exact dispatch is published and read back at
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202544531`;
   await proactive response without polling.
+  GitHub issue #5 body now matches this frozen atomic contract; authenticated
+  read-back confirms the stale QSemaphore deliverable is removed.

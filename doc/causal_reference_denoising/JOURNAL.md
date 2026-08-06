@@ -4511,3 +4511,11 @@ hidden reasoning is not.
 - Update #5 after this decision is durable: retain the public four-method seam,
   replace implementation wording with release/acquire SPSC plus native sticky
   wake, and record current test/worker/review gates.
+
+### E-435 - Issue #5 atomic contract corrected
+
+- GitHub issue body update succeeds and read-back confirms the public seam,
+  rejection of Windows Qt QSemaphore, atomic/event/pipe replacement, current
+  test GREEN, active Sol task and remaining allocation/formal-review gates.
+- Issue #5 remains open with its original title/number; no gate is closed
+  prematurely.
