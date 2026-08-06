@@ -3863,3 +3863,16 @@ hidden reasoning is not.
   restart ordering and callback no-wait/no-mutex requirement.
 - Scope remains design-only. Plugin implementation still waits for queue-v2
   GREEN and will receive this contract in its exact REQUEST.
+
+### E-367 - Plugin data-lifecycle implementation requested
+
+- Request: `W-PLUGIN-DATA-001`, visible Sol/ultra task adding the real plugin
+  target, connectors, preallocated ingress, producer quiescence, worker-only
+  FIFF mapping/default processor configuration and FIFO RTMSA output.
+- Parallel safety: it cannot edit queue/processor/tests and manager integrates
+  it only after queue-v2 GREEN. UI/settings/reset/freeze/diagnostics controls
+  remain a separate later Luna task.
+- Verification policy: target-local/static evidence is acceptable under the
+  recorded Qt/MSVC dependency blocker; no vendor/full-scan/server workaround.
+- Next: commit/push the request, create/publicly dispatch the exact-base worktree
+  and await only its proactive RESPONSE.

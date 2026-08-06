@@ -5243,3 +5243,84 @@ does not continuously poll them.
 - No app-owned worktree was manually deleted or modified. Future queue tests
   require a new minimal Luna/max conversation; the Sol/ultra production task
   remains active for the same-context implementation/review loop.
+
+### REQUEST W-PLUGIN-DATA-001
+
+- From / to: manager / new visible plugin-data lifecycle conversation.
+- GitHub issue: `Edddddddddy/mne-cpp#6`.
+- Model/environment: `gpt-5.6-sol`, `ultra`, new saved-project worktree from
+  the exact integration branch after this request is committed/pushed; no
+  internal/nested subagents or manager polling.
+- Parallel-scope decision: this task must not edit the active queue header/
+  source or focused tests. It adds plugin registration/new plugin files only
+  and codes against the queue-v2 interface already frozen in SPEC. Manager
+  integrates queue-v2 GREEN before this plugin commit.
+- Vertical goal: create the real `adaptivedenoising`/
+  `scan_adaptivedenoising` AbstractAlgorithm adapter with the default numerical
+  settings and complete input-queue-worker-output lifecycle. No teaching UI,
+  pending settings, freeze/reset controls or diagnostics widget in this slice.
+- Build/module files: register `add_subdirectory(adaptivedenoising)` in the
+  plugin root; add narrow CMake, empty Qt plugin metadata JSON, build-info
+  global header/source and `adaptivedenoising.h/.cpp`. Target sources include
+  the existing queue and processor implementations; link only Qt Core/Widgets,
+  `mne_utils`, `mne_fiff`, `mne_rtprocessing`, Eigen, `scShared`, `scMeas`.
+  No icon/resource or dependency copied from noisereduction is required.
+- Identity/interface: one concrete `AdaptiveDenoising : AbstractAlgorithm`
+  with standard Q_OBJECT/Q_PLUGIN_METADATA/Q_INTERFACES, fresh `clone()`, name
+  `Adaptive Denoising`, `_IAlgorithm`, build info and minimal setup widget.
+  Do not change AbstractAlgorithm, noisereduction or add a registry/base seam.
+- `init()`: create one RTMSA input and RTMSA output connector; DirectConnection
+  notify targets `update()`. Set output name. Do not allocate/configure queue in
+  callback or initialize GUI/output from callback.
+- `start()`: if not already running and no prior producer is in flight,
+  configure queue maxima 512x2048/capacity four, preallocate the maximum queued
+  destination, reset worker-only processor/output-layout state, start the
+  QThread, then publish the atomic accepting-input gate. A failed queue config
+  returns false without starting.
+- `update()`: double-check an atomic accepting-input/in-flight producer guard;
+  dynamically accept RTMSA, call `info()` once per notification, then perform
+  exactly one queue `tryPush(matrix, info)` for each matrix. No retry, wait,
+  busy loop, FIFF pick, model/settings/reset/output/UI work or plugin mutex.
+  Increment atomic `droppedBlocks` on every non-Pushed result.
+- `stop()`: clear accepting input first, stop/wake the queue, request worker
+  interruption, wait for worker exit, then confirm an already-entered producer
+  has left before a later start may reconfigure the PImpl. Use atomic callback
+  entry/exit and bounded lifecycle-side synchronization; acquisition never
+  waits. Stop is idempotent and clears output after quiescence.
+- `run()`: waitPop with a finite interruptible timeout; on each Popped block,
+  copy only returned extents into a worker-owned exact `MatrixXd`. Treat null
+  metadata or inconsistent `nchan`/`chs.size()`/row count/nonfinite-positive
+  sampling rate as invalid and never apply an old model. For valid metadata,
+  build the data-only descriptor from `chs[row].kind` and
+  `bads.contains(ch_name)` only on the worker.
+- Reconfigure: new metadata pointer, sampling frequency, row count, block
+  width or initial state configures a fresh processor with default 4 taps,
+  interval 128, memory 30 s and regularization 1e-3. Invalid/missing layout
+  disarms via processor contract and forwards unchanged. If configure throws,
+  catch on worker, deliberately disarm using an invalid descriptor and forward
+  unchanged; never use preserved old ownership on new metadata.
+- Process/output: v1 default mode is ApplyAndLearn. Only processor-selected
+  targets may change. Initialize/reinitialize RTMSA output on new valid
+  metadata and emit exact blocks FIFO with multi-array size one. Queue metadata
+  stays `QSharedPointer<const FiffInfo>`; the sole permitted const-cast is the
+  legacy output `initFromFiffInfo` call, and metadata is never mutated. Null
+  metadata cannot safely initialize output and is not emitted as a mislabeled
+  block.
+- Authorized files only: plugin-root `CMakeLists.txt` plus new/previously
+  absent `adaptivedenoising/{CMakeLists.txt,adaptivedenoising.h,
+  adaptivedenoising.cpp,adaptivedenoising_global.h,
+  adaptivedenoising_global.cpp,adaptivedenoising.json}`. Existing processor/
+  queue files are read-only. No UI form/setup class, tests, core/docs/vendor.
+- Verification: exact scope/diff/clean checks and static contract audit. Attempt
+  only target-local configure/build if possible; current MSVC14.51/Qt5.15.2
+  may fail in existing mne_fiff/rtprocessing dependencies. Report that exact
+  environment limitation without vendor repair or false GREEN. Never run full
+  mne_scan or mne_rt_server.
+- Required response: `RESPONSE W-PLUGIN-DATA-001` with exact base/commit,
+  file/dependency/interface list, callback and stop-race proof, descriptor/
+  configure/disarm/output behavior, evidence/limitation, clean status and
+  Sol/ultra/no-subagents/no-manager-poll/no-full-scan/no-rt_server confirmation.
+  Proactively notify manager and stop.
+- Lifecycle: retain until manager integration and plugin-data review determine
+  whether a same-context correction is needed.
+- Status: recorded before visible task creation.
