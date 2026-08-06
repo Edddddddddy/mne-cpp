@@ -6914,6 +6914,16 @@ does not continuously poll them.
   `update_issue` call with one replacement body, then authenticate the result by
   independent `gh issue view` read-back.
 
+### RESOLVED EPIC-2-DOC-CHECK
+
+- Before any connector write, an independent authenticated `gh issue view`
+  shows the epic body already contains checked `#7`. At least one prior command
+  therefore mutated the remote body despite returning a local argument error or
+  ambiguous nonzero status.
+- Treat remote read-back as authoritative. Cancel the prepared connector write;
+  do not risk a duplicate/stale body replacement. Epic remains open with #4/#7
+  checked and #5/#6/#3 unchecked.
+
 ### DISCUSSION SPEC-QUEUE-ATOMIC-CONSISTENCY-001
 
 - The later atomic-correction section was authoritative, but the earlier

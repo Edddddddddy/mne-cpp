@@ -485,7 +485,9 @@ same-responsibility implementation conversations that may receive review fixes.
   `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5203274698`.
   The completed reusable Luna/max documentation thread is app-archived without
   manual worktree deletion. Epic #2 should now mark the documentation milestone
-  complete.
+  complete. Independent authenticated read-back now confirms epic #2 already
+  contains `[x] #7`; no further epic mutation is needed despite the local CLI
+  error outputs from the attempted multi-line edits.
 - After queue review passes: integrate/formally review plugin data, implement
   programmatic minimal UI, add focused block-boundary settings/lifecycle
   evidence, run final targets/review, update and close issues #5/#6/#7/#3/#2.

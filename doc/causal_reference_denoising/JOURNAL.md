@@ -4783,6 +4783,14 @@ hidden reasoning is not.
   typed issue update for the one checkbox mutation, followed by independent CLI
   read-back.
 
+### E-472 - Epic #2 remote read-back resolves ambiguous CLI result
+
+- Independent authenticated issue-body read now shows `[x] #7`, so the desired
+  remote state exists despite the local parser/error outputs. The exact command
+  that completed cannot be proven from CLI status alone.
+- Cancel the connector write and avoid overwriting a newer body. Record remote
+  read-back as authoritative; epic remains open with documentation complete.
+
 ### E-466 - Atomic queue formal re-review returns HOLD
 
 - Retained Sol/ultra reviewer returns exact clean/read-only `9535bf8c7` gate:
