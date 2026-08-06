@@ -5059,3 +5059,11 @@ hidden reasoning is not.
   queued same-responsibility use (atomic POSIX fix, final queue review, SPEC
   wording). Archive each one-shot task after durable integration/evidence; do
   not manually delete app-owned worktrees.
+
+### E-497 - First fresh stop-timing task ends in system error
+
+- App reports visible Luna/max task `019fd71e-6cf2-7e52-a410-29c374cb0e09`
+  completed with `systemError`; the only visible final state is an earlier
+  progress message and a file-change marker. No final RESPONSE/commit exists.
+- Treat the task as failed, accept no code, archive it without worktree
+  inspection/deletion, and dispatch one fresh Luna/max exact-base one-file retry.

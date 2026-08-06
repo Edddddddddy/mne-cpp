@@ -6777,6 +6777,25 @@ does not continuously poll them.
   checking only for a usable read-only populated baseline and otherwise will
   return the limitation explicitly. No response/commit is accepted yet.
 
+### FAILURE W-QUEUE-STOP-WAIT-TEST-001
+
+- Visible Luna/max thread `019fd71e-6cf2-7e52-a410-29c374cb0e09` completes with
+  app status `systemError` after a file-change marker but without a final
+  RESPONSE or commit identity. No worker output is accepted and manager does
+  not inspect/copy its worktree.
+- Archive this failed one-shot conversation and create a new visible Luna/max
+  retry from the same exact committed source base and one-file scope.
+
+### REQUEST W-QUEUE-STOP-WAIT-TEST-001-RETRY-1
+
+- Same requirement as `W-QUEUE-STOP-WAIT-TEST-001`: exact base
+  `8539c8e8564c0bee5da00023817f77e50d2212c1`, focused test source only, measure
+  the complete consumer stopped-wait call and assert `>=5 ms` and `<1500 ms`
+  after join while preserving all existing public concurrency oracles.
+- Use a fresh visible Luna/max worktree/conversation. Commit before any optional
+  runtime workaround; if isolated Eigen blocks build, return the clean exact
+  commit and let manager run the populated canonical target.
+
 ### Conversation cleanup rule reaffirmed
 
 - User again requires timely cleanup. Archive every one-shot/failed/spent
