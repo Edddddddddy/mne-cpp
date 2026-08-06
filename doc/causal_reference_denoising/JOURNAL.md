@@ -3545,3 +3545,10 @@ hidden reasoning is not.
   worker status and all acceptance evidence are durable.
 - Next: commit/push precheck, archive the completed visible worker through the
   app only, then record the retirement.
+
+### E-337 - Processor boundary worker archived
+
+- App archived visible thread `019fd333-c569-79b1-b2c5-2d5343388357` after
+  exact blob, Release and GitHub evidence became durable.
+- Safety: no manual app-owned worktree deletion or mutation; future work uses
+  a new minimal Luna/max conversation.

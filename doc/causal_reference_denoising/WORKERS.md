@@ -4594,6 +4594,14 @@ does not continuously poll them.
   one-shot processor boundary thread may be app-archived without deleting or
   mutating its worktree.
 
+### RESPONSE W-QA-PROC-BOUNDARY-001-RETIRE
+
+- App archived completed visible thread
+  `019fd333-c569-79b1-b2c5-2d5343388357` successfully after exact content and
+  GREEN prechecks.
+- No manual worktree deletion or mutation occurred; any later processor test
+  edit must use a new minimal Luna/max task.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread
