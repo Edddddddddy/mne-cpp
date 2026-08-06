@@ -6408,3 +6408,12 @@ does not continuously poll them.
   p50/p95/max `2.725/4.317/8.557 ms`, explicitly engineering evidence.
 - Public finding/read-back:
   `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5202684965`.
+
+### DISCUSSION SPEC-QUEUE-ATOMIC-CONSISTENCY-001
+
+- The later atomic-correction section was authoritative, but the earlier
+  adapter-seam paragraph still named QSemaphore. It is corrected in place to
+  the same release/acquire sequence plus one native wake contract.
+- Metadata failure is clarified: valid FiffInfo with invalid layout/settings is
+  exact pass-through; structurally unusable/null metadata disarms and is not
+  emitted under stale labels because no safe RTMSA output metadata exists.

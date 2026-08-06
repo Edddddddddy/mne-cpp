@@ -4541,3 +4541,11 @@ hidden reasoning is not.
   historical checkpoint sections. It records synchronized branch state, the
   sole atomic-queue blocker, held plugin commits, prepared allocation/review
   gates, guide corrections and remaining integration order.
+
+### E-439 - SPEC queue seam made internally consistent
+
+- Removed the remaining early QSemaphore prescription and aligned it with the
+  frozen lock-free sequence plus native sticky-wake design.
+- Clarified output safety: valid metadata/layout failures pass through; malformed
+  metadata is disarmed and suppressed instead of being published with stale
+  channel labels.

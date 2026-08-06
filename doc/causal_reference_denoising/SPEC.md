@@ -216,7 +216,10 @@ existing `noisereduction`, AdaptiveTSSS, or `AbstractAlgorithm` interface.
 
 - References: good `FIFFV_REF_MEG_CH` channels.
 - Targets: good `FIFFV_MEG_CH` channels.
-- Missing/invalid layouts: safe pass-through with diagnostics.
+- Structurally valid metadata with missing/invalid channel layout or settings:
+  safe pass-through with diagnostics. Null/internally inconsistent `FiffInfo`
+  cannot label an RTMSA output safely; disarm and suppress that block rather
+  than emitting it under stale metadata.
 - Input callback: one non-blocking queue push; if full, drop the newest block
   and increment `droppedBlocks` instead of busy-waiting.
 - UI/settings/reset: serialized at worker block boundaries.
@@ -232,13 +235,15 @@ retry in a busy loop. Changing that global type would broaden risk to unrelated
 plugins. `adaptivedenoising` instead owns two private, focused components:
 
 - A bounded single-producer/single-consumer block queue preallocates its slot
-  array. `tryPush(block, fiffInfo)` performs exactly one
-  `QSemaphore::tryAcquire(1, 0)`; on failure it returns immediately so the
-  plugin can atomically increment `droppedBlocks` and drop that newest block.
-  On success the slot deep-copies the matrix before the measurement callback
-  returns and retains the shared immutable metadata pointer. There is no retry,
-  sleep, busy wait or settings/model work in the callback. Worker-side pop may
-  use an interruptible/timed wait; clear/resize occurs only while stopped.
+  array. `tryPush(block, fiffInfo)` performs one lock-free SPSC capacity check;
+  on Full it returns immediately so the plugin can atomically increment
+  `droppedBlocks` and drop that newest block. On success the slot deep-copies
+  the matrix before the measurement callback returns, retains the shared
+  immutable metadata pointer, release-publishes the producer sequence and makes
+  one nonblocking native wake attempt. There is no retry, sleep, busy wait,
+  Qt semaphore/mutex or settings/model work in the callback. Worker-side pop
+  may use the configure-created interruptible/timed native wait; slot/resource
+  replacement occurs only while stopped and caller-quiesced.
 - A worker-owned adapter processor resolves good reference/target rows from
   `FiffInfo`, owns `CausalReferenceDenoiser`, compares layout/settings at each
   dequeued block boundary, and either reconfigures transactionally or forwards
