@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T16:55:00+08:00
+Last updated: 2026-08-06T16:59:00+08:00
 
 ## Recovery order
 
@@ -272,6 +272,8 @@ same-responsibility implementation conversations that may receive review fixes.
   admission; integration remains ordered after the atomic queue gate.
   Finding/request publication:
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5201795105`.
+  The retained visible thread accepted `W-PLUGIN-DATA-001-FIX-1` with
+  Sol/ultra on exact worker parent `5f4718722`; manager will not poll it.
 - Existing non-overlapping tasks still await proactive responses without
   polling: `W-QA-CORE-CONTRACT-001` and `W-DOC-001`. Recovery found the complete
   one-file learning-guide response/commit `c558acbf8`, now awaiting manager

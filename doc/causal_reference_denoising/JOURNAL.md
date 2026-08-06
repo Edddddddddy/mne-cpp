@@ -4338,3 +4338,10 @@ hidden reasoning is not.
   narrow zero-or-one admission fix on retained Sol/ultra thread.
 - Next: send the already-durable follow-up; do not poll or integrate plugin
   before both this fix and the atomic queue gate pass.
+
+### E-416 - Plugin SPSC admission fix dispatched
+
+- Existing plugin-data thread accepted the exact-parent one-source-file fix
+  with Sol/ultra; no duplicate task/worktree was created.
+- Manager will not poll or touch that source. Continue only disjoint docs or
+  queue coordination until the worker proactively responds.
