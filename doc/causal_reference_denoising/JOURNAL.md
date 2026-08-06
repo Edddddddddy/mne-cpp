@@ -5067,3 +5067,12 @@ hidden reasoning is not.
   progress message and a file-change marker. No final RESPONSE/commit exists.
 - Treat the task as failed, accept no code, archive it without worktree
   inspection/deletion, and dispatch one fresh Luna/max exact-base one-file retry.
+
+### E-498 - Failed timing task archived; fresh retry accepted
+
+- App archives failed thread `019fd71e-6cf2-7e52-a410-29c374cb0e09`; manager
+  neither reads nor deletes its worktree and consumes none of its changes.
+- Fresh exact-base Luna/max setup
+  `client-new-thread:c101f7af-8999-4032-8fd3-387441e0a909` is accepted with the
+  same one-file elapsed-wait requirement. It must commit before optional build
+  investigation and proactively return its response.

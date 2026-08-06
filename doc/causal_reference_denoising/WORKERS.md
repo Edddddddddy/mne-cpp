@@ -6785,6 +6785,8 @@ does not continuously poll them.
   not inspect/copy its worktree.
 - Archive this failed one-shot conversation and create a new visible Luna/max
   retry from the same exact committed source base and one-file scope.
+- Cleanup complete: failed thread is app-archived; its worktree is not manually
+  deleted and no file/commit from it is consumed.
 
 ### REQUEST W-QUEUE-STOP-WAIT-TEST-001-RETRY-1
 
@@ -6795,6 +6797,9 @@ does not continuously poll them.
 - Use a fresh visible Luna/max worktree/conversation. Commit before any optional
   runtime workaround; if isolated Eigen blocks build, return the clean exact
   commit and let manager run the populated canonical target.
+- Corrected setup accepted as
+  `client-new-thread:c101f7af-8999-4032-8fd3-387441e0a909` with explicit
+  Luna/max. Await proactive response without polling or worktree inspection.
 
 ### Conversation cleanup rule reaffirmed
 
