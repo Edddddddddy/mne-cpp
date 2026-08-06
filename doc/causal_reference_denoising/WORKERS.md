@@ -4513,6 +4513,35 @@ does not continuously poll them.
 - Coordination: manager will not poll or overlap either authorized core file;
   await only the proactive structured response after public issue dispatch.
 
+### RESPONSE W-QA-CORE-CONTRACT-001-PUBLISH-RETRY
+
+- The previously available GitHub connector method was not callable in the
+  current tool isolate (`TypeError: ... is not a function`) before any remote
+  mutation occurred.
+- Decision: record the failure, then use authenticated `gh issue comment` as
+  the permitted fallback and read back the resulting issue comment before
+  treating the dispatch as public.
+
+### RESPONSE W-QA-PROC-BOUNDARY-001
+
+- From / to: visible Luna/max processor-boundary worker / manager; source
+  thread `019fd333-c569-79b1-b2c5-2d5343388357`.
+- Exact base/commit: `8030221b51c5ba38d2f6d4c4e7c46c6420c055e7` /
+  `203e33f7f0eb0a11d46056ab2bf61111aeb0d116`; parent is exact and the
+  detached worktree is reported clean.
+- Scope: only the focused plugin test source; one data-driven public-interface
+  slot plus provider, insert-only 73 lines. Existing slots and all 19 invalid/
+  missing/P=288 learned-model disarm cases remain unchanged.
+- Ready rows: taps 32 -> R/M/P 1/1/32; interval 2048, memory 1, memory 300 and
+  regularization 1 -> 1/1/4; exact P=256 uses eight good REF_MEG rows, one good
+  MEG target and taps 32 -> 8/1/256. Every row uses a fresh processor and checks
+  both configure result and committed snapshot.
+- Worker verification: diff/scope checks pass. Isolated build is honestly not
+  claimed because the ignored Eigen baseline is absent; no vendor repair.
+  Luna/max, no subagent, polling, full scan/full mne_scan or rt_server.
+- Status: response durable before manager provenance/code review, integration
+  or populated focused execution.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread

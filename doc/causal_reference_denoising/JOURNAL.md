@@ -3490,3 +3490,25 @@ hidden reasoning is not.
   contract, deleted copy/move and compile-time ownership/noexcept verification.
 - Next: commit/push creation evidence, publish/read back issue #3 and do not
   poll or overlap the core header/test files.
+
+### E-332 - Core contract public dispatch connector unavailable
+
+- Attempt: publish `W-QA-CORE-CONTRACT-001` to issue #3 through the previously
+  available GitHub connector.
+- Result: local tool isolate reports the connector method is not callable; no
+  remote mutation occurred.
+- Decision: commit/push this failure and use authenticated `gh` as the GitHub
+  skill fallback, then read back the exact comment.
+
+### E-333 - Processor boundary QA response received
+
+- Actor: visible Luna/max thread
+  `019fd333-c569-79b1-b2c5-2d5343388357` and manager.
+- Delta: exact-parent `203e33f7f`, one focused test file/73 insertions, adding
+  fresh-processor data rows for taps 32, interval 2048, memory 1/300,
+  regularization 1 and exact R/M/P=8/1/256.
+- Preservation: worker reports existing slots and all 19 invalid/missing/P=288
+  disarm cases unchanged; isolated runtime remains honestly blocked by the
+  known ignored Eigen gap without repair.
+- Next: commit/push response, inspect exact diff/oracle sensitivity, then
+  integrate and run the populated full focused Release target only if accepted.
