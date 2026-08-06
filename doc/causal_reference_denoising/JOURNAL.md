@@ -6014,3 +6014,14 @@ hidden reasoning is not.
 - Isolated worktree CMake stops at its absent ignored Eigen baseline before the
   intended missing-widget compilation. Persist before manager Git/diff review;
   reproduce actual RED only in the populated integration workspace.
+
+### E-596 - UI tracer review and populated RED pass
+
+- Exact Git parent/scope/blob review accepts worker commit `57310185f`; the
+  initial unescaped `git cat-file ^{commit}` check has a harmless PowerShell
+  argument error, while independent rev-list/diff-tree/blob checks pass.
+- Conflict-free integration creates `c5eef427d`. Populated CMake configures the
+  real Eigen baseline and fails generation exactly on the absent future
+  `adaptivedenoisingsetupwidget.cpp`, establishing the intended public-seam RED.
+- No production/widget/dependency file exists or is changed. Persist/push and
+  publish before dispatching a separate Luna/max GREEN worker.

@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-07T03:47:34+08:00
+Last updated: 2026-08-07T03:48:57+08:00
 
 ## Recovery order
 
@@ -727,3 +727,9 @@ same-responsibility implementation conversations that may receive review fixes.
   Isolated CMake is blocked by the known absent Eigen baseline before target
   generation, so no compile RED/GREEN is claimed. Manager provenance/diff
   review, integration and populated intended-RED reproduction are next.
+- Manager accepts and integrates the tracer as `c5eef427d`. Populated CMake
+  reaches the intended RED: generation fails only because
+  `adaptivedenoisingsetupwidget.cpp` is absent. The Eigen baseline configures,
+  so no unrelated dependency masks the test. Next blocking task is a separate
+  Luna/max `W-PLUGIN-UI-GREEN-001` production implementation from this pushed
+  RED base; the tracer remains immutable.

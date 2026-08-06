@@ -8205,6 +8205,42 @@ does not continuously poll them.
   focused configure/build to prove the absent production UI seam, then dispatch
   a separate Luna/max GREEN implementation task.
 
+### REVIEW W-PLUGIN-UI-TEST-001
+
+- harness note / the first combined provenance command passes PowerShell's
+  unescaped `^{commit}` suffix incorrectly to `git cat-file`, producing only an
+  object-check usage error. It changes nothing; `rev-list`, `diff-tree`,
+  committed diff-check and blob reads independently prove the exact object,
+  parent and scope.
+- provenance / commit parent is exact
+  `4cec85cbe6ed53bb07e5ebdf8f6de96675e7c204`; paths are exactly the authorized
+  testframe registration plus new CMake/test source; committed diff-check passes.
+- test surface / one public-interface QtTest uses findChild object names,
+  control values, typed widget signals and `setDiagnostics`; it does not parse
+  source or inspect plugin PImpl/private state.
+- diagnostics / standard-layout/trivially-copyable/copy/scalar assertions are
+  sensitive to forbidden QString/container/owner additions; labels and exact
+  status/count/RMS/drop text match SPEC.
+- dependency / target links only Qt Core/Widgets/Test and Eigen and references
+  only the future widget/diagnostics production files. No manager P0-P3 finding.
+- decision / ACCEPT and integrate; reproduce populated RED before any GREEN
+  worker creation.
+
+### INTEGRATION / RED W-PLUGIN-UI-TEST-001
+
+- integration / conflict-free cherry-pick creates exact integration commit
+  `c5eef427d9d71ccf2923bec07164b57372829585`; only the three tracer paths are
+  added and preserved user paths remain untouched.
+- populated configure / Eigen 3.4.0 configures successfully and CMake reaches
+  the focused target, then generation fails at its first absent production
+  source:
+  `src/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingsetupwidget.cpp`.
+- classification / intended RED. No missing Eigen/vendor or unrelated target
+  masks the widget seam; no GREEN or executable result is claimed.
+- next / persist/push RED, publish issue #6 evidence, archive the one-shot test
+  worker after proof, and create a new visible Luna/max production task with the
+  integrated tracer immutable.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are
