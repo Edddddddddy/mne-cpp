@@ -6184,3 +6184,12 @@ does not continuously poll them.
   stop/quiescence/handle cleanup, public stress/lifetime tests, Windows post-
   configure allocation count and bounded producer latency. Luna tests land
   before the Sol implementation request.
+
+### PUBLISH QUEUE-ATOMIC-SEAM-001
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201877301`.
+- Authenticated `gh` write/API read-back exactly record the unchanged public
+  seam, lock-free sequence ordering, Windows event/POSIX pipe selection,
+  rejected condition-variable alternatives, required evidence and test-first
+  dispatch order.

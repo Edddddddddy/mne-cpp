@@ -4380,3 +4380,12 @@ hidden reasoning is not.
 - SPEC records ordering, wraparound, lock-free/build, stop/quiescence,
   no-allocation and stress/allocation/latency evidence. Production task waits
   for the active Luna public-test response/integration.
+
+### E-420 - Atomic queue private seam published
+
+- Issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201877301`.
+- API read-back confirms the unchanged public interface, exact atomic/event/
+  pipe design, lost-wake reasoning, producer constraints and evidence gate.
+- Continue awaiting proactive Luna test response without polling; production
+  dispatch remains intentionally blocked on its integration.
