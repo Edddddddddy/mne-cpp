@@ -8156,6 +8156,18 @@ does not continuously poll them.
 - cleanup / app archival only; no app worktree is manually removed. The active
   visible code task set is now only `W-PLUGIN-UI-TEST-001`.
 
+### WAIT W-PLUGIN-UI-TEST-001-001
+
+- mechanism / one 60-second cursor-aware app wait after issue publication and
+  final focused replay.
+- result / timeout with the Luna/max worker active; no input/approval request,
+  RED evidence, commit or final response.
+- progress / worker confirms lifecycle PASS released the gate and is reading
+  exact widget names, signals, diagnostics, fresh-widget contract and the
+  Widgets/Test/Eigen-only seam before the review ledger/journal tail.
+- next / no repeated polling. Await proactive response; do not inspect its
+  worktree or dispatch production before the RED result is integrated.
+
 ### PUBLICATION R-PLUGIN-DATA-002 / CLOSURE ISSUE-5
 
 - review comment / issue #5

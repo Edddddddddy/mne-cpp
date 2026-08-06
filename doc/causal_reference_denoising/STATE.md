@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-07T03:38:41+08:00
+Last updated: 2026-08-07T03:40:25+08:00
 
 ## Recovery order
 
@@ -714,3 +714,6 @@ same-responsibility implementation conversations that may receive review fixes.
   queue review and plugin lifecycle review conversations are app-archived. The
   only active code task is UI tracer thread
   `019fd892-ff55-7903-ab3e-25890ccb10b5`; app worktrees are not manually deleted.
+- One bounded wait shows the UI tracer active and still performing its mandated
+  recovery/contract read. It has not reported RED, a commit or a blocker. Do not
+  poll again; await its proactive response while preserving the three-file scope.

@@ -5967,3 +5967,11 @@ hidden reasoning is not.
 - Their commits, tests, findings and publications are already durable, and no
   same-responsibility correction remains. No app-managed worktree is manually
   deleted. Only the Luna/max UI tracer remains active.
+
+### E-591 - One bounded UI tracer wait shows contract recovery
+
+- A single 60-second cursor-aware wait times out without RED/commit/blocker.
+  Luna/max is still active and reports only required recovery/contract reading,
+  including stable widget seam and three-file RED-only scope.
+- Treat this as progress, not an implementation result. Do not poll again or
+  inspect the worker worktree; await the proactive structured response.
