@@ -4585,3 +4585,11 @@ hidden reasoning is not.
   transactional RAII and no-lock/no-allocation producer path.
 - No manager P0-P3 opens. Commit acceptance, then cherry-pick and run the
   populated canonical Windows target before dispatching the allocation tracer.
+
+### E-444 - Atomic queue canonical run exits zero; reporter file missing
+
+- Integrated `3ff146836`; populated Release target compiles/links. Main run and
+  five repeats all return zero.
+- Requested absolute Qt text-output file was not created, so result-file read
+  reports a nonterminating file-not-found. Do not invent totals; persist this
+  limitation and retry reporter capture once without another build.

@@ -6412,6 +6412,18 @@ does not continuously poll them.
   Release plus repeats, separate allocation tracer and formal reviewer remain
   before closing `R-QUEUE-V2-QSEMAPHORE-001`.
 
+### VALIDATION W-QUEUE-ATOMIC-GREEN-001-ATTEMPT-1
+
+- Integration: atomic production is cherry-picked as `3ff146836`; exact
+  two-file diff-check passes.
+- Canonical populated Release target compiles/links. The main invocation and
+  five immediate complete repeat invocations all return zero.
+- Reporter retrieval limitation: Qt did not create the requested absolute temp
+  `-o ...,txt` file, so `Get-Content` produced a nonterminating file-not-found
+  error and no manager-emitted total is claimed from this attempt. Retry the
+  reporter once from the temp working directory without rebuilding; worker's
+  independent Windows/WSL 19/0/0 remains durable.
+
 ### RETIREMENT-READY W-QUEUE-ATOMIC-TEST-001
 
 - Thread `019fd5fa-f207-7fe3-9189-8d77fc9cfade` is one-shot. Exact commit,
