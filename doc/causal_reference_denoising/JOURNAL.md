@@ -3672,3 +3672,16 @@ hidden reasoning is not.
   exactly records the mixed-row/native metadata tracer and expected RED.
 - Coordination: do not poll or edit the focused test source; continue only
   disjoint manager design/verification until proactive response.
+
+### E-350 - Real rtprocessing link blocker reproduced narrowly
+
+- Command: generated Release `mne_rtprocessing.vcxproj`, dependency project
+  rebuild disabled, single MSBuild worker/minimal log; no application/server.
+- Failure: Qt 5.15.2 `qlist.h:915` and `qvector.h:960` cannot resolve removed
+  `stdext::make_checked_array_iterator` under MSVC 18/14.51 (`C2653/C3861`).
+  Existing rtaoemeg/rtcov/rtinvop/MOC dependency paths instantiate it; the new
+  denoiser is absent from the error chain.
+- Decision: mark `R-CORE-LINK-001` environment-deferred exactly as final-QA
+  permits. Do not patch vendor; require compatible-toolchain link smoke later
+  and keep local focused Release/Debug/example/benchmark evidence.
+- Next: commit/push evidence and publish/read back issue #3.

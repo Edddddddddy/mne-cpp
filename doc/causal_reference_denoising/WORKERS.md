@@ -4678,6 +4678,23 @@ does not continuously poll them.
   previously expected Qt/FIFF failure evidence. A later retry must use a narrow
   verbose/logged client-link target or bounded MSBuild invocation.
 
+### VALIDATION R-CORE-LINK-001-ATTEMPT-2
+
+- Manager directly invoked the generated Release
+  `mne_rtprocessing.vcxproj` with `BuildProjectReferences=false`, one MSBuild
+  worker and minimal logging; no full application/server target ran.
+- Result: deterministic compile failure in installed Qt 5.15.2 headers under
+  MSVC 18/14.51. `QtCore/qlist.h:915` and `qvector.h:960` reference missing
+  `stdext::make_checked_array_iterator` (`C2653`, `C3861`).
+- Triggering existing sources include `rtaoemeg.cpp`, `rtcov.cpp`,
+  `rtinvop.cpp` and generated MOC code through existing FIFF/MNE/inverse Qt
+  container equality instantiations. The new denoiser is not in the diagnostic
+  chain; Eigen produces only known C4819 warnings.
+- Classification: confirmed pre-existing toolchain/vendor incompatibility.
+  Per plan, do not patch Qt/vendor or widen this feature. Retain focused direct-
+  source Release/Debug/example/benchmark evidence and defer actual shared/static
+  client-link smoke to a compatible Qt/MSVC environment.
+
 ### DISCUSSION PLUGIN-INGRESS-002
 
 - Evidence: production input owns `QSharedPointer<FiffInfo>`; `info()` returns a

@@ -30,6 +30,10 @@ zero failures and one intentional Debug-only guard skip; Debug reports 45
 passes, zero failures/skips. The measured synthetic result is 58.6541 dB noise
 reduction and 0.000113195 clean projection-amplitude error. Formal review has
 P0/P1/P2 zero open; two P3 integration items remain tracked.
+The actual `mne_rtprocessing` Release project-link probe is now reproducibly
+blocked by the existing Qt 5.15.2 `qlist/qvector` use of removed MSVC `stdext`
+iterators. `R-CORE-LINK-001` is explicitly environment-deferred per issue #3;
+vendor Qt is unchanged and focused direct-source evidence remains authoritative.
 
 The engineering-first processor milestone is implemented and focused GREEN.
 The concrete plugin-private processor maps good REF_MEG/MEG rows, disarms old

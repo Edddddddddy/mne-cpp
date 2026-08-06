@@ -75,7 +75,7 @@ core gate is held for one P2 test-evidence finding; two P3s remain tracked.
 - Requested later fix: compact Doxygen contract, explicit copy/move policy and
   C++14 trait/noexcept compile checks.
 
-#### R-CORE-LINK-001 - P3 - Open
+#### R-CORE-LINK-001 - P3 - Environment-deferred
 
 - Location: focused test `CMakeLists.txt:13-16,27-39`; library
   `CMakeLists.txt:25,52,67`.
@@ -83,14 +83,24 @@ core gate is held for one P2 test-evidence finding; two P3s remain tracked.
   detect real shared/static library export/client-link regressions.
 - Requested later fix: retain isolated test and add a small supported-form
   `mne_rtprocessing` client-link smoke before final integration.
+- Current-environment evidence: direct Release build of the generated
+  `mne_rtprocessing.vcxproj` with dependency-project rebuild disabled fails in
+  installed Qt 5.15.2 `qlist.h:915` / `qvector.h:960` because MSVC 18/14.51 no
+  longer provides `stdext::make_checked_array_iterator` (`C2653`, `C3861`).
+  Existing `rtaoemeg`, `rtcov`, `rtinvop` and MOC dependency paths trigger the
+  error; no new denoiser source is implicated.
+- Disposition: explicitly deferred to a compatible toolchain, as allowed by
+  final-QA issue #3. Do not patch vendor Qt. Focused direct-source tests,
+  example and benchmark remain the local verification seam.
 
 ### Formal core gate decision
 
 - P0: zero.
 - P1: zero.
 - P2: zero open; `R-CORE-FORGET-001` closed by independent analytic evidence.
-- P3: `R-CORE-LOCALITY-001` and `R-CORE-LINK-001` tracked for later
-  integration.
+- P3: `R-CORE-LOCALITY-001` is under final-QA correction;
+  `R-CORE-LINK-001` is explicitly environment-deferred with reproducible Qt/
+  MSVC evidence.
 - Decision: numerical core may proceed to plugin-data TDD.
 
 ### Diagnostics seam pre-review
