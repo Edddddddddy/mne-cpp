@@ -6047,3 +6047,12 @@ hidden reasoning is not.
 - The worker owns only diagnostics/widget/CMake. Plugin wiring and immutable
   tracer are excluded; await proactive response without worktree inspection or
   continuous polling.
+
+### E-599 - Teaching widget GREEN identity and dispatch published
+
+- One identity-only app listing resolves the Luna/max setup to visible active
+  thread `019fd8a2-5324-7342-818b-7836cd1a0379` in worktree `0443`.
+- Issue #6 comment/read-back publishes the exact RED base, four-file scope,
+  immutable tracer/plugin h/cpp and later Sol wiring split at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208713549`.
+- Await proactive response; no polling or manager-side widget edits.

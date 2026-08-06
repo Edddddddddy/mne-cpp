@@ -8308,6 +8308,10 @@ does not continuously poll them.
   archive the one-shot task and delete the merged ref afterward without
   manually deleting its app worktree.
 - state / asynchronous setup accepted; await proactive response without polling.
+- resolved thread / one identity-only listing maps setup to visible active
+  `019fd8a2-5324-7342-818b-7836cd1a0379`, app worktree `0443`.
+- public dispatch / issue #6 comment/read-back:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208713549`.
 
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 

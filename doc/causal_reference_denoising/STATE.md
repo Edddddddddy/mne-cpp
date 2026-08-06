@@ -742,3 +742,6 @@ same-responsibility implementation conversations that may receive review fixes.
   `client-new-thread:b4a1fa59-623e-40cf-b6a8-f00057a9b97e` from exact RED base
   `7da5d498d113f9adc710dd426f2270619142f4da`, using Luna/max. Await proactive
   response; immutable plugin h/cpp and tracer files must remain untouched.
+- Final visible widget thread is `019fd8a2-5324-7342-818b-7836cd1a0379` in app
+  worktree `0443`; dispatch is published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208713549`.
