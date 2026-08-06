@@ -5324,3 +5324,18 @@ does not continuously poll them.
 - Lifecycle: retain until manager integration and plugin-data review determine
   whether a same-context correction is needed.
 - Status: recorded before visible task creation.
+
+### RESPONSE W-PLUGIN-DATA-001-CREATE
+
+- Result: visible saved-project worktree setup accepted asynchronously.
+- Client setup ID:
+  `client-new-thread:bb93c4e1-6aa9-4ee4-9d52-de30ff1b0489`; host `local`.
+- Model: `gpt-5.6-sol`, `ultra`, matching the concurrency/lifecycle risk.
+- Exact requested base:
+  `8c51ea4ce86bdd6a377f7f87e4ef693de4893491`.
+- Prompt integrity: exact seven-file scope, read-only queue/processor/tests,
+  narrow target dependencies, complete connector/start-update-stop/run/FIFF/
+  exception/output contract, atomic producer quiescence, no UI and all no-
+  subagent/no-poll/no-full-scan/no-rt_server restrictions are present.
+- Coordination: no final thread ID returned. Manager will not poll and awaits
+  only the proactive structured RESPONSE; queue-v2 integrates first.

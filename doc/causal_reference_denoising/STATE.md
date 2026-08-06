@@ -205,6 +205,9 @@ add the real `scan_adaptivedenoising` target and default-settings data
 lifecycle only. It may code against the frozen queue-v2 interface while the
 queue worker owns the two queue files; integration remains ordered queue GREEN
 first, plugin data second. UI/settings widgets remain a later Luna task.
+Its visible worktree setup is accepted as
+`client-new-thread:bb93c4e1-6aa9-4ee4-9d52-de30ff1b0489` from exact requested
+base `8c51ea4ce`.
 
 ## Focused verification targets
 

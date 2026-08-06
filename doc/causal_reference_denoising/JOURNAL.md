@@ -3876,3 +3876,13 @@ hidden reasoning is not.
   recorded Qt/MSVC dependency blocker; no vendor/full-scan/server workaround.
 - Next: commit/push the request, create/publicly dispatch the exact-base worktree
   and await only its proactive RESPONSE.
+
+### E-368 - Plugin data-lifecycle task creation accepted
+
+- App accepted a visible Sol/ultra worktree setup as
+  `client-new-thread:bb93c4e1-6aa9-4ee4-9d52-de30ff1b0489` from exact branch
+  state `8c51ea4ce`.
+- Prompt preserves the seven-file target/adapter scope and forbids editing the
+  active queue implementation. Integration order remains queue-v2 GREEN first.
+- Next: commit/push creation evidence, publish/read back issue #6 and await only
+  the proactive RESPONSE while manager continues disjoint verification.
