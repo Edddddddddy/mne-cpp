@@ -956,3 +956,13 @@ Carried P2 dispositions:
 
 Gate-relevant open findings after disposition: P0=0, P1=0, P2=0. Final UI/
 integration gate passes; #8 remains open after MVP issue closure.
+
+### Final engineering-MVP disposition
+
+- #6 plugin/UI: CLOSED after `R-PLUGIN-UI-001` PASS.
+- #3 final QA: CLOSED after exact compatible real-target link and all focused
+  Release/Debug/example/benchmark evidence.
+- #2 epic: CLOSED; every planned MVP child is complete.
+- #8 follow-up: OPEN; owns the two carried P2 residuals and their required real-
+  plugin lifecycle/terminal teardown work.
+- Final gate-relevant counts: P0=0, P1=0, P2=0. No P2 is silently waived.

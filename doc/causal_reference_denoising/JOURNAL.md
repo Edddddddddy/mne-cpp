@@ -6403,3 +6403,26 @@ hidden reasoning is not.
 - Existing destructor-boundedness and real-plugin-lifecycle-test P2 findings are
   durably deferred to OPEN #8 and explicitly remain unfixed. The gate permits
   publishing and closing #6, then #3, then epic #2; #8 must stay OPEN.
+
+### E-634 - GitHub engineering-MVP issues closed
+
+- Update issue #6 final status, publish its review/build/test gate at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5209144966`,
+  and close #6.
+- Update final-QA #3, publish exact compatible-target and all regression evidence
+  at `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5209145335`,
+  and close #3.
+- Update epic #2, mark #6/#3 complete, publish the engineering acceptance at
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5209145742`,
+  and close #2. Authenticated read-back confirms #2/#3/#6 CLOSED and #8 OPEN.
+
+### E-635 - Final reviewer cleanup and delivery readiness
+
+- App-archive completed read-only reviewer task
+  `019fd8d8-c239-7941-b57b-ce57c8f55269` after its proactive PASS.
+- Review snapshot `7a33d537b` is an ancestor of current integration and no
+  registered worktree attaches `codex/review-ui-final-base`; delete only that
+  local temporary ref. Do not manually remove the app-managed directory.
+- Final branch remains synchronized with origin and the three user-owned
+  untracked paths remain preserved. The engineering MVP is ready for user
+  acceptance; issue #8 remains the explicit later follow-up.

@@ -878,3 +878,21 @@ same-responsibility implementation conversations that may receive review fixes.
   shared/static wiring and evidence attribution. Existing P2 destructor-bound
   and real-plugin-lifecycle-harness gaps remain explicitly deferred to OPEN #8,
   not fixed. Publish the gate, then close #6, #3 and epic #2 in that order.
+
+## Final acceptance checkpoint
+
+- Engineering MVP status: ACCEPTED.
+- Closed in order: plugin/UI #6, final QA #3, epic #2. Final evidence comments:
+  - #6: `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5209144966`;
+  - #3: `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5209145335`;
+  - #2: `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5209145742`.
+- Follow-up #8 is confirmed OPEN for the two explicitly deferred P2 lifecycle/
+  terminal-teardown items; neither is claimed fixed by MVP acceptance.
+- Final reviewer task is app-archived. Its local-only start ref
+  `codex/review-ui-final-base` is deleted after zero-attached-worktree and
+  reviewed-snapshot ancestor proofs; no app-managed worktree was manually removed.
+- Integration and remote branch are synchronized. Only `.codex-build/`,
+  `src/build/` and `doc/mne_scan_technical_document.md` remain untracked and are
+  intentionally preserved as user-owned paths.
+- No conventional PR, full `mne_scan`, `mne_rt_server`, or vendor Qt change was
+  made. The implementation is ready for user acceptance.

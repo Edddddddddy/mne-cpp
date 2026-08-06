@@ -8846,3 +8846,13 @@ does not continuously poll them.
 - evidence boundary / reviewer performed source/provenance/clean-state audit
   only. Exact v142 target link, Release 45/0/0 + 19/0/0 + 3/0/0, example,
   benchmark p95 2.992 ms and Debug numerical results remain manager evidence.
+
+### CLEANUP R-PLUGIN-UI-001
+
+- app archive / completed task `019fd8d8-c239-7941-b57b-ce57c8f55269`
+  archived successfully after its proactive PASS.
+- ref cleanup / local-only `codex/review-ui-final-base` was not attached to any
+  registered worktree; reviewed SHA `7a33d537b` is an ancestor of integration.
+  The ref was deleted. The app-managed directory was not manually removed.
+- retained conversations / none needed for the completed MVP. OPEN #8 will use
+  a new appropriate Sol/ultra lifecycle implementation/review conversation.
