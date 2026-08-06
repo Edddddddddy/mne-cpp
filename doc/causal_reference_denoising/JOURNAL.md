@@ -4366,3 +4366,17 @@ hidden reasoning is not.
   seam is added.
 - Decision: accept for later ordered cherry-pick, after atomic queue gate. Keep
   the P1 open until integrated and covered by the plugin formal milestone.
+
+### E-419 - Atomic queue private wake seam frozen
+
+- Windows source audit rejects Qt QSemaphore and `condition_variable_any` for
+  producer use. An ordinary condition variable without producer locking still
+  admits a lost-notification window despite an atomic predicate.
+- Decision: keep the deep four-method public queue, replace private token
+  ownership with lock-free release/acquire SPSC sequences, and use a sticky
+  configure-created OS wake (Windows auto-reset event, POSIX nonblocking pipe).
+  Producer performs one signal after publication; bounded wait/drain is
+  consumer-only.
+- SPEC records ordering, wraparound, lock-free/build, stop/quiescence,
+  no-allocation and stress/allocation/latency evidence. Production task waits
+  for the active Luna public-test response/integration.

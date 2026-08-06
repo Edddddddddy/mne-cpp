@@ -6166,3 +6166,21 @@ does not continuously poll them.
   No successful path can publish count greater than one.
 - Decision: no finding. Accept the delta for ordered cherry-pick immediately
   after the atomic queue formal gate; do not integrate the plugin early.
+
+### DISCUSSION QUEUE-ATOMIC-SEAM-001
+
+- Installed MSVC 14.51 audit: ordinary `std::condition_variable` stores state
+  in situ and maps notify to noexcept `WakeConditionVariable`, but an unlocked
+  producer still leaves a lost-wake window. `condition_variable_any` is rejected
+  because it allocates a shared mutex and locks that mutex in `notify_one()`.
+- Selected private seam: lock-free monotonic SPSC sequences; Windows auto-reset
+  event created at configure and one `SetEvent` from producer/stop; POSIX
+  nonblocking pipe created at configure, one write attempt from producer/stop,
+  bounded poll/drain on consumer. Sticky state prevents a pre-wait signal loss.
+- Producer hot path remains scalar copy, native-handle move, atomic publication
+  and one nonthrowing/nonblocking OS signal. No QSemaphore/QMutex, capacity
+  wait, allocation, retry loop, public method or strategy seam.
+- Required proof: compile-time lock-free atomics, exact release/acquire order,
+  stop/quiescence/handle cleanup, public stress/lifetime tests, Windows post-
+  configure allocation count and bounded producer latency. Luna tests land
+  before the Sol implementation request.

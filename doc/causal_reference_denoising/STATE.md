@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T17:15:00+08:00
+Last updated: 2026-08-06T17:24:00+08:00
 
 ## Recovery order
 
@@ -344,6 +344,11 @@ same-responsibility implementation conversations that may receive review fixes.
   integration remains held until all queue P0/P1/P2 findings are closed.
   Formal review is public at
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201624132`.
+  Private production correction is frozen without changing the public seam:
+  lock-free SPSC sequence counters plus a configure-created sticky OS wake
+  (Windows auto-reset event; POSIX nonblocking pipe). This removes QSemaphore/
+  QMutex and condition-variable lost-wake risk from the producer path. Dispatch
+  the Sol production task only after the active Luna public tests integrate.
 - `W-QUEUE-ATOMIC-TEST-001` is prepared from exact base `4bb1b2a30` as a
   one-file Luna/max TDD task. It adds overlapping SPSC/FIFO/drop accounting,
   producer/consumer stop and destination-preservation coverage, pending-block

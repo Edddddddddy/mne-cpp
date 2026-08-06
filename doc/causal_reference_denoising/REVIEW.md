@@ -96,6 +96,11 @@
   for slot availability/publication and a preconstructed nonallocating,
   nonblocking consumer/stop notification adapter without weakening the frozen
   acquisition contract.
+- Selected correction: retain the public seam and use lock-free monotonic SPSC
+  sequences plus a configure-created sticky OS wake: Windows auto-reset event/
+  `SetEvent`/bounded wait; POSIX nonblocking pipe/one write attempt/bounded
+  poll+drain. This avoids producer mutexes, allocation, exceptions and the
+  producer-unlocked condition-variable lost-wake window.
 - Required verification: Windows overlapping SPSC stress, post-configure
   allocation counting, FIFO metadata/sequence integrity and bounded producer
   latency; platform/source audit proving no QSemaphore/QMutex producer path.

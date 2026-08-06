@@ -294,6 +294,47 @@ the original exact-row implementation. Its findings must be applied to the
 native-ownership/variable-row implementation, followed by a fresh formal queue
 gate before plugin lifecycle code is accepted.
 
+### Atomic SPSC realtime correction
+
+Formal Windows review proved that Qt 5.15.2 `QSemaphore` selects a
+`QMutex`/`QWaitCondition` fallback, so a zero token timeout still permits an
+internal mutex wait and first-contention allocation. The frozen public queue
+interface remains correct, but its private implementation must not use
+`QSemaphore` or another producer-side locking notification primitive.
+
+- Producer and consumer own monotonic unsigned sequence counters. Producer
+  loads consumer progress with acquire ordering, writes one free slot, then
+  publishes producer progress with release ordering. Consumer performs the
+  symmetric acquire/copy/release sequence. Capacity stays far below half the
+  counter range so unsigned wraparound subtraction remains unambiguous.
+- Counter and running-state atomics must be compile-time lock-free for every
+  built target. The plugin admission gate separately enforces exactly one
+  in-flight DirectConnection producer; the queue does not become MPSC.
+- Consumer wake is a private, preconstructed sticky OS notification. On
+  Windows, configure creates an auto-reset event; producer/stop call one
+  nonthrowing `SetEvent` and consumer uses bounded `WaitForSingleObject`. On
+  POSIX targets, configure creates a nonblocking pipe; producer/stop attempt
+  one byte write, a full pipe already represents a pending wake, and consumer
+  uses bounded `poll` plus a nonblocking drain. No handle or buffer is created
+  after configure.
+- Producer publishes the slot before signalling. Event/pipe state remains
+  pending if notification precedes the consumer wait, avoiding a condition-
+  variable lost-wake window. Consumer rechecks atomic queue/running state
+  before and after a wait, so spurious/coalesced signals do not change FIFO or
+  stop behavior.
+- `tryPush` therefore contains no capacity wait, mutex acquisition, allocation,
+  retry loop or throwing synchronization dependency. Consumer waiting and OS
+  cleanup remain private to worker/configuration lifecycle. Caller producer/
+  consumer quiescence is still required before stopped-PImpl destruction or
+  replacement.
+
+This deepens the existing module without adding an adapter or public method.
+Public tests must cover overlapping SPSC publication, Full accounting, stop
+linearization, pending-block discard/fresh configure, complete Timeout/Stopped
+destination preservation and native metadata control-block lifetime. Windows
+validation also counts allocations after configure and records bounded
+producer-call latency.
+
 ### Frozen plugin caller lifecycle
 
 `AdaptiveDenoising` is the only `AbstractAlgorithm` adapter. It owns the queue,
