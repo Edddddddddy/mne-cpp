@@ -5339,3 +5339,12 @@ does not continuously poll them.
   subagent/no-poll/no-full-scan/no-rt_server restrictions are present.
 - Coordination: no final thread ID returned. Manager will not poll and awaits
   only the proactive structured RESPONSE; queue-v2 integrates first.
+
+### PUBLISH W-PLUGIN-DATA-001-START
+
+- GitHub issue #6 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5200889469`.
+- Authenticated write/API read-back exactly records Sol/ultra model/base/setup,
+  seven-file read-only boundaries, narrow target, callback/producer/worker/
+  metadata lifecycle, queue-first integration, UI non-goal and all restrictions.
+- Status: dispatch is public; manager will not poll or overlap its files.

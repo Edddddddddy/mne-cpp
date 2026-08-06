@@ -3886,3 +3886,12 @@ hidden reasoning is not.
   active queue implementation. Integration order remains queue-v2 GREEN first.
 - Next: commit/push creation evidence, publish/read back issue #6 and await only
   the proactive RESPONSE while manager continues disjoint verification.
+
+### E-369 - Plugin data-lifecycle task published
+
+- Publish/read-back: issue #6 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5200889469`
+  exactly records the Sol/ultra task, scope, connector/quiescence/worker/FIFF/
+  output contract and queue-first integration order.
+- Coordination: no manager edit or polling in the seven-file scope. UI remains
+  undispatched until this data adapter is reviewed.

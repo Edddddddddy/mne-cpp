@@ -208,6 +208,8 @@ first, plugin data second. UI/settings widgets remain a later Luna task.
 Its visible worktree setup is accepted as
 `client-new-thread:bb93c4e1-6aa9-4ee4-9d52-de30ff1b0489` from exact requested
 base `8c51ea4ce`.
+Public dispatch:
+`https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5200889469`.
 
 ## Focused verification targets
 
