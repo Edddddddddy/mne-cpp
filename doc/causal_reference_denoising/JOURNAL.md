@@ -6003,3 +6003,14 @@ hidden reasoning is not.
 - Authenticated read-back confirms issue #5 remains CLOSED/COMPLETED, contains
   PASS/follow-up text, contains no stale review/remaining-acceptance text and
   preserves correct Markdown spacing.
+
+### E-595 - UI RED tracer response received
+
+- Visible Luna/max worker proactively returns exact-parent commit
+  `57310185f31d5095471d6664271148ad8f56f830` with only the three authorized
+  test registration/CMake/source paths and clean/diff-check evidence.
+- The public tracer covers the frozen control/signal/diagnostic widget seam and
+  keeps the target free of FIFF/plugin/shared-measurement dependencies.
+- Isolated worktree CMake stops at its absent ignored Eigen baseline before the
+  intended missing-widget compilation. Persist before manager Git/diff review;
+  reproduce actual RED only in the populated integration workspace.

@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-07T03:42:06+08:00
+Last updated: 2026-08-07T03:47:34+08:00
 
 ## Recovery order
 
@@ -721,3 +721,9 @@ same-responsibility implementation conversations that may receive review fixes.
 - One bounded wait shows the UI tracer active and still performing its mandated
   recovery/contract read. It has not reported RED, a commit or a blocker. Do not
   poll again; await its proactive response while preserving the three-file scope.
+- `W-PLUGIN-UI-TEST-001` now returns exact-parent, exact-three-path commit
+  `57310185f31d5095471d6664271148ad8f56f830`. It covers frozen controls/signals,
+  fixed diagnostics and 14 labels with a Qt/Widgets/Test/Eigen-only target.
+  Isolated CMake is blocked by the known absent Eigen baseline before target
+  generation, so no compile RED/GREEN is claimed. Manager provenance/diff
+  review, integration and populated intended-RED reproduction are next.

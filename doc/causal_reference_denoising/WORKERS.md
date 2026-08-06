@@ -8182,6 +8182,29 @@ does not continuously poll them.
 - next / no repeated polling. Await proactive response; do not inspect its
   worktree or dispatch production before the RED result is integrated.
 
+### RESPONSE W-PLUGIN-UI-TEST-001
+
+- parent / exact `4cec85cbe6ed53bb07e5ebdf8f6de96675e7c204`.
+- commit / `57310185f31d5095471d6664271148ad8f56f830`.
+- scope / exactly `src/testframes/CMakeLists.txt` and new focused UI target
+  `CMakeLists.txt`/`test_adaptive_denoising_ui.cpp`; clean detached status and
+  diff-check pass.
+- tracer / one QtTest public widget behavior path covers every stable control
+  name/default/range, seven typed signal emissions, `setDiagnostics(...)`,
+  scalar/copy/metatype checks and all 14 diagnostic label values.
+- dependency / focused CMake directly references the future widget source/
+  header and diagnostics header and links only Qt Core/Widgets/Test and Eigen;
+  forbidden plugin/FIFF/shared-measurement links are absent.
+- isolated evidence / configure stops before target generation on missing
+  ignored Eigen files `Eigen/src/Core/util/Macros.h` and `scripts/buildtests.in`;
+  the follow-up build has no project. Worker correctly claims neither widget
+  compile RED nor GREEN and does not copy/repair dependencies.
+- restrictions / Luna/max; no subagent, manager polling, full app/server, push
+  or GitHub mutation.
+- manager next / direct Git object/diff/oracle review, cherry-pick, populated
+  focused configure/build to prove the absent production UI seam, then dispatch
+  a separate Luna/max GREEN implementation task.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are
