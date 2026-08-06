@@ -175,7 +175,9 @@ Queue-v2 RED is published at
 `W-QUEUE-V2-GREEN-001` is prepared as the next blocking visible Sol/ultra
 implementation task. It owns only the existing queue header/source; the
 focused RED test is immutable. Manager will record its exact task base after
-the durable request commit and will not poll the task.
+the durable request commit and will not poll the task. App worktree setup is
+accepted as `client-new-thread:97461215-c1b8-488b-90bd-984aad5d9fd3` from exact
+base `9b526eb14`.
 
 The compatible-toolchain follow-up found no usable Visual Studio 2022
 installation: the directory exists but contains no MSBuild/compiler, and
@@ -194,3 +196,7 @@ Do not run `mne_rt_server`.
 The user requested uninterrupted management progress through engineering MVP
 acceptance. Continue across milestones without waiting for routine approval;
 stop only for an authority-expanding blocker or final acceptance handoff.
+
+The user reconfirmed completed-task cleanup on 2026-08-06: archive one-shot
+visible conversations after clean/content/evidence verification; retain only
+same-responsibility implementation conversations that may receive review fixes.

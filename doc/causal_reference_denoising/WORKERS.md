@@ -5176,3 +5176,42 @@ does not continuously poll them.
 - Lifecycle: retain only until manager integration/GREEN and review-driven fix
   determination; archive if no same-context correction remains.
 - Status: recorded before visible task creation.
+
+### SYSTEM FAILURE W-QUEUE-V2-GREEN-001-CREATE-1
+
+- The first app call was rejected locally as `invalid arguments` because the
+  project ID was supplied both at the top level and inside the documented
+  target union. No task, worktree, repository, GitHub or dependency mutation
+  occurred.
+- Decision: retry once using the exact tool schema with project ID only inside
+  the worktree target. This is not a duplicate implementation dispatch.
+
+### RESPONSE W-QUEUE-V2-GREEN-001-CREATE
+
+- Result: corrected visible saved-project worktree setup accepted
+  asynchronously.
+- Client setup ID:
+  `client-new-thread:97461215-c1b8-488b-90bd-984aad5d9fd3`; host `local`.
+- Model: `gpt-5.6-sol`, `ultra`, satisfying the explicit high-risk concurrency
+  assignment.
+- Exact requested base:
+  `9b526eb1429b3e1292a0c58fae3d73fde34eb97c`.
+- Prompt integrity: recovery/skills, immutable public RED, exact two-file
+  scope, native ownership/maximum extents/top-left copy, transactional
+  allocation, SPSC semaphore/index and stop-race audit, no-allocation/noexcept
+  proof and all no-subagent/no-poll/no-full-scan/no-rt_server restrictions are
+  present.
+- Coordination: setup returned no final thread ID. Manager will not poll and
+  awaits only the proactive structured RESPONSE after public dispatch.
+
+### RETIREMENT REQUEST W-QUEUE-V2-TEST-001
+
+- User reconfirmation: clean up completed visible work conversations; preserve
+  only conversations that remain useful for the same responsibility.
+- Target: one-shot Luna/max tracer thread
+  `019fd51d-9b99-7e63-b257-8c76b9960134` after verifying its worktree is clean
+  at exact `649bbd1ee`, its sole test blob equals integrated `c646e35d2`, and
+  worker/RED/GitHub evidence is durable.
+- Safety: archive through the app only; do not manually delete or mutate the
+  app-owned worktree. Keep the newly created Sol/ultra queue-v2 implementation
+  task until GREEN plus fresh review determines whether a fix follow-up exists.

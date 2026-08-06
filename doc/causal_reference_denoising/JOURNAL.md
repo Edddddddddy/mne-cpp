@@ -3784,3 +3784,25 @@ hidden reasoning is not.
   drop-newest and stop/reconfigure semantics remain hidden behind four methods.
 - Coordination: commit/push the request, create the worktree from that exact
   branch state, publish the dispatch and await only its proactive RESPONSE.
+
+### E-360 - Queue-v2 implementation task creation accepted
+
+- First tool call: rejected locally for duplicate project-ID placement; no
+  task or state was created. The call was corrected to the documented target
+  union without changing the request.
+- Result: visible Sol/ultra worktree setup accepted as
+  `client-new-thread:97461215-c1b8-488b-90bd-984aad5d9fd3` from exact branch
+  state `9b526eb14`.
+- Next: commit/push creation evidence, publish/read back the issue #5 dispatch,
+  and await only the worker's proactive RESPONSE while continuing disjoint
+  manager work.
+
+### E-361 - User reconfirms completed-task cleanup
+
+- Rule: archive one-shot completed visible conversations after their exact
+  commit/blob, clean worktree, validation and public evidence are durable.
+  Retain a related implementation conversation only while the same-context
+  review/fix loop is still plausible.
+- Immediate action: verify and archive the completed queue-v2 tracer through
+  the app; retain the Sol/ultra queue-v2 implementation setup. Never manually
+  delete app-owned worktrees.
