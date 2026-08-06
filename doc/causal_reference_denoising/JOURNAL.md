@@ -5001,3 +5001,13 @@ hidden reasoning is not.
 - `R-QUEUE-STOP-WAIT-ELAPSED-001` remains open. Push this partial milestone,
   archive the spent test conversation and create a fresh Luna/max one-file
   elapsed-wait task from the exact new integration base.
+
+### E-490 - Spent concurrency conversation archived; timing task prepared
+
+- App archives visible thread `019fd69f-9196-7a82-9c3f-941076fb84fa` after
+  durable response, clean commit, integration and canonical GREEN evidence. No
+  worktree is manually deleted.
+- Prepare new Luna/max `W-QUEUE-STOP-WAIT-TEST-001` from exact pushed base
+  `8539c8e8564c0bee5da00023817f77e50d2212c1`, focused test source only. It must
+  add the missing measured `Stopped` wait lower/upper bound without weakening
+  any existing concurrency/public-preservation oracle.

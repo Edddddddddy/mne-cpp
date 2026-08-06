@@ -6743,6 +6743,26 @@ does not continuously poll them.
 - The used retained test conversation may now be archived. A new Luna/max task
   will own only the missing stopped-wait elapsed delta from the new integration
   base, in accordance with the no-reuse rule for spent conversations.
+- Cleanup: visible thread `019fd69f-9196-7a82-9c3f-941076fb84fa` is app-
+  archived after its exact clean commit and canonical integration evidence; its
+  app worktree is not manually deleted.
+
+### REQUEST W-QUEUE-STOP-WAIT-TEST-001
+
+- From: manager. To: new visible Luna/max test conversation. Blocking: yes.
+- Exact base: `8539c8e8564c0bee5da00023817f77e50d2212c1`.
+- Authorized path only:
+  `src/testframes/test_adaptive_denoising_plugin/test_adaptive_denoising_plugin.cpp`.
+- Add the missing regression-sensitive measurement around the complete
+  consumer-thread stop-phase public `waitPop` call in
+  `queueStopRacesActiveProducerAndConsumer`. Publish the elapsed duration with
+  the `Stopped` result and assert after join `>=5 ms` and `<1500 ms`.
+- Preserve all forced-wrap/reuse, public payload/extents/native-owner/tail,
+  Timeout/Stopped preservation, allocation, deadline/fallback and post-join Qt
+  assertions. No production/CMake/docs/vendor/full application/server change.
+- Required response: exact parent/new delta/scope/clean proof and full focused
+  MSVC Release plus at least three repeat results; proactively send structured
+  `RESPONSE W-QUEUE-STOP-WAIT-TEST-001` without manager polling.
 
 ### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
 
