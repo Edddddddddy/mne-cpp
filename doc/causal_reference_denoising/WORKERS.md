@@ -5363,3 +5363,11 @@ does not continuously poll them.
 - Action: archive through the Codex app only. Do not manually delete or mutate
   its worktree. A new visible Sol/ultra `R-QUEUE-V2-001` will review the exact
   integrated v2 snapshot after manager GREEN.
+
+### RESPONSE R-QUEUE-001-RETIRE
+
+- App result: thread `019fd2fa-a222-7601-9567-980a67f814b5` is archived.
+- The stale queue-v1 review conversation is no longer active. Its app-owned
+  worktree was not manually deleted or modified.
+- A fresh visible Sol/ultra review remains mandatory for the integrated
+  queue-v2 snapshot; no v1 review conclusion will be reused as that gate.

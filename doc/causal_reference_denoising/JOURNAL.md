@@ -3947,3 +3947,10 @@ hidden reasoning is not.
   conversation is stale and cannot serve as the mandatory v2 review. Archive
   it through the app without manually deleting its worktree; create a fresh
   Sol/ultra review only after queue-v2 manager GREEN.
+
+### E-375 - Superseded queue-v1 review archived
+
+- App result: archived thread `019fd2fa-a222-7601-9567-980a67f814b5`.
+- Safety: no manual deletion or mutation of its app-owned worktree occurred.
+- Next: await the proactive queue-v2 implementation response, then perform
+  manager inspection, populated focused GREEN and a fresh Sol/ultra review.
