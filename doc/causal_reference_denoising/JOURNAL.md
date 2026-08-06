@@ -5439,3 +5439,12 @@ hidden reasoning is not.
   evidence. Runtime results remain correctly attributed to manager executions.
 - Queue gate is complete. Keep issue #5 open only through the immediately next
   worker-lifecycle integration/review, then close it and mark the epic item.
+
+### E-538 - Held plugin lifecycle series integrated
+
+- Conflict-free cherry-picks create integration commits `85b40cb9e` and
+  `3099a4292` for the plugin shell/lifecycle and zero-to-one SPSC admission fix.
+- Exact scope/diff-check passes; queue/processor/core/tests and existing plugins
+  remain untouched. The plugin is not yet formally accepted.
+- Persist/push integration, run available target-local validation, and dispatch
+  an exact-snapshot Sol/ultra lifecycle/realtime review before UI changes.

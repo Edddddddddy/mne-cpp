@@ -607,3 +607,13 @@ same-responsibility implementation conversations that may receive review fixes.
 - Next: integrate held plugin lifecycle commits `5f4718722` + `34a8096f1`, run
   available focused/static checks and dispatch formal plugin lifecycle review.
   Issue #5 remains open until that worker lifecycle is integrated/reviewed.
+
+### Plugin lifecycle integrated
+
+- Held worker commits integrate conflict-free as `85b40cb9e` and `3099a4292`.
+  New target `scan_adaptivedenoising`, concrete plugin shell, DirectConnection
+  ingress, queue/worker lifecycle, FIFF mapping/output and corrected zero-to-one
+  SPSC admission are now on the integration branch.
+- Queue/processor/core files remain unchanged by the plugin series. Next run
+  target-local MOC/CMake/static checks, then send the exact snapshot to an
+  independent Sol/ultra plugin lifecycle reviewer before UI work.

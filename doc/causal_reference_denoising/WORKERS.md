@@ -7527,3 +7527,15 @@ does not continuously poll them.
 - recommendation / PASS queue gate with no P2 deferral required. Held plugin
   SPSC admission/lifecycle is compatibility evidence only and remains the next
   integration/review milestone.
+
+### INTEGRATION W-PLUGIN-DATA-001
+
+- Worker plugin commit `5f4718722` cherry-picks as `85b40cb9e`; exact-parent
+  admission correction `34a8096f1` cherry-picks as `3099a4292`.
+- Integration is conflict-free and diff-check passes. Scope is plugin registry,
+  six new plugin files and the one-source admission predicate correction.
+- Existing queue, processor, numerical core, focused tests, AbstractAlgorithm,
+  noisereduction, AdaptiveTSSS and dependencies are untouched by this series.
+- Validation/review status / code is integrated but not yet accepted. Run
+  target-local MOC/CMake/static checks and independent Sol/ultra lifecycle/
+  realtime review before dispatching Luna/max UI work.
