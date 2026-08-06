@@ -454,7 +454,9 @@ same-responsibility implementation conversations that may receive review fixes.
   Luna/max settings. It proactively returned replacement `6333b995d` with the
   original exact parent `fa832d51d` and complete one-guide scope; no QSemaphore
   remains, atomic/native-wake and exact benchmark evidence are reported. Manager
-  content/link/command/provenance review precedes integration.
+  provenance/content/command review passes: eight relative links resolve, all
+  fences balance, queue wording matches production and timing limitations are
+  truthful. Replacement is accepted; integration and command replay are next.
 - After queue review passes: integrate/formally review plugin data, implement
   programmatic minimal UI, add focused block-boundary settings/lifecycle
   evidence, run final targets/review, update and close issues #5/#6/#7/#3/#2.

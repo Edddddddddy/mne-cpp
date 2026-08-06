@@ -6725,6 +6725,23 @@ does not continuously poll them.
   mne_scan, mne_rt_server, vendor/dependency/source/test/subagent work occurred.
 - Response is durable before manager exact replacement/content review.
 
+### REVIEW W-DOC-001-REVISE-2
+
+- Exact object/parent/one-new-file scope and diff-check pass. Direct comparison
+  with held `fb748082f` is confined to the requested queue rewrite and benchmark
+  subsection; all accepted numerical/Eigen/license/non-goal content remains.
+- Manager verifies all eight repository-relative links exist, 28 fence markers
+  balance, and case-insensitive QSemaphore occurrence count is zero.
+- Atomic sequence/native event/pipe, bounded consumer, quiescence, producer
+  constraints and public zero-allocation/concurrency/lifetime evidence match the
+  integrated implementation without overclaiming OS or end-to-end guarantees.
+- Release commands name the real focused target/executable. Workload and recorded
+  nearest-rank `2.725/4.317/8.557 ms` evidence match durable benchmark results and
+  are explicitly scoped to development-machine engineering timing.
+- Decision: ACCEPT with no manager P0-P3. Integrate replacement and replay the
+  documented focused Release build/default/benchmark commands before closing
+  the two documentation P2 findings.
+
 ### DISCUSSION SPEC-QUEUE-ATOMIC-CONSISTENCY-001
 
 - The later atomic-correction section was authoritative, but the earlier

@@ -477,7 +477,13 @@ Pending.
   sample workload and measured Release p50/p95/max `2.725/4.317/8.557 ms`.
 - Required correction is one Luna/max guide-only delta from `fb748082f`, keeping
   algorithm/Eigen content intact and clearly separating engineering timing from
-  effect evidence. Both findings remain open until manager review/integration.
+  effect evidence.
+- Fix review: replacement `6333b995d` has the original exact parent and one-file
+  scope. Manager comparison confirms only the requested queue/benchmark content
+  changed; QSemaphore count is zero, eight links resolve, fences balance and
+  commands/workload/results/limitations match implementation/evidence.
+- Status: accepted pending integration plus replay of the documented Release
+  commands; no additional content correction is required.
 
 ### R-BENCH-FINITE-001 - P2 - Closed
 

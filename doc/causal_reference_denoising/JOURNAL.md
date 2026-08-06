@@ -4727,3 +4727,12 @@ hidden reasoning is not.
 - Worker focused Release/benchmark, link/fence/diff/clean checks pass; no full
   application/server/vendor work. Persist response before manager provenance,
   content/command/link review and integration decision.
+
+### E-460 - Final learning-guide manager review passes
+
+- Exact parent/new-file scope/diff and comparison to the held guide pass. Eight
+  relative links resolve, 28 fence markers balance and QSemaphore count is zero.
+- Queue/native-wake/zero-allocation prose and benchmark target/command/workload/
+  `2.725/4.317/8.557 ms` evidence are exact and truthfully bounded.
+- No manager P0-P3 opens. Accept `6333b995d`; integrate and replay the documented
+  focused Release commands before closing both documentation P2s.
