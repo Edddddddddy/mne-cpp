@@ -6652,6 +6652,18 @@ does not continuously poll them.
   Exact one-file comment-only commit/parent/diff/clean proof; Luna/max, no build,
   server, subagent or manager polling; proactively return structured RESPONSE.
 
+### PREPARED W-QUEUE-POSIX-EINTR-TEST-001
+
+- Dispatch waits for `W-QUEUE-CONCURRENCY-TEST-002` integration because both own
+  the focused test source; no overlap is allowed.
+- Read-only environment probe confirms WSL Ubuntu 24.04, GCC 13.3, CMake 3.28.3,
+  Qt5Core/Qt5Test 5.15.13 and repository access at the `/mnt/c` path.
+- Planned narrow RED seam: Linux-only GNU linker `--wrap=write` in focused CMake
+  plus test-translation-unit thread-local `__wrap_write`/`__real_write`. Force
+  exactly the queue caller thread's next native signal to return pre-transfer
+  EINTR for a blocked long-timeout push and stop; require prompt Popped/Stopped,
+  exact payload or complete destination preservation. No public queue hook.
+
 ### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
 
 - First read-only app project-list call produced no result within 60 seconds and

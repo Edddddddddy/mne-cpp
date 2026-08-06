@@ -4887,3 +4887,11 @@ hidden reasoning is not.
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5203570808`,
   recording exact worker/integration commits, live contract and targeted legacy-
   only semaphore search. Two queue P2s remain active.
+
+### E-478 - POSIX EINTR tracer environment confirmed
+
+- Read-only WSL probe finds Ubuntu 24.04, GCC 13.3, CMake 3.28.3, Qt Core/Test
+  5.15.13 and direct `/mnt/c` repository access.
+- After concurrency-test integration, a new Luna/max test/CMake task can use
+  Linux-only GNU `--wrap=write` with a thread-local one-shot EINTR injector to
+  create deterministic public push/stop RED without a production/public hook.
