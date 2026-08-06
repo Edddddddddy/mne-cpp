@@ -414,6 +414,8 @@ same-responsibility implementation conversations that may receive review fixes.
   `client-new-thread:c4ec3fcf-866e-41d9-8c7d-9fd4680dc7f2` from exact
   `9b7b1c779`; test source only. Publish issue #5 dispatch, then await proactive
   response without polling.
+  Public dispatch/read-back:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202951958`.
 - Accepted but deliberately not integrated until the atomic queue gate:
   plugin data commit `5f4718722` plus exact-parent SPSC admission fix
   `34a8096f1`. Retain its Sol/ultra conversation for same-responsibility fixes.

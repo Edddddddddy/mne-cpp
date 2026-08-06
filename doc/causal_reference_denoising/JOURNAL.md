@@ -4617,3 +4617,10 @@ hidden reasoning is not.
   `9b7b1c779` with focused test-only scope.
 - Next commit/push creation evidence, publish/read back issue #5 dispatch and
   await proactive RESPONSE without polling.
+
+### E-448 - Allocation tracer dispatched publicly
+
+- Issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202951958`.
+- Read-back confirms exact base/setup, Luna/max, one-test-file counted boundary,
+  zero-allocation/public-FIFO gate and later independent Sol re-review.

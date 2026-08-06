@@ -6475,6 +6475,8 @@ does not continuously poll them.
 - Prompt contains the one-test-file global-allocation/thread-local counted-region
   contract and proactive response rule. No final thread ID exists yet; do not
   poll setup.
+- Public dispatch/read-back:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202951958`.
 
 ### RETIREMENT-READY W-QUEUE-ATOMIC-TEST-001
 
