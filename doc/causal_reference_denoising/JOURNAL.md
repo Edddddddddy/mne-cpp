@@ -5763,3 +5763,15 @@ hidden reasoning is not.
   and links generated `scan_adaptivedenoising` for static configurations.
 - This closes the source/configure half of the finding. No app is built/run and
   the known pre-plugin Qt/MSVC dependency boundary remains explicit.
+
+### E-572 - Static registration evidence published and worker archived
+
+- Issue #6 read-back records exact worker/integration commits, static-only
+  link/import, successful static project generation, disabled server and the
+  retained environment boundary at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208434849`.
+- App archives completed Luna/max thread
+  `019fd869-e6d4-77c0-8edf-833cc23656c8`; no manual worktree deletion.
+- A concurrent event wait shows the admission worker still active and aligned
+  to its exact Busy/Closed/atomic/destructor-contract scope. This is progress,
+  not a code response; await its proactive final without polling.

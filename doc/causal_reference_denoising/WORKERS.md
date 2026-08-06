@@ -7846,6 +7846,11 @@ does not continuously poll them.
   Release/Debug link dependency on `scan_adaptivedenoising`.
 - runtime boundary / no executable is built or run. The known Qt/MSVC `mne_fiff`
   compile block remains the real target limitation; no vendor repair/server.
+- publication / issue #6 read-back:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208434849`.
+- lifecycle / completed Luna/max thread
+  `019fd869-e6d4-77c0-8edf-833cc23656c8` is app-archived after integration,
+  populated configure evidence and publication; no manual worktree deletion.
 
 ### PREPARED REQUEST W-PLUGIN-UI-TEST-001
 
