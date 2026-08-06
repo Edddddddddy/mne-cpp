@@ -3973,3 +3973,12 @@ hidden reasoning is not.
 - Decision: reuse that same Sol/ultra conversation for one unchanged retry,
   because it remains the correct responsibility and exact base. This avoids a
   duplicate worktree while repairing the no-output execution failure.
+
+### E-378 - Queue-v2 same-conversation retry accepted
+
+- App accepted the follow-up on thread
+  `019fd52e-1d77-7a22-a8f3-ab51728560c3` with Sol/ultra explicitly preserved.
+- Prompt repeats exact base/scope and requires the original structured
+  RESPONSE. No new task or worktree was created.
+- Next: publish the retry fact on issue #5, then await proactive delivery while
+  continuing only disjoint management work.

@@ -5404,3 +5404,13 @@ does not continuously poll them.
   header/source and returning the required structured proactive RESPONSE.
 - Do not create another worker, rebase, poll the manager, use subagents, run a
   full scan or start `mne_rt_server`.
+
+### RESPONSE W-QUEUE-V2-GREEN-001-RETRY-1-DISPATCH
+
+- App accepted the follow-up on existing thread
+  `019fd52e-1d77-7a22-a8f3-ab51728560c3`.
+- Model override is explicitly `gpt-5.6-sol`, `ultra`; the message repeats the
+  exact clean base, two-file scope, proactive manager RESPONSE and no-subagent/
+  no-poll/no-full-scan/no-vendor/no-rt_server constraints.
+- Coordination: this is one retry in the original conversation, not a new
+  task. Manager will not read/wait again while it is running.

@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T14:10:30+08:00
+Last updated: 2026-08-06T14:13:00+08:00
 
 ## Recovery order
 
@@ -235,14 +235,15 @@ same-responsibility implementation conversations that may receive review fixes.
 
 ## Current checkpoint override
 
-- Integration/remote HEAD: `e41d1c7d4`; tracked state is synchronized. The
+- Integration/remote HEAD: `4fd7821b6`; tracked state is synchronized. The
   only untracked paths are the three preserved user paths listed in the plan.
 - Active blocking task: `W-QUEUE-V2-GREEN-001`, Sol/ultra setup
   `client-new-thread:97461215-c1b8-488b-90bd-984aad5d9fd3`, exact requested
   base `9b526eb14`; queue files only. A single recovery read proved its first
   turn produced no assistant output or file change and the worktree remains
-  clean at the exact base. Re-trigger the same reusable Sol/ultra conversation
-  once with the unchanged request; do not create a duplicate worker.
+  clean at the exact base. The same reusable Sol/ultra conversation accepted
+  one unchanged retry; no duplicate worker was created. Await only its
+  proactive RESPONSE.
 - Active non-overlapping task: `W-PLUGIN-DATA-001`, Sol/ultra setup
   `client-new-thread:bb93c4e1-6aa9-4ee4-9d52-de30ff1b0489`, exact requested
   base `8c51ea4ce`; seven plugin registration/adapter files only. Integrate only
