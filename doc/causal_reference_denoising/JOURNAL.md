@@ -3664,3 +3664,11 @@ hidden reasoning is not.
   forbidding production changes.
 - Next: commit/push creation evidence, publish/read back issue #5 and await only
   proactive response.
+
+### E-349 - Queue-v2 RED task published
+
+- Publish/read-back: issue #5 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5200050057`
+  exactly records the mixed-row/native metadata tracer and expected RED.
+- Coordination: do not poll or edit the focused test source; continue only
+  disjoint manager design/verification until proactive response.

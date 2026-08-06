@@ -4747,6 +4747,14 @@ does not continuously poll them.
 - Coordination: manager will not poll or overlap the focused test source; await
   only proactive structured response after public issue #5 dispatch.
 
+### PUBLISH W-QUEUE-V2-TEST-001-START
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5200050057`.
+- Authenticated `gh` write/API read-back exactly record Luna/max task/base/
+  single-file scope, migrated/native variable-row oracles, expected compile RED
+  and no-production/no-server restrictions.
+
 ### MANAGER REVIEW W-QA-PROC-LOCALITY-001
 
 - Provenance/scope: exact `1d60ed4f7` on requested `16c993872`; one authorized
