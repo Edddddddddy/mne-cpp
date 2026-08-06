@@ -8180,3 +8180,7 @@ does not continuously poll them.
 - local base ref / retain `codex/worker-ui-test-base` until app setup and worker
   integration are complete, then delete the spent local-only ref after proof.
 - state / asynchronous setup accepted; await proactive response without polling.
+- resolved thread / one identity-only app listing maps the setup to visible
+  thread `019fd892-ff55-7903-ab3e-25890ccb10b5`, active in app worktree `d206`.
+- public dispatch / issue #6 comment/read-back:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208612705`.

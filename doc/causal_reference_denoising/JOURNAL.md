@@ -5934,3 +5934,14 @@ hidden reasoning is not.
   `client-new-thread:978a2856-8c82-4b58-b5f3-8d11562ac0cc`.
 - The task is explicit Luna/max and retains the frozen three-path TDD scope.
   Await its proactive response; do not poll or inspect its worktree.
+
+### E-588 - UI RED tracer identity and public dispatch verified
+
+- One identity-only app listing resolves setup
+  `client-new-thread:978a2856-8c82-4b58-b5f3-8d11562ac0cc` to visible active
+  Luna/max thread `019fd892-ff55-7903-ab3e-25890ccb10b5` in worktree `d206`.
+- Issue #6 comment/read-back publishes exact base, test-only scope, dependency
+  isolation and intended RED at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208612705`.
+- Do not inspect/poll the worktree. Manager now corrects the final focused test
+  replay harness while awaiting the worker's proactive response.

@@ -701,4 +701,8 @@ same-responsibility implementation conversations that may receive review fixes.
   base `4cec85cbe6ed53bb07e5ebdf8f6de96675e7c204`.
 - App worktree setup for `W-PLUGIN-UI-TEST-001` is accepted as
   `client-new-thread:978a2856-8c82-4b58-b5f3-8d11562ac0cc` on local host. Await
-  the proactive response without polling; production UI files remain untouched.
+  Final visible thread is `019fd892-ff55-7903-ab3e-25890ccb10b5`; dispatch is
+  published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208612705`.
+  Await the proactive response without polling; production UI files remain
+  untouched.
