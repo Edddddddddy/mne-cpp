@@ -29,6 +29,12 @@
 #include <type_traits>
 #include <vector>
 
+#if defined(__unix__) && !defined(__APPLE__) && (defined(__GNUC__) || defined(__clang__))
+#include <cerrno>
+#include <sys/types.h>
+#include <unistd.h>
+#endif
+
 //=============================================================================================================
 // QT INCLUDES
 //=============================================================================================================
@@ -44,6 +50,11 @@ namespace
 // Count only successful global allocations made by the producer while its thread-local gate is enabled.
 thread_local bool g_countTestAllocations = false;
 std::atomic<std::uint64_t> g_countedTestAllocations(0);
+
+#if defined(__unix__) && !defined(__APPLE__) && (defined(__GNUC__) || defined(__clang__))
+thread_local bool g_interruptNextQueueWrite = false;
+std::atomic<int> g_interruptedQueueWriteCount(0);
+#endif
 
 void* allocateTestStorageNoThrow(std::size_t size) noexcept
 {
@@ -64,6 +75,22 @@ void* allocateTestStorage(std::size_t size)
 }
 
 } // namespace
+
+#if defined(__unix__) && !defined(__APPLE__) && (defined(__GNUC__) || defined(__clang__))
+extern "C" ssize_t __real_write(int descriptor, const void* buffer, std::size_t count);
+
+extern "C" ssize_t __wrap_write(int descriptor, const void* buffer, std::size_t count)
+{
+    if (g_interruptNextQueueWrite) {
+        g_interruptNextQueueWrite = false;
+        errno = EINTR;
+        g_interruptedQueueWriteCount.fetch_add(1, std::memory_order_acq_rel);
+        return -1;
+    }
+
+    return __real_write(descriptor, buffer, count);
+}
+#endif
 
 //=============================================================================================================
 
@@ -312,6 +339,39 @@ bool destinationPreserves(
         && sameMetadata(destination.fiffInfo, expectedMetadata);
 }
 
+#if defined(__unix__) && !defined(__APPLE__) && (defined(__GNUC__) || defined(__clang__))
+
+bool destinationContainsBlock(
+    const AdaptiveDenoisingQueuedBlock& destination,
+    const MatrixXd& expectedBlock,
+    const NativeFiffInfoHandle& expectedMetadata,
+    Index expectedMatrixRows,
+    Index expectedMatrixColumns,
+    double expectedTail) noexcept
+{
+    if (destination.data.rows() != expectedMatrixRows
+        || destination.data.cols() != expectedMatrixColumns
+        || destination.rowCount != expectedBlock.rows()
+        || destination.sampleCount != expectedBlock.cols()
+        || !sameMetadata(destination.fiffInfo, expectedMetadata)) {
+        return false;
+    }
+
+    for (Index row = 0; row < destination.data.rows(); ++row) {
+        for (Index column = 0; column < destination.data.cols(); ++column) {
+            const bool inBlock = row < expectedBlock.rows() && column < expectedBlock.cols();
+            const double expected = inBlock ? expectedBlock(row, column) : expectedTail;
+            if (destination.data(row, column) != expected) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+#endif
+
 template<typename Predicate>
 bool waitUntil(Predicate predicate, int timeoutMilliseconds) noexcept
 {
@@ -350,6 +410,10 @@ private slots:
     void queueStopRacesActiveProducerAndConsumer();
     void queueStopsWithPendingBlockAndPreservesDestination();
     void queueRetainsNativeMetadataUntilPoppedHandleCleared();
+#if defined(__unix__) && !defined(__APPLE__) && (defined(__GNUC__) || defined(__clang__))
+    void queuePopsPromptlyAfterInterruptedProducerSignal();
+    void queueStopsPromptlyAfterInterruptedStopSignal();
+#endif
 };
 
 //=============================================================================================================
@@ -2500,6 +2564,300 @@ void TestAdaptiveDenoisingPlugin::queueRetainsNativeMetadataUntilPoppedHandleCle
         destination, config.maxChannelCount, config.maxBlockSamples, -9203.0, 9203, 9204,
         timeoutMetadata));
 }
+
+#if defined(__unix__) && !defined(__APPLE__) && (defined(__GNUC__) || defined(__clang__))
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingPlugin::queuePopsPromptlyAfterInterruptedProducerSignal()
+{
+    constexpr Index kMaxChannelCount = 3;
+    constexpr Index kMaxBlockSamples = 5;
+    constexpr int kWaitMilliseconds = 3000;
+    constexpr int kPromptUpperBoundMilliseconds = 500;
+    constexpr int kReadyBudgetMilliseconds = 1000;
+    constexpr int kCompletionBudgetMilliseconds = kWaitMilliseconds + 1000;
+    constexpr int kFallbackBudgetMilliseconds = 1000;
+    constexpr int kSchedulingAllowanceMilliseconds = 50;
+
+    AdaptiveDenoisingBlockQueue queue;
+    AdaptiveDenoisingBlockQueueConfig config;
+    config.maxChannelCount = kMaxChannelCount;
+    config.maxBlockSamples = kMaxBlockSamples;
+    config.capacity = 1;
+
+    QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::Ready);
+
+    MatrixXd producerBlock(2, 3);
+    producerBlock << 1201.0, 1202.0, 1203.0,
+                     1301.0, 1302.0, 1303.0;
+    const NativeFiffInfoHandle producerMetadata = fakeFiffInfoHandle(std::uint64_t(1204));
+
+    constexpr double kDestinationTail = -1205.0;
+    const NativeFiffInfoHandle destinationMetadata = fakeFiffInfoHandle(std::uint64_t(1206));
+    AdaptiveDenoisingQueuedBlock destination;
+    destination.data.resize(config.maxChannelCount, config.maxBlockSamples);
+    destination.data.setConstant(kDestinationTail);
+    destination.rowCount = 1207;
+    destination.sampleCount = 1208;
+    destination.fiffInfo = destinationMetadata;
+
+    std::atomic<bool> start(false);
+    std::atomic<bool> consumerReady(false);
+    std::atomic<bool> consumerWaiting(false);
+    std::atomic<bool> consumerFinished(false);
+    std::atomic<bool> producerReady(false);
+    std::atomic<bool> producerFinished(false);
+    std::atomic<bool> invalidThreadState(false);
+    std::atomic<int> observedPushStatus(-1);
+    std::atomic<int> observedPopStatus(-1);
+    std::atomic<std::int64_t> popElapsedMilliseconds(-1);
+    g_interruptedQueueWriteCount.store(0, std::memory_order_release);
+
+    std::thread consumer([&] {
+        consumerReady.store(true, std::memory_order_release);
+        const auto controlDeadline = std::chrono::steady_clock::now()
+            + std::chrono::milliseconds(kCompletionBudgetMilliseconds);
+        while (!start.load(std::memory_order_acquire)
+               && std::chrono::steady_clock::now() < controlDeadline) {
+            std::this_thread::yield();
+        }
+
+        if (!start.load(std::memory_order_acquire)) {
+            invalidThreadState.store(true, std::memory_order_release);
+            consumerFinished.store(true, std::memory_order_release);
+            return;
+        }
+
+        destination.data.setConstant(kDestinationTail);
+        destination.rowCount = 1207;
+        destination.sampleCount = 1208;
+        destination.fiffInfo = destinationMetadata;
+        consumerWaiting.store(true, std::memory_order_release);
+        const auto waitStartedAt = std::chrono::steady_clock::now();
+        const AdaptiveDenoisingQueuePopStatus status =
+            queue.waitPop(destination, kWaitMilliseconds);
+        const auto waitFinishedAt = std::chrono::steady_clock::now();
+        observedPopStatus.store(static_cast<int>(status), std::memory_order_release);
+        popElapsedMilliseconds.store(
+            std::chrono::duration_cast<std::chrono::milliseconds>(waitFinishedAt - waitStartedAt)
+                .count(),
+            std::memory_order_release);
+        consumerFinished.store(true, std::memory_order_release);
+    });
+
+    std::thread producer([&] {
+        producerReady.store(true, std::memory_order_release);
+        const auto controlDeadline = std::chrono::steady_clock::now()
+            + std::chrono::milliseconds(kCompletionBudgetMilliseconds);
+        while (!start.load(std::memory_order_acquire)
+               && std::chrono::steady_clock::now() < controlDeadline) {
+            std::this_thread::yield();
+        }
+
+        while (!consumerWaiting.load(std::memory_order_acquire)
+               && std::chrono::steady_clock::now() < controlDeadline) {
+            std::this_thread::yield();
+        }
+
+        if (!start.load(std::memory_order_acquire)
+            || !consumerWaiting.load(std::memory_order_acquire)) {
+            invalidThreadState.store(true, std::memory_order_release);
+            producerFinished.store(true, std::memory_order_release);
+            return;
+        }
+
+        g_interruptNextQueueWrite = true;
+        const AdaptiveDenoisingQueuePushStatus status =
+            queue.tryPush(producerBlock, producerMetadata);
+        g_interruptNextQueueWrite = false;
+        observedPushStatus.store(static_cast<int>(status), std::memory_order_release);
+        producerFinished.store(true, std::memory_order_release);
+    });
+
+    const bool consumerReadyObserved = waitUntil(
+        [&] { return consumerReady.load(std::memory_order_acquire); }, kReadyBudgetMilliseconds);
+    const bool producerReadyObserved = waitUntil(
+        [&] { return producerReady.load(std::memory_order_acquire); }, kReadyBudgetMilliseconds);
+    start.store(true, std::memory_order_release);
+
+    const bool consumerWaitingObserved = waitUntil(
+        [&] { return consumerWaiting.load(std::memory_order_acquire); }, kReadyBudgetMilliseconds);
+    std::this_thread::sleep_for(std::chrono::milliseconds(kSchedulingAllowanceMilliseconds));
+
+    const bool consumerFinishedWithinBudget = waitUntil(
+        [&] { return consumerFinished.load(std::memory_order_acquire); },
+        kCompletionBudgetMilliseconds);
+    const bool producerFinishedWithinBudget = waitUntil(
+        [&] { return producerFinished.load(std::memory_order_acquire); },
+        kFallbackBudgetMilliseconds);
+
+    if (!consumerFinishedWithinBudget || !producerFinishedWithinBudget) {
+        queue.stop();
+    }
+
+    const bool consumerFinishedAfterFallback = consumerFinishedWithinBudget || waitUntil(
+        [&] { return consumerFinished.load(std::memory_order_acquire); },
+        kFallbackBudgetMilliseconds);
+    const bool producerFinishedAfterFallback = producerFinishedWithinBudget || waitUntil(
+        [&] { return producerFinished.load(std::memory_order_acquire); },
+        kFallbackBudgetMilliseconds);
+
+    producer.join();
+    consumer.join();
+    queue.stop();
+
+    const AdaptiveDenoisingQueuePushStatus observedPush =
+        static_cast<AdaptiveDenoisingQueuePushStatus>(
+            observedPushStatus.load(std::memory_order_acquire));
+    const AdaptiveDenoisingQueuePopStatus observedPop =
+        static_cast<AdaptiveDenoisingQueuePopStatus>(
+            observedPopStatus.load(std::memory_order_acquire));
+    const std::int64_t popElapsed = popElapsedMilliseconds.load(std::memory_order_acquire);
+    const int interruptedWriteCount = g_interruptedQueueWriteCount.load(std::memory_order_acquire);
+
+    QVERIFY(consumerReadyObserved);
+    QVERIFY(producerReadyObserved);
+    QVERIFY(consumerWaitingObserved);
+    QVERIFY(consumerFinishedAfterFallback);
+    QVERIFY(producerFinishedAfterFallback);
+    QVERIFY(!invalidThreadState.load(std::memory_order_acquire));
+    QCOMPARE(observedPush, AdaptiveDenoisingQueuePushStatus::Pushed);
+    QCOMPARE(observedPop, AdaptiveDenoisingQueuePopStatus::Popped);
+    QVERIFY(popElapsed >= 0);
+    QVERIFY(popElapsed < kPromptUpperBoundMilliseconds);
+    QCOMPARE(interruptedWriteCount, 1);
+    QVERIFY(destinationContainsBlock(
+        destination,
+        producerBlock,
+        producerMetadata,
+        config.maxChannelCount,
+        config.maxBlockSamples,
+        kDestinationTail));
+}
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingPlugin::queueStopsPromptlyAfterInterruptedStopSignal()
+{
+    constexpr Index kMaxChannelCount = 3;
+    constexpr Index kMaxBlockSamples = 5;
+    constexpr int kWaitMilliseconds = 3000;
+    constexpr int kPromptUpperBoundMilliseconds = 500;
+    constexpr int kReadyBudgetMilliseconds = 1000;
+    constexpr int kCompletionBudgetMilliseconds = kWaitMilliseconds + 1000;
+    constexpr int kFallbackBudgetMilliseconds = 1000;
+    constexpr int kSchedulingAllowanceMilliseconds = 50;
+
+    AdaptiveDenoisingBlockQueue queue;
+    AdaptiveDenoisingBlockQueueConfig config;
+    config.maxChannelCount = kMaxChannelCount;
+    config.maxBlockSamples = kMaxBlockSamples;
+    config.capacity = 1;
+
+    QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::Ready);
+
+    constexpr double kDestinationTail = -2201.0;
+    const NativeFiffInfoHandle destinationMetadata = fakeFiffInfoHandle(std::uint64_t(2202));
+    AdaptiveDenoisingQueuedBlock destination;
+    destination.data.resize(config.maxChannelCount, config.maxBlockSamples);
+    destination.data.setConstant(kDestinationTail);
+    destination.rowCount = 2203;
+    destination.sampleCount = 2204;
+    destination.fiffInfo = destinationMetadata;
+
+    std::atomic<bool> start(false);
+    std::atomic<bool> consumerReady(false);
+    std::atomic<bool> consumerWaiting(false);
+    std::atomic<bool> consumerFinished(false);
+    std::atomic<bool> invalidThreadState(false);
+    std::atomic<int> observedPopStatus(-1);
+    std::atomic<std::int64_t> popElapsedMilliseconds(-1);
+    g_interruptedQueueWriteCount.store(0, std::memory_order_release);
+
+    std::thread consumer([&] {
+        consumerReady.store(true, std::memory_order_release);
+        const auto controlDeadline = std::chrono::steady_clock::now()
+            + std::chrono::milliseconds(kCompletionBudgetMilliseconds);
+        while (!start.load(std::memory_order_acquire)
+               && std::chrono::steady_clock::now() < controlDeadline) {
+            std::this_thread::yield();
+        }
+
+        if (!start.load(std::memory_order_acquire)) {
+            invalidThreadState.store(true, std::memory_order_release);
+            consumerFinished.store(true, std::memory_order_release);
+            return;
+        }
+
+        destination.data.setConstant(kDestinationTail);
+        destination.rowCount = 2203;
+        destination.sampleCount = 2204;
+        destination.fiffInfo = destinationMetadata;
+        consumerWaiting.store(true, std::memory_order_release);
+        const auto waitStartedAt = std::chrono::steady_clock::now();
+        const AdaptiveDenoisingQueuePopStatus status =
+            queue.waitPop(destination, kWaitMilliseconds);
+        const auto waitFinishedAt = std::chrono::steady_clock::now();
+        observedPopStatus.store(static_cast<int>(status), std::memory_order_release);
+        popElapsedMilliseconds.store(
+            std::chrono::duration_cast<std::chrono::milliseconds>(waitFinishedAt - waitStartedAt)
+                .count(),
+            std::memory_order_release);
+        consumerFinished.store(true, std::memory_order_release);
+    });
+
+    const bool consumerReadyObserved = waitUntil(
+        [&] { return consumerReady.load(std::memory_order_acquire); }, kReadyBudgetMilliseconds);
+    start.store(true, std::memory_order_release);
+
+    const bool consumerWaitingObserved = waitUntil(
+        [&] { return consumerWaiting.load(std::memory_order_acquire); }, kReadyBudgetMilliseconds);
+    std::this_thread::sleep_for(std::chrono::milliseconds(kSchedulingAllowanceMilliseconds));
+
+    g_interruptNextQueueWrite = true;
+    queue.stop();
+    g_interruptNextQueueWrite = false;
+
+    const bool consumerFinishedWithinBudget = waitUntil(
+        [&] { return consumerFinished.load(std::memory_order_acquire); },
+        kCompletionBudgetMilliseconds);
+    if (!consumerFinishedWithinBudget) {
+        queue.stop();
+    }
+
+    const bool consumerFinishedAfterFallback = consumerFinishedWithinBudget || waitUntil(
+        [&] { return consumerFinished.load(std::memory_order_acquire); },
+        kFallbackBudgetMilliseconds);
+
+    consumer.join();
+    queue.stop();
+
+    const AdaptiveDenoisingQueuePopStatus observedPop =
+        static_cast<AdaptiveDenoisingQueuePopStatus>(
+            observedPopStatus.load(std::memory_order_acquire));
+    const std::int64_t popElapsed = popElapsedMilliseconds.load(std::memory_order_acquire);
+    const int interruptedWriteCount = g_interruptedQueueWriteCount.load(std::memory_order_acquire);
+
+    QVERIFY(consumerReadyObserved);
+    QVERIFY(consumerWaitingObserved);
+    QVERIFY(consumerFinishedAfterFallback);
+    QVERIFY(!invalidThreadState.load(std::memory_order_acquire));
+    QCOMPARE(observedPop, AdaptiveDenoisingQueuePopStatus::Stopped);
+    QVERIFY(popElapsed >= 0);
+    QVERIFY(popElapsed < kPromptUpperBoundMilliseconds);
+    QCOMPARE(interruptedWriteCount, 1);
+    QVERIFY(destinationPreserves(
+        destination,
+        config.maxChannelCount,
+        config.maxBlockSamples,
+        kDestinationTail,
+        2203,
+        2204,
+        destinationMetadata));
+}
+
+#endif
 
 //=============================================================================================================
 

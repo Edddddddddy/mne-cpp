@@ -31,6 +31,12 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
   eigen
 )
 
+if(UNIX AND NOT APPLE)
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+        target_link_options(${PROJECT_NAME} PRIVATE "-Wl,--wrap=write")
+    endif()
+endif()
+
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/libraries
     ${CMAKE_SOURCE_DIR}/applications/mne_scan/plugins
