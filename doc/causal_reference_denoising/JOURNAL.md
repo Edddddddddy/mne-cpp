@@ -4821,3 +4821,12 @@ hidden reasoning is not.
   mutation occurs.
 - Persist the failure, then retry once with project ID only in the project
   target; task bases/models/scopes/prompts stay exact.
+
+### E-470 - Queue concurrency and SPEC task setups accepted
+
+- Corrected app schema accepts two disjoint visible Luna/max setups from exact
+  `2530c7864`: concurrency test
+  `client-new-thread:d045832c-271e-4ea6-8e0c-d6e4e0c0980e` and SPEC locality
+  `client-new-thread:69772d64-aeb0-47af-bacc-a1b154974991`.
+- Publish/read back both dispatches on issue #5. Do not poll; wait for proactive
+  responses and do not overlap the focused test or SPEC files.

@@ -6668,6 +6668,23 @@ does not continuously poll them.
 - Retry once with project ID only inside the project target. Exact bases,
   Luna/max models, prompts and disjoint file scopes remain unchanged.
 
+### CREATED W-QUEUE-CONCURRENCY-TEST-002
+
+- Corrected app call accepts visible Luna/max worktree setup
+  `client-new-thread:d045832c-271e-4ea6-8e0c-d6e4e0c0980e` from exact
+  `2530c78642c4742ffcb06bed99e4d7048192de64`.
+- Scope remains the focused plugin test source only with deterministic public
+  concurrent-reuse/blocked-stop evidence. No final thread ID exists yet; await
+  proactive RESPONSE without polling.
+
+### CREATED W-QUEUE-SPEC-001
+
+- Corrected app call accepts separate visible Luna/max worktree setup
+  `client-new-thread:69772d64-aeb0-47af-bacc-a1b154974991` from the same exact
+  base.
+- Scope remains SPEC only and is parallel-safe with the test editor. No final
+  thread ID exists yet; await proactive RESPONSE without polling.
+
 ### ARCHIVED W-QUEUE-ALLOC-TEST-001
 
 - App archive succeeds for one-shot Luna/max thread
