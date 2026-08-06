@@ -4279,3 +4279,12 @@ hidden reasoning is not.
   `EIGEN_NO_DEBUG` is absent and `EIGEN_RUNTIME_NO_MALLOC` is defined.
 - Decision: close core C++14 P1 and locality P3. The real library-link P3 stays
   environment-deferred exactly as already documented; no vendor/server action.
+
+### E-410 - Core QA closure published and worker retirement-ready
+
+- Issue #3 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5201673779`
+  is read back with exact integration, validation and finding status.
+- Core worker is clean at `bc061b834`; both authorized blobs equal integration.
+  All response/review/test/public evidence is durable, so archive the completed
+  conversation through the app without manually touching its worktree.

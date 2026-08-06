@@ -5990,3 +5990,20 @@ does not continuously poll them.
 - Authenticated `gh` write and API read-back exactly record the Sol/ultra HOLD
   gate, P1 Windows QSemaphore dependency, both P2 test gaps, accepted static
   behavior, test-first fix direction and no full mne_scan/mne_rt_server scope.
+
+### PUBLISH W-QA-CORE-CONTRACT-001-FINAL
+
+- GitHub final-QA issue #3 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5201673779`.
+- Authenticated `gh` write/API read-back record both integrated SHAs, populated
+  Release/Debug process-zero validation, retained suite counts/Debug malloc
+  guard, closed C++14/locality findings and unchanged link-smoke deferral.
+
+### RETIREMENT PRECHECK W-QA-CORE-CONTRACT-001
+
+- Worker thread `019fd336-0d0c-7d02-82d9-a24b511d6aaf` is clean/detached at
+  final delta `bc061b834`.
+- Its public-header and focused-test blobs exactly equal integration HEAD. The
+  RESPONSE, manager review, Release/Debug validation and GitHub closure are
+  durable. The same-responsibility fix loop is complete, so this conversation
+  may be app-archived without deleting its worktree.

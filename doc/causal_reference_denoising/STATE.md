@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T16:18:00+08:00
+Last updated: 2026-08-06T16:24:00+08:00
 
 ## Recovery order
 
@@ -318,6 +318,8 @@ same-responsibility implementation conversations that may receive review fixes.
   exercising the malloc guard. `R-CORE-CXX14-NOEXCEPT-001` and
   `R-CORE-LOCALITY-001` are closed; only the already environment-deferred real
   library-link P3 remains.
+  Closure is public at
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5201673779`.
 - Fresh queue-v2 formal review `R-QUEUE-V2-001` proactively returned against
   exact clean `e4964aaed` with gate HOLD: P0=0, P1=1, P2=2, P3=0. P1 finds
   that Windows Qt 5.15.2 `QSemaphore` uses a `QMutex` fallback that can block
