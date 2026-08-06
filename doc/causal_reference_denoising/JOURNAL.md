@@ -5805,3 +5805,14 @@ hidden reasoning is not.
   unchanged admitted path. Conflict-free integration creates `6ab7326ac`.
 - Persist/push integration before populated MOC/source/compile validation. No
   lifecycle runtime claim is inferred.
+
+### E-576 - First manager MSVC 14.29 syntax harness has quoting failure
+
+- Integrated Qt MOC succeeds and the deterministic callback oracle reports one
+  info, one push site, zero mutex/wait, Closed before dynamicCast, Busy exact
+  matrix count with zero info/push, two atomic guards and one CAS.
+- The first manager `/Zs` replay incorrectly wraps `vcvars64.bat` for `cmd`; the
+  environment command is not executed, so standard C++ include paths are absent
+  and compilation stops at missing `<cstring>`.
+- This is a harness-only failure, not a source result. Record it before retrying
+  with a correctly invoked environment script; do not change code/dependencies.
