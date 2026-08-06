@@ -7674,3 +7674,55 @@ does not continuously poll them.
 - result / return exact parent/commit, three-file scope, RED command/output,
   object names and exact oracles. No subagent, manager polling, full app or
   `mne_rt_server`.
+
+### PREPARED REQUEST W-PLUGIN-UI-GREEN-001
+
+- state / dispatch only after the UI tracer is integrated and produces the
+  intended RED. Exact base is that pushed tracer commit.
+- model / new visible `gpt-5.6-luna` / `max` implementation conversation
+- skills / complete `codebase-design` and `tdd`; implement only the frozen
+  private view/pending-snapshot seam needed to make the tracer GREEN.
+- scope / edit only `adaptivedenoising.h/.cpp`, its plugin CMake, and add a
+  private diagnostics-types header plus setup-widget header/source. Queue,
+  processor, numerical code, focused tests, other plugins and vendor files are
+  immutable.
+- diagnostics / fixed data-only value with plugin/configure/process statuses,
+  R/M/P, warmup, generation, accepted/rejected events, three RMS values and
+  dropped blocks; no QString/container/owner. Register it before worker emits.
+- widget / programmatic QWidget/QFormLayout only. It emits typed enabled,
+  frozen, four-setting and reset signals; consumes diagnostics in one GUI-thread
+  slot; uses the tracer's stable object names/ranges/defaults. No `.ui`, qrc,
+  controller base, settings registry or stored widget pointer.
+- plugin controls / narrow Qt slots update one mutex-protected pending snapshot
+  containing enabled/frozen/settings plus monotonic settings revision and reset
+  sequence. `setupWidget()` returns a fresh widget, connects control signals to
+  those slots and connects diagnostics explicitly with `Qt::QueuedConnection`.
+- worker boundary / after each successful dequeue, copy the pending snapshot
+  exactly once before configuration/process. A new settings revision forces a
+  fresh processor configure before that whole block; a new reset sequence calls
+  reset before that block; disabled/frozen/enabled select BypassTrackHistory,
+  ApplyOnly and ApplyAndLearn respectively. Acquisition never touches this mutex
+  or snapshot and retains exactly one queue push attempt per matrix.
+- failure/output / metadata/layout/settings exceptions fail closed and emit a
+  fixed diagnostic while valid blocks remain FIFO/pass-through as appropriate.
+  Human-readable formatting occurs only in the widget slot. Restart preserves
+  pending UI values but forces worker configuration from the fresh stream state.
+- verification / make `test_adaptive_denoising_ui` GREEN; run standalone MOC
+  for plugin/widget with correct include roots; rerun update-path extraction.
+  Attempt no full app/server and do not patch the known Qt/MSVC FIFF dependency.
+- response / exact parent/commit/files, signal/slot and snapshot ordering,
+  MOC/test commands/results, limitations and clean state; no subagent/polling.
+
+### PREPARED REQUEST R-PLUGIN-UI-001
+
+- state / dispatch as a new visible read-only review only after UI GREEN is
+  integrated and manager verification is durable.
+- model / `gpt-5.6-sol` / `ultra`
+- review / deep view seam; fixed diagnostics/metatype; explicit queued GUI
+  conversion; fresh widget lifetime; pending snapshot locality; settings/reset
+  monotonicity; exact one-copy block-boundary application; reconfigure/reset/mode
+  ordering; acquisition callback isolation; restart/fail-closed/output behavior;
+  CMake/MOC locality and test sensitivity.
+- gate / P0/P1 zero and every P2 fixed or explicitly durable-deferred. Reviewer
+  is read-only, reports exact lines/evidence/fix/tests, and runs no full app or
+  `mne_rt_server`.

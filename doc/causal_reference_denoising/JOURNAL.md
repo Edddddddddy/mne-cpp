@@ -5573,3 +5573,15 @@ hidden reasoning is not.
   destructor and restart edges.
 - This is progress only, not a PASS/HOLD result. Do not poll again now; continue
   only disjoint acceptance planning and await the proactive final response.
+
+### E-553 - UI GREEN and block-boundary review requests prepared
+
+- Freeze the post-RED production scope to the plugin header/source/CMake plus
+  one fixed diagnostics header and one programmatic widget pair. Luna/max owns
+  implementation; it cannot edit the tracer, queue, processor or numerical code.
+- Persistent GUI state stays solely in one PImpl pending snapshot. The worker
+  copies it once per popped block, then applies settings reconfigure, reset and
+  whole-block mode in that order; the acquisition callback remains unchanged.
+- A separate new Sol/ultra reviewer will own the final UI/block-boundary gate.
+  Neither task is dispatched before the current plugin lifecycle PASS and the
+  test-first RED tracer integration.
