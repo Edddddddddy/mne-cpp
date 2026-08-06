@@ -377,3 +377,7 @@ same-responsibility implementation conversations that may receive review fixes.
   base `41a2b76fb`; queue header/source only. Replace QSemaphore with lock-free
   SPSC sequences and configure-created sticky OS wake while preserving the
   public four-method seam and the now-GREEN focused test source.
+  App worktree creation is accepted as
+  `client-new-thread:3fb21cfc-1d5b-40a1-b6ef-fb57b91db17b`; no final thread ID
+  exists yet. Publish the exact dispatch on issue #5, then await proactive
+  response without polling.

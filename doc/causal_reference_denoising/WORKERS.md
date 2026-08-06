@@ -6333,3 +6333,11 @@ does not continuously poll them.
 - No task, thread, worktree, repository or external state was created or
   changed. Retry once with the documented target-only project ID; exact base,
   Sol/ultra model and request remain unchanged.
+
+### CREATED W-QUEUE-ATOMIC-GREEN-001
+
+- Corrected app creation accepted a new visible Sol/ultra worktree setup as
+  `client-new-thread:3fb21cfc-1d5b-40a1-b6ef-fb57b91db17b`, host `local`, from
+  exact requested ref `41a2b76fb3de1db6d0b2542eec792144e826f73d`.
+- The prompt contains the full two-file atomic/event/pipe contract and proactive
+  RESPONSE requirement. No final thread ID exists yet; do not poll setup.
