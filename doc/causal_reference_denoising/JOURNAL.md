@@ -4463,3 +4463,12 @@ hidden reasoning is not.
   `41a2b76fb`.
 - Next publish/read back the issue #5 dispatch. Do not poll the task; continue
   disjoint work or consume its proactive response.
+
+### E-429 - Atomic queue implementation dispatched publicly
+
+- Issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202544531`.
+- API read-back confirms exact base/setup, Sol/ultra, two-file immutable-test
+  scope, sequence/event/pipe design and final re-review gate.
+- The completed atomic-test thread is retirement-ready after durable clean/blob/
+  review/GREEN evidence; archive it through the app, not the filesystem.

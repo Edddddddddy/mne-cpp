@@ -379,5 +379,6 @@ same-responsibility implementation conversations that may receive review fixes.
   public four-method seam and the now-GREEN focused test source.
   App worktree creation is accepted as
   `client-new-thread:3fb21cfc-1d5b-40a1-b6ef-fb57b91db17b`; no final thread ID
-  exists yet. Publish the exact dispatch on issue #5, then await proactive
-  response without polling.
+  exists yet. Exact dispatch is published and read back at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202544531`;
+  await proactive response without polling.

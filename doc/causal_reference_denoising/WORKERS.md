@@ -6341,3 +6341,13 @@ does not continuously poll them.
   exact requested ref `41a2b76fb3de1db6d0b2542eec792144e826f73d`.
 - The prompt contains the full two-file atomic/event/pipe contract and proactive
   RESPONSE requirement. No final thread ID exists yet; do not poll setup.
+- Public dispatch/read-back:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202544531`.
+
+### RETIREMENT-READY W-QUEUE-ATOMIC-TEST-001
+
+- Thread `019fd5fa-f207-7fe3-9189-8d77fc9cfade` is one-shot. Exact commit,
+  clean status, one-file blob, manager review, integration, populated Release,
+  repeat runs and public production follow-up are durable.
+- It has no remaining same-responsibility work. Archive through the app without
+  manually modifying or deleting its app-owned worktree.
