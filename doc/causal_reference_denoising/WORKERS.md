@@ -4578,6 +4578,22 @@ does not continuously poll them.
 - Decision: `R-PROC-BOUNDARY-001` is closed. Publish issue #3 evidence after
   this validation is committed/pushed; no full scan, vendor repair or server.
 
+### PUBLISH W-QA-PROC-BOUNDARY-001-GREEN
+
+- GitHub issue #3 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5199965770`.
+- Authenticated `gh` write/API read-back exactly record commits, single-file
+  scope, six boundary PASS rows, complete 14/0/0 Release result, prior coverage
+  preservation, stop-wake evidence and restrictions.
+
+### RETIREMENT PRECHECK W-QA-PROC-BOUNDARY-001
+
+- Worker reported clean detached `203e33f7f`; its sole focused-test blob
+  `dfe51c414` exactly equals integrated HEAD.
+- Review, populated Release result and GitHub evidence are durable. The
+  one-shot processor boundary thread may be app-archived without deleting or
+  mutating its worktree.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread

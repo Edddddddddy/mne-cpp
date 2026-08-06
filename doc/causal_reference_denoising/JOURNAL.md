@@ -3535,3 +3535,13 @@ hidden reasoning is not.
   processor/queue slots remain PASS and stop wake is 61 ms.
 - Decision: close P3 `R-PROC-BOUNDARY-001`; commit/push code/evidence and
   publish/read back issue #3 before worker retirement verification.
+
+### E-336 - Processor boundary GREEN published and retirement-ready
+
+- Publish/read-back: issue #3 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5199965770`
+  exactly records the six PASS rows and complete 14/0/0 evidence.
+- Content: worker/integration focused-test blobs both equal `dfe51c414`; clean
+  worker status and all acceptance evidence are durable.
+- Next: commit/push precheck, archive the completed visible worker through the
+  app only, then record the retirement.
