@@ -753,3 +753,7 @@ same-responsibility implementation conversations that may receive review fixes.
   diff; the worker is attempting only an isolated focused UI build and will
   fall back to MOC/C++14 probes if its app worktree lacks a usable generated
   build. No commit/final response is accepted yet; stop status polling now.
+- Isolated configure confirms only the known missing Eigen baseline; worker is
+  finishing direct Qt MOC/C++14 checks. A single noninterrupting finalize
+  request is prepared: commit/respond after those checks without new validation
+  branches or scope expansion.

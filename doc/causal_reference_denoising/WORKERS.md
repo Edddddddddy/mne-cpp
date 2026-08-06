@@ -8337,6 +8337,18 @@ does not continuously poll them.
 - result / still active; no commit/final response or accepted test claim. Stop
   status waits now and await the proactive response.
 
+### FOLLOWUP W-PLUGIN-UI-GREEN-001-FINALIZE
+
+- to / visible Luna/max thread `019fd8a2-5324-7342-818b-7836cd1a0379`.
+- evidence / later event progress confirms focused CMake reaches only the known
+  incomplete isolated Eigen baseline; no executable claim or dependency copy.
+- request / finish the already-running direct Qt MOC and C++14 syntax checks,
+  then commit exactly the four authorized paths and proactively return the
+  required structured response. Do not add another build harness, path search,
+  test/plugin h/cpp edit or validation branch.
+- intent / timebox validation, not interrupt code. Manager owns populated
+  focused build/run after integration.
+
 ### PREPARED REQUEST W-PLUGIN-UI-WIRE-001
 
 - state / dispatch only after widget GREEN integration and populated focused

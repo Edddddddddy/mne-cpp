@@ -6075,3 +6075,11 @@ hidden reasoning is not.
 - Luna/max reports the exact four-file implementation and clean diff, then begins
   an isolated focused target attempt with MOC/C++14 fallback. It has not returned
   a commit or GREEN claim. Stop status waits and await the proactive response.
+
+### E-602 - Widget verification is timeboxed to response
+
+- Later event progress confirms the isolated CMake limitation is only the known
+  absent Eigen baseline and that direct MOC/C++14 probes are in progress.
+- Prepare one noninterrupting finalize message: after those existing probes,
+  commit exact four-file scope and respond; add no further harness/search/edit.
+  Manager will run the populated target after integration.
