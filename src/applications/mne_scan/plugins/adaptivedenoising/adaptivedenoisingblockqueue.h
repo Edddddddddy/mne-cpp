@@ -99,14 +99,15 @@ public:
     AdaptiveDenoisingBlockQueue& operator=(AdaptiveDenoisingBlockQueue&&) = delete;
 
     /**
-     * Transactionally preallocates an empty running queue. Invalid configurations and allocation exceptions
-     * preserve the prior stopped implementation; a running queue rejects reconfiguration.
+     * Transactionally preallocates an empty running queue and its native wake. Invalid configurations and
+     * allocation or native-resource exceptions preserve the prior stopped implementation; a running queue
+     * rejects reconfiguration.
      */
     AdaptiveDenoisingQueueConfigureStatus configure(
         const AdaptiveDenoisingBlockQueueConfig& config);
 
     /**
-     * Makes one zero-time attempt to copy a positive in-bounds block into the queue. A full queue drops this
+     * Makes one nonblocking attempt to copy a positive in-bounds block into the queue. A full queue drops this
      * newest block without changing either ring position.
      */
     AdaptiveDenoisingQueuePushStatus tryPush(
@@ -114,17 +115,17 @@ public:
         QSharedPointer<const FIFFLIB::FiffInfo> fiffInfo) noexcept;
 
     /**
-     * Waits once for a block and copies its valid rectangle into a matrix exactly matching the configured
-     * maxima. The matrix tail is untouched; non-Popped results preserve the complete destination.
+     * Uses bounded native waits and atomic rechecks for a block, then copies its valid rectangle into a matrix
+     * exactly matching the configured maxima. A nonpositive timeout performs no native wait. The matrix tail
+     * is untouched; non-Popped results preserve the complete destination.
      */
     AdaptiveDenoisingQueuePopStatus waitPop(
         AdaptiveDenoisingQueuedBlock& destination,
         int timeoutMilliseconds) noexcept;
 
     /**
-     * Idempotently prevents new operations from committing and wakes an empty-queue consumer. An operation
-     * that already acquired its semaphore token and observed the running state is ordered before the stop and
-     * may finish concurrently.
+     * Idempotently release-publishes the stopped state and signals the consumer wake once. An operation whose
+     * final running observation is ordered before the stop may finish concurrently.
      */
     void stop() noexcept;
 
