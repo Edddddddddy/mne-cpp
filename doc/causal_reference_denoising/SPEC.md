@@ -535,22 +535,33 @@ public:
 };
 ```
 
-`configure` is transactional, allocates every maximum-sized matrix slot and
-starts an empty queue; it is rejected while already running. The producer
-validates `0 < rows <= maxChannelCount` and
-`0 < cols <= maxBlockSamples`, performs exactly one zero-time free-slot
-semaphore acquire, deep-copies the valid top-left region, retains the native
-shared immutable metadata handle and publishes the slot. `Full` does not
-advance or overwrite either ring position, so the newest input is dropped.
+`configure` is transactional, allocates every maximum-sized matrix slot and a
+configure-created native sticky wake, and starts an empty queue; it is rejected
+while already running. The queue uses always-lock-free unsigned producer and
+consumer sequence counters. The producer acquire-loads consumer progress to
+test and reuse capacity, writes one free slot, then release-publishes producer
+progress. The consumer acquire-loads producer progress before reading a filled
+slot and release-publishes consumer progress after copying it, making the slot
+reusable. The producer validates `0 < rows <= maxChannelCount` and
+`0 < cols <= maxBlockSamples`, and `tryPush` never waits for capacity. `Full`
+does not advance or overwrite either ring position, so the newest input is
+dropped.
 
-The consumer provides a preallocated `maxChannelCount x maxBlockSamples`
-matrix; `waitPop` copies only the valid top-left region and returns `rowCount`,
-`sampleCount` and metadata in the same FIFO order. The unused destination tail
-is unspecified. `stop()` wakes a timed waiter and prevents new pushes; a later
+On Windows the configure-created wake is an auto-reset event; on POSIX it is a
+nonblocking `CLOEXEC` pipe. Producer publication and `stop()` each make one
+nonblocking native signal attempt, and `waitPop` uses the sticky wake with a
+bounded wait plus atomic rechecks. There is no free-slot semaphore, producer
+mutex acquisition or retry loop. The consumer provides a preallocated
+`maxChannelCount x maxBlockSamples` matrix; on `Popped`, `waitPop` copies only
+the valid top-left region and returns `rowCount`, `sampleCount` and metadata in
+the same FIFO order, leaving the destination outside-tail untouched. On
+`Timeout`, `Stopped` or `InvalidDestination`, the complete destination remains
+unchanged. `stop()` wakes a bounded waiter and prevents new pushes; a later
 successful configure creates fresh preallocated state. Push/pop/stop perform
-no heap allocation, string construction or busy wait. `QSharedPointer` copies
-reuse their control block; null metadata is transported faithfully so the
-later worker can fail closed on missing metadata.
+no heap allocation, string construction or busy wait. The caller must quiesce
+the producer and consumer before reconfiguration or destruction. `QSharedPointer`
+copies reuse their control block; null metadata is transported faithfully so
+the later worker can fail closed on missing metadata.
 
 The focused `test_adaptive_denoising_plugin` target compiles private queue,
 processor and numerical sources directly and initially links only Qt Core/Test
