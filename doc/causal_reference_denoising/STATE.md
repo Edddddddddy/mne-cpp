@@ -410,6 +410,8 @@ same-responsibility implementation conversations that may receive review fixes.
   compiles/links and the main run plus five repeats exit zero. Qt reporter file
   capture failed twice without changing the process result; no further capture
   retry is allowed. Next blocking task is the separate allocation tracer.
+  Public integration evidence:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202971691`.
   Luna/max setup accepted as
   `client-new-thread:c4ec3fcf-866e-41d9-8c7d-9fd4680dc7f2` from exact
   `9b7b1c779`; test source only. Publish issue #5 dispatch, then await proactive

@@ -4624,3 +4624,11 @@ hidden reasoning is not.
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202951958`.
 - Read-back confirms exact base/setup, Luna/max, one-test-file counted boundary,
   zero-allocation/public-FIFO gate and later independent Sol re-review.
+
+### E-449 - Atomic queue integration evidence published
+
+- Issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202971691`.
+- Read-back confirms exact worker/integration commits, manager code review,
+  worker cross-platform 19/0/0, canonical zero exits and explicitly open
+  allocation/formal-review gates.

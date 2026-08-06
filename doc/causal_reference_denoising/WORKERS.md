@@ -6432,6 +6432,8 @@ does not continuously poll them.
 - Decision: stop reporter retries. Canonical claim is build/link plus main/five
   repeat zero exits; exact 19/0/0 totals come from worker's independent Windows
   and POSIX public-suite files.
+- Public integration/read-back:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202971691`.
 
 ### REQUEST W-QUEUE-ALLOC-TEST-001
 
