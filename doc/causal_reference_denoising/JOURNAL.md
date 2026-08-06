@@ -3724,3 +3724,27 @@ hidden reasoning is not.
   records the frozen callback/worker/exception/UI/dependency seam.
 - Presentation correction: generic current-head wording was immediately
   replaced with exact `3054015b7` and verified by API read-back.
+
+### E-355 - Compatible Visual Studio fallback is unavailable
+
+- Read-only audit: `C:\\Program Files\\Microsoft Visual Studio\\2022` exists
+  but contains no discoverable `MSBuild.exe` or `cl.exe`; `vswhere -all
+  -prerelease -products *` lists only Visual Studio Community 18.8.1 under
+  `C:\\Program Files\\Microsoft Visual Studio\\18\\Community`.
+- Conclusion: no installed older MSVC toolset is available for a supported
+  Qt 5.15 library-link retry. Keep `R-CORE-LINK-001` environment-deferred; do
+  not install software or patch vendor Qt within this feature.
+
+### E-356 - Queue-v2 RED tracer response received
+
+- Actor: visible Luna/max task
+  `019fd51d-9b99-7e63-b257-8c76b9960134` and manager.
+- Delta: exact-parent `649bbd1ee`, one focused test file only. It migrates all
+  queue tests to `maxChannelCount`, native `QSharedPointer` metadata and
+  row/sample extents, then adds mixed 2/4/3-row FIFO/deep-copy/tail/metadata
+  acceptance using one preallocated 4x4 destination.
+- Evidence limit: the worker correctly reports the clean-worktree ignored
+  Eigen gap and makes no compile/runtime claim or dependency repair.
+- Next: commit/push the response and toolchain evidence, inspect exact
+  provenance/diff/oracles, then cherry-pick and require the populated target to
+  fail at the frozen queue-v2 public contract before production dispatch.

@@ -5035,3 +5035,36 @@ does not continuously poll them.
   row-count transition visibility risk.
 - Decision: no speculative plugin source until formal queue review and a
   smallest-seam follow-up; no AbstractAlgorithm/global measurement change.
+
+### RESPONSE W-QUEUE-V2-TEST-001
+
+- From / to: visible Luna/max queue-v2 tracer conversation
+  `019fd51d-9b99-7e63-b257-8c76b9960134` / manager.
+- Exact base/commit:
+  `b4299fdafd9e61779ff2a1482e74ae8a694b7bb4` /
+  `649bbd1ee10bb884a6f30423a5bd2739e432097f`; worker reports an exact-parent,
+  clean detached commit and passing diff check.
+- Scope: only
+  `src/testframes/test_adaptive_denoising_plugin/test_adaptive_denoising_plugin.cpp`;
+  production queue/CMake/processor/core/plugin/docs/vendor remain unchanged.
+- Migration: every queue configuration uses `maxChannelCount`; metadata uses
+  native `QSharedPointer<const FIFFLIB::FiffInfo>`; popped results assert both
+  `rowCount` and `sampleCount`; invalid destinations must preserve extents,
+  matrix and metadata sentinels. All prior processor and queue behaviors remain.
+- New oracle: configure maxima 4x4/capacity three; push and then mutate 2x3,
+  4x2 and 3x4 matrices carrying three distinct non-null fake native metadata
+  identities. A single preallocated 4x4 destination must pop them FIFO with
+  exact valid rectangles/extents, untouched sentinel tail and matching pointer
+  identity, then return Timeout.
+- Ownership traits: Qt 5.15.2 same-type `QSharedPointer` copy construction and
+  assignment were inspected and namespace-scope C++14 traits require both to
+  be nothrow. The fake FiffInfo pointers use explicit no-op deleters and are
+  never constructed, dereferenced or linked.
+- Worker verification: isolated configure stopped at the known ignored Eigen
+  baseline gap before target generation. No vendor repair or build/run claim;
+  expected populated RED is the current production's exact-row/std ownership
+  interface lacking the v2 names and extents.
+- Restrictions: Luna/max, no internal/nested subagent, manager polling, full
+  scan, full mne_scan, vendor change or rt_server.
+- Status: response recorded before manager provenance/diff review,
+  cherry-pick or populated RED.

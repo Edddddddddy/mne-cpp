@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T03:10:00+08:00
+Last updated: 2026-08-06T12:05:00+08:00
 
 ## Recovery order
 
@@ -159,6 +159,19 @@ transitions in FIFO order. A focused RED test and Sol/ultra implementation are
 next; the pending original queue review remains an input and a fresh review is
 required before plugin lifecycle integration. Earlier discussion:
 `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5195227638`.
+
+`W-QUEUE-V2-TEST-001` proactively returned exact-base Luna/max commit
+`649bbd1ee` from parent `b4299fdaf`. It changes only the focused plugin test,
+migrates every queue oracle to native `QSharedPointer` plus row/sample extents,
+and adds mixed 2/4/3-row FIFO/deep-copy/tail/metadata acceptance. The response
+is durable; manager provenance/diff review and populated compile RED are next.
+No production queue change has been accepted yet.
+
+The compatible-toolchain follow-up found no usable Visual Studio 2022
+installation: the directory exists but contains no MSBuild/compiler, and
+`vswhere -all -prerelease -products *` lists only Visual Studio 18.8.1 with
+MSVC 14.51. `R-CORE-LINK-001` therefore remains environment-deferred without
+vendor or toolchain modification.
 
 ## Focused verification targets
 
