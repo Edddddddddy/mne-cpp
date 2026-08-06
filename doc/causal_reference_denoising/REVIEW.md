@@ -763,6 +763,9 @@ tracked.
   no metadata/queue access; Entered retains the frozen path; Closed is silent.
   MOC/C++14 syntax/source oracles pass. Addressed pending manager integration and
   fresh formal review; runtime harness remains explicitly deferred to #8.
+- Manager integration/verification: integrated as `6ab7326ac`; MOC, exact
+  callback branch oracle and MSVC 14.29 C++14 `/Zs` pass. Mark addressed pending
+  formal re-review; no runtime-harness claim is made.
 
 #### R-PLUGIN-LIFECYCLE-TEST-001 - P2 - Deferred candidate
 
@@ -805,6 +808,9 @@ tracked.
   C++14 standard atomic lock-free macros and requires value two at compile time;
   MSVC 14.29 C++14 `/Zs` accepts the exact source. Addressed pending integration/
   formal review.
+- Manager integration/verification: `6ab7326ac`; exact source compiles under
+  MSVC 14.29 C++14 `/Zs`, so both C++14 guards are active. Mark addressed pending
+  formal re-review.
 
 ### Plugin lifecycle action decision
 

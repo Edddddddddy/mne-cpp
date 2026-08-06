@@ -674,3 +674,7 @@ same-responsibility implementation conversations that may receive review fixes.
 - Manager direct state-machine/diff review accepts the response and integrates
   it conflict-free as `6ab7326ac`. Populated MOC/source/compile verification and
   fresh Sol/ultra lifecycle review remain before the gate can pass.
+- Populated verification now passes: Qt MOC, deterministic callback oracle and
+  MSVC 14.29 C++14 `/Zs` on the exact integrated source. Immediate code findings
+  are addressed; the lifecycle gate now needs a fresh exact-snapshot review of
+  these fixes plus the explicit issue #8 deferrals.

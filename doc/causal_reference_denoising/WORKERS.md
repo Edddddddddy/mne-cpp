@@ -7827,6 +7827,19 @@ does not continuously poll them.
 - next / populated MOC/C++14/source validation, issue publication and fresh
   exact-snapshot formal lifecycle review.
 
+### VALIDATION W-PLUGIN-ADMISSION-FIX-001-RETRY-1
+
+- Qt MOC / exit zero, generated 4,269 bytes with the correct repository include
+  roots and plugin metadata.
+- callback oracle / one `info()`, one `tryPush` site, zero mutex/wait/sleep;
+  Closed precedes dynamicCast; Busy counts `matrices.size()` with zero info/push;
+  two always-lock-free guard messages and one admission CAS.
+- compiler / after correcting the recorded manager `vcvars64` quoting harness,
+  Visual Studio MSVC 14.29.30133 C++14 `/Zs` accepts the integrated translation
+  unit; only existing Eigen C4819 code-page warnings occur.
+- evidence boundary / syntax/source/MOC only, not lifecycle runtime. Real target
+  remains blocked under MSVC 14.51 before plugin compilation by existing Qt.
+
 ### REQUEST W-PLUGIN-STATIC-001
 
 - from / manager

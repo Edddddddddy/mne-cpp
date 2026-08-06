@@ -5816,3 +5816,15 @@ hidden reasoning is not.
   and compilation stops at missing `<cstring>`.
 - This is a harness-only failure, not a source result. Record it before retrying
   with a correctly invoked environment script; do not change code/dependencies.
+
+### E-577 - Integrated admission correction validation passes
+
+- Correct `vcvars64 -vcvars_ver=14.29` invocation loads standard include paths;
+  MSVC 14.29 C++14 `/Zs` accepts the exact integrated plugin source with only
+  existing Eigen C4819 warnings.
+- Qt MOC exits zero. Mechanical callback extraction confirms Closed/Busy/
+  Entered order, exact Busy matrix accounting, one admitted info/push site, no
+  callback mutex/wait and active 32/64-bit lock-free guards.
+- This completes source/compile verification but is not lifecycle runtime
+  evidence. Publish on issue #6, archive the completed implementation worker and
+  prepare a fresh exact-snapshot Sol/ultra re-review.
