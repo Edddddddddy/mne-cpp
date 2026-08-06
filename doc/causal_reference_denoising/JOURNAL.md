@@ -4534,3 +4534,10 @@ hidden reasoning is not.
   `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5202684965`.
 - Read-back confirms exact held SHA, missing evidence, required workload/
   command/measurements and the no-overlap retained-conversation follow-up.
+
+### E-438 - Latest recovery checkpoint consolidated
+
+- STATE now ends with an explicit active checkpoint superseding earlier
+  historical checkpoint sections. It records synchronized branch state, the
+  sole atomic-queue blocker, held plugin commits, prepared allocation/review
+  gates, guide corrections and remaining integration order.

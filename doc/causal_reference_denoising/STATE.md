@@ -386,3 +386,30 @@ same-responsibility implementation conversations that may receive review fixes.
   await proactive response without polling.
   GitHub issue #5 body now matches this frozen atomic contract; authenticated
   read-back confirms the stale QSemaphore deliverable is removed.
+
+## Active checkpoint - supersedes earlier checkpoint sections
+
+- Management/integration branch and remote were synchronized at
+  `f5235091aec6d2f4ed178470f61ccc7f84b67f8f` immediately before this record.
+  The only untracked paths remain the three preserved user paths:
+  `.codex-build/`, `src/build/` and `doc/mne_scan_technical_document.md`.
+- Completed and accepted: numerical core, processor, example, benchmark,
+  processor/core QA, and queue public concurrency/lifetime test integration
+  `16053ffe6` with populated Release plus three repeat zero exits.
+- Single blocking production task: `W-QUEUE-ATOMIC-GREEN-001`, visible
+  Sol/ultra setup `client-new-thread:3fb21cfc-1d5b-40a1-b6ef-fb57b91db17b`,
+  exact source base `41a2b76fb`, queue header/source only. Public dispatch:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202544531`.
+  Do not poll; await proactive RESPONSE.
+- Accepted but deliberately not integrated until the atomic queue gate:
+  plugin data commit `5f4718722` plus exact-parent SPSC admission fix
+  `34a8096f1`. Retain its Sol/ultra conversation for same-responsibility fixes.
+- Prepared next queue gate: a separate Luna/max producer-thread allocation
+  test, then the retained Sol/ultra formal reviewer rechecks P0-P2.
+- Learning guide remains held in its retained Luna/max conversation. After its
+  active queue-v2 response, one combined narrow revision must describe the
+  final atomic wake and add benchmark command/workload/results
+  `2.725/4.317/8.557 ms` before issue #7 can close.
+- After queue review passes: integrate/formally review plugin data, implement
+  programmatic minimal UI, add focused block-boundary settings/lifecycle
+  evidence, run final targets/review, update and close issues #5/#6/#7/#3/#2.
