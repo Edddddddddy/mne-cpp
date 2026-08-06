@@ -7643,3 +7643,33 @@ does not continuously poll them.
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208166450`.
 - resolution / one immediate thread-list lookup did not yet expose a final
   `threadId`; keep the accepted client setup ID and do not poll for creation.
+
+### PREPARED REQUEST W-PLUGIN-UI-TEST-001
+
+- state / prepared only; do not dispatch until `R-PLUGIN-DATA-001` passes or
+  its lifecycle findings are corrected. The exact base will be the resulting
+  pushed integration HEAD.
+- model / new visible `gpt-5.6-luna` / `max` test conversation
+- skill / complete `tdd` skill; public behavior and UI-observable signals only
+- scope / add only `src/testframes/CMakeLists.txt` plus a new focused
+  `test_adaptive_denoising_ui` CMake/test source. Production plugin/widget,
+  numerical, queue, processor, vendor and full application files are immutable.
+- target seam / directly compile the future plugin-private setup-widget source
+  and include its fixed diagnostics header, linking only Qt Core/Widgets/Test
+  and Eigen. Do not link `scan_adaptivedenoising`, `mne_fiff`, `scShared`,
+  `scMeas` or `mne_rtprocessing`, so the existing Qt/MSVC FIFF block is absent.
+- RED behavior / the frozen widget/header/source do not yet exist. Register a
+  focused public QtTest target whose initial failure is the missing production
+  UI seam; do not manufacture a different failure or change dependencies.
+- control oracle / query stable object names and verify enabled default true;
+  taps 1..32/default 4; update interval 16..2048/default 128; memory 1..300/
+  default 30; regularization 1e-8..1/default 1e-3; frozen default false; reset
+  button present. Verify each edit/reset emits the corresponding widget signal.
+- diagnostics oracle / deliver one fixed data-only diagnostics value through
+  the widget public slot and verify GUI-thread labels expose plugin/configure/
+  process state, R/M/P, warmup, generation, accepted/rejected updates, three
+  RMS values and dropped blocks. No QString/container/owner is stored in the
+  diagnostics type; add C++14 copy/metatype checks where portable.
+- result / return exact parent/commit, three-file scope, RED command/output,
+  object names and exact oracles. No subagent, manager polling, full app or
+  `mne_rt_server`.

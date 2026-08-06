@@ -5542,3 +5542,17 @@ hidden reasoning is not.
 - One immediate app thread-list lookup does not yet resolve the asynchronous
   client setup to a final thread ID. Retain the accepted setup ID and await the
   proactive response; this is not a reason to poll or duplicate the reviewer.
+
+### E-550 - Teaching UI RED tracer is prepared but held
+
+- Read-only comparison of the frozen UI seam and integrated plugin confirms a
+  testable private view boundary: the setup widget can emit typed control
+  signals and consume one fixed diagnostics metatype without FIFF, queue,
+  processor ownership or the plugin target.
+- Prepare a Luna/max TDD task that adds only a focused Qt Widgets/Test target
+  and behavior tracer. Its CMake names the future widget source directly, so
+  the absent UI produces the intended RED without linking the Qt/MSVC-blocked
+  `mne_fiff` dependency.
+- Do not dispatch before the active lifecycle review gate. After PASS, run the
+  RED tracer, then give production UI implementation to a separate Luna/max
+  conversation and finally use an independent Sol/ultra block-boundary review.
