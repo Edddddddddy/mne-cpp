@@ -3963,3 +3963,13 @@ hidden reasoning is not.
   the previously observed app delivery gap rather than an active computation.
 - Decision: after this record is committed/pushed, read the idle task exactly
   once. Do not continuously poll or duplicate the implementation task.
+
+### E-377 - Queue-v2 first execution was empty; same task retry requested
+
+- Recovery read: the completed worker turn has only the original delegation
+  and no assistant output. The app reports no explicit error.
+- Repository evidence: its app-owned worktree is clean at exact `9b526eb14`
+  with no staged/unstaged change or new commit.
+- Decision: reuse that same Sol/ultra conversation for one unchanged retry,
+  because it remains the correct responsibility and exact base. This avoids a
+  duplicate worktree while repairing the no-output execution failure.

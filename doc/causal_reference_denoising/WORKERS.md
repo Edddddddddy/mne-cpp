@@ -5383,3 +5383,24 @@ does not continuously poll them.
 - Expected handling: if the final response exists, persist it before manager
   inspection. If it does not exist, send one explicit RESPONSE request to the
   retained same-responsibility conversation and wait for proactive delivery.
+
+### SYSTEM FAILURE W-QUEUE-V2-GREEN-001-TURN-1
+
+- Single recovery read result: the completed turn contains only the original
+  user delegation and no assistant item, final response, error text or tool
+  output.
+- Read-only worktree proof: `C:/Users/lcy/.codex/worktrees/6e99/mne-cpp-main`
+  is clean/detached at exact `9b526eb1429b3e1292a0c58fae3d73fde34eb97c`;
+  there is no unstaged/staged diff and no worker commit.
+- Classification: execution produced no work. Nothing can be inspected or
+  integrated, and no RESPONSE was lost after a commit.
+
+### REQUEST W-QUEUE-V2-GREEN-001-RETRY-1
+
+- Reuse the same visible Sol/ultra conversation
+  `019fd52e-1d77-7a22-a8f3-ab51728560c3`; it is the same responsibility and
+  its worktree is still the required clean exact base.
+- Execute the original immutable queue-v2 request now, editing only the queue
+  header/source and returning the required structured proactive RESPONSE.
+- Do not create another worker, rebase, poll the manager, use subagents, run a
+  full scan or start `mne_rt_server`.
