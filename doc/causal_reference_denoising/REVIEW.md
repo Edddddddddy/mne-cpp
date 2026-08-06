@@ -851,3 +851,20 @@ tracked.
   environment boundary rather than runtime evidence.
 - Gate consequence: issue #5 may close with issue #8 linked, and the teaching UI
   TDD sequence may begin.
+
+### Teaching widget implementation review - W-PLUGIN-UI-GREEN-001
+
+- Snapshot: integrated commit
+  `56fcc5a5ef8453ef6f360edcb965b790719d62ee`; worker source commit
+  `aa7ca542c702596c19de1f87931819f29e0362c7` has the exact requested parent and
+  four-file scope.
+- Decision: ACCEPT. Manager findings P0=0, P1=0, P2=0, P3=0 for the standalone
+  widget/diagnostics seam.
+- Deep-module assessment: the widget is a narrow view module. It owns controls
+  and human-readable formatting, while the fixed scalar diagnostics value is
+  the only cross-thread data seam. It owns no plugin, queue, FIFF or numerical
+  model state and therefore keeps later lifecycle wiring local to the adapter.
+- Test evidence: populated MSVC/Qt Release build/link succeeds; two offscreen
+  QtTest executions report 3/0/0 and the explicit rerun exits zero. This proves
+  only the public widget contract; plugin pending-state/block-boundary wiring is
+  intentionally the next Sol/ultra slice and receives a separate formal review.

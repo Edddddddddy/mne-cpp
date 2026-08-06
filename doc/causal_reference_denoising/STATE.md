@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-07T04:10:49+08:00
+Last updated: 2026-08-07T04:14:15+08:00
 
 ## Recovery order
 
@@ -762,3 +762,17 @@ same-responsibility implementation conversations that may receive review fixes.
   MOC and C++14 syntax are reported complete; isolated Eigen prevents an
   executable claim. Manager exact diff review, integration and populated
   focused GREEN are next before Sol wiring dispatch.
+
+### Teaching widget focused gate GREEN
+
+- Manager exact-parent/scope/interface review accepts worker commit
+  `aa7ca542c702596c19de1f87931819f29e0362c7`; conflict-free integration is
+  `56fcc5a5ef8453ef6f360edcb965b790719d62ee` and changes only the plugin CMake,
+  fixed diagnostics header and setup-widget header/source.
+- Populated Release CMake builds and links `test_adaptive_denoising_ui`.
+  Two offscreen executions both report `3 passed, 0 failed/skipped/blacklisted`;
+  the explicit rerun exits zero in 7 ms. Qt's missing optional font-directory
+  warnings do not affect the tested control/signal/diagnostics contract.
+- The next blocking task is `W-PLUGIN-UI-WIRE-001`: a new visible Sol/ultra
+  worker editing only `adaptivedenoising.h/.cpp` for the pending UI snapshot,
+  worker-block-boundary configuration/reset/mode order and queued diagnostics.

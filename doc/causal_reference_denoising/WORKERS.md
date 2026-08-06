@@ -8418,6 +8418,36 @@ does not continuously poll them.
   results/limits and clean state. Manager later integrates and dispatches a new
   independent Sol/ultra UI review.
 
+### REVIEW / INTEGRATION W-PLUGIN-UI-GREEN-001
+
+- provenance / worker commit `aa7ca542c702596c19de1f87931819f29e0362c7`
+  has exact parent `7da5d498d113f9adc710dd426f2270619142f4da`,
+  exact four-path authorized scope and a clean committed diff.
+- interface review / the fixed diagnostics value is scalar-only with the
+  expected metatype declaration. The final programmatic widget exposes exactly
+  the frozen controls, typed signals, diagnostic labels and GUI-thread string
+  formatting while owning no queue, processor or plugin lifecycle state.
+- CMake review / the plugin target adds only the diagnostics/widget files; the
+  focused test remains dependency-isolated from FIFF, mne_rtprocessing,
+  scShared and scMeas. No manager P0-P3 finding is open for this slice.
+- integration / conflict-free cherry-pick creates
+  `56fcc5a5ef8453ef6f360edcb965b790719d62ee`; preserved user paths remain
+  untracked and unchanged.
+
+### GREEN W-PLUGIN-UI-GREEN-001
+
+- build / populated Release configure and target build succeed for
+  `test_adaptive_denoising_ui`; the executable is
+  `out/Release/apps/test_adaptive_denoising_ui.exe`.
+- run / `QT_QPA_PLATFORM=offscreen` with the Qt text reporter returns process
+  exit zero and `3 passed, 0 failed, 0 skipped, 0 blacklisted` in 7 ms. The
+  immediately preceding run reports the same totals in 26 ms.
+- warnings / Qt reports only a missing optional fonts directory; the public
+  control/signal/diagnostics oracle still passes and no dependency is changed.
+- decision / GREEN. Publish issue #6 evidence, archive the completed Luna/max
+  worker without deleting its app worktree, clean the spent local-only base ref,
+  then dispatch the prepared two-source Sol/ultra wiring task.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are

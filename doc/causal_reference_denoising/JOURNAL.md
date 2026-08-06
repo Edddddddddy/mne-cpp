@@ -6095,3 +6095,23 @@ hidden reasoning is not.
   pass.
 - Persist before manager Git/source review. Populated focused GREEN remains the
   acceptance gate; plugin h/cpp wiring stays undispatched.
+
+### E-604 - Teaching widget response reviewed and integrated
+
+- Manager verifies exact worker parent, four authorized paths, clean diff and
+  the diagnostics/widget/CMake public seam. The scalar metatype, seven controls
+  and signals, fourteen diagnostics labels and GUI-only formatting match SPEC;
+  no manager P0-P3 finding is opened.
+- Conflict-free cherry-pick creates `56fcc5a5e`. The branch remains clean apart
+  from the three preserved user paths. Run the populated focused target before
+  publishing or dispatching plugin wiring.
+
+### E-605 - Teaching widget populated GREEN passes
+
+- Populated Release CMake compiles and links `test_adaptive_denoising_ui`.
+  The previous offscreen run and an explicit waited rerun both report
+  `3 passed, 0 failed/skipped/blacklisted`; the rerun exits zero in 7 ms.
+- Qt emits only missing optional font-directory warnings. No source, vendor or
+  dependency adjustment is needed. Persist/push and publish this widget gate,
+  archive its one-shot Luna/max task, then create the prepared Sol/ultra
+  two-source plugin wiring task.
