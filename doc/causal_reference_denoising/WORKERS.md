@@ -5585,3 +5585,10 @@ does not continuously poll them.
   scope, precise adapter-default and queue-v2 corrections, unchanged verified
   content, link/Markdown/diff/clean proof and proactive structured RESPONSE.
 - No duplicate conversation/worktree was created; manager will not poll it.
+
+### PUBLISH W-DOC-001-REVISE-1
+
+- GitHub issue #7 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5201120187`.
+- Authenticated API read-back confirms the held SHA, P2 evidence, exact narrow
+  correction, same-conversation Luna/max amend and no-build/server scope.

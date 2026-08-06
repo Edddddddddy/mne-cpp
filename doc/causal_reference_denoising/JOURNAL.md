@@ -4056,3 +4056,10 @@ hidden reasoning is not.
   maximum-dimension/extents/top-left/native-owner/tail/worker-shape semantics.
 - Next: await proactive response; continue manager review of the already
   returned plugin-data commit without integrating it before queue GREEN.
+
+### E-386 - Learning guide P2 and revision published
+
+- Issue #7 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5201120187`.
+- API read-back confirms the exact held commit, P2 queue/default mismatch and
+  same-parent one-file Luna/max revision gate.
