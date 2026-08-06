@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T16:02:00+08:00
+Last updated: 2026-08-06T16:09:00+08:00
 
 ## Recovery order
 
@@ -324,3 +324,5 @@ same-responsibility implementation conversations that may receive review fixes.
 - Next blocking queue action: split a Luna/max public-interface test tracer from
   a Sol/ultra atomic-SPSC/nonallocating-wake implementation. Plugin-data
   integration remains held until all queue P0/P1/P2 findings are closed.
+  Formal review is public at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201624132`.

@@ -5969,3 +5969,11 @@ does not continuously poll them.
   text reporter, so no newly emitted total is claimed. Runtime slots are
   unchanged and the new namespace-scope traits necessarily compiled. Debug
   execution remains required before closing the findings.
+
+### PUBLISH R-QUEUE-V2-001
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201624132`.
+- Authenticated `gh` write and API read-back exactly record the Sol/ultra HOLD
+  gate, P1 Windows QSemaphore dependency, both P2 test gaps, accepted static
+  behavior, test-first fix direction and no full mne_scan/mne_rt_server scope.

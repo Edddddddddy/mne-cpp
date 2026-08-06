@@ -4258,3 +4258,13 @@ hidden reasoning is not.
   suppressed, so no new emitted count is claimed.
 - Debug build/run and complete evidence reconciliation remain before closing
   core C++14/locality findings.
+
+### E-408 - Queue-v2 formal HOLD published
+
+- Issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201624132`.
+- API read-back confirms the exact reviewed snapshot, P0/P1/P2/P3 counts,
+  Windows QSemaphore realtime blocker, both missing public test classes and
+  atomic-SPSC test-first correction direction.
+- Next: persist a minimal Luna/max RED public-test request before creating its
+  visible worktree; do not integrate the already returned plugin adapter.
