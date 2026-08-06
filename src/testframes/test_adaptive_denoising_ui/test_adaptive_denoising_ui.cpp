@@ -1,0 +1,209 @@
+//=============================================================================================================
+/**
+ * @file     test_adaptive_denoising_ui.cpp
+ * @brief    Public-interface RED tracer for the adaptive denoising setup widget.
+ */
+
+//=============================================================================================================
+// INCLUDES
+//=============================================================================================================
+
+#include <adaptivedenoising/adaptivedenoisingdiagnostics.h>
+#include <adaptivedenoising/adaptivedenoisingsetupwidget.h>
+
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QDoubleSpinBox>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpinBox>
+#include <QtTest/QSignalSpy>
+#include <QtTest/QtTest>
+
+#include <Eigen/Core>
+
+#include <cstdint>
+#include <type_traits>
+#include <utility>
+
+//=============================================================================================================
+
+using namespace ADAPTIVEDENOISINGPLUGIN;
+
+namespace
+{
+
+using Diagnostics = AdaptiveDenoisingDiagnostics;
+
+static_assert(std::is_copy_constructible<Diagnostics>::value,
+              "diagnostics must be copy constructible for queued delivery");
+static_assert(std::is_copy_assignable<Diagnostics>::value,
+              "diagnostics must be copy assignable for queued delivery");
+static_assert(std::is_standard_layout<Diagnostics>::value,
+              "diagnostics must remain a fixed standard-layout value");
+static_assert(std::is_trivially_copyable<Diagnostics>::value,
+              "diagnostics must contain only trivially copyable data");
+static_assert(
+    std::is_scalar<decltype(std::declval<Diagnostics>().pluginState)>::value
+        && std::is_scalar<decltype(std::declval<Diagnostics>().configureStatus)>::value
+        && std::is_scalar<decltype(std::declval<Diagnostics>().processStatus)>::value
+        && std::is_scalar<decltype(std::declval<Diagnostics>().referenceRowCount)>::value
+        && std::is_scalar<decltype(std::declval<Diagnostics>().targetRowCount)>::value
+        && std::is_scalar<decltype(std::declval<Diagnostics>().featureCount)>::value
+        && std::is_scalar<decltype(std::declval<Diagnostics>().warmupSamplesRemaining)>::value
+        && std::is_scalar<decltype(std::declval<Diagnostics>().modelGeneration)>::value
+        && std::is_scalar<decltype(std::declval<Diagnostics>().modelUpdatesAccepted)>::value
+        && std::is_scalar<decltype(std::declval<Diagnostics>().modelUpdatesRejected)>::value
+        && std::is_scalar<decltype(std::declval<Diagnostics>().inputRms)>::value
+        && std::is_scalar<decltype(std::declval<Diagnostics>().outputRms)>::value
+        && std::is_scalar<decltype(std::declval<Diagnostics>().estimatedNoiseRms)>::value
+        && std::is_scalar<decltype(std::declval<Diagnostics>().droppedBlocks)>::value,
+    "diagnostics must not contain strings, containers or owning pointers");
+
+} // namespace
+
+//=============================================================================================================
+
+class TestAdaptiveDenoisingUi : public QObject
+{
+    Q_OBJECT
+
+private slots:
+    void widgetControlsAndDiagnosticsExposePublicContract();
+};
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingUi::widgetControlsAndDiagnosticsExposePublicContract()
+{
+    AdaptiveDenoisingSetupWidget widget;
+
+    QCheckBox* const enabled = widget.findChild<QCheckBox*>(QStringLiteral("enabledCheckBox"));
+    QSpinBox* const taps = widget.findChild<QSpinBox*>(QStringLiteral("tapCountSpinBox"));
+    QSpinBox* const interval =
+        widget.findChild<QSpinBox*>(QStringLiteral("adaptationIntervalSpinBox"));
+    QDoubleSpinBox* const memory =
+        widget.findChild<QDoubleSpinBox*>(QStringLiteral("memoryTimeSecondsSpinBox"));
+    QDoubleSpinBox* const regularization =
+        widget.findChild<QDoubleSpinBox*>(QStringLiteral("regularizationSpinBox"));
+    QCheckBox* const frozen = widget.findChild<QCheckBox*>(QStringLiteral("frozenCheckBox"));
+    QPushButton* const reset = widget.findChild<QPushButton*>(QStringLiteral("resetButton"));
+
+    QVERIFY(enabled != nullptr);
+    QVERIFY(taps != nullptr);
+    QVERIFY(interval != nullptr);
+    QVERIFY(memory != nullptr);
+    QVERIFY(regularization != nullptr);
+    QVERIFY(frozen != nullptr);
+    QVERIFY(reset != nullptr);
+
+    QCOMPARE(enabled->isChecked(), true);
+    QCOMPARE(taps->minimum(), 1);
+    QCOMPARE(taps->maximum(), 32);
+    QCOMPARE(taps->value(), 4);
+    QCOMPARE(interval->minimum(), 16);
+    QCOMPARE(interval->maximum(), 2048);
+    QCOMPARE(interval->value(), 128);
+    QCOMPARE(memory->minimum(), 1.0);
+    QCOMPARE(memory->maximum(), 300.0);
+    QCOMPARE(memory->value(), 30.0);
+    QCOMPARE(regularization->minimum(), 1e-8);
+    QCOMPARE(regularization->maximum(), 1.0);
+    QCOMPARE(regularization->value(), 1e-3);
+    QCOMPARE(frozen->isChecked(), false);
+
+    QSignalSpy enabledSpy(&widget, &AdaptiveDenoisingSetupWidget::enabledChanged);
+    QSignalSpy frozenSpy(&widget, &AdaptiveDenoisingSetupWidget::frozenChanged);
+    QSignalSpy tapsSpy(&widget, &AdaptiveDenoisingSetupWidget::tapCountChanged);
+    QSignalSpy intervalSpy(&widget, &AdaptiveDenoisingSetupWidget::adaptationIntervalChanged);
+    QSignalSpy memorySpy(&widget, &AdaptiveDenoisingSetupWidget::memoryTimeSecondsChanged);
+    QSignalSpy regularizationSpy(&widget, &AdaptiveDenoisingSetupWidget::regularizationChanged);
+    QSignalSpy resetSpy(&widget, &AdaptiveDenoisingSetupWidget::resetRequested);
+
+    enabled->setChecked(false);
+    QCOMPARE(enabledSpy.count(), 1);
+    QCOMPARE(enabledSpy.at(0).at(0).toBool(), false);
+
+    frozen->setChecked(true);
+    QCOMPARE(frozenSpy.count(), 1);
+    QCOMPARE(frozenSpy.at(0).at(0).toBool(), true);
+
+    taps->setValue(7);
+    QCOMPARE(tapsSpy.count(), 1);
+    QCOMPARE(tapsSpy.at(0).at(0).toInt(), 7);
+
+    interval->setValue(256);
+    QCOMPARE(intervalSpy.count(), 1);
+    QCOMPARE(intervalSpy.at(0).at(0).toInt(), 256);
+
+    memory->setValue(45.0);
+    QCOMPARE(memorySpy.count(), 1);
+    QCOMPARE(memorySpy.at(0).at(0).toDouble(), 45.0);
+
+    regularization->setValue(0.01);
+    QCOMPARE(regularizationSpy.count(), 1);
+    QCOMPARE(regularizationSpy.at(0).at(0).toDouble(), 0.01);
+
+    reset->click();
+    QCOMPARE(resetSpy.count(), 1);
+
+    const int diagnosticsTypeId = qRegisterMetaType<Diagnostics>();
+    QVERIFY(diagnosticsTypeId != QMetaType::UnknownType);
+
+    Diagnostics diagnostics{};
+    diagnostics.pluginState = AdaptiveDenoisingPluginState::Processing;
+    diagnostics.configureStatus = AdaptiveDenoisingConfigureStatus::Ready;
+    diagnostics.processStatus = RTPROCESSINGLIB::DenoiserProcessStatus::Processed;
+    diagnostics.referenceRowCount = 2;
+    diagnostics.targetRowCount = 3;
+    diagnostics.featureCount = 8;
+    diagnostics.warmupSamplesRemaining = 7;
+    diagnostics.modelGeneration = 11;
+    diagnostics.modelUpdatesAccepted = 13;
+    diagnostics.modelUpdatesRejected = 2;
+    diagnostics.inputRms = 1.25;
+    diagnostics.outputRms = 0.75;
+    diagnostics.estimatedNoiseRms = 0.5;
+    diagnostics.droppedBlocks = 4;
+
+    widget.setDiagnostics(diagnostics);
+
+    const auto valueLabel = [&widget](const QString& name) {
+        return widget.findChild<QLabel*>(name);
+    };
+
+    QVERIFY(valueLabel(QStringLiteral("pluginStateValue")) != nullptr);
+    QVERIFY(valueLabel(QStringLiteral("configureStatusValue")) != nullptr);
+    QVERIFY(valueLabel(QStringLiteral("processStatusValue")) != nullptr);
+    QVERIFY(valueLabel(QStringLiteral("referenceCountValue")) != nullptr);
+    QVERIFY(valueLabel(QStringLiteral("targetCountValue")) != nullptr);
+    QVERIFY(valueLabel(QStringLiteral("featureCountValue")) != nullptr);
+    QVERIFY(valueLabel(QStringLiteral("warmupSamplesValue")) != nullptr);
+    QVERIFY(valueLabel(QStringLiteral("modelGenerationValue")) != nullptr);
+    QVERIFY(valueLabel(QStringLiteral("acceptedUpdatesValue")) != nullptr);
+    QVERIFY(valueLabel(QStringLiteral("rejectedUpdatesValue")) != nullptr);
+    QVERIFY(valueLabel(QStringLiteral("inputRmsValue")) != nullptr);
+    QVERIFY(valueLabel(QStringLiteral("outputRmsValue")) != nullptr);
+    QVERIFY(valueLabel(QStringLiteral("estimatedNoiseRmsValue")) != nullptr);
+    QVERIFY(valueLabel(QStringLiteral("droppedBlocksValue")) != nullptr);
+
+    QCOMPARE(valueLabel(QStringLiteral("pluginStateValue"))->text(), QStringLiteral("Processing"));
+    QCOMPARE(valueLabel(QStringLiteral("configureStatusValue"))->text(), QStringLiteral("Ready"));
+    QCOMPARE(valueLabel(QStringLiteral("processStatusValue"))->text(), QStringLiteral("Processed"));
+    QCOMPARE(valueLabel(QStringLiteral("referenceCountValue"))->text(), QStringLiteral("2"));
+    QCOMPARE(valueLabel(QStringLiteral("targetCountValue"))->text(), QStringLiteral("3"));
+    QCOMPARE(valueLabel(QStringLiteral("featureCountValue"))->text(), QStringLiteral("8"));
+    QCOMPARE(valueLabel(QStringLiteral("warmupSamplesValue"))->text(), QStringLiteral("7"));
+    QCOMPARE(valueLabel(QStringLiteral("modelGenerationValue"))->text(), QStringLiteral("11"));
+    QCOMPARE(valueLabel(QStringLiteral("acceptedUpdatesValue"))->text(), QStringLiteral("13"));
+    QCOMPARE(valueLabel(QStringLiteral("rejectedUpdatesValue"))->text(), QStringLiteral("2"));
+    QCOMPARE(valueLabel(QStringLiteral("inputRmsValue"))->text(), QStringLiteral("1.25"));
+    QCOMPARE(valueLabel(QStringLiteral("outputRmsValue"))->text(), QStringLiteral("0.75"));
+    QCOMPARE(valueLabel(QStringLiteral("estimatedNoiseRmsValue"))->text(), QStringLiteral("0.5"));
+    QCOMPARE(valueLabel(QStringLiteral("droppedBlocksValue"))->text(), QStringLiteral("4"));
+}
+
+//=============================================================================================================
+
+QTEST_MAIN(TestAdaptiveDenoisingUi)
+
+#include "test_adaptive_denoising_ui.moc"
