@@ -7625,3 +7625,16 @@ does not continuously poll them.
 - gate / P0/P1 zero; P2 fixed or explicitly deferred. Report exact file/line,
   evidence, impact, fix and test. Return proactive `RESPONSE R-PLUGIN-DATA-001`
   with exact SHA/clean state and PASS/HOLD; no subagent/full app/server/manager poll.
+
+### SETUP R-PLUGIN-DATA-001
+
+- accepted / `2026-08-07T02:21:39+08:00`
+- setup / `client-new-thread:3696dfeb-1800-4b9a-a8cf-a0d70d7eb2f0`
+- host / `local`
+- model / `gpt-5.6-sol`
+- reasoning / `ultra`
+- project / `local-b0db0afa904757a4167f8694f3f76d67`
+- environment / new visible worktree from exact existing ref
+  `fd33dc9cd1a2ce90a30fdedd1ffde71c8514ec56`
+- state / asynchronous worktree setup accepted. The reviewer must proactively
+  return its response; manager will not continuously poll or inspect its files.

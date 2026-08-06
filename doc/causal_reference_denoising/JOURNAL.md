@@ -5522,3 +5522,13 @@ hidden reasoning is not.
 - Runtime build evidence is explicitly bounded by the existing pre-plugin
   `mne_fiff` Qt/MSVC failure. Reviewer must not relabel manager MOC/focused
   evidence as independent or run the full application/server.
+
+### E-548 - Plugin lifecycle review setup accepted
+
+- The app accepts a new visible `gpt-5.6-sol` / `ultra` worktree review from
+  exact pushed snapshot `fd33dc9cd1a2ce90a30fdedd1ffde71c8514ec56`.
+- Setup ID is `client-new-thread:3696dfeb-1800-4b9a-a8cf-a0d70d7eb2f0` on the
+  local host. The full `R-PLUGIN-DATA-001` scope, evidence boundary and gate are
+  in `WORKERS.md`.
+- Await the proactive review response without continuous polling. Do not start
+  teaching UI edits until the lifecycle gate passes or its findings are fixed.

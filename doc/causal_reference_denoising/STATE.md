@@ -628,3 +628,14 @@ same-responsibility implementation conversations that may receive review fixes.
 - Treat real target compile/link as the already documented toolchain environment
   deferral. Proceed with exact-source Sol/ultra lifecycle review and focused
   processor/queue evidence; do not run the full app/server.
+
+### Plugin lifecycle review active
+
+- Independent visible Sol/ultra review `R-PLUGIN-DATA-001` is creating a clean
+  worktree from exact pushed snapshot
+  `fd33dc9cd1a2ce90a30fdedd1ffde71c8514ec56`; setup ID is
+  `client-new-thread:3696dfeb-1800-4b9a-a8cf-a0d70d7eb2f0`.
+- The review is read-only and owns the plugin data/lifecycle gate. Teaching UI
+  is intentionally the next milestone and its absence is not a finding here.
+- Await the proactive structured response without continuous polling. UI work
+  remains held until this gate returns PASS or its findings are corrected.
