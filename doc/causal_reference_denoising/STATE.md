@@ -461,6 +461,11 @@ same-responsibility implementation conversations that may receive review fixes.
   PASS with current p50/p95/max `2.174/2.748/4.130 ms`. The guide's earlier
   recorded `2.725/4.317/8.557 ms` remains valid and is explicitly load-sensitive.
   Both documentation P2 findings close; publish and close issue #7 next.
+  Issue #7 is now CLOSED/COMPLETED with final evidence at
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5203274698`.
+  The completed reusable Luna/max documentation thread is app-archived without
+  manual worktree deletion. Epic #2 should now mark the documentation milestone
+  complete.
 - After queue review passes: integrate/formally review plugin data, implement
   programmatic minimal UI, add focused block-boundary settings/lifecycle
   evidence, run final targets/review, update and close issues #5/#6/#7/#3/#2.

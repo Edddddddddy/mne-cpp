@@ -6759,6 +6759,16 @@ does not continuously poll them.
   `R-DOC-BENCHMARK-EVIDENCE-002` close. Thread is retirement-ready after issue
   #7 publication/closure.
 
+### ARCHIVED W-DOC-001
+
+- Issue #7 final evidence is published/read back at
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5203274698` and
+  the issue is verified CLOSED with reason COMPLETED.
+- App archive succeeds for retained Luna/max documentation thread
+  `019fd2fc-0d25-7163-a29d-b7c8840028f9` after all replacements, manager review,
+  integration and replay evidence became durable. Its app worktree was not
+  manually modified or deleted.
+
 ### DISCUSSION SPEC-QUEUE-ATOMIC-CONSISTENCY-001
 
 - The later atomic-correction section was authoritative, but the earlier

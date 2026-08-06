@@ -4747,3 +4747,13 @@ hidden reasoning is not.
 - Load variation versus documented durable `2.725/4.317/8.557 ms` is explicitly
   bounded by the guide. Close both documentation P2s, publish the exact replay,
   then close issue #7 and archive the completed one-responsibility doc thread.
+
+### E-462 - Issue #7 closed; documentation thread archived
+
+- Final comment/read-back succeeds at
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5203274698` with
+  delivered example/benchmark/guide scope, both timing runs, link/fence/no-
+  QSemaphore checks and explicit evidence limits.
+- GitHub verifies #7 CLOSED/COMPLETED. The completed Luna/max guide conversation
+  is app-archived; no manual worktree deletion occurs. Update epic #2 milestone
+  state after this durable record.
