@@ -7503,3 +7503,6 @@ does not continuously poll them.
 - Reviewer remains active and reports checking exact production/test support
   for 25 ms POSIX fallback and whole-call elapsed-time closure claims. This is
   not a gate decision; plugin lifecycle remains held.
+- Management timebox / finalize the requested P0-P3 PASS/HOLD now from existing
+  evidence; do not add builds or broaden review. Residual nonblocking uncertainty
+  may be reported as P3. One message only, without interrupting the active turn.

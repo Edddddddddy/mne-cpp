@@ -5420,3 +5420,13 @@ hidden reasoning is not.
   especially the 25 ms POSIX fallback and complete-call elapsed gates.
 - No PASS/HOLD yet. Keep plugin integration held and await proactive final;
   UI seam remains frozen and disjoint planning only.
+
+### E-536 - Final review is timeboxed to a gate response
+
+- Multiple bounded completion waits show the same reviewer turn remains active
+  with ongoing read-only tool work and no approval/input request. No duplicate
+  reviewer is created and no worktree is inspected.
+- To preserve the engineering-first schedule, send one noninterrupting message
+  asking it to finalize the P0-P3 PASS/HOLD from already collected source/test/
+  contract evidence, recording residual uncertainty as P3 rather than expanding
+  scope. Then await its proactive final without further status polling.
