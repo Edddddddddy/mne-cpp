@@ -5327,3 +5327,12 @@ hidden reasoning is not.
 - Next perform one bounded WSL GNU/Clang wrapped attempt without resetting the
   global service. Then persist the result and dispatch the exact integrated
   snapshot to the retained independent Sol/ultra reviewer.
+
+### E-526 - First canonical WSL command fails in host argument quoting
+
+- WSL starts immediately, but PowerShell/native argument handling splits the
+  multi-line Bash script and attempts to execute a `pkg-config` `-I` flag.
+  Exit 127 occurs before MOC/compiler/test, so no POSIX result is inferred.
+- Record the harness failure, then retry the same bounded `/tmp` workflow using
+  Base64 script transport so the Bash program remains one argument. Do not
+  reset/shutdown WSL or change repository/dependencies.

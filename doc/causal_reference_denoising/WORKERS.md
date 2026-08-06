@@ -7393,3 +7393,14 @@ does not continuously poll them.
 - Windows/non-POSIX behavior is GREEN. One bounded canonical WSL wrapped attempt
   remains before formal review; inability to start/complete must be recorded as
   environment evidence rather than a failure of this source.
+
+### FAILURE VALIDATION-QUEUE-POSIX-WRAP-001
+
+- WSL now starts, but the first manager multi-line Bash invocation is split by
+  the Windows native argument boundary. A `pkg-config` include flag such as
+  `-I/usr/include/x86_64-linux-gnu/qt5` is executed as a command and exits 127.
+- Failure occurs before MOC, compilation or test execution. It is a manager
+  harness quoting error, not queue source or WSL toolchain evidence.
+- Corrective action: transmit the exact script as Base64 to one bounded Bash
+  process, retain `/tmp` cleanup and the explicit MOC slot-name checks, then
+  run the wrapped executable once. No repository/vendor/WSL-state mutation.
