@@ -3916,3 +3916,11 @@ hidden reasoning is not.
   fixed queued diagnostics with GUI-only formatting.
 - Scope remains design-only and disjoint from both active Sol implementation
   tasks. UI code is still intentionally undispatched.
+
+### E-372 - Review ledger benchmark status reconciled
+
+- Audit: `R-BENCH-FINITE-001` had a stale early `Open` heading even though the
+  later final-integration section contains its replacement, populated PASS and
+  Closed resolution.
+- Correction: mark the early heading Closed and point to the same all-target/
+  p95 evidence. No finding, code, test or acceptance result changes.

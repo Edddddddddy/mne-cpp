@@ -29,7 +29,7 @@
   capacity four; the worker receives row transitions in FIFO order. A RED test,
   Sol/ultra implementation and fresh review are required before plugin code.
 
-#### R-BENCH-FINITE-001 - P2 - Open
+#### R-BENCH-FINITE-001 - P2 - Closed
 
 - Location: worker benchmark commit `79eff3b3a`, example main helper
   `finiteBenchmarkSelectedTarget` and its process verification call.
@@ -38,6 +38,10 @@
 - Required correction: validate all configured target rows/samples after every
   call outside timing; retain exact workload/timer. Rebuild/run populated
   Release and require normal example plus benchmark exit zero.
+- Resolution: replacement `b8ce427b8f` checks all rows 16..265 outside the
+  timer and is integrated as `87ab418bd`. Populated default/benchmark runs exit
+  zero; p95 is `4.317 ms` against 128 ms. Full evidence is repeated in the
+  final-integration section below.
 
 ## Core numerical review
 
