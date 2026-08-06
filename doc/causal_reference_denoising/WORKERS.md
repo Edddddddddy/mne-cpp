@@ -8542,6 +8542,21 @@ does not continuously poll them.
   read-only final-review/verification preparation and await the worker's
   proactive structured response.
 
+### MANAGER PRE-WIRING BASELINE W-PLUGIN-UI-WIRE-001
+
+- scope / current pushed integration with standalone widget but before plugin
+  h/cpp wiring; focused Release only, no full app/server.
+- build / the four targets `test_causal_reference_denoiser`,
+  `test_adaptive_denoising_plugin`, `test_adaptive_denoising_ui` and
+  `ex_causal_reference_denoising` rebuild successfully.
+- results / core `45/0/0`, processor/queue `19/0/0`, UI `3/0/0`, teaching
+  example exit zero/PASS.
+- benchmark / exit zero/PASS; p50/p95/max `2.163/2.767/3.683 ms`, final
+  generation/accepted/rejected `1099/1099/0`, strict p95 <128 ms.
+- purpose / exact comparison baseline. The same focused set must remain GREEN
+  after wiring integration and formal review; this run is not plugin runtime or
+  mne_rt_server evidence.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are

@@ -797,3 +797,7 @@ same-responsibility implementation conversations that may receive review fixes.
 - Manager freezes the pre-wiring acquisition callback segment at 1218 characters
   with SHA-256 `eaf16dc13bc5036da3e6d33f901885622b2337e018c8baf5a504a34e57d3b0a4`;
   it contains one metadata `info()` and one `tryPush`, with no mutex/wait token.
+- Current widget-GREEN/pre-wiring focused Release baseline is fully GREEN:
+  numerical `45/0/0`, processor/queue `19/0/0`, UI `3/0/0`, example PASS and
+  benchmark PASS at p50/p95/max `2.163/2.767/3.683 ms` with 1099 accepted and
+  zero rejected epochs. This is the comparison baseline for the wiring commit.

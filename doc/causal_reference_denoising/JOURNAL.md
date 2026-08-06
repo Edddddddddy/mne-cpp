@@ -6185,3 +6185,13 @@ hidden reasoning is not.
 - After the response, require exact two-file scope, this byte-identical callback
   hash, MOC/C++14/focused UI evidence, complete focused regressions and a new
   independent Sol/ultra read-only UI review before issue closure.
+
+### E-613 - Widget-GREEN pre-wiring Release baseline passes
+
+- Rebuild all four focused Release targets after standalone widget integration.
+  Numerical QtTest reports 45/0/0, processor/queue 19/0/0, and UI 3/0/0; the
+  teaching example exits zero with its learn/freeze/reset invariants PASS.
+- Benchmark exits zero/PASS at p50/p95/max `2.163/2.767/3.683 ms`, with final
+  generation/accepted/rejected `1099/1099/0`; p95 remains below 128 ms.
+- This is a truthful comparison checkpoint, not real-plugin/full-app/server
+  evidence. Repeat the same set after wiring; do not infer worker status from it.
