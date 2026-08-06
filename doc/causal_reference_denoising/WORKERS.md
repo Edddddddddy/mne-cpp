@@ -6246,3 +6246,22 @@ does not continuously poll them.
   full scan/mne_scan or mne_rt_server.
 - Status: response durable before manager provenance/code/oracle review,
   integration or populated Windows execution.
+
+### ACCEPTANCE W-QUEUE-ATOMIC-TEST-001
+
+- Provenance: commit `f367fd75a` has exact requested parent `4bb1b2a30`; its
+  diff contains only the authorized focused test source and passes diff-check.
+  The parent source blob equals the current integration blob.
+- Manager code review: no assertion or exception-producing test macro runs in
+  either worker thread; all joins precede outcome assertions. Finite deadlines,
+  stop fallback and bounded waits prevent normal failure paths from leaving a
+  joinable thread.
+- Behavior review: accepted producer indices are compared in exact FIFO order
+  with popped extents, metadata identities, payloads and untouched tails;
+  Timeout/Stopped preserve the complete caller destination. Pending data is
+  discarded across stop/fresh configure as specified.
+- Ownership review: callers clear every native handle immediately after push;
+  observable custom deleters remain idle until the popped handle clears and
+  then fire exactly once. Tests inspect only the public queue interface.
+- Decision: accept with no manager finding. Cherry-pick and populated Windows
+  Release execution remain before closing the two queue P2 findings.

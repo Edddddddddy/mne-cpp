@@ -120,6 +120,9 @@
   active stop-race, deterministic pending-discard/fresh-queue and full sentinel
   preservation coverage. Worker syntax passes; finding remains open until
   manager code review and populated Windows execution against atomic production.
+- Manager review: PASS. Thread cleanup is join-safe, the accepted-subsequence
+  oracle is sensitive to FIFO/publication errors, and complete destination
+  preservation is asserted. Runtime evidence remains outstanding.
 
 #### R-QUEUE-V2-METADATA-LIFETIME-001 - P2 - Open
 
@@ -132,6 +135,8 @@
 - Test response received: `f367fd75a` reports exact public custom-deleter/live
   count coverage and mutable-to-const nothrow trait. Finding remains open until
   manager code review and populated Windows execution.
+- Manager review: PASS. Caller owners are cleared before pop and exactly-once
+  destruction is observed only after the popped native handle is cleared.
 
 ## Plugin data-lifecycle pre-integration review
 
