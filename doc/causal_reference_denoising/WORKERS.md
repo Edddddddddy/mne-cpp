@@ -6717,6 +6717,19 @@ does not continuously poll them.
 - Remaining semaphore mentions are reported explicitly historical or rejected,
   not prescriptive. Manager exact semantic/search review precedes integration.
 
+### REVIEW W-QUEUE-SPEC-001
+
+- Exact object/parent/one-SPEC-file scope and diff-check pass. Direct review of
+  the complete changed paragraph matches the queue header/source/learning guide:
+  lock-free sequence ordering, drop-newest, native event/pipe, bounded rechecks,
+  untouched Popped tail, complete non-success preservation and quiescence.
+- Targeted search finds six semaphore/QSemaphore contexts: the old global
+  CircularBuffer baseline, callback no-semaphore statements, the formal Windows
+  rejection and no-QSemaphore evidence. None prescribes it for the live queue.
+- Decision: ACCEPT with no manager P0-P3. Integrate; keep the same Luna/max
+  conversation reusable through the final queue review in case the later POSIX
+  bounded-recheck correction needs one wording-only follow-up.
+
 ### ARCHIVED W-QUEUE-ALLOC-TEST-001
 
 - App archive succeeds for one-shot Luna/max thread

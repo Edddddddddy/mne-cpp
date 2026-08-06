@@ -485,6 +485,12 @@ Pending.
   prescriptive semaphore wording.
 - Gate remains HOLD because neither P2 is fixed or explicitly deferred.
 
+`R-QUEUE-ATOMIC-SPEC-LOCALITY-001` fix review: exact one-file commit
+`96055bf13` replaces the live contradiction with atomic release/acquire/native
+wake and untouched-tail/full-preservation rules. All remaining semaphore terms
+are explicitly legacy/rejected/no-semaphore context. Manager accepts the P3
+correction pending integration and final exact-snapshot reviewer confirmation.
+
 #### Correction order
 
 1. Luna/max public deterministic concurrency/blocked-stop tracer, test source

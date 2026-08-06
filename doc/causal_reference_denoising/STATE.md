@@ -461,7 +461,10 @@ same-responsibility implementation conversations that may receive review fixes.
   `019fd69f-9196-7a82-9c3f-94295c3cbeb5` (worktree `17e6`). Await proactive
   responses without polling/overlap. SPEC thread proactively returned clean
   exact-parent one-file commit `96055bf13`; response is durable before manager
-  diff/semantic/search review and integration. Concurrency test remains active.
+  diff/semantic/search review and integration. Manager review passes: all
+  remaining semaphore mentions are legacy/rejection context, live atomic/native
+  wake and preservation wording match interfaces, and no declaration/code is
+  touched. Accept/integrate, while concurrency test remains active.
 - Accepted but deliberately not integrated until the atomic queue gate:
   plugin data commit `5f4718722` plus exact-parent SPSC admission fix
   `34a8096f1`. Retain its Sol/ultra conversation for same-responsibility fixes.

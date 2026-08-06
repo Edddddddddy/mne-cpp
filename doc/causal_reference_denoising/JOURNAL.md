@@ -4863,3 +4863,12 @@ hidden reasoning is not.
   destination preservation.
 - Persist response before manager exact diff/search/semantic review. Concurrency
   test task continues independently; no file overlap.
+
+### E-475 - SPEC atomic-locality manager review passes
+
+- Exact one-file provenance/diff and live contract semantics pass. Six remaining
+  semaphore contexts are legacy CircularBuffer, rejected Windows dependency or
+  explicit no-semaphore evidence, not live queue requirements.
+- No manager P0-P3 opens. Accept/integrate `96055bf13`; retain the reusable SPEC
+  thread through final review because later POSIX bounded rechecks may require a
+  narrow wording follow-up.
