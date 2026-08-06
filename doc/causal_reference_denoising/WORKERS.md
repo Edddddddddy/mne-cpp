@@ -7278,3 +7278,15 @@ does not continuously poll them.
   reset, shutdown, dependency repair, manager polling or server run.
 - manager status / response durable; direct Git object/diff and populated
   Windows conditional non-regression remain before integration acceptance.
+
+### FAILURE VALIDATION-QUEUE-EINTR-WINDOWS-LOOKUP-001
+
+- The canonical MSVC Release target recompiles and links successfully, but the
+  first validation script searches only below `build-causal-reference-denoising`
+  and then throws `focused executable not found`.
+- CMake's authoritative output line places the executable at
+  `out/Release/apps/test_adaptive_denoising_plugin.exe`; this is a manager
+  harness path error after a successful build, not a source/build/test failure.
+- Corrective action: run the exact reported executable path, retain the full
+  reporter output and three immediate repeat exit codes. No source/dependency
+  edit and no server run.

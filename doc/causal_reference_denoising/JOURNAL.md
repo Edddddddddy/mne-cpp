@@ -5226,3 +5226,13 @@ hidden reasoning is not.
 - WSL remains unavailable and no POSIX runtime is claimed. Persist before direct
   object/diff review, then integrate the two-commit tracer series only if the
   correction is exactly scoped and Windows focused execution stays GREEN.
+
+### E-515 - Windows EINTR guard build succeeds; executable lookup fails
+
+- Integrated tracer commits `0d1d1f949` and `b6cf3a13b` compile/link in the
+  populated MSVC Release target with only existing Eigen C4819 warnings.
+- The manager script then searches only the build tree and fails to find the
+  executable; CMake reports its real location as
+  `out/Release/apps/test_adaptive_denoising_plugin.exe`.
+- Record this harness-only failure before rerunning from the authoritative path.
+  No runtime result is claimed from the failed lookup attempt.
