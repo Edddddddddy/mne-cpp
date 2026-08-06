@@ -3525,3 +3525,13 @@ hidden reasoning is not.
   existing P=288 disarm coverage remains untouched.
 - Decision: no finding; cherry-pick after this review is durable, then build/
   run the complete populated Release focused suite.
+
+### E-335 - Processor legal-boundary QA is GREEN
+
+- Integration: `203e33f7f` cherry-picked as `34a346424`; populated Release
+  focused target rebuilds/links with only known Eigen code-page warnings.
+- Runtime: QTest exits zero with 14/0/0. Six new PASS rows cover taps 32,
+  interval 2048, memory 1/300, regularization 1 and exact P=256; all original
+  processor/queue slots remain PASS and stop wake is 61 ms.
+- Decision: close P3 `R-PROC-BOUNDARY-001`; commit/push code/evidence and
+  publish/read back issue #3 before worker retirement verification.

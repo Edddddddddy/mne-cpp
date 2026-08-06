@@ -257,7 +257,7 @@ tracked.
 - Tracking: deferred to final QA issue #3 at
   `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5194141240`.
 
-#### R-PROC-BOUNDARY-001 - P3 - Open
+#### R-PROC-BOUNDARY-001 - P3 - Closed
 
 - Location: `adaptivedenoisingprocessor.cpp:49-58,125-135`;
   focused processor test `:133-141,275-404`.
@@ -266,7 +266,11 @@ tracked.
   yet a narrowing regression could pass the focused suite.
 - Later correction/test: Ready rows for taps 32, interval 2048, memory 1/300,
   regularization 1 and P=256, retaining an over-cap disarm case.
-- Tracking: deferred to final QA issue #3 in the same comment above.
+- Resolution: additive test `34a346424` exercises all six legal boundaries
+  through fresh public processor instances and exact committed snapshots while
+  retaining the existing P=288 invalid/disarm oracle. Populated Release reports
+  14/0/0, including one PASS for each boundary row and all prior processor/
+  queue slots; process exit is zero.
 
 ### Processor formal gate decision
 
@@ -274,8 +278,8 @@ tracked.
 - P1: zero.
 - P2: zero open; `R-PROC-MOVE-001` closed by explicit ownership and compiled
   C++14 traits.
-- P3: `R-PROC-LOCALITY-001` and `R-PROC-BOUNDARY-001` tracked for later
-  processor/final-QA follow-up.
+- P3: `R-PROC-LOCALITY-001` remains tracked; `R-PROC-BOUNDARY-001` is closed by
+  final-QA focused boundary evidence.
 - Decision: processor formal gate passes. Track both P3s in final QA issue #3;
   they do not block closing processor issue #4 or beginning queue work.
 - GitHub: issue #4 closed as completed; epic #2 marks the processor milestone

@@ -40,6 +40,10 @@ completed reusable Luna/max test conversation is archived. Independent
 Sol/ultra review `R-PROC-001` completed at exact `96ca3eb44`: P0/P1 are zero,
 P2 ownership is fixed/verified, and two P3 evidence/locality items are tracked
 in final QA. GitHub issue #4 is closed and epic #2 marks it complete.
+Final-QA boundary evidence is now integrated as `34a346424`: populated Release
+reports 14/0/0 with Ready at taps 32, interval 2048, memory 1/300,
+regularization 1 and exact P=256. `R-PROC-BOUNDARY-001` is closed; only the
+separate processor locality documentation P3 remains.
 
 ## Completed
 

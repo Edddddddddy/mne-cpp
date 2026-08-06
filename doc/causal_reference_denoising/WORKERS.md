@@ -4565,6 +4565,19 @@ does not continuously poll them.
 - Decision: no finding. Accept for cherry-pick; complete populated Release
   focused execution remains required before closing the P3.
 
+### VALIDATION W-QA-PROC-BOUNDARY-001
+
+- Integration: worker `203e33f7f` cherry-picked as `34a346424`; only the
+  focused plugin-test source changes.
+- Populated Release: target `test_adaptive_denoising_plugin` recompiles/links;
+  QTest text report exits zero with 14 passed, zero failed/skipped/blacklisted.
+- Boundary evidence: separate PASS rows exist for taps 32, interval 2048,
+  memory 1, memory 300, regularization 1 and P=256. All three prior processor
+  behavior slots and all three queue slots remain PASS; stop wake is 61 ms
+  against the 3000 ms timeout.
+- Decision: `R-PROC-BOUNDARY-001` is closed. Publish issue #3 evidence after
+  this validation is committed/pushed; no full scan, vendor repair or server.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread
