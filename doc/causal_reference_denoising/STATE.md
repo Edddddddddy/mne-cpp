@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T18:08:00+08:00
+Last updated: 2026-08-06T18:19:00+08:00
 
 ## Recovery order
 
@@ -369,6 +369,6 @@ same-responsibility implementation conversations that may receive review fixes.
   The task proactively returned exact-parent one-test-file commit `f367fd75a`
   with four new public slots plus complete Timeout/Stopped preservation in the
   existing slots. Worker C++14 syntax passes; manager exact code/oracle review
-  passes with no finding. Its parent test blob exactly matches integration;
-  response acceptance is durable and populated Windows focused execution is
-  the remaining gate after cherry-pick.
+  passes with no finding. It is integrated as `16053ffe6`; populated Windows
+  Release compiles/links and the complete executable exits zero on the gate run
+  plus three immediate repeat runs. Atomic production replacement is next.

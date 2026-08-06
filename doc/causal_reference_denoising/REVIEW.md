@@ -122,7 +122,8 @@
   manager code review and populated Windows execution against atomic production.
 - Manager review: PASS. Thread cleanup is join-safe, the accepted-subsequence
   oracle is sensitive to FIFO/publication errors, and complete destination
-  preservation is asserted. Runtime evidence remains outstanding.
+  preservation is asserted. Populated Windows Release and three repeat runs
+  exit zero; retain open until the same suite passes atomic production review.
 
 #### R-QUEUE-V2-METADATA-LIFETIME-001 - P2 - Open
 
@@ -137,6 +138,8 @@
   manager code review and populated Windows execution.
 - Manager review: PASS. Caller owners are cleared before pop and exactly-once
   destruction is observed only after the popped native handle is cleared.
+  Populated Windows Release and three repeat runs exit zero; final closure waits
+  for the atomic implementation and independent re-review.
 
 ## Plugin data-lifecycle pre-integration review
 

@@ -4426,3 +4426,14 @@ hidden reasoning is not.
   a genuine native-owner lifetime test with caller handles cleared before pop.
 - Decision: no finding. Commit/push this acceptance, then cherry-pick and run
   the populated Windows Release focused target before production dispatch.
+
+### E-425 - Queue atomic public tests integrated and GREEN
+
+- Test-only commit is integrated as `16053ffe6`. Populated Windows/MSVC Release
+  builds and links the complete focused target; its executable exits zero.
+- Three immediate repeat runs also exit zero with no deadlock, timeout or race
+  failure. Reporter totals remain suppressed, so only exact process outcomes
+  are claimed.
+- The two P2 test gaps now have accepted executable evidence. They remain open
+  through atomic-production re-review; Windows QSemaphore P1 is unchanged and
+  is the next blocking implementation task.

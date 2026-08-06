@@ -6265,3 +6265,18 @@ does not continuously poll them.
   then fire exactly once. Tests inspect only the public queue interface.
 - Decision: accept with no manager finding. Cherry-pick and populated Windows
   Release execution remain before closing the two queue P2 findings.
+
+### VALIDATION W-QUEUE-ATOMIC-TEST-001
+
+- Integration: worker commit cherry-picked as `16053ffe6`; only the focused
+  test source changed and committed diff-check remains clean.
+- Command: `cmake --build build-causal-reference-denoising --config Release
+  --target test_adaptive_denoising_plugin -- /m:2`, followed by the focused
+  executable with `-txt`.
+- Result: build/link succeeds; the complete executable exits zero. Three
+  immediate direct repeat executions also exit zero, with no hang or race
+  failure. The installed reporter emits no textual totals, so no invented
+  pass-count is recorded.
+- Interpretation: both queue P2 test tracers are runnable and accepted. The
+  QSemaphore P1 remains open because this run does not prove producer lock/
+  allocation freedom; the atomic production task is still blocking.
