@@ -4345,3 +4345,14 @@ hidden reasoning is not.
   with Sol/ultra; no duplicate task/worktree was created.
 - Manager will not poll or touch that source. Continue only disjoint docs or
   queue coordination until the worker proactively responds.
+
+### E-417 - Plugin SPSC admission fix received
+
+- Retained Sol/ultra worker proactively returned exact-parent delta
+  `34a8096f1`, only the plugin source, three insertions/one deletion and clean
+  status.
+- Predicate now rejects any nonzero in-flight count; only open/count zero can
+  CAS to one. Epoch confirmation and all close/leave/stop semantics are
+  unchanged. Worker source-contract proof and Qt moc succeed.
+- Next: manager exact-delta review. Plugin remains held behind queue atomic
+  gate even if this private P1 correction is accepted.

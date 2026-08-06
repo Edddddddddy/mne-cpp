@@ -142,6 +142,10 @@
   state path reaches producer count greater than one, moc/syntax where possible,
   and later public concurrent-update/plugin lifecycle coverage after the atomic
   queue is integrated.
+- Fix received: exact-parent source-only delta `34a8096f1` rejects every
+  nonzero count before the existing one-shot CAS, so an admitted state can only
+  publish zero to one. Worker source-contract proof and moc pass. Finding stays
+  open until manager delta review, later ordered integration and plugin gate.
 
 ### Plugin data manager pre-review decision
 

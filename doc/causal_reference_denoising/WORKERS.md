@@ -6132,3 +6132,25 @@ does not continuously poll them.
   callback/queue/test/public behavior.
 - No duplicate conversation or worktree was created. Manager will not poll or
   overlap the source file; await the proactive structured response.
+
+### RESPONSE W-PLUGIN-DATA-001-FIX-1
+
+- Exact parent/delta: `5f47187224ede2dac7abede7d63891cad190c879` /
+  `34a8096f1068e2c60a2ad19418ca8676866f649a`; retained Sol/ultra worktree is
+  reported clean/detached and parent match passes.
+- Exact scope: only `adaptivedenoising.cpp`, three insertions/one deletion and
+  clean diff. No queue/processor/test/UI/CMake/metadata/dependency/vendor edit.
+- Correction: the initial predicate now rejects closed state or any nonzero
+  in-flight count. Thus the only admitted pre-state is open/count zero and the
+  one-shot CAS can publish only count one. A compact comment states that this
+  enforces the queue SPSC producer precondition.
+- Preserved: one-shot strong CAS, post-entry epoch/closed confirmation,
+  close/open/leave/quiescence/stop/restart/drop behavior and no lock/wait/retry/
+  public seam.
+- Worker proof: deterministic source contract changes from allowing count two
+  to nonzero rejection; Qt 5.15.2 moc succeeds with the same 4,269-byte output.
+  Isolated plugin build remains blocked before generation by missing ignored
+  Eigen files; no repair or false build claim.
+- Restrictions: same visible Sol/ultra thread, no subagent/manager poll/full
+  scan/mne_scan/vendor/server/GitHub action.
+- Status: response durable before manager exact-delta review or integration.
