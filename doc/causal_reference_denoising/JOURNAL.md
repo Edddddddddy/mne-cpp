@@ -5619,3 +5619,20 @@ hidden reasoning is not.
 - Both issues remain OPEN and epic #2 remains unchanged, as planned. URLs:
   `https://github.com/Edddddddddy/mne-cpp/issues/5` and
   `https://github.com/Edddddddddy/mne-cpp/issues/6`.
+
+### E-557 - Third lifecycle wait reaches independent syntax evidence
+
+- The final planned 60-second cursor wait times out with no gate. New reviewer
+  commentary says it is running read-only MSVC 14.51 C++14 `/Zs` syntax analysis
+  of the exact plugin source using the configured include graph, because the
+  shared target fails earlier in `mne_fiff`.
+- `/Zs` creates no object and cannot be relabeled as target link/runtime proof.
+  Stop periodic waits and send one durable finalize request after this check.
+
+### E-558 - Plugin lifecycle review finalize request prepared
+
+- Ask the retained reviewer once, without interruption or scope change, to
+  finish its current syntax check and return the required P0-P3 PASS/HOLD from
+  already collected evidence.
+- Teaching UI stays excluded; any residual uncertainty becomes a finding rather
+  than another validation branch. Await the proactive final after dispatch.

@@ -7645,6 +7645,18 @@ does not continuously poll them.
   reviewer as `019fd84f-03c6-79f1-977f-b278d55777ba`, clean worktree path
   `C:/Users/lcy/.codex/worktrees/3f96/mne-cpp-main`. Do not poll its progress.
 
+### FOLLOWUP R-PLUGIN-DATA-001-FINALIZE
+
+- from / manager
+- to / retained reviewer `019fd84f-03c6-79f1-977f-b278d55777ba`
+- blocking / yes for lifecycle gate
+- request / finish the current read-only MSVC `/Zs` syntax check, then finalize
+  the required exact-SHA P0-P3 PASS/HOLD from evidence already collected. Do
+  not add validation branches or expand into the intentionally later UI scope.
+- evidence rule / retain the target-build Qt/MSVC dependency boundary and label
+  residual uncertainty as a finding rather than delaying the formal response.
+- response / proactive `RESPONSE R-PLUGIN-DATA-001`; no manager polling.
+
 ### PREPARED REQUEST W-PLUGIN-UI-TEST-001
 
 - state / prepared only; do not dispatch until `R-PLUGIN-DATA-001` passes or
