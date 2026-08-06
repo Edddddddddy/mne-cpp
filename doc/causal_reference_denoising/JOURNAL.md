@@ -5164,3 +5164,12 @@ hidden reasoning is not.
   focused validation/issue closure.
 - User immediately instructs continuation. Continue autonomously to acceptance;
   do not stop at the estimate.
+
+### E-508 - Held plugin-data commits pass read-only conflict preflight
+
+- Merge base with the held plugin series is exact `8c51ea4ce`. Read-only
+  merge-tree and diff-check find no conflict marker against current integration.
+  Pending paths are the plugin registration, six new plugin files and the
+  one-source SPSC admission correction.
+- No cherry-pick or plugin build occurs; retain the ordered commits behind the
+  final queue gate so plugin integration can begin immediately after PASS.

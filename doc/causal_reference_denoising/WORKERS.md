@@ -6876,6 +6876,15 @@ does not continuously poll them.
 - Authorized production scope will be queue header/source only; a later narrow
   SPEC wording follow-up may state the exact bounded recheck slice.
 
+### Plugin-data integration preflight
+
+- Read-only merge-tree/diff preflight for accepted plugin commits
+  `5f4718722` plus `34a8096f1` against current integration finds no overlapping
+  conflict marker. Pending scope remains exactly the plugins CMake registration
+  plus six new `adaptivedenoising` files and the one-source admission fix.
+- This is not integration or build acceptance. The commits remain held behind
+  final queue PASS and will be cherry-picked in original-then-fix order.
+
 ### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
 
 - First read-only app project-list call produced no result within 60 seconds and
