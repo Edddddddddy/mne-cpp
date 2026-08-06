@@ -3992,3 +3992,14 @@ hidden reasoning is not.
   confirmed the exact body. No duplicate GitHub mutation occurred.
 - Next: no further queue task polling; continue disjoint progress or consume a
   proactive RESPONSE when delivered.
+
+### E-380 - Old-task worktree recovery and cleanup audit
+
+- Learning guide: clean worktree `23bb` has exact-parent one-file commit
+  `c558acbf8`, but no manager RESPONSE; recover the not-loaded thread once.
+- Core contract: clean worktree `c1ed` has only dispatch-record commit
+  `7471c6a7a`, not the requested header/test delta; recover its thread once.
+- Queue v1 implementation: clean worktree `7228` remains at integrated worker
+  commit `039b58d1b`. Queue-v2 supersedes its seam, so app-archive the stale
+  conversation without manually deleting its worktree.
+- Active queue-v2 retry and plugin-data worktrees remain untouched.

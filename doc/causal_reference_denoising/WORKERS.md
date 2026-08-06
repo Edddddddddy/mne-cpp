@@ -5426,3 +5426,33 @@ does not continuously poll them.
   the numeric ID and returned HTTP 404; the write had succeeded. Retrying the
   read-only API call with numeric ID `5201026440` succeeded. No duplicate
   comment was created.
+
+### RECOVERY REQUEST W-DOC-001
+
+- Trigger: old visible thread `019fd2fc-0d25-7163-a29d-b7c8840028f9` is
+  not-loaded and did not deliver a manager RESPONSE, but its clean app-owned
+  worktree contains exact-parent one-file commit `c558acbf8` adding only
+  `LEARNING_GUIDE.md`.
+- Action: perform one bounded thread read to recover the structured response
+  and limitations before manager content review. This is not periodic polling.
+
+### RECOVERY REQUEST W-QA-CORE-CONTRACT-001
+
+- Trigger: old visible thread `019fd336-0d0c-7d02-82d9-a24b511d6aaf` is
+  not-loaded without a delivered RESPONSE. Its clean worktree HEAD `7471c6a7a`
+  changes only durable dispatch records on parent `7eb04cbfa`; no core header/
+  test implementation commit is visible yet.
+- Action: perform one bounded thread read. If the turn was empty, reuse this
+  same Luna/max responsibility once from its still-clean task context rather
+  than creating a duplicate conversation.
+
+### RETIREMENT REQUEST W-QUEUE-GREEN-001
+
+- Target: old queue-v1 implementation thread
+  `019fd2bd-b720-7b30-8d65-780a0b500924`, clean/detached app worktree
+  `C:/Users/lcy/.codex/worktrees/7228/mne-cpp-main` at exact worker commit
+  `039b58d1b1cb2b7d79b8d8db27839a3c9f7ad81b`.
+- Reason: its implementation and populated 8/0/0 evidence are durable, but the
+  native-owner/variable-row queue-v2 replaces this exact-row seam. It cannot
+  receive relevant review fixes now.
+- Action: app-archive only; never manually delete or mutate the worktree.
