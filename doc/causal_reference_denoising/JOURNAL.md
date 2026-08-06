@@ -5042,3 +5042,11 @@ hidden reasoning is not.
   `client-new-thread:ae1d9eae-8a70-4a18-bc5f-4c83f61ac9ba` to visible active
   Luna/max thread `019fd71e-6cf2-7e52-a410-29c374cb0e09`, worktree `f36c`.
 - Await proactive response; do not continuously poll or inspect its worktree.
+
+### E-495 - Thread-map push hits transient TLS failure
+
+- The local thread-map documentation commit `b2e4d42b2` succeeds, but its first
+  non-force push fails during GitHub TLS handshake with `SSL_ERROR_SYSCALL`.
+  No remote mutation occurs; local branch is clean and ahead by one tracked
+  commit, with only the three preserved untracked user paths.
+- Persist the network failure locally, then retry the ordinary branch push once.
