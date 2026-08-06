@@ -19,9 +19,12 @@
 #include <atomic>
 #include <chrono>
 #include <cmath>
+#include <cstddef>
 #include <cstdint>
+#include <cstdlib>
 #include <initializer_list>
 #include <limits>
+#include <new>
 #include <thread>
 #include <type_traits>
 #include <vector>
@@ -32,6 +35,87 @@
 
 #include <QSharedPointer>
 #include <QtTest>
+
+//=============================================================================================================
+
+namespace
+{
+
+// Count only successful global allocations made by the producer while its thread-local gate is enabled.
+thread_local bool g_countTestAllocations = false;
+std::atomic<std::uint64_t> g_countedTestAllocations(0);
+
+void* allocateTestStorageNoThrow(std::size_t size) noexcept
+{
+    void* const storage = std::malloc(size == 0 ? 1 : size);
+    if (storage != nullptr && g_countTestAllocations) {
+        g_countedTestAllocations.fetch_add(1, std::memory_order_relaxed);
+    }
+    return storage;
+}
+
+void* allocateTestStorage(std::size_t size)
+{
+    void* const storage = allocateTestStorageNoThrow(size);
+    if (storage == nullptr) {
+        throw std::bad_alloc();
+    }
+    return storage;
+}
+
+} // namespace
+
+//=============================================================================================================
+
+void* operator new(std::size_t size)
+{
+    return allocateTestStorage(size);
+}
+
+void* operator new[](std::size_t size)
+{
+    return allocateTestStorage(size);
+}
+
+void* operator new(std::size_t size, const std::nothrow_t&) noexcept
+{
+    return allocateTestStorageNoThrow(size);
+}
+
+void* operator new[](std::size_t size, const std::nothrow_t&) noexcept
+{
+    return allocateTestStorageNoThrow(size);
+}
+
+void operator delete(void* memory) noexcept
+{
+    std::free(memory);
+}
+
+void operator delete[](void* memory) noexcept
+{
+    std::free(memory);
+}
+
+void operator delete(void* memory, const std::nothrow_t&) noexcept
+{
+    std::free(memory);
+}
+
+void operator delete[](void* memory, const std::nothrow_t&) noexcept
+{
+    std::free(memory);
+}
+
+void operator delete(void* memory, std::size_t) noexcept
+{
+    std::free(memory);
+}
+
+void operator delete[](void* memory, std::size_t) noexcept
+{
+    std::free(memory);
+}
 
 //=============================================================================================================
 // USED NAMESPACES
@@ -1388,8 +1472,11 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
 
         for (std::size_t index = 0; index < kTrafficBlockCount; ++index) {
             const auto callStartedAt = std::chrono::steady_clock::now();
+            // tryPush is noexcept; keep flag cleanup as the immediately following statement.
+            g_countTestAllocations = true;
             const AdaptiveDenoisingQueuePushStatus status =
                 queue.tryPush(producerBlocks[index], metadataHandles[index]);
+            g_countTestAllocations = false;
             const auto callFinishedAt = std::chrono::steady_clock::now();
             producerLatencies[index] =
                 std::chrono::duration_cast<std::chrono::nanoseconds>(
@@ -1531,6 +1618,7 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
     const bool consumerReadyObserved = waitUntil(
         [&] { return consumerReady.load(std::memory_order_acquire); },
         kReadyBudgetMilliseconds);
+    g_countedTestAllocations.store(0, std::memory_order_relaxed);
     start.store(true, std::memory_order_release);
 
     const bool producerFinishedWithinBudget = waitUntil(
@@ -1549,6 +1637,8 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
     }
     consumer.join();
 
+    const std::uint64_t countedAllocations =
+        g_countedTestAllocations.load(std::memory_order_acquire);
     const std::size_t accepted = acceptedCount.load(std::memory_order_acquire);
     const std::size_t popped = poppedCount.load(std::memory_order_acquire);
     const int pushed = pushedCount.load(std::memory_order_acquire);
@@ -1564,7 +1654,8 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
     qInfo() << "queue SPSC traffic pushed" << pushed
             << "full" << full
             << "popped" << static_cast<qulonglong>(popped)
-            << "maxProducerCallNs" << static_cast<qlonglong>(maximumProducerLatency);
+            << "maxProducerCallNs" << static_cast<qlonglong>(maximumProducerLatency)
+            << "countedProducerAllocations" << static_cast<qulonglong>(countedAllocations);
 
     QVERIFY(producerReadyObserved);
     QVERIFY(consumerReadyObserved);
@@ -1578,6 +1669,7 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
     QCOMPARE(popped, accepted);
     QVERIFY(maximumProducerLatency >= 0);
     QVERIFY(maximumProducerLatency < kProducerCallUpperBoundNanoseconds);
+    QCOMPARE(countedAllocations, std::uint64_t(0));
 
     for (std::size_t position = 0; position < accepted; ++position) {
         const std::size_t expectedSequence = acceptedSequences[position];
