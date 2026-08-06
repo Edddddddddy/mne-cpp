@@ -5556,3 +5556,11 @@ hidden reasoning is not.
 - Do not dispatch before the active lifecycle review gate. After PASS, run the
   RED tracer, then give production UI implementation to a separate Luna/max
   conversation and finally use an independent Sol/ultra block-boundary review.
+
+### E-551 - Plugin reviewer thread identity resolved
+
+- One later bounded app listing resolves asynchronous setup
+  `client-new-thread:3696dfeb-1800-4b9a-a8cf-a0d70d7eb2f0` to active visible
+  thread `019fd84f-03c6-79f1-977f-b278d55777ba` in its app-managed worktree.
+- This lookup resolves identity only and does not read or poll review progress.
+  Await the proactive structured response; do not create a duplicate reviewer.

@@ -7641,8 +7641,9 @@ does not continuously poll them.
 - public dispatch / issue #6 read-back confirms the exact snapshot, scope,
   evidence boundary and gate at
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208166450`.
-- resolution / one immediate thread-list lookup did not yet expose a final
-  `threadId`; keep the accepted client setup ID and do not poll for creation.
+- resolution / a later single thread-list lookup resolves the active visible
+  reviewer as `019fd84f-03c6-79f1-977f-b278d55777ba`, clean worktree path
+  `C:/Users/lcy/.codex/worktrees/3f96/mne-cpp-main`. Do not poll its progress.
 
 ### PREPARED REQUEST W-PLUGIN-UI-TEST-001
 
