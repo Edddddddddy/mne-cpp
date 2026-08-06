@@ -7318,3 +7318,31 @@ does not continuously poll them.
   no POSIX RED/GREEN is claimed while WSL startup remains unavailable.
 - Decision / accept and integrate test tracer; close only the blocked-wait test
   sensitivity P2. Production POSIX EINTR finding remains for Sol/ultra.
+
+### ARCHIVED W-QUEUE-POSIX-EINTR-TEST-001
+
+- Issue #5 integration evidence is published/read back at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5206564743`.
+- App archive succeeds for visible Luna/max thread
+  `019fd779-c771-7f40-8ce7-b23cdc7fa175` after exact integration, 19/0/0 and
+  three repeat zero exits. Its worktree is not manually changed or deleted.
+
+### REQUEST W-QUEUE-POSIX-EINTR-GREEN-001
+
+- from / manager thread `019fcdc3-4a1e-76d1-8140-1bd521219297`
+- to / retained atomic Sol/ultra thread
+  `019fd64b-2553-7102-91d6-1f8d35720823`
+- blocking / yes, final production correction before fresh queue review
+- exact base / `f1151d1346cddfb42359ac015545d874fb42d36c`
+- scope / `adaptivedenoisingblockqueue.cpp` only; public header, tests, CMake,
+  plugin, processor, docs and dependencies immutable
+- request / keep the existing outer deadline loop; on POSIX cap each native
+  consumer `poll` duration to 25 ms so a lost EINTR signal is observed by the
+  next atomic sequence/running recheck. Windows event wait remains full caller
+  remainder. Producer/stop keep one nonblocking write with no retry/wait/lock/
+  allocation; public seam and SPSC ordering remain unchanged.
+- verification / exact-parent one-file commit and diff-check; Windows MSVC
+  Release focused suite; POSIX wrapped suite only if WSL starts without global
+  reset/shutdown; source proof that producer/stop paths are unchanged.
+- response / proactive `RESPONSE W-QUEUE-POSIX-EINTR-GREEN-001`; no manager
+  polling and no internal/nested subagent or mne_rt_server.

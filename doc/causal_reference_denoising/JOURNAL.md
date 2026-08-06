@@ -5255,3 +5255,20 @@ hidden reasoning is not.
   current traffic sample retains zero counted producer allocations.
 - Close `R-QUEUE-EINTR-BLOCKED-WAIT-001`. Do not close the production POSIX
   finding or claim Linux RED/GREEN while WSL startup remains unavailable.
+
+### E-518 - EINTR tracer evidence published and task archived
+
+- Issue #5 read-back confirms tracer integrations, 19/0/0 plus repeat exits,
+  closed test-sensitivity P2 and still-open production POSIX finding at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5206564743`.
+- App archives completed Luna/max tracer thread; no worktree deletion. Retain
+  only the atomic Sol/ultra implementation conversation for the production fix.
+
+### E-519 - Private POSIX bounded-recheck fix prepared
+
+- From exact pushed base `f1151d134`, prepare a one-queue-source Sol/ultra task.
+  POSIX consumer native waits are sliced to at most 25 ms under the existing
+  outer deadline and atomic rechecks; Windows event behavior is unchanged.
+- Producer and stop continue one nonblocking signal attempt with no retry,
+  wait, lock or allocation. This keeps the realtime seam while bounding lost-
+  signal latency. Dispatch only after this request is committed and pushed.

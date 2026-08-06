@@ -559,3 +559,15 @@ same-responsibility implementation conversations that may receive review fixes.
   This does not close production finding `R-QUEUE-ATOMIC-POSIX-EINTR-001`:
   Linux runtime remains unavailable and the retained Sol/ultra atomic worker
   must implement the private bounded consumer recheck before final queue review.
+
+### Next blocking production task
+
+- `W-QUEUE-POSIX-EINTR-GREEN-001` uses the retained atomic implementation
+  conversation with Sol/ultra from exact pushed base `f1151d134`.
+- It may edit only the queue implementation. On POSIX, each native consumer
+  `poll` wait is capped at 25 ms while the existing outer steady-clock deadline
+  remains authoritative and rechecks `running`/producer sequence after every
+  slice. Windows auto-reset event code is unchanged.
+- Producer `tryPush` and `stop()` retain exactly one nonblocking signal attempt:
+  no EINTR retry, wait, lock, allocation, public hook or interface change. This
+  bounds a lost signal to one consumer slice and preserves acquisition latency.
