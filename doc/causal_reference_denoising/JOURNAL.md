@@ -5503,3 +5503,12 @@ hidden reasoning is not.
   but exceeds the 124-second tool limit without a captured terminal result.
 - Do not infer success/failure. Record, inspect generated state/processes, then
   perform a bounded continuation if the target exists. No server launch.
+
+### E-546 - Plugin target resumes to known Qt/MSVC dependency failure
+
+- Configure state is valid and server is disabled. Building only
+  `scan_adaptivedenoising` reaches `mne_fiff` and fails before plugin sources on
+  Qt 5.15.2 `qlist.h` references to removed MSVC 14.51 `stdext` iterators.
+- This reproduces the accepted environment block rather than a plugin defect.
+  Do not patch vendor Qt. Preserve MOC/ingress/focused evidence and send the
+  current exact integration snapshot to independent Sol/ultra lifecycle review.

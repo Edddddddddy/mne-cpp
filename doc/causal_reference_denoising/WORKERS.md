@@ -7591,3 +7591,16 @@ does not continuously poll them.
 - Inspect cache/target artifacts and any residual compiler process read-only;
   then resume only the generated target with a bounded build, or record the
   exact dependency failure if already available. Never start the server.
+
+### VALIDATION W-PLUGIN-DATA-001 - target environment result
+
+- Read-only state after timeout proves configure success, Visual Studio 18
+  generator, `BUILD_MNE_SCAN=ON`, `BUILD_MNE_RT_SERVER=OFF`, generated
+  `scan_adaptivedenoising.vcxproj`, and zero residual build processes.
+- Resumed target build fails in pre-existing `mne_fiff` dependency before any
+  plugin translation unit: Qt 5.15.2 `qlist.h:915` cannot resolve
+  `stdext::make_checked_array_iterator` under MSVC 14.51. The same error repeats
+  across FIFF sources/MOC and matches the durable core-link environment block.
+- Plugin target build/link is environment-deferred; vendor Qt is unchanged.
+  Plugin-local MOC and acquisition-path contract remain GREEN. Dispatch exact-
+  snapshot Sol/ultra lifecycle review with this evidence boundary explicit.

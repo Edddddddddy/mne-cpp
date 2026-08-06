@@ -617,3 +617,14 @@ same-responsibility implementation conversations that may receive review fixes.
 - Queue/processor/core files remain unchanged by the plugin series. Next run
   target-local MOC/CMake/static checks, then send the exact snapshot to an
   independent Sol/ultra plugin lifecycle reviewer before UI work.
+
+### Plugin target environment boundary
+
+- Dedicated CMake configure succeeds with only mne_scan enabled and
+  `BUILD_MNE_RT_SERVER=OFF`; the `scan_adaptivedenoising` project is generated.
+- Building that target stops in existing `mne_fiff` before plugin compilation:
+  Qt 5.15.2 `qlist.h` references removed MSVC 14.51 `stdext` checked iterators.
+  Vendor Qt remains unchanged. Standalone plugin MOC and ingress audit pass.
+- Treat real target compile/link as the already documented toolchain environment
+  deferral. Proceed with exact-source Sol/ultra lifecycle review and focused
+  processor/queue evidence; do not run the full app/server.
