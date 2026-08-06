@@ -5019,3 +5019,11 @@ hidden reasoning is not.
   created. No repository or external state changes.
 - Retry once with the project ID only in `target`; exact base, Luna/max model,
   one-file scope and request remain unchanged.
+
+### E-492 - Fresh stop-wait timing task setup accepted
+
+- Corrected project-target schema accepts new visible Luna/max setup
+  `client-new-thread:ae1d9eae-8a70-4a18-bc5f-4c83f61ac9ba` from exact source
+  base `8539c8e85`, focused test source only.
+- Publish the dispatch on issue #5, then await its proactive response without
+  polling or inspecting the app-owned worktree.

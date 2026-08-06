@@ -6766,6 +6766,9 @@ does not continuously poll them.
 - First creation attempt is rejected during local argument validation because
   project ID was duplicated at top level and inside `target`; no thread or
   worktree is created. Retry once with project ID only inside `target`.
+- Corrected setup accepted from exact requested commit as
+  `client-new-thread:ae1d9eae-8a70-4a18-bc5f-4c83f61ac9ba` on local host with
+  explicit Luna/max. Await proactive response; do not poll or inspect worktree.
 
 ### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
 
