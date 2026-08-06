@@ -454,7 +454,9 @@ same-responsibility implementation conversations that may receive review fixes.
   `client-new-thread:d045832c-271e-4ea6-8e0c-d6e4e0c0980e` and
   `W-QUEUE-SPEC-001` as
   `client-new-thread:69772d64-aeb0-47af-bacc-a1b154974991`, both Luna/max from
-  exact `2530c7864`. Await proactive responses without polling/overlap.
+  exact `2530c7864`. Public dispatch/read-back:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5203461409`.
+  Await proactive responses without polling/overlap.
 - Accepted but deliberately not integrated until the atomic queue gate:
   plugin data commit `5f4718722` plus exact-parent SPSC admission fix
   `34a8096f1`. Retain its Sol/ultra conversation for same-responsibility fixes.

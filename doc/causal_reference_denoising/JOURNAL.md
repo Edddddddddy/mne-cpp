@@ -4830,3 +4830,11 @@ hidden reasoning is not.
   `client-new-thread:69772d64-aeb0-47af-bacc-a1b154974991`.
 - Publish/read back both dispatches on issue #5. Do not poll; wait for proactive
   responses and do not overlap the focused test or SPEC files.
+
+### E-471 - Queue HOLD corrections dispatched publicly
+
+- Issue #5 comment/read-back succeeds at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5203461409`,
+  confirming exact base, setup IDs, disjoint scopes and TDD correction order.
+- Await proactive Luna responses without polling; focused test/SPEC remain owned
+  by their respective visible tasks.

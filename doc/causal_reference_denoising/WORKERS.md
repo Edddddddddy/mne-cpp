@@ -6685,6 +6685,14 @@ does not continuously poll them.
 - Scope remains SPEC only and is parallel-safe with the test editor. No final
   thread ID exists yet; await proactive RESPONSE without polling.
 
+### DISPATCHED QUEUE-HOLD-CORRECTIONS-001
+
+- Issue #5 comment/read-back succeeds at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5203461409`.
+- It records exact base, both Luna/max setup IDs/disjoint scopes, forced reuse/
+  blocked-stop acceptance, SPEC correction and the later POSIX-RED/Sol-fix
+  sequence. Both tasks remain proactive-response only.
+
 ### ARCHIVED W-QUEUE-ALLOC-TEST-001
 
 - App archive succeeds for one-shot Luna/max thread
