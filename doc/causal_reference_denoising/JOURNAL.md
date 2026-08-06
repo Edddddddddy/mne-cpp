@@ -3982,3 +3982,13 @@ hidden reasoning is not.
   RESPONSE. No new task or worktree was created.
 - Next: publish the retry fact on issue #5, then await proactive delivery while
   continuing only disjoint management work.
+
+### E-379 - Queue-v2 retry published
+
+- Issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201026440`.
+- Read-back correction: the first API lookup included the `issuecomment-`
+  prefix and returned 404 after the successful write; a numeric-ID read-back
+  confirmed the exact body. No duplicate GitHub mutation occurred.
+- Next: no further queue task polling; continue disjoint progress or consume a
+  proactive RESPONSE when delivered.

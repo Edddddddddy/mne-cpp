@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T14:13:00+08:00
+Last updated: 2026-08-06T14:15:00+08:00
 
 ## Recovery order
 
@@ -243,7 +243,8 @@ same-responsibility implementation conversations that may receive review fixes.
   turn produced no assistant output or file change and the worktree remains
   clean at the exact base. The same reusable Sol/ultra conversation accepted
   one unchanged retry; no duplicate worker was created. Await only its
-  proactive RESPONSE.
+  proactive RESPONSE. Recovery publication: issue #5 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201026440`.
 - Active non-overlapping task: `W-PLUGIN-DATA-001`, Sol/ultra setup
   `client-new-thread:bb93c4e1-6aa9-4ee4-9d52-de30ff1b0489`, exact requested
   base `8c51ea4ce`; seven plugin registration/adapter files only. Integrate only

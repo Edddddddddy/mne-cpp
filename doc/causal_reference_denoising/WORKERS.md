@@ -5414,3 +5414,15 @@ does not continuously poll them.
   no-poll/no-full-scan/no-vendor/no-rt_server constraints.
 - Coordination: this is one retry in the original conversation, not a new
   task. Manager will not read/wait again while it is running.
+
+### PUBLISH W-QUEUE-V2-GREEN-001-RETRY-1
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201026440`.
+- Authenticated API read-back confirms the no-output first turn, exact clean
+  base, same-conversation Sol/ultra retry, unchanged two-file gate and required
+  manager GREEN/fresh review.
+- The initial read-back command extracted `issuecomment-5201026440` instead of
+  the numeric ID and returned HTTP 404; the write had succeeded. Retrying the
+  read-only API call with numeric ID `5201026440` succeeded. No duplicate
+  comment was created.
