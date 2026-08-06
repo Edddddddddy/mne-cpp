@@ -14,6 +14,7 @@
 
 #include <atomic>
 #include <limits>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -26,24 +27,48 @@ namespace ADAPTIVEDENOISINGPLUGIN
 
 //=============================================================================================================
 
+namespace
+{
+
+using NativeFiffInfoHandle = QSharedPointer<const FIFFLIB::FiffInfo>;
+
+static_assert(
+    std::is_nothrow_copy_constructible<NativeFiffInfoHandle>::value,
+    "Native FIFF metadata handle copy construction must not throw");
+static_assert(
+    std::is_nothrow_copy_assignable<NativeFiffInfoHandle>::value,
+    "Native FIFF metadata handle copy assignment must not throw");
+static_assert(
+    std::is_nothrow_move_constructible<NativeFiffInfoHandle>::value,
+    "Native FIFF metadata handle move construction must not throw");
+static_assert(
+    std::is_nothrow_move_assignable<NativeFiffInfoHandle>::value,
+    "Native FIFF metadata handle move assignment must not throw");
+
+} // namespace
+
+//=============================================================================================================
+
 class AdaptiveDenoisingBlockQueue::Impl final
 {
 public:
     struct Slot
     {
-        Slot(Eigen::Index channelCount, Eigen::Index maxBlockSamples)
-        : data(channelCount, maxBlockSamples)
+        Slot(Eigen::Index maxChannelCount, Eigen::Index maxBlockSamples)
+        : data(maxChannelCount, maxBlockSamples)
+        , rowCount(0)
         , sampleCount(0)
         {
         }
 
-        Eigen::MatrixXd                          data;
-        Eigen::Index                             sampleCount;
-        std::shared_ptr<const FIFFLIB::FiffInfo> fiffInfo;
+        Eigen::MatrixXd                         data;
+        Eigen::Index                            rowCount;
+        Eigen::Index                            sampleCount;
+        NativeFiffInfoHandle                    fiffInfo;
     };
 
     explicit Impl(const AdaptiveDenoisingBlockQueueConfig& config)
-    : channelCount(config.channelCount)
+    : maxChannelCount(config.maxChannelCount)
     , maxBlockSamples(config.maxBlockSamples)
     , capacity(config.capacity)
     , freeSlots(static_cast<int>(config.capacity))
@@ -54,11 +79,11 @@ public:
     {
         slots.reserve(capacity);
         for (std::size_t index = 0; index < capacity; ++index) {
-            slots.emplace_back(channelCount, maxBlockSamples);
+            slots.emplace_back(maxChannelCount, maxBlockSamples);
         }
     }
 
-    const Eigen::Index channelCount;
+    const Eigen::Index maxChannelCount;
     const Eigen::Index maxBlockSamples;
     const std::size_t  capacity;
     std::vector<Slot>  slots;
@@ -86,7 +111,7 @@ AdaptiveDenoisingQueueConfigureStatus AdaptiveDenoisingBlockQueue::configure(
         return AdaptiveDenoisingQueueConfigureStatus::AlreadyRunning;
     }
 
-    if (config.channelCount <= 0
+    if (config.maxChannelCount <= 0
         || config.maxBlockSamples <= 0
         || config.capacity == 0
         || config.capacity > static_cast<std::size_t>(std::numeric_limits<int>::max())) {
@@ -103,16 +128,19 @@ AdaptiveDenoisingQueueConfigureStatus AdaptiveDenoisingBlockQueue::configure(
 
 AdaptiveDenoisingQueuePushStatus AdaptiveDenoisingBlockQueue::tryPush(
     Eigen::Ref<const Eigen::MatrixXd> block,
-    std::shared_ptr<const FIFFLIB::FiffInfo> fiffInfo) noexcept
+    QSharedPointer<const FIFFLIB::FiffInfo> fiffInfo) noexcept
 {
     Impl* const impl = m_impl.get();
     if (!impl || !impl->running.load(std::memory_order_acquire)) {
         return AdaptiveDenoisingQueuePushStatus::Stopped;
     }
 
-    if (block.rows() != impl->channelCount
-        || block.cols() <= 0
-        || block.cols() > impl->maxBlockSamples) {
+    const Eigen::Index rowCount = block.rows();
+    const Eigen::Index sampleCount = block.cols();
+    if (rowCount <= 0
+        || rowCount > impl->maxChannelCount
+        || sampleCount <= 0
+        || sampleCount > impl->maxBlockSamples) {
         return AdaptiveDenoisingQueuePushStatus::InvalidBlock;
     }
 
@@ -129,12 +157,13 @@ AdaptiveDenoisingQueuePushStatus AdaptiveDenoisingBlockQueue::tryPush(
     }
 
     Impl::Slot& slot = impl->slots[impl->producerIndex];
-    for (Eigen::Index column = 0; column < block.cols(); ++column) {
-        for (Eigen::Index row = 0; row < block.rows(); ++row) {
+    for (Eigen::Index column = 0; column < sampleCount; ++column) {
+        for (Eigen::Index row = 0; row < rowCount; ++row) {
             slot.data(row, column) = block(row, column);
         }
     }
-    slot.sampleCount = block.cols();
+    slot.rowCount = rowCount;
+    slot.sampleCount = sampleCount;
     slot.fiffInfo = std::move(fiffInfo);
 
     ++impl->producerIndex;
@@ -158,7 +187,7 @@ AdaptiveDenoisingQueuePopStatus AdaptiveDenoisingBlockQueue::waitPop(
         return AdaptiveDenoisingQueuePopStatus::Stopped;
     }
 
-    if (destination.data.rows() != impl->channelCount
+    if (destination.data.rows() != impl->maxChannelCount
         || destination.data.cols() != impl->maxBlockSamples) {
         return AdaptiveDenoisingQueuePopStatus::InvalidDestination;
     }
@@ -176,13 +205,15 @@ AdaptiveDenoisingQueuePopStatus AdaptiveDenoisingBlockQueue::waitPop(
 
     Impl::Slot& slot = impl->slots[impl->consumerIndex];
     for (Eigen::Index column = 0; column < slot.sampleCount; ++column) {
-        for (Eigen::Index row = 0; row < impl->channelCount; ++row) {
+        for (Eigen::Index row = 0; row < slot.rowCount; ++row) {
             destination.data(row, column) = slot.data(row, column);
         }
     }
+    destination.rowCount = slot.rowCount;
     destination.sampleCount = slot.sampleCount;
-    destination.fiffInfo = slot.fiffInfo;
-    slot.fiffInfo.reset();
+    destination.fiffInfo = std::move(slot.fiffInfo);
+    slot.rowCount = 0;
+    slot.sampleCount = 0;
 
     ++impl->consumerIndex;
     if (impl->consumerIndex == impl->capacity) {
@@ -200,7 +231,11 @@ void AdaptiveDenoisingBlockQueue::stop() noexcept
 {
     Impl* const impl = m_impl.get();
     if (impl && impl->running.exchange(false, std::memory_order_acq_rel)) {
-        impl->filledSlots.release(1);
+        // A consumer cannot be blocked while a filled token is available. Avoid adding a wake token to a full
+        // semaphore, whose configured capacity is allowed to equal QSemaphore's maximum int count.
+        if (impl->filledSlots.available() == 0) {
+            impl->filledSlots.release(1);
+        }
     }
 }
 

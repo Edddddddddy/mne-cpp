@@ -13,6 +13,8 @@
 
 #include <Eigen/Core>
 
+#include <QSharedPointer>
+
 #include <cstddef>
 #include <cstdint>
 #include <memory>
@@ -63,7 +65,7 @@ enum class AdaptiveDenoisingQueuePopStatus : std::uint8_t {
 
 struct AdaptiveDenoisingBlockQueueConfig
 {
-    Eigen::Index channelCount;
+    Eigen::Index maxChannelCount;
     Eigen::Index maxBlockSamples;
     std::size_t  capacity;
 };
@@ -72,16 +74,19 @@ struct AdaptiveDenoisingBlockQueueConfig
 
 struct AdaptiveDenoisingQueuedBlock
 {
-    Eigen::MatrixXd                            data;
-    Eigen::Index                               sampleCount;
-    std::shared_ptr<const FIFFLIB::FiffInfo>   fiffInfo;
+    Eigen::MatrixXd                              data;
+    Eigen::Index                                 rowCount;
+    Eigen::Index                                 sampleCount;
+    QSharedPointer<const FIFFLIB::FiffInfo>      fiffInfo;
 };
 
 //=============================================================================================================
 
 /**
- * Plugin-private bounded SPSC queue. Configuration is the only allocation phase. The caller must quiesce the
- * producer and consumer before reconfiguration or destruction.
+ * Plugin-private bounded SPSC queue. Configuration is the only allocation phase and describes maximum matrix
+ * dimensions; each pushed block may have any positive shape within those maxima. Exactly one producer and one
+ * consumer may use a running queue. stop() may race with those operations, but the caller must quiesce both
+ * before reconfiguration or destruction. Stopping may discard pending blocks.
  */
 class AdaptiveDenoisingBlockQueue final
 {
@@ -93,17 +98,34 @@ public:
     AdaptiveDenoisingBlockQueue(AdaptiveDenoisingBlockQueue&&) = delete;
     AdaptiveDenoisingBlockQueue& operator=(AdaptiveDenoisingBlockQueue&&) = delete;
 
+    /**
+     * Transactionally preallocates an empty running queue. Invalid configurations and allocation exceptions
+     * preserve the prior stopped implementation; a running queue rejects reconfiguration.
+     */
     AdaptiveDenoisingQueueConfigureStatus configure(
         const AdaptiveDenoisingBlockQueueConfig& config);
 
+    /**
+     * Makes one zero-time attempt to copy a positive in-bounds block into the queue. A full queue drops this
+     * newest block without changing either ring position.
+     */
     AdaptiveDenoisingQueuePushStatus tryPush(
         Eigen::Ref<const Eigen::MatrixXd> block,
-        std::shared_ptr<const FIFFLIB::FiffInfo> fiffInfo) noexcept;
+        QSharedPointer<const FIFFLIB::FiffInfo> fiffInfo) noexcept;
 
+    /**
+     * Waits once for a block and copies its valid rectangle into a matrix exactly matching the configured
+     * maxima. The matrix tail is untouched; non-Popped results preserve the complete destination.
+     */
     AdaptiveDenoisingQueuePopStatus waitPop(
         AdaptiveDenoisingQueuedBlock& destination,
         int timeoutMilliseconds) noexcept;
 
+    /**
+     * Idempotently prevents new operations from committing and wakes an empty-queue consumer. An operation
+     * that already acquired its semaphore token and observed the running state is ordered before the stop and
+     * may finish concurrently.
+     */
     void stop() noexcept;
 
 private:
