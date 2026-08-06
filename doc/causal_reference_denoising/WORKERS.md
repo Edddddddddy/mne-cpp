@@ -6699,6 +6699,12 @@ does not continuously poll them.
   diff-check. Commit exact one-file delta, clean status, proactively return
   `RESPONSE W-DOC-001-REVISE-2`; no manager polling/subagent/server/full scan.
 
+### DISPATCHED W-DOC-001-REVISE-2
+
+- Retained thread `019fd2fc-0d25-7163-a29d-b7c8840028f9` accepted the exact
+  guide-only request with explicit `gpt-5.6-luna` / `max` overrides. Await its
+  proactive response; do not poll or overlap the learning-guide file.
+
 ### DISCUSSION SPEC-QUEUE-ATOMIC-CONSISTENCY-001
 
 - The later atomic-correction section was authoritative, but the earlier

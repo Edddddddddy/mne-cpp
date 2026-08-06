@@ -4711,3 +4711,9 @@ hidden reasoning is not.
   one retained Luna/max one-file request from exact `fb748082f`: atomic sequence
   plus Windows event/POSIX pipe wording, producer zero-allocation evidence, and
   exact benchmark command/workload/results `2.725/4.317/8.557 ms`.
+
+### E-458 - Final learning-guide revision dispatched
+
+- Retained visible documentation thread accepts the exact one-file request with
+  explicit Luna/max settings. It owns only `LEARNING_GUIDE.md` from
+  `fb748082f` and must proactively respond; manager will not poll or overlap it.

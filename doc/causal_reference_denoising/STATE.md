@@ -450,6 +450,8 @@ same-responsibility implementation conversations that may receive review fixes.
   combined narrow Luna/max revision from `fb748082f` must replace that paragraph
   with the accepted atomic/native-wake seam and add the exact benchmark command,
   workload and `2.725/4.317/8.557 ms` results before integration/issue closure.
+  The retained visible thread accepted this exact one-file request with explicit
+  Luna/max settings; await its proactive response without polling.
 - After queue review passes: integrate/formally review plugin data, implement
   programmatic minimal UI, add focused block-boundary settings/lifecycle
   evidence, run final targets/review, update and close issues #5/#6/#7/#3/#2.
