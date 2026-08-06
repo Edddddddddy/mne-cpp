@@ -74,6 +74,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 
 if(NOT BUILD_SHARED_LIBS)
     target_link_libraries(${PROJECT_NAME} PRIVATE
+        scan_adaptivedenoising
         scan_averaging
         scan_babymeg
         scan_covariance

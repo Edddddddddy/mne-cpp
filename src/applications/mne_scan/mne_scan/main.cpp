@@ -93,6 +93,7 @@ Q_IMPORT_PLUGIN(NeuronalConnectivity)
 Q_IMPORT_PLUGIN(FtBuffer)
 Q_IMPORT_PLUGIN(WriteToFile)
 Q_IMPORT_PLUGIN(Hpi)
+Q_IMPORT_PLUGIN(AdaptiveDenoising)
 //Q_IMPORT_PLUGIN(DummyToolbox)
 #ifdef WITHGUSBAMP
 Q_IMPORT_PLUGIN(GUSBAmp)
