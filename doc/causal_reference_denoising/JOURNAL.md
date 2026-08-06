@@ -4736,3 +4736,14 @@ hidden reasoning is not.
   `2.725/4.317/8.557 ms` evidence are exact and truthfully bounded.
 - No manager P0-P3 opens. Accept `6333b995d`; integrate and replay the documented
   focused Release commands before closing both documentation P2s.
+
+### E-461 - Learning guide integrated; example/benchmark replay GREEN
+
+- Full guide is integrated/pushed as `b59221e78`. Canonical Release target
+  builds; default run exits zero with `example invariants: PASS`.
+- `--benchmark` exits zero with exact 270-row/P64/128-sample/100+1000 workload,
+  current p50/p95/max `2.174/2.748/4.130 ms`, generation/accepted/rejected
+  `1099/1099/0`, and strict p95 `<128 ms` PASS.
+- Load variation versus documented durable `2.725/4.317/8.557 ms` is explicitly
+  bounded by the guide. Close both documentation P2s, publish the exact replay,
+  then close issue #7 and archive the completed one-responsibility doc thread.

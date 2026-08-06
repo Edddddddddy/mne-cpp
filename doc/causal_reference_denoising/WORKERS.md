@@ -6742,6 +6742,23 @@ does not continuously poll them.
   documented focused Release build/default/benchmark commands before closing
   the two documentation P2 findings.
 
+### VALIDATION W-DOC-001-REVISE-2
+
+- Full replacement is integrated/pushed as `b59221e78`; exact one-guide diff-
+  check passes. Canonical Release build of `ex_causal_reference_denoising`
+  succeeds.
+- Default run exits zero with `example invariants: PASS`, reaches generation 4,
+  freeze reports zero updates and reset restores generation zero/warmup.
+- `--benchmark` exits zero with dimensions 270/16 references/250 targets/4
+  preserved/128 samples/4 taps/P64, 100 warmup and 1000 timed blocks. Current
+  nearest-rank p50/p95/max are `2.174/2.748/4.130 ms`; p95 `<128 ms` PASS and
+  final generation/accepted/rejected are `1099/1099/0`.
+- This replay is faster than the durable recorded `2.725/4.317/8.557 ms`; the
+  guide explicitly states load variation, and both executions pass the same
+  engineering gate. `R-DOC-QUEUE-V2-001` and
+  `R-DOC-BENCHMARK-EVIDENCE-002` close. Thread is retirement-ready after issue
+  #7 publication/closure.
+
 ### DISCUSSION SPEC-QUEUE-ATOMIC-CONSISTENCY-001
 
 - The later atomic-correction section was authoritative, but the earlier

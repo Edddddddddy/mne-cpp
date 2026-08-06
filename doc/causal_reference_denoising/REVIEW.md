@@ -484,6 +484,11 @@ Pending.
   commands/workload/results/limitations match implementation/evidence.
 - Status: accepted pending integration plus replay of the documented Release
   commands; no additional content correction is required.
+- Resolution: integrated `b59221e78`. Canonical Release default example exits
+  zero/PASS; benchmark exits zero/PASS at current p50/p95/max
+  `2.174/2.748/4.130 ms`, with exact required dimensions/counts and p95 gate.
+  Earlier recorded values remain documented as load-sensitive engineering
+  evidence. Both P2 findings are closed; no documentation P0-P3 remains.
 
 ### R-BENCH-FINITE-001 - P2 - Closed
 

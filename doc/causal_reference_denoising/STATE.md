@@ -456,7 +456,11 @@ same-responsibility implementation conversations that may receive review fixes.
   remains, atomic/native-wake and exact benchmark evidence are reported. Manager
   provenance/content/command review passes: eight relative links resolve, all
   fences balance, queue wording matches production and timing limitations are
-  truthful. Replacement is accepted; integration and command replay are next.
+  truthful. It is integrated as `b59221e78`. Canonical Release replay builds the
+  documented target; default example exits zero/PASS and benchmark exits zero/
+  PASS with current p50/p95/max `2.174/2.748/4.130 ms`. The guide's earlier
+  recorded `2.725/4.317/8.557 ms` remains valid and is explicitly load-sensitive.
+  Both documentation P2 findings close; publish and close issue #7 next.
 - After queue review passes: integrate/formally review plugin data, implement
   programmatic minimal UI, add focused block-boundary settings/lifecycle
   evidence, run final targets/review, update and close issues #5/#6/#7/#3/#2.
