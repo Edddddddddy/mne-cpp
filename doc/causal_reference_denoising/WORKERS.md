@@ -8703,6 +8703,22 @@ does not continuously poll them.
   task/worktree mutation. Proactively return `RESPONSE R-PLUGIN-UI-001`; manager
   owns any correction, issue closure and final acceptance.
 
+### SETUP R-PLUGIN-UI-001
+
+- setup / accepted as
+  `client-new-thread:7beffd28-3d95-4504-9a9d-8ecbafd1240e` with explicit
+  `gpt-5.6-sol` / `ultra`, app-managed worktree and starting ref
+  `codex/review-ui-final-base`.
+- exact base / manager verifies the local starting ref resolves exactly to
+  `7a33d537b403c2be0d7ee04bcb49f376c83673b7`.
+- resolved task / one identity-only listing maps setup to active visible task
+  `019fd8d8-c239-7941-b57b-ce57c8f55269` in app worktree `c70c`; title normalized
+  to `R-PLUGIN-UI-001`.
+- lifecycle / retain the local review base ref until review response/publication
+  is durable and the reviewer is archived. Never manually delete its worktree.
+- next / publish exact read-only dispatch on issue #6, then use one bounded event
+  wait for initial progress and await proactive PASS/HOLD without polling.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are

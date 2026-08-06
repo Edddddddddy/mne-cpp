@@ -6310,3 +6310,13 @@ hidden reasoning is not.
 - Issue #8 remains an explicit deferral, not a fix. PASS requires P0/P1 zero
   and each P2 fixed or durably deferred. Commit/push this request before creating
   the app review worktree; reviewer is strictly read-only and proactive.
+
+### E-625 - Final UI review worktree setup accepted
+
+- Manager creates local-only `codex/review-ui-final-base` at exact review
+  snapshot `7a33d537b403c2be0d7ee04bcb49f376c83673b7`. App accepts Sol/ultra setup
+  `client-new-thread:7beffd28-3d95-4504-9a9d-8ecbafd1240e`.
+- One identity listing resolves active read-only task
+  `019fd8d8-c239-7941-b57b-ce57c8f55269` in worktree `c70c`; normalize its title
+  to `R-PLUGIN-UI-001`. Publish before waiting and never inspect/edit its
+  worktree from manager.

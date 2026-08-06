@@ -843,3 +843,7 @@ same-responsibility implementation conversations that may receive review fixes.
   ref is deleted after detached/merged proof. New read-only `R-PLUGIN-UI-001`
   is durably requested from exact pushed snapshot
   `7a33d537b403c2be0d7ee04bcb49f376c83673b7`.
+- Review setup is accepted as
+  `client-new-thread:7beffd28-3d95-4504-9a9d-8ecbafd1240e`; visible read-only
+  Sol/ultra task `019fd8d8-c239-7941-b57b-ce57c8f55269` runs in app worktree
+  `c70c`, titled `R-PLUGIN-UI-001`. Publish dispatch, then await proactive gate.
