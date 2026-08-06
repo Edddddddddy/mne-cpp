@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T15:20:00+08:00
+Last updated: 2026-08-06T15:23:00+08:00
 
 ## Recovery order
 
@@ -283,7 +283,8 @@ same-responsibility implementation conversations that may receive review fixes.
   local/remote object. Current-compiler review opens P1
   `R-CORE-CXX14-NOEXCEPT-001`: a `noexcept` member-pointer alias is illegal in
   project C++14. The retained Luna/max conversation accepted a test-only
-  portable revision request before integration.
+  portable revision request before integration. Final-QA publication:
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5201485839`.
 - The older read-only `R-QUEUE-001` reviewed the superseded exact-row/std-owner
   v1 queue and is now app-archived after its clean exact snapshot and durable
   dispatch were verified. Queue-v2 receives a fresh formal review after GREEN.

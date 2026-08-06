@@ -4207,3 +4207,10 @@ hidden reasoning is not.
 - Header/runtime remain immutable; required checks are portable MatrixXd→Ref
   callability/result plus ownership/reset traits under actual `/std:c++14`.
 - Next: publish the P1/revision on final-QA issue #3 and await proactive delta.
+
+### E-403 - Core-contract C++14 P1 published
+
+- Issue #3 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5201485839`.
+- API read-back confirms provenance correction, accepted header, exact C2279
+  evidence, portable Luna/max revision and populated Release/Debug requirement.

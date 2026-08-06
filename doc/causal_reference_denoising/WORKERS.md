@@ -5833,6 +5833,13 @@ does not continuously poll them.
   and explicit MSVC 14.51 `/std:c++14` verification are repeated.
 - No duplicate task/worktree; manager will not poll.
 
+### PUBLISH W-QA-CORE-CONTRACT-001-REVISE-1
+
+- GitHub final-QA issue #3 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5201485839`.
+- API read-back confirms real-parent correction, accepted header, C++14 C2279
+  P1, portable test-only revision and manager Release/Debug gate.
+
 ### RESPONSE W-QA-CORE-CONTRACT-001-RETRY-1-DISPATCH
 
 - App accepted the follow-up on existing thread
