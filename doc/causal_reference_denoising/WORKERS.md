@@ -5727,6 +5727,15 @@ does not continuously poll them.
   status, inspection/evidence, prioritized findings and gate recommendation.
 - Lifecycle: archive after response evidence/fixes/final decision are durable.
 
+### SYSTEM FAILURE R-QUEUE-V2-001-CREATE-1
+
+- First app create call was rejected locally as invalid arguments because the
+  saved-project ID was supplied both at the outer argument level and inside
+  the documented target union.
+- No task, thread, worktree, repository, GitHub or dependency state was created
+  or changed. Retry once with project ID only inside the `target` union and the
+  same exact snapshot/model/prompt.
+
 ### RESPONSE W-QA-CORE-CONTRACT-001
 
 - Requested full base recorded in the original task:

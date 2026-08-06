@@ -4166,3 +4166,10 @@ hidden reasoning is not.
   GitHub mutation.
 - Next: commit/push request, create and publicly dispatch the visible task, then
   await its proactive RESPONSE without polling.
+
+### E-398 - Queue-v2 review create call rejected before task creation
+
+- App validation rejected duplicate project-ID placement. No thread/worktree or
+  repository/external mutation exists.
+- Decision: persist failure, then retry once with the documented target-union
+  schema and unchanged exact snapshot `e4964aaed`/Sol/ultra prompt.
