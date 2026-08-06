@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T15:09:00+08:00
+Last updated: 2026-08-06T15:12:00+08:00
 
 ## Recovery order
 
@@ -289,7 +289,8 @@ same-responsibility implementation conversations that may receive review fixes.
   worker commit `039b58d1b` because v2 owns its replacement.
 - Fresh queue-v2 formal review `R-QUEUE-V2-001` is now creating a visible
   Sol/ultra worktree from exact GREEN snapshot `e4964aaed`; setup ID is
-  `client-new-thread:4b85d632-2892-48c3-8044-846ed7c4ad39`.
+  `client-new-thread:4b85d632-2892-48c3-8044-846ed7c4ad39`. Dispatch is public:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201388674`.
 - Completed queue-v2 tracer conversation is archived after exact clean/blob/
   RED/public evidence. Do not revive it; create a new Luna/max test task if a
   later independent behavior is required.

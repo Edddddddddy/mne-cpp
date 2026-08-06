@@ -5747,6 +5747,14 @@ does not continuously poll them.
 - Coordination: publish the dispatch, then do not poll. Reviewer must notify
   the manager proactively.
 
+### PUBLISH R-QUEUE-V2-001-START
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201388674`.
+- API read-back confirms Sol/ultra, exact GREEN snapshot/setup, full concurrency/
+  realtime/test gate, P0/P1/P2-zero requirement, read-only/proactive/no-poll
+  workflow and no full mne_scan/mne_rt_server.
+
 ### RESPONSE W-QA-CORE-CONTRACT-001
 
 - Requested full base recorded in the original task:

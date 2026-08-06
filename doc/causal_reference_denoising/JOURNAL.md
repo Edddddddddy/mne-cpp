@@ -4181,3 +4181,10 @@ hidden reasoning is not.
   `e4964aaed`.
 - Next: commit/push creation evidence, publish/read back issue #5 dispatch and
   await only the proactive structured response.
+
+### E-400 - Queue-v2 formal review dispatched publicly
+
+- Issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201388674`.
+- API read-back confirms exact `e4964aaed` Sol/ultra read-only gate. Manager
+  will not poll; continue disjoint core/plugin/doc work until proactive response.
