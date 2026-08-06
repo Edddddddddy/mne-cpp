@@ -6053,3 +6053,13 @@ does not continuously poll them.
   Proactively send `RESPONSE W-QUEUE-ATOMIC-TEST-001` and stop.
 - Model/effort: `gpt-5.6-luna`, `max`. Status: request durable before creating
   the visible task.
+
+### RESPONSE W-QUEUE-ATOMIC-TEST-001-CREATE
+
+- App accepted a new visible saved-project worktree setup as
+  `client-new-thread:7119c1cd-0c1c-4632-ade6-edbc357dec0b`; host `local`.
+- Model/effort are explicitly `gpt-5.6-luna`/`max`; starting ref is exact
+  `4bb1b2a30`. Prompt repeats the one-test-file TDD scope, all public concurrency/
+  lifetime oracles, join-safe finite synchronization and proactive response.
+- No final thread ID exists yet. Publish the dispatch, then do not poll or
+  overlap the focused test file.

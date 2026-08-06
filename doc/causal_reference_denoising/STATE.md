@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T16:31:00+08:00
+Last updated: 2026-08-06T16:36:00+08:00
 
 ## Recovery order
 
@@ -337,3 +337,6 @@ same-responsibility implementation conversations that may receive review fixes.
   discard/fresh-reconfigure coverage, and observable native metadata lifetime.
   Production queue/CMake/plugin remain immutable until this response is
   manager-reviewed and integrated.
+  The visible Luna/max worktree setup is accepted as
+  `client-new-thread:7119c1cd-0c1c-4632-ade6-edbc357dec0b`; no final thread ID
+  exists yet. Manager will publish the dispatch and will not poll it.

@@ -4299,3 +4299,12 @@ hidden reasoning is not.
   and observable native metadata lifetime through the public interface.
 - Production remains immutable in this task. After request commit/push, create
   the visible worktree and publish the dispatch; do not poll it.
+
+### E-412 - Queue atomic public-test task creation accepted
+
+- App accepted Luna/max worktree setup
+  `client-new-thread:7119c1cd-0c1c-4632-ade6-edbc357dec0b` from exact
+  `4bb1b2a30`; no final thread ID exists yet.
+- Prompt carries the complete one-file TDD/public-interface concurrency,
+  stop-preservation and metadata-lifetime contract. Next publish issue #5,
+  then await only the proactive structured response.
