@@ -5068,3 +5068,28 @@ does not continuously poll them.
   scan, full mne_scan, vendor change or rt_server.
 - Status: response recorded before manager provenance/diff review,
   cherry-pick or populated RED.
+
+### MANAGER REVIEW W-QUEUE-V2-TEST-001
+
+- Provenance: exact worker commit `649bbd1ee` has required parent
+  `b4299fdaf`, which is an ancestor of integration HEAD. Its committed diff
+  passes `git diff --check` and changes exactly the authorized focused test
+  source. The parent and current integration test blobs are both
+  `dfe51c414`, so no intervening same-file change will be overwritten.
+- Migration completeness: all existing queue configuration, destination,
+  metadata and pop assertions move to the frozen v2 public names; prior
+  processor and queue behavior slots are preserved. Invalid source/destination
+  shapes remain invalid relative to configured maxima and now also prove
+  extent/metadata sentinel preservation.
+- New behavior sensitivity: three different row/sample rectangles fill the
+  full capacity before source mutation; FIFO pops into one maximum-sized
+  sentinel matrix require exact top-left copies, exact extents, unchanged
+  outside cells and native metadata pointer identity. Any exact-row queue,
+  shallow/deferred copy, stale extent, whole-slot overwrite or metadata
+  mismatch fails observably.
+- Test seam: fake non-null FiffInfo addresses stay live for the test duration,
+  use explicit no-op deletion, and are only compared, never dereferenced.
+  Compile-time nothrow traits make the intended callback ownership assumption
+  explicit for the installed Qt 5.15.2 type.
+- Finding: none. Accept for cherry-pick and populated public-contract RED; no
+  queue-v2 production implementation or GREEN is accepted yet.

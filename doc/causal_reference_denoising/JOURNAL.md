@@ -3748,3 +3748,15 @@ hidden reasoning is not.
 - Next: commit/push the response and toolchain evidence, inspect exact
   provenance/diff/oracles, then cherry-pick and require the populated target to
   fail at the frozen queue-v2 public contract before production dispatch.
+
+### E-357 - Queue-v2 tracer accepted by manager review
+
+- Provenance: `649bbd1ee` is an exact-parent, one-test-file commit; its base and
+  current integration test blobs are identical, so integration is conflict-free
+  and preserves every prior slot.
+- Oracle: native metadata plus mixed 2/4/3-row rectangles, source mutation,
+  FIFO extents, maximum destination sentinel tail and final Timeout sensitively
+  define the frozen queue-v2 seam through public behavior only.
+- Decision: no finding. Commit/push this review, cherry-pick the tracer and
+  require populated compilation to fail on the old public interface before a
+  separate Sol/ultra production implementation task is dispatched.
