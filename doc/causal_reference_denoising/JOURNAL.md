@@ -3907,3 +3907,12 @@ hidden reasoning is not.
   widget on the GUI thread.
 - Locality decision: no new settings strategy/module or strings in the worker
   result seam. UI remains a separate Luna/max task after plugin-data review.
+
+### E-371 - Teaching UI seam published
+
+- Publish/read-back: issue #6 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5200910135`
+  exactly records pending-snapshot revisions/reset sequencing, mode mapping and
+  fixed queued diagnostics with GUI-only formatting.
+- Scope remains design-only and disjoint from both active Sol implementation
+  tasks. UI code is still intentionally undispatched.

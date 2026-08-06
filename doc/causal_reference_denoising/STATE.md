@@ -214,6 +214,8 @@ The later UI seam is also frozen: one pending snapshot plus revisions is read
 once per worker block; fixed diagnostics cross a queued Qt connection and all
 human-readable formatting stays on the GUI thread. No UI task is dispatched
 until plugin-data integration/review.
+Public UI-seam discussion:
+`https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5200910135`.
 
 ## Focused verification targets
 
