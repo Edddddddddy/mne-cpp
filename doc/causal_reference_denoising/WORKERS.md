@@ -7348,3 +7348,5 @@ does not continuously poll them.
   polling and no internal/nested subagent or mne_rt_server.
 - dispatch / retained visible thread accepts the exact-base follow-up with
   explicit `gpt-5.6-sol` / `ultra`; await proactive response without polling.
+- public dispatch / issue #5 comment read back at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5206658788`.

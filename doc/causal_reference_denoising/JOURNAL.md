@@ -5280,3 +5280,10 @@ hidden reasoning is not.
   producer/stop, public interface and tests are immutable.
 - Await its proactive response without polling. Publish the exact scope and the
   current WSL evidence limitation on issue #5.
+
+### E-521 - Private POSIX fix dispatch published
+
+- Issue #5 comment/read-back succeeds at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5206658788`,
+  confirming exact base, one-source scope, 25 ms consumer slices, unchanged
+  Windows/producer/stop paths and truthful WSL limitation.
