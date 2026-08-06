@@ -4960,3 +4960,13 @@ hidden reasoning is not.
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5203794886`.
   It records the accepted forced-wrap evidence, the remaining elapsed-wait P2,
   exact one-test-file correction and no production/CMake scope.
+
+### E-486 - Queue revision result delivery is missing
+
+- App wait reports the retained Luna/max follow-up turn completed after about
+  181 seconds, but thread status is `notLoaded` and exposes no assistant
+  message. A single direct thread read also returns no content.
+- Treat this as a delivery fault, not a successful or failed code response.
+  Persist it, then send exactly one recovery request to the same conversation
+  asking it to resend only `RESPONSE W-QUEUE-CONCURRENCY-TEST-002-REVISE-1`;
+  do not duplicate implementation or inspect its worktree.

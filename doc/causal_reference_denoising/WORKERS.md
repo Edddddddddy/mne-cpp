@@ -6711,6 +6711,10 @@ does not continuously poll them.
 - Dispatch: accepted by the retained visible thread with explicit Luna/max;
   it must proactively return `RESPONSE W-QUEUE-CONCURRENCY-TEST-002-REVISE-1`
   and must not poll the manager.
+- Delivery fault: a cursor-based wait reports the follow-up turn completed, but
+  thread status is `notLoaded` and neither wait nor one read returns an
+  assistant response. Do not infer a commit. Send one recovery request asking
+  the same conversation to resend only its structured response/status.
 
 ### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
 
