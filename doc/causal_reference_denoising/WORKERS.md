@@ -5664,6 +5664,48 @@ does not continuously poll them.
 - Constraints: Sol/ultra, no subagent/poll/full scan/mne_scan/vendor/rt_server.
 - Status: response durable; manager mechanical-delta review precedes cherry-pick.
 
+### MANAGER REVIEW W-QUEUE-V2-GREEN-001-FIX-1
+
+- Exact parent/scope/diff check passes. Word diff contains only five private
+  identifier replacements `slots`→`queueSlots` in the one authorized source.
+- No semantic, layout, interface, ordering, atomic, semaphore or test change.
+  The delta directly removes the Qt macro token; no finding.
+- A combined shell call with a one-second timeout ended before cherry-pick and
+  left integration HEAD/status unchanged with no CMake/MSBuild process. Retry
+  the two actions separately with a normal build timeout.
+
+### RESPONSE W-QA-CORE-CONTRACT-001
+
+- Requested full base recorded in the original task:
+  `7eb04cbfa6aa9cbd09594c6aa2d6fe6aebcc43db`; worker proves this object is
+  unavailable locally and rejected by origin as not our ref.
+- Actual dispatch commit `7471c6a7a` has parent
+  `7eb04cbfa766c1cbadcbd870dda80f0557c6f74a`. Worker reset only its worktree to
+  that real parent and created exact-parent commit
+  `2682034d0e45ecb50b67dea47b929d9d7d3b6957`; it explicitly does not claim the
+  impossible requested provenance.
+- Exact scope: numerical public header plus focused numerical test only.
+- Header response: compact Doxygen covers channel/time shape, selected row
+  uniqueness/range/disjointness and P<=256, configure-only transactional
+  allocation and throwing preservation, target-only mutation, all three modes,
+  whole-block/state-preserving shape/nonfinite errors, reset semantics,
+  single-worker ownership, fixed diagnostics and post-configure noexcept/no-
+  allocation/no-lock/no-string/no-Qt/FIFF process path.
+- Ownership: retains nothrow default/destructor and deletes copy/move ctor/
+  assignment; no custom move or runtime behavior.
+- Compile contract: C++14 traits for default/copy/move, reset noexcept, MatrixXd
+  lvalue to Eigen::Ref convertibility, and process member noexcept type. Worker
+  separates the member contract from a direct-call expression whose by-value
+  Eigen::Ref wrapper copy may itself be potentially throwing.
+- Evidence: exact two-file/diff/clean proof; read-only C++14 syntax probes using
+  the populated sibling Eigen plus generated Qt MOC pass for header,
+  implementation and focused test. Complete Release/Debug not run in the
+  isolated incomplete-Eigen worktree; no vendor repair/runtime claim.
+- Constraints: Luna/max, no subagent/manager poll/full scan/mne_scan/vendor/
+  rt_server.
+- Status: response durable; manager must audit the real-parent delta against
+  current blobs and rerun populated Release/Debug before closing P3.
+
 ### RESPONSE W-QA-CORE-CONTRACT-001-RETRY-1-DISPATCH
 
 - App accepted the follow-up on existing thread

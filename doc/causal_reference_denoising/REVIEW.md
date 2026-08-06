@@ -139,6 +139,11 @@ core gate is held for one P2 test-evidence finding; two P3s remain tracked.
   are non-local to the public header, increasing caller reconstruction cost.
 - Requested later fix: compact Doxygen contract, explicit copy/move policy and
   C++14 trait/noexcept compile checks.
+- Fix received with provenance correction: worker commit `2682034d0` has actual
+  parent `7eb04cbfa766...`; the longer base recorded in the original request is
+  not a resolvable object. The two-file header/trait result and syntax probes
+  are reported complete, but manager blob/diff review and populated Release/
+  Debug remain required before closure.
 
 #### R-CORE-LINK-001 - P3 - Environment-deferred
 

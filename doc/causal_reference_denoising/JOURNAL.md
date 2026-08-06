@@ -4120,3 +4120,22 @@ hidden reasoning is not.
   queue concurrency/interface/test files are unchanged and worker is clean.
 - Next: manager exact-delta review, cherry-pick and complete populated Release
   compile/run; only that run can close the P1.
+
+### E-393 - Queue fix reviewed; timed command left no partial state
+
+- Manager word-diff accepts `33b3eea1d`: exactly five private identifier
+  replacements in one source file, with no semantic change.
+- A one-second combined cherry-pick/build shell call timed out before Git
+  mutation. Read-back shows HEAD still `5ad825698`, clean tracked state and no
+  CMake/MSBuild process. Retry actions separately.
+
+### E-394 - Core-contract response received with provenance correction
+
+- Luna/max worker reports the originally requested full SHA does not exist
+  locally/remotely. It used the real parent of dispatch record `7471c6a7a`,
+  namely `7eb04cbfa766...`, and returned exact-parent two-file commit
+  `2682034d0` without claiming false provenance.
+- Header Doxygen, deleted copy/move and C++14 traits/noexcept syntax probes are
+  reported complete; isolated runtime remains unavailable due ignored Eigen.
+- Next: manager compare real-parent/current blobs, inspect full delta, then run
+  populated Release/Debug before closing `R-CORE-LOCALITY-001`.

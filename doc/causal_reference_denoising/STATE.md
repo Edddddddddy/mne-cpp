@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T14:52:30+08:00
+Last updated: 2026-08-06T14:56:30+08:00
 
 ## Recovery order
 
@@ -235,7 +235,7 @@ same-responsibility implementation conversations that may receive review fixes.
 
 ## Current checkpoint override
 
-- Integration/remote HEAD: `e8cd2aae8`. The tracked integration has queue-v2
+- Integration/remote HEAD: `5ad825698`. The tracked integration has queue-v2
   plus the compile-RED evidence committed and pushed;
   only the three preserved user paths are untracked.
   only untracked paths are the three preserved user paths listed in the plan.
@@ -251,7 +251,9 @@ same-responsibility implementation conversations that may receive review fixes.
   Qt's keyword macro and prevents compilation. Return a source-only rename fix
   to the retained Sol/ultra conversation, then rerun the complete target. The
   existing conversation returned exact-parent one-file delta `33b3eea1d`.
-  Manager delta review/cherry-pick/populated rerun are next. RED publication:
+  Manager delta review passes. A prior one-second shell timeout occurred before
+  cherry-pick and left no Git/build process state; retry cherry-pick/populated
+  rerun are next. RED publication:
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201209614`.
   Recovery publication: issue #5 comment
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201026440`.
@@ -272,6 +274,10 @@ same-responsibility implementation conversations that may receive review fixes.
   The core-contract turn had no assistant output; its same
   Luna/max conversation accepted one retry requiring a detach to the original
   exact base before the unchanged two-file task.
+  It proactively returned two-file commit `2682034d0` from the actual dispatch
+  parent `7eb04cbfa766...`; the originally recorded requested full SHA is not a
+  local/remote object. Manager provenance/content review is required before
+  integration and Release/Debug reruns.
 - The older read-only `R-QUEUE-001` reviewed the superseded exact-row/std-owner
   v1 queue and is now app-archived after its clean exact snapshot and durable
   dispatch were verified. Queue-v2 receives a fresh formal review after GREEN.
