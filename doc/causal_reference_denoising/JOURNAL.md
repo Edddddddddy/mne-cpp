@@ -3806,3 +3806,14 @@ hidden reasoning is not.
 - Immediate action: verify and archive the completed queue-v2 tracer through
   the app; retain the Sol/ultra queue-v2 implementation setup. Never manually
   delete app-owned worktrees.
+
+### E-362 - Queue-v2 GREEN dispatch published and tracer retirement-ready
+
+- Publish/read-back: issue #5 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5200762566`
+  exactly records the Sol/ultra implementation task and frozen gate.
+- Retirement evidence: tracer worktree is clean at `649bbd1ee`; its only test
+  blob `c74670899` equals integration. RED, review and public evidence precede
+  archival.
+- Next: commit/push this precheck, archive the one-shot tracer through the app,
+  then record the result. Retain the production task for its later review loop.

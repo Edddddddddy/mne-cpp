@@ -178,6 +178,8 @@ focused RED test is immutable. Manager will record its exact task base after
 the durable request commit and will not poll the task. App worktree setup is
 accepted as `client-new-thread:97461215-c1b8-488b-90bd-984aad5d9fd3` from exact
 base `9b526eb14`.
+Public dispatch:
+`https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5200762566`.
 
 The compatible-toolchain follow-up found no usable Visual Studio 2022
 installation: the directory exists but contains no MSBuild/compiler, and

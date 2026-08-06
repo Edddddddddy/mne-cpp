@@ -5215,3 +5215,22 @@ does not continuously poll them.
 - Safety: archive through the app only; do not manually delete or mutate the
   app-owned worktree. Keep the newly created Sol/ultra queue-v2 implementation
   task until GREEN plus fresh review determines whether a fix follow-up exists.
+
+### PUBLISH W-QUEUE-V2-GREEN-001-START
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5200762566`.
+- Authenticated write/API read-back exactly records Sol/ultra model, exact base,
+  setup ID, immutable RED, two-file scope, frozen variable-shape/native-owner
+  interface, realtime/race gates and proactive/no-polling restrictions.
+
+### RETIREMENT PRECHECK W-QUEUE-V2-TEST-001
+
+- App-owned worker path resolved read-only as
+  `C:/Users/lcy/.codex/worktrees/0db3/mne-cpp-main`.
+- It is clean/detached at exact `649bbd1ee`; its sole focused-test blob is
+  `c74670899`, exactly equal to integration HEAD after `c646e35d2`.
+- Worker response, manager review, populated compile RED and both issue #5
+  publications are durable. One-shot thread
+  `019fd51d-9b99-7e63-b257-8c76b9960134` may be app-archived; no manual
+  worktree deletion or mutation is authorized.
