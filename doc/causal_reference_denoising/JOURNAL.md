@@ -4765,3 +4765,11 @@ hidden reasoning is not.
   repository state changes.
 - Persist the failure, then retry once through standard input with
   `--body-file -` and authenticated read-back.
+
+### E-464 - Epic #2 stdin retry also rejected locally
+
+- The PowerShell/native-command pipeline presents body lines as multiple
+  positional arguments, so `gh` again rejects before a GitHub request. Issue #2
+  is still unchanged.
+- Persist the second no-side-effect failure. Retry with explicit argument-array
+  splatting so the multi-line body remains one argument, then read back state.

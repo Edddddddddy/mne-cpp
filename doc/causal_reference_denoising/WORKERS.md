@@ -6777,6 +6777,15 @@ does not continuously poll them.
 - Repository and issue #2 remain unchanged. Retry once by piping the exact
   replaced body to `gh issue edit --body-file -`, then read back the checkbox.
 
+### FAILURE EPIC-2-DOC-CHECK-2
+
+- In this PowerShell/native-command host, the standard-input pipeline is still
+  surfaced to `gh issue edit` as multiple positional arguments; `gh` rejects
+  locally with `received 11` before any mutation.
+- Issue #2 remains unchanged. The next bounded retry uses an explicit PowerShell
+  argument array/splat so the complete body is one `--body` argument, followed
+  by authenticated read-back.
+
 ### DISCUSSION SPEC-QUEUE-ATOMIC-CONSISTENCY-001
 
 - The later atomic-correction section was authoritative, but the earlier
