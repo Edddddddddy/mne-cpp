@@ -442,7 +442,14 @@ same-responsibility implementation conversations that may receive review fixes.
   Open blockers are POSIX `write(EINTR)` prompt-wake resilience and regression-
   sensitive forced concurrent reuse/blocked-stop tests; SPEC also retains one
   stale semaphore/unspecified-tail paragraph. Queue/plugin integration remains
-  blocked while TDD corrections and a fresh retained-reviewer gate run.
+  blocked while TDD corrections and a fresh retained-reviewer gate run. Findings
+  are public at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5203364178`.
+  Next parallel-safe work: new Luna/max public concurrency RED task owns only
+  the focused test; a separate Luna/max SPEC-locality task owns only SPEC. The
+  POSIX EINTR fault-injection tracer follows the concurrency-test integration
+  because it overlaps the same test/CMake seam; Sol/ultra production correction
+  follows that RED.
 - Accepted but deliberately not integrated until the atomic queue gate:
   plugin data commit `5f4718722` plus exact-parent SPSC admission fix
   `34a8096f1`. Retain its Sol/ultra conversation for same-responsibility fixes.

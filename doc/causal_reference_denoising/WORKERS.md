@@ -6610,6 +6610,48 @@ does not continuously poll them.
   independently claims source/provenance/Qt-header audit, not build/runtime;
   manager/worker executable evidence is clearly separated.
 
+### REQUEST W-QUEUE-CONCURRENCY-TEST-002
+
+- From/to: manager / new visible Luna/max TDD conversation.
+- Blocking: yes; closes regression sensitivity half of queue formal P2.
+- Exact base: `2530c78642c4742ffcb06bed99e4d7048192de64`.
+- Authorized file only:
+  `src/testframes/test_adaptive_denoising_plugin/test_adaptive_denoising_plugin.cpp`.
+  Production queue/plugin/processor/core/CMake/docs/vendor/dependencies immutable.
+- Add deterministic bounded public-interface phases, not source/private hooks:
+  force a capacity-N queue to publish >N accepted blocks by holding the producer
+  after initial fill, requiring a consumer pop before producer completion, then
+  reusing the freed wrapped slot with distinct rectangle/metadata. Assert exact
+  accepted/pop order, payload, extents, native owner and untouched tail.
+- Strengthen stop evidence with a successful push/pop prelude, an empty public
+  wait whose measured call duration has a positive lower bound before stop, a
+  live producer loop/gate at stop, bounded join and exact Popped/Timeout/Stopped
+  destination/extents/metadata/tail preservation. Remove/replace marker-only
+  assertions that can pass before public calls are entered.
+- Keep all existing tests/zero-allocation oracle and finite deadlines. Use TDD;
+  show the old checked-in assertions' false-green sensitivity and the new oracle
+  RED/GREEN classification honestly. Exact one-file commit/parent/diff/clean
+  proof; populated Release if available, otherwise manager run. No server/full
+  scan/subagent/manager polling; proactively return structured RESPONSE.
+
+### REQUEST W-QUEUE-SPEC-001
+
+- From/to: manager / new visible Luna/max documentation conversation.
+- Blocking: P3, parallel-safe with the test task.
+- Exact base: `2530c78642c4742ffcb06bed99e4d7048192de64`.
+- Authorized file only: `doc/causal_reference_denoising/SPEC.md`; no code/test/
+  CMake/other-doc/vendor/dependency changes.
+- Reconcile lines near 538-550 with the authoritative atomic queue: remove the
+  prescriptive free-slot semaphore/zero-time acquire, describe release/acquire
+  SPSC sequences plus configure-created native sticky wake, and require the
+  maximum-sized consumer destination outside-tail to remain untouched on pop.
+  Preserve historical/review text that explicitly names rejected QSemaphore as
+  history, not a live requirement.
+- Verify targeted searches show no prescriptive semaphore contradiction and
+  all current atomic/native/tail terms agree with header/source/learning guide.
+  Exact one-file comment-only commit/parent/diff/clean proof; Luna/max, no build,
+  server, subagent or manager polling; proactively return structured RESPONSE.
+
 ### ARCHIVED W-QUEUE-ALLOC-TEST-001
 
 - App archive succeeds for one-shot Luna/max thread

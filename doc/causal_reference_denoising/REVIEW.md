@@ -485,6 +485,17 @@ Pending.
   prescriptive semaphore wording.
 - Gate remains HOLD because neither P2 is fixed or explicitly deferred.
 
+#### Correction order
+
+1. Luna/max public deterministic concurrency/blocked-stop tracer, test source
+   only, then manager canonical GREEN.
+2. Luna/max POSIX EINTR link/private-seam RED tracer after step 1 because the
+   same focused test/CMake seam overlaps.
+3. Retained Sol/ultra atomic implementation conversation fixes private wake/
+   bounded-recheck behavior against the integrated RED.
+4. Parallel Luna/max SPEC-only correction closes the locality P3.
+5. Retained independent Sol/ultra reviewer rechecks the exact final snapshot.
+
 ### R-DOC-QUEUE-V2-001 / R-DOC-BENCHMARK-EVIDENCE-002 - P2 open
 
 - Exact held guide `fb748082f` correctly documents queue-v2 rectangles/extents/

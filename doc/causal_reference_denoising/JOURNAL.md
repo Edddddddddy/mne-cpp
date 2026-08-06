@@ -4794,3 +4794,14 @@ hidden reasoning is not.
 - P3: SPEC still prescribes the rejected semaphore and calls the destination
   tail unspecified. Persist all exact findings before TDD correction dispatch.
   Queue issue #5 and plugin integration remain blocked.
+
+### E-467 - Queue HOLD published; bounded correction requests prepared
+
+- Issue #5 comment/read-back succeeds at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5203364178`,
+  separating closed old findings from the two open P2s and SPEC P3.
+- Prepare two new parallel-safe Luna/max visible tasks from exact `2530c7864`:
+  test-only deterministic concurrent slot reuse/blocked-stop evidence, and
+  SPEC-only atomic/native-wake/untouched-tail reconciliation.
+- POSIX EINTR fault-injection tracer follows the test response/integration to
+  avoid same-file overlap; retained Sol/ultra production fix follows that RED.
