@@ -5585,3 +5585,12 @@ hidden reasoning is not.
 - A separate new Sol/ultra reviewer will own the final UI/block-boundary gate.
   Neither task is dispatched before the current plugin lifecycle PASS and the
   test-first RED tracer integration.
+
+### E-554 - Second cursor-based lifecycle wait has no gate yet
+
+- A second 60-second event wait uses the previous cursor, returns no completion
+  or input request, and repeats no new reviewer commentary. Only its internal
+  read-only tool marker advances while the turn remains active.
+- This is not a result. Stop waiting now and use manager time on read-only final
+  issue/acceptance reconciliation; do not inspect the reviewer worktree or send
+  a duplicate task.
