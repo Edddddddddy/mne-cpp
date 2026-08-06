@@ -121,6 +121,37 @@
   after push, require no deletion before pop and exactly-once deletion after
   popped handles clear; assert nothrow mutable-to-const conversion.
 
+## Plugin data-lifecycle pre-integration review
+
+#### R-PLUGIN-SPSC-PRODUCER-001 - P1 - Open
+
+- Location: held worker commit `5f4718722`,
+  `adaptivedenoising.cpp:101-125,127-150,445-466`.
+- Evidence: `tryEnterProducer()` rejects only closed state or count saturation.
+  After one callback CASes count zero to one, a second can load one, CAS it to
+  two, pass epoch confirmation and concurrently execute `queue.tryPush()`.
+  `AdaptiveDenoisingBlockQueue` is explicitly SPSC and its producer index/slot
+  writes are not multi-producer safe.
+- Impact: concurrent/reentrant DirectConnection notifications can race the
+  producer index and slot payload, causing torn, reordered or overwritten
+  blocks. The existing count protects lifecycle quiescence, not SPSC admission.
+- Required fix: admit only an open epoch whose in-flight count is zero; second
+  and later concurrent callbacks return immediately without lock/wait/retry.
+  Preserve close/epoch confirmation, count-one leave and stop/restart ordering.
+- Required verification: exact one-source-file private-gate delta, proof no
+  state path reaches producer count greater than one, moc/syntax where possible,
+  and later public concurrent-update/plugin lifecycle coverage after the atomic
+  queue is integrated.
+
+### Plugin data manager pre-review decision
+
+- Exact parent/seven-file scope and all non-finding behavior pass. The concrete
+  PImpl is a deep adapter at the intended Qt/FIFF-to-data seam; callback,
+  worker, exception disarm, output metadata bridge and bounded lifecycle remain
+  local and leverage the queue/processor modules.
+- Integration is held for the P1 above and the separate atomic queue formal
+  gate. A later independent Sol/ultra plugin review remains mandatory.
+
 ## Learning guide review
 
 #### R-DOC-QUEUE-V2-001 - P2 - Open

@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T16:41:00+08:00
+Last updated: 2026-08-06T16:49:00+08:00
 
 ## Recovery order
 
@@ -265,7 +265,11 @@ same-responsibility implementation conversations that may receive review fixes.
   `client-new-thread:bb93c4e1-6aa9-4ee4-9d52-de30ff1b0489`, exact requested
   base `8c51ea4ce`; it proactively returned exact-parent seven-file commit
   `5f4718722` with a clean worktree and complete lifecycle evidence. Manager
-  review may proceed, but integration remains ordered after queue-v2 GREEN.
+  pre-integration review accepts the deep adapter/callback/stop/output seam but
+  opens P1 `R-PLUGIN-SPSC-PRODUCER-001`: the packed guard currently permits
+  more than one simultaneous callback to enter the SPSC queue. Return a one-
+  source-file Sol/ultra fix requiring the in-flight count to be zero before
+  admission; integration remains ordered after the atomic queue gate.
 - Existing non-overlapping tasks still await proactive responses without
   polling: `W-QA-CORE-CONTRACT-001` and `W-DOC-001`. Recovery found the complete
   one-file learning-guide response/commit `c558acbf8`, now awaiting manager

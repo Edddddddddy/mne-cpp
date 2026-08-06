@@ -4317,3 +4317,15 @@ hidden reasoning is not.
   concurrency/stop/lifetime oracles and later Sol production separation.
 - Coordination: do not poll or overlap the test file; resume disjoint manager
   review of the held plugin-data commit.
+
+### E-414 - Plugin data manager pre-review opens SPSC admission P1
+
+- Exact seven-file plugin commit has the intended deep PImpl seam, one-push
+  callback, worker-only FIFF/config/output path and bounded stop/restart
+  quiescence. No issue exists in those reviewed responsibilities.
+- P1 `R-PLUGIN-SPSC-PRODUCER-001`: packed admission count allows a second
+  callback to enter while count is one, violating the private queue's SPSC
+  producer ownership and enabling index/slot data races.
+- Decision: hold integration. After this finding/request is committed/pushed
+  and published on issue #6, return a one-source-file zero-or-one admission fix
+  to the retained Sol/ultra plugin worker. Queue atomic gate stays earlier.

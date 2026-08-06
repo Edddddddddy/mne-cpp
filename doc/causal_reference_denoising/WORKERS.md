@@ -6071,3 +6071,46 @@ does not continuously poll them.
 - Authenticated `gh` write/API read-back exactly record the Luna/max setup/base,
   one-test-file public SPSC/stop/lifetime scope, TDD immediate-GREEN policy,
   later Sol implementation split and no-poll/no-server restrictions.
+
+### MANAGER REVIEW W-PLUGIN-DATA-001
+
+- Provenance/scope: `5f4718722` has exact requested parent `8c51ea4ce`, seven
+  authorized plugin registration/adapter files, clean diff and no queue/
+  processor/test/core/doc/dependency edit. Empty metadata JSON matches existing
+  plugin convention; Qt moc accepted it.
+- Deep-module/seam audit: one concrete PImpl adapter owns queue, processor,
+  connectors and worker state. `update()` has one metadata snapshot and one
+  `tryPush` site per matrix with no lifecycle/settings mutex, model/FIFF picks,
+  output, retry or wait. Worker-only validation/config/disarm/const-cast/output
+  and bounded stop/restart quiescence are localized and match SPEC.
+- P1 `R-PLUGIN-SPSC-PRODUCER-001`: `tryEnterProducer()` rejects only closed or
+  count saturation. A second callback that loads state after the first entered
+  can CAS count 1 to 2 and then concurrently call the SPSC queue. The packed
+  count protects stop/restart lifetime but does not serialize or reject a
+  second producer.
+- Decision: hold plugin commit. Require a source-only private gate fix that
+  admits only an open state with in-flight count zero; a concurrent callback
+  returns immediately. Preserve epoch/close/quiescence, callback no-wait/no-
+  mutex behavior, public interface and all other plugin files. Queue-v2 atomic
+  gate remains a separate earlier integration dependency.
+
+### REQUEST W-PLUGIN-DATA-001-FIX-1
+
+- From/to: manager / retained visible Sol/ultra plugin-data conversation
+  `019fd59d-fcc8-7573-964d-ed930c4100a8`.
+- Parent: exact worker commit `5f47187224ede2dac7abede7d63891cad190c879`;
+  create one delta commit changing only `adaptivedenoising.cpp`.
+- In `tryEnterProducer()`, reject whenever the in-flight count is nonzero, in
+  addition to closed state. The only admitted transition is the current open
+  epoch/count zero to count one. Preserve the one-shot strong CAS, epoch
+  confirmation, close/open ordering, `leaveProducer`, stop wait and all caller
+  behavior. Do not add lock/wait/retry or change queue/processor/UI/CMake.
+- Add compact local comment proving the private gate enforces the queue's SPSC
+  producer precondition. Static review must show no path can publish count >1.
+  No test-source edit in this fix; the later plugin formal gate will exercise
+  concurrent update admission after integration.
+- Verification: exact parent/one-source-file semantic diff, moc/syntax if
+  available, diff/clean checks. Sol/ultra; no nested subagent, manager polling,
+  full scan/mne_scan/vendor repair/mne_rt_server. Proactively send
+  `RESPONSE W-PLUGIN-DATA-001-FIX-1` and stop.
+- Status: request durable before follow-up dispatch.
