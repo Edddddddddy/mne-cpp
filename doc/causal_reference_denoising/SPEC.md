@@ -341,6 +341,25 @@ introduced.
   queued Qt signals and display configure/process status, R/M/P, warmup,
   generation, input/output/estimated-noise RMS and atomic dropped count.
 
+The teaching-control seam stays inside the concrete plugin rather than adding
+another settings interface. GUI slots update one mutex-protected pending
+snapshot containing enabled/frozen, the four numerical settings, a monotonic
+settings revision and a monotonic reset request sequence. The worker copies it
+once at the start of every popped-block boundary. A numerical-settings revision
+reconfigures before that block; enabled/frozen changes only select
+`BypassTrackHistory`/`ApplyOnly`/`ApplyAndLearn`; a new reset sequence resets
+before processing that block. Multiple GUI edits coalesce into the latest
+snapshot and no update can take effect partway through a block.
+
+Worker-to-GUI diagnostics use one fixed data-only metatype containing plugin
+status/configure status/process status, R/M/P, warmup, generation, per-call
+accepted/rejected counts, three RMS values and the atomic dropped count. It has
+no QString or container. The setup widget converts enums and numbers to text
+on the GUI thread through an explicit queued connection. Controls use the
+frozen inclusive ranges/defaults and may submit invalid programmatic values to
+the processor rather than silently clamping outside the visible widget; invalid
+settings therefore remain observable safe pass-through.
+
 The legacy output initializer is not const-correct: input `info()` returns
 `QSharedPointer<FiffInfo>`, the queue intentionally retains it as
 `QSharedPointer<const FiffInfo>`, while

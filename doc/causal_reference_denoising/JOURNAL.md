@@ -3895,3 +3895,15 @@ hidden reasoning is not.
   output contract and queue-first integration order.
 - Coordination: no manager edit or polling in the seven-file scope. UI remains
   undispatched until this data adapter is reviewed.
+
+### E-370 - Teaching UI block-boundary seam frozen
+
+- GUI-to-worker: one mutex-protected pending snapshot carries enabled/frozen,
+  numerical settings, settings revision and reset sequence. Worker copies once
+  per popped block; settings reconfigure, mode changes select process mode, and
+  a new reset sequence resets before that block.
+- Worker-to-GUI: one fixed data-only diagnostics metatype crosses an explicit
+  queued connection. Enum-to-text and RMS formatting occur only in the setup
+  widget on the GUI thread.
+- Locality decision: no new settings strategy/module or strings in the worker
+  result seam. UI remains a separate Luna/max task after plugin-data review.

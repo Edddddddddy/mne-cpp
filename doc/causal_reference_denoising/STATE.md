@@ -210,6 +210,10 @@ Its visible worktree setup is accepted as
 base `8c51ea4ce`.
 Public dispatch:
 `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5200889469`.
+The later UI seam is also frozen: one pending snapshot plus revisions is read
+once per worker block; fixed diagnostics cross a queued Qt connection and all
+human-readable formatting stays on the GUI thread. No UI task is dispatched
+until plugin-data integration/review.
 
 ## Focused verification targets
 
