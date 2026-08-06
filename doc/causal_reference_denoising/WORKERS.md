@@ -7771,6 +7771,9 @@ does not continuously poll them.
 - request / unchanged two-source admission/drop/atomic/destructor-contract scope;
   explicitly ignore the archived missing worktree and prove this fresh base.
 - state / asynchronous setup accepted; await proactive response without polling.
+- public dispatch / issue #6 read-back confirms both disjoint immediate fixes,
+  archived spent thread and UI hold at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208361509`.
 
 ### REQUEST W-PLUGIN-STATIC-001
 
@@ -7796,6 +7799,8 @@ does not continuously poll them.
   explicit Luna/max and an app-managed worktree from exact base
   `48672b02eb35de300a046079028e96ec6d1b25b6`.
 - state / asynchronous setup accepted; await proactive response without polling.
+- public dispatch / shared issue #6 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208361509`.
 
 ### PREPARED REQUEST W-PLUGIN-UI-TEST-001
 

@@ -5719,3 +5719,11 @@ hidden reasoning is not.
   with the unchanged two-source request.
 - Await its proactive response; static-registration Luna task remains active and
   file-disjoint. UI stays held.
+
+### E-567 - Immediate lifecycle fix dispatch published
+
+- Issue #6 comment/read-back confirms exact base, Sol/ultra two-source admission
+  correction, Luna/max two-file static registration, the archived missing-
+  worktree conversation and the continuing UI hold at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208361509`.
+- Await proactive worker responses without polling or overlapping edits.
