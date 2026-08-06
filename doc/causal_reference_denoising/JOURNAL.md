@@ -5594,3 +5594,16 @@ hidden reasoning is not.
 - This is not a result. Stop waiting now and use manager time on read-only final
   issue/acceptance reconciliation; do not inspect the reviewer worktree or send
   a duplicate task.
+
+### E-555 - GitHub queue/plugin status reconciliation prepared
+
+- Read-only issue-body audit finds #5 still describes the atomic queue worker as
+  active and #6 still says plugin-data integration is held. Both descriptions
+  predate the final queue PASS and plugin lifecycle integration.
+- Update only the current-status/evidence text: #5 records atomic/native-wake
+  completion, Windows 19/0/0, WSL 21/0/0 and final P0-P3 zero review while
+  remaining open for the worker-lifecycle review; #6 records integrated plugin,
+  MOC/ingress pass, pre-plugin Qt/MSVC build block, active lifecycle review and
+  held UI tracer.
+- Do not close either issue or change epic #2 checkboxes yet. Closure requires
+  lifecycle PASS for #5 and UI/block-boundary PASS for #6.
