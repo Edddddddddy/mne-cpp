@@ -4173,3 +4173,11 @@ hidden reasoning is not.
   repository/external mutation exists.
 - Decision: persist failure, then retry once with the documented target-union
   schema and unchanged exact snapshot `e4964aaed`/Sol/ultra prompt.
+
+### E-399 - Queue-v2 formal review setup accepted
+
+- Corrected app call accepted Sol/ultra visible worktree setup
+  `client-new-thread:4b85d632-2892-48c3-8044-846ed7c4ad39` from exact
+  `e4964aaed`.
+- Next: commit/push creation evidence, publish/read back issue #5 dispatch and
+  await only the proactive structured response.

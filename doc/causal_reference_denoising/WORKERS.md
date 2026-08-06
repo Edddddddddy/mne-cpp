@@ -5736,6 +5736,17 @@ does not continuously poll them.
   or changed. Retry once with project ID only inside the `target` union and the
   same exact snapshot/model/prompt.
 
+### RESPONSE R-QUEUE-V2-001-CREATE
+
+- Corrected app call accepted visible saved-project worktree setup
+  `client-new-thread:4b85d632-2892-48c3-8044-846ed7c4ad39`; host `local`.
+- Model is `gpt-5.6-sol`, `ultra`; starting ref is exact reviewed GREEN commit
+  `e4964aaed44b5030ad4490e0ee7744d796b387cb`.
+- Prompt carries full recovery/skill/read-only/concurrency/test/finding gate and
+  proactive-response restrictions. No final thread ID exists yet.
+- Coordination: publish the dispatch, then do not poll. Reviewer must notify
+  the manager proactively.
+
 ### RESPONSE W-QA-CORE-CONTRACT-001
 
 - Requested full base recorded in the original task:
