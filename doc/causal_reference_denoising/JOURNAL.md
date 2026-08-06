@@ -5485,3 +5485,13 @@ hidden reasoning is not.
   push fails with `SSL_ERROR_SYSCALL`; no remote mutation occurs.
 - Append the network failure locally, commit it, and retry the normal branch
   push once without force.
+
+### E-544 - Integrated plugin MOC and ingress audit pass
+
+- Correct repository include roots let Qt 5.15.2 MOC generate the expected
+  4,269-byte plugin source from the integrated header/metadata.
+- Extracted acquisition callback has one metadata snapshot, one push call site
+  and no lifecycle/settings mutex, wait, processor, configuration, reset or
+  output work. This matches the frozen callback seam.
+- Persist/push, then configure a build with only mne_scan enabled and build only
+  `scan_adaptivedenoising`; never build or run mne_rt_server.

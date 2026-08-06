@@ -7567,3 +7567,15 @@ does not continuously poll them.
   fails during GitHub TLS handshake with `SSL_ERROR_SYSCALL`.
 - Remote state is unchanged; branch is clean/ahead. Record locally and retry one
   non-force push, with no history rewrite.
+
+### VALIDATION W-PLUGIN-DATA-001 - MOC and ingress source contract
+
+- Standalone Qt 5.15.2 MOC with repository roots
+  `src/applications/mne_scan/libs` and `src/libraries` accepts the integrated
+  plugin header plus empty metadata JSON and emits 4,269 bytes.
+- Exact `AdaptiveDenoising::update` extraction contains one `info()` line and
+  one `tryPush()` line, with zero mutex/wait/sleep lines and zero processor/
+  configure/reset/output-init/setValue lines. The loop still performs one push
+  for each input matrix as the frozen contract requires.
+- This validates plugin identity and acquisition-path locality. Next attempt
+  target-local CMake build with every other application/server disabled.
