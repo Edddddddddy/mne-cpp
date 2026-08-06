@@ -5093,3 +5093,21 @@ does not continuously poll them.
   explicit for the installed Qt 5.15.2 type.
 - Finding: none. Accept for cherry-pick and populated public-contract RED; no
   queue-v2 production implementation or GREEN is accepted yet.
+
+### MANAGER VALIDATION W-QUEUE-V2-TEST-001-RED
+
+- Integration: worker `649bbd1ee` cherry-picked as `c646e35d2`; only the
+  focused test source changes and all existing slots remain in that source.
+- Command: populated Release build of target
+  `test_adaptive_denoising_plugin` in `build-causal-reference-denoising`.
+- Result: expected compile failure after target generation. MSVC reports that
+  `AdaptiveDenoisingBlockQueueConfig` has no `maxChannelCount`,
+  `AdaptiveDenoisingQueuedBlock` has no `rowCount`, and native
+  `QSharedPointer<const FiffInfo>` cannot bind to the old `std::shared_ptr`
+  push/slot interface. The errors occur throughout the migrated prior oracles
+  and new mixed-row slot.
+- Classification: valid public-interface RED against the frozen queue-v2 seam.
+  Known Eigen code-page warnings are nonblocking; no FIFF/full-scan/vendor/
+  server failure masks the result.
+- Decision: production GREEN may now be dispatched as a separate Sol/ultra
+  task. The test remains immutable until queue-v2 is implemented and reviewed.

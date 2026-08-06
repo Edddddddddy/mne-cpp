@@ -164,8 +164,11 @@ required before plugin lifecycle integration. Earlier discussion:
 `649bbd1ee` from parent `b4299fdaf`. It changes only the focused plugin test,
 migrates every queue oracle to native `QSharedPointer` plus row/sample extents,
 and adds mixed 2/4/3-row FIFO/deep-copy/tail/metadata acceptance. The response
-is durable; manager provenance/diff review and populated compile RED are next.
-No production queue change has been accepted yet.
+is integrated as `c646e35d2`. The populated Release build reaches the intended
+public-contract RED: the old queue has no `maxChannelCount`/`rowCount` and
+still accepts `std::shared_ptr` metadata. No unrelated failure masks it. A new
+Sol/ultra queue-v2 production task is the next blocking action; no production
+queue change has been accepted yet.
 
 The compatible-toolchain follow-up found no usable Visual Studio 2022
 installation: the directory exists but contains no MSBuild/compiler, and

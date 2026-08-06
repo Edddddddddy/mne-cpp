@@ -3760,3 +3760,15 @@ hidden reasoning is not.
 - Decision: no finding. Commit/push this review, cherry-pick the tracer and
   require populated compilation to fail on the old public interface before a
   separate Sol/ultra production implementation task is dispatched.
+
+### E-358 - Queue-v2 public seam is RED in populated Release
+
+- Integration: tracer worker `649bbd1ee` became `c646e35d2` on the integration
+  branch without conflict or other-file change.
+- Build: focused Release compilation reaches the test and fails precisely on
+  old `channelCount` versus new `maxChannelCount`, old std versus native Qt
+  metadata ownership, and missing `rowCount` result extent.
+- TDD decision: accept this as the single vertical queue-v2 RED. No production
+  fix is mixed into it; dispatch a separate Sol/ultra implementation limited to
+  the existing queue header/source, then require the complete focused suite to
+  return GREEN.
