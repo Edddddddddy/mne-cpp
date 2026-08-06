@@ -7352,3 +7352,28 @@ does not continuously poll them.
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5206658788`.
 - wait status / one 120-second bounded app wait returned no completion or
   actionable progress payload; no result accepted and no further polling now.
+
+### RESPONSE W-QUEUE-POSIX-EINTR-GREEN-001
+
+- exact parent / `f1151d1346cddfb42359ac015545d874fb42d36c`
+- commit / `236db13903cc4d64268aa292f162e88eefbbb54e`
+- scope / queue implementation source only; 12 insertions/2 deletions, clean
+  detached worktree and diff-check reported.
+- correction / POSIX `NativeWake::wait` passes `poll` at most 25 ms, including
+  zero for nonpositive timeouts. Existing outer deadline/recheck loop is
+  unchanged, so lost producer/stop bytes are observed through the next atomic
+  sequence/running check. Comment distinguishes EAGAIN coalescing from EINTR
+  byte loss.
+- invariants / worker reports byte-identical Windows wake, `tryPush` and `stop`;
+  POSIX signal executable code still performs one nonblocking write with no
+  retry, lock, wait, allocation or public seam change.
+- Windows evidence / manual populated MSVC Release 19/0/0, overlap
+  pushed/full/popped 371/141/371, max producer 33.4 us, zero counted producer
+  allocations, stop wake 62 ms.
+- POSIX evidence / current-source GNU/Qt ordinary wrapped suite compiles and
+  reports 19/0/0. First MOC omitted GNU predefines, so forced slots were not
+  registered; corrected MOC contains both exact slot names, but WSL stopped
+  completing during rebuild. Forced-EINTR execution is explicitly unclaimed;
+  no WSL reset/shutdown, dependency repair or fabricated result.
+- manager status / response durable; exact object/diff/source proof, integration
+  canonical Windows run and independent Sol/ultra review remain.

@@ -5296,3 +5296,15 @@ hidden reasoning is not.
 - This is not a code result and triggers no integration decision. Do not poll
   again now; await the proactive structured response while preparing only the
   disjoint next plugin/UI acceptance seam.
+
+### E-523 - Private POSIX production fix response received
+
+- Retained Sol/ultra atomic thread proactively returns exact-parent one-source
+  commit `236db13903`. It reports 25 ms POSIX poll slices under the unchanged
+  outer deadline, byte-identical Windows/tryPush/stop code and no producer retry.
+- Worker Windows Release and POSIX ordinary suites both report 19/0/0. Corrected
+  Linux MOC registers both forced EINTR slots, but WSL stops responding before
+  that rebuilt executable completes; no injected runtime GREEN is claimed.
+- Persist before direct Git/source review. Manager must rerun canonical Windows
+  focused tests and then send the integrated snapshot to the retained independent
+  Sol/ultra reviewer with the WSL limitation explicit.
