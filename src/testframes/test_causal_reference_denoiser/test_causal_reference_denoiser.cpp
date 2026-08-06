@@ -16,6 +16,8 @@
 #include <cmath>
 #include <cstdint>
 #include <limits>
+#include <type_traits>
+#include <utility>
 
 //=============================================================================================================
 // QT INCLUDES
@@ -31,6 +33,37 @@ using namespace Eigen;
 using namespace RTPROCESSINGLIB;
 
 //=============================================================================================================
+
+static_assert(
+    std::is_nothrow_default_constructible<CausalReferenceDenoiser>::value,
+    "CausalReferenceDenoiser must be nothrow default constructible");
+static_assert(
+    !std::is_copy_constructible<CausalReferenceDenoiser>::value,
+    "CausalReferenceDenoiser must not be copy constructible");
+static_assert(
+    !std::is_copy_assignable<CausalReferenceDenoiser>::value,
+    "CausalReferenceDenoiser must not be copy assignable");
+static_assert(
+    !std::is_move_constructible<CausalReferenceDenoiser>::value,
+    "CausalReferenceDenoiser must not be move constructible");
+static_assert(
+    !std::is_move_assignable<CausalReferenceDenoiser>::value,
+    "CausalReferenceDenoiser must not be move assignable");
+static_assert(
+    noexcept(std::declval<CausalReferenceDenoiser&>().reset()),
+    "CausalReferenceDenoiser::reset must be noexcept");
+using MutableBlockRef = Eigen::Ref<Eigen::MatrixXd>;
+using ProcessMember = DenoiserProcessResult (CausalReferenceDenoiser::*)(
+    MutableBlockRef,
+    DenoisingMode) noexcept;
+// In C++14 a direct call-noexcept probe also observes Eigen::Ref's potentially
+// throwing by-value wrapper copy; assert its lvalue conversion and the public
+// member's explicit noexcept type separately.
+static_assert(
+    std::is_convertible<Eigen::MatrixXd&, MutableBlockRef>::value
+        && noexcept(static_cast<ProcessMember>(&CausalReferenceDenoiser::process)),
+    "CausalReferenceDenoiser::process must be noexcept for a MatrixXd lvalue "
+    "converted to Ref");
 
 namespace
 {
