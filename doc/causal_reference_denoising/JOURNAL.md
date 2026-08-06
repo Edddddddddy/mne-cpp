@@ -6226,3 +6226,14 @@ hidden reasoning is not.
   directory. No source/vendor/dependency edit and no full app/server run occurs.
 - This removes the absolute compatible-toolchain link blocker but is a pre-
   wiring snapshot. Repeat the real target after the Sol wiring integration.
+
+### E-617 - Compatible link evidence published
+
+- Publish the pre-wiring v142 configuration/compile/link evidence on final-QA
+  issue #3 at
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5208984447`
+  and cross-link from plugin issue #6 at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208984539`.
+- Authenticated read-back confirms both issues remain OPEN and the latest
+  comments preserve the exact-final-rebuild requirement. No premature gate or
+  epic checkbox update occurs.

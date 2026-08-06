@@ -807,3 +807,8 @@ same-responsibility implementation conversations that may receive review fixes.
   `mne_rtprocessing`, FIFF, Qt and scan-library dependencies. The MSVC14.51/Qt
   failure remains a default-toolset boundary, but no longer blocks compatible-
   toolchain target evidence. Repeat after final wiring before closing QA.
+- Pre-wiring compatible-link evidence is published at QA issue #3 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5208984447`
+  and cross-linked from plugin issue #6 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208984539`;
+  both issues remain OPEN pending exact final wiring/review.

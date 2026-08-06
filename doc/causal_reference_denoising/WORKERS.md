@@ -8557,6 +8557,14 @@ does not continuously poll them.
   after wiring integration and formal review; this run is not plugin runtime or
   mne_rt_server evidence.
 
+### PUBLICATION PRE-WIRING COMPATIBLE LINK
+
+- QA #3 / `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5208984447`.
+- plugin #6 / `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208984539`.
+- read-back / both issues remain OPEN and their latest comments match the v142
+  target-link evidence plus the requirement to rebuild the exact final wiring
+  snapshot. No checklist or issue state is changed.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are
