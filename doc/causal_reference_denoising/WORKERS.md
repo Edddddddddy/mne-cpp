@@ -6384,3 +6384,12 @@ does not continuously poll them.
   nonflaky one-second hard upper bound.
 - Source/platform/no-QSemaphore proof remains a Sol/ultra review responsibility;
   the public test must not inspect private state or parse implementation text.
+
+### DISCUSSION ISSUE-5-ATOMIC-CONTRACT-001
+
+- Read-only issue audit finds #5 body still requires a zero-timeout QSemaphore
+  acquire, contradicting the formal Windows P1 and frozen atomic/event/pipe
+  correction already dispatched.
+- Decision: replace only issue #5 body with the current public seam, atomic SPSC
+  wake design, completed public-test evidence, active Sol task and remaining
+  allocation/re-review gates. Preserve title, issue number and open state.

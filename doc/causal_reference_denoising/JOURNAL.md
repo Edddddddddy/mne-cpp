@@ -4503,3 +4503,11 @@ hidden reasoning is not.
 - Read-back confirms test-only integration `16053ffe6`, exact public coverage,
   populated Release plus three repeat zero exits, and that P2/P1 remain open
   through atomic production and independent review.
+
+### E-434 - Issue #5 stale QSemaphore contract found
+
+- Public issue body still mandates QSemaphore despite the reviewed Windows
+  mutex/allocation P1 and dispatched atomic replacement.
+- Update #5 after this decision is durable: retain the public four-method seam,
+  replace implementation wording with release/acquire SPSC plus native sticky
+  wake, and record current test/worker/review gates.
