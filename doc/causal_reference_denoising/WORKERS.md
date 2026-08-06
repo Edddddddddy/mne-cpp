@@ -7771,6 +7771,9 @@ does not continuously poll them.
 - request / unchanged two-source admission/drop/atomic/destructor-contract scope;
   explicitly ignore the archived missing worktree and prove this fresh base.
 - state / asynchronous setup accepted; await proactive response without polling.
+- resolution / one app listing resolves active thread
+  `019fd86c-b508-7491-876e-1972be35875a` at its fresh worktree; identity lookup
+  only, no progress polling.
 - public dispatch / issue #6 read-back confirms both disjoint immediate fixes,
   archived spent thread and UI hold at
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208361509`.
@@ -7799,6 +7802,8 @@ does not continuously poll them.
   explicit Luna/max and an app-managed worktree from exact base
   `48672b02eb35de300a046079028e96ec6d1b25b6`.
 - state / asynchronous setup accepted; await proactive response without polling.
+- resolution / one app listing resolves active thread
+  `019fd869-e6d4-77c0-8edf-833cc23656c8`; identity lookup only.
 - public dispatch / shared issue #6 comment:
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208361509`.
 

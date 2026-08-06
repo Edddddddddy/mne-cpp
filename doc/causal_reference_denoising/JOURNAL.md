@@ -5727,3 +5727,11 @@ hidden reasoning is not.
   worktree conversation and the continuing UI hold at
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208361509`.
 - Await proactive worker responses without polling or overlapping edits.
+
+### E-568 - Immediate fix thread identities resolved
+
+- One bounded app listing resolves admission task
+  `019fd86c-b508-7491-876e-1972be35875a` and static-registration task
+  `019fd869-e6d4-77c0-8edf-833cc23656c8`, both active in fresh app worktrees.
+- This resolves identities only. Do not read/poll their turns or inspect files;
+  await proactive responses.
