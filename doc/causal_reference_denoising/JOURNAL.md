@@ -3817,3 +3817,11 @@ hidden reasoning is not.
   archival.
 - Next: commit/push this precheck, archive the one-shot tracer through the app,
   then record the result. Retain the production task for its later review loop.
+
+### E-363 - Queue-v2 tracer conversation archived
+
+- App result: one-shot Luna/max thread
+  `019fd51d-9b99-7e63-b257-8c76b9960134` is archived after clean/blob/RED/public
+  evidence verification.
+- Safety: no manual worktree deletion or mutation. The Sol/ultra production
+  task stays unarchived because a same-context review fix may still be needed.
