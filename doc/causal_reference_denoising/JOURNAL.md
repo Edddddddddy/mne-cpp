@@ -5512,3 +5512,13 @@ hidden reasoning is not.
 - This reproduces the accepted environment block rather than a plugin defect.
   Do not patch vendor Qt. Preserve MOC/ingress/focused evidence and send the
   current exact integration snapshot to independent Sol/ultra lifecycle review.
+
+### E-547 - Plugin lifecycle formal review prepared
+
+- Prepare a new visible independent Sol/ultra read-only review from exact pushed
+  snapshot `fd33dc9cd`. It owns plugin lifecycle/SPSC admission/callback/FIFF/
+  output/exception/CMake findings; the intentionally missing teaching UI is a
+  later milestone and not a data-lifecycle finding.
+- Runtime build evidence is explicitly bounded by the existing pre-plugin
+  `mne_fiff` Qt/MSVC failure. Reviewer must not relabel manager MOC/focused
+  evidence as independent or run the full application/server.

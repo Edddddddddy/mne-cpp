@@ -7604,3 +7604,24 @@ does not continuously poll them.
 - Plugin target build/link is environment-deferred; vendor Qt is unchanged.
   Plugin-local MOC and acquisition-path contract remain GREEN. Dispatch exact-
   snapshot Sol/ultra lifecycle review with this evidence boundary explicit.
+
+### REQUEST R-PLUGIN-DATA-001
+
+- from / manager thread `019fcdc3-4a1e-76d1-8140-1bd521219297`
+- model / new visible `gpt-5.6-sol` / `ultra` review conversation
+- exact snapshot / `fd33dc9cd1a2ce90a30fdedd1ffde71c8514ec56`
+- mode / read-only; no edits, commits, pushes, GitHub/dependency mutation
+- scope / plugin registration/CMake/header/source/global metadata, queue and
+  processor caller contracts, existing focused tests and durable SPEC/review
+  records only as needed. UI is intentionally absent and not a finding here.
+- review / deep concrete adapter seam; SPSC zero-to-one admission/epoch and
+  producer quiescence; start/stop/destructor/restart; DirectConnection callback
+  locality/drop counting; per-block FIFF validation/mapping/reconfigure/disarm;
+  exception fail-closed; FIFO output/metadata ownership/sole constCast; worker
+  interruption and output clearing; CMake dependency/identity locality.
+- evidence boundary / MOC and update contract pass; real target is blocked in
+  pre-existing `mne_fiff` Qt5/MSVC stdext failure before plugin compilation;
+  focused processor/queue cross-platform evidence is durable but not independent.
+- gate / P0/P1 zero; P2 fixed or explicitly deferred. Report exact file/line,
+  evidence, impact, fix and test. Return proactive `RESPONSE R-PLUGIN-DATA-001`
+  with exact SHA/clean state and PASS/HOLD; no subagent/full app/server/manager poll.
