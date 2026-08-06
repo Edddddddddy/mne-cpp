@@ -5557,3 +5557,22 @@ does not continuously poll them.
   task and proactive RESPONSE. It repeats all no-subagent/no-poll/no-full-scan/
   no-vendor/no-rt_server constraints.
 - No duplicate task/worktree was created; manager will not poll it while active.
+
+### REQUEST W-DOC-001-REVISE-1
+
+- From/to: manager / retained Luna/max documentation conversation
+  `019fd2fc-0d25-7163-a29d-b7c8840028f9`.
+- Finding: P2 `R-DOC-QUEUE-V2-001` in the only added file. Lines 235-249 still
+  say fixed `C x Nmax`, leading-column copy and consumer sample count only,
+  omitting frozen queue-v2 maximum channel dimension, per-block row/sample
+  extents, top-left rectangle, native `QSharedPointer<const FiffInfo>`, variable
+  row transition/tail preservation tests. Lines 164-168 call the adapter/UI
+  defaults numerical defaults although the numerical config has no defaults.
+- Required replacement: amend `c558acbf8` with the same exact parent and same
+  one-file scope. Describe queue-v2 truthfully as `Cmax x Nmax` slots, positive
+  variable rectangles, `rowCount`/`sampleCount`, top-left copy, native immutable
+  Qt handle, drop-newest, untouched destination tail and worker-only reshape.
+  Rename the four values as adapter defaults. Preserve all other guide content.
+- Verification: all repository links, Markdown structure, exact one-file scope,
+  clean status and diff check. Return replacement SHA and exact line-level
+  correction through `RESPONSE W-DOC-001-REVISE-1`; no build/full scan/server.

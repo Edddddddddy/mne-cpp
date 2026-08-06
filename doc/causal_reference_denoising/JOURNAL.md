@@ -4035,3 +4035,15 @@ hidden reasoning is not.
   two-file contract task. No duplicate conversation/worktree was created.
 - Next: await proactive response without polling; manager reviews the recovered
   learning-guide commit in parallel.
+
+### E-384 - Learning guide held for queue-v2 documentation P2
+
+- Provenance/scope: `c558acbf8` has exact requested parent and adds only the
+  376-line guide; diff check passes. Algorithm, matrices, epoch transaction,
+  fallback, noalias, walkthrough, evidence and licensing claims match source.
+- Finding `R-DOC-QUEUE-V2-001`: queue lines still teach v1 fixed-row/sample-only
+  semantics and the defaults are mislabeled numerical rather than adapter
+  defaults. Queue-v2 needs maximum dimensions, both extents, top-left/native Qt
+  ownership and variable-row/tail behavior.
+- Decision: hold integration; send a narrow amend to the retained Luna/max doc
+  conversation, then re-review only the corrected delta and links.

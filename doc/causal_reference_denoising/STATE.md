@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T14:25:00+08:00
+Last updated: 2026-08-06T14:28:30+08:00
 
 ## Recovery order
 
@@ -235,7 +235,7 @@ same-responsibility implementation conversations that may receive review fixes.
 
 ## Current checkpoint override
 
-- Integration/remote HEAD: `9de5b848c`; tracked state is synchronized. The
+- Integration/remote HEAD: `471d9c9e2`; tracked state is synchronized. The
   only untracked paths are the three preserved user paths listed in the plan.
 - Active blocking task: `W-QUEUE-V2-GREEN-001`, Sol/ultra setup
   `client-new-thread:97461215-c1b8-488b-90bd-984aad5d9fd3`, exact requested
@@ -253,7 +253,10 @@ same-responsibility implementation conversations that may receive review fixes.
 - Existing non-overlapping tasks still await proactive responses without
   polling: `W-QA-CORE-CONTRACT-001` and `W-DOC-001`. Recovery found the complete
   one-file learning-guide response/commit `c558acbf8`, now awaiting manager
-  content review. The core-contract turn had no assistant output; its same
+  content review. Manager review opened P2 `R-DOC-QUEUE-V2-001`: the guide's
+  queue/default paragraph still describes the superseded v1 seam. Return a
+  narrow amend request to the same Luna/max doc conversation before integration.
+  The core-contract turn had no assistant output; its same
   Luna/max conversation accepted one retry requiring a detach to the original
   exact base before the unchanged two-file task.
 - The older read-only `R-QUEUE-001` reviewed the superseded exact-row/std-owner

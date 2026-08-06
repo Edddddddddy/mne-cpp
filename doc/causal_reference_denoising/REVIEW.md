@@ -37,6 +37,27 @@
   control-block allocation. The later worker-side `constCast` is not part of
   acquisition hot-path evidence.
 
+## Learning guide review
+
+#### R-DOC-QUEUE-V2-001 - P2 - Open
+
+- Location: held worker commit `c558acbf8`, `LEARNING_GUIDE.md:164-168` and
+  `:233-249`.
+- Evidence: the guide calls 4/128/30/1e-3 numerical defaults although defaults
+  live in `AdaptiveDenoisingSettings`; the queue text still says fixed
+  `C x Nmax`, leading-column copy, and only sample count. The frozen/public RED
+  queue-v2 seam is `maxChannelCount x maxBlockSamples`, accepts variable
+  positive top-left rectangles, transports both row/sample extents with native
+  `QSharedPointer<const FiffInfo>`, and leaves the destination tail untouched.
+- Impact: the primary learning document would teach the superseded adapter
+  ownership/shape contract and hide the exact metadata transition mechanism
+  the new plugin relies on.
+- Required correction: amend the same one-file exact-parent commit with the
+  queue-v2 semantics and label the four values adapter defaults. Preserve the
+  verified algorithm/Eigen content and recheck all repository-relative links.
+- Required verification: manager diff/content review; no runtime test needed
+  for a Markdown-only correction. Do not integrate the held commit while open.
+
 #### R-BENCH-FINITE-001 - P2 - Closed
 
 - Location: worker benchmark commit `79eff3b3a`, example main helper
