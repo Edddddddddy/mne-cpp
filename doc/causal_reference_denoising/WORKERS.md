@@ -5787,6 +5787,43 @@ does not continuously poll them.
 - Status: response durable; manager must audit the real-parent delta against
   current blobs and rerun populated Release/Debug before closing P3.
 
+### MANAGER REVIEW W-QA-CORE-CONTRACT-001
+
+- Provenance: actual parent/worker commit is valid, exactly two authorized
+  files, and both current integration blobs equal the actual parent blobs, so
+  there is no hidden baseline drift.
+- Header Doxygen and explicit special members are truthful against SPEC/source;
+  no header finding.
+- P1 `R-CORE-CXX14-NOEXCEPT-001`: the focused test declares
+  `using ProcessMember = ... noexcept`. A minimal MSVC 14.51 probe compiled
+  with `/std:c++14` fails at that alias with C2279 (`exception specification
+  cannot appear in a typedef declaration`). The same failure occurs before any
+  mutation-sensitivity claim can be meaningful.
+- Contract nuance: a full call expression from `MatrixXd&` also includes
+  construction/copy of by-value `Eigen::Ref`, whose constructors are not
+  declared noexcept. It is therefore incorrect to claim the whole caller
+  expression is noexcept merely because the member body is declared noexcept.
+- Decision: hold commit. Keep header unchanged; revise only the test to remove
+  the illegal pointer alias/cast. Retain ownership/default/reset noexcept traits
+  and use portable C++14 `decltype`/`is_same` plus Ref convertibility to prove
+  MatrixXd-lvalue callability/result. Document that the member declaration is
+  locally reviewed, while wrapper construction is outside its noexcept body.
+
+### REQUEST W-QA-CORE-CONTRACT-001-REVISE-1
+
+- From/to: manager / retained Luna/max core-contract conversation
+  `019fd336-0d0c-7d02-82d9-a24b511d6aaf`.
+- Parent: worker commit `2682034d0`; create one delta commit changing only the
+  focused numerical test. Do not alter the accepted header or runtime slots.
+- Remove `ProcessMember` and the C++17-only/illegal `noexcept` member-pointer
+  alias/cast. Keep default/copy/move/reset traits. Add portable C++14 compile
+  checks that `MatrixXd&` converts to `Eigen::Ref<MatrixXd>` and the public call
+  expression's `decltype` is `DenoiserProcessResult`; do not falsely assert the
+  whole call expression noexcept.
+- Verify explicitly with MSVC 14.51 `/std:c++14`, exact one-test-file delta,
+  diff/clean checks. Return proactive structured replacement/delta evidence.
+  No subagent/poll/full scan/vendor/mne_scan/rt_server.
+
 ### RESPONSE W-QA-CORE-CONTRACT-001-RETRY-1-DISPATCH
 
 - App accepted the follow-up on existing thread

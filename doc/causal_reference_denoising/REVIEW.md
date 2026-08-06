@@ -149,6 +149,23 @@ core gate is held for one P2 test-evidence finding; two P3s remain tracked.
   are reported complete, but manager blob/diff review and populated Release/
   Debug remain required before closure.
 
+#### R-CORE-CXX14-NOEXCEPT-001 - P1 - Open
+
+- Location: held worker commit `2682034d0`, focused numerical test new
+  `ProcessMember` alias/static assertion near the top of the file.
+- Evidence: MSVC 14.51 with `/std:c++14` rejects `using ProcessMember = ...
+  noexcept` as C2279. A minimal matching probe reproduces the error. C++14 does
+  not portably include the exception specification in the function type.
+- Impact: the focused numerical target cannot compile, and the claimed process
+  noexcept check is neither portable nor mutation-sensitive under the project's
+  language standard.
+- Required fix: keep header contract, remove the illegal alias/cast, retain
+  portable ownership/reset traits and assert MatrixXd-lvalue Ref conversion plus
+  public call result type. Do not claim the full call expression noexcept because
+  by-value Eigen::Ref wrapper construction is outside the member body contract.
+- Required verification: MSVC 14.51 C++14 syntax/build, then full populated
+  Release/Debug focused runs with unchanged runtime slot count.
+
 #### R-CORE-LINK-001 - P3 - Environment-deferred
 
 - Location: focused test `CMakeLists.txt:13-16,27-39`; library

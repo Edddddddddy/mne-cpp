@@ -4188,3 +4188,14 @@ hidden reasoning is not.
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201388674`.
 - API read-back confirms exact `e4964aaed` Sol/ultra read-only gate. Manager
   will not poll; continue disjoint core/plugin/doc work until proactive response.
+
+### E-401 - Core-contract C++14 compile finding
+
+- Parent/current blob audit passes and header contract is truthful. The test's
+  `noexcept` member-pointer type is not C++14: MSVC 14.51 minimal probe fails
+  deterministically with C2279.
+- A full call expression also observes Eigen::Ref wrapper construction, so it
+  cannot honestly stand in for the member body's noexcept declaration.
+- P1 `R-CORE-CXX14-NOEXCEPT-001` opens. Hold integration and request a test-only
+  portable callability/result/ownership/reset-trait revision from the retained
+  Luna/max worker; then run populated Release/Debug.

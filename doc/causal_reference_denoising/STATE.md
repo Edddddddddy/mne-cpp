@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T15:12:00+08:00
+Last updated: 2026-08-06T15:17:00+08:00
 
 ## Recovery order
 
@@ -280,8 +280,9 @@ same-responsibility implementation conversations that may receive review fixes.
   exact base before the unchanged two-file task.
   It proactively returned two-file commit `2682034d0` from the actual dispatch
   parent `7eb04cbfa766...`; the originally recorded requested full SHA is not a
-  local/remote object. Manager provenance/content review is required before
-  integration and Release/Debug reruns.
+  local/remote object. Current-compiler review opens P1
+  `R-CORE-CXX14-NOEXCEPT-001`: a `noexcept` member-pointer alias is illegal in
+  project C++14. Return a test-only portable revision before integration.
 - The older read-only `R-QUEUE-001` reviewed the superseded exact-row/std-owner
   v1 queue and is now app-archived after its clean exact snapshot and durable
   dispatch were verified. Queue-v2 receives a fresh formal review after GREEN.
