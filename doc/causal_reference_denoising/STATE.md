@@ -466,6 +466,8 @@ same-responsibility implementation conversations that may receive review fixes.
   wake and preservation wording match interfaces, and no declaration/code is
   touched. Integrated/pushed as `c56f19269`; exact one-file diff-check and
   targeted search pass. P3 is manager-closed pending final reviewer confirmation,
+  with public evidence at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5203570808`,
   while concurrency test remains active.
 - Accepted but deliberately not integrated until the atomic queue gate:
   plugin data commit `5f4718722` plus exact-parent SPSC admission fix

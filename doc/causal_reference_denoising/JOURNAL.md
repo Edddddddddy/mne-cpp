@@ -4880,3 +4880,10 @@ hidden reasoning is not.
   and untouched-tail/full-preservation behavior.
 - Manager closes the SPEC P3 pending final reviewer confirmation. Publish this
   exact integration evidence on issue #5 while concurrency test remains active.
+
+### E-477 - SPEC P3 integration evidence published
+
+- Issue #5 comment/read-back succeeds at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5203570808`,
+  recording exact worker/integration commits, live contract and targeted legacy-
+  only semaphore search. Two queue P2s remain active.
