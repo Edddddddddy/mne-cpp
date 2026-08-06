@@ -6514,6 +6514,22 @@ does not continuously poll them.
   no dependency repair, full mne_scan or mne_rt_server occurred. Manager owns
   canonical review/build/run.
 
+### REVIEW W-QUEUE-ALLOC-TEST-001
+
+- Exact commit object, parent `9b7b1c779`, one-file scope and diff-check pass.
+  The current integration test blob is identical to the worker parent blob, so
+  the delta applies without hidden test divergence.
+- Manager reviewed all added overloads and the complete sustained-SPSC change.
+  C++14 scalar/array throwing, nothrow, unsized and sized forms are present at
+  global scope; zero-size, failure and free pairing are correct.
+- The atomic and thread-local controls are zero-initialized before ordinary
+  allocations. The flag covers the complete public call expression, including
+  the by-value native metadata copy, and cleanup is the immediately following
+  statement under the queue's `noexcept` contract. Setup, consumer and oracle
+  work remain outside the boundary.
+- Decision: ACCEPT with no manager P0-P3. Cherry-pick and canonical populated
+  Release build/run are required before using this as formal queue evidence.
+
 ### RETIREMENT-READY W-QUEUE-ATOMIC-TEST-001
 
 - Thread `019fd5fa-f207-7fe3-9189-8d77fc9cfade` is one-shot. Exact commit,

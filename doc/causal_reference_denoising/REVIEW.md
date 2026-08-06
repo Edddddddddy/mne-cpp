@@ -444,6 +444,17 @@ completion.
 
 Pending.
 
+### Queue producer-allocation acceptance tracer
+
+- Worker commit `ea81256b1` is exact-parent and test-only. Manager source and
+  interface review finds no P0-P3: the C++14 global allocation replacement set
+  is complete for this target and the thread-local counted region is exactly the
+  producer's public `tryPush` call, including by-value metadata construction.
+- This is accepted test design, not yet executable evidence. The canonical
+  populated Release target must compile/link and report zero counted producer
+  allocations before the queue formal reviewer may close
+  `R-QUEUE-V2-QSEMAPHORE-001`.
+
 ### R-BENCH-FINITE-001 - P2 - Closed
 
 - Location: held benchmark commit `79eff3b3a`, focused example main finite
