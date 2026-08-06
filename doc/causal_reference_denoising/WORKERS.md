@@ -4700,6 +4700,43 @@ does not continuously poll them.
   implementation and a fresh formal review. The pending original queue review
   may add concurrency findings but no longer blocks freezing this caller seam.
 
+### PUBLISH PLUGIN-INGRESS-002
+
+- GitHub issue #6 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5200042268`.
+- Authenticated `gh` write/API read-back exactly record native ownership,
+  variable-row maxima/extents, 512x2048x4 bounds, upstream accessor constraint,
+  TDD/review workflow and unchanged global/plugin/server scope.
+
+### REQUEST W-QUEUE-V2-TEST-001
+
+- From / to: manager / new visible Luna/max queue-v2 test conversation.
+- GitHub issues: implementation gate `#5`, plugin caller decision `#6`.
+- Exact base: `b4299fdafd9e61779ff2a1482e74ae8a694b7bb4`; separate Codex
+  worktree.
+- Authorized edit: only
+  `src/testframes/test_adaptive_denoising_plugin/test_adaptive_denoising_plugin.cpp`.
+  No production/CMake/docs/dependency/build edit.
+- Update existing queue test call sites/oracles to the frozen interface:
+  `maxChannelCount`, `QSharedPointer<const FiffInfo>`, queued `rowCount` plus
+  `sampleCount`. Preserve processor tests and every prior queue behavior.
+- Add one public-interface slot configured at max 4x4/capacity three. Push
+  2x3, 4x2 and 3x4 matrices with distinct native Qt metadata handles; mutate
+  originals; pop into a preallocated 4x4 sentinel destination and prove FIFO,
+  exact valid top-left deep copies, exact row/sample extents, untouched tail,
+  metadata identity and final Timeout.
+- Metadata test must not construct/dereference/link FIFF: use distinct non-null
+  fake pointers backed by test tokens plus explicit no-op deleters in
+  `QSharedPointer<const FiffInfo>`. Add C++14 nothrow QSharedPointer copy/move
+  traits if supported by Qt 5.15.2; do not weaken a failing trait.
+- Expected RED: current queue header lacks native handle/max rows/rowCount.
+  Manager will build the integrated tracer in the populated workspace before
+  Sol implementation. Worker reports isolated dependency gaps honestly.
+- Restrictions: read full TDD skill; Luna/max; no nested subagent, manager
+  polling, production edit, full scan, full mne_scan, vendor repair or
+  rt_server. Proactively send `RESPONSE W-QUEUE-V2-TEST-001` and stop.
+- Status: request durable before task creation.
+
 ### MANAGER REVIEW W-QA-PROC-LOCALITY-001
 
 - Provenance/scope: exact `1d60ed4f7` on requested `16c993872`; one authorized

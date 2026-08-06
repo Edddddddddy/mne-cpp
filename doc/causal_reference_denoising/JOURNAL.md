@@ -3641,3 +3641,16 @@ hidden reasoning is not.
   is documented rather than hidden or solved by modifying the global API.
 - Next: commit/push the design, publish issue #6, then dispatch a Luna/max RED
   queue-v2 acceptance test without waiting/polling the old formal reviewer.
+
+### E-347 - Queue-v2 design published and RED test requested
+
+- Publish/read-back: issue #6 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5200042268`
+  exactly records the frozen ingress seam and constraints.
+- Request: `W-QUEUE-V2-TEST-001`, visible Luna/max one-test-file task from exact
+  `b4299fdaf`. It migrates existing queue oracles to Qt ownership/extents and
+  adds mixed 2/4/3-row FIFO/deep-copy/tail/metadata acceptance at max 4x4.
+- Expected result: compile RED against the current std/exact-row queue; no
+  production fix may be mixed into the tracer commit.
+- Next: commit/push request, create/publicly dispatch the task and await its
+  proactive response without polling or overlapping the focused test file.
