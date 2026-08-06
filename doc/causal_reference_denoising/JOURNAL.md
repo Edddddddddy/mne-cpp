@@ -4437,3 +4437,14 @@ hidden reasoning is not.
 - The two P2 test gaps now have accepted executable evidence. They remain open
   through atomic-production re-review; Windows QSemaphore P1 is unchanged and
   is the next blocking implementation task.
+
+### E-426 - Atomic queue production request prepared
+
+- `W-QUEUE-ATOMIC-GREEN-001` is a new visible Sol/ultra task from exact source
+  base `41a2b76fb`, owning only queue header/source while the focused test is
+  immutable.
+- Frozen correction: release/acquire monotonic SPSC sequences plus a configure-
+  created sticky Windows event/POSIX nonblocking pipe. Producer has one signal
+  attempt and no Qt semaphore/mutex, allocation, wait, retry or throwing work.
+- After committing/pushing this request, create the task, publish it on issue
+  #5 and await its proactive RESPONSE without polling.

@@ -6280,3 +6280,47 @@ does not continuously poll them.
 - Interpretation: both queue P2 test tracers are runnable and accepted. The
   QSemaphore P1 remains open because this run does not prove producer lock/
   allocation freedom; the atomic production task is still blocking.
+
+### REQUEST W-QUEUE-ATOMIC-GREEN-001
+
+- From/to: manager / new visible Sol/ultra concurrency implementation task.
+- Blocking: yes, issue #5 and every plugin integration task wait for this gate.
+- Exact source base: `41a2b76fb3de1db6d0b2542eec792144e826f73d`.
+- Authorized files only:
+  `src/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingblockqueue.h`
+  and `.cpp`. The focused test, plugin, processor, CMake, docs and dependencies
+  are immutable.
+- Preserve the concrete final four-method public seam, config/status/data
+  types, variable rectangle/native const metadata ownership, drop-newest,
+  destination preservation, transactional configure and caller-quiescence
+  requirement. Header comments may be corrected to describe sequences/wake.
+- Remove every QSemaphore/QMutex/Qt wait primitive from the queue. Use unsigned
+  monotonic SPSC producer/consumer sequences with release/acquire publication;
+  built atomic state must have a compile-time always-lock-free proof on the
+  supported target. Capacity remains bounded by `INT_MAX`, making unsigned
+  distance/wrap handling unambiguous.
+- Configure creates all slots and one sticky native wake resource before
+  publication: Windows auto-reset event (`CreateEventW`/`SetEvent`/
+  `WaitForSingleObject`); POSIX nonblocking pipe plus bounded `poll` and drain.
+  Resource creation failure may throw during configure while preserving the
+  prior stopped implementation. Destruction closes only after caller
+  quiescence.
+- Producer path: initial/final running observation, capacity check, scalar copy
+  into preallocated slot, native QSharedPointer move, release publication and
+  exactly one nonblocking OS signal attempt. It performs no allocation, lock,
+  wait, retry/busy loop, Eigen resize/expression temporary, string/FIFF access
+  or potentially throwing operation. Full/invalid/stopped never publish or
+  advance.
+- Consumer may perform bounded OS waits/rechecks to handle a stale sticky wake,
+  but must not busy-wait. It returns Popped only after acquire publication;
+  Timeout/Stopped/InvalidDestination preserve the complete destination. Stop
+  is noexcept/idempotent, release-stores stopped and signals once; pending data
+  may be discarded. Fresh configure owns wholly new sequences/slots/wake.
+- Required validation: exact-parent/two-file/diff-clean proof; current focused
+  public Release suite build/run if available; source audit proving no
+  QSemaphore/QMutex and truthful noexcept; no dependency repair, full scan,
+  full mne_scan or mne_rt_server. Do not alter the test to manufacture GREEN.
+- Response format: `RESPONSE W-QUEUE-ATOMIC-GREEN-001` with commit/parent,
+  exact files, sequence/order/stop/wake proof, allocation/lock/noexcept audit,
+  build/test result and limitations. Proactively notify the manager once; do
+  not poll it or create internal/nested subagents.

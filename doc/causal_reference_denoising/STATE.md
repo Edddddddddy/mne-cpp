@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T18:19:00+08:00
+Last updated: 2026-08-06T18:27:00+08:00
 
 ## Recovery order
 
@@ -372,3 +372,8 @@ same-responsibility implementation conversations that may receive review fixes.
   passes with no finding. It is integrated as `16053ffe6`; populated Windows
   Release compiles/links and the complete executable exits zero on the gate run
   plus three immediate repeat runs. Atomic production replacement is next.
+
+- Next blocking request: `W-QUEUE-ATOMIC-GREEN-001`, Sol/ultra, exact source
+  base `41a2b76fb`; queue header/source only. Replace QSemaphore with lock-free
+  SPSC sequences and configure-created sticky OS wake while preserving the
+  public four-method seam and the now-GREEN focused test source.
