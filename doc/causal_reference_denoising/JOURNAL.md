@@ -4226,3 +4226,14 @@ hidden reasoning is not.
 - Worker MSVC 14.51 `/std:c++14` compilation succeeds with only existing Eigen
   warnings and no vendor mutation. Manager provenance/delta review is next;
   populated Release/Debug remain the closure gate.
+
+### E-405 - Core-contract revision manager review passes
+
+- Exact-parent and one-file delta checks pass; the original header/test commit
+  also retains its verified real-parent provenance and matches current code
+  blobs before integration.
+- The replacement assertions are portable C++14 callability/result checks and
+  do not overstate Eigen::Ref wrapper noexcept behavior. The accepted compact
+  public contract, ownership traits and all runtime slots remain unchanged.
+- Decision: integrate the original commit and its delta in order, then run the
+  complete populated Release/Debug numerical suite before closing the P1/P3.

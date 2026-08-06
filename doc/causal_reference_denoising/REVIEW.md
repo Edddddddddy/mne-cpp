@@ -170,6 +170,10 @@ core gate is held for one P2 test-evidence finding; two P3s remain tracked.
   result-type assertions while retaining ownership/reset traits. Worker MSVC
   14.51 `/std:c++14` syntax compilation succeeds. Finding stays open until
   manager delta review, integration and complete populated Release/Debug runs.
+- Manager fix review: exact parent and one-test-file scope pass. The word diff
+  is limited to removal of the illegal noexcept function type and portable
+  callability/result checks; the accepted header and runtime slots are
+  unchanged. No new finding; populated Release/Debug remain the only gate.
 
 #### R-CORE-LINK-001 - P3 - Environment-deferred
 

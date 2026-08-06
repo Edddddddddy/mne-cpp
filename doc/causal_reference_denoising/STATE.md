@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T15:42:00+08:00
+Last updated: 2026-08-06T15:48:00+08:00
 
 ## Recovery order
 
@@ -289,9 +289,9 @@ same-responsibility implementation conversations that may receive review fixes.
   delta `bc061b834` on exact parent `2682034d0`. It removes the C++14-illegal
   noexcept member-pointer alias, retains ownership/reset traits, and adds
   portable MatrixXd-to-Ref convertibility plus public-call result-type checks.
-  Worker MSVC 14.51 `/std:c++14` compilation succeeds; manager provenance/
-  delta review and populated Release/Debug remain required before integration
-  and P1/P3 closure.
+  Worker MSVC 14.51 `/std:c++14` compilation succeeds. Manager provenance,
+  exact scope and portable-trait review pass with no finding; integration and
+  populated Release/Debug remain required before P1/P3 closure.
 - The older read-only `R-QUEUE-001` reviewed the superseded exact-row/std-owner
   v1 queue and is now app-archived after its clean exact snapshot and durable
   dispatch were verified. Queue-v2 receives a fresh formal review after GREEN.

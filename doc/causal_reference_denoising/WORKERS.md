@@ -5909,3 +5909,19 @@ does not continuously poll them.
   vendor repair or mne_rt_server.
 - Status: response is durable before manager provenance/delta review,
   integration or populated Release/Debug validation.
+
+### MANAGER REVIEW W-QA-CORE-CONTRACT-001-REVISE-1
+
+- Provenance/scope: delta `bc061b834` has exact parent `2682034d0`, modifies
+  only the authorized focused numerical test and passes committed diff check.
+  Original `2682034d0` has the verified real parent `7eb04cbfa766...`, only
+  the accepted header/test scope, and current integration code blobs still
+  equal that real parent.
+- C++14 audit: the complete word diff removes the illegal function-type
+  noexcept alias/cast. The replacement independently checks MatrixXd-lvalue
+  Ref convertibility and the public call expression's exact result type while
+  retaining all default/ownership/reset traits. Its comment correctly avoids
+  asserting that Eigen::Ref wrapper construction is noexcept.
+- Decision: no finding. Integrate `2682034d0` followed by `bc061b834`, then
+  build/run the complete populated Release and Debug focused targets before
+  closing `R-CORE-CXX14-NOEXCEPT-001` and `R-CORE-LOCALITY-001`.
