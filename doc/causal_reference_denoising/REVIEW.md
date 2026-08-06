@@ -110,6 +110,10 @@
   19/0/0 on both platforms with five/three repeats. Windows max producer call
   is 4100 ns; POSIX 3996 ns. Finding stays open through manager code review,
   canonical populated build, allocation tracer and independent re-review.
+- Manager production review: PASS with no new finding. Transaction, sequence/
+  wrap/order, stop linearization, sticky lost-wake closure, public locality and
+  producer dependency audit match the selected correction. Integration/runtime/
+  allocation/formal gates remain; this P1 is not yet closed.
 
 #### R-QUEUE-V2-CONCURRENCY-TEST-001 - P2 - Open
 

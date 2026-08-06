@@ -6387,6 +6387,31 @@ does not continuously poll them.
 - Status: response durable before manager provenance/code/race review,
   integration, canonical CMake execution or formal finding closure.
 
+### ACCEPTANCE W-QUEUE-ATOMIC-GREEN-001
+
+- Exact requested parent, two-file scope, diff-check and worker clean state all
+  pass. Current integration queue blobs equal the worker parent blobs, so the
+  production delta is directly applicable without hidden overlap.
+- Sequence review: release producer publication/acquire consumer read and
+  release consumer progress/acquire producer reuse form both required happens-
+  before edges. Capacity `<=INT_MAX` is strictly below half the unsigned range;
+  modulo difference is unambiguous and owner-local indices preserve arbitrary
+  capacities across counter wrap.
+- Stop review: the final acquire running observation is the operation/stop
+  ordering point. False paths preserve state/destination; true paths may finish
+  after a racing stop under the caller-quiescence contract. Pending data is
+  deliberately discardable and fresh PImpl owns unrelated resources/state.
+- Wake review: publication precedes one native signal. Sticky event/pipe state
+  covers notification-before-wait; stale/coalesced wakes trigger bounded atomic
+  rechecks. POSIX drain is consumer-only finite progress, not producer retry.
+- Resource/hot-path review: candidate RAII preserves stopped ownership on every
+  construction failure. `tryPush` has fixed scalar loops only and no Qt wait/
+  mutex, allocation, expression temporary, retry/busy loop, string/FIFF or
+  throwing dependency. Public seam remains a deep concrete module.
+- Decision: accept with no manager P0-P3 finding. Cherry-pick, populated CMake
+  Release plus repeats, separate allocation tracer and formal reviewer remain
+  before closing `R-QUEUE-V2-QSEMAPHORE-001`.
+
 ### RETIREMENT-READY W-QUEUE-ATOMIC-TEST-001
 
 - Thread `019fd5fa-f207-7fe3-9189-8d77fc9cfade` is one-shot. Exact commit,
