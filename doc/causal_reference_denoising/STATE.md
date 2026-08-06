@@ -678,3 +678,6 @@ same-responsibility implementation conversations that may receive review fixes.
   MSVC 14.29 C++14 `/Zs` on the exact integrated source. Immediate code findings
   are addressed; the lifecycle gate now needs a fresh exact-snapshot review of
   these fixes plus the explicit issue #8 deferrals.
+- Retained independent Sol/ultra reviewer is now re-auditing exact pushed SHA
+  `3dca8628eb43029ea35980e869da1a44d21b053a` as `R-PLUGIN-DATA-002`.
+  UI remains blocked until its proactive PASS/HOLD response.

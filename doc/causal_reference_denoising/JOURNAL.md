@@ -5839,3 +5839,12 @@ hidden reasoning is not.
   `019fd86c-b508-7491-876e-1972be35875a`; no manual worktree deletion.
 - Prepare retained independent reviewer `R-PLUGIN-DATA-002` against the next
   pushed exact snapshot. UI remains held until its gate returns PASS.
+
+### E-579 - Plugin lifecycle re-review dispatched
+
+- Retained independent reviewer accepts exact pushed SHA
+  `3dca8628eb43029ea35980e869da1a44d21b053a` with Sol/ultra, read-only mode and
+  the five-finding disposition scope.
+- It must treat issue #8 findings as explicit deferrals, not fixes, keep all
+  manager runtime/source evidence attributed, and avoid UI/harness expansion.
+- Await proactive PASS/HOLD without polling. UI remains held.

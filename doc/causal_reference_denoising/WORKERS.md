@@ -7865,6 +7865,10 @@ does not continuously poll them.
 - gate / P0/P1 zero and every P2 fixed or explicitly durable-deferred. Return
   exact-SHA clean proof, disposition of all five prior findings, any new P0-P3
   and PASS/HOLD. No full app/server/subagent/manager polling.
+- dispatch / retained reviewer thread `019fd84f-03c6-79f1-977f-b278d55777ba`
+  accepts exact snapshot `3dca8628eb43029ea35980e869da1a44d21b053a`
+  with explicit Sol/ultra and unchanged read-only constraints.
+- state / await proactive response without polling; do not start UI edits.
 
 ### REQUEST W-PLUGIN-STATIC-001
 
