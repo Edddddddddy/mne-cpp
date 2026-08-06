@@ -4199,3 +4199,11 @@ hidden reasoning is not.
 - P1 `R-CORE-CXX14-NOEXCEPT-001` opens. Hold integration and request a test-only
   portable callability/result/ownership/reset-trait revision from the retained
   Luna/max worker; then run populated Release/Debug.
+
+### E-402 - Core-contract portable C++14 revision accepted
+
+- Existing core-contract thread accepted the one-test-file follow-up with
+  Luna/max from parent `2682034d0`.
+- Header/runtime remain immutable; required checks are portable MatrixXd→Ref
+  callability/result plus ownership/reset traits under actual `/std:c++14`.
+- Next: publish the P1/revision on final-QA issue #3 and await proactive delta.

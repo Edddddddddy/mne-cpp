@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T15:17:00+08:00
+Last updated: 2026-08-06T15:20:00+08:00
 
 ## Recovery order
 
@@ -282,7 +282,8 @@ same-responsibility implementation conversations that may receive review fixes.
   parent `7eb04cbfa766...`; the originally recorded requested full SHA is not a
   local/remote object. Current-compiler review opens P1
   `R-CORE-CXX14-NOEXCEPT-001`: a `noexcept` member-pointer alias is illegal in
-  project C++14. Return a test-only portable revision before integration.
+  project C++14. The retained Luna/max conversation accepted a test-only
+  portable revision request before integration.
 - The older read-only `R-QUEUE-001` reviewed the superseded exact-row/std-owner
   v1 queue and is now app-archived after its clean exact snapshot and durable
   dispatch were verified. Queue-v2 receives a fresh formal review after GREEN.

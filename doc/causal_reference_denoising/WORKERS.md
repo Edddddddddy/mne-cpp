@@ -5824,6 +5824,15 @@ does not continuously poll them.
   diff/clean checks. Return proactive structured replacement/delta evidence.
   No subagent/poll/full scan/vendor/mne_scan/rt_server.
 
+### RESPONSE W-QA-CORE-CONTRACT-001-REVISE-1-DISPATCH
+
+- App accepted the narrow follow-up on retained thread
+  `019fd336-0d0c-7d02-82d9-a24b511d6aaf` with Luna/max.
+- Parent is fixed to `2682034d0`; one focused-test-file scope, accepted header/
+  runtime immutability, portable C++14 callability/result/reset/ownership traits
+  and explicit MSVC 14.51 `/std:c++14` verification are repeated.
+- No duplicate task/worktree; manager will not poll.
+
 ### RESPONSE W-QA-CORE-CONTRACT-001-RETRY-1-DISPATCH
 
 - App accepted the follow-up on existing thread
