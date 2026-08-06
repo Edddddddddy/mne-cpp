@@ -3695,3 +3695,12 @@ hidden reasoning is not.
   final content.
 - Decision is durable: compatible-toolchain smoke remains future work; local
   engineering MVP proceeds on focused evidence without vendor/server changes.
+
+### E-352 - Epic engineering milestone refreshed
+
+- Publish/read-back: epic #2 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5200090627`
+  records current 14/0/0, example/benchmark metrics, processor P3 closure,
+  link deferral, queue-v2 execution and pending plugin/docs/review gates.
+- Integrity: #5/#6/#7/#3 remain unchecked/open; no unfinished milestone is
+  claimed complete.

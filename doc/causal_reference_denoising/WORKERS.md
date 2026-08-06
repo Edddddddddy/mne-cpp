@@ -4705,6 +4705,16 @@ does not continuously poll them.
   failure, unrelated existing instantiation paths, compatible-toolchain deferral
   and no-vendor/no-server decision.
 
+### PUBLISH EPIC-MILESTONE-002
+
+- GitHub epic #2 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/2#issuecomment-5200090627`.
+- Authenticated `gh` write/API read-back update the public summary to focused
+  14/0/0, example/benchmark numbers, closed processor P3s, environment-deferred
+  core link, frozen queue-v2 seam and current active work.
+- Child checkboxes remain intentionally open until complete issue-level gates;
+  no partial milestone is presented as finished.
+
 ### DISCUSSION PLUGIN-INGRESS-002
 
 - Evidence: production input owns `QSharedPointer<FiffInfo>`; `info()` returns a
