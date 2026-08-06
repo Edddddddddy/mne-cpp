@@ -5120,3 +5120,23 @@ hidden reasoning is not.
   remain. Close `R-QUEUE-STOP-WAIT-ELAPSED-001`.
 - Next: push the milestone, archive the one-shot retry conversation, then
   dispatch the already prepared WSL deterministic EINTR RED tracer.
+
+### E-503 - Timing worker archived; WSL health probe times out
+
+- App archives completed one-shot retry thread
+  `019fd76b-9843-7d11-a81a-1dd993fbabb2` after exact integration and canonical
+  GREEN evidence. No manual worktree deletion.
+- The single planned lightweight `wsl -d Ubuntu-24.04 -- true` health probe
+  times out after about 14 seconds. WSL remains unavailable before compilation;
+  do not reset/shutdown the global service because other user work may depend on
+  it, and do not repeat probes now.
+
+### E-504 - POSIX EINTR RED tracer prepared despite WSL outage
+
+- Prepare new Luna/max test/CMake task from exact pushed source base `d5fd0e4ee`.
+  Linux-only `--wrap=write` thread-local one-shot injection will deterministically
+  drop a push and stop signal with pre-transfer EINTR and require prompt public
+  Popped/Stopped outcomes plus exact payload/preservation.
+- If WSL remains unavailable, worker must still return an exact clean test
+  commit and explicit environment limitation; manager will not fabricate RED
+  runtime evidence. Production Sol fix follows source/test review.

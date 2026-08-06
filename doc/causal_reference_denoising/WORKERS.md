@@ -6825,6 +6825,29 @@ does not continuously poll them.
   repeats return `0,0,0,0`.
 - `R-QUEUE-STOP-WAIT-ELAPSED-001` closes. The one-shot retry conversation can be
   app-archived after this evidence is pushed; no worktree deletion.
+- Cleanup complete: visible retry thread
+  `019fd76b-9843-7d11-a81a-1dd993fbabb2` is app-archived after integration and
+  canonical GREEN; its worktree is not manually deleted.
+
+### REQUEST W-QUEUE-POSIX-EINTR-TEST-001
+
+- From: manager. To: new visible Luna/max test worker. Blocking: yes.
+- Exact source base: `d5fd0e4ee` on the pushed integration branch.
+- Authorized paths only: focused test source and its focused `CMakeLists.txt`.
+- Add Linux-only GNU/Clang link wrapping of `write` (`-Wl,--wrap=write`) and a
+  test-translation-unit thread-local one-shot wrapper. When armed on the queue
+  caller thread, exactly the next native signal write returns `-1/EINTR` before
+  transfer; all other writes delegate to `__real_write`.
+- Add public push and stop cases with a blocked long-timeout consumer. Forced
+  post-publication EINTR must still yield prompt exact `Popped`; forced stop
+  EINTR must yield prompt `Stopped` with full destination preservation. Use a
+  generous `<500 ms` prompt bound versus a 3000 ms timeout and finite joins.
+- This is expected RED on current POSIX production and must not add a public
+  hook or modify queue/plugin/processor/core/docs/vendor/server files. Windows
+  compile/tests remain unaffected by conditional code.
+- Required response: exact commit/parent/two-file scope, deterministic wrapper
+  proof, WSL RED if service is available, otherwise explicit environment block,
+  Windows syntax/build non-regression if available, diff-check and clean status.
 
 ### Conversation cleanup rule reaffirmed
 
