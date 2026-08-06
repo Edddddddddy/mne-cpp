@@ -655,3 +655,6 @@ same-responsibility implementation conversations that may receive review fixes.
 - Teaching UI remains held. After the three immediate fixes plus durable
   deferral, rerun an independent Sol/ultra lifecycle gate. Only PASS permits
   dispatching `W-PLUGIN-UI-TEST-001`.
+- Follow-up issue #8 now durably owns terminal teardown and the supported
+  real-plugin lifecycle harness. Issue #3 and #6 comments link the deferral;
+  both findings remain explicit residual work rather than being marked fixed.

@@ -7702,6 +7702,11 @@ does not continuously poll them.
   dependency. Create a dedicated follow-up issue linked from #3/#6.
 - review / after fixes and durable deferral, send a fresh exact snapshot to a
   Sol/ultra reviewer. UI stays blocked until PASS.
+- follow-up / GitHub issue #8 now owns the destructor/harness deferral:
+  `https://github.com/Edddddddddy/mne-cpp/issues/8`. Final-QA comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5208313558`;
+  plugin comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208313573`.
 
 ### PREPARED REQUEST W-PLUGIN-UI-TEST-001
 

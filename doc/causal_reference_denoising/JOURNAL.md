@@ -5665,3 +5665,18 @@ hidden reasoning is not.
   explicit follow-up deferral, not a silent acceptance or unsafe bounded return.
 - Lifecycle gate remains HOLD; teaching UI stays blocked pending fixes,
   published deferral and a fresh independent review.
+
+### E-562 - Terminal teardown and real-plugin harness deferral published
+
+- New issue #8 records `R-PLUGIN-DESTRUCTOR-BOUND-001` and
+  `R-PLUGIN-LIFECYCLE-TEST-001`, the memory-safety reason not to return from a
+  destructor with live worker/callback ownership, the Qt/MSVC environment block,
+  and the required supported-toolchain lifecycle acceptance matrix.
+- Issue #3 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5208313558`
+  and issue #6 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208313573`
+  explicitly link the deferral. Issue #8 read-back is OPEN at
+  `https://github.com/Edddddddddy/mne-cpp/issues/8`.
+- Immediate MVP findings remain admission drop accounting, static registration
+  and atomic lock-free guards; no UI dispatch yet.

@@ -746,6 +746,9 @@ tracked.
   QThread/callback ownership is live. Create a durable follow-up documenting
   the host quiescence precondition/risk and requiring timeout/retry/destruction
   tests on a supported real-plugin harness.
+- Durable deferral: issue #8,
+  `https://github.com/Edddddddddy/mne-cpp/issues/8`; linked from final QA #3
+  and plugin task #6.
 
 #### R-PLUGIN-ADMISSION-DROP-001 - P2 - Open
 
@@ -764,6 +767,8 @@ tracked.
 - Impact: caller/lifecycle regressions can leave all focused tests GREEN.
 - Disposition: create a dedicated supported-toolchain real-plugin harness task;
   explicitly carry the current Qt/MSVC FIFF block and residual risk in #3/#6.
+- Durable deferral: issue #8 owns the complete harness acceptance and is linked
+  from #3/#6. This finding is deferred, not closed.
 
 #### R-PLUGIN-STATIC-REGISTRATION-001 - P2 - Open
 
