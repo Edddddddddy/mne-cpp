@@ -6769,6 +6769,9 @@ does not continuously poll them.
 - Corrected setup accepted from exact requested commit as
   `client-new-thread:ae1d9eae-8a70-4a18-bc5f-4c83f61ac9ba` on local host with
   explicit Luna/max. Await proactive response; do not poll or inspect worktree.
+- One task-list resolution maps the setup to visible thread
+  `019fd71e-6cf2-7e52-a410-29c374cb0e09`, app worktree `f36c`; it is active on
+  the requested exact scope. No further listing/polling is needed.
 
 ### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
 

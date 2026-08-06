@@ -5035,3 +5035,10 @@ hidden reasoning is not.
   It records integration `1a478f6c3`, canonical `0,0,0,0` exits, the forced-
   reuse/public-oracle evidence, remaining elapsed-wait P2, fresh Luna/max setup
   ID and archived spent conversation.
+
+### E-494 - Fresh timing task final thread resolved once
+
+- One app task-list lookup maps setup
+  `client-new-thread:ae1d9eae-8a70-4a18-bc5f-4c83f61ac9ba` to visible active
+  Luna/max thread `019fd71e-6cf2-7e52-a410-29c374cb0e09`, worktree `f36c`.
+- Await proactive response; do not continuously poll or inspect its worktree.
