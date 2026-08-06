@@ -549,3 +549,13 @@ same-responsibility implementation conversations that may receive review fixes.
 - WSL is still unavailable at service startup. No POSIX RED/GREEN runtime is
   claimed until the environment recovers; Windows focused non-regression and
   source-level evidence remain required after integration.
+
+### EINTR tracer integration result
+
+- Tracer and lower-bound commits are integrated as `0d1d1f949` and
+  `b6cf3a13b`. Populated MSVC Release compiles/links; the complete Windows-
+  guarded suite reports 19/0/0 and three explicit waited repeats exit 0/0/0.
+- `R-QUEUE-EINTR-BLOCKED-WAIT-001` is closed by the named 5 ms lower bounds.
+  This does not close production finding `R-QUEUE-ATOMIC-POSIX-EINTR-001`:
+  Linux runtime remains unavailable and the retained Sol/ultra atomic worker
+  must implement the private bounded consumer recheck before final queue review.

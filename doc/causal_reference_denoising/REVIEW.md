@@ -685,3 +685,10 @@ tracked.
 - Required verification: exact-parent one-test-file delta, diff-check, Windows
   conditional non-regression, and POSIX runtime when WSL is available. An
   unavailable WSL service must be recorded rather than treated as test output.
+- Resolution: exact-parent delta `89acb78bd` adds named 5 ms lower bounds to
+  both complete public calls and leaves every other tracer oracle unchanged.
+  Integrated tracer commits are `0d1d1f949` and `b6cf3a13b`. Populated MSVC
+  Release reports 19/0/0, followed by three explicit waited exit-zero repeats.
+  The Linux-only slots remain unexecuted because WSL cannot start; this is an
+  environment limitation, not a GREEN claim. Test-sensitivity finding closed;
+  production `R-QUEUE-ATOMIC-POSIX-EINTR-001` remains open.

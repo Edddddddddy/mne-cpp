@@ -5245,3 +5245,13 @@ hidden reasoning is not.
 - Do not claim GREEN from this attempt. Check focused process state read-only,
   then rerun with explicit per-process wait/exit capture and no shared reporter
   file across repeats. Repository source remains unchanged.
+
+### E-517 - EINTR tracer integrated and Windows non-regression is GREEN
+
+- Direct revision review passes and tracer series integrates as `0d1d1f949`,
+  `b6cf3a13b`. Populated MSVC Release recompiles/links successfully.
+- After all focused processes exit, the reporter is readable and records
+  19/0/0. Three new runs with explicit process waiting return `0,0,0`; the
+  current traffic sample retains zero counted producer allocations.
+- Close `R-QUEUE-EINTR-BLOCKED-WAIT-001`. Do not close the production POSIX
+  finding or claim Linux RED/GREEN while WSL startup remains unavailable.

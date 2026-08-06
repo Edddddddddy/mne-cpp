@@ -7302,3 +7302,19 @@ does not continuously poll them.
   exit is durably observed before the next run.
 - This is a validation-harness/process-lifetime issue; tracked source and
   dependencies remain untouched.
+
+### VALIDATION W-QUEUE-POSIX-EINTR-TEST-001-REVISE-1
+
+- Direct Git proof accepts exact parent `c4b13a220`, one focused-test-file
+  delta and the two named `>=5 ms`, `<500 ms` assertions. Manager integrates
+  the tracer series as `0d1d1f949` plus `b6cf3a13b`.
+- Populated MSVC Release target recompiles and links successfully. After the
+  two recorded harness mistakes, the released reporter file is read directly:
+  QtTest reports 19 passed, 0 failed/skipped/blacklisted; SPSC pushed/full/
+  popped are 455/57/455 with zero counted producer allocations, and stopped
+  wait is 30 ms.
+- Three subsequent executions use explicit `Start-Process -Wait -PassThru` and
+  exit `0,0,0`. Linux-only wrapper slots are correctly excluded on Windows;
+  no POSIX RED/GREEN is claimed while WSL startup remains unavailable.
+- Decision / accept and integrate test tracer; close only the blocked-wait test
+  sensitivity P2. Production POSIX EINTR finding remains for Sol/ultra.
