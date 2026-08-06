@@ -489,7 +489,8 @@ Pending.
 `96055bf13` replaces the live contradiction with atomic release/acquire/native
 wake and untouched-tail/full-preservation rules. All remaining semaphore terms
 are explicitly legacy/rejected/no-semaphore context. Manager accepts the P3
-correction pending integration and final exact-snapshot reviewer confirmation.
+correction. It is integrated/pushed as `c56f19269`; exact committed diff/search
+passes. P3 is manager-closed pending final exact-snapshot reviewer confirmation.
 
 #### Correction order
 

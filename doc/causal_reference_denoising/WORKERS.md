@@ -6730,6 +6730,15 @@ does not continuously poll them.
   conversation reusable through the final queue review in case the later POSIX
   bounded-recheck correction needs one wording-only follow-up.
 
+### VALIDATION W-QUEUE-SPEC-001
+
+- Accepted commit is cherry-picked/pushed as integration `c56f19269`. Exact
+  one-SPEC-file committed diff-check passes and the manager's targeted legacy/
+  rejection-only semaphore search remains unchanged.
+- `R-QUEUE-ATOMIC-SPEC-LOCALITY-001` is manager-closed; retain the worker only
+  through final exact-snapshot reviewer confirmation or a narrow POSIX wording
+  follow-up.
+
 ### ARCHIVED W-QUEUE-ALLOC-TEST-001
 
 - App archive succeeds for one-shot Luna/max thread

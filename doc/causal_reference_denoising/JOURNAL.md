@@ -4872,3 +4872,11 @@ hidden reasoning is not.
 - No manager P0-P3 opens. Accept/integrate `96055bf13`; retain the reusable SPEC
   thread through final review because later POSIX bounded rechecks may require a
   narrow wording follow-up.
+
+### E-476 - SPEC atomic-locality fix integrated
+
+- Worker commit is integrated/pushed as `c56f19269`; exact one-file diff-check
+  and targeted context search pass. Live contract now matches atomic/native wake
+  and untouched-tail/full-preservation behavior.
+- Manager closes the SPEC P3 pending final reviewer confirmation. Publish this
+  exact integration evidence on issue #5 while concurrency test remains active.

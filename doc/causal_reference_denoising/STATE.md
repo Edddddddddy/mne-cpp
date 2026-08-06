@@ -464,7 +464,9 @@ same-responsibility implementation conversations that may receive review fixes.
   diff/semantic/search review and integration. Manager review passes: all
   remaining semaphore mentions are legacy/rejection context, live atomic/native
   wake and preservation wording match interfaces, and no declaration/code is
-  touched. Accept/integrate, while concurrency test remains active.
+  touched. Integrated/pushed as `c56f19269`; exact one-file diff-check and
+  targeted search pass. P3 is manager-closed pending final reviewer confirmation,
+  while concurrency test remains active.
 - Accepted but deliberately not integrated until the atomic queue gate:
   plugin data commit `5f4718722` plus exact-parent SPSC admission fix
   `34a8096f1`. Retain its Sol/ultra conversation for same-responsibility fixes.
