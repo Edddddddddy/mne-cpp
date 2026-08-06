@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T12:05:00+08:00
+Last updated: 2026-08-06T13:55:43+08:00
 
 ## Recovery order
 
@@ -232,3 +232,27 @@ stop only for an authority-expanding blocker or final acceptance handoff.
 The user reconfirmed completed-task cleanup on 2026-08-06: archive one-shot
 visible conversations after clean/content/evidence verification; retain only
 same-responsibility implementation conversations that may receive review fixes.
+
+## Current checkpoint override
+
+- Integration/remote HEAD: `a0e3ef516`; tracked state is synchronized. The
+  only untracked paths are the three preserved user paths listed in the plan.
+- Active blocking task: `W-QUEUE-V2-GREEN-001`, Sol/ultra setup
+  `client-new-thread:97461215-c1b8-488b-90bd-984aad5d9fd3`, exact requested
+  base `9b526eb14`; queue files only. Await proactive RESPONSE, then manager
+  review/cherry-pick/populated GREEN/fresh Sol review.
+- Active non-overlapping task: `W-PLUGIN-DATA-001`, Sol/ultra setup
+  `client-new-thread:bb93c4e1-6aa9-4ee4-9d52-de30ff1b0489`, exact requested
+  base `8c51ea4ce`; seven plugin registration/adapter files only. Integrate only
+  after queue-v2 GREEN.
+- Existing non-overlapping tasks still await proactive responses without
+  polling: `W-QA-CORE-CONTRACT-001` and `W-DOC-001`. The older read-only
+  `R-QUEUE-001` may still return useful v1 race findings; v2 receives a fresh
+  formal review regardless.
+- Completed queue-v2 tracer conversation is archived after exact clean/blob/
+  RED/public evidence. Do not revive it; create a new Luna/max test task if a
+  later independent behavior is required.
+- Next implementation order after responses: queue-v2 gate, plugin-data gate,
+  Luna/max UI/settings/diagnostics, focused lifecycle coverage where the local
+  dependency graph permits, learning-guide reconciliation, final Sol/ultra
+  review and issue closure.
