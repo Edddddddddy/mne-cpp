@@ -8142,6 +8142,20 @@ does not continuously poll them.
 - boundary / focused Release only; no real plugin target, full mne_scan or
   `mne_rt_server` execution and no vendor/dependency changes.
 
+### ARCHIVED COMPLETED QUEUE/PLUGIN GATES
+
+- archived / retained atomic implementation thread
+  `019fd64b-2553-7102-91d6-1f8d35720823` after final queue PASS and issue #5
+  closure.
+- archived / retained queue reviewer thread
+  `019fd5d8-380d-7563-8644-264426bda199` after all P0-P3 dispositions became
+  durable.
+- archived / retained plugin lifecycle reviewer thread
+  `019fd84f-03c6-79f1-977f-b278d55777ba` after R-PLUGIN-DATA-002 PASS,
+  publication and closure.
+- cleanup / app archival only; no app worktree is manually removed. The active
+  visible code task set is now only `W-PLUGIN-UI-TEST-001`.
+
 ### PUBLICATION R-PLUGIN-DATA-002 / CLOSURE ISSUE-5
 
 - review comment / issue #5

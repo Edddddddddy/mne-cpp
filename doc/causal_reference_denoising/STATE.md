@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-07T03:34:00+08:00
+Last updated: 2026-08-07T03:38:41+08:00
 
 ## Recovery order
 
@@ -710,3 +710,7 @@ same-responsibility implementation conversations that may receive review fixes.
   numerical core `45/0/0`, processor/queue `19/0/0`, teaching example PASS and
   benchmark PASS at p50/p95/max `2.227/2.643/3.787 ms`. No full app/server is
   used. These are the current final-QA baseline while UI work proceeds.
+- With issue #5 and both formal gates complete, the spent atomic implementation,
+  queue review and plugin lifecycle review conversations are app-archived. The
+  only active code task is UI tracer thread
+  `019fd892-ff55-7903-ab3e-25890ccb10b5`; app worktrees are not manually deleted.

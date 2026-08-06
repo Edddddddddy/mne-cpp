@@ -5958,3 +5958,12 @@ hidden reasoning is not.
 - This is focused Release evidence only. No plugin target/full app/server or
   dependency/vendor path is exercised. Persist/push as final-QA baseline while
   awaiting the UI tracer response.
+
+### E-590 - Completed queue and lifecycle conversations archived
+
+- App archival succeeds for atomic implementation `019fd64b-2553-7102-91d6-1f8d35720823`,
+  queue review `019fd5d8-380d-7563-8644-264426bda199` and plugin lifecycle
+  review `019fd84f-03c6-79f1-977f-b278d55777ba`.
+- Their commits, tests, findings and publications are already durable, and no
+  same-responsibility correction remains. No app-managed worktree is manually
+  deleted. Only the Luna/max UI tracer remains active.
