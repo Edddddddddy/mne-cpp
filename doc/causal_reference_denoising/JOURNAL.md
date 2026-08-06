@@ -4813,3 +4813,11 @@ hidden reasoning is not.
   state.
 - Persist this no-side-effect timeout, then make one short bounded retry. Do not
   convert project discovery into a polling loop.
+
+### E-469 - Parallel correction task creation schema rejected
+
+- Both create calls duplicate project ID placement and are rejected during
+  argument validation before task/worktree creation. No repository or external
+  mutation occurs.
+- Persist the failure, then retry once with project ID only in the project
+  target; task bases/models/scopes/prompts stay exact.

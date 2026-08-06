@@ -6660,6 +6660,14 @@ does not continuously poll them.
 - Retry once with a short bounded read; if still unavailable, use a previously
   verified saved-project identifier rather than polling.
 
+### FAILURE QUEUE-CORRECTION-CREATE-1
+
+- Parallel app create calls duplicated `projectId` at the request root and the
+  project target. Schema validation rejected both calls before task/worktree
+  creation; repository and external state remain unchanged.
+- Retry once with project ID only inside the project target. Exact bases,
+  Luna/max models, prompts and disjoint file scopes remain unchanged.
+
 ### ARCHIVED W-QUEUE-ALLOC-TEST-001
 
 - App archive succeeds for one-shot Luna/max thread
