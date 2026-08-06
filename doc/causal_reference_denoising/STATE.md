@@ -456,7 +456,10 @@ same-responsibility implementation conversations that may receive review fixes.
   `client-new-thread:69772d64-aeb0-47af-bacc-a1b154974991`, both Luna/max from
   exact `2530c7864`. Public dispatch/read-back:
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5203461409`.
-  Await proactive responses without polling/overlap.
+  One read-only task-list lookup resolves final threads: concurrency test
+  `019fd69f-9196-7a82-9c3f-941076fb84fa` (worktree `a656`) and SPEC
+  `019fd69f-9196-7a82-9c3f-94295c3cbeb5` (worktree `17e6`). Await proactive
+  responses without polling/overlap.
 - Accepted but deliberately not integrated until the atomic queue gate:
   plugin data commit `5f4718722` plus exact-parent SPSC admission fix
   `34a8096f1`. Retain its Sol/ultra conversation for same-responsibility fixes.

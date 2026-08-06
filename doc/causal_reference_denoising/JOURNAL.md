@@ -4846,3 +4846,11 @@ hidden reasoning is not.
   confirming exact base, setup IDs, disjoint scopes and TDD correction order.
 - Await proactive Luna responses without polling; focused test/SPEC remain owned
   by their respective visible tasks.
+
+### E-473 - Queue correction final thread IDs resolved once
+
+- One read-only task-list lookup maps concurrency to
+  `019fd69f-9196-7a82-9c3f-941076fb84fa`/`a656` and SPEC to
+  `019fd69f-9196-7a82-9c3f-94295c3cbeb5`/`17e6`.
+- Both remain active on exact requested scopes. Persist the mapping and await
+  proactive responses; no continuous polling or worker-worktree reads.

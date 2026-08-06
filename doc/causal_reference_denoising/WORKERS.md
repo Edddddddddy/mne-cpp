@@ -6693,6 +6693,15 @@ does not continuously poll them.
   blocked-stop acceptance, SPEC correction and the later POSIX-RED/Sol-fix
   sequence. Both tasks remain proactive-response only.
 
+### RESOLVED QUEUE-HOLD-CORRECTION-THREADS-001
+
+- A single read-only task-list lookup resolves the concurrency setup to visible
+  thread `019fd69f-9196-7a82-9c3f-941076fb84fa`, app worktree `a656`.
+- It resolves the SPEC setup to visible thread
+  `019fd69f-9196-7a82-9c3f-94295c3cbeb5`, app worktree `17e6`.
+- Both are active Luna/max tasks on the exact requested base and scopes. Do not
+  poll or inspect their worktrees; consume only proactive structured responses.
+
 ### ARCHIVED W-QUEUE-ALLOC-TEST-001
 
 - App archive succeeds for one-shot Luna/max thread
