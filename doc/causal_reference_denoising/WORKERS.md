@@ -8530,6 +8530,18 @@ does not continuously poll them.
   event wait for initial progress; do not continuously poll or inspect the
   worker worktree.
 
+### PUBLICATION / WAIT W-PLUGIN-UI-WIRE-001
+
+- public dispatch / issue #6 comment/read-back:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208859667`.
+- wait / one 60-second cursor-aware event wait times out with task active. The
+  latest commentary says only that the worker is locating the checked-in
+  recovery document path before reading STATE first; it reports no blocker,
+  code change, commit or user-input request.
+- next / do not poll again or inspect the app worktree. Use manager time for
+  read-only final-review/verification preparation and await the worker's
+  proactive structured response.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are

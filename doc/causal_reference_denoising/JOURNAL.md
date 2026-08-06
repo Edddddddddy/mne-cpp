@@ -6145,3 +6145,19 @@ hidden reasoning is not.
   `W-PLUGIN-UI-WIRE-001`. The local start ref remains exact at `60fdf633f`.
 - Publish dispatch before any wait. Do not inspect the worktree or continuously
   poll; the worker must proactively return its exact-parent two-file response.
+
+### E-609 - Plugin UI wiring dispatch published
+
+- Issue #6 comment/read-back records exact code base, visible Sol/ultra task,
+  two-source scope, frozen callback and block-boundary/diagnostics obligations at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208859667`.
+- Issue #6 remains open. No checklist or issue state changes are made before
+  integration and independent UI review.
+
+### E-610 - One bounded UI wiring wait shows recovery progress
+
+- A single 60-second event wait times out with the Sol/ultra task active. Its
+  only commentary is recovery-file path discovery before reading STATE first;
+  there is no blocker, response, commit or input request.
+- Stop polling. Await the proactive response while preparing only read-only
+  manager validation and final-review steps outside the worker worktree.

@@ -787,3 +787,7 @@ same-responsibility implementation conversations that may receive review fixes.
   `client-new-thread:0b5832f3-60f5-4d75-8cad-24ee7dba22fc`; the visible task is
   `019fd8b9-bf4c-7ad2-a647-786634476d30` in app worktree `9355`, renamed
   `W-PLUGIN-UI-WIRE-001`. Await its proactive response without polling.
+- Dispatch is public at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208859667`.
+  One bounded event wait times out with the worker active in recovery-path
+  discovery; no blocker, commit or input request exists. Do not poll again.
