@@ -4691,3 +4691,13 @@ hidden reasoning is not.
 - Completed one-shot allocation thread `019fd670-c791-7000-8a5f-4538396a54d6`
   is app-archived after durable exact commit, integration, canonical Release and
   GitHub evidence. No manual worktree deletion occurs.
+
+### E-456 - Learning-guide queue-v2 revision response recovered
+
+- A single immediate task snapshot finds completed retained Luna/max response
+  `fb748082f` on exact parent `fa832d51d`, one learning-guide file only.
+- The response fixes adapter-default attribution and the queue-v2 variable-
+  rectangle/native-owner seam with clean link/fence/diff evidence.
+- It is held because final atomic event/pipe design and benchmark command/
+  workload/results are newer requirements. Persist the response, inspect the
+  exact one-file diff, then issue one combined narrow final revision.

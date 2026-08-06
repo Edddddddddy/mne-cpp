@@ -443,9 +443,11 @@ same-responsibility implementation conversations that may receive review fixes.
 - Prepared next queue gate: a separate Luna/max producer-thread allocation
   test, then the retained Sol/ultra formal reviewer rechecks P0-P2.
 - Learning guide remains held in its retained Luna/max conversation. After its
-  active queue-v2 response, one combined narrow revision must describe the
-  final atomic wake and add benchmark command/workload/results
-  `2.725/4.317/8.557 ms` before issue #7 can close.
+  queue-v2 response, replacement `fb748082f` on exact parent `fa832d51d`
+  correctly fixes adapter defaults and the variable-rectangle/native-metadata
+  seam. It predates the final atomic wake and measured benchmark evidence; one
+  combined narrow Luna/max revision must add those facts before integration and
+  issue #7 closure.
 - After queue review passes: integrate/formally review plugin data, implement
   programmatic minimal UI, add focused block-boundary settings/lifecycle
   evidence, run final targets/review, update and close issues #5/#6/#7/#3/#2.
