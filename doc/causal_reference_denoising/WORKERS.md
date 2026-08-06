@@ -8035,3 +8035,14 @@ does not continuously poll them.
   five-finding scope, manager-evidence boundary and PASS rule.
 - state / await one proactive PASS/HOLD response; teaching UI remains held and
   no duplicate reviewer is created.
+
+### WAIT R-PLUGIN-DATA-002-001
+
+- mechanism / one 60-second cursor-aware app wait after GitHub publication.
+- result / timeout with the retained reviewer still active; no approval/input
+  request and no final gate.
+- latest progress / recovery records agree on three immediate correction
+  dispositions and two explicit issue-#8 deferrals; reviewer is auditing exact
+  current-line behavior and unchanged queue/processor contracts.
+- next / no repeated polling. Continue only read-only UI/task preflight and
+  await the proactive structured PASS/HOLD response.

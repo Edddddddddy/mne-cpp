@@ -682,4 +682,7 @@ same-responsibility implementation conversations that may receive review fixes.
   `3dca8628eb43029ea35980e869da1a44d21b053a` as `R-PLUGIN-DATA-002`.
   The dispatch is published and read back at
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208534174`.
-  UI remains blocked until its proactive PASS/HOLD response.
+  One bounded wait shows the review active: the reviewer confirms the intended
+  three immediate closures/two issue-#8 deferrals and is checking exact current
+  lines plus unchanged queue/processor contracts. UI remains blocked until its
+  proactive PASS/HOLD response; do not poll again.

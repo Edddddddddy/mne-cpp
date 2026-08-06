@@ -5858,3 +5858,11 @@ hidden reasoning is not.
 - No issue state or epic checkbox changes. Proceed with one bounded wait only;
   a PASS unlocks the prepared Luna/max UI RED tracer, while a HOLD is persisted
   before any minimal correction request.
+
+### E-581 - One bounded lifecycle re-review wait remains active
+
+- A single 60-second cursor-aware wait times out without a gate or input
+  request. Reviewer commentary confirms the intended three immediate closures
+  and two issue-#8 deferrals, then continues exact line/contract inspection.
+- Do not poll again. Use manager time only for read-only UI/task preflight;
+  production/test edits remain held until the proactive PASS/HOLD response.
