@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-07T03:40:25+08:00
+Last updated: 2026-08-07T03:42:06+08:00
 
 ## Recovery order
 
@@ -710,6 +710,10 @@ same-responsibility implementation conversations that may receive review fixes.
   numerical core `45/0/0`, processor/queue `19/0/0`, teaching example PASS and
   benchmark PASS at p50/p95/max `2.227/2.643/3.787 ms`. No full app/server is
   used. These are the current final-QA baseline while UI work proceeds.
+- Current numerical Debug configuration also rebuilds and reports `45/0/0`;
+  chunk differences remain zero and quantitative values remain 58.6541 dB /
+  0.000113195. The project intentionally places the Debug executable in the
+  shared `out/Release/apps` path, which the corrected harness follows.
 - With issue #5 and both formal gates complete, the spent atomic implementation,
   queue review and plugin lifecycle review conversations are app-archived. The
   only active code task is UI tracer thread

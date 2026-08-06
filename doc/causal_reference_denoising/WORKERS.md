@@ -8142,6 +8142,20 @@ does not continuously poll them.
 - boundary / focused Release only; no real plugin target, full mne_scan or
   `mne_rt_server` execution and no vendor/dependency changes.
 
+### VALIDATION FINAL-CORE-DEBUG-001
+
+- build / `cmake --build build-causal-reference-denoising --config Debug
+  --target test_causal_reference_denoiser` succeeds. This repository CMake
+  intentionally maps both configuration outputs to `out/Release/apps`.
+- harness failure / the first launch assumes `out/Debug/apps` and fails before
+  execution because that path does not exist. No test result is inferred.
+- correction / launch the exact executable path printed by MSBuild with a
+  dedicated reporter. Exit zero; QtTest totals `45 passed, 0 failed/skipped/
+  blacklisted`, chunk stream/probe differences zero, noise reduction 58.6541 dB
+  and clean amplitude error 0.000113195.
+- boundary / focused Debug numerical test only; no plugin/full app/server or
+  source/dependency modification.
+
 ### ARCHIVED COMPLETED QUEUE/PLUGIN GATES
 
 - archived / retained atomic implementation thread

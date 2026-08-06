@@ -5975,3 +5975,13 @@ hidden reasoning is not.
   including stable widget seam and three-file RED-only scope.
 - Treat this as progress, not an implementation result. Do not poll again or
   inspect the worker worktree; await the proactive structured response.
+
+### E-592 - Final numerical Debug replay is GREEN after path correction
+
+- Debug configuration builds successfully but the repository maps its output
+  to `out/Release/apps`; the first manager launch assumes `out/Debug/apps` and
+  fails before execution. Record the harness path error without test inference.
+- Launching the exact MSBuild-reported path yields QtTest `45/0/0`, zero chunk
+  differences, 58.6541 dB reduction and 0.000113195 amplitude error.
+- This completes current Release/Debug focused numerical evidence without
+  touching the active UI worker, full app, server or vendor dependencies.
