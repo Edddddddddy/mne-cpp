@@ -5607,3 +5607,15 @@ hidden reasoning is not.
   held UI tracer.
 - Do not close either issue or change epic #2 checkboxes yet. Closure requires
   lifecycle PASS for #5 and UI/block-boundary PASS for #6.
+
+### E-556 - GitHub queue/plugin status reconciliation succeeds
+
+- Issue #5 body/read-back now records the accepted atomic/native-wake design,
+  Windows 19/0/0 plus repeat/zero-allocation evidence, WSL 21/0/0 forced-EINTR
+  evidence, exact queue review PASS and the active lifecycle gate.
+- Issue #6 body/read-back now records integrated plugin commits, MOC/ingress
+  evidence, the pre-plugin Qt/MSVC environment block, active lifecycle review
+  and the held test-first UI sequence.
+- Both issues remain OPEN and epic #2 remains unchanged, as planned. URLs:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5` and
+  `https://github.com/Edddddddddy/mne-cpp/issues/6`.
