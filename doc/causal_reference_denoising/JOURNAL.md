@@ -5027,3 +5027,11 @@ hidden reasoning is not.
   base `8539c8e85`, focused test source only.
 - Publish the dispatch on issue #5, then await its proactive response without
   polling or inspecting the app-owned worktree.
+
+### E-493 - Concurrency GREEN and fresh timing task published
+
+- Issue #5 comment/read-back succeeds at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5204838157`.
+  It records integration `1a478f6c3`, canonical `0,0,0,0` exits, the forced-
+  reuse/public-oracle evidence, remaining elapsed-wait P2, fresh Luna/max setup
+  ID and archived spent conversation.
