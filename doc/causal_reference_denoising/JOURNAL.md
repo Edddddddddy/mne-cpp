@@ -4557,3 +4557,11 @@ hidden reasoning is not.
   malformed-metadata suppression, accepted plugin commits and fresh-widget/
   pending-snapshot controls.
 - Issue #6 remains open and held behind atomic queue integration/review.
+
+### E-441 - Atomic queue final thread ID resolved once
+
+- A single read-only task-list call after setup identifies active visible
+  thread `019fd64b-2553-7102-91d6-1f8d35720823`, worktree `8553`, with the
+  exact atomic queue request.
+- Persist the ID, then use at most one bounded app wait; do not continuously
+  poll or read its worktree.

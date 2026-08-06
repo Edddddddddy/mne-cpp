@@ -397,7 +397,8 @@ same-responsibility implementation conversations that may receive review fixes.
   processor/core QA, and queue public concurrency/lifetime test integration
   `16053ffe6` with populated Release plus three repeat zero exits.
 - Single blocking production task: `W-QUEUE-ATOMIC-GREEN-001`, visible
-  Sol/ultra setup `client-new-thread:3fb21cfc-1d5b-40a1-b6ef-fb57b91db17b`,
+  Sol/ultra thread `019fd64b-2553-7102-91d6-1f8d35720823` (setup
+  `client-new-thread:3fb21cfc-1d5b-40a1-b6ef-fb57b91db17b`),
   exact source base `41a2b76fb`, queue header/source only. Public dispatch:
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202544531`.
   Do not poll; await proactive RESPONSE.

@@ -6345,6 +6345,9 @@ does not continuously poll them.
   RESPONSE requirement. No final thread ID exists yet; do not poll setup.
 - Public dispatch/read-back:
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202544531`.
+- One bounded post-creation task-list resolution identifies the final visible
+  thread as `019fd64b-2553-7102-91d6-1f8d35720823`, active in app worktree
+  `8553`, with the exact task title/prompt. This is not repeated polling.
 
 ### RETIREMENT-READY W-QUEUE-ATOMIC-TEST-001
 
