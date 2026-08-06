@@ -7497,3 +7497,9 @@ does not continuously poll them.
   one-source SPSC admission fix `34a8096f1`; both diffs pass whitespace checks.
 - Integration remains blocked only by queue formal PASS. No code is consumed
   while the review is active.
+
+### PROGRESS R-QUEUE-ATOMIC-003-RETRY-1 - sensitivity audit
+
+- Reviewer remains active and reports checking exact production/test support
+  for 25 ms POSIX fallback and whole-call elapsed-time closure claims. This is
+  not a gate decision; plugin lifecycle remains held.

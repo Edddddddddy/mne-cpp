@@ -5412,3 +5412,11 @@ hidden reasoning is not.
   `5f4718722`; exact-parent fix `34a8096f1` remains one plugin-source file.
 - Both held commit diffs pass whitespace checks. No cherry-pick occurs before
   queue reviewer PASS, and current uncommitted changes remain documentation only.
+
+### E-535 - Final reviewer audits closure sensitivity
+
+- A later bounded wait times out with reviewer still active. Latest commentary
+  confirms exact code/public-test validation of the durable closure claims,
+  especially the 25 ms POSIX fallback and complete-call elapsed gates.
+- No PASS/HOLD yet. Keep plugin integration held and await proactive final;
+  UI seam remains frozen and disjoint planning only.
