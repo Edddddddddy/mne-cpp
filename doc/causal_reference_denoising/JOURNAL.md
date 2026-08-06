@@ -3573,3 +3573,22 @@ hidden reasoning is not.
   SPEC contract audit and declaration-token preservation.
 - Next: commit/push creation evidence, publish/read back issue #3 and do not
   poll or overlap the processor header.
+
+### E-340 - Processor locality response received
+
+- Publish/read-back: issue #3 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5199978887`
+  records the visible comments-only task.
+- Response: exact-parent `1d60ed4f7`, one processor header/68 comment-only
+  insertions. The worker audited source/SPEC and reports identical stripped
+  declaration token hashes before/after.
+- Next: commit/push response, inspect the complete diff and every contract claim,
+  then integrate only if comments remain truthful and declarations unchanged.
+
+### E-341 - First real library-link probe is inconclusive
+
+- Command: populated Release build of target `mne_rtprocessing` only.
+- Result: no output before the 124-second wrapper timeout; spawned cmake/MSBuild/
+  compiler processes remained active and were stopped by their exact PIDs.
+- Evidence value: none for pass/fail. Record the timeout without attributing it
+  to Qt/FIFF, then retry later through a narrower bounded client-link/log path.

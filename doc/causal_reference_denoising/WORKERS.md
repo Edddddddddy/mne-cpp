@@ -4639,6 +4639,45 @@ does not continuously poll them.
 - Coordination: manager will not poll or overlap the processor header; await
   only proactive structured response after public issue #3 dispatch.
 
+### PUBLISH W-QA-PROC-LOCALITY-001-START
+
+- GitHub issue #3 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5199978887`.
+- Authenticated `gh` write/API read-back exactly record the comments-only
+  Luna/max worker, base/scope, required local contract, declaration preservation
+  and no-runtime/no-server restrictions.
+
+### RESPONSE W-QA-PROC-LOCALITY-001
+
+- From / to: visible Luna/max processor-locality worker / manager; source
+  thread `019fd512-20ce-75d2-8bcc-892695e67352`.
+- Exact base/commit: `16c9938724dbb455098a1bb69349d327b7f4817f` /
+  `1d60ed4f761b998ef882e11ca5df731a11dcedfa`; parent is exact and the
+  detached worktree is reported clean.
+- Scope: only `adaptivedenoisingprocessor.h`, 68 comment insertions and no
+  deletion. Worker reports no declaration/include/formatting or other-file edit.
+- Contract locations cover the data-only mapping seam, defaults/ranges/P cap,
+  fixed statuses/counts, worker ownership, returned-failure disarm, Ready reset,
+  allocation-exception preservation plus caller fail-closed rule, armed/
+  disarmed process semantics, target-only mutation, hot-path constraints,
+  reset and committed snapshot.
+- Declaration proof: base/commit header after comment+whitespace stripping have
+  identical SHA-256 `25a643579ca9fa3cb4be10bb924c9e5b12326ef583fc34f7e595703ecb6add35`
+  and normalized length 1922. Diff/scope checks pass; comments-only build was
+  not claimed. Luna/max, no subagent/poll/full scan/full mne_scan/vendor/server.
+- Status: response durable before manager contract/source review or integration.
+
+### VALIDATION R-CORE-LINK-001-ATTEMPT-1
+
+- Manager invoked only the populated Release `mne_rtprocessing` library target;
+  no full application or server target was requested.
+- Result: the wrapper timed out after 124 seconds with no captured build output;
+  child `cmake`, `MSBuild` and `cl` processes continued and were stopped by
+  exact PID to avoid an orphaned background build.
+- Classification: inconclusive infrastructure attempt, neither GREEN nor the
+  previously expected Qt/FIFF failure evidence. A later retry must use a narrow
+  verbose/logged client-link target or bounded MSBuild invocation.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread
