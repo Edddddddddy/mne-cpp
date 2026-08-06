@@ -5111,3 +5111,68 @@ does not continuously poll them.
   server failure masks the result.
 - Decision: production GREEN may now be dispatched as a separate Sol/ultra
   task. The test remains immutable until queue-v2 is implemented and reviewed.
+
+### PUBLISH W-QUEUE-V2-TEST-001-RED
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5200141019`.
+- Authenticated `gh` write/API read-back exactly records worker/integration/
+  evidence commits, one-test-file scope, the three public-interface compiler
+  failures, valid TDD RED classification and no full-scan/server/vendor work.
+
+### REQUEST W-QUEUE-V2-GREEN-001
+
+- From / to: manager / new visible queue-v2 implementation conversation.
+- GitHub issue: `Edddddddddy/mne-cpp#5`.
+- Model/environment: `gpt-5.6-sol`, `ultra`, new saved-project worktree from
+  the exact integration branch after this request is committed/pushed; no
+  internal/nested subagents or manager polling.
+- Model decision: this slice owns SPSC publication, stop races, native shared
+  ownership and callback hot-path guarantees, so it requires Sol/ultra.
+- TDD goal: make the integrated queue-v2 public-contract tracer GREEN without
+  editing any test. Preserve all older queue/processor behaviors in the same
+  focused executable.
+- Interface: replace exact `channelCount` with positive `maxChannelCount`;
+  `AdaptiveDenoisingQueuedBlock` reports `rowCount` and `sampleCount`; metadata
+  and `tryPush` use `QSharedPointer<const FIFFLIB::FiffInfo>`. Keep one concrete
+  final PImpl module with configure/tryPush/waitPop/stop and deleted copy/move;
+  add no strategy, registry, base class or FIFF dereference.
+- Allocation/state: configure validates positive maxima/capacity within
+  QSemaphore's integer range, allocates every slot as
+  `maxChannelCount x maxBlockSamples` transactionally and publishes a fresh
+  running empty queue only after success. An active configure returns
+  AlreadyRunning. Reconfigure/destruction require producer/consumer quiescence.
+- Producer: accept only `0 < rows <= maxChannelCount` and
+  `0 < cols <= maxBlockSamples`; do exactly one zero-time free-slot acquire;
+  Full/invalid/stopped must not write or advance. Copy the exact top-left valid
+  rectangle, store both extents and the native metadata handle, then publish
+  one filled token. No resize, retry, busy wait, string or FIFF work.
+- Consumer: require the destination matrix exactly equals configured maxima;
+  do one timed filled-slot acquire. On Popped copy only the valid top-left
+  rectangle and both extents/metadata, leaving the destination tail untouched;
+  clear the slot handle, advance once and release one free token. Invalid/
+  timeout/stopped paths preserve caller destination state.
+- Stop/races: atomic idempotent stop prevents later pushes and wakes a blocked
+  consumer without reading a slot; pending blocks may be discarded. Audit
+  stop before/during acquired push/pop and avoid publishing/releasing a token
+  that can corrupt a later fresh configuration. Caller quiescence remains an
+  explicit interface constraint before replacing/destroying the PImpl.
+- Realtime/noexcept: after configure, tryPush/waitPop/stop must allocate no
+  heap memory, use no explicit mutex and create no strings. QSharedPointer
+  copies reuse the native control block; verify the installed Qt C++14
+  nothrow assumptions and keep declared noexcept truthful.
+- Authorized files only:
+  `src/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingblockqueue.h`
+  and `.cpp`. Focused CMake already compiles the source; change it only if a
+  demonstrable build requirement exists and report that before doing so.
+- Required validation: exact diff/scope/clean checks; focused Release build/run
+  if the isolated worktree permits, otherwise report the known ignored-Eigen
+  limitation honestly. Do not copy/repair dependencies. Manager owns populated
+  GREEN and a fresh independent Sol/ultra queue review.
+- Required response: begin `RESPONSE W-QUEUE-V2-GREEN-001`; include exact
+  base/commit, complete interface/state/race/ordering/no-allocation argument,
+  changed files, build evidence/limitation and clean/no-subagent/no-poll/no-
+  full-scan/no-rt_server confirmation. Proactively notify manager and stop.
+- Lifecycle: retain only until manager integration/GREEN and review-driven fix
+  determination; archive if no same-context correction remains.
+- Status: recorded before visible task creation.

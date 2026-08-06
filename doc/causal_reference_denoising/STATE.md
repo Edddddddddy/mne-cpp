@@ -170,6 +170,13 @@ still accepts `std::shared_ptr` metadata. No unrelated failure masks it. A new
 Sol/ultra queue-v2 production task is the next blocking action; no production
 queue change has been accepted yet.
 
+Queue-v2 RED is published at
+`https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5200141019`.
+`W-QUEUE-V2-GREEN-001` is prepared as the next blocking visible Sol/ultra
+implementation task. It owns only the existing queue header/source; the
+focused RED test is immutable. Manager will record its exact task base after
+the durable request commit and will not poll the task.
+
 The compatible-toolchain follow-up found no usable Visual Studio 2022
 installation: the directory exists but contains no MSBuild/compiler, and
 `vswhere -all -prerelease -products *` lists only Visual Studio 18.8.1 with

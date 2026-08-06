@@ -3772,3 +3772,15 @@ hidden reasoning is not.
   fix is mixed into it; dispatch a separate Sol/ultra implementation limited to
   the existing queue header/source, then require the complete focused suite to
   return GREEN.
+
+### E-359 - Queue-v2 RED published and production requested
+
+- Publish/read-back: issue #5 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5200141019`
+  exactly records the integrated RED and its old-interface errors.
+- Request: `W-QUEUE-V2-GREEN-001`, new visible Sol/ultra implementation task
+  limited to the queue header/source. The interface is the test surface: native
+  Qt ownership, maximum slot dimensions, per-block extents, top-left copy,
+  drop-newest and stop/reconfigure semantics remain hidden behind four methods.
+- Coordination: commit/push the request, create the worktree from that exact
+  branch state, publish the dispatch and await only its proactive RESPONSE.
