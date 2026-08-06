@@ -6161,3 +6161,27 @@ hidden reasoning is not.
   there is no blocker, response, commit or input request.
 - Stop polling. Await the proactive response while preparing only read-only
   manager validation and final-review steps outside the worker worktree.
+
+### E-611 - Plugin issue status body reconciled
+
+- Issue #6's Current status still described the earlier lifecycle review as
+  active. Replace only that section with exact lifecycle PASS, integrated widget
+  GREEN, active Sol wiring task and existing MSVC14.51/Qt environment boundary.
+- The first read-back command has a PowerShell-to-jq quoting error after the
+  body update succeeds; it is a verification harness failure, not an issue
+  mutation failure. Corrected PowerShell JSON read-back confirms issue OPEN,
+  all new markers present and stale active-review text absent.
+
+### E-612 - Final UI verification preflight frozen
+
+- Read-only issue audit confirms only #6 and final QA #3 remain before epic #2
+  closure; issue #8 intentionally stays open for deferred lifecycle teardown.
+- Freeze exact pre-wiring `update()` segment: 1218 characters, SHA-256
+  `eaf16dc13bc5036da3e6d33f901885622b2337e018c8baf5a504a34e57d3b0a4`, one
+  metadata snapshot, one queue push site and zero mutex/wait tokens.
+- The first hash probe uses unavailable static `.HashData()`/`ToHexString()`
+  APIs in this Windows PowerShell runtime and emits an empty hash; a corrected
+  `SHA256.Create().ComputeHash()` probe succeeds. No file is changed.
+- After the response, require exact two-file scope, this byte-identical callback
+  hash, MOC/C++14/focused UI evidence, complete focused regressions and a new
+  independent Sol/ultra read-only UI review before issue closure.

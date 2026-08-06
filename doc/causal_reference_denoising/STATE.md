@@ -791,3 +791,9 @@ same-responsibility implementation conversations that may receive review fixes.
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208859667`.
   One bounded event wait times out with the worker active in recovery-path
   discovery; no blocker, commit or input request exists. Do not poll again.
+- Issue #6's body is reconciled to the current lifecycle PASS, widget GREEN,
+  active Sol wiring task and unchanged Qt/MSVC environment boundary. The issue
+  remains OPEN and all goal/contract/acceptance text is preserved.
+- Manager freezes the pre-wiring acquisition callback segment at 1218 characters
+  with SHA-256 `eaf16dc13bc5036da3e6d33f901885622b2337e018c8baf5a504a34e57d3b0a4`;
+  it contains one metadata `info()` and one `tryPush`, with no mutex/wait token.
