@@ -6459,6 +6459,14 @@ does not continuously poll them.
   vendor repair or internal subagent. Proactively send
   `RESPONSE W-QUEUE-ALLOC-TEST-001`; do not poll manager.
 
+### FAILURE W-QUEUE-ALLOC-TEST-001-CREATE-1
+
+- The first local task-creation script failed to parse before any app call
+  because unescaped backticks around the word `new` terminated its JavaScript
+  template literal.
+- No task, worktree, repository or external state changed. Retry once with the
+  same exact base/model/scope using plain prompt text.
+
 ### RETIREMENT-READY W-QUEUE-ATOMIC-TEST-001
 
 - Thread `019fd5fa-f207-7fe3-9189-8d77fc9cfade` is one-shot. Exact commit,

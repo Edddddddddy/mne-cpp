@@ -4602,3 +4602,10 @@ hidden reasoning is not.
 - Prepare `W-QUEUE-ALLOC-TEST-001` from exact `9b7b1c779`, Luna/max, focused
   test only: thread-local-counted global C++ allocation replacements wrap each
   sustained-test producer `tryPush`; expected count is exactly zero.
+
+### E-446 - Allocation task create prompt parse failure
+
+- Unescaped backticks in the local JavaScript template prevent the create call
+  from being issued. No app/repository/external mutation exists.
+- Persist the failure and retry once with plain-text prompt; task contract and
+  exact base remain unchanged.
