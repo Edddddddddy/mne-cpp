@@ -4695,6 +4695,16 @@ does not continuously poll them.
   source Release/Debug/example/benchmark evidence and defer actual shared/static
   client-link smoke to a compatible Qt/MSVC environment.
 
+### PUBLISH R-CORE-LINK-001-DEFER
+
+- GitHub issue #3 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5200077990`.
+- Authenticated `gh` write was immediately corrected from a placeholder head to
+  exact evidence commit `e6f4e48d9`; PATCH read-back confirms the final body.
+- The public record exactly identifies the narrow project command, Qt/MSVC
+  failure, unrelated existing instantiation paths, compatible-toolchain deferral
+  and no-vendor/no-server decision.
+
 ### DISCUSSION PLUGIN-INGRESS-002
 
 - Evidence: production input owns `QSharedPointer<FiffInfo>`; `info()` returns a

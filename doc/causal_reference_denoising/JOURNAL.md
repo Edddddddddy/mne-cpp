@@ -3685,3 +3685,13 @@ hidden reasoning is not.
   permits. Do not patch vendor; require compatible-toolchain link smoke later
   and keep local focused Release/Debug/example/benchmark evidence.
 - Next: commit/push evidence and publish/read back issue #3.
+
+### E-351 - Link-smoke environment deferral published
+
+- Publish: issue #3 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5200077990`.
+- Presentation correction: the initial body said evidence head was pending; it
+  was immediately PATCHed to exact `e6f4e48d9` and API read-back confirms the
+  final content.
+- Decision is durable: compatible-toolchain smoke remains future work; local
+  engineering MVP proceeds on focused evidence without vendor/server changes.
