@@ -4945,3 +4945,11 @@ hidden reasoning is not.
 - Prepare a same-thread Luna/max one-file delta from `7aa5360a2` requiring the
   stopped wait to have a positive measured duration and prompt upper bound.
   Do not integrate the large test commit until this narrow correction returns.
+
+### E-484 - Blocked-wait timing revision dispatched
+
+- Retained visible thread `019fd69f-9196-7a82-9c3f-941076fb84fa` accepts the
+  exact-parent `7aa5360a2` one-test-file delta request with explicit Luna/max.
+- The response contract requires elapsed `Stopped` wait >=5 ms and <1500 ms,
+  full retained public oracles and a new delta commit. Manager will await the
+  proactive response without inspecting the worker worktree.

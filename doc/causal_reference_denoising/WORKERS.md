@@ -6708,6 +6708,9 @@ does not continuously poll them.
   oracle, allocation count, finite deadlines and post-join Qt assertions.
 - Evidence: exact delta/parent/scope/clean proof and full focused MSVC Release-
   style result plus repeats; no production/CMake/vendor/server/full app change.
+- Dispatch: accepted by the retained visible thread with explicit Luna/max;
+  it must proactively return `RESPONSE W-QUEUE-CONCURRENCY-TEST-002-REVISE-1`
+  and must not poll the manager.
 
 ### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
 
