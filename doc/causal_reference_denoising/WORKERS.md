@@ -7447,3 +7447,23 @@ does not continuously poll them.
 - dispatch / retained visible review thread accepts the exact-snapshot follow-up
   with explicit `gpt-5.6-sol` / `ultra`; await proactive response without
   polling or inspecting its worktree.
+
+### RESPONSE R-QUEUE-ATOMIC-003 - HOLD / request SHA mismatch
+
+- requested SHA / invalid full object
+  `5aa43160b64bf0a96d2918331ca8c28d4dc078ab`
+- actual pushed commit / `5aa43160bbae27560c4f4fe013728a6476013db0`
+- Reviewer fetches the pushed branch read-only, refuses to substitute a same-
+  prefix object, and returns HOLD without reviewing code or issuing P0-P3.
+- Final reviewer state remains clean/detached at prior `9535bf8c7`; only local
+  Git metadata changed. No source/build/test/GitHub/server action occurred.
+- Manager disposition / request identity error. No queue finding or regression
+  is inferred; issue a corrected exact-SHA follow-up to the same Sol/ultra
+  review conversation.
+
+### REQUEST R-QUEUE-ATOMIC-003-RETRY-1
+
+- exact snapshot / `5aa43160bbae27560c4f4fe013728a6476013db0`
+- scope/gate / identical to `R-QUEUE-ATOMIC-003`; read-only complete queue,
+  tests/CMake, live SPEC, caller compatibility and all prior finding disposition.
+- response / proactive exact-SHA P0-P3 PASS/HOLD; no source or external mutation.

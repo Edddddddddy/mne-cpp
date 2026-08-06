@@ -5366,3 +5366,15 @@ hidden reasoning is not.
 - Await proactive response without polling. In parallel, perform only the
   already authorized held plugin-lifecycle integration preflight; do not
   integrate plugin code before the queue review gate returns PASS.
+
+### E-530 - Final queue review HOLD is a manager SHA transcription error
+
+- Reviewer cannot resolve requested full SHA
+  `5aa43160b64bf0a96d2918331ca8c28d4dc078ab`; branch fetch shows the intended
+  prefix resolves to actual commit `5aa43160bbae27560c4f4fe013728a6476013db0`.
+- Reviewer correctly refuses substitution, performs no code review and keeps a
+  clean prior detached snapshot. This HOLD is request identity only, not a code
+  finding.
+- Persist the mismatch, then resend the identical read-only Sol/ultra review
+  using the actual full SHA. No new thread is needed because the reviewer role
+  and worktree remain reusable.
