@@ -4063,3 +4063,15 @@ hidden reasoning is not.
   `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5201120187`.
 - API read-back confirms the exact held commit, P2 queue/default mismatch and
   same-parent one-file Luna/max revision gate.
+
+### E-387 - Queue-v2 implementation response received
+
+- Sol/ultra worker proactively returned exact-parent two-file commit
+  `90b423e3c` after the recovered same-conversation retry.
+- Response implements native Qt metadata, maximum preallocated dimensions,
+  variable row/sample extents, top-left/tail behavior, transactional configure,
+  SPSC semaphore/index commit points, idempotent stop and explicit caller
+  quiescence, with no hot-path allocation/lock/string/FIFF access.
+- Isolated build remains blocked only by the ignored Eigen gap; exact scope and
+  clean proof pass. Next: persist, then manager full two-file review before
+  cherry-pick/populated GREEN/fresh formal review.

@@ -5546,6 +5546,45 @@ does not continuously poll them.
 - Status: response durable; manager review is next, integration held behind
   queue-v2 GREEN.
 
+### RESPONSE W-QUEUE-V2-GREEN-001
+
+- Exact required base/parent:
+  `9b526eb1429b3e1292a0c58fae3d73fde34eb97c`.
+- Implementation commit:
+  `90b423e3c93ab744855d71069dec1cae08691f47`; worker worktree clean/detached.
+- Exact scope: only `adaptivedenoisingblockqueue.h/.cpp`; immutable focused
+  test and all processor/plugin/core/docs/vendor files unchanged.
+- Interface: config uses maximum channel/sample bounds and capacity; queued
+  block carries maximum matrix, row/sample extents and native
+  `QSharedPointer<const FiffInfo>`; final four-method PImpl/deleted copy/move
+  surface remains deep and concrete.
+- Configure response: validates bounds and QSemaphore int capacity; constructs
+  candidate semaphores/vector/all maximum Eigen slots before publishing a fresh
+  running PImpl. Allocation exceptions propagate while old stopped ownership
+  remains untouched; running reconfigure is rejected.
+- Producer response: accepts any positive rectangle within maxima, performs one
+  zero-time free acquire, rechecks running at the commit point, scalar-copies
+  only the rectangle, stores both extents/native handle, advances once and
+  publishes once. Full/stopped/invalid do not mutate the ring.
+- Consumer response: exact maximum destination, one timed acquire, running
+  commit point, top-left copy with untouched tail, both extents/native metadata,
+  one advance/free publication. Invalid/timeout/stopped preserve destination.
+- Stop response: acq_rel exchange is idempotent; wakes only an empty waiter;
+  operations that pass the running commit point linearize before stop and may
+  finish, so documented caller quiescence is required before replacement.
+  Fresh PImpl prevents old tokens/indices from leaking across reconfigure.
+- Realtime response: native Qt handle operations are guarded by C++14 nothrow
+  traits; FIFF remains forward-declared. Hot paths use preallocated scalar
+  matrix copies, atomics and preconstructed QSemaphores only, with no resize,
+  allocation, retry/busy wait, explicit mutex, string or FIFF access.
+- Validation: exact parent/scope/clean and diff checks pass. Isolated focused
+  execution remains unavailable solely because ignored Eigen files are absent;
+  no dependency repair or false GREEN. Manager owns populated Release run.
+- Worker confirms visible Sol/ultra, no subagent, manager poll/read/wait, full
+  scan/mne_scan, vendor repair or mne_rt_server.
+- Status: response durable; manager exact diff/interface/race review precedes
+  cherry-pick and complete populated focused GREEN.
+
 ### RESPONSE W-QA-CORE-CONTRACT-001-RETRY-1-DISPATCH
 
 - App accepted the follow-up on existing thread
