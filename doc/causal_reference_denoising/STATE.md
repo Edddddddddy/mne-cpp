@@ -571,3 +571,16 @@ same-responsibility implementation conversations that may receive review fixes.
 - Producer `tryPush` and `stop()` retain exactly one nonblocking signal attempt:
   no EINTR retry, wait, lock, allocation, public hook or interface change. This
   bounds a lost signal to one consumer slice and preserves acquisition latency.
+
+### Completion estimate - 2026-08-07
+
+- Engineering progress is approximately 82-85%. The private POSIX bounded-
+  recheck fix is integrated as `f7c22717e` and is awaiting canonical Windows
+  validation plus independent queue review.
+- Remaining path: queue PASS; held plugin lifecycle integration/review; minimal
+  teaching UI and block-boundary tests; final focused Release/Debug/example/
+  benchmark and GitHub issue closure.
+- Estimated continuous time to acceptance is 2.5-4 hours absent a new Qt/MSVC
+  integration defect. Persistent WSL unavailability may explicitly defer the
+  forced-EINTR Linux runtime evidence but does not block Windows engineering
+  MVP acceptance.
