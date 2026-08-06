@@ -658,3 +658,8 @@ same-responsibility implementation conversations that may receive review fixes.
 - Follow-up issue #8 now durably owns terminal teardown and the supported
   real-plugin lifecycle harness. Issue #3 and #6 comments link the deferral;
   both findings remain explicit residual work rather than being marked fixed.
+- Active fixes from exact pushed base `48672b02eb35de300a046079028e96ec6d1b25b6`:
+  retained Sol/ultra thread `019fd59d-fcc8-7573-964d-ed930c4100a8` owns only
+  admission/drop/atomic/destructor-contract source changes; new Luna/max setup
+  `client-new-thread:8153b471-f290-4f15-8d7a-ac87cfeee593` owns only static
+  mne_scan CMake/main registration. Their files are disjoint.

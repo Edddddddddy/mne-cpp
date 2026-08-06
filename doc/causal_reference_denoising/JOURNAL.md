@@ -5691,3 +5691,12 @@ hidden reasoning is not.
   has no qrc, so no resource initializer is added.
 - Both tasks start from the same exact pushed request snapshot and may run in
   parallel because their edit scopes do not overlap. UI remains held.
+
+### E-564 - Immediate plugin lifecycle fixes dispatched
+
+- Retained plugin implementation thread accepts `W-PLUGIN-ADMISSION-FIX-001`
+  from exact base `48672b02eb35de300a046079028e96ec6d1b25b6` with Sol/ultra.
+- The app accepts new Luna/max static-registration setup
+  `client-new-thread:8153b471-f290-4f15-8d7a-ac87cfeee593` from the same base.
+- Source/header versus mne_scan CMake/main ownership is disjoint. Await proactive
+  responses; do not poll, run UI work or modify either worker's files.

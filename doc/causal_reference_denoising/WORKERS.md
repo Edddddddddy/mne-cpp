@@ -7741,6 +7741,9 @@ does not continuously poll them.
 - response / exact parent/commit/files, state transition table, callback audit,
   commands/results/limits and clean state; proactive response, no subagent,
   manager polling, full app or `mne_rt_server`.
+- dispatch / retained thread `019fd59d-fcc8-7573-964d-ed930c4100a8` accepts the
+  exact-base follow-up with explicit Sol/ultra. It must proactively respond and
+  manager will not poll or inspect its worktree.
 
 ### REQUEST W-PLUGIN-STATIC-001
 
@@ -7761,6 +7764,11 @@ does not continuously poll them.
   Qt/MSVC dependency boundary without vendor repair. No full app/server run.
 - response / exact parent/commit/two-file diff, guards, configure result and clean
   state; Luna/max, no subagent or manager polling.
+- setup / accepted as
+  `client-new-thread:8153b471-f290-4f15-8d7a-ac87cfeee593` on local host with
+  explicit Luna/max and an app-managed worktree from exact base
+  `48672b02eb35de300a046079028e96ec6d1b25b6`.
+- state / asynchronous setup accepted; await proactive response without polling.
 
 ### PREPARED REQUEST W-PLUGIN-UI-TEST-001
 
