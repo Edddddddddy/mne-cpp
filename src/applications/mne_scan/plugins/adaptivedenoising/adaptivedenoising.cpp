@@ -12,6 +12,7 @@
 
 #include "adaptivedenoisingblockqueue.h"
 #include "adaptivedenoisingprocessor.h"
+#include "adaptivedenoisingsetupwidget.h"
 
 #include <fiff/fiff_info.h>
 
@@ -30,6 +31,7 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <limits>
 #include <type_traits>
 
 //=============================================================================================================
@@ -96,6 +98,16 @@ static_assert(mapsToAlwaysLockFreeStandardAtomic<std::uint64_t>(),
 class AdaptiveDenoising::Impl
 {
 public:
+    // This is the sole GUI-to-worker settings seam. Acquisition never reads or locks it.
+    struct PendingSnapshot
+    {
+        bool enabled = true;
+        bool frozen = false;
+        AdaptiveDenoisingSettings settings;
+        std::uint64_t settingsRevision = 1u;
+        std::uint64_t resetSequence = 0u;
+    };
+
     class ProducerGuard final
     {
     public:
@@ -199,10 +211,121 @@ public:
         return true;
     }
 
+    void setPendingEnabled(bool enabled)
+    {
+        QMutexLocker locker(&pendingMutex);
+        pendingSnapshot.enabled = enabled;
+    }
+
+    void setPendingFrozen(bool frozen)
+    {
+        QMutexLocker locker(&pendingMutex);
+        pendingSnapshot.frozen = frozen;
+    }
+
+    void setPendingTapCount(int tapCount)
+    {
+        QMutexLocker locker(&pendingMutex);
+        const Eigen::Index value = static_cast<Eigen::Index>(tapCount);
+        if(pendingSnapshot.settings.tapCount != value) {
+            pendingSnapshot.settings.tapCount = value;
+            ++pendingSnapshot.settingsRevision;
+        }
+    }
+
+    void setPendingAdaptationInterval(int samples)
+    {
+        QMutexLocker locker(&pendingMutex);
+        const Eigen::Index value = static_cast<Eigen::Index>(samples);
+        if(pendingSnapshot.settings.adaptationIntervalSamples != value) {
+            pendingSnapshot.settings.adaptationIntervalSamples = value;
+            ++pendingSnapshot.settingsRevision;
+        }
+    }
+
+    void setPendingMemoryTimeSeconds(double seconds)
+    {
+        QMutexLocker locker(&pendingMutex);
+        if(pendingSnapshot.settings.memoryTimeSeconds != seconds) {
+            pendingSnapshot.settings.memoryTimeSeconds = seconds;
+            ++pendingSnapshot.settingsRevision;
+        }
+    }
+
+    void setPendingRegularization(double regularization)
+    {
+        QMutexLocker locker(&pendingMutex);
+        if(pendingSnapshot.settings.regularization != regularization) {
+            pendingSnapshot.settings.regularization = regularization;
+            ++pendingSnapshot.settingsRevision;
+        }
+    }
+
+    void requestPendingReset()
+    {
+        QMutexLocker locker(&pendingMutex);
+        ++pendingSnapshot.resetSequence;
+    }
+
+    PendingSnapshot copyPendingSnapshot()
+    {
+        QMutexLocker locker(&pendingMutex);
+        return pendingSnapshot;
+    }
+
     void disarmProcessor()
     {
         const AdaptiveDenoisingStreamDescriptor invalidStream{0.0, {}};
-        processor.configure(invalidStream, 0, settings);
+        processor.configure(invalidStream, 0, AdaptiveDenoisingSettings{});
+    }
+
+    void recordUnprocessedDiagnostics(AdaptiveDenoisingPluginState state) noexcept
+    {
+        const AdaptiveDenoisingConfigureResult configuration = processor.configuration();
+        const double quietNaN = std::numeric_limits<double>::quiet_NaN();
+        workerDiagnostics = AdaptiveDenoisingDiagnostics{
+            state,
+            configuration.status,
+            DenoiserProcessStatus::NotConfigured,
+            configuration.referenceCount,
+            configuration.targetCount,
+            configuration.featureCount,
+            0,
+            0,
+            0,
+            0,
+            quietNaN,
+            quietNaN,
+            quietNaN,
+            droppedBlocks.load(std::memory_order_relaxed)};
+    }
+
+    void recordProcessDiagnostics(AdaptiveDenoisingPluginState state,
+                                  const DenoiserProcessResult& result) noexcept
+    {
+        const AdaptiveDenoisingConfigureResult configuration = processor.configuration();
+        const DenoiserProcessDiagnostics& diagnostics = result.diagnostics;
+        workerDiagnostics = AdaptiveDenoisingDiagnostics{
+            state,
+            configuration.status,
+            result.status,
+            diagnostics.referenceRowCount,
+            diagnostics.targetRowCount,
+            diagnostics.featureCount,
+            diagnostics.warmupSamplesRemaining,
+            diagnostics.modelGeneration,
+            diagnostics.modelUpdatesAccepted,
+            diagnostics.modelUpdatesRejected,
+            diagnostics.inputRms,
+            diagnostics.outputRms,
+            diagnostics.estimatedNoiseRms,
+            droppedBlocks.load(std::memory_order_relaxed)};
+    }
+
+    void setWorkerPluginState(AdaptiveDenoisingPluginState state) noexcept
+    {
+        workerDiagnostics.pluginState = state;
+        workerDiagnostics.droppedBlocks = droppedBlocks.load(std::memory_order_relaxed);
     }
 
     void resetWorkerState()
@@ -218,6 +341,11 @@ public:
         workerSampleCount = 0;
         workerMetadataValid = false;
         workerHasState = false;
+        workerAppliedSettingsRevision = 0u;
+        workerAppliedResetSequence = 0u;
+        workerConfigurationException = false;
+        workerOutputReady = false;
+        recordUnprocessedDiagnostics(AdaptiveDenoisingPluginState::WaitingForData);
     }
 
     bool currentMetadataIsValid() const noexcept
@@ -231,7 +359,8 @@ public:
             && info->sfreq > 0.0f;
     }
 
-    bool currentBlockNeedsConfiguration(bool metadataValid) const noexcept
+    bool currentBlockNeedsConfiguration(bool metadataValid,
+                                        std::uint64_t settingsRevision) const noexcept
     {
         const QSharedPointer<const FiffInfo>& info = queuedBlock.fiffInfo;
         const double samplingFrequencyHz = info ? static_cast<double>(info->sfreq) : 0.0;
@@ -241,6 +370,7 @@ public:
             || workerRowCount != queuedBlock.rowCount
             || workerSampleCount != queuedBlock.sampleCount
             || workerMetadataValid != metadataValid
+            || workerAppliedSettingsRevision != settingsRevision
             || (metadataValid && workerSamplingFrequencyHz != samplingFrequencyHz);
     }
 
@@ -256,8 +386,12 @@ public:
         workerHasState = true;
     }
 
-    void configureCurrentBlock(bool metadataValid)
+    void configureCurrentBlock(bool metadataValid,
+                               const AdaptiveDenoisingSettings& settings)
     {
+        workerConfigurationException = false;
+        workerOutputReady = false;
+
         if(!metadataValid) {
             disarmProcessor();
             rememberCurrentBlockState(false);
@@ -281,13 +415,30 @@ public:
             // configure() is transactional, so explicitly disarm its preserved old ownership before forwarding
             // a block belonging to the new metadata/layout.
             disarmProcessor();
+            workerConfigurationException = true;
         }
 
-        // RealTimeMultiSampleArray's legacy initializer is not const-correct. This is the sole ownership bridge;
-        // neither the adapter nor the output path mutates the shared FIFF metadata.
-        QSharedPointer<FiffInfo> outputInfo = queuedBlock.fiffInfo.constCast<FiffInfo>();
-        output->measurementData()->initFromFiffInfo(outputInfo);
-        output->measurementData()->setMultiArraySize(1);
+        try {
+            // RealTimeMultiSampleArray's legacy initializer is not const-correct. This is the sole ownership
+            // bridge; neither the adapter nor the output path mutates the shared FIFF metadata.
+            QSharedPointer<FiffInfo> outputInfo = queuedBlock.fiffInfo.constCast<FiffInfo>();
+            output->measurementData()->initFromFiffInfo(outputInfo);
+            output->measurementData()->setMultiArraySize(1);
+            workerOutputReady = true;
+        } catch(...) {
+            disarmProcessor();
+            workerConfigurationException = true;
+        }
+
+        if(!workerOutputReady) {
+            workerFiffInfo.clear();
+            workerSamplingFrequencyHz = 0.0;
+            workerRowCount = 0;
+            workerSampleCount = 0;
+            workerMetadataValid = false;
+            workerHasState = false;
+            return;
+        }
 
         rememberCurrentBlockState(true);
     }
@@ -296,7 +447,9 @@ public:
     AdaptiveDenoisingQueuedBlock queuedBlock;
     Eigen::MatrixXd workerBlock;
     AdaptiveDenoisingProcessor processor;
-    const AdaptiveDenoisingSettings settings;
+
+    QMutex pendingMutex;
+    PendingSnapshot pendingSnapshot;
 
     QSharedPointer<const FiffInfo> workerFiffInfo;
     double workerSamplingFrequencyHz = 0.0;
@@ -304,6 +457,11 @@ public:
     Eigen::Index workerSampleCount = 0;
     bool workerMetadataValid = false;
     bool workerHasState = false;
+    // These markers are worker-owned while the thread runs and are reset only before a fresh start.
+    std::uint64_t workerAppliedSettingsRevision = 0u;
+    std::uint64_t workerAppliedResetSequence = 0u;
+    bool workerConfigurationException = false;
+    bool workerOutputReady = false;
 
     PluginInputData<RealTimeMultiSampleArray>::SPtr input;
     PluginOutputData<RealTimeMultiSampleArray>::SPtr output;
@@ -312,6 +470,21 @@ public:
     bool lifecycleQuiesced = true;
     std::atomic<std::uint32_t> producerState{kProducerClosedBit};
     std::atomic<std::uint64_t> droppedBlocks{0u};
+    AdaptiveDenoisingDiagnostics workerDiagnostics{
+        AdaptiveDenoisingPluginState::Stopped,
+        AdaptiveDenoisingConfigureStatus::InvalidMetadata,
+        DenoiserProcessStatus::NotConfigured,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        std::numeric_limits<double>::quiet_NaN(),
+        std::numeric_limits<double>::quiet_NaN(),
+        std::numeric_limits<double>::quiet_NaN(),
+        0u};
 };
 
 //=============================================================================================================
@@ -321,6 +494,8 @@ public:
 AdaptiveDenoising::AdaptiveDenoising()
 : m_impl(new Impl)
 {
+    qRegisterMetaType<AdaptiveDenoisingDiagnostics>(
+        "ADAPTIVEDENOISINGPLUGIN::AdaptiveDenoisingDiagnostics");
 }
 
 //=============================================================================================================
@@ -411,8 +586,8 @@ bool AdaptiveDenoising::start()
         return false;
     }
 
-    m_impl->resetWorkerState();
     m_impl->droppedBlocks.store(0u, std::memory_order_relaxed);
+    m_impl->resetWorkerState();
     m_impl->lifecycleQuiesced = false;
 
     QThread::start();
@@ -442,6 +617,8 @@ bool AdaptiveDenoising::stop()
         m_impl->output->measurementData()->clear();
     }
     m_impl->lifecycleQuiesced = true;
+    m_impl->setWorkerPluginState(AdaptiveDenoisingPluginState::Stopped);
+    emit diagnosticsChanged(m_impl->workerDiagnostics);
     return true;
 }
 
@@ -463,7 +640,43 @@ QString AdaptiveDenoising::getName() const
 
 QWidget* AdaptiveDenoising::setupWidget()
 {
-    return new QWidget;
+    AdaptiveDenoisingSetupWidget* const widget = new AdaptiveDenoisingSetupWidget;
+
+    connect(widget,
+            &AdaptiveDenoisingSetupWidget::enabledChanged,
+            this,
+            &AdaptiveDenoising::setEnabled);
+    connect(widget,
+            &AdaptiveDenoisingSetupWidget::frozenChanged,
+            this,
+            &AdaptiveDenoising::setFrozen);
+    connect(widget,
+            &AdaptiveDenoisingSetupWidget::tapCountChanged,
+            this,
+            &AdaptiveDenoising::setTapCount);
+    connect(widget,
+            &AdaptiveDenoisingSetupWidget::adaptationIntervalChanged,
+            this,
+            &AdaptiveDenoising::setAdaptationInterval);
+    connect(widget,
+            &AdaptiveDenoisingSetupWidget::memoryTimeSecondsChanged,
+            this,
+            &AdaptiveDenoising::setMemoryTimeSeconds);
+    connect(widget,
+            &AdaptiveDenoisingSetupWidget::regularizationChanged,
+            this,
+            &AdaptiveDenoising::setRegularization);
+    connect(widget,
+            &AdaptiveDenoisingSetupWidget::resetRequested,
+            this,
+            &AdaptiveDenoising::requestReset);
+    connect(this,
+            &AdaptiveDenoising::diagnosticsChanged,
+            widget,
+            &AdaptiveDenoisingSetupWidget::setDiagnostics,
+            Qt::QueuedConnection);
+
+    return widget;
 }
 
 //=============================================================================================================
@@ -473,6 +686,55 @@ QString AdaptiveDenoising::getBuildInfo()
     return QString(ADAPTIVEDENOISINGPLUGIN::buildDateTime())
         + QString(" - ")
         + QString(ADAPTIVEDENOISINGPLUGIN::buildHash());
+}
+
+//=============================================================================================================
+
+void AdaptiveDenoising::setEnabled(bool enabled)
+{
+    m_impl->setPendingEnabled(enabled);
+}
+
+//=============================================================================================================
+
+void AdaptiveDenoising::setFrozen(bool frozen)
+{
+    m_impl->setPendingFrozen(frozen);
+}
+
+//=============================================================================================================
+
+void AdaptiveDenoising::setTapCount(int tapCount)
+{
+    m_impl->setPendingTapCount(tapCount);
+}
+
+//=============================================================================================================
+
+void AdaptiveDenoising::setAdaptationInterval(int samples)
+{
+    m_impl->setPendingAdaptationInterval(samples);
+}
+
+//=============================================================================================================
+
+void AdaptiveDenoising::setMemoryTimeSeconds(double seconds)
+{
+    m_impl->setPendingMemoryTimeSeconds(seconds);
+}
+
+//=============================================================================================================
+
+void AdaptiveDenoising::setRegularization(double regularization)
+{
+    m_impl->setPendingRegularization(regularization);
+}
+
+//=============================================================================================================
+
+void AdaptiveDenoising::requestReset()
+{
+    m_impl->requestPendingReset();
 }
 
 //=============================================================================================================
@@ -511,33 +773,85 @@ void AdaptiveDenoising::update(Measurement::SPtr pMeasurement)
 
 void AdaptiveDenoising::run()
 {
+    emit diagnosticsChanged(m_impl->workerDiagnostics);
+
     while(!isInterruptionRequested()) {
         const AdaptiveDenoisingQueuePopStatus status = m_impl->queue.waitPop(
             m_impl->queuedBlock,
             kWorkerWaitTimeoutMilliseconds);
 
         if(status == AdaptiveDenoisingQueuePopStatus::Timeout) {
+            const std::uint64_t droppedBlocks =
+                m_impl->droppedBlocks.load(std::memory_order_relaxed);
+            if(m_impl->workerDiagnostics.pluginState
+                   != AdaptiveDenoisingPluginState::WaitingForData
+               || m_impl->workerDiagnostics.droppedBlocks != droppedBlocks) {
+                m_impl->setWorkerPluginState(AdaptiveDenoisingPluginState::WaitingForData);
+                emit diagnosticsChanged(m_impl->workerDiagnostics);
+            }
             continue;
         }
         if(status != AdaptiveDenoisingQueuePopStatus::Popped) {
             break;
         }
 
-        m_impl->workerBlock = m_impl->queuedBlock.data.topLeftCorner(
-            m_impl->queuedBlock.rowCount,
-            m_impl->queuedBlock.sampleCount);
+        // One copy fixes settings, reset and mode for this entire dequeued block.
+        const Impl::PendingSnapshot pendingSnapshot = m_impl->copyPendingSnapshot();
 
         const bool metadataValid = m_impl->currentMetadataIsValid();
-        if(m_impl->currentBlockNeedsConfiguration(metadataValid)) {
-            m_impl->configureCurrentBlock(metadataValid);
+        if(metadataValid) {
+            try {
+                m_impl->workerBlock = m_impl->queuedBlock.data.topLeftCorner(
+                    m_impl->queuedBlock.rowCount,
+                    m_impl->queuedBlock.sampleCount);
+            } catch(...) {
+                m_impl->disarmProcessor();
+                m_impl->workerFiffInfo.clear();
+                m_impl->workerSamplingFrequencyHz = 0.0;
+                m_impl->workerRowCount = 0;
+                m_impl->workerSampleCount = 0;
+                m_impl->workerMetadataValid = false;
+                m_impl->workerHasState = false;
+                m_impl->workerConfigurationException = true;
+                m_impl->workerOutputReady = false;
+                m_impl->recordUnprocessedDiagnostics(
+                    AdaptiveDenoisingPluginState::ConfigurationException);
+                emit diagnosticsChanged(m_impl->workerDiagnostics);
+                continue;
+            }
+        }
+
+        if(m_impl->currentBlockNeedsConfiguration(
+               metadataValid,
+               pendingSnapshot.settingsRevision)) {
+            m_impl->configureCurrentBlock(metadataValid, pendingSnapshot.settings);
+            m_impl->workerAppliedSettingsRevision = pendingSnapshot.settingsRevision;
+        }
+
+        if(m_impl->workerAppliedResetSequence != pendingSnapshot.resetSequence) {
+            m_impl->processor.reset();
+            m_impl->workerAppliedResetSequence = pendingSnapshot.resetSequence;
         }
 
         if(!metadataValid) {
+            m_impl->recordUnprocessedDiagnostics(AdaptiveDenoisingPluginState::InvalidMetadata);
+            emit diagnosticsChanged(m_impl->workerDiagnostics);
             continue;
         }
 
-        m_impl->processor.process(m_impl->workerBlock, DenoisingMode::ApplyAndLearn);
-        if(!isInterruptionRequested()) {
+        const DenoisingMode mode = !pendingSnapshot.enabled
+            ? DenoisingMode::BypassTrackHistory
+            : (pendingSnapshot.frozen
+                   ? DenoisingMode::ApplyOnly
+                   : DenoisingMode::ApplyAndLearn);
+        const DenoiserProcessResult result = m_impl->processor.process(m_impl->workerBlock, mode);
+        const AdaptiveDenoisingPluginState pluginState = m_impl->workerConfigurationException
+            ? AdaptiveDenoisingPluginState::ConfigurationException
+            : AdaptiveDenoisingPluginState::Processing;
+        m_impl->recordProcessDiagnostics(pluginState, result);
+        emit diagnosticsChanged(m_impl->workerDiagnostics);
+
+        if(m_impl->workerOutputReady && !isInterruptionRequested()) {
             m_impl->output->measurementData()->setValue(m_impl->workerBlock);
         }
     }

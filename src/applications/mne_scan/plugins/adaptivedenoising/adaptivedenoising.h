@@ -12,6 +12,7 @@
 //=============================================================================================================
 
 #include "adaptivedenoising_global.h"
+#include "adaptivedenoisingdiagnostics.h"
 
 #include <scShared/Plugins/abstractalgorithm.h>
 #include <scMeas/measurement.h>
@@ -57,6 +58,18 @@ public:
     QString getBuildInfo() override;
 
     void update(SCMEASLIB::Measurement::SPtr pMeasurement);
+
+public slots:
+    void setEnabled(bool enabled);
+    void setFrozen(bool frozen);
+    void setTapCount(int tapCount);
+    void setAdaptationInterval(int samples);
+    void setMemoryTimeSeconds(double seconds);
+    void setRegularization(double regularization);
+    void requestReset();
+
+signals:
+    void diagnosticsChanged(const ADAPTIVEDENOISINGPLUGIN::AdaptiveDenoisingDiagnostics& diagnostics);
 
 protected:
     void run() override;
