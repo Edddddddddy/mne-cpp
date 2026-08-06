@@ -5545,3 +5545,15 @@ does not continuously poll them.
   read/poll/wait.
 - Status: response durable; manager review is next, integration held behind
   queue-v2 GREEN.
+
+### RESPONSE W-QA-CORE-CONTRACT-001-RETRY-1-DISPATCH
+
+- App accepted the follow-up on existing thread
+  `019fd336-0d0c-7d02-82d9-a24b511d6aaf`.
+- Model is explicitly `gpt-5.6-luna`, `max` as required for the focused
+  documentation/compile-contract slice.
+- Prompt requires detaching only the worker worktree to exact original base
+  `7eb04cbfa6aa9cbd09594c6aa2d6fe6aebcc43db`, then the unchanged two-file
+  task and proactive RESPONSE. It repeats all no-subagent/no-poll/no-full-scan/
+  no-vendor/no-rt_server constraints.
+- No duplicate task/worktree was created; manager will not poll it while active.

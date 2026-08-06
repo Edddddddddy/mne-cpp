@@ -4026,3 +4026,12 @@ hidden reasoning is not.
   the known clean-worktree Eigen gap. No vendor/full-scan/server action.
 - Sequencing: persist response now, inspect it independently, but do not
   integrate before queue-v2 is manager-GREEN.
+
+### E-383 - Core-contract same-conversation retry accepted
+
+- App accepted retry on existing thread
+  `019fd336-0d0c-7d02-82d9-a24b511d6aaf` with Luna/max.
+- It must detach only its worktree to exact `7eb04cbfa` before the unchanged
+  two-file contract task. No duplicate conversation/worktree was created.
+- Next: await proactive response without polling; manager reviews the recovered
+  learning-guide commit in parallel.

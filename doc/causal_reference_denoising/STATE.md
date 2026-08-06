@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T14:22:00+08:00
+Last updated: 2026-08-06T14:25:00+08:00
 
 ## Recovery order
 
@@ -235,7 +235,7 @@ same-responsibility implementation conversations that may receive review fixes.
 
 ## Current checkpoint override
 
-- Integration/remote HEAD: `4cf3e54ef`; tracked state is synchronized. The
+- Integration/remote HEAD: `9de5b848c`; tracked state is synchronized. The
   only untracked paths are the three preserved user paths listed in the plan.
 - Active blocking task: `W-QUEUE-V2-GREEN-001`, Sol/ultra setup
   `client-new-thread:97461215-c1b8-488b-90bd-984aad5d9fd3`, exact requested
@@ -253,8 +253,9 @@ same-responsibility implementation conversations that may receive review fixes.
 - Existing non-overlapping tasks still await proactive responses without
   polling: `W-QA-CORE-CONTRACT-001` and `W-DOC-001`. Recovery found the complete
   one-file learning-guide response/commit `c558acbf8`, now awaiting manager
-  content review. The core-contract turn had no assistant output; reuse its
-  same Luna/max conversation once from the required exact base.
+  content review. The core-contract turn had no assistant output; its same
+  Luna/max conversation accepted one retry requiring a detach to the original
+  exact base before the unchanged two-file task.
 - The older read-only `R-QUEUE-001` reviewed the superseded exact-row/std-owner
   v1 queue and is now app-archived after its clean exact snapshot and durable
   dispatch were verified. Queue-v2 receives a fresh formal review after GREEN.
