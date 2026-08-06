@@ -3954,3 +3954,12 @@ hidden reasoning is not.
 - Safety: no manual deletion or mutation of its app-owned worktree occurred.
 - Next: await the proactive queue-v2 implementation response, then perform
   manager inspection, populated focused GREEN and a fresh Sol/ultra review.
+
+### E-376 - Queue-v2 response delivery recovery requested
+
+- One post-compaction task snapshot reports queue-v2 implementation thread
+  `019fd52e-1d77-7a22-a8f3-ab51728560c3` idle, while plugin-data remains active.
+- No `RESPONSE W-QUEUE-V2-GREEN-001` was delivered to the manager. This matches
+  the previously observed app delivery gap rather than an active computation.
+- Decision: after this record is committed/pushed, read the idle task exactly
+  once. Do not continuously poll or duplicate the implementation task.

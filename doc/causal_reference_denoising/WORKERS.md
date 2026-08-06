@@ -5371,3 +5371,15 @@ does not continuously poll them.
   worktree was not manually deleted or modified.
 - A fresh visible Sol/ultra review remains mandatory for the integrated
   queue-v2 snapshot; no v1 review conclusion will be reused as that gate.
+
+### RECOVERY REQUEST W-QUEUE-V2-GREEN-001
+
+- Trigger: one post-compaction app lifecycle snapshot resolves the setup as
+  thread `019fd52e-1d77-7a22-a8f3-ab51728560c3` and reports it `idle`, but no
+  proactive structured RESPONSE reached the manager conversation.
+- Policy: perform exactly one bounded `read_thread` recovery read for this
+  idle task. This repairs a known inter-thread delivery gap and is not periodic
+  polling. Do not send a duplicate implementation request or edit its scope.
+- Expected handling: if the final response exists, persist it before manager
+  inspection. If it does not exist, send one explicit RESPONSE request to the
+  retained same-responsibility conversation and wait for proactive delivery.
