@@ -4329,3 +4329,12 @@ hidden reasoning is not.
 - Decision: hold integration. After this finding/request is committed/pushed
   and published on issue #6, return a one-source-file zero-or-one admission fix
   to the retained Sol/ultra plugin worker. Queue atomic gate stays earlier.
+
+### E-415 - Plugin SPSC admission P1 published
+
+- Issue #6 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5201795105`.
+- API read-back confirms accepted seam, exact concurrent-producer defect and
+  narrow zero-or-one admission fix on retained Sol/ultra thread.
+- Next: send the already-durable follow-up; do not poll or integrate plugin
+  before both this fix and the atomic queue gate pass.

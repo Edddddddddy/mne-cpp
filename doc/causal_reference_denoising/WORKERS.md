@@ -6114,3 +6114,11 @@ does not continuously poll them.
   full scan/mne_scan/vendor repair/mne_rt_server. Proactively send
   `RESPONSE W-PLUGIN-DATA-001-FIX-1` and stop.
 - Status: request durable before follow-up dispatch.
+
+### PUBLISH W-PLUGIN-DATA-001-FIX-1
+
+- GitHub issue #6 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5201795105`.
+- Authenticated `gh` write/API read-back exactly record accepted plugin seam,
+  P1 concurrent-producer evidence/impact, one-source-file zero-or-one admission
+  fix, retained Sol/ultra conversation and queue-first/no-server ordering.

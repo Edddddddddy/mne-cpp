@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T16:49:00+08:00
+Last updated: 2026-08-06T16:55:00+08:00
 
 ## Recovery order
 
@@ -270,6 +270,8 @@ same-responsibility implementation conversations that may receive review fixes.
   more than one simultaneous callback to enter the SPSC queue. Return a one-
   source-file Sol/ultra fix requiring the in-flight count to be zero before
   admission; integration remains ordered after the atomic queue gate.
+  Finding/request publication:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5201795105`.
 - Existing non-overlapping tasks still await proactive responses without
   polling: `W-QA-CORE-CONTRACT-001` and `W-DOC-001`. Recovery found the complete
   one-file learning-guide response/commit `c558acbf8`, now awaiting manager
