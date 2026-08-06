@@ -433,7 +433,10 @@ same-responsibility implementation conversations that may receive review fixes.
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5203091442`.
   Retained Sol/ultra reviewer thread `019fd5d8-380d-7563-8644-264426bda199`
   will now re-review exact snapshot `9535bf8c7`; queue issue #5 remains open
-  until its P0-P3 response is accepted.
+  until its P0-P3 response is accepted. The request was delivered with explicit
+  Sol/ultra settings. One-shot allocation thread `019fd670-c791-7000-8a5f-4538396a54d6`
+  is app-archived after exact commit/integration/canonical evidence; its app
+  worktree was not manually removed.
 - Accepted but deliberately not integrated until the atomic queue gate:
   plugin data commit `5f4718722` plus exact-parent SPSC admission fix
   `34a8096f1`. Retain its Sol/ultra conversation for same-responsibility fixes.

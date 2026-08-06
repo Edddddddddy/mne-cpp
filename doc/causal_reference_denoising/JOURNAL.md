@@ -4682,3 +4682,12 @@ hidden reasoning is not.
   `019fd5d8-380d-7563-8644-264426bda199` against exact pushed snapshot
   `9535bf8c7`. The three original queue findings must be explicitly re-evaluated
   before issue #5 can pass or plugin data can integrate.
+
+### E-455 - Atomic queue re-review dispatched; allocation task archived
+
+- Retained thread `019fd5d8-380d-7563-8644-264426bda199` accepts the exact
+  read-only request with explicit Sol/ultra settings and proactive RESPONSE
+  contract. No polling is required.
+- Completed one-shot allocation thread `019fd670-c791-7000-8a5f-4538396a54d6`
+  is app-archived after durable exact commit, integration, canonical Release and
+  GitHub evidence. No manual worktree deletion occurs.

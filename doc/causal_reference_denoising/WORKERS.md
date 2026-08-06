@@ -6568,6 +6568,19 @@ does not continuously poll them.
 - Use codebase-design deep-module vocabulary and proactively return
   `RESPONSE R-QUEUE-ATOMIC-002`; do not poll manager or use subagents.
 
+### DISPATCHED R-QUEUE-ATOMIC-002
+
+- The retained visible thread accepted the exact request with explicit
+  `gpt-5.6-sol` / `ultra` overrides. It owns read-only review of `9535bf8c7` and
+  must proactively return; manager will not continuously poll it.
+
+### ARCHIVED W-QUEUE-ALLOC-TEST-001
+
+- App archive succeeds for one-shot Luna/max thread
+  `019fd670-c791-7000-8a5f-4538396a54d6` after exact commit, clean response,
+  manager review, integration, canonical Release and public evidence became
+  durable. Its app-owned worktree was not manually altered or deleted.
+
 ### RETIREMENT-READY W-QUEUE-ATOMIC-TEST-001
 
 - Thread `019fd5fa-f207-7fe3-9189-8d77fc9cfade` is one-shot. Exact commit,
