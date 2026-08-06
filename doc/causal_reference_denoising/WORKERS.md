@@ -7444,3 +7444,6 @@ does not continuously poll them.
   prioritized findings and PASS/HOLD. No manager polling or subagent/server.
 - public evidence / issue #5 read-back at
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5207390978`.
+- dispatch / retained visible review thread accepts the exact-snapshot follow-up
+  with explicit `gpt-5.6-sol` / `ultra`; await proactive response without
+  polling or inspecting its worktree.

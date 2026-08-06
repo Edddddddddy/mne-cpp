@@ -5357,3 +5357,12 @@ hidden reasoning is not.
   `5aa43160b`. It must re-audit all previous queue findings, atomic/native wake,
   forced EINTR progress, public concurrency/lifetime tests and live SPEC, and
   return a read-only PASS/HOLD with P0-P3 evidence.
+
+### E-529 - Final atomic queue review dispatched
+
+- Retained independent review thread accepts exact snapshot `5aa43160b` with
+  explicit Sol/ultra and read-only constraints. It owns the complete previous-
+  finding disposition and final P0-P2 PASS/HOLD decision.
+- Await proactive response without polling. In parallel, perform only the
+  already authorized held plugin-lifecycle integration preflight; do not
+  integrate plugin code before the queue review gate returns PASS.
