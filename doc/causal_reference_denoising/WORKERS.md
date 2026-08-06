@@ -4719,6 +4719,13 @@ does not continuously poll them.
 - Review and public evidence are durable. The one-shot comments worker may be
   app-archived without deleting or mutating its worktree.
 
+### RESPONSE W-QA-PROC-LOCALITY-001-RETIRE
+
+- App archived completed visible thread
+  `019fd512-20ce-75d2-8bcc-892695e67352` after exact content/evidence checks.
+- No manual worktree deletion or mutation occurred. Later processor header
+  work requires a new minimal Luna/max task.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread

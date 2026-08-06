@@ -3621,3 +3621,9 @@ hidden reasoning is not.
 - Content: worker/integration header blobs both equal `60ee16231`; clean worker
   status and evidence are durable.
 - Next: commit/push precheck, archive through the app only and record result.
+
+### E-345 - Processor locality worker archived
+
+- App archived visible thread `019fd512-20ce-75d2-8bcc-892695e67352` after
+  exact header blob and public closure evidence became durable.
+- Safety: no app-owned worktree deletion or mutation.
