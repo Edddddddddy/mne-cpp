@@ -4448,3 +4448,10 @@ hidden reasoning is not.
   attempt and no Qt semaphore/mutex, allocation, wait, retry or throwing work.
 - After committing/pushing this request, create the task, publish it on issue
   #5 and await its proactive RESPONSE without polling.
+
+### E-427 - Atomic queue task creation schema rejected
+
+- The first create call duplicated project ID placement and was rejected before
+  any task/worktree was created. Repository and external state are unchanged.
+- Persist this failure, then retry once with project ID only in the target
+  union; task base/model/prompt remain exact and unchanged.

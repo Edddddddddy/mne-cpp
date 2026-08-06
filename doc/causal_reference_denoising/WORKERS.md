@@ -6324,3 +6324,12 @@ does not continuously poll them.
   exact files, sequence/order/stop/wake proof, allocation/lock/noexcept audit,
   build/test result and limitations. Proactively notify the manager once; do
   not poll it or create internal/nested subagents.
+
+### FAILURE W-QUEUE-ATOMIC-GREEN-001-CREATE-1
+
+- The first app creation call was rejected by argument validation because the
+  project ID was supplied both at the call top level and inside the project
+  target union.
+- No task, thread, worktree, repository or external state was created or
+  changed. Retry once with the documented target-only project ID; exact base,
+  Sol/ultra model and request remain unchanged.
