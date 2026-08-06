@@ -307,6 +307,15 @@ introduced.
   and consumer matrix before starting the worker. `stop()` stops/wakes the
   queue, requests interruption, waits for the worker, clears output and leaves
   a fresh later `start()` to reconfigure the queue.
+- Because the DirectConnection producer is not the plugin worker, lifecycle
+  owns an atomic accepting-input gate plus an in-flight producer guard.
+  `start()` publishes acceptance only after queue/destination configuration;
+  `stop()` clears acceptance before stopping the queue, waits for the worker,
+  and confirms any callback that had already entered has left before a future
+  start may replace the stopped PImpl. The callback guard uses atomic entry/
+  exit only and never waits or takes the UI/settings mutex. This enforces the
+  queue's documented quiescence precondition across stop/restart without
+  assuming that connector disconnection is synchronous.
 - `update()` dynamically identifies RTMSA, takes one native `info()` snapshot
   per notification, and calls `tryPush(matrix, info)` exactly once for every
   matrix in that notification. It never initializes output/UI, resolves FIFF

@@ -193,6 +193,10 @@ Qt const-cast only to call the legacy non-const output FiffInfo initializer;
 metadata remains logically immutable. Plugin source dispatch waits for queue-v2
 GREEN so the worker can compile/audit against a real interface instead of an
 imagined one.
+DirectConnection lifecycle also requires an atomic accepting-input/in-flight
+producer guard: stop must quiesce a callback already inside `tryPush` before a
+later start replaces the queue PImpl. The acquisition callback itself remains
+wait-free with respect to plugin lifecycle/settings synchronization.
 
 ## Focused verification targets
 

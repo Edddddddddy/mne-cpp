@@ -3839,3 +3839,18 @@ hidden reasoning is not.
 - Sequencing: prepare the plugin caller task, but dispatch it only after the
   queue-v2 GREEN implementation exists. This preserves interface locality and
   gives the plugin worker a real compile surface rather than speculative names.
+
+### E-365 - DirectConnection producer quiescence frozen
+
+- Risk: queue reconfigure/destruction requires producer quiescence, but plugin
+  stop normally waits only its QThread worker; a DirectConnection acquisition
+  callback may still be copying into the stopped PImpl when a later start
+  replaces it.
+- Decision: lifecycle owns an atomic accepting-input gate and in-flight
+  producer guard. Stop closes the gate first, wakes/waits the worker, then
+  confirms an already-entered producer has left before restart. The callback
+  performs atomic guard operations only—no wait, retry, lifecycle/settings
+  mutex or busy loop.
+- Acceptance impact: formal plugin review must audit stop during callback and
+  restart only after quiescence; queue v2 itself continues to require the caller
+  to satisfy that precondition rather than adding a global lock.
