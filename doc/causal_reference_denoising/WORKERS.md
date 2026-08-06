@@ -6395,3 +6395,14 @@ does not continuously poll them.
   allocation/re-review gates. Preserve title, issue number and open state.
 - Result: `gh issue edit` succeeds; authenticated `gh issue view` read-back
   confirms the replacement body and unchanged title/number/open state.
+
+### PREPARED W-DOC-001-REVISE-2
+
+- Not dispatched while retained Luna/max doc conversation is actively handling
+  `REVISE-1`; do not overlap the same learning-guide file.
+- New P2 `R-DOC-BENCHMARK-EVIDENCE-002`: held guide contains no durable actual
+  benchmark configuration/result despite issue #7 acceptance requiring it.
+- After the proactive current response, send one combined narrow follow-up:
+  replace any QSemaphore wording with the accepted atomic sequence/native wake
+  seam and add exact `--benchmark` workload plus measured
+  p50/p95/max `2.725/4.317/8.557 ms`, explicitly engineering evidence.

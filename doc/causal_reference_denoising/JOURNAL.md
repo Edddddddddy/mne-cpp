@@ -4519,3 +4519,11 @@ hidden reasoning is not.
   test GREEN, active Sol task and remaining allocation/formal-review gates.
 - Issue #5 remains open with its original title/number; no gate is closed
   prematurely.
+
+### E-436 - Learning guide benchmark-evidence P2 found
+
+- Held guide has no command, workload or measured p50/p95/max even though issue
+  #7 requires the Release benchmark result in the learning documentation.
+- Open `R-DOC-BENCHMARK-EVIDENCE-002`. Do not interrupt/overlap the active Luna
+  guide revision; after its proactive response, request one combined atomic-
+  queue wording plus exact benchmark-evidence correction.

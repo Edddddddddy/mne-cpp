@@ -200,6 +200,24 @@
 - Required verification: manager diff/content review; no runtime test needed
   for a Markdown-only correction. Do not integrate the held commit while open.
 
+#### R-DOC-BENCHMARK-EVIDENCE-002 - P2 - Open
+
+- Location: held worker commit `c558acbf8`, entire `LEARNING_GUIDE.md`.
+- Evidence: issue #7 requires the Release benchmark result and development-
+  machine context in learning documentation. The guide explains complexity and
+  effect/engineering evidence but contains no `--benchmark` command, 100/1000
+  warmup/timed configuration or measured p50/p95/max values.
+- Impact: the example binary is GREEN, but the promised durable learning path
+  cannot reproduce or interpret the accepted performance result from the guide.
+- Required correction after the current doc response: add the exact 1000 Hz,
+  128-sample, 270-row, 16-reference/250-target, four-tap/P=64 workload; 100
+  warmup plus 1000 timed calls; nearest-rank definition; p50/p95/max
+  `2.725/4.317/8.557 ms`; strict p95 `<128 ms`; and command
+  `ex_causal_reference_denoising --benchmark`. Label it development-machine
+  engineering evidence, not a portable effect guarantee.
+- Required verification: exact values against durable benchmark record,
+  repository-relative links/Markdown, one-file scope and diff-check.
+
 #### R-BENCH-FINITE-001 - P2 - Closed
 
 - Location: worker benchmark commit `79eff3b3a`, example main helper
