@@ -779,6 +779,10 @@ tracked.
 - Impact: supported static builds cannot discover the new plugin.
 - Required fix/test: add guarded static link/import wiring and static discovery
   configure/source evidence; real build may retain the known environment block.
+- Correction integrated: `78d443144` adds only static-guarded
+  `scan_adaptivedenoising` linkage and `Q_IMPORT_PLUGIN(AdaptiveDenoising)`;
+  no qrc initializer or shared-build change. Status is addressed pending
+  populated configure/source verification and fresh formal review.
 
 #### R-PLUGIN-ATOMIC-LOCKFREE-001 - P3 - Open
 

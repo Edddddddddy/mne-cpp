@@ -665,3 +665,6 @@ same-responsibility implementation conversations that may receive review fixes.
   drop/atomic/destructor-contract source changes. Luna/max setup
   `client-new-thread:8153b471-f290-4f15-8d7a-ac87cfeee593` owns only static
   mne_scan CMake/main registration. Their files are disjoint.
+- Static registration is integrated as `78d443144`: static mne_scan now links
+  `scan_adaptivedenoising` and imports `AdaptiveDenoising`, with no shared-build
+  or qrc change. Admission/drop/atomic source correction remains active.

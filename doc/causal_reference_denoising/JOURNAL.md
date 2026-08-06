@@ -5745,3 +5745,10 @@ hidden reasoning is not.
 - Its isolated configure is blocked by the known missing ignored Eigen checkout
   before target generation. Persist before direct object/diff review; admission
   Sol/ultra task remains active and file-disjoint.
+
+### E-570 - Static plugin registration integrated
+
+- Direct Git proof confirms exact parent, two authorized files, clean diff and
+  exactly one static link plus one static import addition. No qrc/shared change.
+- Conflict-free cherry-pick creates `78d443144`. Record/push before populated
+  static verification. Admission Sol/ultra task remains active and disjoint.

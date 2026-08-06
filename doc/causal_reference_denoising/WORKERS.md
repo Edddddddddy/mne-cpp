@@ -7823,6 +7823,16 @@ does not continuously poll them.
 - next / manager provenance/diff review, then conflict-free integration and
   static source/configure evidence in the populated workspace.
 
+### INTEGRATION W-PLUGIN-STATIC-001
+
+- manager proof / worker object exists, exact parent matches, two authorized
+  files only and committed diff-check passes; direct diff is exactly two lines.
+- integration / conflict-free cherry-pick creates `78d443144`; current tracked
+  state remains clean and preserved user paths remain untouched.
+- result / static mne_scan link/import omission is source-corrected. Populated
+  static configure/source evidence and fresh lifecycle review remain required
+  before formally closing `R-PLUGIN-STATIC-REGISTRATION-001`.
+
 ### PREPARED REQUEST W-PLUGIN-UI-TEST-001
 
 - state / prepared only; do not dispatch until `R-PLUGIN-DATA-001` passes or
