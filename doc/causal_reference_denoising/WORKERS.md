@@ -8313,6 +8313,58 @@ does not continuously poll them.
 - public dispatch / issue #6 comment/read-back:
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208713549`.
 
+### WAIT W-PLUGIN-UI-GREEN-001-001
+
+- mechanism / one 60-second cursor-aware wait after dispatch publication.
+- result / timeout with Luna/max active, no blocker/input/commit/final response.
+- progress / recovery and interface grounding are complete; the worker is
+  inspecting only existing Qt/CMake conventions and immutable tracer oracles
+  before editing the four authorized files.
+- next / no repeated polling; await proactive response and do not inspect its
+  worktree.
+
+### PREPARED REQUEST W-PLUGIN-UI-WIRE-001
+
+- state / dispatch only after widget GREEN integration and populated focused
+  test success. Exact base is that pushed milestone.
+- model / new visible `gpt-5.6-sol` / `ultra`; thread/lifecycle-sensitive source
+  integration, no internal/nested subagent.
+- authorized / edit only `adaptivedenoising.h` and `adaptivedenoising.cpp`.
+  Widget/diagnostics/CMake/tracer, queue, processor, core and dependencies are
+  immutable.
+- public Qt seam / header includes the fixed diagnostics type; add one
+  diagnostics signal and narrow slots for enabled, frozen, taps, update interval,
+  memory, regularization and reset. No new base/registry/controller interface.
+- pending state / PImpl owns enabled=true, frozen=false, default numerical
+  settings, monotonic settings revision and reset sequence under one GUI/worker
+  QMutex. GUI slots only update that snapshot; acquisition update never reads or
+  locks it and retains the already-reviewed admission/push path byte-for-byte.
+- fresh widget / `setupWidget()` constructs a new standalone widget, connects
+  its seven typed signals to plugin slots, and connects plugin diagnostics to
+  the widget slot with explicit `Qt::QueuedConnection`; plugin stores no widget
+  pointer and QObject destruction auto-disconnects.
+- block boundary / immediately after successful dequeue, worker copies pending
+  state exactly once. Metadata/block/settings change configures before the whole
+  block; new reset sequence resets before processing; mode selection is disabled
+  BypassTrackHistory, enabled+frozen ApplyOnly, enabled+unfrozen ApplyAndLearn.
+  Applied revision/sequence update only on the worker.
+- diagnostics / register the metatype before worker emission. Publish fixed
+  Stopped/WaitingForData/Processing/InvalidMetadata/ConfigurationException plus
+  configure/process statuses, R/M/P, warmup/generation/update events/RMS and
+  atomic dropped count. Structurally invalid metadata emits diagnostics but no
+  stale-label output; configuration exceptions disarm and report the fixed
+  state. Human-readable strings remain exclusively in the widget.
+- lifecycle / start resets worker-applied layout/revision/diagnostics state but
+  preserves pending GUI values; stop clears output and publishes Stopped only
+  after quiescence. Preserve issue-#8 destructor/harness contract.
+- verification / standalone plugin/widget MOC; MSVC14.29 C++14 syntax if
+  available; immutable focused widget GREEN replay; deterministic extraction
+  proving acquisition path unchanged and one snapshot copy/config-reset-mode
+  order. No full app/server/vendor repair or fake lifecycle runtime claim.
+- response / proactive exact-parent two-file commit, source ordering, commands/
+  results/limits and clean state. Manager later integrates and dispatches a new
+  independent Sol/ultra UI review.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are

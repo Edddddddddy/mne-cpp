@@ -6056,3 +6056,13 @@ hidden reasoning is not.
   immutable tracer/plugin h/cpp and later Sol wiring split at
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208713549`.
 - Await proactive response; no polling or manager-side widget edits.
+
+### E-600 - Widget worker active; Sol wiring request prepared
+
+- One 60-second event wait times out with Luna/max active after contract
+  recovery, now inspecting only Qt/CMake conventions and immutable tracer
+  oracles. No blocker, commit or final response; do not poll again.
+- Prepare but do not dispatch the later Sol/ultra plugin h/cpp-only request:
+  pending snapshot under GUI/worker mutex, one copy per dequeued block,
+  configure/reset/mode ordering, fresh widget connections and queued fixed
+  diagnostics, with the acquisition callback frozen.

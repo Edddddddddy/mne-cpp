@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-07T03:52:56+08:00
+Last updated: 2026-08-07T03:56:18+08:00
 
 ## Recovery order
 
@@ -745,3 +745,7 @@ same-responsibility implementation conversations that may receive review fixes.
 - Final visible widget thread is `019fd8a2-5324-7342-818b-7836cd1a0379` in app
   worktree `0443`; dispatch is published at
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208713549`.
+- One bounded wait shows Luna/max active after completing contract recovery and
+  beginning convention/source inspection; there is no commit, blocker or input
+  request yet. Do not poll again. The later Sol/ultra two-source wiring request
+  is prepared below but remains undispatched until widget GREEN is integrated.
