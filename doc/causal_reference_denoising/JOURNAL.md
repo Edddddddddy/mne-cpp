@@ -4988,3 +4988,16 @@ hidden reasoning is not.
   milestone while keeping `R-QUEUE-STOP-WAIT-ELAPSED-001` open. Integrate and
   run the populated target, then replace the used conversation with a fresh
   Luna/max minimal revision task per the user's cleanup rule.
+
+### E-489 - Forced-reuse concurrency tests integrated and canonical GREEN
+
+- Original accepted worker commit is cherry-picked as `1a478f6c3`. Exact
+  one-test-file diff-check passes; production/CMake remain unchanged.
+- Populated MSVC Release builds/links successfully with only pre-existing Eigen
+  C4819 warnings. The complete focused executable plus three repeats return
+  `0,0,0,0`, so forced capacity fill, consumer pop before producer completion,
+  distinct wrapped push, FIFO/extents/native-owner/tail, stop matrices and zero
+  counted producer allocations are now durable integration evidence.
+- `R-QUEUE-STOP-WAIT-ELAPSED-001` remains open. Push this partial milestone,
+  archive the spent test conversation and create a fresh Luna/max one-file
+  elapsed-wait task from the exact new integration base.

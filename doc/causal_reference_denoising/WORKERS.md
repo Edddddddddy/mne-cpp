@@ -6732,6 +6732,18 @@ does not continuously poll them.
   archive this used conversation, then create a fresh Luna/max one-file task
   for the missing elapsed-wait delta.
 
+### INTEGRATED W-QUEUE-CONCURRENCY-TEST-002
+
+- Worker commit `7aa5360a2` is integrated as `1a478f6c3` after exact parent,
+  one-file scope, diff-check and public-oracle review. The separate elapsed-wait
+  P2 remains explicitly open; this integration does not claim queue gate PASS.
+- Populated MSVC Release target compiles/links with only existing Eigen C4819
+  warnings. The complete focused executable and three immediate repeats return
+  `0,0,0,0`, exercising the hard forced-wrap/reuse/FIFO/allocation assertions.
+- The used retained test conversation may now be archived. A new Luna/max task
+  will own only the missing stopped-wait elapsed delta from the new integration
+  base, in accordance with the no-reuse rule for spent conversations.
+
 ### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
 
 - First read-only app project-list call produced no result within 60 seconds and
