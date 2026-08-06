@@ -872,3 +872,9 @@ same-responsibility implementation conversations that may receive review fixes.
   pop and `configure -> reset -> mode -> process` ordering. It is still auditing
   exception disarm, diagnostics, static wiring and test sensitivity; no finding
   or blocker has been returned, so all MVP issues remain open pending its gate.
+- `R-PLUGIN-UI-001` completed read-only at exact `7a33d537b` with PASS and new
+  findings P0/P1/P2/P3 all zero. It independently confirms the deep UI/adapter
+  seam, callback byte identity, block-boundary ordering, failure/output safety,
+  shared/static wiring and evidence attribution. Existing P2 destructor-bound
+  and real-plugin-lifecycle-harness gaps remain explicitly deferred to OPEN #8,
+  not fixed. Publish the gate, then close #6, #3 and epic #2 in that order.

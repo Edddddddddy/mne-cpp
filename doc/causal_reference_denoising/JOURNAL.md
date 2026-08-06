@@ -6388,3 +6388,18 @@ hidden reasoning is not.
 - The reviewer is now checking exception disarm, stale diagnostics/configuration,
   static-plugin wiring and focused-test regression sensitivity. No finding,
   blocker, mutation or input request is present; issue closure remains held.
+
+### E-633 - Final independent UI/integration review passes
+
+- `R-PLUGIN-UI-001` proactively returns PASS at exact detached clean snapshot
+  `7a33d537b`; it makes no change and reports new P0/P1/P2/P3 findings all zero.
+- Independent source/provenance audit confirms the deep view/adapter seam,
+  fixed queued diagnostics, fresh widget lifetime, one pending snapshot per pop,
+  configure/reset/mode/process ordering, unchanged acquisition callback,
+  failure/output safety and shared/static wiring.
+- Preserve evidence attribution: reviewer does not reproduce builds. Manager
+  owns exact v142 target link, Release core/plugin/UI/example/benchmark and Debug
+  numerical evidence.
+- Existing destructor-boundedness and real-plugin-lifecycle-test P2 findings are
+  durably deferred to OPEN #8 and explicitly remain unfixed. The gate permits
+  publishing and closing #6, then #3, then epic #2; #8 must stay OPEN.

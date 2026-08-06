@@ -926,3 +926,33 @@ tracked.
 - This is a durable test-coverage deferral, not a code fix. The current source
   still has manager source/order/target evidence but no real plugin lifecycle
   runtime. #8 remains OPEN after MVP acceptance.
+
+### R-PLUGIN-UI-001 - Final independent UI/integration gate
+
+- Reviewed exact SHA: `7a33d537b403c2be0d7ee04bcb49f376c83673b7`.
+- Reviewer: independent visible Sol/ultra task, strict read-only, detached and
+  clean before/after.
+- Decision: PASS. New findings: P0=0, P1=0, P2=0, P3=0.
+- Provenance: worker `3b9aa6b1e` and integration `36fa80589` have identical
+  stable patch ID `0ddd86ef19986da01a822260c9a5896b`, two-file scope and
+  plugin header/source blobs. `update()` is byte-identical to its frozen parent.
+- Accepted: concrete deep seam, fixed scalar diagnostics with explicit queued
+  GUI delivery, fresh widget ownership, one mutex-protected pending snapshot,
+  one copy per pop, configure/reset/mode/process ordering, acquisition isolation,
+  disarm/output safety, restart state and shared/static CMake wiring.
+- Evidence attribution: reviewer did not rebuild. Manager owns final v142 real
+  plugin target link and all focused Release/Debug/example/benchmark results.
+
+Carried P2 dispositions:
+
+- `R-PLUGIN-DESTRUCTOR-BOUND-001`: DURABLY DEFERRED, NOT FIXED, NOT REGRESSED.
+  The memory-safe terminal fallback can wait indefinitely after bounded stop
+  failure; OPEN issue #8 owns host quiescence/terminal teardown and its runtime
+  timeout/retry/destruction test.
+- `R-PLUGIN-LIFECYCLE-TEST-001`: DURABLY DEFERRED, NOT FIXED, NOT REGRESSED.
+  The focused queue/processor target does not execute the real plugin lifecycle;
+  OPEN issue #8 owns admission/epoch, stop/retry/restart, output/metadata,
+  block-boundary settings/reset/diagnostics and destructor coverage.
+
+Gate-relevant open findings after disposition: P0=0, P1=0, P2=0. Final UI/
+integration gate passes; #8 remains open after MVP issue closure.
