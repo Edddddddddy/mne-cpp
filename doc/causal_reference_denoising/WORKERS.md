@@ -6801,6 +6801,21 @@ does not continuously poll them.
   `client-new-thread:c101f7af-8999-4032-8fd3-387441e0a909` with explicit
   Luna/max. Await proactive response without polling or worktree inspection.
 
+### RESPONSE W-QUEUE-STOP-WAIT-TEST-001-RETRY-1
+
+- From visible Luna/max thread `019fd76b-9843-7d11-a81a-1dd993fbabb2`.
+- Reported commit `cee7ed3257a904294f24452d25afa06cd87fef16`, one focused-
+  test file only and clean detached worktree. The response's `parent` field is
+  invalid: it contains manager thread ID
+  `019fcdc3-4a1e-76d1-8140-1bd521219297`, not a Git SHA. Manager must query the
+  commit object and accept only if its real parent is exact `8539c8e85`.
+- Reported delta times the complete stop-phase consumer `waitPop`, publishes
+  atomic elapsed milliseconds, logs it and asserts `Stopped`, `>=5 ms` and
+  `<1500 ms` after join while retaining all previous oracles.
+- Isolated CMake reached MSVC/Qt but stopped at the known incomplete Eigen
+  checkout; no dependency repair/search. Manager owns populated Release run.
+- Status: response durable; exact Git provenance/diff/oracle review pending.
+
 ### Conversation cleanup rule reaffirmed
 
 - User again requires timely cleanup. Archive every one-shot/failed/spent

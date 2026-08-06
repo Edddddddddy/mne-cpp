@@ -5087,3 +5087,23 @@ hidden reasoning is not.
   native poll slices (planned 25 ms) under the existing outer deadline/recheck
   loop; keep producer/stop at one nonblocking signal attempt and Windows event
   behavior unchanged. Dispatch follows deterministic EINTR RED.
+
+### E-500 - WSL baseline replay blocked before compilation
+
+- Manager attempts one repository-read-only WSL POSIX baseline using only a
+  `mktemp` build directory and cleanup trap. The distro fails to start at
+  `Wsl/Service/0x8007274c`, before MOC, compiler or test execution.
+- No repository, vendor or dependency file changes. This is WSL service health,
+  not a queue/test result. Persist it, then make one lightweight `wsl ... true`
+  probe only; do not repeat the compile until the service is healthy or the
+  deterministic EINTR worker provides its own environment evidence.
+
+### E-501 - Fresh timing retry response received with malformed parent field
+
+- Luna/max thread `019fd76b-9843-7d11-a81a-1dd993fbabb2` proactively returns
+  claimed one-file commit `cee7ed325`; elapsed `Stopped` wait assertions match
+  the requested `>=5 ms` and `<1500 ms` contract.
+- Its structured `parent` field incorrectly contains the manager thread ID, so
+  no provenance or acceptance is inferred. Persist the response, then inspect
+  the Git object directly for exact parent `8539c8e85`, one-file scope,
+  diff-check and retained public oracles before integration.
