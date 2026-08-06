@@ -6007,3 +6007,49 @@ does not continuously poll them.
   RESPONSE, manager review, Release/Debug validation and GitHub closure are
   durable. The same-responsibility fix loop is complete, so this conversation
   may be app-archived without deleting its worktree.
+
+### RESPONSE W-QA-CORE-CONTRACT-001-RETIRE
+
+- App archived completed visible thread
+  `019fd336-0d0c-7d02-82d9-a24b511d6aaf` after exact clean/blob/validation/
+  publication evidence. No manual worktree deletion or mutation occurred.
+
+### REQUEST W-QUEUE-ATOMIC-TEST-001
+
+- From/to: manager / new visible Luna/max queue public-test conversation.
+- GitHub issue/findings: #5; `R-QUEUE-V2-CONCURRENCY-TEST-001` and
+  `R-QUEUE-V2-METADATA-LIFETIME-001`, with supporting evidence for
+  `R-QUEUE-V2-QSEMAPHORE-001`.
+- Exact base: `4bb1b2a30`; separate Codex worktree. Authorized edit is only
+  `src/testframes/test_adaptive_denoising_plugin/test_adaptive_denoising_plugin.cpp`.
+  No production queue/CMake/processor/plugin/docs/dependency/build edit.
+- Read complete TDD skill and current public queue contract. Preserve all
+  existing processor/queue slots and avoid internal/ring inspection.
+- Add sustained overlapping SPSC traffic through `tryPush`/`waitPop` using
+  precreated inputs/metadata and preallocated result storage. Exercise variable
+  rectangles and deterministic sequence payloads; count `Full` drop-newest
+  outcomes; require popped sequence/row/sample/metadata to equal the accepted
+  producer subsequence with no tear/reorder/duplicate. Record bounded producer
+  call latency with a generous Windows scheduling bound rather than a fragile
+  microbenchmark.
+- Add bounded stop interaction while producer/consumer are active, accepting
+  only outcomes that linearize before stop or return Stopped. Add deterministic
+  pending-block stop/discard, quiesced fresh configure/Timeout/new-payload proof.
+  For every Timeout/Stopped result, prefill complete matrix/extents/metadata
+  sentinels and require them unchanged.
+- Add native metadata lifetime proof with fake non-dereferenced FiffInfo pointer
+  identities plus observable custom-deleter counters. Clear all caller handles
+  immediately after successful push, require no deletion before pop, FIFO
+  identity/extents after pop, and exactly-once deletion after popped handles
+  clear. Add the Qt 5.15.2-supported C++14 nothrow mutable-to-const
+  `QSharedPointer` construction trait.
+- Classification: these are public acceptance tracers; honest immediate GREEN
+  is allowed where current behavior already conforms. Do not add flaky sleeps,
+  source-text tests or production hooks merely to manufacture RED. The Sol
+  production task will separately remove QSemaphore and prove the dependency.
+- Verification: focused Release build/run if available; otherwise report the
+  isolated Eigen limitation. Exact one-file commit, diff/clean proof, no full
+  scan/mne_scan/vendor repair/mne_rt_server, no nested subagent or manager poll.
+  Proactively send `RESPONSE W-QUEUE-ATOMIC-TEST-001` and stop.
+- Model/effort: `gpt-5.6-luna`, `max`. Status: request durable before creating
+  the visible task.

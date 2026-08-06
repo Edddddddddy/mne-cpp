@@ -4288,3 +4288,14 @@ hidden reasoning is not.
 - Core worker is clean at `bc061b834`; both authorized blobs equal integration.
   All response/review/test/public evidence is durable, so archive the completed
   conversation through the app without manually touching its worktree.
+
+### E-411 - Core worker archived; queue atomic test task prepared
+
+- App archived completed core-contract thread after durable clean/blob/QA/
+  GitHub evidence; its worktree was not manually modified or removed.
+- TDD next slice is `W-QUEUE-ATOMIC-TEST-001` from exact `4bb1b2a30`, Luna/max,
+  one focused test file. It covers overlapping SPSC/drop ordering, bounded stop
+  states and whole-destination preservation, pending discard/fresh configure,
+  and observable native metadata lifetime through the public interface.
+- Production remains immutable in this task. After request commit/push, create
+  the visible worktree and publish the dispatch; do not poll it.

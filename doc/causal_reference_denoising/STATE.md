@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T16:24:00+08:00
+Last updated: 2026-08-06T16:31:00+08:00
 
 ## Recovery order
 
@@ -331,3 +331,9 @@ same-responsibility implementation conversations that may receive review fixes.
   integration remains held until all queue P0/P1/P2 findings are closed.
   Formal review is public at
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201624132`.
+- `W-QUEUE-ATOMIC-TEST-001` is prepared from exact base `4bb1b2a30` as a
+  one-file Luna/max TDD task. It adds overlapping SPSC/FIFO/drop accounting,
+  producer/consumer stop and destination-preservation coverage, pending-block
+  discard/fresh-reconfigure coverage, and observable native metadata lifetime.
+  Production queue/CMake/plugin remain immutable until this response is
+  manager-reviewed and integrated.
