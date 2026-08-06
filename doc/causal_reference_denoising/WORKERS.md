@@ -6063,3 +6063,11 @@ does not continuously poll them.
   lifetime oracles, join-safe finite synchronization and proactive response.
 - No final thread ID exists yet. Publish the dispatch, then do not poll or
   overlap the focused test file.
+
+### PUBLISH W-QUEUE-ATOMIC-TEST-001-START
+
+- GitHub issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201732759`.
+- Authenticated `gh` write/API read-back exactly record the Luna/max setup/base,
+  one-test-file public SPSC/stop/lifetime scope, TDD immediate-GREEN policy,
+  later Sol implementation split and no-poll/no-server restrictions.

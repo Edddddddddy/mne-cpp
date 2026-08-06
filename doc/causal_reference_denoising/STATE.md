@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T16:36:00+08:00
+Last updated: 2026-08-06T16:41:00+08:00
 
 ## Recovery order
 
@@ -340,3 +340,5 @@ same-responsibility implementation conversations that may receive review fixes.
   The visible Luna/max worktree setup is accepted as
   `client-new-thread:7119c1cd-0c1c-4632-ade6-edbc357dec0b`; no final thread ID
   exists yet. Manager will publish the dispatch and will not poll it.
+  Public dispatch:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201732759`.

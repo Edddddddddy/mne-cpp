@@ -4308,3 +4308,12 @@ hidden reasoning is not.
 - Prompt carries the complete one-file TDD/public-interface concurrency,
   stop-preservation and metadata-lifetime contract. Next publish issue #5,
   then await only the proactive structured response.
+
+### E-413 - Queue atomic public-test task published
+
+- Issue #5 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201732759`.
+- API read-back confirms exact base/setup, Luna/max, single test-file TDD scope,
+  concurrency/stop/lifetime oracles and later Sol production separation.
+- Coordination: do not poll or overlap the test file; resume disjoint manager
+  review of the held plugin-data commit.
