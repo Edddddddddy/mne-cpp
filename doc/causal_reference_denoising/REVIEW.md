@@ -243,7 +243,7 @@ tracked.
   the contradictory moved-from state; every original runtime behavior remains
   GREEN.
 
-#### R-PROC-LOCALITY-001 - P3 - Open
+#### R-PROC-LOCALITY-001 - P3 - Closed
 
 - Location: `adaptivedenoisingprocessor.h:2-5,32-103`.
 - Evidence/impact: worker ownership, inclusive UI ranges, selection, returned-
@@ -254,8 +254,10 @@ tracked.
   fail closed rather than use old ownership for new metadata.
 - Verification: header contract review against SPEC and compile-time ownership/
   noexcept checks.
-- Tracking: deferred to final QA issue #3 at
-  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5194141240`.
+- Resolution: integrated comment-only `7f4095a3b` places the complete truthful
+  mapping/range/ownership/disarm/reset/exception/hot-path contract beside the
+  declarations. Stripped declaration-token hashes are identical before/after;
+  existing C++14 noncopy/nonmove traits and 14/0/0 focused runtime remain valid.
 
 #### R-PROC-BOUNDARY-001 - P3 - Closed
 
@@ -278,8 +280,8 @@ tracked.
 - P1: zero.
 - P2: zero open; `R-PROC-MOVE-001` closed by explicit ownership and compiled
   C++14 traits.
-- P3: `R-PROC-LOCALITY-001` remains tracked; `R-PROC-BOUNDARY-001` is closed by
-  final-QA focused boundary evidence.
+- P3: both processor locality and boundary findings are closed by final-QA
+  documentation plus focused evidence.
 - Decision: processor formal gate passes. Track both P3s in final QA issue #3;
   they do not block closing processor issue #4 or beginning queue work.
 - GitHub: issue #4 closed as completed; epic #2 marks the processor milestone

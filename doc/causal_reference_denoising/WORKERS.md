@@ -4694,6 +4694,17 @@ does not continuously poll them.
   will compile the unchanged interface, but no comments-only runtime gate is
   required for integration.
 
+### VALIDATION W-QA-PROC-LOCALITY-001
+
+- Integration: worker `1d60ed4f7` cherry-picked as `7f4095a3b`; exact scope is
+  the processor public header and declaration tokens remain unchanged.
+- Evidence: source/SPEC audit plus clean comment-only diff proves the interface
+  now carries its selection, ranges, ownership, disarm/reset, exception and
+  hot-path contract locally. Existing compiled ownership traits and the prior
+  14/0/0 runtime apply to the unchanged declarations/behavior.
+- Decision: close P3 `R-PROC-LOCALITY-001`; publish issue #3 after this record
+  is committed/pushed, then verify blob equality and archive the one-shot task.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread

@@ -3602,3 +3602,13 @@ hidden reasoning is not.
   future metadata caller from using preserved old ownership on a new layout.
 - Decision: no finding; cherry-pick is authorized after this review is durable.
   Close the P3 after integration/public evidence; runtime behavior is unchanged.
+
+### E-343 - Processor locality P3 closed in integration
+
+- Integration: `1d60ed4f7` cherry-picked as `7f4095a3b`; only the public
+  processor header gains comments and declaration tokens remain identical.
+- Gate: source/SPEC review passes, prior compiled ownership traits and 14/0/0
+  focused behavior are unaffected. `R-PROC-LOCALITY-001` is closed without a
+  new abstraction or runtime change.
+- Next: commit/push code/evidence, publish/read back issue #3, verify worker/
+  integration blob equality and archive the one-shot comments task.
