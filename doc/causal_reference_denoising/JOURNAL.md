@@ -5636,3 +5636,10 @@ hidden reasoning is not.
   already collected evidence.
 - Teaching UI stays excluded; any residual uncertainty becomes a finding rather
   than another validation branch. Await the proactive final after dispatch.
+
+### E-559 - Plugin lifecycle finalize request dispatched
+
+- The app accepts the one noninterrupting follow-up on retained reviewer thread
+  `019fd84f-03c6-79f1-977f-b278d55777ba`; no duplicate conversation is created.
+- The reviewer keeps Sol/ultra and its read-only exact snapshot. Await its
+  proactive `RESPONSE R-PLUGIN-DATA-001` without further status polling.

@@ -7656,6 +7656,8 @@ does not continuously poll them.
 - evidence rule / retain the target-build Qt/MSVC dependency boundary and label
   residual uncertainty as a finding rather than delaying the formal response.
 - response / proactive `RESPONSE R-PLUGIN-DATA-001`; no manager polling.
+- dispatch / app accepts the follow-up on the same visible reviewer thread;
+  model/reasoning remain Sol/ultra and the active turn is not interrupted.
 
 ### PREPARED REQUEST W-PLUGIN-UI-TEST-001
 
