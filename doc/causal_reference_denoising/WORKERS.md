@@ -6480,6 +6480,15 @@ does not continuously poll them.
 - Public dispatch/read-back:
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202951958`.
 
+### RESOLVED W-QUEUE-ALLOC-TEST-001
+
+- One read-only task-list lookup resolved setup
+  `client-new-thread:c4ec3fcf-866e-41d9-8c7d-9fd4680dc7f2` to visible Luna/max
+  thread `019fd670-c791-7000-8a5f-4538396a54d6`, app worktree `4954`.
+- The exact base, one-test-file scope and proactive RESPONSE contract are
+  unchanged. Use at most one bounded wait; do not continuously poll or read
+  the worker worktree.
+
 ### RETIREMENT-READY W-QUEUE-ATOMIC-TEST-001
 
 - Thread `019fd5fa-f207-7fe3-9189-8d77fc9cfade` is one-shot. Exact commit,

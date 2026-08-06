@@ -4632,3 +4632,11 @@ hidden reasoning is not.
 - Read-back confirms exact worker/integration commits, manager code review,
   worker cross-platform 19/0/0, canonical zero exits and explicitly open
   allocation/formal-review gates.
+
+### E-450 - Allocation tracer final thread ID resolved
+
+- A single read-only task-list lookup resolves the accepted setup to visible
+  Luna/max thread `019fd670-c791-7000-8a5f-4538396a54d6`, app worktree `4954`.
+- The task still owns only the focused test source from exact base `9b7b1c779`.
+  Use at most one bounded wait for its proactive RESPONSE; no polling loop or
+  worker-worktree inspection is authorized.
