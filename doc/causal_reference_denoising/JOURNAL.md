@@ -5775,3 +5775,12 @@ hidden reasoning is not.
 - A concurrent event wait shows the admission worker still active and aligned
   to its exact Busy/Closed/atomic/destructor-contract scope. This is progress,
   not a code response; await its proactive final without polling.
+
+### E-573 - Admission correction review is timeboxed to response
+
+- Bounded event waits show the two-file implementation and its MOC/legacy-
+  compiler checks complete, but no structured response yet. No scope concern is
+  reported.
+- Prepare one noninterrupting finalize message: commit/prove the current exact
+  scope and respond, without adding tests/CMake/harness/UI or new validation
+  branches. Await the proactive result afterward.

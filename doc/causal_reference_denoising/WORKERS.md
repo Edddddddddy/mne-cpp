@@ -7778,6 +7778,15 @@ does not continuously poll them.
   archived spent thread and UI hold at
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208361509`.
 
+### FOLLOWUP W-PLUGIN-ADMISSION-FIX-001-FINALIZE
+
+- to / `019fd86c-b508-7491-876e-1972be35875a`
+- request / stop validation expansion after the completed MOC/available-compiler
+  checks; commit the exact two-file implementation, prove clean state and return
+  the required transition/callback/evidence response.
+- boundary / do not add tests, CMake, harnesses or UI and do not relabel syntax/
+  source proof as lifecycle runtime evidence. One noninterrupting message only.
+
 ### REQUEST W-PLUGIN-STATIC-001
 
 - from / manager
