@@ -4472,3 +4472,17 @@ hidden reasoning is not.
   scope, sequence/event/pipe design and final re-review gate.
 - The completed atomic-test thread is retirement-ready after durable clean/blob/
   review/GREEN evidence; archive it through the app, not the filesystem.
+
+### E-430 - Atomic-test thread archived
+
+- App archive succeeds for `019fd5fa-f207-7fe3-9189-8d77fc9cfade`; no manual
+  worktree action occurs.
+
+### E-431 - Teaching widget ownership pattern confirmed
+
+- Existing setup widgets are recreated for each `setupWidget()` call and later
+  destroyed by the central widget. The adaptive plugin must retain no widget
+  pointer and must keep persistent control state solely in PImpl.
+- Explicit queued diagnostics plus QObject auto-disconnect make fresh-widget
+  destruction safe; the POD mirrors existing processor/numerical scalars rather
+  than adding a parallel model.

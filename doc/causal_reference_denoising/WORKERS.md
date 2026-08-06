@@ -6351,3 +6351,20 @@ does not continuously poll them.
   repeat runs and public production follow-up are durable.
 - It has no remaining same-responsibility work. Archive through the app without
   manually modifying or deleting its app-owned worktree.
+
+### ARCHIVED W-QUEUE-ATOMIC-TEST-001
+
+- App archive succeeded for visible thread
+  `019fd5fa-f207-7fe3-9189-8d77fc9cfade`. Its app-owned worktree was not
+  manually changed or deleted.
+
+### DISCUSSION PLUGIN-UI-PATTERN-002
+
+- Read-only repository audit confirms the central widget destroys each setup
+  widget and established plugins return a fresh instance from `setupWidget()`.
+- Decision: the future adaptive widget is also fresh per call and the plugin
+  stores no widget pointer. QObject auto-disconnect plus an explicit queued
+  diagnostics connection protects destruction; persistent settings remain only
+  in the plugin PImpl pending snapshot.
+- The diagnostics POD reuses existing configure/process enum and scalar fields
+  plus dropped blocks. It must not become a second state model.

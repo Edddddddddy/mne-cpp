@@ -439,6 +439,15 @@ The later Luna/max UI task is limited to the plugin header/source/CMake plus a
 private diagnostics-types header and setup-widget header/source. A separate
 Sol/ultra review verifies block-boundary serialization and queued diagnostics.
 
+Repository-pattern audit confirms `setupWidget()` must return a fresh widget
+on every call because the central widget owns and destroys it. Therefore the
+plugin must retain no widget pointer: construct `AdaptiveDenoisingSetupWidget`
+with the plugin as signal/slot peer, rely on QObject auto-disconnect at widget
+destruction, and keep all persistent control state in the plugin PImpl pending
+snapshot. The fixed diagnostics value mirrors only the existing processor
+configuration result and numerical process diagnostics plus dropped blocks; it
+does not introduce another model or duplicate source of truth.
+
 The plugin target links only the dependencies it uses: Qt Core/Widgets,
 `mne_utils`, `mne_fiff`, `mne_rtprocessing`, Eigen, `scShared` and `scMeas`.
 It does not inherit the broad dependency set of `noisereduction` and does not
