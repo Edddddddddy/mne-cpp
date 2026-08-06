@@ -6154,3 +6154,15 @@ does not continuously poll them.
 - Restrictions: same visible Sol/ultra thread, no subagent/manager poll/full
   scan/mne_scan/vendor/server/GitHub action.
 - Status: response durable before manager exact-delta review or integration.
+
+### MANAGER REVIEW W-PLUGIN-DATA-001-FIX-1
+
+- Exact parent and sole source-file scope pass; committed diff check is clean.
+  The complete word diff is only one two-line SPSC comment and replacement of
+  the saturation equality with nonzero-count rejection.
+- State proof: any admitted observation is open with count zero; `entered =
+  observed + 1` therefore has count one. CAS failure returns without retry, and
+  post-entry closed/epoch mismatch still decrements exactly that one count.
+  No successful path can publish count greater than one.
+- Decision: no finding. Accept the delta for ordered cherry-pick immediately
+  after the atomic queue formal gate; do not integrate the plugin early.

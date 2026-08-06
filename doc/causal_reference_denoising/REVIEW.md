@@ -146,6 +146,9 @@
   nonzero count before the existing one-shot CAS, so an admitted state can only
   publish zero to one. Worker source-contract proof and moc pass. Finding stays
   open until manager delta review, later ordered integration and plugin gate.
+- Manager fix review: exact one-file diff and zero-to-one state proof pass with
+  no semantic spill. The fix is accepted; the P1 remains administratively open
+  until ordered integration and public/plugin formal validation.
 
 ### Plugin data manager pre-review decision
 

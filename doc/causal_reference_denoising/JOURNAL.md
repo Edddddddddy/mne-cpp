@@ -4356,3 +4356,13 @@ hidden reasoning is not.
   unchanged. Worker source-contract proof and Qt moc succeed.
 - Next: manager exact-delta review. Plugin remains held behind queue atomic
   gate even if this private P1 correction is accepted.
+
+### E-418 - Plugin SPSC admission delta accepted
+
+- Exact parent/scope/word-diff checks pass. The only semantic change rejects a
+  nonzero in-flight count before the existing one-shot CAS.
+- The admitted state can publish only count one; CAS failure and epoch/closed
+  rollback preserve prior lifecycle behavior. No lock, wait, retry or public
+  seam is added.
+- Decision: accept for later ordered cherry-pick, after atomic queue gate. Keep
+  the P1 open until integrated and covered by the plugin formal milestone.
