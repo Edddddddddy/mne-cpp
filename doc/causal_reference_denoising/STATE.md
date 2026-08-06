@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-07T04:14:15+08:00
+Last updated: 2026-08-07T04:16:11+08:00
 
 ## Recovery order
 
@@ -776,3 +776,10 @@ same-responsibility implementation conversations that may receive review fixes.
 - The next blocking task is `W-PLUGIN-UI-WIRE-001`: a new visible Sol/ultra
   worker editing only `adaptivedenoising.h/.cpp` for the pending UI snapshot,
   worker-block-boundary configuration/reset/mode order and queued diagnostics.
+- Widget GREEN is published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208840455`.
+  The completed Luna/max widget task is app-archived and the merged local-only
+  `codex/worker-ui-green-base` ref is deleted after detached/merged proof.
+- `W-PLUGIN-UI-WIRE-001` is durably requested from exact pushed code base
+  `60fdf633f83b41bb2a960c1b83ab3d6c5d608b5a`; create a new visible Sol/ultra
+  app worktree only after this request record is committed and pushed.

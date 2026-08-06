@@ -6115,3 +6115,22 @@ hidden reasoning is not.
   dependency adjustment is needed. Persist/push and publish this widget gate,
   archive its one-shot Luna/max task, then create the prepared Sol/ultra
   two-source plugin wiring task.
+
+### E-606 - Teaching widget GREEN published and cleaned up
+
+- Issue #6 comment/read-back records integration, 3/0/0 Release evidence and
+  the separate Sol wiring boundary at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208840455`.
+- Archive completed Luna/max thread `019fd8a2-5324-7342-818b-7836cd1a0379`.
+  After worktree-attached and merged proofs, delete only local temporary ref
+  `codex/worker-ui-green-base`; never manually delete an app worktree.
+
+### E-607 - Plugin UI wiring request frozen
+
+- Freeze exact pushed code base
+  `60fdf633f83b41bb2a960c1b83ab3d6c5d608b5a` and a two-source-only Sol/ultra
+  task. It owns pending UI state, block-boundary configure/reset/mode order,
+  fresh widget connections and queued fixed diagnostics.
+- The acquisition callback, widget/tracer/CMake, queue, processor, core and
+  issue-#8 lifecycle contract are immutable. Commit/push this request before
+  creating the app-managed worktree; await a proactive response without polling.

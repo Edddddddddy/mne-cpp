@@ -8448,6 +8448,69 @@ does not continuously poll them.
   worker without deleting its app worktree, clean the spent local-only base ref,
   then dispatch the prepared two-source Sol/ultra wiring task.
 
+### PUBLICATION / ARCHIVED W-PLUGIN-UI-GREEN-001
+
+- issue / GREEN comment and authenticated read-back:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208840455`;
+  issue #6 remains OPEN for plugin wiring and review.
+- archive / completed visible Luna/max thread
+  `019fd8a2-5324-7342-818b-7836cd1a0379` is app-archived. No app-managed
+  worktree is manually deleted.
+- local ref / manager proves `codex/worker-ui-green-base` is detached/not
+  worktree-attached and merged into the integration branch, then deletes only
+  that spent local ref. The feature branch and remote remain intact.
+
+### REQUEST W-PLUGIN-UI-WIRE-001
+
+- from / manager thread `019fcdc3-4a1e-76d1-8140-1bd521219297`.
+- to / new visible app-managed project worktree conversation.
+- model / `gpt-5.6-sol` / `ultra`; no internal/nested subagent and no manager
+  polling/read/wait.
+- exact code base / pushed
+  `60fdf633f83b41bb2a960c1b83ab3d6c5d608b5a`.
+- blocking / yes; final implementation slice for issue #6 before independent
+  UI review and final regression.
+- skills / read complete codebase-design skill and DEEPENING guidance before
+  edits. Use the existing concrete plugin/widget/processor/queue seams; add no
+  registry, strategy, controller or new AbstractAlgorithm interface.
+- authorized / edit only
+  `src/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoising.h` and
+  `adaptivedenoising.cpp`.
+- immutable / widget/diagnostics/CMake/tracers, queue, processor, numerical,
+  other plugins, docs, vendor and dependencies.
+- Qt seam / include the fixed diagnostics type; add one fixed diagnostics
+  signal and narrow slots for enabled, frozen, taps, update interval, memory,
+  regularization and reset. `setupWidget()` returns a fresh standalone widget,
+  connects its seven signals to these slots, and connects diagnostics to the
+  widget slot with explicit `Qt::QueuedConnection`; store no widget pointer.
+- pending snapshot / PImpl owns enabled=true, frozen=false, the numerical
+  defaults, monotonic settings revision and reset sequence under one GUI/worker
+  mutex. GUI slots only update this snapshot. The acquisition `update()` path
+  must remain byte-for-byte unchanged and never read/lock the snapshot.
+- block boundary / after every successful dequeue, copy pending state exactly
+  once. Metadata/block/settings revision changes configure before the whole
+  block; a new reset sequence resets before process. Modes are disabled ->
+  BypassTrackHistory, enabled+frozen -> ApplyOnly, enabled+unfrozen ->
+  ApplyAndLearn. Applied revisions/sequences are worker-owned.
+- diagnostics / register the metatype before worker emission; publish fixed
+  Stopped/WaitingForData/Processing/InvalidMetadata/ConfigurationException
+  states plus configure/process statuses, R/M/P, warmup, generation, accepted/
+  rejected events, input/output/noise RMS and atomic dropped count. Invalid
+  structural metadata reports diagnostics but emits no stale-label output;
+  configure exceptions disarm and report the fixed state. Human-readable text
+  remains only in the widget.
+- lifecycle / start resets worker-applied layout/revision/diagnostics state but
+  preserves pending GUI values; stop clears output and publishes Stopped only
+  after worker/producer quiescence. Preserve the issue-#8 destructor and real-
+  plugin-harness contract exactly.
+- verification / standalone plugin/widget MOC, MSVC 14.29 C++14 syntax when
+  available, immutable focused UI test replay, and deterministic extraction
+  proving `update()` unchanged plus one-copy configure/reset/mode ordering.
+  Do not run full mne_scan or mne_rt_server and do not repair vendor/dependencies.
+- response / proactively send `RESPONSE W-PLUGIN-UI-WIRE-001` with exact parent,
+  two-file commit, source-order proof, commands/results/limits and clean status.
+  Do not poll the manager; manager owns integration and formal review.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are
