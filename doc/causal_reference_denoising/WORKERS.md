@@ -7807,6 +7807,22 @@ does not continuously poll them.
 - public dispatch / shared issue #6 comment:
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208361509`.
 
+### RESPONSE W-PLUGIN-STATIC-001
+
+- parent / exact `48672b02eb35de300a046079028e96ec6d1b25b6`
+- commit / `945b345a78d8788464fa13be0545ea2447448988`
+- scope / exactly mne_scan `CMakeLists.txt` and `main.cpp`; two additions,
+  zero removals; clean detached worker state and diff-check pass.
+- implementation / add static-only `scan_adaptivedenoising` link and static-only
+  `Q_IMPORT_PLUGIN(AdaptiveDenoising)`; shared link body unchanged and no qrc
+  initializer added.
+- verification / normalized parent oracle confirms all non-addition lines are
+  identical. Static configure sets mne_scan ON and mne_rt_server OFF but stops
+  before target generation because the isolated ignored Eigen baseline is
+  incomplete; no vendor repair or runtime claim.
+- next / manager provenance/diff review, then conflict-free integration and
+  static source/configure evidence in the populated workspace.
+
 ### PREPARED REQUEST W-PLUGIN-UI-TEST-001
 
 - state / prepared only; do not dispatch until `R-PLUGIN-DATA-001` passes or

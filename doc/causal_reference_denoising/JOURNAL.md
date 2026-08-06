@@ -5735,3 +5735,13 @@ hidden reasoning is not.
   `019fd869-e6d4-77c0-8edf-833cc23656c8`, both active in fresh app worktrees.
 - This resolves identities only. Do not read/poll their turns or inspect files;
   await proactive responses.
+
+### E-569 - Static plugin registration response received
+
+- Luna/max worker proactively returns exact-parent two-file commit
+  `945b345a78d8788464fa13be0545ea2447448988` with only the static target link
+  and plugin import additions. Shared behavior and resource initialization are
+  unchanged; worker scope/diff/clean checks pass.
+- Its isolated configure is blocked by the known missing ignored Eigen checkout
+  before target generation. Persist before direct object/diff review; admission
+  Sol/ultra task remains active and file-disjoint.
