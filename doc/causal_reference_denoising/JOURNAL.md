@@ -5752,3 +5752,14 @@ hidden reasoning is not.
   exactly one static link plus one static import addition. No qrc/shared change.
 - Conflict-free cherry-pick creates `78d443144`. Record/push before populated
   static verification. Admission Sol/ultra task remains active and disjoint.
+
+### E-571 - Populated static registration configure is GREEN
+
+- A first option-search command ends nonzero only because PowerShell cannot pass
+  the recursive wildcard to `rg`; it still prints the needed options and mutates
+  nothing. Direct application CMake inspection supplies the exact switch set.
+- Fresh static configure completes with mne_scan ON, mne_rt_server OFF and all
+  unrelated apps/examples/tests disabled. Generated mne_scan project references
+  and links generated `scan_adaptivedenoising` for static configurations.
+- This closes the source/configure half of the finding. No app is built/run and
+  the known pre-plugin Qt/MSVC dependency boundary remains explicit.

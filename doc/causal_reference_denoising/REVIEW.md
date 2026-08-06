@@ -783,6 +783,10 @@ tracked.
   `scan_adaptivedenoising` linkage and `Q_IMPORT_PLUGIN(AdaptiveDenoising)`;
   no qrc initializer or shared-build change. Status is addressed pending
   populated configure/source verification and fresh formal review.
+- Populated verification: static CMake configure succeeds with mne_scan ON and
+  mne_rt_server OFF; generated mne_scan project explicitly references/links the
+  generated Adaptive Denoising project. Mark addressed pending formal review;
+  target execution remains environment-deferred.
 
 #### R-PLUGIN-ATOMIC-LOCKFREE-001 - P3 - Open
 

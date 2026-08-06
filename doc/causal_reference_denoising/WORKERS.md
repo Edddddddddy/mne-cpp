@@ -7833,6 +7833,20 @@ does not continuously poll them.
   static configure/source evidence and fresh lifecycle review remain required
   before formally closing `R-PLUGIN-STATIC-REGISTRATION-001`.
 
+### VALIDATION W-PLUGIN-STATIC-001
+
+- harness note / the first read-only `rg` option scan used a PowerShell wildcard
+  that Windows rejects after returning the needed top-level option lines. It
+  changed nothing; direct application CMake inspection supplied the exact flags.
+- configure / populated workspace Visual Studio 18/MSVC 19.51 static configure
+  succeeds with `BUILD_SHARED_LIBS=OFF`, `BUILD_MNE_SCAN=ON`,
+  `BUILD_MNE_RT_SERVER=OFF`, other applications/examples/tests disabled.
+- generated evidence / both `mne_scan.vcxproj` and
+  `scan_adaptivedenoising.vcxproj` exist; the former has a project reference and
+  Release/Debug link dependency on `scan_adaptivedenoising`.
+- runtime boundary / no executable is built or run. The known Qt/MSVC `mne_fiff`
+  compile block remains the real target limitation; no vendor repair/server.
+
 ### PREPARED REQUEST W-PLUGIN-UI-TEST-001
 
 - state / prepared only; do not dispatch until `R-PLUGIN-DATA-001` passes or
