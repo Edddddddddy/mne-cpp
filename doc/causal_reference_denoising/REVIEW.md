@@ -868,3 +868,18 @@ tracked.
   QtTest executions report 3/0/0 and the explicit rerun exits zero. This proves
   only the public widget contract; plugin pending-state/block-boundary wiring is
   intentionally the next Sol/ultra slice and receives a separate formal review.
+
+### Compatible-toolchain real plugin link evidence - pre-wiring checkpoint
+
+- Configuration: Visual Studio 18 generator with explicit `-T v142` selects
+  installed MSVC 19.29.30159/14.29.30133, Qt 5.15.2, mne_scan enabled and
+  `BUILD_MNE_RT_SERVER=OFF`.
+- Result: the real `scan_adaptivedenoising` target compiles and links to
+  `out/Release/apps/mne_scan_plugins/scan_adaptivedenoising.dll`. Its dependency
+  graph also builds/links `mne_rtprocessing`, `mne_fiff`, `scShared`, `scMeas`
+  and the required project libraries. Vendor/dependency source is unchanged.
+- Evidence boundary: this is target compile/link, not a full mne_scan runtime or
+  plugin lifecycle test. It proves a compatible local toolchain exists and
+  removes the earlier absolute environment blocker for link verification.
+- Gate status: pre-wiring snapshot only. Rebuild the exact final wiring snapshot
+  with the same v142 configuration before closing `R-CORE-LINK-001` and QA #3.

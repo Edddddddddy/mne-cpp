@@ -6195,3 +6195,34 @@ hidden reasoning is not.
   generation/accepted/rejected `1099/1099/0`; p95 remains below 128 ms.
 - This is a truthful comparison checkpoint, not real-plugin/full-app/server
   evidence. Repeat the same set after wiring; do not infer worker status from it.
+
+### E-614 - Compatible v142 real-plugin configuration succeeds
+
+- A first CMake attempt uses `-T version=14.29`; VS18 expands it as invalid
+  `v145,version=14.29` and configuration fails. This is a manager generator-
+  syntax error, not a source/toolchain failure.
+- A fresh external temporary build with `-T v142` selects installed MSVC
+  19.29.30159/14.29.30133 and configures successfully with only mne_scan enabled,
+  mne_rt_server/tests/examples disabled, and the populated Eigen/Qt baseline.
+- This establishes a compatible Qt/MSVC target path without vendor changes.
+
+### E-615 - Initial compatible target build exceeds tool wait budget
+
+- The first v142 `scan_adaptivedenoising` build exceeds the outer 10-minute tool
+  budget with MSBuild/cl still active and no returned terminal output. Record it
+  only as a harness timeout; do not infer source success/failure or kill valid
+  child compilation.
+- Read-only inspection shows v142 `mne_fiff.dll` already linked and one MSBuild
+  reuse node still present. Wait for the primary process and use a subsequent
+  `/nodeReuse:false` incremental build to obtain an explicit result.
+
+### E-616 - Compatible real plugin target compiles and links
+
+- The `/nodeReuse:false` v142 incremental build exits zero. It builds the real
+  dependency graph including `mne_fiff`, `mne_rtprocessing`, `scMeas`,
+  `scShared`, then links
+  `out/Release/apps/mne_scan_plugins/scan_adaptivedenoising.dll`.
+- Warnings are only MSB8029 about using an external temporary intermediate
+  directory. No source/vendor/dependency edit and no full app/server run occurs.
+- This removes the absolute compatible-toolchain link blocker but is a pre-
+  wiring snapshot. Repeat the real target after the Sol wiring integration.

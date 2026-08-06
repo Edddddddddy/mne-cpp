@@ -801,3 +801,9 @@ same-responsibility implementation conversations that may receive review fixes.
   numerical `45/0/0`, processor/queue `19/0/0`, UI `3/0/0`, example PASS and
   benchmark PASS at p50/p95/max `2.163/2.767/3.683 ms` with 1099 accepted and
   zero rejected epochs. This is the comparison baseline for the wiring commit.
+- A compatible real-target path is now proven: VS18 with `-T v142` selects
+  installed MSVC 19.29/14.29, configures mne_scan with `mne_rt_server` disabled,
+  and compiles/links the current real `scan_adaptivedenoising.dll` plus
+  `mne_rtprocessing`, FIFF, Qt and scan-library dependencies. The MSVC14.51/Qt
+  failure remains a default-toolset boundary, but no longer blocks compatible-
+  toolchain target evidence. Repeat after final wiring before closing QA.
