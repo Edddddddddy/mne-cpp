@@ -7290,3 +7290,15 @@ does not continuously poll them.
 - Corrective action: run the exact reported executable path, retain the full
   reporter output and three immediate repeat exit codes. No source/dependency
   edit and no server run.
+
+### FAILURE VALIDATION-QUEUE-EINTR-WINDOWS-REPORTER-002
+
+- The corrected-path script launches the focused executable and repeats, but
+  the final `Get-Content` fails because the Qt text reporter file is still held
+  by a process. The script exits before publishing a reliable combined result.
+- No test PASS/FAIL total is inferred. Inspect only the focused process state
+  and reporter timestamp/content after it is released; then use explicit
+  `Start-Process -Wait -PassThru` executions or direct console output so each
+  exit is durably observed before the next run.
+- This is a validation-harness/process-lifetime issue; tracked source and
+  dependencies remain untouched.

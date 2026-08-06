@@ -5236,3 +5236,12 @@ hidden reasoning is not.
   `out/Release/apps/test_adaptive_denoising_plugin.exe`.
 - Record this harness-only failure before rerunning from the authoritative path.
   No runtime result is claimed from the failed lookup attempt.
+
+### E-516 - Windows reporter file remains locked after corrected launch
+
+- The corrected-path validation reaches its reporter read, but Windows denies
+  access because the results file remains open by a process. The script exits
+  before a reliable combined exit/result record is emitted.
+- Do not claim GREEN from this attempt. Check focused process state read-only,
+  then rerun with explicit per-process wait/exit capture and no shared reporter
+  file across repeats. Repository source remains unchanged.
