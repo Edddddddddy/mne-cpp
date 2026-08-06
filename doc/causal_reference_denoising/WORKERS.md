@@ -6664,6 +6664,14 @@ does not continuously poll them.
   EINTR for a blocked long-timeout push and stop; require prompt Popped/Stopped,
   exact payload or complete destination preservation. No public queue hook.
 
+### UPDATE W-QUEUE-CONCURRENCY-TEST-002
+
+- One bounded 60-second task wait timed out with the visible Luna/max thread
+  still active. Its latest proactive progress says the deterministic sustained
+  and stop-race gates are implemented and it is checking C++14/QtTest syntax.
+- No response/commit is accepted yet. Manager will not poll again; integration
+  waits for the worker's proactive structured `RESPONSE`.
+
 ### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
 
 - First read-only app project-list call produced no result within 60 seconds and

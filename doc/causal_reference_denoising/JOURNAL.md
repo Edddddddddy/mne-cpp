@@ -4895,3 +4895,12 @@ hidden reasoning is not.
 - After concurrency-test integration, a new Luna/max test/CMake task can use
   Linux-only GNU `--wrap=write` with a thread-local one-shot EINTR injector to
   create deterministic public push/stop RED without a production/public hook.
+
+### E-479 - Concurrency correction bounded wait yields progress only
+
+- A single 60-second wait on visible Luna/max thread
+  `019fd69f-9196-7a82-9c3f-941076fb84fa` times out while the task remains
+  active. Its latest commentary reports deterministic sustained/stop-race
+  gates in place and a C++14/QtTest syntax check in progress.
+- This is not a completed response or integration decision. Do not poll again;
+  await the proactive structured response while working only on disjoint files.
