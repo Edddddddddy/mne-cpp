@@ -3716,3 +3716,11 @@ hidden reasoning is not.
   rtprocessing, Eigen and scShared/scMeas; no noisereduction/AdaptiveTSSS edit.
 - Next: commit/push design and publish issue #6 while queue-v2 tracer continues
   independently.
+
+### E-354 - Plugin lifecycle design published
+
+- Publish/read-back: issue #6 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5200101632`
+  records the frozen callback/worker/exception/UI/dependency seam.
+- Presentation correction: generic current-head wording was immediately
+  replaced with exact `3054015b7` and verified by API read-back.

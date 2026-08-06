@@ -4755,6 +4755,14 @@ does not continuously poll them.
   GUI-worker settings mutex is never used by callback; diagnostics use queued
   signals. Minimal target dependencies exclude unrelated noise-reduction libs.
 
+### PUBLISH PLUGIN-LIFECYCLE-001
+
+- GitHub issue #6 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5200101632`.
+- Authenticated `gh` body was immediately PATCHed from a generic current-head
+  phrase to exact design commit `3054015b7`; API read-back confirms the final
+  callback/worker/exception/mode/dependency contract and restrictions.
+
 ### PUBLISH PLUGIN-INGRESS-002
 
 - GitHub issue #6 comment:
