@@ -868,3 +868,7 @@ same-responsibility implementation conversations that may receive review fixes.
 - Completed one-shot `W-QUEUE-SPEC-001` task `019fd69f-...` is archived after
   detached/clean proof and exact diff-hash equality between worker `96055bf13`
   and integrated `c56f19269`. Its app-managed worktree is intentionally intact.
+- Final UI reviewer has independently confirmed one snapshot per successful
+  pop and `configure -> reset -> mode -> process` ordering. It is still auditing
+  exception disarm, diagnostics, static wiring and test sensitivity; no finding
+  or blocker has been returned, so all MVP issues remain open pending its gate.

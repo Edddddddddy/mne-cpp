@@ -6379,3 +6379,12 @@ hidden reasoning is not.
   diff hash `02f753e7897eb655401aba58404b36e960e32514`; the integration commit is an
   ancestor of current HEAD. Archive the task through the app and leave its
   app-managed worktree untouched.
+
+### E-632 - Final UI review reaches behavioral edge audit
+
+- A single 120-second event wait times out with `R-PLUGIN-UI-001` still active.
+  It independently confirms the single pending snapshot and exact configure,
+  reset, mode-selection and process order after each successful dequeue.
+- The reviewer is now checking exception disarm, stale diagnostics/configuration,
+  static-plugin wiring and focused-test regression sensitivity. No finding,
+  blocker, mutation or input request is present; issue closure remains held.
