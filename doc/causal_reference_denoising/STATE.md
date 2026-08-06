@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T14:46:00+08:00
+Last updated: 2026-08-06T14:49:00+08:00
 
 ## Recovery order
 
@@ -235,8 +235,8 @@ same-responsibility implementation conversations that may receive review fixes.
 
 ## Current checkpoint override
 
-- Integration HEAD: `a21e08e00`; remote currently ends at the preceding
-  manager-review commit. The tracked integration has queue-v2 cherry-picked;
+- Integration/remote HEAD: `ff00a53e8`. The tracked integration has queue-v2
+  plus the compile-RED evidence committed and pushed;
   only the three preserved user paths are untracked.
   only untracked paths are the three preserved user paths listed in the plan.
 - Active blocking task: `W-QUEUE-V2-GREEN-001`, Sol/ultra setup
@@ -249,7 +249,8 @@ same-responsibility implementation conversations that may receive review fixes.
   next. It is integrated as `a21e08e00`, but populated Release compilation
   opens P1 `R-QUEUE-QT-SLOTS-001`: private member name `slots` collides with
   Qt's keyword macro and prevents compilation. Return a source-only rename fix
-  to the retained Sol/ultra conversation, then rerun the complete target.
+  to the retained Sol/ultra conversation, then rerun the complete target. The
+  existing conversation accepted that exact fix request.
   Recovery publication: issue #5 comment
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201026440`.
 - Active non-overlapping task: `W-PLUGIN-DATA-001`, Sol/ultra setup

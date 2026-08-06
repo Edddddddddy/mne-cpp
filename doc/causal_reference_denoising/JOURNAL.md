@@ -4097,3 +4097,10 @@ hidden reasoning is not.
 - Finding: P1 `R-QUEUE-QT-SLOTS-001`. No executable/test result is claimed.
 - Decision: log/push the RED, request a one-file mechanical rename from the
   retained Sol/ultra implementation conversation, then rebuild completely.
+
+### E-390 - Queue-v2 Qt keyword fix dispatched
+
+- Existing queue implementation thread accepted the source-only mechanical
+  rename request with Sol/ultra from parent `90b423e3c`.
+- No duplicate worker was created and no concurrency/public/test logic may
+  change. Await proactive delta, then manager diff and populated rebuild.
