@@ -5478,3 +5478,10 @@ hidden reasoning is not.
   plugin interface. This differs from worker's target-context MOC success.
 - Find the actual `abstractalgorithm.h` location and rerun standalone MOC with
   the correct include roots and metadata file; no production edit.
+
+### E-543 - MOC failure record push hits transient TLS error
+
+- Local documentation commit `3b5afea3b` is created, but the first ordinary
+  push fails with `SSL_ERROR_SYSCALL`; no remote mutation occurs.
+- Append the network failure locally, commit it, and retry the normal branch
+  push once without force.

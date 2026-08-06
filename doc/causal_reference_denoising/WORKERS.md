@@ -7560,3 +7560,10 @@ does not continuously poll them.
 - This is an incomplete standalone MOC environment, not a header verdict. Locate
   the repository interface include root and rerun with the plugin JSON plus all
   required include paths.
+
+### FAILURE PUSH-PLUGIN-MOC-RECORD-001
+
+- Documentation commit `3b5afea3b` succeeds locally, but its ordinary push
+  fails during GitHub TLS handshake with `SSL_ERROR_SYSCALL`.
+- Remote state is unchanged; branch is clean/ahead. Record locally and retry one
+  non-force push, with no history rewrite.
