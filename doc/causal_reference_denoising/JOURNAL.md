@@ -6237,3 +6237,13 @@ hidden reasoning is not.
 - Authenticated read-back confirms both issues remain OPEN and the latest
   comments preserve the exact-final-rebuild requirement. No premature gate or
   epic checkbox update occurs.
+
+### E-618 - UI wiring verification timeboxed to response
+
+- A later event wait after substantial manager work shows Sol/ultra has the
+  edited translation unit and both plugin/widget MOC probes GREEN. The first
+  plugin MOC probe only lacks a command include root; corrected replay passes.
+- Worker is running the requested MSVC14.29 C++14 syntax check. Send one
+  noninterrupting finalize message requiring only that current check, exact
+  parent/two-file/diff/clean proofs, commit and proactive response. Do not poll
+  again or expand its verification scope.

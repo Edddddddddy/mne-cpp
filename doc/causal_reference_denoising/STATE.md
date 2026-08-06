@@ -812,3 +812,7 @@ same-responsibility implementation conversations that may receive review fixes.
   and cross-linked from plugin issue #6 comment
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208984539`;
   both issues remain OPEN pending exact final wiring/review.
+- A later 60-second event wait after the focused/link work shows the Sol wiring
+  worker active with edited translation unit and both MOC probes passing; it is
+  running only the planned MSVC14.29 C++14 syntax check. A noninterrupting
+  finalize request limits the remainder to that check, exact proofs and response.

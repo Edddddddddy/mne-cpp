@@ -8565,6 +8565,19 @@ does not continuously poll them.
   target-link evidence plus the requirement to rebuild the exact final wiring
   snapshot. No checklist or issue state is changed.
 
+### WAIT / FINALIZE W-PLUGIN-UI-WIRE-001
+
+- timing / one later 60-second cursor-aware event wait occurs only after manager
+  completes the focused pre-wiring regression and compatible real-target build.
+- progress / task remains active with the exact edited translation unit; plugin
+  and widget MOC now pass. Its first plugin MOC command omitted the mne_scan/libs
+  include root, then the corrected command passes. It is executing only the
+  planned MSVC14.29 C++14 syntax check.
+- finalize / send one noninterrupting follow-up: finish that existing syntax
+  check, prove exact parent/two-file scope/diff/clean state, commit and proactively
+  respond. No new harness/test/CMake/docs/vendor/full-app/server branch.
+- next / do not poll. Await the structured response.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are
