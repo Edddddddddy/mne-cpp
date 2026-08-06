@@ -3552,3 +3552,15 @@ hidden reasoning is not.
   exact blob, Release and GitHub evidence became durable.
 - Safety: no manual app-owned worktree deletion or mutation; future work uses
   a new minimal Luna/max conversation.
+
+### E-338 - Processor interface locality fix requested
+
+- Request: `W-QA-PROC-LOCALITY-001`, new visible Luna/max comments-only task
+  on exact `16c993872` for final-QA P3 `R-PROC-LOCALITY-001`.
+- Scope: one processor public header; local truthful Doxygen for selection,
+  ranges, ownership, disarm/reset, configure exceptions, hot path and
+  pass-through. No declaration or runtime behavior change.
+- Independence: no overlap with active core header/test, queue review or
+  learning guide.
+- Next: commit/push request, create and publish the visible task, then await
+  proactive responses only.

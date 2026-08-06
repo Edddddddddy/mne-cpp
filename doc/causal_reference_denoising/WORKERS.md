@@ -4602,6 +4602,34 @@ does not continuously poll them.
 - No manual worktree deletion or mutation occurred; any later processor test
   edit must use a new minimal Luna/max task.
 
+### REQUEST W-QA-PROC-LOCALITY-001
+
+- From / to: manager / new visible Luna/max processor-contract conversation.
+- GitHub issue: `Edddddddddy/mne-cpp#3`; finding
+  `R-PROC-LOCALITY-001` (P3).
+- Exact base: `16c9938724dbb455098a1bb69349d327b7f4817f` on the integration
+  branch; separate Codex worktree.
+- Authorized edit: only
+  `src/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingprocessor.h`.
+- Add compact Doxygen local to descriptors/settings/results/class and methods:
+  good REF_MEG/good MEG selection; inclusive ranges/defaults; single worker-
+  thread ownership; Ready always resets; every returned invalid/missing/core
+  rejection disarms and zeroes counts; configure may allocate/throw, with
+  exceptions preserving prior state so caller must fail closed for new layout;
+  armed noexcept process delegates and may only modify targets; disarmed process
+  is exact pass-through NotConfigured; reset/configuration behavior and hot-path
+  no allocation/lock/string/Qt/FIFF claims.
+- Keep all declarations, defaults, enum values, special members and includes
+  behaviorally unchanged. Do not add interface, implementation or test code.
+- Verification: compare contract against SPEC/source and existing compiled
+  C++14 ownership traits; run diff/scope checks. A build is optional because
+  this is comments-only; do not claim runtime evidence not run.
+- Restrictions: read full codebase-design skill; gpt-5.6-luna/max; no nested
+  subagent, manager polling, other-file/build/dependency edit, full scan, full
+  mne_scan, vendor repair or rt_server. Proactively send
+  `RESPONSE W-QA-PROC-LOCALITY-001` and stop.
+- Status: request durable before task creation.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread
