@@ -6816,6 +6816,16 @@ does not continuously poll them.
   checkout; no dependency repair/search. Manager owns populated Release run.
 - Status: response durable; exact Git provenance/diff/oracle review pending.
 
+### INTEGRATED W-QUEUE-STOP-WAIT-TEST-001-RETRY-1
+
+- Direct Git proof corrects the malformed response field: `cee7ed325` parent is
+  exact `8539c8e85`; scope is one focused test file and diff-check passes.
+- Integrated as `103d5a5a8`. Populated MSVC Release compiles/links with only
+  existing Eigen C4819 warnings; the complete focused executable plus three
+  repeats return `0,0,0,0`.
+- `R-QUEUE-STOP-WAIT-ELAPSED-001` closes. The one-shot retry conversation can be
+  app-archived after this evidence is pushed; no worktree deletion.
+
 ### Conversation cleanup rule reaffirmed
 
 - User again requires timely cleanup. Archive every one-shot/failed/spent

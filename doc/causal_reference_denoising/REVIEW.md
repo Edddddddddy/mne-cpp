@@ -658,3 +658,10 @@ tracked.
   join. Preserve finite fallback stop/join behavior and all existing oracles.
 - Required verification: MSVC Release-style complete focused suite plus repeats;
   exact one-test-file delta and no production/CMake change.
+- Resolution: worker response mislabeled its parent, but direct Git object proof
+  shows `cee7ed325` has exact parent `8539c8e85` and changes only the focused
+  test. Integrated `103d5a5a8` measures the complete stop-phase consumer
+  `waitPop`, publishes its elapsed milliseconds and after join requires
+  `Stopped`, `>=5 ms` and `<1500 ms`. Populated MSVC Release compiles/links;
+  the complete executable and three immediate repeats return `0,0,0,0` with all
+  forced wrap/reuse/FIFO/metadata/tail/allocation oracles retained. Closed.

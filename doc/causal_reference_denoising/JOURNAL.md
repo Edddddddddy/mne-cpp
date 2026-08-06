@@ -5107,3 +5107,16 @@ hidden reasoning is not.
   no provenance or acceptance is inferred. Persist the response, then inspect
   the Git object directly for exact parent `8539c8e85`, one-file scope,
   diff-check and retained public oracles before integration.
+
+### E-502 - Stop-wait timing correction integrated and canonical GREEN
+
+- Direct Git object inspection proves worker commit `cee7ed325` has exact parent
+  `8539c8e85`, one focused-test file only and a clean 14-line insertion delta.
+  The response's malformed parent field is corrected by repository evidence.
+- Integrated as `103d5a5a8`. Populated MSVC Release builds/links with only known
+  Eigen C4819 warnings; the complete executable plus three repeats return
+  `0,0,0,0`. The stopped public wait now has post-join `Stopped`, `>=5 ms` and
+  `<1500 ms` gates while all earlier forced-reuse/public-state/allocation oracles
+  remain. Close `R-QUEUE-STOP-WAIT-ELAPSED-001`.
+- Next: push the milestone, archive the one-shot retry conversation, then
+  dispatch the already prepared WSL deterministic EINTR RED tracer.
