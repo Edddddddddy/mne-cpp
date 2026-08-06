@@ -6545,6 +6545,29 @@ does not continuously poll them.
   separate evidence. This one-shot Luna test conversation is retirement-ready
   after formal-review dispatch no longer needs it.
 
+### REQUEST R-QUEUE-ATOMIC-002
+
+- From/to: manager / retained independent Sol/ultra queue reviewer thread
+  `019fd5d8-380d-7563-8644-264426bda199`.
+- Blocking: yes; issue #5 and plugin integration wait for this formal gate.
+- Exact review snapshot: `9535bf8c7`, clean pushed integration state after
+  atomic queue implementation, public concurrency/lifetime tests, producer
+  allocation tracer and canonical GREEN evidence.
+- Read-only scope: queue header/source, focused plugin test, their CMake seam,
+  current SPEC/STATE/WORKERS/REVIEW/JOURNAL evidence and issue #5. No edit,
+  stage, commit, push, GitHub mutation, dependency repair or server run.
+- Re-evaluate original findings explicitly:
+  `R-QUEUE-V2-QSEMAPHORE-001`, `R-QUEUE-V2-CONCURRENCY-TEST-001` and
+  `R-QUEUE-V2-METADATA-LIFETIME-001`. Inspect atomic ordering/wrap/full/reuse,
+  Windows event and POSIX pipe lost-wake/stop behavior, transactional resources,
+  producer no-lock/no-wait/no-allocation/noexcept truth, full destination
+  preservation and QSharedPointer lifetime evidence.
+- Report P0-P3 with exact file/line, evidence, impact, fix and required test;
+  distinguish independently reproduced evidence from manager/worker evidence.
+  P0/P1 must be zero; P2 must be fixed or explicitly deferred before PASS.
+- Use codebase-design deep-module vocabulary and proactively return
+  `RESPONSE R-QUEUE-ATOMIC-002`; do not poll manager or use subagents.
+
 ### RETIREMENT-READY W-QUEUE-ATOMIC-TEST-001
 
 - Thread `019fd5fa-f207-7fe3-9189-8d77fc9cfade` is one-shot. Exact commit,

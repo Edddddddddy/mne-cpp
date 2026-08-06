@@ -429,7 +429,11 @@ same-responsibility implementation conversations that may receive review fixes.
   compiles/links, its full main run exits zero, and five immediate full repeats
   all exit zero. The hard in-slot assertion therefore proves zero counted
   producer allocations. Qt reporter streams remain empty, so no manager total
-  is claimed. Independent Sol/ultra atomic-queue re-review is the next gate.
+  is claimed. Evidence is published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5203091442`.
+  Retained Sol/ultra reviewer thread `019fd5d8-380d-7563-8644-264426bda199`
+  will now re-review exact snapshot `9535bf8c7`; queue issue #5 remains open
+  until its P0-P3 response is accepted.
 - Accepted but deliberately not integrated until the atomic queue gate:
   plugin data commit `5f4718722` plus exact-parent SPSC admission fix
   `34a8096f1`. Retain its Sol/ultra conversation for same-responsibility fixes.

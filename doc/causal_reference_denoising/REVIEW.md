@@ -457,6 +457,16 @@ Pending.
   independent Sol/ultra queue reviewer must still close or replace the original
   P1/P2 findings before issue #5 passes.
 
+### R-QUEUE-ATOMIC-002 - pending independent formal gate
+
+- Retained Sol/ultra reviewer will inspect exact pushed snapshot `9535bf8c7`
+  read-only and explicitly re-evaluate the old QSemaphore P1 plus concurrency/
+  preservation and metadata-lifetime P2 findings against the atomic queue and
+  complete public suite.
+- Required result: prioritized P0-P3 with exact evidence and a PASS/HOLD gate.
+  Issue #5 and plugin integration remain blocked until the response is durable,
+  manager-reviewed and all required P0-P2 closure conditions are met.
+
 ### R-BENCH-FINITE-001 - P2 - Closed
 
 - Location: held benchmark commit `79eff3b3a`, focused example main finite

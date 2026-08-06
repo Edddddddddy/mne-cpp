@@ -4671,3 +4671,14 @@ hidden reasoning is not.
   all retained public concurrency/FIFO/lifetime/latency oracles pass.
 - Qt text reporter remains silent, so no manager total count is invented.
   Publish this exact evidence, then request retained Sol/ultra formal re-review.
+
+### E-454 - Allocation GREEN published and formal re-review prepared
+
+- Issue #5 comment/read-back succeeds at
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5203091442`.
+  It records exact worker/integration SHAs, canonical zero exits, the hard zero-
+  allocation assertion and the reporter limitation.
+- Prepare `R-QUEUE-ATOMIC-002` for retained independent Sol/ultra reviewer
+  `019fd5d8-380d-7563-8644-264426bda199` against exact pushed snapshot
+  `9535bf8c7`. The three original queue findings must be explicitly re-evaluated
+  before issue #5 can pass or plugin data can integrate.
