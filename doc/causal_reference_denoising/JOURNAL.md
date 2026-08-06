@@ -5680,3 +5680,14 @@ hidden reasoning is not.
   `https://github.com/Edddddddddy/mne-cpp/issues/8`.
 - Immediate MVP findings remain admission drop accounting, static registration
   and atomic lock-free guards; no UI dispatch yet.
+
+### E-563 - Immediate plugin lifecycle fix requests prepared
+
+- Retain the existing Sol/ultra plugin implementation conversation for one
+  two-source correction: typed Entered/Busy/Closed admission, exact Busy matrix
+  drop accounting, C++14 lock-free guards and local destructor fallback contract.
+- Prepare a file-disjoint new Luna/max static-registration task adding only the
+  static mne_scan target link and `Q_IMPORT_PLUGIN(AdaptiveDenoising)`; the plugin
+  has no qrc, so no resource initializer is added.
+- Both tasks start from the same exact pushed request snapshot and may run in
+  parallel because their edit scopes do not overlap. UI remains held.

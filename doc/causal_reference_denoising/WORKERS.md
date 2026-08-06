@@ -7708,6 +7708,60 @@ does not continuously poll them.
   plugin comment:
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208313573`.
 
+### REQUEST W-PLUGIN-ADMISSION-FIX-001
+
+- from / manager
+- to / retained visible plugin lifecycle implementation conversation
+  `019fd59d-fcc8-7573-964d-ed930c4100a8`
+- model / `gpt-5.6-sol` / `ultra`
+- blocking / yes for lifecycle gate; independent of the static-registration task
+- exact base / use the pushed integration request snapshot supplied at dispatch;
+  prove detached clean HEAD before editing
+- scope / edit only `adaptivedenoising.h` and `adaptivedenoising.cpp`. No CMake,
+  mne_scan main, queue, processor, core, tests, UI, vendor or dependency changes.
+- admission / replace the boolean guard result with private fixed Entered/Busy/
+  Closed semantics. Only Entered owns the producer count. A failed zero-to-one
+  CAS on an otherwise open run is Busy; a closed/epoch-invalidated admission is
+  Closed. No retry loop, lock, wait, string, FIFF selection or queue call is added.
+- update / Closed returns silently. Busy may inspect only the dynamic RTMSA and
+  its existing matrix list, performs no `info()` snapshot and no `tryPush`, and
+  atomically counts every rejected matrix exactly. Entered retains one `info()`
+  snapshot and exactly one `tryPush` per matrix; every non-Pushed result counts
+  one dropped block. Preserve prompt callback return and SPSC safety.
+- lock-free / add portable C++14 compile-time guards proving the actual uint32
+  admission and uint64 drop-counter atomic widths map to an always-lock-free
+  standard atomic macro on the supported build. Do not use C++17 traits.
+- locality / add compact header contract beside the destructor: bounded public
+  stop may fail; host must retry/quiesce before destruction, and the destructor
+  deliberately waits as the memory-safe terminal fallback tracked by issue #8.
+- verification / exact diff/source checks; standalone Qt MOC; MSVC 14.29 C++14
+  `/Zs` if available; a deterministic source/compile proof that Closed is silent,
+  Busy counts matrix cardinality without `info`/`tryPush`, Entered retains the
+  frozen callback path and both atomics are guarded. No fake lifecycle GREEN.
+- response / exact parent/commit/files, state transition table, callback audit,
+  commands/results/limits and clean state; proactive response, no subagent,
+  manager polling, full app or `mne_rt_server`.
+
+### REQUEST W-PLUGIN-STATIC-001
+
+- from / manager
+- to / new visible Luna/max worker
+- blocking / yes for lifecycle gate; file-disjoint from admission correction
+- exact base / use the pushed integration request snapshot supplied at dispatch;
+  prove detached clean HEAD before editing
+- scope / edit only `src/applications/mne_scan/mne_scan/CMakeLists.txt` and
+  `src/applications/mne_scan/mne_scan/main.cpp`.
+- change / inside existing `NOT BUILD_SHARED_LIBS` link list add
+  `scan_adaptivedenoising`; inside existing `STATICBUILD` import list add
+  `Q_IMPORT_PLUGIN(AdaptiveDenoising)`. Add no qrc initialization because the
+  plugin has no qrc. Preserve shared-build behavior and all existing guards/order.
+- verification / `git diff --check`; exact two-file source/CMake oracle showing
+  the link/import are both static-only and absent from shared behavior; configure
+  static mne_scan with `BUILD_MNE_RT_SERVER=OFF` if feasible and record the known
+  Qt/MSVC dependency boundary without vendor repair. No full app/server run.
+- response / exact parent/commit/two-file diff, guards, configure result and clean
+  state; Luna/max, no subagent or manager polling.
+
 ### PREPARED REQUEST W-PLUGIN-UI-TEST-001
 
 - state / prepared only; do not dispatch until `R-PLUGIN-DATA-001` passes or
