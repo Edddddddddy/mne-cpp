@@ -5287,3 +5287,12 @@ hidden reasoning is not.
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5206658788`,
   confirming exact base, one-source scope, 25 ms consumer slices, unchanged
   Windows/producer/stop paths and truthful WSL limitation.
+
+### E-522 - One bounded production-fix wait returns no completion
+
+- A single 120-second app wait on retained Sol/ultra thread
+  `019fd64b-2553-7102-91d6-1f8d35720823` completes without a delivered final
+  response or actionable progress payload.
+- This is not a code result and triggers no integration decision. Do not poll
+  again now; await the proactive structured response while preparing only the
+  disjoint next plugin/UI acceptance seam.

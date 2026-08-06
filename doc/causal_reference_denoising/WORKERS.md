@@ -7350,3 +7350,5 @@ does not continuously poll them.
   explicit `gpt-5.6-sol` / `ultra`; await proactive response without polling.
 - public dispatch / issue #5 comment read back at
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5206658788`.
+- wait status / one 120-second bounded app wait returned no completion or
+  actionable progress payload; no result accepted and no further polling now.
