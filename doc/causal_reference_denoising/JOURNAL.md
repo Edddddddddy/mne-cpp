@@ -3627,3 +3627,17 @@ hidden reasoning is not.
 - App archived visible thread `019fd512-20ce-75d2-8bcc-892695e67352` after
   exact header blob and public closure evidence became durable.
 - Safety: no app-owned worktree deletion or mutation.
+
+### E-346 - Plugin ingress seam frozen from real API evidence
+
+- Ownership: select native `QSharedPointer<const FiffInfo>` so callback copies
+  reuse the measurement control block and never allocate a std bridge.
+- Shape: select maximum-sized queue slots plus row/sample extents so row-count
+  transitions and matching metadata reach the worker in FIFO order.
+- Lifecycle: plugin `start()` preallocates 512x2048/capacity four (~32 MiB);
+  worker owns exact-shape resize/configuration at block boundaries. Out-of-bound
+  blocks are dropped/counted without retry.
+- Constraint: the upstream `info()` accessor uses its own short Qt mutex; this
+  is documented rather than hidden or solved by modifying the global API.
+- Next: commit/push the design, publish issue #6, then dispatch a Luna/max RED
+  queue-v2 acceptance test without waiting/polling the old formal reviewer.

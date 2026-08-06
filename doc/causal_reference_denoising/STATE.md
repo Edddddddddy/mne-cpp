@@ -147,10 +147,14 @@ Dispatch: `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-51951209
    shell and minimal controls. Do not spend further time tuning algorithm
    quality now that the existing effect gates are GREEN.
 
-Plugin implementation is intentionally waiting for `R-QUEUE-001` to resolve
-the native `QSharedPointer` versus queue `std::shared_ptr` ownership seam, first-
-callback shape bootstrap and row-count transition policy recorded in `SPEC.md`.
-Discussion: `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5195227638`.
+The plugin ingress seam is now frozen after read-only integration audit: queue
+v2 uses native `QSharedPointer<const FiffInfo>`, preallocated maximum dimensions
+with per-slot row/sample extents, and plugin-start bounds 512x2048/capacity four.
+This removes callback ownership allocation and transports row-count metadata
+transitions in FIFO order. A focused RED test and Sol/ultra implementation are
+next; the pending original queue review remains an input and a fresh review is
+required before plugin lifecycle integration. Earlier discussion:
+`https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5195227638`.
 
 ## Focused verification targets
 

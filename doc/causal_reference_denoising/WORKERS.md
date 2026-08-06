@@ -4678,6 +4678,28 @@ does not continuously poll them.
   previously expected Qt/FIFF failure evidence. A later retry must use a narrow
   verbose/logged client-link target or bounded MSBuild invocation.
 
+### DISCUSSION PLUGIN-INGRESS-002
+
+- Evidence: production input owns `QSharedPointer<FiffInfo>`; `info()` returns a
+  native handle, while first rows/columns appear only in DirectConnection data.
+  Exact-row queue configuration cannot carry a row transition to the worker.
+- Frozen seam: replace queue `std::shared_ptr` with
+  `QSharedPointer<const FiffInfo>`; configure maximum dimensions; store/copy
+  per-slot `rowCount` and `sampleCount`; accept any positive in-bounds shape.
+- Plugin bounds: configure in `start()` at 512 channels x 2048 samples,
+  capacity four (about 32 MiB slot matrices). Oversized/empty blocks are dropped
+  once and counted; no callback resize/reconfigure/retry.
+- Worker boundary: pop into a maximum-sized destination, copy the valid region
+  into exact-sized worker storage, then apply metadata/settings/reset and model
+  configuration. Row transitions and their metadata remain one FIFO item.
+- Upstream constraint: `RealTimeMultiSampleArray::info()` briefly locks its own
+  mutex once per notification. The plugin cannot remove that without changing
+  a global measurement API; its own queue push remains zero-time and does no
+  picks/model/settings work.
+- Process: add Luna/max RED public-interface coverage, then Sol/ultra queue v2
+  implementation and a fresh formal review. The pending original queue review
+  may add concurrency findings but no longer blocks freezing this caller seam.
+
 ### MANAGER REVIEW W-QA-PROC-LOCALITY-001
 
 - Provenance/scope: exact `1d60ed4f7` on requested `16c993872`; one authorized

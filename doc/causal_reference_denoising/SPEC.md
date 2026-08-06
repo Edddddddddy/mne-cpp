@@ -252,32 +252,47 @@ thread all information needed to handle a layout transition at the same block
 boundary as its samples. UI pending settings/reset state remains a separate
 UI-to-worker boundary and is never locked by the acquisition callback.
 
-### Adapter bootstrap risks to resolve before plugin code
+### Frozen adapter ingress seam
 
-Read-only integration inspection exposed three concrete caller-seam questions
-that the queue-only tests cannot answer:
+Read-only inspection of the actual `RealTimeMultiSampleArray` and plugin
+lifecycle resolves the initial ownership/bootstrap questions as follows:
 
-- `RealTimeMultiSampleArray::info()` returns `QSharedPointer<FiffInfo>`, while
-  the frozen queue currently transports `std::shared_ptr<const FiffInfo>`.
-  Creating a new standard-library control block per input or metadata change
-  would add acquisition-thread allocation and weaken locality. The formal queue
-  review must decide whether the plugin caches a one-time bridge or the private
-  queue should use the native Qt ownership type.
-- Channel count and the first block width are unavailable in plugin `init()` or
-  `start()` and first appear in the DirectConnection input callback. The queue
-  requires an exact preallocated shape. Plugin implementation must explicitly
-  define its one-time bootstrap while preserving exactly one nonblocking data
-  write per block and no wait/retry/busy loop.
-- An exact-row queue can transport metadata changes only while row count remains
-  constant. A row-count transition currently returns `InvalidBlock` before the
-  worker can see its metadata, so the plugin must either define a bounded
-  variable-row ingress or explicitly treat such a transition as a stopped/
-  restart boundary. It must not silently process new rows with stale picks.
+- The private queue uses `QSharedPointer<const FiffInfo>`, matching the native
+  measurement ownership type. Copying the Qt handle increments the existing
+  control block and does not create a new standard-library control block in the
+  acquisition callback. The queue still forward-declares and never dereferences
+  `FiffInfo`; only the processing worker converts metadata to data-only channel
+  descriptors.
+- Queue configuration describes maxima, not an exact input shape. Each slot is
+  preallocated as `maxChannelCount x maxBlockSamples` and records both
+  `rowCount` and `sampleCount`. A push accepts any positive shape within those
+  bounds, deep-copies only the top-left valid region and publishes the matching
+  metadata handle. This lets a row-count transition reach the worker in FIFO
+  order instead of being rejected under stale picks.
+- The plugin configures the queue in `start()`, before acquisition callbacks,
+  with v1 limits of 512 channels, 2048 samples per block and capacity four.
+  Slot matrices therefore reserve about 32 MiB total. BabyMEG-scale 270x128
+  blocks fit with wide margin. Oversized/empty inputs return `InvalidBlock` and
+  are counted as dropped without retry; v1 does not allocate a larger queue in
+  the callback.
+- The consumer owns a maximum-sized destination, receives the two valid extents
+  and copies only that region into an exact-sized worker matrix. Any allocation
+  caused by a first/new shape occurs on the processing worker at its block
+  boundary, where metadata/settings/reset reconfiguration is also serialized.
 
-No production choice is frozen here. `R-QUEUE-001` and the subsequent plugin
-seam decision must select the smallest implementation that preserves block/
-metadata FIFO, safe ownership, drop-newest behavior and worker-boundary model
-configuration without modifying `AbstractAlgorithm` or global measurement APIs.
+`RealTimeMultiSampleArray::info()` itself takes the measurement's internal Qt
+mutex. The adapter must call it once per notification to pair each matrix with
+the current native metadata handle; this is an upstream accessor constraint,
+not a queue wait or algorithm lock. For every matrix in the notification the
+plugin then performs exactly one zero-time `tryPush`, with no retry, FIFF picks,
+model configuration, settings work or busy wait in the callback. No
+`AbstractAlgorithm`, global measurement or existing circular-buffer interface
+is changed.
+
+The pending `R-QUEUE-001` review remains useful for stop/publication races in
+the original exact-row implementation. Its findings must be applied to the
+native-ownership/variable-row implementation, followed by a fresh formal queue
+gate before plugin lifecycle code is accepted.
 
 The selected plugin-private queue interface transports `FiffInfo` ownership
 without including or inspecting its definition. The header forward-declares
@@ -305,15 +320,16 @@ enum class AdaptiveDenoisingQueuePopStatus : std::uint8_t {
 };
 
 struct AdaptiveDenoisingBlockQueueConfig {
-    Eigen::Index channelCount;
+    Eigen::Index maxChannelCount;
     Eigen::Index maxBlockSamples;
     std::size_t capacity;
 };
 
 struct AdaptiveDenoisingQueuedBlock {
-    Eigen::MatrixXd data; // caller preallocates channelCount x maxBlockSamples
+    Eigen::MatrixXd data; // caller preallocates maxima
+    Eigen::Index rowCount;
     Eigen::Index sampleCount;
-    std::shared_ptr<const FIFFLIB::FiffInfo> fiffInfo;
+    QSharedPointer<const FIFFLIB::FiffInfo> fiffInfo;
 };
 
 class AdaptiveDenoisingBlockQueue final {
@@ -329,7 +345,7 @@ public:
         const AdaptiveDenoisingBlockQueueConfig& config);
     AdaptiveDenoisingQueuePushStatus tryPush(
         Eigen::Ref<const Eigen::MatrixXd> block,
-        std::shared_ptr<const FIFFLIB::FiffInfo> fiffInfo) noexcept;
+        QSharedPointer<const FIFFLIB::FiffInfo> fiffInfo) noexcept;
     AdaptiveDenoisingQueuePopStatus waitPop(
         AdaptiveDenoisingQueuedBlock& destination,
         int timeoutMilliseconds) noexcept;
@@ -337,20 +353,22 @@ public:
 };
 ```
 
-`configure` is transactional, allocates every fixed-size matrix slot and starts
-an empty queue; it is rejected while already running. The producer validates
-`0 < block.cols() <= maxBlockSamples` and exact row count, performs exactly one
-zero-time free-slot semaphore acquire, deep-copies the valid columns, retains
-the shared immutable metadata handle and publishes the slot. `Full` does not
+`configure` is transactional, allocates every maximum-sized matrix slot and
+starts an empty queue; it is rejected while already running. The producer
+validates `0 < rows <= maxChannelCount` and
+`0 < cols <= maxBlockSamples`, performs exactly one zero-time free-slot
+semaphore acquire, deep-copies the valid top-left region, retains the native
+shared immutable metadata handle and publishes the slot. `Full` does not
 advance or overwrite either ring position, so the newest input is dropped.
 
-The consumer provides a preallocated `channelCount x maxBlockSamples` matrix;
-`waitPop` copies only the valid leading columns and returns `sampleCount` plus
-the metadata handle in the same FIFO order. The unused destination tail is
-unspecified. `stop()` wakes a timed waiter and prevents new pushes; a later
+The consumer provides a preallocated `maxChannelCount x maxBlockSamples`
+matrix; `waitPop` copies only the valid top-left region and returns `rowCount`,
+`sampleCount` and metadata in the same FIFO order. The unused destination tail
+is unspecified. `stop()` wakes a timed waiter and prevents new pushes; a later
 successful configure creates fresh preallocated state. Push/pop/stop perform
-no heap allocation, string construction or busy wait. Null metadata is
-transported faithfully so the later worker can fail closed on missing metadata.
+no heap allocation, string construction or busy wait. `QSharedPointer` copies
+reuse their control block; null metadata is transported faithfully so the
+later worker can fail closed on missing metadata.
 
 The focused `test_adaptive_denoising_plugin` target compiles private queue,
 processor and numerical sources directly and initially links only Qt Core/Test

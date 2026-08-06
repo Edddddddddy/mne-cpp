@@ -23,6 +23,11 @@
   first-callback exact-shape bootstrap and row-count transitions are explicit
   caller risks in `SPEC.md`; formal review should classify or leave them to the
   plugin milestone rather than letting the adapter hide callback allocation.
+- Manager seam decision: these caller risks are resolved by queue v2 using
+  native `QSharedPointer<const FiffInfo>`, maximum-sized preallocation and
+  per-slot row/sample extents. Plugin `start()` fixes v1 bounds at 512x2048,
+  capacity four; the worker receives row transitions in FIFO order. A RED test,
+  Sol/ultra implementation and fresh review are required before plugin code.
 
 #### R-BENCH-FINITE-001 - P2 - Open
 
