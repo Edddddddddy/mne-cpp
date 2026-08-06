@@ -3934,3 +3934,16 @@ hidden reasoning is not.
   ownership updates do not allocate a new control block and support the frozen
   callback noexcept/no-allocation claim. Output `constCast` remains worker-only
   and is excluded from acquisition hot-path evidence.
+
+### E-374 - Superseded queue-v1 review retirement requested
+
+- Recovery: manager reread the durable state/spec/worker/review/journal chain;
+  integration is clean at `a69a5161e` apart from the three explicitly preserved
+  user paths.
+- Precheck: old Sol/ultra `R-QUEUE-001` thread
+  `019fd2fa-a222-7601-9567-980a67f814b5` has a clean app-owned worktree at the
+  exact v1 snapshot `3d7328683`. Its request and public dispatch are durable.
+- Decision: queue-v2 changes the reviewed ownership and shape seam, so this
+  conversation is stale and cannot serve as the mandatory v2 review. Archive
+  it through the app without manually deleting its worktree; create a fresh
+  Sol/ultra review only after queue-v2 manager GREEN.

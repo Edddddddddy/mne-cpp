@@ -5348,3 +5348,18 @@ does not continuously poll them.
   seven-file read-only boundaries, narrow target, callback/producer/worker/
   metadata lifecycle, queue-first integration, UI non-goal and all restrictions.
 - Status: dispatch is public; manager will not poll or overlap its files.
+
+### RETIREMENT REQUEST R-QUEUE-001
+
+- Reason: the read-only Sol/ultra review target is the superseded queue-v1
+  snapshot `3d73286836c8a660649c030167ba7d12e10fb572`; queue-v2 changes native
+  metadata ownership, row extents and variable-row behavior and therefore
+  requires a new exact-snapshot review after GREEN.
+- Target: visible thread `019fd2fa-a222-7601-9567-980a67f814b5`, app-owned
+  worktree `C:/Users/lcy/.codex/worktrees/6cfd/mne-cpp-main`.
+- Precheck: worktree is clean/detached at the exact requested v1 snapshot;
+  request and public issue #5 dispatch are durable. The task is stale rather
+  than reusable for the queue-v2 gate.
+- Action: archive through the Codex app only. Do not manually delete or mutate
+  its worktree. A new visible Sol/ultra `R-QUEUE-V2-001` will review the exact
+  integrated v2 snapshot after manager GREEN.
