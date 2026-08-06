@@ -150,7 +150,8 @@ private:
     void signal() noexcept
     {
         const unsigned char wakeByte = 1U;
-        // One nonblocking write attempt is enough: EAGAIN means the pipe already holds a sticky wake.
+        // Make exactly one nonblocking attempt. EAGAIN coalesces with a pending byte; EINTR may lose this byte,
+        // so the consumer's bounded poll slices provide the next atomic sequence/running recheck.
         const ssize_t result = ::write(m_writeDescriptor, &wakeByte, sizeof(wakeByte));
         (void)result;
     }
@@ -162,7 +163,15 @@ private:
         descriptor.events = POLLIN;
         descriptor.revents = 0;
 
-        const int result = ::poll(&descriptor, 1, timeoutMilliseconds);
+        constexpr int kMaximumPollWaitMilliseconds = 25;
+        const int boundedTimeoutMilliseconds = timeoutMilliseconds <= 0
+            ? 0
+            : (timeoutMilliseconds < kMaximumPollWaitMilliseconds
+                ? timeoutMilliseconds
+                : kMaximumPollWaitMilliseconds);
+        // A producer/stop write interrupted before transferring its byte leaves no sticky descriptor state.
+        // This finite slice returns control to waitPop's unchanged atomic rechecks well before its outer deadline.
+        const int result = ::poll(&descriptor, 1, boundedTimeoutMilliseconds);
         if (result == 0) {
             return NativeWaitStatus::TimedOut;
         }
@@ -420,6 +429,7 @@ AdaptiveDenoisingQueuePopStatus AdaptiveDenoisingBlockQueue::waitPop(
             static_cast<int>(remainingMilliseconds.count()));
         nativeWaitFailed = waitStatus == NativeWaitStatus::Failed;
         // Signaled wakes can be stale/coalesced; timed-out or interrupted waits also receive one atomic recheck.
+        // POSIX slices additionally bound progress when a producer/stop write lost its byte to EINTR.
     }
 }
 
