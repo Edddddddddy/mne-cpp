@@ -883,3 +883,36 @@ tracked.
   removes the earlier absolute environment blocker for link verification.
 - Gate status: pre-wiring snapshot only. Rebuild the exact final wiring snapshot
   with the same v142 configuration before closing `R-CORE-LINK-001` and QA #3.
+
+### Manager UI wiring review - W-PLUGIN-UI-WIRE-001
+
+- Snapshot: worker `3b9aa6b1edc604729942c1f21f339f8cfbc14acf`, integrated as
+  `36fa8058915840a5317debf1bb0201f0781fd249`.
+- Decision: ACCEPT; manager P0=0, P1=0, P2=0, P3=0. Final independent review is
+  still mandatory and this manager decision is not that gate.
+- Depth/locality: the public plugin adds only seven narrow control slots and one
+  fixed diagnostics signal. Pending state, worker-applied markers, configuration,
+  failure handling and diagnostics remain behind the existing PImpl; the
+  standalone widget owns only controls/string formatting.
+- Realtime seam: parent/child acquisition callback is exact-content identical,
+  retains one metadata snapshot and one queue push site, and contains no pending
+  snapshot, mutex or wait access.
+- Serialization: one mutex-protected snapshot is copied only after successful
+  dequeue. Settings revision configures before reset; reset precedes whole-block
+  mode/process. UI changes cannot split a block.
+- Failure/output: invalid structural metadata disarms and suppresses output;
+  allocation/output exceptions disarm and diagnose without stale-model use;
+  output pass-through requires valid initialized metadata. Stop emits Stopped
+  only after the existing bounded quiescence sequence.
+- Verification: exact final v142 real plugin MOC/compile/link exits zero; focused
+  Release core/plugin/UI/example/benchmark and Debug core all pass. Issue #8 is
+  unchanged and remains the only real-plugin lifecycle/terminal-teardown gap.
+
+### R-CORE-LINK-001 - Addressed pending final independent review
+
+- The exact integrated real plugin target now compiles and links on the local
+  compatible v142/MSVC14.29 + Qt5.15.2 configuration, including the shared
+  `mne_rtprocessing` client boundary. The former default MSVC14.51 failure is a
+  toolset mismatch, not the only available environment.
+- No vendor patch or full app/server run is involved. Mark manager-addressed;
+  final Sol/ultra review and final-QA publication close the finding.

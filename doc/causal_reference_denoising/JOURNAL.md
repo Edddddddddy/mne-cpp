@@ -6259,3 +6259,32 @@ hidden reasoning is not.
 - Persist the response before manager object/diff/semantic review. Independently
   verify raw acquisition callback identity and issue-#8 lifecycle preservation;
   do not integrate on worker assertions alone.
+
+### E-620 - Plugin UI wiring review and integration pass
+
+- Direct object/diff audit proves exact parent and two authorized files. Manager
+  reconstructs parent/child acquisition segments with exact equality, one info/
+  push and no pending/mutex/wait token; newline-normalization explains differing
+  hash strings across otherwise equal comparison methods.
+- Pending-state ownership, configure/reset/mode order, diagnostics, exception
+  disarm/output rules and bounded stop/issue-#8 preservation have no manager
+  P0-P3 finding. Cherry-pick creates `36fa80589`.
+
+### E-621 - Exact final real plugin target links
+
+- Existing compatible VS18 `-T v142` build incrementally MOCs, compiles and
+  links the exact integrated plugin source to `scan_adaptivedenoising.dll` in
+  8.8 seconds, including mne_rtprocessing/FIFF/scan dependencies.
+- Only expected temporary-intermediate and Eigen code-page warnings appear.
+  This is the exact final target link evidence; no full app/server execution.
+
+### E-622 - Exact final focused Release and Debug regressions pass
+
+- Release: numerical 45/0/0, processor/queue 19/0/0, UI 3/0/0, example PASS.
+  Benchmark p50/p95/max is `2.174/2.992/4.684 ms`, generation/accepted/rejected
+  `1099/1099/0`, performance gate PASS.
+- Debug numerical: 45/0/0, both chunk relative differences zero, 58.6541 dB
+  reduction and 0.000113195 clean amplitude error.
+- Persist/push and publish the exact integration evidence. Archive the completed
+  wiring worker and dispatch a fresh read-only Sol/ultra UI review; do not close
+  issue #6/#3/#2 before that gate.

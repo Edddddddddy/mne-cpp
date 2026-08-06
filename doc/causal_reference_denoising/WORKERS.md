@@ -8618,6 +8618,48 @@ does not continuously poll them.
 - manager next / independent object/diff/state/order review, integrate, rebuild
   focused plus v142 real target, publish, archive, then new Sol/ultra UI review.
 
+### REVIEW / INTEGRATION W-PLUGIN-UI-WIRE-001
+
+- provenance / worker commit parent is exact `60fdf633f83b41bb2a960c1b83ab3d6c5d608b5a`;
+  committed scope is exactly the two authorized plugin files and diff-check is
+  clean.
+- acquisition / manager independently reconstructs the complete update-to-run
+  segment from parent/child blobs: exact equality, 1186 characters, common
+  SHA-256 `17119e5dbf74071ed8e2185f11253558a4c66a134f2f5ab53f83a4aac9c4c176`,
+  one `info()`, one `tryPush`, zero pending/mutex/wait token. The hash differs
+  from earlier probes only because those used raw-disk or different newline
+  normalization; exact equality is consistent in every method.
+- block order / one snapshot copy occurs after Popped and before metadata
+  configuration; lexical order is snapshot, conditional configure, reset,
+  mode, process. Settings revision participates in reconfiguration and reset/
+  applied markers are worker-only.
+- exception/lifecycle / structure-invalid metadata disarms, diagnoses and emits
+  no output. Worker-matrix/config/output-init exceptions disarm and cannot apply
+  stale ownership; safe pass-through is emitted only with valid output metadata.
+  Successful stop diagnoses Stopped only after worker/producer quiescence and
+  output clear; issue #8 destructor/harness behavior is unchanged.
+- view seam / fresh widget, seven narrow connections, explicit queued fixed
+  diagnostics and no retained widget pointer match the concrete deep adapter.
+- decision / ACCEPT, manager P0=0 P1=0 P2=0 P3=0. Conflict-free integration
+  creates `36fa8058915840a5317debf1bb0201f0781fd249`.
+
+### GREEN W-PLUGIN-UI-WIRE-001
+
+- real target / exact integrated source builds/links under VS18 `-T v142`
+  (MSVC19.29/toolset14.29) to
+  `out/Release/apps/mne_scan_plugins/scan_adaptivedenoising.dll`; MOC and the
+  real mne_rtprocessing/FIFF/scShared/scMeas link graph succeed. Only Eigen C4819
+  and temporary-intermediate MSB8029 warnings.
+- focused Release / numerical `45/0/0`, processor/queue `19/0/0`, UI `3/0/0`,
+  teaching example exit zero/PASS.
+- benchmark / exit zero/PASS; p50/p95/max `2.174/2.992/4.684 ms`, final
+  generation/accepted/rejected `1099/1099/0`, strict p95 <128 ms.
+- Debug / numerical `45/0/0`, stream/probe chunk differences zero, 58.6541 dB
+  synthetic reduction and 0.000113195 clean amplitude error.
+- boundary / no full mne_scan or mne_rt_server and no real lifecycle runtime.
+  Issue #8 remains the explicit follow-up. Independent UI review still gates
+  issue #6/final QA closure.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are

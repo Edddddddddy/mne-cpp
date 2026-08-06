@@ -822,3 +822,15 @@ same-responsibility implementation conversations that may receive review fixes.
   C++14 syntax and immutable UI `3/0/0` GREEN. Manager provenance/diff/semantic
   review and integration are next; no response claim is yet relabeled manager
   evidence.
+- Manager exact-scope/deep-seam review accepts the response with no P0-P3
+  finding and integrates it as
+  `36fa8058915840a5317debf1bb0201f0781fd249`. Parent/child acquisition callback
+  segments are byte-equal under the same reconstruction, with one info/push and
+  zero UI/mutex/wait tokens; block order is snapshot/configure/reset/mode/process.
+- Exact integrated v142 real target builds and links
+  `scan_adaptivedenoising.dll`. Final focused Release is core `45/0/0`,
+  processor/queue `19/0/0`, UI `3/0/0`, example PASS and benchmark PASS at
+  p50/p95/max `2.174/2.992/4.684 ms`; Debug numerical is `45/0/0`, chunk
+  differences zero and quantitative result `58.6541 dB / 0.000113195`.
+- Next blocking gate: persist/push/publish this integration, archive the completed
+  wiring worker and dispatch a new independent visible Sol/ultra UI review.
