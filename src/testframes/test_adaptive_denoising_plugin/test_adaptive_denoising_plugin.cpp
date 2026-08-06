@@ -15,6 +15,7 @@
 
 #include <Eigen/Dense>
 
+#include <array>
 #include <atomic>
 #include <chrono>
 #include <cmath>
@@ -59,6 +60,7 @@ static_assert(
     "AdaptiveDenoisingProcessor must not be move assignable");
 
 using NativeFiffInfoHandle = QSharedPointer<const FIFFLIB::FiffInfo>;
+using MutableNativeFiffInfoHandle = QSharedPointer<FIFFLIB::FiffInfo>;
 
 static_assert(
     std::is_nothrow_copy_constructible<NativeFiffInfoHandle>::value,
@@ -66,6 +68,9 @@ static_assert(
 static_assert(
     std::is_nothrow_copy_assignable<NativeFiffInfoHandle>::value,
     "Native FIFF metadata handle must be nothrow copy assignable");
+static_assert(
+    std::is_nothrow_constructible<NativeFiffInfoHandle, MutableNativeFiffInfoHandle>::value,
+    "Mutable native FIFF metadata handle must convert to const without throwing");
 
 //=============================================================================================================
 
@@ -75,6 +80,20 @@ namespace
 constexpr Index kChannelCount = 6;
 constexpr Index kBlockSamples = 16;
 constexpr Index kTargetRow = 2;
+
+struct FakeMetadataLifetime
+{
+    FakeMetadataLifetime() noexcept
+    : token(0)
+    , liveCount(0)
+    , deleterCount(0)
+    {
+    }
+
+    std::uint64_t  token;
+    std::atomic<int> liveCount;
+    std::atomic<int> deleterCount;
+};
 
 struct InvalidConfigureCase
 {
@@ -157,11 +176,72 @@ NativeFiffInfoHandle fakeFiffInfoHandle(const std::uint64_t& token)
         [](const FIFFLIB::FiffInfo*) noexcept {});
 }
 
+NativeFiffInfoHandle fakeFiffInfoHandle(FakeMetadataLifetime& lifetime)
+{
+    const FIFFLIB::FiffInfo* const fakePointer =
+        reinterpret_cast<const FIFFLIB::FiffInfo*>(&lifetime.token);
+    FakeMetadataLifetime* const lifetimePointer = &lifetime;
+    lifetime.liveCount.store(1, std::memory_order_release);
+    lifetime.deleterCount.store(0, std::memory_order_release);
+    return NativeFiffInfoHandle(
+        fakePointer,
+        [lifetimePointer](const FIFFLIB::FiffInfo*) noexcept {
+            lifetimePointer->deleterCount.fetch_add(1, std::memory_order_acq_rel);
+            lifetimePointer->liveCount.store(0, std::memory_order_release);
+        });
+}
+
 bool sameMetadata(
     const NativeFiffInfoHandle& first,
     const NativeFiffInfoHandle& second) noexcept
 {
     return first.data() == second.data();
+}
+
+bool matrixAllEquals(const MatrixXd& actual, double expected) noexcept
+{
+    for (Index row = 0; row < actual.rows(); ++row) {
+        for (Index column = 0; column < actual.cols(); ++column) {
+            if (actual(row, column) != expected) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+bool destinationPreserves(
+    const AdaptiveDenoisingQueuedBlock& destination,
+    Index expectedMatrixRows,
+    Index expectedMatrixColumns,
+    double expectedData,
+    Index expectedRowCount,
+    Index expectedSampleCount,
+    const NativeFiffInfoHandle& expectedMetadata) noexcept
+{
+    return destination.data.rows() == expectedMatrixRows
+        && destination.data.cols() == expectedMatrixColumns
+        && matrixAllEquals(destination.data, expectedData)
+        && destination.rowCount == expectedRowCount
+        && destination.sampleCount == expectedSampleCount
+        && sameMetadata(destination.fiffInfo, expectedMetadata);
+}
+
+template<typename Predicate>
+bool waitUntil(Predicate predicate, int timeoutMilliseconds) noexcept
+{
+    const auto deadline = std::chrono::steady_clock::now()
+        + std::chrono::milliseconds(timeoutMilliseconds);
+
+    while (!predicate()) {
+        if (std::chrono::steady_clock::now() >= deadline) {
+            return predicate();
+        }
+        std::this_thread::yield();
+    }
+
+    return true;
 }
 
 } // namespace
@@ -182,6 +262,10 @@ private slots:
     void queueStopWakesWaiterAndReconfigureStartsFresh();
     void queueRejectsInvalidInputsWithoutConsumingState();
     void queueAcceptsVariableRowsWithNativeMetadata();
+    void queueSustainedOverlappingSpscPreservesAcceptedStream();
+    void queueStopRacesActiveProducerAndConsumer();
+    void queueStopsWithPendingBlockAndPreservesDestination();
+    void queueRetainsNativeMetadataUntilPoppedHandleCleared();
 };
 
 //=============================================================================================================
@@ -765,7 +849,16 @@ void TestAdaptiveDenoisingPlugin::queuePreservesFifoDropNewestAndMetadata()
         QVERIFY(rowEquals(destination.data, originalB, row));
     }
 
+    const std::uint64_t timeoutMetadataToken = 3001;
+    const NativeFiffInfoHandle timeoutMetadata = fakeFiffInfoHandle(timeoutMetadataToken);
+    destination.data.setConstant(-3001.0);
+    destination.rowCount = 3001;
+    destination.sampleCount = 3002;
+    destination.fiffInfo = timeoutMetadata;
     QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Timeout);
+    QVERIFY(destinationPreserves(
+        destination, config.maxChannelCount, config.maxBlockSamples, -3001.0, 3001, 3002,
+        timeoutMetadata));
 
     QVERIFY(queue.tryPush(blockC, metadataC) == AdaptiveDenoisingQueuePushStatus::Pushed);
     QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Popped);
@@ -775,6 +868,15 @@ void TestAdaptiveDenoisingPlugin::queuePreservesFifoDropNewestAndMetadata()
     for (Index row = 0; row < originalC.rows(); ++row) {
         QVERIFY(rowEquals(destination.data, originalC, row));
     }
+
+    destination.data.setConstant(-3003.0);
+    destination.rowCount = 3003;
+    destination.sampleCount = 3004;
+    destination.fiffInfo = timeoutMetadata;
+    QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Timeout);
+    QVERIFY(destinationPreserves(
+        destination, config.maxChannelCount, config.maxBlockSamples, -3003.0, 3003, 3004,
+        timeoutMetadata));
 }
 
 //=============================================================================================================
@@ -795,11 +897,15 @@ void TestAdaptiveDenoisingPlugin::queueStopWakesWaiterAndReconfigureStartsFresh(
     constexpr int kWakeUpperBoundMilliseconds = 1500;
     constexpr int kEntryWaitBudgetMilliseconds = 1000;
 
+    const std::uint64_t consumerSentinelMetadataToken = 4001;
+    const NativeFiffInfoHandle consumerSentinelMetadata =
+        fakeFiffInfoHandle(consumerSentinelMetadataToken);
     AdaptiveDenoisingQueuedBlock consumerDestination;
     consumerDestination.data.resize(config.maxChannelCount, config.maxBlockSamples);
-    consumerDestination.rowCount = 0;
-    consumerDestination.sampleCount = 0;
-    consumerDestination.fiffInfo.reset();
+    consumerDestination.data.setConstant(-4001.0);
+    consumerDestination.rowCount = 4001;
+    consumerDestination.sampleCount = 4002;
+    consumerDestination.fiffInfo = consumerSentinelMetadata;
 
     std::atomic<bool> consumerEntered(false);
     std::atomic<bool> consumerFinished(false);
@@ -866,6 +972,9 @@ void TestAdaptiveDenoisingPlugin::queueStopWakesWaiterAndReconfigureStartsFresh(
             == static_cast<int>(AdaptiveDenoisingQueuePopStatus::Stopped));
     QVERIFY(observedElapsed >= 0);
     QVERIFY(observedElapsed < kWakeUpperBoundMilliseconds);
+    QVERIFY(destinationPreserves(
+        consumerDestination, config.maxChannelCount, config.maxBlockSamples, -4001.0, 4001, 4002,
+        consumerSentinelMetadata));
 
     MatrixXd stoppedBlock(2, 1);
     stoppedBlock(0, 0) = -101.0;
@@ -879,7 +988,14 @@ void TestAdaptiveDenoisingPlugin::queueStopWakesWaiterAndReconfigureStartsFresh(
 
     AdaptiveDenoisingQueuedBlock stoppedDestination;
     stoppedDestination.data.resize(config.maxChannelCount, config.maxBlockSamples);
+    stoppedDestination.data.setConstant(-4003.0);
+    stoppedDestination.rowCount = 4003;
+    stoppedDestination.sampleCount = 4004;
+    stoppedDestination.fiffInfo = consumerSentinelMetadata;
     QVERIFY(queue.waitPop(stoppedDestination, 0) == AdaptiveDenoisingQueuePopStatus::Stopped);
+    QVERIFY(destinationPreserves(
+        stoppedDestination, config.maxChannelCount, config.maxBlockSamples, -4003.0, 4003, 4004,
+        consumerSentinelMetadata));
 
     QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::Ready);
 
@@ -907,7 +1023,14 @@ void TestAdaptiveDenoisingPlugin::queueStopWakesWaiterAndReconfigureStartsFresh(
         QVERIFY(rowEquals(freshDestination.data, expectedFreshBlock, row));
     }
 
+    freshDestination.data.setConstant(-4005.0);
+    freshDestination.rowCount = 4005;
+    freshDestination.sampleCount = 4006;
+    freshDestination.fiffInfo = consumerSentinelMetadata;
     QVERIFY(queue.waitPop(freshDestination, 0) == AdaptiveDenoisingQueuePopStatus::Timeout);
+    QVERIFY(destinationPreserves(
+        freshDestination, config.maxChannelCount, config.maxBlockSamples, -4005.0, 4005, 4006,
+        consumerSentinelMetadata));
 }
 
 //=============================================================================================================
@@ -1040,7 +1163,16 @@ void TestAdaptiveDenoisingPlugin::queueRejectsInvalidInputsWithoutConsumingState
         QVERIFY(rowEquals(destination.data, expectedFirstBlock, row));
     }
 
+    destination.data.setConstant(-3301.0);
+    destination.rowCount = 3301;
+    destination.sampleCount = 3302;
+    const std::uint64_t timeoutMetadataToken = 3301;
+    const NativeFiffInfoHandle timeoutMetadata = fakeFiffInfoHandle(timeoutMetadataToken);
+    destination.fiffInfo = timeoutMetadata;
     QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Timeout);
+    QVERIFY(destinationPreserves(
+        destination, validConfig.maxChannelCount, validConfig.maxBlockSamples, -3301.0, 3301, 3302,
+        timeoutMetadata));
 }
 
 //=============================================================================================================
@@ -1153,7 +1285,621 @@ void TestAdaptiveDenoisingPlugin::queueAcceptsVariableRowsWithNativeMetadata()
         }
     }
 
+    const std::uint64_t timeoutMetadataToken = 3401;
+    const NativeFiffInfoHandle timeoutMetadata = fakeFiffInfoHandle(timeoutMetadataToken);
+    destination.data.setConstant(-3401.0);
+    destination.rowCount = 3401;
+    destination.sampleCount = 3402;
+    destination.fiffInfo = timeoutMetadata;
     QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Timeout);
+    QVERIFY(destinationPreserves(
+        destination, config.maxChannelCount, config.maxBlockSamples, -3401.0, 3401, 3402,
+        timeoutMetadata));
+}
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAcceptedStream()
+{
+    constexpr std::size_t kTrafficBlockCount = 512;
+    constexpr Index kMaxChannelCount = 4;
+    constexpr Index kMaxBlockSamples = 8;
+    constexpr std::size_t kQueueCapacity = 8;
+    constexpr double kPayloadBase = 1000000.0;
+    constexpr double kPayloadStride = 10000.0;
+    constexpr double kDestinationSentinel = -5101.0;
+    constexpr Index kDestinationRowSentinel = 5101;
+    constexpr Index kDestinationSampleSentinel = 5102;
+    constexpr int kReadyBudgetMilliseconds = 1000;
+    constexpr int kProducerBudgetMilliseconds = 5000;
+    constexpr int kConsumerBudgetMilliseconds = 2000;
+    constexpr int kConsumerWaitMilliseconds = 25;
+    constexpr std::int64_t kProducerCallUpperBoundNanoseconds = 1000000000LL;
+
+    AdaptiveDenoisingBlockQueue queue;
+    AdaptiveDenoisingBlockQueueConfig config;
+    config.maxChannelCount = kMaxChannelCount;
+    config.maxBlockSamples = kMaxBlockSamples;
+    config.capacity = kQueueCapacity;
+
+    std::array<MatrixXd, kTrafficBlockCount> producerBlocks;
+    std::array<Index, kTrafficBlockCount> rowCounts{};
+    std::array<Index, kTrafficBlockCount> sampleCounts{};
+    std::array<FakeMetadataLifetime, kTrafficBlockCount> metadataLifetimes;
+    std::array<NativeFiffInfoHandle, kTrafficBlockCount> metadataHandles;
+    std::array<const FIFFLIB::FiffInfo*, kTrafficBlockCount> metadataPointers{};
+
+    for (std::size_t index = 0; index < kTrafficBlockCount; ++index) {
+        rowCounts[index] = Index(1) + static_cast<Index>(index % static_cast<std::size_t>(kMaxChannelCount));
+        sampleCounts[index] =
+            Index(1) + static_cast<Index>((index * 3U) % static_cast<std::size_t>(kMaxBlockSamples));
+        producerBlocks[index].resize(rowCounts[index], sampleCounts[index]);
+
+        const double payloadBase = kPayloadBase + static_cast<double>(index) * kPayloadStride;
+        for (Index row = 0; row < rowCounts[index]; ++row) {
+            for (Index column = 0; column < sampleCounts[index]; ++column) {
+                producerBlocks[index](row, column) =
+                    payloadBase + static_cast<double>(row * 100 + column);
+            }
+        }
+
+        metadataLifetimes[index].token = 510000U + static_cast<std::uint64_t>(index);
+        metadataHandles[index] = fakeFiffInfoHandle(metadataLifetimes[index]);
+        metadataPointers[index] = metadataHandles[index].data();
+    }
+
+    QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::Ready);
+
+    std::array<std::size_t, kTrafficBlockCount> acceptedSequences{};
+    std::array<std::int64_t, kTrafficBlockCount> producerLatencies{};
+    std::array<std::size_t, kTrafficBlockCount> poppedSequences{};
+    std::array<Index, kTrafficBlockCount> poppedRowCounts{};
+    std::array<Index, kTrafficBlockCount> poppedSampleCounts{};
+    std::array<const FIFFLIB::FiffInfo*, kTrafficBlockCount> poppedMetadata{};
+    std::array<bool, kTrafficBlockCount> seenSequences{};
+
+    const std::uint64_t destinationSentinelToken = 5103;
+    const NativeFiffInfoHandle destinationSentinel =
+        fakeFiffInfoHandle(destinationSentinelToken);
+    AdaptiveDenoisingQueuedBlock destination;
+    destination.data.resize(kMaxChannelCount, kMaxBlockSamples);
+
+    std::atomic<bool> producerReady(false);
+    std::atomic<bool> consumerReady(false);
+    std::atomic<bool> start(false);
+    std::atomic<bool> producerFinished(false);
+    std::atomic<bool> consumerFinished(false);
+    std::atomic<bool> producerInvalid(false);
+    std::atomic<bool> consumerInvalid(false);
+    std::atomic<std::size_t> acceptedCount(0);
+    std::atomic<std::size_t> poppedCount(0);
+    std::atomic<int> pushedCount(0);
+    std::atomic<int> fullCount(0);
+
+    std::thread producer([&] {
+        producerReady.store(true, std::memory_order_release);
+        while (!start.load(std::memory_order_acquire)) {
+            std::this_thread::yield();
+        }
+
+        std::size_t localAcceptedCount = 0;
+        int localPushedCount = 0;
+        int localFullCount = 0;
+
+        for (std::size_t index = 0; index < kTrafficBlockCount; ++index) {
+            const auto callStartedAt = std::chrono::steady_clock::now();
+            const AdaptiveDenoisingQueuePushStatus status =
+                queue.tryPush(producerBlocks[index], metadataHandles[index]);
+            const auto callFinishedAt = std::chrono::steady_clock::now();
+            producerLatencies[index] =
+                std::chrono::duration_cast<std::chrono::nanoseconds>(
+                    callFinishedAt - callStartedAt)
+                    .count();
+
+            if (status == AdaptiveDenoisingQueuePushStatus::Pushed) {
+                acceptedSequences[localAcceptedCount++] = index;
+                ++localPushedCount;
+                metadataHandles[index].reset();
+            } else if (status == AdaptiveDenoisingQueuePushStatus::Full) {
+                ++localFullCount;
+                metadataHandles[index].reset();
+            } else {
+                producerInvalid.store(true, std::memory_order_release);
+                metadataHandles[index].reset();
+                break;
+            }
+
+            if ((index & 7U) == 0U) {
+                std::this_thread::yield();
+            }
+        }
+
+        for (std::size_t index = 0; index < kTrafficBlockCount; ++index) {
+            metadataHandles[index].reset();
+        }
+        acceptedCount.store(localAcceptedCount, std::memory_order_release);
+        pushedCount.store(localPushedCount, std::memory_order_release);
+        fullCount.store(localFullCount, std::memory_order_release);
+        producerFinished.store(true, std::memory_order_release);
+    });
+
+    std::thread consumer([&] {
+        consumerReady.store(true, std::memory_order_release);
+        while (!start.load(std::memory_order_acquire)) {
+            std::this_thread::yield();
+        }
+
+        std::size_t localPoppedCount = 0;
+        bool producerDoneSeen = false;
+        std::chrono::steady_clock::time_point drainDeadline;
+
+        while (true) {
+            destination.data.setConstant(kDestinationSentinel);
+            destination.rowCount = kDestinationRowSentinel;
+            destination.sampleCount = kDestinationSampleSentinel;
+            destination.fiffInfo = destinationSentinel;
+
+            const AdaptiveDenoisingQueuePopStatus status =
+                queue.waitPop(destination, kConsumerWaitMilliseconds);
+
+            if (status == AdaptiveDenoisingQueuePopStatus::Popped) {
+                std::size_t sequence = kTrafficBlockCount;
+                for (std::size_t candidate = 0; candidate < kTrafficBlockCount; ++candidate) {
+                    if (destination.data(0, 0)
+                        == kPayloadBase + static_cast<double>(candidate) * kPayloadStride) {
+                        sequence = candidate;
+                        break;
+                    }
+                }
+
+                bool blockValid = sequence < kTrafficBlockCount
+                    && !seenSequences[sequence]
+                    && destination.rowCount == rowCounts[sequence]
+                    && destination.sampleCount == sampleCounts[sequence]
+                    && destination.fiffInfo.data() == metadataPointers[sequence]
+                    && destination.data.rows() == kMaxChannelCount
+                    && destination.data.cols() == kMaxBlockSamples;
+
+                if (blockValid) {
+                    for (Index row = 0; row < kMaxChannelCount; ++row) {
+                        for (Index column = 0; column < kMaxBlockSamples; ++column) {
+                            const bool inBlock = row < rowCounts[sequence]
+                                && column < sampleCounts[sequence];
+                            const double expected = inBlock
+                                ? producerBlocks[sequence](row, column)
+                                : kDestinationSentinel;
+                            if (destination.data(row, column) != expected) {
+                                blockValid = false;
+                            }
+                        }
+                    }
+                }
+
+                if (!blockValid || localPoppedCount >= kTrafficBlockCount) {
+                    consumerInvalid.store(true, std::memory_order_release);
+                } else {
+                    seenSequences[sequence] = true;
+                    poppedSequences[localPoppedCount] = sequence;
+                    poppedRowCounts[localPoppedCount] = destination.rowCount;
+                    poppedSampleCounts[localPoppedCount] = destination.sampleCount;
+                    poppedMetadata[localPoppedCount] = destination.fiffInfo.data();
+                    ++localPoppedCount;
+                }
+
+                destination.fiffInfo.reset();
+                continue;
+            }
+
+            if (status == AdaptiveDenoisingQueuePopStatus::Timeout) {
+                if (!destinationPreserves(
+                        destination,
+                        kMaxChannelCount,
+                        kMaxBlockSamples,
+                        kDestinationSentinel,
+                        kDestinationRowSentinel,
+                        kDestinationSampleSentinel,
+                        destinationSentinel)) {
+                    consumerInvalid.store(true, std::memory_order_release);
+                }
+
+                if (!producerFinished.load(std::memory_order_acquire)) {
+                    continue;
+                }
+
+                if (!producerDoneSeen) {
+                    producerDoneSeen = true;
+                    drainDeadline = std::chrono::steady_clock::now()
+                        + std::chrono::milliseconds(kConsumerBudgetMilliseconds);
+                }
+                if (std::chrono::steady_clock::now() >= drainDeadline) {
+                    break;
+                }
+                continue;
+            }
+
+            consumerInvalid.store(true, std::memory_order_release);
+            break;
+        }
+
+        poppedCount.store(localPoppedCount, std::memory_order_release);
+        consumerFinished.store(true, std::memory_order_release);
+    });
+
+    const bool producerReadyObserved = waitUntil(
+        [&] { return producerReady.load(std::memory_order_acquire); },
+        kReadyBudgetMilliseconds);
+    const bool consumerReadyObserved = waitUntil(
+        [&] { return consumerReady.load(std::memory_order_acquire); },
+        kReadyBudgetMilliseconds);
+    start.store(true, std::memory_order_release);
+
+    const bool producerFinishedWithinBudget = waitUntil(
+        [&] { return producerFinished.load(std::memory_order_acquire); },
+        kProducerBudgetMilliseconds);
+    if (!producerFinishedWithinBudget) {
+        queue.stop();
+    }
+    producer.join();
+
+    const bool consumerFinishedWithinBudget = waitUntil(
+        [&] { return consumerFinished.load(std::memory_order_acquire); },
+        kConsumerBudgetMilliseconds + kConsumerWaitMilliseconds + 1000);
+    if (!consumerFinishedWithinBudget) {
+        queue.stop();
+    }
+    consumer.join();
+
+    const std::size_t accepted = acceptedCount.load(std::memory_order_acquire);
+    const std::size_t popped = poppedCount.load(std::memory_order_acquire);
+    const int pushed = pushedCount.load(std::memory_order_acquire);
+    const int full = fullCount.load(std::memory_order_acquire);
+
+    std::int64_t maximumProducerLatency = 0;
+    for (std::size_t index = 0; index < kTrafficBlockCount; ++index) {
+        if (producerLatencies[index] > maximumProducerLatency) {
+            maximumProducerLatency = producerLatencies[index];
+        }
+    }
+
+    qInfo() << "queue SPSC traffic pushed" << pushed
+            << "full" << full
+            << "popped" << static_cast<qulonglong>(popped)
+            << "maxProducerCallNs" << static_cast<qlonglong>(maximumProducerLatency);
+
+    QVERIFY(producerReadyObserved);
+    QVERIFY(consumerReadyObserved);
+    QVERIFY(producerFinishedWithinBudget);
+    QVERIFY(consumerFinishedWithinBudget);
+    QVERIFY(!producerInvalid.load(std::memory_order_acquire));
+    QVERIFY(!consumerInvalid.load(std::memory_order_acquire));
+    QCOMPARE(pushed + full, static_cast<int>(kTrafficBlockCount));
+    QCOMPARE(accepted, static_cast<std::size_t>(pushed));
+    QVERIFY(pushed > 0);
+    QCOMPARE(popped, accepted);
+    QVERIFY(maximumProducerLatency >= 0);
+    QVERIFY(maximumProducerLatency < kProducerCallUpperBoundNanoseconds);
+
+    for (std::size_t position = 0; position < accepted; ++position) {
+        const std::size_t expectedSequence = acceptedSequences[position];
+        QCOMPARE(poppedSequences[position], expectedSequence);
+        QCOMPARE(poppedRowCounts[position], rowCounts[expectedSequence]);
+        QCOMPARE(poppedSampleCounts[position], sampleCounts[expectedSequence]);
+        QVERIFY(poppedMetadata[position] == metadataPointers[expectedSequence]);
+    }
+}
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingPlugin::queueStopRacesActiveProducerAndConsumer()
+{
+    AdaptiveDenoisingBlockQueue queue;
+    AdaptiveDenoisingBlockQueueConfig config;
+    config.maxChannelCount = 2;
+    config.maxBlockSamples = 4;
+    config.capacity = 2;
+
+    QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::Ready);
+
+    MatrixXd producerBlock(2, 4);
+    producerBlock << 6101.0, 6102.0, 6103.0, 6104.0,
+                     6201.0, 6202.0, 6203.0, 6204.0;
+    const NativeFiffInfoHandle nullMetadata;
+    const std::uint64_t consumerSentinelMetadataToken = 6201;
+    const NativeFiffInfoHandle consumerSentinelMetadata =
+        fakeFiffInfoHandle(consumerSentinelMetadataToken);
+
+    AdaptiveDenoisingQueuedBlock consumerDestination;
+    consumerDestination.data.resize(config.maxChannelCount, config.maxBlockSamples);
+
+    std::atomic<bool> producerReady(false);
+    std::atomic<bool> consumerReady(false);
+    std::atomic<bool> start(false);
+    std::atomic<bool> producerObservedStopped(false);
+    std::atomic<bool> consumerObservedStopped(false);
+    std::atomic<bool> invalidProducerStatus(false);
+    std::atomic<bool> invalidConsumerStatus(false);
+    std::atomic<int> producerAttempts(0);
+    std::atomic<int> producerPushed(0);
+    std::atomic<int> producerFull(0);
+    std::atomic<int> consumerPopped(0);
+    std::atomic<int> consumerTimeout(0);
+
+    std::thread consumer([&] {
+        consumerReady.store(true, std::memory_order_release);
+        while (!start.load(std::memory_order_acquire)) {
+            std::this_thread::yield();
+        }
+
+        while (true) {
+            consumerDestination.data.setConstant(-6201.0);
+            consumerDestination.rowCount = 6201;
+            consumerDestination.sampleCount = 6202;
+            consumerDestination.fiffInfo = consumerSentinelMetadata;
+            const AdaptiveDenoisingQueuePopStatus status =
+                queue.waitPop(consumerDestination, 250);
+            if (status == AdaptiveDenoisingQueuePopStatus::Popped) {
+                consumerPopped.fetch_add(1, std::memory_order_acq_rel);
+            } else if (status == AdaptiveDenoisingQueuePopStatus::Timeout) {
+                if (!destinationPreserves(
+                        consumerDestination,
+                        config.maxChannelCount,
+                        config.maxBlockSamples,
+                        -6201.0,
+                        6201,
+                        6202,
+                        consumerSentinelMetadata)) {
+                    invalidConsumerStatus.store(true, std::memory_order_release);
+                }
+                consumerTimeout.fetch_add(1, std::memory_order_acq_rel);
+            } else if (status == AdaptiveDenoisingQueuePopStatus::Stopped) {
+                if (!destinationPreserves(
+                        consumerDestination,
+                        config.maxChannelCount,
+                        config.maxBlockSamples,
+                        -6201.0,
+                        6201,
+                        6202,
+                        consumerSentinelMetadata)) {
+                    invalidConsumerStatus.store(true, std::memory_order_release);
+                }
+                consumerObservedStopped.store(true, std::memory_order_release);
+                break;
+            } else {
+                invalidConsumerStatus.store(true, std::memory_order_release);
+                break;
+            }
+        }
+    });
+
+    std::thread producer([&] {
+        producerReady.store(true, std::memory_order_release);
+        while (!start.load(std::memory_order_acquire)) {
+            std::this_thread::yield();
+        }
+
+        while (true) {
+            producerAttempts.fetch_add(1, std::memory_order_acq_rel);
+            const AdaptiveDenoisingQueuePushStatus status =
+                queue.tryPush(producerBlock, nullMetadata);
+            if (status == AdaptiveDenoisingQueuePushStatus::Pushed) {
+                producerPushed.fetch_add(1, std::memory_order_acq_rel);
+            } else if (status == AdaptiveDenoisingQueuePushStatus::Full) {
+                producerFull.fetch_add(1, std::memory_order_acq_rel);
+            } else if (status == AdaptiveDenoisingQueuePushStatus::Stopped) {
+                producerObservedStopped.store(true, std::memory_order_release);
+                break;
+            } else {
+                invalidProducerStatus.store(true, std::memory_order_release);
+                break;
+            }
+
+            if ((producerAttempts.load(std::memory_order_relaxed) & 31) == 0) {
+                std::this_thread::yield();
+            }
+        }
+    });
+
+    const bool consumerReadyObserved = waitUntil(
+        [&] { return consumerReady.load(std::memory_order_acquire); }, 1000);
+    const bool producerReadyObserved = waitUntil(
+        [&] { return producerReady.load(std::memory_order_acquire); }, 1000);
+    start.store(true, std::memory_order_release);
+
+    const bool producerAttemptObserved = waitUntil(
+        [&] { return producerAttempts.load(std::memory_order_acquire) > 0; }, 1000);
+    const auto stopStartedAt = std::chrono::steady_clock::now();
+    queue.stop();
+    const bool producerStoppedObserved = waitUntil(
+        [&] { return producerObservedStopped.load(std::memory_order_acquire); }, 1000);
+    const bool consumerStoppedObserved = waitUntil(
+        [&] { return consumerObservedStopped.load(std::memory_order_acquire); }, 1000);
+    producer.join();
+    consumer.join();
+    const auto threadsJoinedAt = std::chrono::steady_clock::now();
+    const std::int64_t stopToJoinMilliseconds =
+        std::chrono::duration_cast<std::chrono::milliseconds>(threadsJoinedAt - stopStartedAt)
+            .count();
+
+    const int attempts = producerAttempts.load(std::memory_order_acquire);
+    const int pushed = producerPushed.load(std::memory_order_acquire);
+    const int full = producerFull.load(std::memory_order_acquire);
+    const int popped = consumerPopped.load(std::memory_order_acquire);
+    const int timeout = consumerTimeout.load(std::memory_order_acquire);
+
+    qInfo() << "queue active stop attempts" << attempts
+            << "pushed" << pushed
+            << "full" << full
+            << "popped" << popped
+            << "timeout" << timeout
+            << "stopToJoinMs" << stopToJoinMilliseconds;
+
+    QVERIFY(consumerReadyObserved);
+    QVERIFY(producerReadyObserved);
+    QVERIFY(producerAttemptObserved);
+    QVERIFY(producerStoppedObserved);
+    QVERIFY(consumerStoppedObserved);
+    QVERIFY(!invalidProducerStatus.load(std::memory_order_acquire));
+    QVERIFY(!invalidConsumerStatus.load(std::memory_order_acquire));
+    QCOMPARE(attempts, pushed + full + 1);
+    QVERIFY(attempts > 0);
+    QVERIFY(stopToJoinMilliseconds >= 0);
+    QVERIFY(stopToJoinMilliseconds < 1500);
+}
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingPlugin::queueStopsWithPendingBlockAndPreservesDestination()
+{
+    AdaptiveDenoisingBlockQueue queue;
+    AdaptiveDenoisingBlockQueueConfig config;
+    config.maxChannelCount = 3;
+    config.maxBlockSamples = 5;
+    config.capacity = 2;
+
+    QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::Ready);
+
+    MatrixXd pendingBlock(2, 3);
+    pendingBlock << 7101.0, 7102.0, 7103.0,
+                    7201.0, 7202.0, 7203.0;
+    const NativeFiffInfoHandle pendingMetadata = fakeFiffInfoHandle(std::uint64_t(7101));
+    QVERIFY(queue.tryPush(pendingBlock, pendingMetadata)
+            == AdaptiveDenoisingQueuePushStatus::Pushed);
+
+    const NativeFiffInfoHandle destinationMetadata = fakeFiffInfoHandle(std::uint64_t(7102));
+    AdaptiveDenoisingQueuedBlock destination;
+    destination.data.resize(config.maxChannelCount, config.maxBlockSamples);
+    destination.data.setConstant(-7101.0);
+    destination.rowCount = 7101;
+    destination.sampleCount = 7102;
+    destination.fiffInfo = destinationMetadata;
+
+    queue.stop();
+    QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Stopped);
+    QVERIFY(destinationPreserves(
+        destination, config.maxChannelCount, config.maxBlockSamples, -7101.0, 7101, 7102,
+        destinationMetadata));
+
+    QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::Ready);
+
+    destination.data.setConstant(-7103.0);
+    destination.rowCount = 7103;
+    destination.sampleCount = 7104;
+    destination.fiffInfo = destinationMetadata;
+    QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Timeout);
+    QVERIFY(destinationPreserves(
+        destination, config.maxChannelCount, config.maxBlockSamples, -7103.0, 7103, 7104,
+        destinationMetadata));
+
+    MatrixXd freshBlock(3, 2);
+    freshBlock << 8101.0, 8102.0,
+                  8201.0, 8202.0,
+                  8301.0, 8302.0;
+    const MatrixXd expectedFreshBlock = freshBlock;
+    const NativeFiffInfoHandle freshMetadata = fakeFiffInfoHandle(std::uint64_t(8101));
+    QVERIFY(queue.tryPush(freshBlock, freshMetadata)
+            == AdaptiveDenoisingQueuePushStatus::Pushed);
+
+    destination.data.setConstant(-7105.0);
+    destination.rowCount = 7105;
+    destination.sampleCount = 7106;
+    destination.fiffInfo = destinationMetadata;
+    QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(destination.rowCount, Index(3));
+    QCOMPARE(destination.sampleCount, Index(2));
+    QVERIFY(sameMetadata(destination.fiffInfo, freshMetadata));
+    for (Index row = 0; row < config.maxChannelCount; ++row) {
+        for (Index column = 0; column < config.maxBlockSamples; ++column) {
+            if (row < expectedFreshBlock.rows() && column < expectedFreshBlock.cols()) {
+                QVERIFY(destination.data(row, column) == expectedFreshBlock(row, column));
+            } else {
+                QVERIFY(destination.data(row, column) == -7105.0);
+            }
+        }
+    }
+}
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingPlugin::queueRetainsNativeMetadataUntilPoppedHandleCleared()
+{
+    constexpr std::size_t kMetadataBlockCount = 3;
+
+    AdaptiveDenoisingBlockQueue queue;
+    AdaptiveDenoisingBlockQueueConfig config;
+    config.maxChannelCount = 4;
+    config.maxBlockSamples = 5;
+    config.capacity = kMetadataBlockCount;
+
+    std::array<MatrixXd, kMetadataBlockCount> blocks;
+    std::array<Index, kMetadataBlockCount> rowCounts{{2, 4, 3}};
+    std::array<Index, kMetadataBlockCount> sampleCounts{{3, 2, 5}};
+    std::array<FakeMetadataLifetime, kMetadataBlockCount> lifetimes;
+    std::array<NativeFiffInfoHandle, kMetadataBlockCount> handles;
+    std::array<const FIFFLIB::FiffInfo*, kMetadataBlockCount> metadataPointers{};
+
+    for (std::size_t index = 0; index < kMetadataBlockCount; ++index) {
+        blocks[index].resize(rowCounts[index], sampleCounts[index]);
+        for (Index row = 0; row < rowCounts[index]; ++row) {
+            for (Index column = 0; column < sampleCounts[index]; ++column) {
+                blocks[index](row, column) =
+                    9100.0 + static_cast<double>(index * 1000U + row * 100U + column);
+            }
+        }
+
+        lifetimes[index].token = 9101U + static_cast<std::uint64_t>(index);
+        handles[index] = fakeFiffInfoHandle(lifetimes[index]);
+        metadataPointers[index] = handles[index].data();
+    }
+
+    QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::Ready);
+
+    for (std::size_t index = 0; index < kMetadataBlockCount; ++index) {
+        const AdaptiveDenoisingQueuePushStatus status =
+            queue.tryPush(blocks[index], handles[index]);
+        handles[index].reset();
+        QVERIFY(status == AdaptiveDenoisingQueuePushStatus::Pushed);
+        QCOMPARE(lifetimes[index].liveCount.load(std::memory_order_acquire), 1);
+        QCOMPARE(lifetimes[index].deleterCount.load(std::memory_order_acquire), 0);
+    }
+
+    AdaptiveDenoisingQueuedBlock destination;
+    destination.data.resize(config.maxChannelCount, config.maxBlockSamples);
+    for (std::size_t index = 0; index < kMetadataBlockCount; ++index) {
+        destination.data.setConstant(-9200.0);
+        destination.rowCount = 9201;
+        destination.sampleCount = 9202;
+        destination.fiffInfo.reset();
+
+        QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Popped);
+        QCOMPARE(destination.rowCount, rowCounts[index]);
+        QCOMPARE(destination.sampleCount, sampleCounts[index]);
+        QVERIFY(destination.fiffInfo.data() == metadataPointers[index]);
+        for (Index row = 0; row < config.maxChannelCount; ++row) {
+            for (Index column = 0; column < config.maxBlockSamples; ++column) {
+                if (row < blocks[index].rows() && column < blocks[index].cols()) {
+                    QVERIFY(destination.data(row, column) == blocks[index](row, column));
+                } else {
+                    QVERIFY(destination.data(row, column) == -9200.0);
+                }
+            }
+        }
+        QCOMPARE(lifetimes[index].liveCount.load(std::memory_order_acquire), 1);
+        QCOMPARE(lifetimes[index].deleterCount.load(std::memory_order_acquire), 0);
+
+        destination.fiffInfo.reset();
+        QCOMPARE(lifetimes[index].liveCount.load(std::memory_order_acquire), 0);
+        QCOMPARE(lifetimes[index].deleterCount.load(std::memory_order_acquire), 1);
+    }
+
+    destination.data.setConstant(-9203.0);
+    destination.rowCount = 9203;
+    destination.sampleCount = 9204;
+    const NativeFiffInfoHandle timeoutMetadata = fakeFiffInfoHandle(std::uint64_t(9203));
+    destination.fiffInfo = timeoutMetadata;
+    QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Timeout);
+    QVERIFY(destinationPreserves(
+        destination, config.maxChannelCount, config.maxBlockSamples, -9203.0, 9203, 9204,
+        timeoutMetadata));
 }
 
 //=============================================================================================================
