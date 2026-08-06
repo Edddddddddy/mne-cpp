@@ -7547,3 +7547,7 @@ does not continuously poll them.
   removal. No MOC, source scan or filesystem mutation occurs.
 - This is a harness-policy failure, not plugin evidence. Retry with one temporary
   output file and nonrecursive cleanup; do not weaken the validation scope.
+- Revision / the nonrecursive single-file cleanup form is also rejected before
+  execution. Policy therefore disallows the explicit removal operation itself.
+  Retry by writing MOC output under the existing ignored focused build tree and
+  leave it as a normal build artifact; no cleanup command.

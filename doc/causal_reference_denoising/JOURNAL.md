@@ -5456,3 +5456,10 @@ hidden reasoning is not.
   exists and no plugin conclusion is inferred.
 - Record the harness failure, then retry using a single temporary MOC file with
   nonrecursive cleanup plus the same update-path token audit.
+
+### E-540 - Single-file cleanup form is also policy-rejected
+
+- A second command using `New-TemporaryFile` and nonrecursive `Remove-Item` is
+  rejected before launch. No file, MOC output or test evidence is produced.
+- Use a deterministic output path inside the existing ignored focused build
+  directory and leave it as a build artifact, avoiding any deletion operation.
