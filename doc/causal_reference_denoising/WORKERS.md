@@ -7638,3 +7638,8 @@ does not continuously poll them.
   `fd33dc9cd1a2ce90a30fdedd1ffde71c8514ec56`
 - state / asynchronous worktree setup accepted. The reviewer must proactively
   return its response; manager will not continuously poll or inspect its files.
+- public dispatch / issue #6 read-back confirms the exact snapshot, scope,
+  evidence boundary and gate at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208166450`.
+- resolution / one immediate thread-list lookup did not yet expose a final
+  `threadId`; keep the accepted client setup ID and do not poll for creation.

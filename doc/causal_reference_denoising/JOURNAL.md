@@ -5532,3 +5532,13 @@ hidden reasoning is not.
   in `WORKERS.md`.
 - Await the proactive review response without continuous polling. Do not start
   teaching UI edits until the lifecycle gate passes or its findings are fixed.
+
+### E-549 - Plugin lifecycle dispatch published
+
+- Issue #6 comment/read-back confirms the independent Sol/ultra reviewer,
+  exact read-only snapshot, lifecycle scope, intentional UI exclusion and the
+  pre-plugin Qt/MSVC environment boundary at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208166450`.
+- One immediate app thread-list lookup does not yet resolve the asynchronous
+  client setup to a final thread ID. Retain the accepted setup ID and await the
+  proactive response; this is not a reason to poll or duplicate the reviewer.
