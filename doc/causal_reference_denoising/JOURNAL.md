@@ -5564,3 +5564,12 @@ hidden reasoning is not.
   thread `019fd84f-03c6-79f1-977f-b278d55777ba` in its app-managed worktree.
 - This lookup resolves identity only and does not read or poll review progress.
   Await the proactive structured response; do not create a duplicate reviewer.
+
+### E-552 - One bounded plugin review wait shows active lifecycle audit
+
+- A single 60-second event wait times out with the reviewer still active and no
+  approval/input request. Its latest commentary confirms the small callback
+  seam and focuses next on admission epoch, queue contract, processor disarm,
+  destructor and restart edges.
+- This is progress only, not a PASS/HOLD result. Do not poll again now; continue
+  only disjoint acceptance planning and await the proactive final response.
