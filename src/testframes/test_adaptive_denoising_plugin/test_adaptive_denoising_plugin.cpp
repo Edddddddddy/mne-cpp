@@ -976,7 +976,27 @@ void TestAdaptiveDenoisingPlugin::queueStopWakesWaiterAndReconfigureStartsFresh(
     QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::Ready);
     QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::AlreadyRunning);
 
+    MatrixXd preludeBlock(2, 1);
+    preludeBlock << 4101.0,
+                    4201.0;
+    const NativeFiffInfoHandle preludeMetadata = fakeFiffInfoHandle(std::uint64_t(4102));
+    AdaptiveDenoisingQueuedBlock preludeDestination;
+    preludeDestination.data.resize(config.maxChannelCount, config.maxBlockSamples);
+    preludeDestination.data.setConstant(-4103.0);
+    preludeDestination.rowCount = 4103;
+    preludeDestination.sampleCount = 4104;
+    const NativeFiffInfoHandle preludeDestinationMetadata =
+        fakeFiffInfoHandle(std::uint64_t(4105));
+    preludeDestination.fiffInfo = preludeDestinationMetadata;
+    const AdaptiveDenoisingQueuePushStatus preludePushStatus =
+        queue.tryPush(preludeBlock, preludeMetadata);
+    const AdaptiveDenoisingQueuePopStatus preludePopStatus =
+        queue.waitPop(preludeDestination, 0);
+
     constexpr int kConsumerTimeoutMilliseconds = 3000;
+    constexpr int kProbeTimeoutMilliseconds = 50;
+    constexpr int kProbeLowerBoundMilliseconds = 5;
+    constexpr int kProbeUpperBoundMilliseconds = 1000;
     constexpr int kStopSchedulingAllowanceMilliseconds = 50;
     constexpr int kWakeUpperBoundMilliseconds = 1500;
     constexpr int kEntryWaitBudgetMilliseconds = 1000;
@@ -993,13 +1013,42 @@ void TestAdaptiveDenoisingPlugin::queueStopWakesWaiterAndReconfigureStartsFresh(
 
     std::atomic<bool> consumerEntered(false);
     std::atomic<bool> consumerFinished(false);
+    std::atomic<bool> invalidConsumerStatus(false);
+    std::atomic<int> probeStatus(
+        static_cast<int>(AdaptiveDenoisingQueuePopStatus::Timeout));
     std::atomic<int> observedStatus(
         static_cast<int>(AdaptiveDenoisingQueuePopStatus::Timeout));
     std::atomic<std::int64_t> consumerEnteredMilliseconds(-1);
+    std::atomic<std::int64_t> probeElapsedMilliseconds(-1);
     std::atomic<std::int64_t> observedElapsedMilliseconds(-1);
 
     const auto testStartedAt = std::chrono::steady_clock::now();
     std::thread consumer([&] {
+        consumerDestination.data.setConstant(-4001.0);
+        consumerDestination.rowCount = 4001;
+        consumerDestination.sampleCount = 4002;
+        consumerDestination.fiffInfo = consumerSentinelMetadata;
+        const auto probeStartedAt = std::chrono::steady_clock::now();
+        const AdaptiveDenoisingQueuePopStatus probeResult =
+            queue.waitPop(consumerDestination, kProbeTimeoutMilliseconds);
+        const auto probeFinishedAt = std::chrono::steady_clock::now();
+        probeStatus.store(static_cast<int>(probeResult), std::memory_order_release);
+        probeElapsedMilliseconds.store(
+            std::chrono::duration_cast<std::chrono::milliseconds>(probeFinishedAt - probeStartedAt)
+                .count(),
+            std::memory_order_release);
+        if (probeResult != AdaptiveDenoisingQueuePopStatus::Timeout
+            || !destinationPreserves(
+                consumerDestination,
+                config.maxChannelCount,
+                config.maxBlockSamples,
+                -4001.0,
+                4001,
+                4002,
+                consumerSentinelMetadata)) {
+            invalidConsumerStatus.store(true, std::memory_order_release);
+        }
+
         const auto enteredAt = std::chrono::steady_clock::now();
         consumerEnteredMilliseconds.store(
             std::chrono::duration_cast<std::chrono::milliseconds>(enteredAt - testStartedAt).count(),
@@ -1041,10 +1090,14 @@ void TestAdaptiveDenoisingPlugin::queueStopWakesWaiterAndReconfigureStartsFresh(
     const std::int64_t stopMilliseconds =
         std::chrono::duration_cast<std::chrono::milliseconds>(stopStartedAt - testStartedAt).count();
     const std::int64_t stopDelayMilliseconds = stopMilliseconds - enteredMilliseconds;
+    const std::int64_t probeElapsed =
+        probeElapsedMilliseconds.load(std::memory_order_acquire);
     const std::int64_t observedElapsed =
         observedElapsedMilliseconds.load(std::memory_order_acquire);
 
     qInfo() << "queue stop wake timeoutMs" << kConsumerTimeoutMilliseconds
+            << "probeStatus" << probeStatus.load(std::memory_order_acquire)
+            << "probeElapsedMs" << probeElapsed
             << "stopDelayMs" << stopDelayMilliseconds
             << "observedElapsedMs" << observedElapsed
             << "enteredBeforeStop" << consumerEnteredBeforeStop
@@ -1052,6 +1105,23 @@ void TestAdaptiveDenoisingPlugin::queueStopWakesWaiterAndReconfigureStartsFresh(
 
     QVERIFY(consumerEnteredBeforeStop);
     QVERIFY(consumerWasWaitingBeforeStop);
+    QVERIFY(!invalidConsumerStatus.load(std::memory_order_acquire));
+    QCOMPARE(preludePushStatus, AdaptiveDenoisingQueuePushStatus::Pushed);
+    QCOMPARE(preludePopStatus, AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(preludeDestination.rowCount, preludeBlock.rows());
+    QCOMPARE(preludeDestination.sampleCount, preludeBlock.cols());
+    QVERIFY(sameMetadata(preludeDestination.fiffInfo, preludeMetadata));
+    for (Index row = 0; row < config.maxChannelCount; ++row) {
+        for (Index column = 0; column < config.maxBlockSamples; ++column) {
+            const bool inBlock = row < preludeBlock.rows() && column < preludeBlock.cols();
+            const double expected = inBlock ? preludeBlock(row, column) : -4103.0;
+            QVERIFY(preludeDestination.data(row, column) == expected);
+        }
+    }
+    QCOMPARE(probeStatus.load(std::memory_order_acquire),
+             static_cast<int>(AdaptiveDenoisingQueuePopStatus::Timeout));
+    QVERIFY(probeElapsed >= kProbeLowerBoundMilliseconds);
+    QVERIFY(probeElapsed < kProbeUpperBoundMilliseconds);
     QVERIFY(observedStatus.load(std::memory_order_acquire)
             == static_cast<int>(AdaptiveDenoisingQueuePopStatus::Stopped));
     QVERIFY(observedElapsed >= 0);
@@ -1395,6 +1465,7 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
     constexpr Index kDestinationRowSentinel = 5101;
     constexpr Index kDestinationSampleSentinel = 5102;
     constexpr int kReadyBudgetMilliseconds = 1000;
+    constexpr int kPhaseBudgetMilliseconds = 1000;
     constexpr int kProducerBudgetMilliseconds = 5000;
     constexpr int kConsumerBudgetMilliseconds = 2000;
     constexpr int kConsumerWaitMilliseconds = 25;
@@ -1417,6 +1488,10 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
         rowCounts[index] = Index(1) + static_cast<Index>(index % static_cast<std::size_t>(kMaxChannelCount));
         sampleCounts[index] =
             Index(1) + static_cast<Index>((index * 3U) % static_cast<std::size_t>(kMaxBlockSamples));
+        if (index == kQueueCapacity) {
+            rowCounts[index] = kMaxChannelCount;
+            sampleCounts[index] = kMaxBlockSamples;
+        }
         producerBlocks[index].resize(rowCounts[index], sampleCounts[index]);
 
         const double payloadBase = kPayloadBase + static_cast<double>(index) * kPayloadStride;
@@ -1451,6 +1526,11 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
     std::atomic<bool> producerReady(false);
     std::atomic<bool> consumerReady(false);
     std::atomic<bool> start(false);
+    std::atomic<bool> abortRequested(false);
+    std::atomic<bool> producerWaitingForFirstPop(false);
+    std::atomic<bool> consumerFirstPopObserved(false);
+    std::atomic<bool> consumerPoppedBeforeProducerCompletion(false);
+    std::atomic<bool> wrappedPushObserved(false);
     std::atomic<bool> producerFinished(false);
     std::atomic<bool> consumerFinished(false);
     std::atomic<bool> producerInvalid(false);
@@ -1462,7 +1542,11 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
 
     std::thread producer([&] {
         producerReady.store(true, std::memory_order_release);
-        while (!start.load(std::memory_order_acquire)) {
+        const auto producerDeadline = std::chrono::steady_clock::now()
+            + std::chrono::milliseconds(kProducerBudgetMilliseconds);
+        while (!start.load(std::memory_order_acquire)
+               && !abortRequested.load(std::memory_order_acquire)
+               && std::chrono::steady_clock::now() < producerDeadline) {
             std::this_thread::yield();
         }
 
@@ -1470,34 +1554,73 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
         int localPushedCount = 0;
         int localFullCount = 0;
 
-        for (std::size_t index = 0; index < kTrafficBlockCount; ++index) {
-            const auto callStartedAt = std::chrono::steady_clock::now();
-            // tryPush is noexcept; keep flag cleanup as the immediately following statement.
-            g_countTestAllocations = true;
-            const AdaptiveDenoisingQueuePushStatus status =
-                queue.tryPush(producerBlocks[index], metadataHandles[index]);
-            g_countTestAllocations = false;
-            const auto callFinishedAt = std::chrono::steady_clock::now();
-            producerLatencies[index] =
-                std::chrono::duration_cast<std::chrono::nanoseconds>(
-                    callFinishedAt - callStartedAt)
-                    .count();
-
-            if (status == AdaptiveDenoisingQueuePushStatus::Pushed) {
-                acceptedSequences[localAcceptedCount++] = index;
-                ++localPushedCount;
-                metadataHandles[index].reset();
-            } else if (status == AdaptiveDenoisingQueuePushStatus::Full) {
-                ++localFullCount;
-                metadataHandles[index].reset();
-            } else {
+        if (!start.load(std::memory_order_acquire)
+            || abortRequested.load(std::memory_order_acquire)) {
+            if (!abortRequested.load(std::memory_order_acquire)) {
                 producerInvalid.store(true, std::memory_order_release);
-                metadataHandles[index].reset();
-                break;
             }
+        } else {
+            for (std::size_t index = 0; index < kTrafficBlockCount; ++index) {
+                if (abortRequested.load(std::memory_order_acquire)
+                    || std::chrono::steady_clock::now() >= producerDeadline) {
+                    if (!abortRequested.load(std::memory_order_acquire)) {
+                        producerInvalid.store(true, std::memory_order_release);
+                    }
+                    break;
+                }
 
-            if ((index & 7U) == 0U) {
-                std::this_thread::yield();
+                if (index == kQueueCapacity) {
+                    producerWaitingForFirstPop.store(true, std::memory_order_release);
+                    while (!consumerFirstPopObserved.load(std::memory_order_acquire)
+                           && !abortRequested.load(std::memory_order_acquire)
+                           && std::chrono::steady_clock::now() < producerDeadline) {
+                        std::this_thread::yield();
+                    }
+                    if (!consumerFirstPopObserved.load(std::memory_order_acquire)) {
+                        if (!abortRequested.load(std::memory_order_acquire)) {
+                            producerInvalid.store(true, std::memory_order_release);
+                        }
+                        break;
+                    }
+                }
+
+                const auto callStartedAt = std::chrono::steady_clock::now();
+                // tryPush is noexcept; keep flag cleanup as the immediately following statement.
+                g_countTestAllocations = true;
+                const AdaptiveDenoisingQueuePushStatus status =
+                    queue.tryPush(producerBlocks[index], metadataHandles[index]);
+                g_countTestAllocations = false;
+                const auto callFinishedAt = std::chrono::steady_clock::now();
+                producerLatencies[index] =
+                    std::chrono::duration_cast<std::chrono::nanoseconds>(
+                        callFinishedAt - callStartedAt)
+                        .count();
+
+                if (status == AdaptiveDenoisingQueuePushStatus::Pushed) {
+                    acceptedSequences[localAcceptedCount++] = index;
+                    ++localPushedCount;
+                    if (index == kQueueCapacity) {
+                        wrappedPushObserved.store(true, std::memory_order_release);
+                    }
+                    metadataHandles[index].reset();
+                } else if (status == AdaptiveDenoisingQueuePushStatus::Full) {
+                    ++localFullCount;
+                    metadataHandles[index].reset();
+                } else if (status == AdaptiveDenoisingQueuePushStatus::Stopped) {
+                    if (!abortRequested.load(std::memory_order_acquire)) {
+                        producerInvalid.store(true, std::memory_order_release);
+                    }
+                    metadataHandles[index].reset();
+                    break;
+                } else {
+                    producerInvalid.store(true, std::memory_order_release);
+                    metadataHandles[index].reset();
+                    break;
+                }
+
+                if ((index & 7U) == 0U) {
+                    std::this_thread::yield();
+                }
             }
         }
 
@@ -1512,7 +1635,12 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
 
     std::thread consumer([&] {
         consumerReady.store(true, std::memory_order_release);
-        while (!start.load(std::memory_order_acquire)) {
+        const auto consumerDeadline = std::chrono::steady_clock::now()
+            + std::chrono::milliseconds(
+                kProducerBudgetMilliseconds + kConsumerBudgetMilliseconds + 1000);
+        while (!start.load(std::memory_order_acquire)
+               && !abortRequested.load(std::memory_order_acquire)
+               && std::chrono::steady_clock::now() < consumerDeadline) {
             std::this_thread::yield();
         }
 
@@ -1520,16 +1648,45 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
         bool producerDoneSeen = false;
         std::chrono::steady_clock::time_point drainDeadline;
 
+        while (!producerWaitingForFirstPop.load(std::memory_order_acquire)
+               && !abortRequested.load(std::memory_order_acquire)
+               && std::chrono::steady_clock::now() < consumerDeadline) {
+            std::this_thread::yield();
+        }
+
+        if (!start.load(std::memory_order_acquire)
+            || !producerWaitingForFirstPop.load(std::memory_order_acquire)) {
+            if (!abortRequested.load(std::memory_order_acquire)) {
+                consumerInvalid.store(true, std::memory_order_release);
+            }
+            poppedCount.store(0, std::memory_order_release);
+            consumerFinished.store(true, std::memory_order_release);
+            return;
+        }
+
         while (true) {
+            if (std::chrono::steady_clock::now() >= consumerDeadline) {
+                consumerInvalid.store(true, std::memory_order_release);
+                break;
+            }
+
             destination.data.setConstant(kDestinationSentinel);
             destination.rowCount = kDestinationRowSentinel;
             destination.sampleCount = kDestinationSampleSentinel;
             destination.fiffInfo = destinationSentinel;
 
-            const AdaptiveDenoisingQueuePopStatus status =
+                const AdaptiveDenoisingQueuePopStatus status =
                 queue.waitPop(destination, kConsumerWaitMilliseconds);
 
             if (status == AdaptiveDenoisingQueuePopStatus::Popped) {
+                if (localPoppedCount == 0) {
+                    consumerFirstPopObserved.store(true, std::memory_order_release);
+                    if (!producerFinished.load(std::memory_order_acquire)) {
+                        consumerPoppedBeforeProducerCompletion.store(
+                            true, std::memory_order_release);
+                    }
+                }
+
                 std::size_t sequence = kTrafficBlockCount;
                 for (std::size_t candidate = 0; candidate < kTrafficBlockCount; ++candidate) {
                     if (destination.data(0, 0)
@@ -1604,7 +1761,9 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
                 continue;
             }
 
-            consumerInvalid.store(true, std::memory_order_release);
+            if (!abortRequested.load(std::memory_order_acquire)) {
+                consumerInvalid.store(true, std::memory_order_release);
+            }
             break;
         }
 
@@ -1621,10 +1780,27 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
     g_countedTestAllocations.store(0, std::memory_order_relaxed);
     start.store(true, std::memory_order_release);
 
+    const bool producerHoldingObserved = waitUntil(
+        [&] { return producerWaitingForFirstPop.load(std::memory_order_acquire); },
+        kPhaseBudgetMilliseconds);
+    const bool consumerFirstPopObservedWithinBudget = waitUntil(
+        [&] { return consumerFirstPopObserved.load(std::memory_order_acquire); },
+        kPhaseBudgetMilliseconds);
+    const bool wrappedPushObservedWithinBudget = waitUntil(
+        [&] { return wrappedPushObserved.load(std::memory_order_acquire); },
+        kPhaseBudgetMilliseconds);
+    if (!producerHoldingObserved
+        || !consumerFirstPopObservedWithinBudget
+        || !wrappedPushObservedWithinBudget) {
+        abortRequested.store(true, std::memory_order_release);
+        queue.stop();
+    }
+
     const bool producerFinishedWithinBudget = waitUntil(
         [&] { return producerFinished.load(std::memory_order_acquire); },
         kProducerBudgetMilliseconds);
     if (!producerFinishedWithinBudget) {
+        abortRequested.store(true, std::memory_order_release);
         queue.stop();
     }
     producer.join();
@@ -1633,6 +1809,7 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
         [&] { return consumerFinished.load(std::memory_order_acquire); },
         kConsumerBudgetMilliseconds + kConsumerWaitMilliseconds + 1000);
     if (!consumerFinishedWithinBudget) {
+        abortRequested.store(true, std::memory_order_release);
         queue.stop();
     }
     consumer.join();
@@ -1663,13 +1840,26 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
     QVERIFY(consumerFinishedWithinBudget);
     QVERIFY(!producerInvalid.load(std::memory_order_acquire));
     QVERIFY(!consumerInvalid.load(std::memory_order_acquire));
+    QVERIFY(producerHoldingObserved);
+    QVERIFY(consumerFirstPopObservedWithinBudget);
+    QVERIFY(consumerPoppedBeforeProducerCompletion.load(std::memory_order_acquire));
+    QVERIFY(wrappedPushObservedWithinBudget);
     QCOMPARE(pushed + full, static_cast<int>(kTrafficBlockCount));
     QCOMPARE(accepted, static_cast<std::size_t>(pushed));
-    QVERIFY(pushed > 0);
+    QVERIFY(pushed > static_cast<int>(kQueueCapacity));
+    QVERIFY(accepted > kQueueCapacity);
     QCOMPARE(popped, accepted);
     QVERIFY(maximumProducerLatency >= 0);
     QVERIFY(maximumProducerLatency < kProducerCallUpperBoundNanoseconds);
     QCOMPARE(countedAllocations, std::uint64_t(0));
+
+    for (std::size_t index = 0; index < kQueueCapacity; ++index) {
+        QCOMPARE(acceptedSequences[index], index);
+    }
+    QCOMPARE(acceptedSequences[kQueueCapacity], kQueueCapacity);
+    QVERIFY(rowCounts[kQueueCapacity] != rowCounts[0]
+            || sampleCounts[kQueueCapacity] != sampleCounts[0]);
+    QVERIFY(metadataPointers[kQueueCapacity] != metadataPointers[0]);
 
     for (std::size_t position = 0; position < accepted; ++position) {
         const std::size_t expectedSequence = acceptedSequences[position];
@@ -1684,111 +1874,313 @@ void TestAdaptiveDenoisingPlugin::queueSustainedOverlappingSpscPreservesAccepted
 
 void TestAdaptiveDenoisingPlugin::queueStopRacesActiveProducerAndConsumer()
 {
+    constexpr int kReadyBudgetMilliseconds = 1000;
+    constexpr int kPhaseBudgetMilliseconds = 1000;
+    constexpr int kEmptyWaitMilliseconds = 50;
+    constexpr int kEmptyWaitLowerBoundMilliseconds = 5;
+    constexpr int kEmptyWaitUpperBoundMilliseconds = 1000;
+    constexpr int kFirstWaitMilliseconds = 1000;
+    constexpr int kStopWaitMilliseconds = 2000;
+    constexpr int kThreadBudgetMilliseconds = 4000;
+    constexpr int kStopSchedulingAllowanceMilliseconds = 20;
+    constexpr int kStopToJoinUpperBoundMilliseconds = 1500;
+
     AdaptiveDenoisingBlockQueue queue;
     AdaptiveDenoisingBlockQueueConfig config;
-    config.maxChannelCount = 2;
-    config.maxBlockSamples = 4;
-    config.capacity = 2;
+    config.maxChannelCount = 3;
+    config.maxBlockSamples = 5;
+    config.capacity = 1;
 
     QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::Ready);
 
-    MatrixXd producerBlock(2, 4);
-    producerBlock << 6101.0, 6102.0, 6103.0, 6104.0,
-                     6201.0, 6202.0, 6203.0, 6204.0;
-    const NativeFiffInfoHandle nullMetadata;
-    const std::uint64_t consumerSentinelMetadataToken = 6201;
-    const NativeFiffInfoHandle consumerSentinelMetadata =
-        fakeFiffInfoHandle(consumerSentinelMetadataToken);
+    MatrixXd preludeBlock(2, 3);
+    preludeBlock << 6101.0, 6102.0, 6103.0,
+                    6201.0, 6202.0, 6203.0;
+    const NativeFiffInfoHandle preludeMetadata = fakeFiffInfoHandle(std::uint64_t(6104));
+    const double preludeDestinationSentinel = -6101.0;
+    const Index preludeDestinationRowSentinel = 6101;
+    const Index preludeDestinationSampleSentinel = 6102;
+    const NativeFiffInfoHandle preludeDestinationMetadata =
+        fakeFiffInfoHandle(std::uint64_t(6103));
+
+    AdaptiveDenoisingQueuedBlock preludeDestination;
+    preludeDestination.data.resize(config.maxChannelCount, config.maxBlockSamples);
+    preludeDestination.data.setConstant(preludeDestinationSentinel);
+    preludeDestination.rowCount = preludeDestinationRowSentinel;
+    preludeDestination.sampleCount = preludeDestinationSampleSentinel;
+    preludeDestination.fiffInfo = preludeDestinationMetadata;
+
+    const AdaptiveDenoisingQueuePushStatus preludePushStatus =
+        queue.tryPush(preludeBlock, preludeMetadata);
+    const AdaptiveDenoisingQueuePopStatus preludePopStatus =
+        queue.waitPop(preludeDestination, 0);
+
+    MatrixXd emptyDestinationData =
+        MatrixXd::Constant(config.maxChannelCount, config.maxBlockSamples, -6111.0);
+    AdaptiveDenoisingQueuedBlock emptyDestination;
+    emptyDestination.data = emptyDestinationData;
+    emptyDestination.rowCount = 6111;
+    emptyDestination.sampleCount = 6112;
+    const NativeFiffInfoHandle emptyDestinationMetadata =
+        fakeFiffInfoHandle(std::uint64_t(6113));
+    emptyDestination.fiffInfo = emptyDestinationMetadata;
+    const auto emptyWaitStartedAt = std::chrono::steady_clock::now();
+    const AdaptiveDenoisingQueuePopStatus emptyWaitStatus =
+        queue.waitPop(emptyDestination, kEmptyWaitMilliseconds);
+    const auto emptyWaitFinishedAt = std::chrono::steady_clock::now();
+    const std::int64_t emptyWaitElapsedMilliseconds =
+        std::chrono::duration_cast<std::chrono::milliseconds>(
+            emptyWaitFinishedAt - emptyWaitStartedAt)
+            .count();
+
+    MatrixXd producerBlock(3, 2);
+    producerBlock << 6301.0, 6302.0,
+                     6401.0, 6402.0,
+                     6501.0, 6502.0;
+    const NativeFiffInfoHandle producerMetadata = fakeFiffInfoHandle(std::uint64_t(6303));
+    const double activeDestinationSentinel = -6201.0;
+    const Index activeDestinationRowSentinel = 6201;
+    const Index activeDestinationSampleSentinel = 6202;
+    const NativeFiffInfoHandle activeDestinationMetadata =
+        fakeFiffInfoHandle(std::uint64_t(6203));
+    const double stoppedDestinationSentinel = -6301.0;
+    const Index stoppedDestinationRowSentinel = 6301;
+    const Index stoppedDestinationSampleSentinel = 6302;
+    const NativeFiffInfoHandle stoppedDestinationMetadata =
+        fakeFiffInfoHandle(std::uint64_t(6303));
 
     AdaptiveDenoisingQueuedBlock consumerDestination;
     consumerDestination.data.resize(config.maxChannelCount, config.maxBlockSamples);
+    MatrixXd poppedActiveSnapshot =
+        MatrixXd::Constant(config.maxChannelCount, config.maxBlockSamples, 0.0);
+
+    const auto destinationContainsBlock = [&](const AdaptiveDenoisingQueuedBlock& destination,
+                                               const MatrixXd& expectedBlock,
+                                               const NativeFiffInfoHandle& expectedMetadata,
+                                               double expectedTail) {
+        if (destination.data.rows() != config.maxChannelCount
+            || destination.data.cols() != config.maxBlockSamples
+            || destination.rowCount != expectedBlock.rows()
+            || destination.sampleCount != expectedBlock.cols()
+            || !sameMetadata(destination.fiffInfo, expectedMetadata)) {
+            return false;
+        }
+
+        for (Index row = 0; row < config.maxChannelCount; ++row) {
+            for (Index column = 0; column < config.maxBlockSamples; ++column) {
+                const bool inBlock = row < expectedBlock.rows() && column < expectedBlock.cols();
+                const double expected = inBlock ? expectedBlock(row, column) : expectedTail;
+                if (destination.data(row, column) != expected) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    };
 
     std::atomic<bool> producerReady(false);
     std::atomic<bool> consumerReady(false);
     std::atomic<bool> start(false);
-    std::atomic<bool> producerObservedStopped(false);
-    std::atomic<bool> consumerObservedStopped(false);
+    std::atomic<bool> stopCompleted(false);
+    std::atomic<bool> producerLive(false);
+    std::atomic<bool> producerFinished(false);
+    std::atomic<bool> producerPushedObserved(false);
+    std::atomic<bool> producerStoppedObserved(false);
+    std::atomic<bool> consumerFirstWaitStarted(false);
+    std::atomic<bool> consumerPoppedObserved(false);
+    std::atomic<bool> consumerStopWaitStarted(false);
+    std::atomic<bool> consumerStoppedObserved(false);
+    std::atomic<bool> consumerFinished(false);
     std::atomic<bool> invalidProducerStatus(false);
     std::atomic<bool> invalidConsumerStatus(false);
+    std::atomic<int> producerFirstStatus(-1);
+    std::atomic<int> producerStoppedStatus(-1);
     std::atomic<int> producerAttempts(0);
-    std::atomic<int> producerPushed(0);
-    std::atomic<int> producerFull(0);
+    std::atomic<int> consumerFirstStatus(-1);
+    std::atomic<int> consumerStoppedStatus(-1);
     std::atomic<int> consumerPopped(0);
     std::atomic<int> consumerTimeout(0);
+    std::atomic<Index> consumerPoppedRows(0);
+    std::atomic<Index> consumerPoppedSamples(0);
+    std::atomic<const FIFFLIB::FiffInfo*> consumerPoppedMetadata(nullptr);
 
     std::thread consumer([&] {
         consumerReady.store(true, std::memory_order_release);
-        while (!start.load(std::memory_order_acquire)) {
+        const auto consumerDeadline = std::chrono::steady_clock::now()
+            + std::chrono::milliseconds(kThreadBudgetMilliseconds);
+        while (!start.load(std::memory_order_acquire)
+               && std::chrono::steady_clock::now() < consumerDeadline) {
             std::this_thread::yield();
         }
 
-        while (true) {
-            consumerDestination.data.setConstant(-6201.0);
-            consumerDestination.rowCount = 6201;
-            consumerDestination.sampleCount = 6202;
-            consumerDestination.fiffInfo = consumerSentinelMetadata;
-            const AdaptiveDenoisingQueuePopStatus status =
-                queue.waitPop(consumerDestination, 250);
-            if (status == AdaptiveDenoisingQueuePopStatus::Popped) {
+        if (!start.load(std::memory_order_acquire)) {
+            invalidConsumerStatus.store(true, std::memory_order_release);
+            consumerFinished.store(true, std::memory_order_release);
+            return;
+        }
+
+        consumerDestination.data.setConstant(activeDestinationSentinel);
+        consumerDestination.rowCount = activeDestinationRowSentinel;
+        consumerDestination.sampleCount = activeDestinationSampleSentinel;
+        consumerDestination.fiffInfo = activeDestinationMetadata;
+        consumerFirstWaitStarted.store(true, std::memory_order_release);
+        const AdaptiveDenoisingQueuePopStatus firstStatus =
+            queue.waitPop(consumerDestination, kFirstWaitMilliseconds);
+        consumerFirstStatus.store(static_cast<int>(firstStatus), std::memory_order_release);
+
+        if (firstStatus == AdaptiveDenoisingQueuePopStatus::Popped) {
+            if (!destinationContainsBlock(
+                    consumerDestination, producerBlock, producerMetadata, activeDestinationSentinel)) {
+                invalidConsumerStatus.store(true, std::memory_order_release);
+            } else {
+                for (Index row = 0; row < config.maxChannelCount; ++row) {
+                    for (Index column = 0; column < config.maxBlockSamples; ++column) {
+                        poppedActiveSnapshot(row, column) = consumerDestination.data(row, column);
+                    }
+                }
+                consumerPoppedRows.store(consumerDestination.rowCount, std::memory_order_release);
+                consumerPoppedSamples.store(
+                    consumerDestination.sampleCount, std::memory_order_release);
+                consumerPoppedMetadata.store(
+                    consumerDestination.fiffInfo.data(), std::memory_order_release);
                 consumerPopped.fetch_add(1, std::memory_order_acq_rel);
-            } else if (status == AdaptiveDenoisingQueuePopStatus::Timeout) {
+                consumerPoppedObserved.store(true, std::memory_order_release);
+            }
+        } else if (firstStatus == AdaptiveDenoisingQueuePopStatus::Timeout) {
+            if (!destinationPreserves(
+                    consumerDestination,
+                    config.maxChannelCount,
+                    config.maxBlockSamples,
+                    activeDestinationSentinel,
+                    activeDestinationRowSentinel,
+                    activeDestinationSampleSentinel,
+                    activeDestinationMetadata)) {
+                invalidConsumerStatus.store(true, std::memory_order_release);
+            }
+            consumerTimeout.fetch_add(1, std::memory_order_acq_rel);
+        } else if (firstStatus == AdaptiveDenoisingQueuePopStatus::Stopped) {
+            if (!destinationPreserves(
+                    consumerDestination,
+                    config.maxChannelCount,
+                    config.maxBlockSamples,
+                    activeDestinationSentinel,
+                    activeDestinationRowSentinel,
+                    activeDestinationSampleSentinel,
+                    activeDestinationMetadata)) {
+                invalidConsumerStatus.store(true, std::memory_order_release);
+            }
+        } else {
+            invalidConsumerStatus.store(true, std::memory_order_release);
+        }
+
+        consumerDestination.fiffInfo.reset();
+        consumerStopWaitStarted.store(true, std::memory_order_release);
+        while (std::chrono::steady_clock::now() < consumerDeadline) {
+            consumerDestination.data.setConstant(stoppedDestinationSentinel);
+            consumerDestination.rowCount = stoppedDestinationRowSentinel;
+            consumerDestination.sampleCount = stoppedDestinationSampleSentinel;
+            consumerDestination.fiffInfo = stoppedDestinationMetadata;
+            const AdaptiveDenoisingQueuePopStatus status =
+                queue.waitPop(consumerDestination, kStopWaitMilliseconds);
+            consumerStoppedStatus.store(static_cast<int>(status), std::memory_order_release);
+
+            if (status == AdaptiveDenoisingQueuePopStatus::Stopped) {
                 if (!destinationPreserves(
                         consumerDestination,
                         config.maxChannelCount,
                         config.maxBlockSamples,
-                        -6201.0,
-                        6201,
-                        6202,
-                        consumerSentinelMetadata)) {
+                        stoppedDestinationSentinel,
+                        stoppedDestinationRowSentinel,
+                        stoppedDestinationSampleSentinel,
+                        stoppedDestinationMetadata)) {
+                    invalidConsumerStatus.store(true, std::memory_order_release);
+                }
+                consumerStoppedObserved.store(true, std::memory_order_release);
+                break;
+            }
+
+            if (status == AdaptiveDenoisingQueuePopStatus::Timeout) {
+                if (!destinationPreserves(
+                        consumerDestination,
+                        config.maxChannelCount,
+                        config.maxBlockSamples,
+                        stoppedDestinationSentinel,
+                        stoppedDestinationRowSentinel,
+                        stoppedDestinationSampleSentinel,
+                        stoppedDestinationMetadata)) {
                     invalidConsumerStatus.store(true, std::memory_order_release);
                 }
                 consumerTimeout.fetch_add(1, std::memory_order_acq_rel);
-            } else if (status == AdaptiveDenoisingQueuePopStatus::Stopped) {
-                if (!destinationPreserves(
-                        consumerDestination,
-                        config.maxChannelCount,
-                        config.maxBlockSamples,
-                        -6201.0,
-                        6201,
-                        6202,
-                        consumerSentinelMetadata)) {
-                    invalidConsumerStatus.store(true, std::memory_order_release);
-                }
-                consumerObservedStopped.store(true, std::memory_order_release);
-                break;
-            } else {
-                invalidConsumerStatus.store(true, std::memory_order_release);
-                break;
+                continue;
             }
+
+            invalidConsumerStatus.store(true, std::memory_order_release);
+            break;
         }
+
+        if (!consumerStoppedObserved.load(std::memory_order_acquire)) {
+            invalidConsumerStatus.store(true, std::memory_order_release);
+        }
+        consumerFinished.store(true, std::memory_order_release);
     });
 
     std::thread producer([&] {
         producerReady.store(true, std::memory_order_release);
-        while (!start.load(std::memory_order_acquire)) {
+        const auto producerDeadline = std::chrono::steady_clock::now()
+            + std::chrono::milliseconds(kThreadBudgetMilliseconds);
+        while (!start.load(std::memory_order_acquire)
+               && std::chrono::steady_clock::now() < producerDeadline) {
             std::this_thread::yield();
         }
 
-        while (true) {
-            producerAttempts.fetch_add(1, std::memory_order_acq_rel);
-            const AdaptiveDenoisingQueuePushStatus status =
-                queue.tryPush(producerBlock, nullMetadata);
-            if (status == AdaptiveDenoisingQueuePushStatus::Pushed) {
-                producerPushed.fetch_add(1, std::memory_order_acq_rel);
-            } else if (status == AdaptiveDenoisingQueuePushStatus::Full) {
-                producerFull.fetch_add(1, std::memory_order_acq_rel);
-            } else if (status == AdaptiveDenoisingQueuePushStatus::Stopped) {
-                producerObservedStopped.store(true, std::memory_order_release);
-                break;
-            } else {
-                invalidProducerStatus.store(true, std::memory_order_release);
-                break;
-            }
+        if (!start.load(std::memory_order_acquire)) {
+            invalidProducerStatus.store(true, std::memory_order_release);
+            producerFinished.store(true, std::memory_order_release);
+            return;
+        }
 
-            if ((producerAttempts.load(std::memory_order_relaxed) & 31) == 0) {
-                std::this_thread::yield();
+        producerLive.store(true, std::memory_order_release);
+        while (!consumerFirstWaitStarted.load(std::memory_order_acquire)
+               && !stopCompleted.load(std::memory_order_acquire)
+               && std::chrono::steady_clock::now() < producerDeadline) {
+            std::this_thread::yield();
+        }
+
+        producerAttempts.fetch_add(1, std::memory_order_acq_rel);
+        const AdaptiveDenoisingQueuePushStatus firstStatus =
+            queue.tryPush(producerBlock, producerMetadata);
+        producerFirstStatus.store(static_cast<int>(firstStatus), std::memory_order_release);
+        if (firstStatus == AdaptiveDenoisingQueuePushStatus::Pushed) {
+            producerPushedObserved.store(true, std::memory_order_release);
+        } else {
+            if (firstStatus != AdaptiveDenoisingQueuePushStatus::Stopped
+                || !stopCompleted.load(std::memory_order_acquire)) {
+                invalidProducerStatus.store(true, std::memory_order_release);
             }
         }
+
+        while (!stopCompleted.load(std::memory_order_acquire)
+               && std::chrono::steady_clock::now() < producerDeadline) {
+            std::this_thread::yield();
+        }
+
+        if (!stopCompleted.load(std::memory_order_acquire)) {
+            queue.stop();
+            stopCompleted.store(true, std::memory_order_release);
+        }
+
+        producerAttempts.fetch_add(1, std::memory_order_acq_rel);
+        const AdaptiveDenoisingQueuePushStatus stoppedStatus =
+            queue.tryPush(producerBlock, producerMetadata);
+        producerStoppedStatus.store(static_cast<int>(stoppedStatus), std::memory_order_release);
+        if (stoppedStatus == AdaptiveDenoisingQueuePushStatus::Stopped) {
+            producerStoppedObserved.store(true, std::memory_order_release);
+        } else {
+            invalidProducerStatus.store(true, std::memory_order_release);
+        }
+        producerLive.store(false, std::memory_order_release);
+        producerFinished.store(true, std::memory_order_release);
     });
 
     const bool consumerReadyObserved = waitUntil(
@@ -1797,14 +2189,57 @@ void TestAdaptiveDenoisingPlugin::queueStopRacesActiveProducerAndConsumer()
         [&] { return producerReady.load(std::memory_order_acquire); }, 1000);
     start.store(true, std::memory_order_release);
 
-    const bool producerAttemptObserved = waitUntil(
-        [&] { return producerAttempts.load(std::memory_order_acquire) > 0; }, 1000);
+    const bool producerLiveObserved = waitUntil(
+        [&] { return producerLive.load(std::memory_order_acquire); }, kPhaseBudgetMilliseconds);
+    const bool consumerFirstWaitObserved = waitUntil(
+        [&] { return consumerFirstWaitStarted.load(std::memory_order_acquire); },
+        kPhaseBudgetMilliseconds);
+    const bool producerPushObserved = waitUntil(
+        [&] { return producerPushedObserved.load(std::memory_order_acquire); },
+        kPhaseBudgetMilliseconds);
+    const bool consumerPopObserved = waitUntil(
+        [&] { return consumerPoppedObserved.load(std::memory_order_acquire); },
+        kPhaseBudgetMilliseconds);
+    const bool consumerStopWaitObserved = waitUntil(
+        [&] { return consumerStopWaitStarted.load(std::memory_order_acquire); },
+        kPhaseBudgetMilliseconds);
+    const bool stopPhaseReady = producerLiveObserved
+        && consumerFirstWaitObserved
+        && producerPushObserved
+        && consumerPopObserved
+        && consumerStopWaitObserved;
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(kStopSchedulingAllowanceMilliseconds));
+    const bool producerWasLiveAtStop =
+        producerLive.load(std::memory_order_acquire)
+        && !producerFinished.load(std::memory_order_acquire);
+    const bool consumerWasWaitingAtStop =
+        consumerStopWaitStarted.load(std::memory_order_acquire)
+        && !consumerFinished.load(std::memory_order_acquire);
     const auto stopStartedAt = std::chrono::steady_clock::now();
     queue.stop();
-    const bool producerStoppedObserved = waitUntil(
-        [&] { return producerObservedStopped.load(std::memory_order_acquire); }, 1000);
-    const bool consumerStoppedObserved = waitUntil(
-        [&] { return consumerObservedStopped.load(std::memory_order_acquire); }, 1000);
+    stopCompleted.store(true, std::memory_order_release);
+
+    const bool producerStoppedObservedWithinBudget = waitUntil(
+        [&] { return producerStoppedObserved.load(std::memory_order_acquire); },
+        kPhaseBudgetMilliseconds);
+    const bool consumerStoppedObservedWithinBudget = waitUntil(
+        [&] { return consumerStoppedObserved.load(std::memory_order_acquire); },
+        kPhaseBudgetMilliseconds);
+    const bool producerFinishedWithinBudget = waitUntil(
+        [&] { return producerFinished.load(std::memory_order_acquire); },
+        kPhaseBudgetMilliseconds);
+    if (!producerFinishedWithinBudget) {
+        queue.stop();
+        stopCompleted.store(true, std::memory_order_release);
+    }
+    const bool consumerFinishedWithinBudget = waitUntil(
+        [&] { return consumerFinished.load(std::memory_order_acquire); },
+        kPhaseBudgetMilliseconds);
+    if (!consumerFinishedWithinBudget) {
+        queue.stop();
+        stopCompleted.store(true, std::memory_order_release);
+    }
     producer.join();
     consumer.join();
     const auto threadsJoinedAt = std::chrono::steady_clock::now();
@@ -1813,29 +2248,87 @@ void TestAdaptiveDenoisingPlugin::queueStopRacesActiveProducerAndConsumer()
             .count();
 
     const int attempts = producerAttempts.load(std::memory_order_acquire);
-    const int pushed = producerPushed.load(std::memory_order_acquire);
-    const int full = producerFull.load(std::memory_order_acquire);
     const int popped = consumerPopped.load(std::memory_order_acquire);
     const int timeout = consumerTimeout.load(std::memory_order_acquire);
+    const AdaptiveDenoisingQueuePushStatus observedFirstPushStatus =
+        static_cast<AdaptiveDenoisingQueuePushStatus>(
+            producerFirstStatus.load(std::memory_order_acquire));
+    const AdaptiveDenoisingQueuePushStatus observedStoppedPushStatus =
+        static_cast<AdaptiveDenoisingQueuePushStatus>(
+            producerStoppedStatus.load(std::memory_order_acquire));
+    const AdaptiveDenoisingQueuePopStatus observedFirstPopStatus =
+        static_cast<AdaptiveDenoisingQueuePopStatus>(
+            consumerFirstStatus.load(std::memory_order_acquire));
+    const AdaptiveDenoisingQueuePopStatus observedStoppedPopStatus =
+        static_cast<AdaptiveDenoisingQueuePopStatus>(
+            consumerStoppedStatus.load(std::memory_order_acquire));
 
     qInfo() << "queue active stop attempts" << attempts
-            << "pushed" << pushed
-            << "full" << full
+            << "preludePush" << static_cast<int>(preludePushStatus)
+            << "preludePop" << static_cast<int>(preludePopStatus)
+            << "emptyWaitMs" << emptyWaitElapsedMilliseconds
+            << "firstPush" << static_cast<int>(observedFirstPushStatus)
+            << "firstPop" << static_cast<int>(observedFirstPopStatus)
+            << "stoppedPush" << static_cast<int>(observedStoppedPushStatus)
+            << "stoppedPop" << static_cast<int>(observedStoppedPopStatus)
             << "popped" << popped
             << "timeout" << timeout
             << "stopToJoinMs" << stopToJoinMilliseconds;
 
     QVERIFY(consumerReadyObserved);
     QVERIFY(producerReadyObserved);
-    QVERIFY(producerAttemptObserved);
-    QVERIFY(producerStoppedObserved);
-    QVERIFY(consumerStoppedObserved);
+    QVERIFY(stopPhaseReady);
+    QVERIFY(producerWasLiveAtStop);
+    QVERIFY(consumerWasWaitingAtStop);
+    QVERIFY(producerStoppedObservedWithinBudget);
+    QVERIFY(consumerStoppedObservedWithinBudget);
+    QVERIFY(producerFinishedWithinBudget);
+    QVERIFY(consumerFinishedWithinBudget);
     QVERIFY(!invalidProducerStatus.load(std::memory_order_acquire));
     QVERIFY(!invalidConsumerStatus.load(std::memory_order_acquire));
-    QCOMPARE(attempts, pushed + full + 1);
-    QVERIFY(attempts > 0);
+    QCOMPARE(preludePushStatus, AdaptiveDenoisingQueuePushStatus::Pushed);
+    QCOMPARE(preludePopStatus, AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(emptyWaitStatus, AdaptiveDenoisingQueuePopStatus::Timeout);
+    QVERIFY(emptyWaitElapsedMilliseconds >= kEmptyWaitLowerBoundMilliseconds);
+    QVERIFY(emptyWaitElapsedMilliseconds < kEmptyWaitUpperBoundMilliseconds);
+    QVERIFY(destinationContainsBlock(
+        preludeDestination, preludeBlock, preludeMetadata, preludeDestinationSentinel));
+    QVERIFY(destinationPreserves(
+        emptyDestination,
+        config.maxChannelCount,
+        config.maxBlockSamples,
+        -6111.0,
+        6111,
+        6112,
+        emptyDestinationMetadata));
+    QCOMPARE(observedFirstPushStatus, AdaptiveDenoisingQueuePushStatus::Pushed);
+    QCOMPARE(observedFirstPopStatus, AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(observedStoppedPushStatus, AdaptiveDenoisingQueuePushStatus::Stopped);
+    QCOMPARE(observedStoppedPopStatus, AdaptiveDenoisingQueuePopStatus::Stopped);
+    QCOMPARE(attempts, 2);
+    QCOMPARE(popped, 1);
+    QCOMPARE(consumerTimeout.load(std::memory_order_acquire), 0);
+    QCOMPARE(consumerPoppedRows.load(std::memory_order_acquire), producerBlock.rows());
+    QCOMPARE(consumerPoppedSamples.load(std::memory_order_acquire), producerBlock.cols());
+    QVERIFY(consumerPoppedMetadata.load(std::memory_order_acquire) == producerMetadata.data());
+    QVERIFY(destinationContainsBlock(
+        AdaptiveDenoisingQueuedBlock{poppedActiveSnapshot,
+                                     producerBlock.rows(),
+                                     producerBlock.cols(),
+                                     producerMetadata},
+        producerBlock,
+        producerMetadata,
+        activeDestinationSentinel));
+    QVERIFY(destinationPreserves(
+        consumerDestination,
+        config.maxChannelCount,
+        config.maxBlockSamples,
+        stoppedDestinationSentinel,
+        stoppedDestinationRowSentinel,
+        stoppedDestinationSampleSentinel,
+        stoppedDestinationMetadata));
     QVERIFY(stopToJoinMilliseconds >= 0);
-    QVERIFY(stopToJoinMilliseconds < 1500);
+    QVERIFY(stopToJoinMilliseconds < kStopToJoinUpperBoundMilliseconds);
 }
 
 //=============================================================================================================
