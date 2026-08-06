@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T14:18:30+08:00
+Last updated: 2026-08-06T14:22:00+08:00
 
 ## Recovery order
 
@@ -235,7 +235,7 @@ same-responsibility implementation conversations that may receive review fixes.
 
 ## Current checkpoint override
 
-- Integration/remote HEAD: `861c8397c`; tracked state is synchronized. The
+- Integration/remote HEAD: `4cf3e54ef`; tracked state is synchronized. The
   only untracked paths are the three preserved user paths listed in the plan.
 - Active blocking task: `W-QUEUE-V2-GREEN-001`, Sol/ultra setup
   `client-new-thread:97461215-c1b8-488b-90bd-984aad5d9fd3`, exact requested
@@ -247,19 +247,19 @@ same-responsibility implementation conversations that may receive review fixes.
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201026440`.
 - Active non-overlapping task: `W-PLUGIN-DATA-001`, Sol/ultra setup
   `client-new-thread:bb93c4e1-6aa9-4ee4-9d52-de30ff1b0489`, exact requested
-  base `8c51ea4ce`; seven plugin registration/adapter files only. Integrate only
-  after queue-v2 GREEN.
+  base `8c51ea4ce`; it proactively returned exact-parent seven-file commit
+  `5f4718722` with a clean worktree and complete lifecycle evidence. Manager
+  review may proceed, but integration remains ordered after queue-v2 GREEN.
 - Existing non-overlapping tasks still await proactive responses without
-  polling: `W-QA-CORE-CONTRACT-001` and `W-DOC-001`. A one-time worktree audit
-  found a clean one-file learning-guide commit `c558acbf8` for the latter, while
-  the former worktree contains only its dispatch-record commit. Perform one
-  recovery read of each old not-loaded conversation before any integration or
-  retry decision.
+  polling: `W-QA-CORE-CONTRACT-001` and `W-DOC-001`. Recovery found the complete
+  one-file learning-guide response/commit `c558acbf8`, now awaiting manager
+  content review. The core-contract turn had no assistant output; reuse its
+  same Luna/max conversation once from the required exact base.
 - The older read-only `R-QUEUE-001` reviewed the superseded exact-row/std-owner
   v1 queue and is now app-archived after its clean exact snapshot and durable
   dispatch were verified. Queue-v2 receives a fresh formal review after GREEN.
-- The old queue-v1 implementation conversation is also clean at exact worker
-  commit `039b58d1b` and is retirement-ready because v2 owns its replacement.
+- The old queue-v1 implementation conversation is app-archived at exact clean
+  worker commit `039b58d1b` because v2 owns its replacement.
 - Completed queue-v2 tracer conversation is archived after exact clean/blob/
   RED/public evidence. Do not revive it; create a new Luna/max test task if a
   later independent behavior is required.

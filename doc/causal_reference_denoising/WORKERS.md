@@ -5456,3 +5456,92 @@ does not continuously poll them.
   native-owner/variable-row queue-v2 replaces this exact-row seam. It cannot
   receive relevant review fixes now.
 - Action: app-archive only; never manually delete or mutate the worktree.
+
+### RESPONSE W-QUEUE-GREEN-001-RETIRE
+
+- App archived old queue-v1 implementation thread
+  `019fd2bd-b720-7b30-8d65-780a0b500924` successfully.
+- Its clean app-owned worktree was not manually deleted or modified. Durable
+  integration/test evidence remains; queue-v2 owns all future fixes/review.
+
+### RESPONSE W-DOC-001
+
+- Recovered once from old visible Luna/max thread
+  `019fd2fc-0d25-7163-a29d-b7c8840028f9` after proactive delivery was absent.
+- Exact parent: `fa832d51d3b9aa463490cf3afbc2037f71843f41`.
+- Commit: `c558acbf80eb425aec9a22641d5a930d4370b2d9`.
+- Scope: adds only
+  `doc/causal_reference_denoising/LEARNING_GUIDE.md` (376 lines); worker
+  worktree is clean.
+- Content response: shapes and row ownership; tap-major causal history; EWLS
+  pending/committed transaction and forgetting; relative loading/LDLT;
+  truthful `noalias()` use; modes/reset/freeze/epochs/latency; allocation and
+  fallback contracts; queue seam; complexity/memory; concrete shape walkthrough
+  and block timeline; effect versus engineering evidence; research/license and
+  v1 non-goals.
+- Verification: all eight repository-relative links resolve, fenced blocks and
+  heading structure validate, and `git diff --check` passes. Markdown-only, so
+  no build was run; no full mne_scan or mne_rt_server.
+- Worker confirms Luna/max, no subagent and no manager polling.
+- Status: response is durable; manager content/source/link review is next.
+
+### SYSTEM FAILURE W-QA-CORE-CONTRACT-001-TURN-1
+
+- Single recovery read contains only the original user delegation and no
+  assistant item, error, tool output or RESPONSE.
+- Its app-owned worktree is clean/detached at dispatch-record commit
+  `7471c6a7a8f7cf15a64e1d77c08b36e0f20ac0df`; no authorized core header/test
+  change exists.
+- Classification: no work was performed; nothing is available to integrate.
+
+### REQUEST W-QA-CORE-CONTRACT-001-RETRY-1
+
+- Reuse the same visible Luna/max thread
+  `019fd336-0d0c-7d02-82d9-a24b511d6aaf`; do not create a duplicate worker.
+- Before editing, detach only that app-owned worktree to the original required
+  exact base `7eb04cbfa6aa9cbd09594c6aa2d6fe6aebcc43db`, then execute the unchanged
+  two-file Doxygen/special-member/trait request.
+- Return the original structured proactive RESPONSE; no subagent, manager
+  polling, full scan, vendor repair or mne_rt_server.
+
+### RESPONSE W-PLUGIN-DATA-001
+
+- Exact requested base/parent:
+  `8c51ea4ce86bdd6a377f7f87e4ef693de4893491`.
+- Worker commit: `5f47187224ede2dac7abede7d63891cad190c879`;
+  clean detached worktree and exact-parent proof reported.
+- Exact scope: plugin root CMake plus six new `adaptivedenoising` files
+  (`CMakeLists.txt`, h/cpp, global h/cpp and zero-byte JSON), seven authorized
+  paths and 702 insertions. Queue, processor, tests, core, docs, UI, vendor and
+  other plugins are unchanged.
+- Target/interface: registers `scan_adaptivedenoising`; concrete final
+  `AdaptiveDenoising : AbstractAlgorithm` behind plugin-private PImpl, standard
+  Qt plugin identity, RTMSA input/output connectors and default blank setup
+  widget. Narrow links are Qt Core/Widgets, mne_utils, mne_fiff,
+  mne_rtprocessing, Eigen, scShared and scMeas.
+- Producer/lifecycle response: start preallocates queue-v2 512x2048/capacity 4
+  and consumer destination, starts worker before opening atomic admission;
+  packed admission epoch/in-flight CAS prevents stale callbacks crossing
+  restart. stop closes admission, wakes/waits worker and boundedly waits for
+  producer quiescence; timeout blocks restart; destructor never terminates the
+  QThread and waits safely after closing/stopping again.
+- Callback response: one RTMSA `info()` snapshot and one zero-time `tryPush`
+  per matrix; every non-Pushed status increments atomic drops. No retry/wait,
+  mutex, FIFF pick, processor/config/reset, output or UI work in `update()`.
+- Worker response: 50 ms interruptible pop; exact returned rectangle copy;
+  validates non-null/nchan/chs/row count/finite-positive sfreq; builds kind/bad
+  descriptors on worker; fresh config on metadata/sfreq/shape/width/validity
+  transition; catches allocation exceptions, deliberately disarms, then
+  forwards unchanged. Default mode is ApplyAndLearn.
+- Output response: serial FIFO blocks, multi-array size one, one worker-only Qt
+  `constCast` at legacy output initialization, and no metadata mutation.
+  Structurally invalid metadata is not emitted under stale labels.
+- Evidence: exact seven-path scope, clean diff/status, zero-byte JSON and Qt
+  5.15.2 moc success. Target-local CMake stops before target generation at the
+  known ignored Eigen gap; no build GREEN, vendor repair, full scan/mne_scan or
+  mne_rt_server. Base intentionally has pre-v2 queue; manager integrates queue
+  v2 first.
+- Worker confirms assigned visible Sol/ultra, no subagents and no manager
+  read/poll/wait.
+- Status: response durable; manager review is next, integration held behind
+  queue-v2 GREEN.

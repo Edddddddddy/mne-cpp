@@ -4003,3 +4003,26 @@ hidden reasoning is not.
   commit `039b58d1b`. Queue-v2 supersedes its seam, so app-archive the stale
   conversation without manually deleting its worktree.
 - Active queue-v2 retry and plugin-data worktrees remain untouched.
+
+### E-381 - Learning response recovered; core retry and queue-v1 cleanup
+
+- Queue v1: app archived old implementation thread
+  `019fd2bd-b720-7b30-8d65-780a0b500924`; no manual worktree mutation.
+- Docs: recovered complete Luna/max `RESPONSE W-DOC-001` for exact-parent,
+  one-file commit `c558acbf8`; worker reports clean scope and resolved links.
+  Manager review precedes integration.
+- Core contract: recovery read proved an empty execution with no header/test
+  delta. Reuse the same Luna/max conversation once, explicitly resetting only
+  its worktree to required exact base `7eb04cbfa` before unchanged work.
+
+### E-382 - Plugin data-lifecycle response received
+
+- Sol/ultra worker proactively returned exact-parent commit `5f4718722` on
+  base `8c51ea4ce`, seven authorized plugin registration/adapter paths only.
+- Response covers the packed admission epoch/in-flight guard, bounded stop and
+  restart blocking, one-push callback, worker FIFF validation/config/disarm,
+  FIFO output and sole worker-side metadata const-cast.
+- Evidence is scope/diff/clean plus direct moc; target CMake remains blocked by
+  the known clean-worktree Eigen gap. No vendor/full-scan/server action.
+- Sequencing: persist response now, inspect it independently, but do not
+  integrate before queue-v2 is manager-GREEN.
