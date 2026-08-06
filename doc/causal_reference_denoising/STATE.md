@@ -372,6 +372,8 @@ same-responsibility implementation conversations that may receive review fixes.
   passes with no finding. It is integrated as `16053ffe6`; populated Windows
   Release compiles/links and the complete executable exits zero on the gate run
   plus three immediate repeat runs. Atomic production replacement is next.
+  Public test evidence:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202622017`.
 
 - Next blocking request: `W-QUEUE-ATOMIC-GREEN-001`, Sol/ultra, exact source
   base `41a2b76fb`; queue header/source only. Replace QSemaphore with lock-free

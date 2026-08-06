@@ -6280,6 +6280,8 @@ does not continuously poll them.
 - Interpretation: both queue P2 test tracers are runnable and accepted. The
   QSemaphore P1 remains open because this run does not prove producer lock/
   allocation freedom; the atomic production task is still blocking.
+- Public evidence/read-back:
+  `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5202622017`.
 
 ### REQUEST W-QUEUE-ATOMIC-GREEN-001
 
