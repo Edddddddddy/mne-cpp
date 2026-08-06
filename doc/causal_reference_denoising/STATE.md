@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T17:29:00+08:00
+Last updated: 2026-08-06T17:36:00+08:00
 
 ## Recovery order
 

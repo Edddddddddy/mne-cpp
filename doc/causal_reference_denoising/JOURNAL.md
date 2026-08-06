@@ -4389,3 +4389,10 @@ hidden reasoning is not.
   pipe design, lost-wake reasoning, producer constraints and evidence gate.
 - Continue awaiting proactive Luna test response without polling; production
   dispatch remains intentionally blocked on its integration.
+
+### E-421 - Read-only task-list lookup timed out and was stopped
+
+- A one-shot app task-list read produced no result through four ten-second
+  yields and was terminated. It made no state change and was not retried.
+- Coordination remains proactive RESPONSE only; do not turn setup-ID resolution
+  into polling. Continue disjoint work or consume delivered worker evidence.

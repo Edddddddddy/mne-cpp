@@ -6193,3 +6193,12 @@ does not continuously poll them.
   seam, lock-free sequence ordering, Windows event/POSIX pipe selection,
   rejected condition-variable alternatives, required evidence and test-first
   dispatch order.
+
+### SYSTEM RESPONSE THREAD-LIST-001
+
+- One read-only recent-task list call, intended only to resolve the accepted
+  queue test setup's eventual thread ID for later cleanup, returned no result
+  across four bounded yields and was terminated before 60 seconds.
+- No task/thread/worktree/repository/GitHub/dependency state changed. This is
+  not converted into result polling; continue relying on the worker's proactive
+  RESPONSE and resolve its final thread ID from that delivery.
