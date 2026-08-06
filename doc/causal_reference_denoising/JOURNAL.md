@@ -3592,3 +3592,13 @@ hidden reasoning is not.
   compiler processes remained active and were stopped by their exact PIDs.
 - Evidence value: none for pass/fail. Record the timeout without attributing it
   to Qt/FIFF, then retry later through a narrower bounded client-link/log path.
+
+### E-342 - Processor locality contract accepted by manager review
+
+- Provenance: exact `1d60ed4f7` on `16c993872`, one header and comment-only
+  68-line additive diff; declarations/includes/layout are unchanged.
+- Contract: every selection/range/ownership/disarm/reset/exception/hot-path
+  claim matches source and SPEC. The fail-closed exception warning prevents a
+  future metadata caller from using preserved old ownership on a new layout.
+- Decision: no finding; cherry-pick is authorized after this review is durable.
+  Close the P3 after integration/public evidence; runtime behavior is unchanged.

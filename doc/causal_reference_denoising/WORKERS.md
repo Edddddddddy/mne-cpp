@@ -4678,6 +4678,22 @@ does not continuously poll them.
   previously expected Qt/FIFF failure evidence. A later retry must use a narrow
   verbose/logged client-link target or bounded MSBuild invocation.
 
+### MANAGER REVIEW W-QA-PROC-LOCALITY-001
+
+- Provenance/scope: exact `1d60ed4f7` on requested `16c993872`; one authorized
+  processor header, 68 insertions, no deletion and clean committed diff.
+- Declaration integrity: direct full diff shows only Doxygen additions; it is
+  consistent with the worker's identical stripped-token hash and no include,
+  enum, default, special-member, signature or member-layout change.
+- Contract audit: selection, UI ranges/P cap, Ready fresh-state semantics,
+  returned-failure disarm/zero counts, exception preservation/fail-closed
+  caller obligation, target-only/error pass-through, hot-path constraints,
+  reset and snapshot claims match processor/numerical source and SPEC.
+- Finding: none. The concrete adapter becomes more local/deep without a new
+  seam or behavior. Accept for cherry-pick; a later complete focused regression
+  will compile the unchanged interface, but no comments-only runtime gate is
+  required for integration.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread
