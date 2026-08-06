@@ -8511,6 +8511,25 @@ does not continuously poll them.
   two-file commit, source-order proof, commands/results/limits and clean status.
   Do not poll the manager; manager owns integration and formal review.
 
+### SETUP W-PLUGIN-UI-WIRE-001
+
+- first create call / rejected as invalid arguments because the project ID was
+  supplied both outside and inside the target union. No task/worktree/source/
+  Git/GitHub mutation occurred.
+- corrected setup / accepted as
+  `client-new-thread:0b5832f3-60f5-4d75-8cad-24ee7dba22fc` using the local
+  project, worktree mode and starting ref `codex/worker-ui-wire-base`.
+- resolved task / one identity-only listing maps setup to visible active
+  Sol/ultra thread `019fd8b9-bf4c-7ad2-a647-786634476d30` in app worktree
+  `9355`; the task title is normalized to `W-PLUGIN-UI-WIRE-001`.
+- exact base / local starting ref resolves to
+  `60fdf633f83b41bb2a960c1b83ab3d6c5d608b5a`. Retain it until worker evidence
+  is integrated and the app task is archived; never manually delete the
+  app-managed worktree.
+- state / active. Publish the dispatch on issue #6, then use at most one bounded
+  event wait for initial progress; do not continuously poll or inspect the
+  worker worktree.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are

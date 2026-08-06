@@ -783,3 +783,7 @@ same-responsibility implementation conversations that may receive review fixes.
 - `W-PLUGIN-UI-WIRE-001` is durably requested from exact pushed code base
   `60fdf633f83b41bb2a960c1b83ab3d6c5d608b5a`; create a new visible Sol/ultra
   app worktree only after this request record is committed and pushed.
+- Sol/ultra setup is accepted as
+  `client-new-thread:0b5832f3-60f5-4d75-8cad-24ee7dba22fc`; the visible task is
+  `019fd8b9-bf4c-7ad2-a647-786634476d30` in app worktree `9355`, renamed
+  `W-PLUGIN-UI-WIRE-001`. Await its proactive response without polling.

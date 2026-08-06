@@ -6134,3 +6134,14 @@ hidden reasoning is not.
 - The acquisition callback, widget/tracer/CMake, queue, processor, core and
   issue-#8 lifecycle contract are immutable. Commit/push this request before
   creating the app-managed worktree; await a proactive response without polling.
+
+### E-608 - Plugin UI wiring worktree setup accepted
+
+- The first app create call repeats the previously seen project-target shape
+  mistake and is rejected before creation. The corrected target union accepts
+  Sol/ultra setup `client-new-thread:0b5832f3-60f5-4d75-8cad-24ee7dba22fc`.
+- One identity-only listing resolves visible task
+  `019fd8b9-bf4c-7ad2-a647-786634476d30` in app worktree `9355`; rename it to
+  `W-PLUGIN-UI-WIRE-001`. The local start ref remains exact at `60fdf633f`.
+- Publish dispatch before any wait. Do not inspect the worktree or continuously
+  poll; the worker must proactively return its exact-parent two-file response.
