@@ -733,3 +733,8 @@ same-responsibility implementation conversations that may receive review fixes.
   so no unrelated dependency masks the test. Next blocking task is a separate
   Luna/max `W-PLUGIN-UI-GREEN-001` production implementation from this pushed
   RED base; the tracer remains immutable.
+- RED evidence is published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208691454`;
+  the completed Luna/max tracer task is archived and its local-only base ref is
+  deleted. TDD GREEN is now split: Luna/max owns diagnostics/widget/CMake only;
+  a later Sol/ultra task owns plugin h/cpp block-boundary wiring.

@@ -466,6 +466,15 @@ The later Luna/max UI task is limited to the plugin header/source/CMake plus a
 private diagnostics-types header and setup-widget header/source. A separate
 Sol/ultra review verifies block-boundary serialization and queued diagnostics.
 
+TDD execution is split into two vertical commits while preserving that final
+scope. First, Luna/max adds only the fixed diagnostics value plus the standalone
+programmatic widget and plugin CMake entries required to make the public widget
+tracer GREEN; it does not anticipate plugin lifecycle wiring. Second, Sol/ultra
+edits only the plugin header/source to connect fresh widgets, the pending
+snapshot, block-boundary configure/reset/mode ordering and queued diagnostics.
+This keeps the directly testable view behavior separate from the higher-risk
+thread/lifecycle integration that issue #8 cannot yet execute end-to-end.
+
 Repository-pattern audit confirms `setupWidget()` must return a fresh widget
 on every call because the central widget owns and destroys it. Therefore the
 plugin must retain no widget pointer: construct `AdaptiveDenoisingSetupWidget`

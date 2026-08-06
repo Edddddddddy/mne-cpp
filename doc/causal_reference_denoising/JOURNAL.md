@@ -6025,3 +6025,16 @@ hidden reasoning is not.
   `adaptivedenoisingsetupwidget.cpp`, establishing the intended public-seam RED.
 - No production/widget/dependency file exists or is changed. Persist/push and
   publish before dispatching a separate Luna/max GREEN worker.
+
+### E-597 - UI RED published, worker archived and GREEN split frozen
+
+- Issue #6 RED publication/read-back succeeds at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208691454`.
+  Completed Luna/max tracer thread is archived without worktree deletion; its
+  merged local-only base ref is deleted after detached-worktree proof.
+- Apply TDD vertical slicing: Luna/max first implements only the tested fixed
+  diagnostics + programmatic widget + CMake; Sol/ultra later owns only plugin
+  h/cpp pending-snapshot/block-boundary/queued-diagnostics wiring.
+- Freeze `W-PLUGIN-UI-GREEN-001` from exact integrated RED base
+  `7da5d498d113f9adc710dd426f2270619142f4da`. Commit/push this request before
+  creating the new app-managed worktree.

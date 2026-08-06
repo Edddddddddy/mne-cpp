@@ -8241,6 +8241,59 @@ does not continuously poll them.
   worker after proof, and create a new visible Luna/max production task with the
   integrated tracer immutable.
 
+### PUBLICATION / ARCHIVED W-PLUGIN-UI-TEST-001
+
+- public RED / issue #6 comment/read-back:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208691454`.
+- archived / completed visible Luna/max thread
+  `019fd892-ff55-7903-ab3e-25890ccb10b5`; app worktree `d206` is not manually
+  deleted.
+- local ref cleanup / manager proves worktree `d206` is detached at the worker
+  commit, then deletes merged local-only ref `codex/worker-ui-test-base`; the
+  integration and remote feature branch remain intact.
+
+### DECISION UI-GREEN-SPLIT-001
+
+- rationale / the current public tracer exercises diagnostics/widget behavior,
+  not the real plugin lifecycle. Under TDD, the immediate GREEN should implement
+  only that tested seam rather than bundle untested thread/lifecycle wiring.
+- slice 1 / `W-PLUGIN-UI-GREEN-001`, Luna/max: diagnostics header, setup-widget
+  header/source and plugin CMake only; make the immutable tracer GREEN.
+- slice 2 / `W-PLUGIN-UI-WIRE-001`, Sol/ultra: plugin header/source only; connect
+  fresh widget signals, pending snapshot, per-block configure/reset/mode and
+  queued diagnostics. No test/widget/CMake edits.
+- review / a new independent Sol/ultra UI review gates both commits together;
+  issue #8 continues to own missing real-plugin runtime lifecycle coverage.
+
+### REQUEST W-PLUGIN-UI-GREEN-001
+
+- from / manager thread `019fcdc3-4a1e-76d1-8140-1bd521219297`
+- to / new visible app-managed worktree conversation
+- model / `gpt-5.6-luna` / `max`
+- exact base / `7da5d498d113f9adc710dd426f2270619142f4da`
+- skill / read complete codebase-design and tdd skills/references; implement the
+  smallest deep widget module that makes the existing tracer GREEN.
+- authorized / edit existing plugin `CMakeLists.txt`; add only
+  `adaptivedenoisingdiagnostics.h`, `adaptivedenoisingsetupwidget.h` and
+  `adaptivedenoisingsetupwidget.cpp`.
+- immutable / plugin h/cpp, tracer/testframes, queue, processor, numerical,
+  other plugins, docs, vendor and dependencies.
+- diagnostics / exact scalar standard-layout/trivially-copyable value and
+  `Q_DECLARE_METATYPE`; plugin-state enum from SPEC, existing configure/process
+  enums and the exact counts/RMS/drop fields expected by the tracer; no QString,
+  container or owner.
+- widget / concrete final programmatic QWidget/QFormLayout, exact object names,
+  defaults/ranges, seven typed signals and public `setDiagnostics` slot; format
+  all enum/numeric strings on the GUI thread. No .ui/qrc/controller/registry or
+  plugin pointer.
+- CMake / add only the new source/headers to `scan_adaptivedenoising`; preserve
+  existing narrow dependencies/static guards.
+- verification / populated focused Release target must compile/link/run GREEN
+  if available; standalone widget MOC, exact source/dependency/diff checks. Do
+  not modify the test to pass and do not run full app/server.
+- response / proactive exact-parent commit/files, deep seam, labels/signals,
+  commands/results/limits and clean state. No subagent or manager polling.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are
