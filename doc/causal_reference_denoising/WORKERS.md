@@ -4630,6 +4630,15 @@ does not continuously poll them.
   `RESPONSE W-QA-PROC-LOCALITY-001` and stop.
 - Status: request durable before task creation.
 
+### RESPONSE W-QA-PROC-LOCALITY-001-CREATE
+
+- Result: new visible Luna/max worktree setup accepted asynchronously as
+  `client-new-thread:134a7b33-95e7-45f2-9c34-dc184ec9cb1e`; host `local`.
+- Prompt requires exact base `16c993872`, one header/comment-only scope,
+  complete processor contract/locality audit and declaration-token preservation.
+- Coordination: manager will not poll or overlap the processor header; await
+  only proactive structured response after public issue #3 dispatch.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread

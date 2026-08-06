@@ -3564,3 +3564,12 @@ hidden reasoning is not.
   learning guide.
 - Next: commit/push request, create and publish the visible task, then await
   proactive responses only.
+
+### E-339 - Processor locality task creation accepted
+
+- App accepted visible Luna/max setup
+  `client-new-thread:134a7b33-95e7-45f2-9c34-dc184ec9cb1e`.
+- Prompt fixes exact base and one-header comments-only scope, requires source/
+  SPEC contract audit and declaration-token preservation.
+- Next: commit/push creation evidence, publish/read back issue #3 and do not
+  poll or overlap the processor header.
