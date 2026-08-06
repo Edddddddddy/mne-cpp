@@ -5317,3 +5317,13 @@ hidden reasoning is not.
 - Remaining sequence is queue validation/review, held plugin lifecycle review,
   teaching UI/block-boundary tests and final focused evidence/issue closure.
   Continue without stopping at this status update.
+
+### E-525 - Private POSIX fix integrated and canonical Windows GREEN
+
+- Exact source review passes and worker commit integrates as `f7c22717e`.
+  Populated MSVC Release compiles/links the focused target.
+- Full reporter returns zero with 19/0/0; SPSC traffic preserves zero producer
+  allocations. Three subsequent explicitly waited processes exit `0,0,0`.
+- Next perform one bounded WSL GNU/Clang wrapped attempt without resetting the
+  global service. Then persist the result and dispatch the exact integrated
+  snapshot to the retained independent Sol/ultra reviewer.

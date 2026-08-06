@@ -7377,3 +7377,19 @@ does not continuously poll them.
   no WSL reset/shutdown, dependency repair or fabricated result.
 - manager status / response durable; exact object/diff/source proof, integration
   canonical Windows run and independent Sol/ultra review remain.
+
+### VALIDATION W-QUEUE-POSIX-EINTR-GREEN-001 - Windows
+
+- Direct Git proof accepts exact parent `f1151d134`, one queue-source file and
+  diff-check. Diff is the POSIX signal comment plus a C++14 25 ms `poll` cap;
+  manager extraction proves `tryPush` and `stop` byte-identical and finds no
+  forbidden Qt/condition-variable synchronization dependency.
+- Integrated as `f7c22717e`. Canonical populated MSVC Release recompiles and
+  links the focused target with only known Eigen C4819 warnings.
+- Full waited reporter execution returns zero and QtTest reports 19/0/0. The
+  current SPSC sample is pushed/full/popped 453/59/453, maximum producer call
+  1.5 us and zero counted allocations; stopped wait is 30 ms. Three explicit
+  waited repeats exit `0,0,0`.
+- Windows/non-POSIX behavior is GREEN. One bounded canonical WSL wrapped attempt
+  remains before formal review; inability to start/complete must be recorded as
+  environment evidence rather than a failure of this source.
