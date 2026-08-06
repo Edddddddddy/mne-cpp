@@ -5216,3 +5216,13 @@ hidden reasoning is not.
   delta is the focused test source adding both 5 ms lower-bound assertions.
 - Do not poll or inspect its worktree. Publish the review/dispatch on queue
   issue #5, then use manager time only on disjoint read-only plugin planning.
+
+### E-514 - EINTR lower-bound revision response received
+
+- Retained Luna/max thread proactively returns new exact-parent one-test-file
+  commit `89acb78bd`. It reports named 5 ms lower bounds in both complete public
+  waits, with the 500 ms upper bound and every existing wrapper/public-state/
+  cleanup oracle unchanged.
+- WSL remains unavailable and no POSIX runtime is claimed. Persist before direct
+  object/diff review, then integrate the two-commit tracer series only if the
+  correction is exactly scoped and Windows focused execution stays GREEN.

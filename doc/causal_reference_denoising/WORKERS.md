@@ -7263,3 +7263,18 @@ does not continuously poll them.
   if available, truthful WSL limitation, proactive structured response only.
 - dispatch / retained visible thread accepted the follow-up with explicit
   `gpt-5.6-luna` / `max`; await proactive response without polling.
+
+### RESPONSE W-QUEUE-POSIX-EINTR-TEST-001-REVISE-1
+
+- exact parent / `c4b13a220f163511e5d84ed6378fc7545edd4965`
+- commit / `89acb78bd2b1b48f8d359ad82bf5a866d66d97ff`
+- correction / both EINTR prompt tests add named 5 ms lower bounds and replace
+  elapsed `>=0` with `>=5 ms`, retaining the existing `<500 ms` upper bound.
+- scope / focused test source only; CMake, production, guards, wrapper count,
+  payload/extents/native metadata/tail, stopped-destination and finite cleanup
+  are reported unchanged.
+- evidence / exact parent and one-file commit, diff-check and clean detached
+  status reported. WSL startup remains unavailable; no POSIX runtime claim,
+  reset, shutdown, dependency repair, manager polling or server run.
+- manager status / response durable; direct Git object/diff and populated
+  Windows conditional non-regression remain before integration acceptance.
