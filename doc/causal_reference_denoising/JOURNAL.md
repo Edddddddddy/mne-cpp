@@ -5495,3 +5495,11 @@ hidden reasoning is not.
   output work. This matches the frozen callback seam.
 - Persist/push, then configure a build with only mne_scan enabled and build only
   `scan_adaptivedenoising`; never build or run mne_rt_server.
+
+### E-545 - Dedicated plugin target command times out without final output
+
+- The isolated configure/build command has mne_rt_server and all unrelated
+  applications/tests/examples disabled and names only `scan_adaptivedenoising`,
+  but exceeds the 124-second tool limit without a captured terminal result.
+- Do not infer success/failure. Record, inspect generated state/processes, then
+  perform a bounded continuation if the target exists. No server launch.

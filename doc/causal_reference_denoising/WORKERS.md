@@ -7579,3 +7579,15 @@ does not continuously poll them.
   for each input matrix as the frozen contract requires.
 - This validates plugin identity and acquisition-path locality. Next attempt
   target-local CMake build with every other application/server disabled.
+
+### FAILURE VALIDATION-PLUGIN-TARGET-TIMEOUT-001
+
+- Dedicated configure/build explicitly enables only mne_scan and disables
+  mne_rt_server/all other applications/examples/tests, then requests only
+  `scan_adaptivedenoising`.
+- The combined command emits no final captured output before the 124-second tool
+  limit and is terminated. No build PASS/FAIL or dependency diagnosis is
+  inferred from the timeout.
+- Inspect cache/target artifacts and any residual compiler process read-only;
+  then resume only the generated target with a bounded build, or record the
+  exact dependency failure if already available. Never start the server.
