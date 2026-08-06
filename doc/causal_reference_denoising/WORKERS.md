@@ -8182,6 +8182,17 @@ does not continuously poll them.
 - next / no repeated polling. Await proactive response; do not inspect its
   worktree or dispatch production before the RED result is integrated.
 
+### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
+
+- target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are
+  unchanged.
+- reason / the body still names R-PLUGIN-DATA-001 as active and lists remaining
+  acceptance despite the later PASS/closure comment.
+- update / replace only that stale status tail with exact R-PLUGIN-DATA-002
+  PASS, issue-#8 residual deferrals and completed worker-lifecycle acceptance.
+- verification / connector body update followed by authenticated `gh issue
+  view` read-back. No source/branch/worker or epic mutation.
+
 ### PUBLICATION R-PLUGIN-DATA-002 / CLOSURE ISSUE-5
 
 - review comment / issue #5

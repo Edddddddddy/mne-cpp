@@ -5985,3 +5985,11 @@ hidden reasoning is not.
   differences, 58.6541 dB reduction and 0.000113195 amplitude error.
 - This completes current Release/Debug focused numerical evidence without
   touching the active UI worker, full app, server or vendor dependencies.
+
+### E-593 - Closed queue/lifecycle issue body reconciliation prepared
+
+- Issue #5 is closed but its body predates R-PLUGIN-DATA-002 and still describes
+  an active review/remaining acceptance. Prepare one structured body-only update
+  to state the exact PASS and issue-#8 residual deferrals.
+- Preserve issue title, CLOSED/COMPLETED state, comments, epic and all source/
+  worker state. Read back before recording success.
