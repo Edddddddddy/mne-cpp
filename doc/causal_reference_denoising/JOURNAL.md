@@ -5922,3 +5922,15 @@ hidden reasoning is not.
   modify production or import FIFF/scShared/scMeas/plugin dependencies.
 - Commit/push this request before creating the app-managed worktree; then await
   its proactive response without continuous polling.
+
+### E-587 - UI RED tracer worktree setup accepted
+
+- Two initial app calls are rejected before creation because the project target
+  union is supplied at the wrong JSON level. No task/worktree/code/GitHub state
+  changes; record these as manager harness errors rather than worker failures.
+- Manager creates local-only ref `codex/worker-ui-test-base` at exact
+  `4cec85cbe6ed53bb07e5ebdf8f6de96675e7c204`, corrects the app target shape and
+  receives setup ID
+  `client-new-thread:978a2856-8c82-4b58-b5f3-8d11562ac0cc`.
+- The task is explicit Luna/max and retains the frozen three-path TDD scope.
+  Await its proactive response; do not poll or inspect its worktree.

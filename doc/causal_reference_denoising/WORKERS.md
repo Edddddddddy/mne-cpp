@@ -8163,3 +8163,20 @@ does not continuously poll them.
   commit/three paths, test slot/oracles, intended RED command/output, dependency
   proof and clean status. No subagent, manager polling, full app or
   `mne_rt_server`.
+
+### SETUP W-PLUGIN-UI-TEST-001
+
+- setup / accepted as
+  `client-new-thread:978a2856-8c82-4b58-b5f3-8d11562ac0cc` on local host.
+- model / explicit `gpt-5.6-luna` / `max`.
+- environment / app-managed project worktree from local ref
+  `codex/worker-ui-test-base`, verified by manager to resolve exactly to
+  `4cec85cbe6ed53bb07e5ebdf8f6de96675e7c204`.
+- create-harness failures / the first two app calls used the project target
+  union at the wrong object level and were rejected as invalid arguments before
+  thread creation. They caused no app worktree, source, Git or GitHub mutation.
+- recovery / manager corrected only the app argument shape; the worker prompt,
+  exact base, Luna/max model and three-path scope are unchanged.
+- local base ref / retain `codex/worker-ui-test-base` until app setup and worker
+  integration are complete, then delete the spent local-only ref after proof.
+- state / asynchronous setup accepted; await proactive response without polling.
