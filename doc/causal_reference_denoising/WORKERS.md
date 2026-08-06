@@ -6763,6 +6763,9 @@ does not continuously poll them.
 - Required response: exact parent/new delta/scope/clean proof and full focused
   MSVC Release plus at least three repeat results; proactively send structured
   `RESPONSE W-QUEUE-STOP-WAIT-TEST-001` without manager polling.
+- First creation attempt is rejected during local argument validation because
+  project ID was duplicated at top level and inside `target`; no thread or
+  worktree is created. Retry once with project ID only inside `target`.
 
 ### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
 

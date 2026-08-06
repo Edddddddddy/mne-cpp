@@ -5011,3 +5011,11 @@ hidden reasoning is not.
   `8539c8e8564c0bee5da00023817f77e50d2212c1`, focused test source only. It must
   add the missing measured `Stopped` wait lower/upper bound without weakening
   any existing concurrency/public-preservation oracle.
+
+### E-491 - Stop-wait task creation schema rejected locally
+
+- First create request duplicates the project ID at top level and in the
+  project target, so argument validation rejects it before any task/worktree is
+  created. No repository or external state changes.
+- Retry once with the project ID only in `target`; exact base, Luna/max model,
+  one-file scope and request remain unchanged.
