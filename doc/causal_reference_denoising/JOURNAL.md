@@ -4549,3 +4549,11 @@ hidden reasoning is not.
 - Clarified output safety: valid metadata/layout failures pass through; malformed
   metadata is disarmed and suppressed instead of being published with stale
   channel labels.
+
+### E-440 - Issue #6 adapter/UI contract reconciled
+
+- Issue body update/read-back succeeds. It now records the exact DirectConnection
+  SPSC admission, worker-only mapping/configuration, valid-layout pass-through,
+  malformed-metadata suppression, accepted plugin commits and fresh-widget/
+  pending-snapshot controls.
+- Issue #6 remains open and held behind atomic queue integration/review.

@@ -6417,3 +6417,6 @@ does not continuously poll them.
 - Metadata failure is clarified: valid FiffInfo with invalid layout/settings is
   exact pass-through; structurally unusable/null metadata disarms and is not
   emitted under stale labels because no safe RTMSA output metadata exists.
+- GitHub issue #6 body is updated and read back to match this distinction, the
+  accepted SPSC admission fix, held integration order and fresh-widget/pending-
+  snapshot UI seam. Title/number/open state are unchanged.
