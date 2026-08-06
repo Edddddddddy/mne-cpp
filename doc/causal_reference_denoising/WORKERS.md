@@ -7745,6 +7745,20 @@ does not continuously poll them.
   exact-base follow-up with explicit Sol/ultra. It must proactively respond and
   manager will not poll or inspect its worktree.
 
+### RESPONSE W-PLUGIN-ADMISSION-FIX-001 - SETUP BLOCKED
+
+- thread / `019fd59d-fcc8-7573-964d-ed930c4100a8`
+- evidence / configured app worktree
+  `C:/Users/lcy/.codex/worktrees/48c9/mne-cpp-main` and its parent no longer
+  exist; initial command fails with Windows error 267 before Git/recovery reads.
+- result / worker correctly refuses to adopt another directory because exact
+  clean base `48672b02eb35de300a046079028e96ec6d1b25b6` cannot be proven.
+- mutation / none: no file/Git/build/dependency/vendor/GitHub/app/server change,
+  no subagent and no manager polling.
+- disposition / this conversation is no longer reusable. Archive it after this
+  evidence is pushed, then create a fresh visible Sol/ultra worktree task with
+  the same request and exact base.
+
 ### REQUEST W-PLUGIN-STATIC-001
 
 - from / manager

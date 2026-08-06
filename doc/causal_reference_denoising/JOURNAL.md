@@ -5700,3 +5700,12 @@ hidden reasoning is not.
   `client-new-thread:8153b471-f290-4f15-8d7a-ac87cfeee593` from the same base.
 - Source/header versus mne_scan CMake/main ownership is disjoint. Await proactive
   responses; do not poll, run UI work or modify either worker's files.
+
+### E-565 - Retained admission worker is setup-blocked and spent
+
+- The former reusable plugin implementation thread reports its configured app
+  worktree path no longer exists and Windows cannot start the initial exact-base
+  proof. It stops before recovery reads or edits and reports zero mutation.
+- Do not manually bind it to another directory. After this evidence is pushed,
+  app-archive the spent conversation and create a new Sol/ultra worktree task
+  from the unchanged exact base. Static-registration work remains independent.
