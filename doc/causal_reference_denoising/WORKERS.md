@@ -7261,3 +7261,5 @@ does not continuously poll them.
   payload/preservation, finite cleanup and conditional-compilation oracles.
 - response / new delta commit, exact parent/scope/diff-check, focused evidence
   if available, truthful WSL limitation, proactive structured response only.
+- dispatch / retained visible thread accepted the follow-up with explicit
+  `gpt-5.6-luna` / `max`; await proactive response without polling.

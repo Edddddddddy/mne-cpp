@@ -5208,3 +5208,11 @@ hidden reasoning is not.
 - The response must be a new one-test-file delta, not an amend, and must retain
   every existing conditional wrapper, prompt, payload/preservation and finite-
   cleanup oracle. Manager will await the proactive response without polling.
+
+### E-513 - EINTR lower-bound revision dispatched
+
+- Retained visible thread accepts the exact-parent follow-up with explicit
+  `gpt-5.6-luna` / `max`. CMake and production are immutable; the only allowed
+  delta is the focused test source adding both 5 ms lower-bound assertions.
+- Do not poll or inspect its worktree. Publish the review/dispatch on queue
+  issue #5, then use manager time only on disjoint read-only plugin planning.
