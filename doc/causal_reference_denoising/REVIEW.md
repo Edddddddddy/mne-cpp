@@ -710,3 +710,19 @@ tracked.
 - Status: manager-addressed with source and cross-platform runtime evidence;
   independent Sol/ultra reviewer must confirm closure and the overall queue
   P0-P2 gate.
+
+### Final atomic queue formal gate
+
+- Review: `R-QUEUE-ATOMIC-003-RETRY-1` at exact SHA
+  `5aa43160bbae27560c4f4fe013728a6476013db0`.
+- Decision: PASS, P0=0, P1=0, P2=0, P3=0; no new finding.
+- `R-QUEUE-V2-QSEMAPHORE-001`, `R-QUEUE-V2-CONCURRENCY-TEST-001`,
+  `R-QUEUE-V2-METADATA-LIFETIME-001`,
+  `R-QUEUE-ATOMIC-POSIX-EINTR-001`,
+  `R-QUEUE-ATOMIC-SPEC-LOCALITY-001`,
+  `R-QUEUE-STOP-WAIT-ELAPSED-001` and
+  `R-QUEUE-EINTR-BLOCKED-WAIT-001` are formally closed.
+- Independent evidence is exact-SHA source/test/SPEC/provenance audit and clean
+  state; runtime remains manager evidence: Windows 19/0/0 plus three repeats,
+  WSL GNU wrapper 21/0/0 including both forced EINTR cases.
+- No queue P2 deferral remains. Proceed to held plugin lifecycle integration.
