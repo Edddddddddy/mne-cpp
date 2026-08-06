@@ -21,7 +21,6 @@
 #include <cstdint>
 #include <initializer_list>
 #include <limits>
-#include <memory>
 #include <thread>
 #include <type_traits>
 #include <vector>
@@ -30,6 +29,7 @@
 // QT INCLUDES
 //=============================================================================================================
 
+#include <QSharedPointer>
 #include <QtTest>
 
 //=============================================================================================================
@@ -57,6 +57,15 @@ static_assert(
 static_assert(
     !std::is_move_assignable<AdaptiveDenoisingProcessor>::value,
     "AdaptiveDenoisingProcessor must not be move assignable");
+
+using NativeFiffInfoHandle = QSharedPointer<const FIFFLIB::FiffInfo>;
+
+static_assert(
+    std::is_nothrow_copy_constructible<NativeFiffInfoHandle>::value,
+    "Native FIFF metadata handle must be nothrow copy constructible");
+static_assert(
+    std::is_nothrow_copy_assignable<NativeFiffInfoHandle>::value,
+    "Native FIFF metadata handle must be nothrow copy assignable");
 
 //=============================================================================================================
 
@@ -139,11 +148,20 @@ bool matrixEquals(const MatrixXd& actual, const MatrixXd& expected) noexcept
     return true;
 }
 
-bool sameOwner(
-    const std::shared_ptr<const FIFFLIB::FiffInfo>& first,
-    const std::shared_ptr<const FIFFLIB::FiffInfo>& second) noexcept
+NativeFiffInfoHandle fakeFiffInfoHandle(const std::uint64_t& token)
 {
-    return !first.owner_before(second) && !second.owner_before(first);
+    const FIFFLIB::FiffInfo* const fakePointer =
+        reinterpret_cast<const FIFFLIB::FiffInfo*>(&token);
+    return NativeFiffInfoHandle(
+        fakePointer,
+        [](const FIFFLIB::FiffInfo*) noexcept {});
+}
+
+bool sameMetadata(
+    const NativeFiffInfoHandle& first,
+    const NativeFiffInfoHandle& second) noexcept
+{
+    return first.data() == second.data();
 }
 
 } // namespace
@@ -163,6 +181,7 @@ private slots:
     void queuePreservesFifoDropNewestAndMetadata();
     void queueStopWakesWaiterAndReconfigureStartsFresh();
     void queueRejectsInvalidInputsWithoutConsumingState();
+    void queueAcceptsVariableRowsWithNativeMetadata();
 };
 
 //=============================================================================================================
@@ -675,7 +694,7 @@ void TestAdaptiveDenoisingPlugin::queuePreservesFifoDropNewestAndMetadata()
 {
     AdaptiveDenoisingBlockQueue queue;
     AdaptiveDenoisingBlockQueueConfig config;
-    config.channelCount = 2;
+    config.maxChannelCount = 2;
     config.maxBlockSamples = 4;
     config.capacity = 2;
 
@@ -708,16 +727,16 @@ void TestAdaptiveDenoisingPlugin::queuePreservesFifoDropNewestAndMetadata()
     blockC(1, 1) = 52.0;
     const MatrixXd originalC = blockC;
 
-    const std::shared_ptr<int> ownerA = std::make_shared<int>(1);
-    const std::shared_ptr<int> ownerB = std::make_shared<int>(2);
-    const std::shared_ptr<int> ownerC = std::make_shared<int>(3);
-    const std::shared_ptr<const FIFFLIB::FiffInfo> metadataA(ownerA, nullptr);
-    const std::shared_ptr<const FIFFLIB::FiffInfo> metadataB(ownerB, nullptr);
-    const std::shared_ptr<const FIFFLIB::FiffInfo> metadataC(ownerC, nullptr);
+    const std::uint64_t metadataTokenA = 1;
+    const std::uint64_t metadataTokenB = 2;
+    const std::uint64_t metadataTokenC = 3;
+    const NativeFiffInfoHandle metadataA = fakeFiffInfoHandle(metadataTokenA);
+    const NativeFiffInfoHandle metadataB = fakeFiffInfoHandle(metadataTokenB);
+    const NativeFiffInfoHandle metadataC = fakeFiffInfoHandle(metadataTokenC);
 
-    QVERIFY(!sameOwner(metadataA, metadataB));
-    QVERIFY(!sameOwner(metadataA, metadataC));
-    QVERIFY(!sameOwner(metadataB, metadataC));
+    QVERIFY(!sameMetadata(metadataA, metadataB));
+    QVERIFY(!sameMetadata(metadataA, metadataC));
+    QVERIFY(!sameMetadata(metadataB, metadataC));
 
     QVERIFY(queue.tryPush(blockA, metadataA) == AdaptiveDenoisingQueuePushStatus::Pushed);
     QVERIFY(queue.tryPush(blockB, metadataB) == AdaptiveDenoisingQueuePushStatus::Pushed);
@@ -728,18 +747,20 @@ void TestAdaptiveDenoisingPlugin::queuePreservesFifoDropNewestAndMetadata()
     QVERIFY(queue.tryPush(blockC, metadataC) == AdaptiveDenoisingQueuePushStatus::Full);
 
     AdaptiveDenoisingQueuedBlock destination;
-    destination.data.resize(2, 4);
+    destination.data.resize(config.maxChannelCount, config.maxBlockSamples);
 
     QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(destination.rowCount, Index(2));
     QCOMPARE(destination.sampleCount, Index(3));
-    QVERIFY(sameOwner(destination.fiffInfo, metadataA));
+    QVERIFY(sameMetadata(destination.fiffInfo, metadataA));
     for (Index row = 0; row < originalA.rows(); ++row) {
         QVERIFY(rowEquals(destination.data, originalA, row));
     }
 
     QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(destination.rowCount, Index(2));
     QCOMPARE(destination.sampleCount, Index(4));
-    QVERIFY(sameOwner(destination.fiffInfo, metadataB));
+    QVERIFY(sameMetadata(destination.fiffInfo, metadataB));
     for (Index row = 0; row < originalB.rows(); ++row) {
         QVERIFY(rowEquals(destination.data, originalB, row));
     }
@@ -748,8 +769,9 @@ void TestAdaptiveDenoisingPlugin::queuePreservesFifoDropNewestAndMetadata()
 
     QVERIFY(queue.tryPush(blockC, metadataC) == AdaptiveDenoisingQueuePushStatus::Pushed);
     QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(destination.rowCount, Index(2));
     QCOMPARE(destination.sampleCount, Index(2));
-    QVERIFY(sameOwner(destination.fiffInfo, metadataC));
+    QVERIFY(sameMetadata(destination.fiffInfo, metadataC));
     for (Index row = 0; row < originalC.rows(); ++row) {
         QVERIFY(rowEquals(destination.data, originalC, row));
     }
@@ -761,7 +783,7 @@ void TestAdaptiveDenoisingPlugin::queueStopWakesWaiterAndReconfigureStartsFresh(
 {
     AdaptiveDenoisingBlockQueue queue;
     AdaptiveDenoisingBlockQueueConfig config;
-    config.channelCount = 2;
+    config.maxChannelCount = 2;
     config.maxBlockSamples = 4;
     config.capacity = 1;
 
@@ -774,7 +796,8 @@ void TestAdaptiveDenoisingPlugin::queueStopWakesWaiterAndReconfigureStartsFresh(
     constexpr int kEntryWaitBudgetMilliseconds = 1000;
 
     AdaptiveDenoisingQueuedBlock consumerDestination;
-    consumerDestination.data.resize(config.channelCount, config.maxBlockSamples);
+    consumerDestination.data.resize(config.maxChannelCount, config.maxBlockSamples);
+    consumerDestination.rowCount = 0;
     consumerDestination.sampleCount = 0;
     consumerDestination.fiffInfo.reset();
 
@@ -847,14 +870,15 @@ void TestAdaptiveDenoisingPlugin::queueStopWakesWaiterAndReconfigureStartsFresh(
     MatrixXd stoppedBlock(2, 1);
     stoppedBlock(0, 0) = -101.0;
     stoppedBlock(1, 0) = 202.0;
-    const auto stoppedOwner = std::make_shared<int>(4);
-    const std::shared_ptr<const FIFFLIB::FiffInfo> stoppedMetadata(stoppedOwner, nullptr);
+    const std::uint64_t stoppedMetadataToken = 4;
+    const NativeFiffInfoHandle stoppedMetadata =
+        fakeFiffInfoHandle(stoppedMetadataToken);
 
     QVERIFY(queue.tryPush(stoppedBlock, stoppedMetadata)
             == AdaptiveDenoisingQueuePushStatus::Stopped);
 
     AdaptiveDenoisingQueuedBlock stoppedDestination;
-    stoppedDestination.data.resize(config.channelCount, config.maxBlockSamples);
+    stoppedDestination.data.resize(config.maxChannelCount, config.maxBlockSamples);
     QVERIFY(queue.waitPop(stoppedDestination, 0) == AdaptiveDenoisingQueuePopStatus::Stopped);
 
     QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::Ready);
@@ -866,18 +890,19 @@ void TestAdaptiveDenoisingPlugin::queueStopWakesWaiterAndReconfigureStartsFresh(
     freshBlock(1, 1) = 80.0;
     const MatrixXd expectedFreshBlock = freshBlock;
 
-    const auto freshOwner = std::make_shared<int>(5);
-    const std::shared_ptr<const FIFFLIB::FiffInfo> freshMetadata(freshOwner, nullptr);
-    QVERIFY(!sameOwner(freshMetadata, stoppedMetadata));
+    const std::uint64_t freshMetadataToken = 5;
+    const NativeFiffInfoHandle freshMetadata = fakeFiffInfoHandle(freshMetadataToken);
+    QVERIFY(!sameMetadata(freshMetadata, stoppedMetadata));
 
     QVERIFY(queue.tryPush(freshBlock, freshMetadata)
             == AdaptiveDenoisingQueuePushStatus::Pushed);
 
     AdaptiveDenoisingQueuedBlock freshDestination;
-    freshDestination.data.resize(config.channelCount, config.maxBlockSamples);
+    freshDestination.data.resize(config.maxChannelCount, config.maxBlockSamples);
     QVERIFY(queue.waitPop(freshDestination, 0) == AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(freshDestination.rowCount, Index(2));
     QCOMPARE(freshDestination.sampleCount, Index(2));
-    QVERIFY(sameOwner(freshDestination.fiffInfo, freshMetadata));
+    QVERIFY(sameMetadata(freshDestination.fiffInfo, freshMetadata));
     for (Index row = 0; row < expectedFreshBlock.rows(); ++row) {
         QVERIFY(rowEquals(freshDestination.data, expectedFreshBlock, row));
     }
@@ -891,12 +916,12 @@ void TestAdaptiveDenoisingPlugin::queueRejectsInvalidInputsWithoutConsumingState
 {
     AdaptiveDenoisingBlockQueue queue;
     AdaptiveDenoisingBlockQueueConfig validConfig;
-    validConfig.channelCount = 2;
+    validConfig.maxChannelCount = 2;
     validConfig.maxBlockSamples = 4;
     validConfig.capacity = 1;
 
     AdaptiveDenoisingBlockQueueConfig invalidConfig = validConfig;
-    invalidConfig.channelCount = 0;
+    invalidConfig.maxChannelCount = 0;
     QVERIFY(queue.configure(invalidConfig)
             == AdaptiveDenoisingQueueConfigureStatus::InvalidConfiguration);
 
@@ -919,7 +944,7 @@ void TestAdaptiveDenoisingPlugin::queueRejectsInvalidInputsWithoutConsumingState
     queue.stop();
 
     invalidConfig = validConfig;
-    invalidConfig.channelCount = 0;
+    invalidConfig.maxChannelCount = 0;
     QVERIFY(queue.configure(invalidConfig)
             == AdaptiveDenoisingQueueConfigureStatus::InvalidConfiguration);
 
@@ -940,7 +965,7 @@ void TestAdaptiveDenoisingPlugin::queueRejectsInvalidInputsWithoutConsumingState
 
     QVERIFY(queue.configure(validConfig) == AdaptiveDenoisingQueueConfigureStatus::Ready);
 
-    const std::shared_ptr<const FIFFLIB::FiffInfo> nullMetadata;
+    const NativeFiffInfoHandle nullMetadata;
 
     MatrixXd wrongRows = MatrixXd::Constant(3, 3, -1.0);
     MatrixXd zeroColumns(2, 0);
@@ -973,43 +998,159 @@ void TestAdaptiveDenoisingPlugin::queueRejectsInvalidInputsWithoutConsumingState
 
     AdaptiveDenoisingQueuedBlock wrongRowsDestination;
     wrongRowsDestination.data = MatrixXd::Constant(3, 4, -10.0);
+    wrongRowsDestination.rowCount = 310;
     wrongRowsDestination.sampleCount = 310;
-    const auto wrongRowsOwner = std::make_shared<int>(310);
-    wrongRowsDestination.fiffInfo =
-        std::shared_ptr<const FIFFLIB::FiffInfo>(wrongRowsOwner, nullptr);
+    const std::uint64_t wrongRowsMetadataToken = 310;
+    wrongRowsDestination.fiffInfo = fakeFiffInfoHandle(wrongRowsMetadataToken);
     const MatrixXd expectedWrongRowsData = wrongRowsDestination.data;
     const auto expectedWrongRowsMetadata = wrongRowsDestination.fiffInfo;
 
     QVERIFY(queue.waitPop(wrongRowsDestination, 0)
             == AdaptiveDenoisingQueuePopStatus::InvalidDestination);
     QVERIFY(matrixEquals(wrongRowsDestination.data, expectedWrongRowsData));
+    QCOMPARE(wrongRowsDestination.rowCount, Index(310));
     QCOMPARE(wrongRowsDestination.sampleCount, Index(310));
-    QVERIFY(sameOwner(wrongRowsDestination.fiffInfo, expectedWrongRowsMetadata));
-    QVERIFY(wrongRowsDestination.fiffInfo.get() == nullptr);
+    QVERIFY(sameMetadata(wrongRowsDestination.fiffInfo, expectedWrongRowsMetadata));
+    QVERIFY(wrongRowsDestination.fiffInfo.data() != nullptr);
 
     AdaptiveDenoisingQueuedBlock wrongColumnsDestination;
     wrongColumnsDestination.data = MatrixXd::Constant(2, 3, -20.0);
+    wrongColumnsDestination.rowCount = 320;
     wrongColumnsDestination.sampleCount = 320;
-    const auto wrongColumnsOwner = std::make_shared<int>(320);
-    wrongColumnsDestination.fiffInfo =
-        std::shared_ptr<const FIFFLIB::FiffInfo>(wrongColumnsOwner, nullptr);
+    const std::uint64_t wrongColumnsMetadataToken = 320;
+    wrongColumnsDestination.fiffInfo = fakeFiffInfoHandle(wrongColumnsMetadataToken);
     const MatrixXd expectedWrongColumnsData = wrongColumnsDestination.data;
     const auto expectedWrongColumnsMetadata = wrongColumnsDestination.fiffInfo;
 
     QVERIFY(queue.waitPop(wrongColumnsDestination, 0)
             == AdaptiveDenoisingQueuePopStatus::InvalidDestination);
     QVERIFY(matrixEquals(wrongColumnsDestination.data, expectedWrongColumnsData));
+    QCOMPARE(wrongColumnsDestination.rowCount, Index(320));
     QCOMPARE(wrongColumnsDestination.sampleCount, Index(320));
-    QVERIFY(sameOwner(wrongColumnsDestination.fiffInfo, expectedWrongColumnsMetadata));
-    QVERIFY(wrongColumnsDestination.fiffInfo.get() == nullptr);
+    QVERIFY(sameMetadata(wrongColumnsDestination.fiffInfo, expectedWrongColumnsMetadata));
+    QVERIFY(wrongColumnsDestination.fiffInfo.data() != nullptr);
 
     AdaptiveDenoisingQueuedBlock destination;
     destination.data = MatrixXd::Constant(2, 4, -30.0);
     QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(destination.rowCount, Index(2));
     QCOMPARE(destination.sampleCount, Index(3));
     QVERIFY(!destination.fiffInfo);
     for (Index row = 0; row < expectedFirstBlock.rows(); ++row) {
         QVERIFY(rowEquals(destination.data, expectedFirstBlock, row));
+    }
+
+    QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Timeout);
+}
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingPlugin::queueAcceptsVariableRowsWithNativeMetadata()
+{
+    AdaptiveDenoisingBlockQueue queue;
+    AdaptiveDenoisingBlockQueueConfig config;
+    config.maxChannelCount = 4;
+    config.maxBlockSamples = 4;
+    config.capacity = 3;
+
+    QVERIFY(queue.configure(config) == AdaptiveDenoisingQueueConfigureStatus::Ready);
+
+    MatrixXd blockA(2, 3);
+    blockA << 1.0, 2.0, 3.0,
+              11.0, 12.0, 13.0;
+    const MatrixXd originalA = blockA;
+
+    MatrixXd blockB(4, 2);
+    blockB << 21.0, 22.0,
+              31.0, 32.0,
+              41.0, 42.0,
+              51.0, 52.0;
+    const MatrixXd originalB = blockB;
+
+    MatrixXd blockC(3, 4);
+    blockC << 61.0, 62.0, 63.0, 64.0,
+              71.0, 72.0, 73.0, 74.0,
+              81.0, 82.0, 83.0, 84.0;
+    const MatrixXd originalC = blockC;
+
+    const std::uint64_t metadataTokenA = 101;
+    const std::uint64_t metadataTokenB = 202;
+    const std::uint64_t metadataTokenC = 303;
+    const NativeFiffInfoHandle metadataA = fakeFiffInfoHandle(metadataTokenA);
+    const NativeFiffInfoHandle metadataB = fakeFiffInfoHandle(metadataTokenB);
+    const NativeFiffInfoHandle metadataC = fakeFiffInfoHandle(metadataTokenC);
+
+    QVERIFY(metadataA.data() != nullptr);
+    QVERIFY(metadataB.data() != nullptr);
+    QVERIFY(metadataC.data() != nullptr);
+    QVERIFY(metadataA.data() != metadataB.data());
+    QVERIFY(metadataA.data() != metadataC.data());
+    QVERIFY(metadataB.data() != metadataC.data());
+
+    QVERIFY(queue.tryPush(blockA, metadataA) == AdaptiveDenoisingQueuePushStatus::Pushed);
+    QVERIFY(queue.tryPush(blockB, metadataB) == AdaptiveDenoisingQueuePushStatus::Pushed);
+    QVERIFY(queue.tryPush(blockC, metadataC) == AdaptiveDenoisingQueuePushStatus::Pushed);
+
+    blockA.array() += 1000.0;
+    blockB.array() += 2000.0;
+    blockC.array() += 3000.0;
+
+    const double sentinel = -9999.0;
+    AdaptiveDenoisingQueuedBlock destination;
+    destination.data.resize(config.maxChannelCount, config.maxBlockSamples);
+
+    destination.data.setConstant(sentinel);
+    destination.rowCount = -1;
+    destination.sampleCount = -1;
+    destination.fiffInfo.reset();
+    QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(destination.rowCount, Index(2));
+    QCOMPARE(destination.sampleCount, Index(3));
+    QVERIFY(destination.fiffInfo.data() == metadataA.data());
+    for (Index row = 0; row < config.maxChannelCount; ++row) {
+        for (Index column = 0; column < config.maxBlockSamples; ++column) {
+            if (row < originalA.rows() && column < originalA.cols()) {
+                QVERIFY(destination.data(row, column) == originalA(row, column));
+            } else {
+                QVERIFY(destination.data(row, column) == sentinel);
+            }
+        }
+    }
+
+    destination.data.setConstant(sentinel);
+    destination.rowCount = -1;
+    destination.sampleCount = -1;
+    destination.fiffInfo.reset();
+    QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(destination.rowCount, Index(4));
+    QCOMPARE(destination.sampleCount, Index(2));
+    QVERIFY(destination.fiffInfo.data() == metadataB.data());
+    for (Index row = 0; row < config.maxChannelCount; ++row) {
+        for (Index column = 0; column < config.maxBlockSamples; ++column) {
+            if (row < originalB.rows() && column < originalB.cols()) {
+                QVERIFY(destination.data(row, column) == originalB(row, column));
+            } else {
+                QVERIFY(destination.data(row, column) == sentinel);
+            }
+        }
+    }
+
+    destination.data.setConstant(sentinel);
+    destination.rowCount = -1;
+    destination.sampleCount = -1;
+    destination.fiffInfo.reset();
+    QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Popped);
+    QCOMPARE(destination.rowCount, Index(3));
+    QCOMPARE(destination.sampleCount, Index(4));
+    QVERIFY(destination.fiffInfo.data() == metadataC.data());
+    for (Index row = 0; row < config.maxChannelCount; ++row) {
+        for (Index column = 0; column < config.maxBlockSamples; ++column) {
+            if (row < originalC.rows() && column < originalC.cols()) {
+                QVERIFY(destination.data(row, column) == originalC(row, column));
+            } else {
+                QVERIFY(destination.data(row, column) == sentinel);
+            }
+        }
     }
 
     QVERIFY(queue.waitPop(destination, 0) == AdaptiveDenoisingQueuePopStatus::Timeout);
