@@ -7839,6 +7839,32 @@ does not continuously poll them.
   unit; only existing Eigen C4819 code-page warnings occur.
 - evidence boundary / syntax/source/MOC only, not lifecycle runtime. Real target
   remains blocked under MSVC 14.51 before plugin compilation by existing Qt.
+- publication / issue #6 read-back:
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208508501`.
+- lifecycle / completed Sol/ultra worker
+  `019fd86c-b508-7491-876e-1972be35875a` is app-archived after integration,
+  validation and publication; no manual worktree deletion.
+
+### REQUEST R-PLUGIN-DATA-002
+
+- from / manager
+- to / retained independent Sol/ultra plugin lifecycle reviewer
+  `019fd84f-03c6-79f1-977f-b278d55777ba`
+- exact snapshot / assign the pushed request HEAD at dispatch and require clean
+  detach before review
+- mode / read-only; no edits/commit/push/GitHub/dependency mutation
+- review / re-audit only prior findings on the integrated fixes: typed admission
+  and exact Busy drop count; uint32/uint64 lock-free guards; static link/import
+  and generated project reference; local destructor contract plus durable issue
+  #8 deferrals for terminal teardown and real lifecycle harness.
+- regression / ensure zero-to-one/epoch/quiescence and admitted callback locality
+  remain correct; verify no UI was added and its absence remains out of scope.
+- evidence boundary / manager MOC/callback oracle/MSVC14.29 `/Zs` and static
+  configure are attributed to manager; no real target runtime is claimed because
+  MSVC14.51 still fails in existing Qt/mne_fiff before plugin translation units.
+- gate / P0/P1 zero and every P2 fixed or explicitly durable-deferred. Return
+  exact-SHA clean proof, disposition of all five prior findings, any new P0-P3
+  and PASS/HOLD. No full app/server/subagent/manager polling.
 
 ### REQUEST W-PLUGIN-STATIC-001
 

@@ -5828,3 +5828,14 @@ hidden reasoning is not.
 - This completes source/compile verification but is not lifecycle runtime
   evidence. Publish on issue #6, archive the completed implementation worker and
   prepare a fresh exact-snapshot Sol/ultra re-review.
+
+### E-578 - Admission correction evidence published and worker archived
+
+- Issue #6 read-back records integrated commit, exact Closed/Busy/Entered
+  callback behavior, lock-free guards, destructor contract, MOC/source/compiler
+  evidence and issue #8 boundary at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208508501`.
+- App archives completed Sol/ultra implementation thread
+  `019fd86c-b508-7491-876e-1972be35875a`; no manual worktree deletion.
+- Prepare retained independent reviewer `R-PLUGIN-DATA-002` against the next
+  pushed exact snapshot. UI remains held until its gate returns PASS.
