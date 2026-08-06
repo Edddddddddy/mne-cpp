@@ -77,16 +77,16 @@ public:
     , producerIndex(0)
     , consumerIndex(0)
     {
-        slots.reserve(capacity);
+        queueSlots.reserve(capacity);
         for (std::size_t index = 0; index < capacity; ++index) {
-            slots.emplace_back(maxChannelCount, maxBlockSamples);
+            queueSlots.emplace_back(maxChannelCount, maxBlockSamples);
         }
     }
 
     const Eigen::Index maxChannelCount;
     const Eigen::Index maxBlockSamples;
     const std::size_t  capacity;
-    std::vector<Slot>  slots;
+    std::vector<Slot>  queueSlots;
     QSemaphore         freeSlots;
     QSemaphore         filledSlots;
     std::atomic<bool>  running;
@@ -156,7 +156,7 @@ AdaptiveDenoisingQueuePushStatus AdaptiveDenoisingBlockQueue::tryPush(
         return AdaptiveDenoisingQueuePushStatus::Stopped;
     }
 
-    Impl::Slot& slot = impl->slots[impl->producerIndex];
+    Impl::Slot& slot = impl->queueSlots[impl->producerIndex];
     for (Eigen::Index column = 0; column < sampleCount; ++column) {
         for (Eigen::Index row = 0; row < rowCount; ++row) {
             slot.data(row, column) = block(row, column);
@@ -203,7 +203,7 @@ AdaptiveDenoisingQueuePopStatus AdaptiveDenoisingBlockQueue::waitPop(
         return AdaptiveDenoisingQueuePopStatus::Stopped;
     }
 
-    Impl::Slot& slot = impl->slots[impl->consumerIndex];
+    Impl::Slot& slot = impl->queueSlots[impl->consumerIndex];
     for (Eigen::Index column = 0; column < slot.sampleCount; ++column) {
         for (Eigen::Index row = 0; row < slot.rowCount; ++row) {
             destination.data(row, column) = slot.data(row, column);
