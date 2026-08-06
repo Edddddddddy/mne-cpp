@@ -5945,3 +5945,16 @@ hidden reasoning is not.
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208612705`.
 - Do not inspect/poll the worktree. Manager now corrects the final focused test
   replay harness while awaiting the worker's proactive response.
+
+### E-589 - Corrected final focused Release baseline is GREEN
+
+- Explicit independent launches fix the table/ArgumentList error. Current
+  numerical QtTest is 45/0/0 with exact chunk equivalence, 58.6541 dB reduction
+  and 0.000113195 amplitude error; processor/queue QtTest is 19/0/0 with zero
+  counted producer allocations.
+- Teaching example exits zero/PASS and demonstrates learn/freeze/reset. Latest
+  benchmark exits zero/PASS at p50/p95/max `2.227/2.643/3.787 ms`, generation/
+  accepted/rejected `1099/1099/0`; p95 remains far below 128 ms.
+- This is focused Release evidence only. No plugin target/full app/server or
+  dependency/vendor path is exercised. Persist/push as final-QA baseline while
+  awaiting the UI tracer response.

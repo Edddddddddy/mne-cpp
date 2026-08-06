@@ -8119,6 +8119,29 @@ does not continuously poll them.
 - correction / after lifecycle review persistence, run each test/example with
   an explicit argument path/reporter and capture independent exit/totals.
 
+### VALIDATION FINAL-FOCUSED-REPLAY-001
+
+- correction / use explicit per-executable launches; give Qt tests their own
+  `-o <path>,txt` reporter and omit `ArgumentList` entirely for the no-argument
+  example. Every exit and report is independent; no stale process variable.
+- build / canonical Release targets `test_causal_reference_denoiser`,
+  `test_adaptive_denoising_plugin` and `ex_causal_reference_denoising` all
+  rebuild successfully.
+- numerical / exit zero, QtTest `45 passed, 0 failed/skipped/blacklisted`;
+  stream/probe chunk relative differences are zero, noise reduction is
+  `58.6541 dB`, clean amplitude error `0.000113195`.
+- processor/queue / exit zero, QtTest `19/0/0`; current overlap pushed/full/
+  popped `163/349/163`, maximum producer call `5.8 us`, counted producer
+  allocations zero, stop wait `30 ms`.
+- example / exit zero and `example invariants: PASS`; learn reaches generation
+  four, ApplyOnly accepts/rejects zero and reset restores generation zero.
+- benchmark / exit zero and PASS; 270 rows, 16 references, 250 targets, four
+  preserved rows, 128 samples, four taps/P64, 100 warmup + 1000 timed blocks;
+  nearest-rank p50/p95/max `2.227/2.643/3.787 ms`, final generation/accepted/
+  rejected `1099/1099/0`, p95 `<128 ms`.
+- boundary / focused Release only; no real plugin target, full mne_scan or
+  `mne_rt_server` execution and no vendor/dependency changes.
+
 ### PUBLICATION R-PLUGIN-DATA-002 / CLOSURE ISSUE-5
 
 - review comment / issue #5

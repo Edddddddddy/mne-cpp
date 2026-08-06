@@ -706,3 +706,7 @@ same-responsibility implementation conversations that may receive review fixes.
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5208612705`.
   Await the proactive response without polling; production UI files remain
   untouched.
+- Current canonical Release replay after the lifecycle gate is GREEN:
+  numerical core `45/0/0`, processor/queue `19/0/0`, teaching example PASS and
+  benchmark PASS at p50/p95/max `2.227/2.643/3.787 ms`. No full app/server is
+  used. These are the current final-QA baseline while UI work proceeds.
