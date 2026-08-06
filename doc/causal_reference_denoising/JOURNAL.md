@@ -4047,3 +4047,12 @@ hidden reasoning is not.
   ownership and variable-row/tail behavior.
 - Decision: hold integration; send a narrow amend to the retained Luna/max doc
   conversation, then re-review only the corrected delta and links.
+
+### E-385 - Learning guide narrow revision accepted
+
+- Existing doc thread `019fd2fc-0d25-7163-a29d-b7c8840028f9` accepted the
+  same-parent, same-one-file amend request with Luna/max.
+- Required delta is limited to adapter-default naming and complete queue-v2
+  maximum-dimension/extents/top-left/native-owner/tail/worker-shape semantics.
+- Next: await proactive response; continue manager review of the already
+  returned plugin-data commit without integrating it before queue GREEN.

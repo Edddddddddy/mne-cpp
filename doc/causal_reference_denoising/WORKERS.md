@@ -5576,3 +5576,12 @@ does not continuously poll them.
 - Verification: all repository links, Markdown structure, exact one-file scope,
   clean status and diff check. Return replacement SHA and exact line-level
   correction through `RESPONSE W-DOC-001-REVISE-1`; no build/full scan/server.
+
+### RESPONSE W-DOC-001-REVISE-1-DISPATCH
+
+- App accepted the narrow follow-up on retained thread
+  `019fd2fc-0d25-7163-a29d-b7c8840028f9` with `gpt-5.6-luna`, `max`.
+- It requires an amended replacement with the same exact parent and one-file
+  scope, precise adapter-default and queue-v2 corrections, unchanged verified
+  content, link/Markdown/diff/clean proof and proactive structured RESPONSE.
+- No duplicate conversation/worktree was created; manager will not poll it.
