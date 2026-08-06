@@ -4970,3 +4970,10 @@ hidden reasoning is not.
   Persist it, then send exactly one recovery request to the same conversation
   asking it to resend only `RESPONSE W-QUEUE-CONCURRENCY-TEST-002-REVISE-1`;
   do not duplicate implementation or inspect its worktree.
+
+### E-487 - Response-only recovery dispatched
+
+- The retained Luna/max thread accepts one response-only recovery message. It
+  may inspect its own final commit/status but must not edit, amend, reset,
+  rebuild or redo work, and must proactively report either the exact existing
+  delta or that no commit exists.

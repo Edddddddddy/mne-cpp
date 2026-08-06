@@ -6715,6 +6715,9 @@ does not continuously poll them.
   thread status is `notLoaded` and neither wait nor one read returns an
   assistant response. Do not infer a commit. Send one recovery request asking
   the same conversation to resend only its structured response/status.
+- Recovery dispatch: the same Luna/max thread accepted a response-only request;
+  it is forbidden to edit/amend/reset/rebuild/redo and must report either its
+  exact existing delta commit or explicitly that no commit exists.
 
 ### FAILURE QUEUE-CORRECTION-PROJECT-LIST-1
 
