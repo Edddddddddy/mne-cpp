@@ -4737,6 +4737,16 @@ does not continuously poll them.
   rt_server. Proactively send `RESPONSE W-QUEUE-V2-TEST-001` and stop.
 - Status: request durable before task creation.
 
+### RESPONSE W-QUEUE-V2-TEST-001-CREATE
+
+- Result: new visible Luna/max worktree setup accepted asynchronously as
+  `client-new-thread:94fce46e-d2a5-49d0-a276-f3a395fd0e60`; host `local`.
+- Prompt requires exact base `b4299fdaf`, one focused-test file, migration of
+  every existing queue oracle plus new mixed-row/native-metadata FIFO tracer,
+  explicit expected compile RED and no production edit.
+- Coordination: manager will not poll or overlap the focused test source; await
+  only proactive structured response after public issue #5 dispatch.
+
 ### MANAGER REVIEW W-QA-PROC-LOCALITY-001
 
 - Provenance/scope: exact `1d60ed4f7` on requested `16c993872`; one authorized
