@@ -3924,3 +3924,13 @@ hidden reasoning is not.
   Closed resolution.
 - Correction: mark the early heading Closed and point to the same all-target/
   p95 evidence. No finding, code, test or acceptance result changes.
+
+### E-373 - Native Qt ownership noexcept evidence confirmed
+
+- Installed Qt 5.15.2 declares same-type QSharedPointer copy construction/
+  assignment and compatible converting copy construction `noexcept` in
+  `qsharedpointer_impl.h` lines 326-368.
+- Impact: input mutable-to-const handle conversion and queue same-type slot
+  ownership updates do not allocate a new control block and support the frozen
+  callback noexcept/no-allocation claim. Output `constCast` remains worker-only
+  and is excluded from acquisition hot-path evidence.

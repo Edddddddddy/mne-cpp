@@ -28,6 +28,14 @@
   per-slot row/sample extents. Plugin `start()` fixes v1 bounds at 512x2048,
   capacity four; the worker receives row transitions in FIFO order. A RED test,
   Sol/ultra implementation and fresh review are required before plugin code.
+- Installed Qt 5.15.2 evidence: same-type `QSharedPointer<T>` copy constructor
+  and copy assignment are explicitly `noexcept` in
+  `qsharedpointer_impl.h:326-340`; converting copy construction is also
+  `noexcept` at line 364. Thus RTMSA `QSharedPointer<FiffInfo>` to queue
+  `QSharedPointer<const FiffInfo>` argument conversion and the queue's same-type
+  slot assignment can truthfully sit on the callback `noexcept` path without a
+  control-block allocation. The later worker-side `constCast` is not part of
+  acquisition hot-path evidence.
 
 #### R-BENCH-FINITE-001 - P2 - Closed
 
