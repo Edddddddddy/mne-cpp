@@ -4527,3 +4527,10 @@ hidden reasoning is not.
 - Open `R-DOC-BENCHMARK-EVIDENCE-002`. Do not interrupt/overlap the active Luna
   guide revision; after its proactive response, request one combined atomic-
   queue wording plus exact benchmark-evidence correction.
+
+### E-437 - Learning guide benchmark P2 published
+
+- Issue #7 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5202684965`.
+- Read-back confirms exact held SHA, missing evidence, required workload/
+  command/measurements and the no-overlap retained-conversation follow-up.

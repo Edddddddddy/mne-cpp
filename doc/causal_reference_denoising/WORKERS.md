@@ -6406,3 +6406,5 @@ does not continuously poll them.
   replace any QSemaphore wording with the accepted atomic sequence/native wake
   seam and add exact `--benchmark` workload plus measured
   p50/p95/max `2.725/4.317/8.557 ms`, explicitly engineering evidence.
+- Public finding/read-back:
+  `https://github.com/Edddddddddy/mne-cpp/issues/7#issuecomment-5202684965`.
