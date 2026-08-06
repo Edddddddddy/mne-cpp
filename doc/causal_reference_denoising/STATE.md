@@ -850,3 +850,6 @@ same-responsibility implementation conversations that may receive review fixes.
 - Exact review dispatch is published at
   `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5209050760`;
   issue #6 remains OPEN and no final checkbox/closure occurs before PASS.
+- One 60-second event wait times out with reviewer active and following the
+  mandated recovery sequence; STATE/SPEC are complete and WORKERS is next. It
+  reports no finding, blocker or input request. Do not poll again.

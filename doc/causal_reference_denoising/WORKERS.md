@@ -8727,6 +8727,15 @@ does not continuously poll them.
   P0-P2 gate, issue-#8 deferral and manager-evidence attribution boundary.
 - next / one bounded event wait only, then await proactive PASS/HOLD.
 
+### WAIT R-PLUGIN-UI-001-001
+
+- result / one 60-second cursor-aware wait times out with the review active.
+- progress / reviewer follows fixed recovery order in bounded sections to avoid
+  truncation; STATE and SPEC are complete, WORKERS is next. No finding, blocker,
+  mutation or input request is reported.
+- next / do not poll again. Prepare only issue-closure sequencing outside the
+  review worktree and await proactive PASS/HOLD.
+
 ### PREPARED GITHUB ISSUE-5-BODY-CLOSEOUT
 
 - target / closed issue `Edddddddddy/mne-cpp#5` only; title/state/comments are

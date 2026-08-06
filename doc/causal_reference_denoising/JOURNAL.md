@@ -6328,3 +6328,12 @@ hidden reasoning is not.
   It records exact snapshot, Sol/ultra task, read-only scope, gate criteria,
   issue-#8 deferral and evidence attribution.
 - Issue #6 stays OPEN; no child/epic/final-QA closure until proactive review PASS.
+
+### E-627 - Final UI reviewer recovery is active
+
+- One bounded event wait times out. Reviewer is reading large durable records in
+  the required order and has completed STATE/SPEC; no finding, blocker, input
+  request or mutation is present.
+- Stop polling. On proactive PASS, publish/close #6, close final QA #3, update
+  and close epic #2, while leaving issue #8 OPEN as the explicit follow-up. A
+  HOLD instead requires a minimal correction cycle before any closure.
