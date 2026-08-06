@@ -4701,3 +4701,13 @@ hidden reasoning is not.
 - It is held because final atomic event/pipe design and benchmark command/
   workload/results are newer requirements. Persist the response, inspect the
   exact one-file diff, then issue one combined narrow final revision.
+
+### E-457 - Learning-guide manager review and final revision prepared
+
+- Exact replacement provenance/scope/diff pass and its Eigen/algorithm teaching
+  content is accepted. Manager confirms section 6 still contains the obsolete
+  QSemaphore statement and the guide contains no benchmark reproduction/result.
+- Keep `R-DOC-QUEUE-V2-001` and `R-DOC-BENCHMARK-EVIDENCE-002` P2 open. Prepare
+  one retained Luna/max one-file request from exact `fb748082f`: atomic sequence
+  plus Windows event/POSIX pipe wording, producer zero-allocation evidence, and
+  exact benchmark command/workload/results `2.725/4.317/8.557 ms`.

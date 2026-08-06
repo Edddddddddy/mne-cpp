@@ -445,9 +445,11 @@ same-responsibility implementation conversations that may receive review fixes.
 - Learning guide remains held in its retained Luna/max conversation. After its
   queue-v2 response, replacement `fb748082f` on exact parent `fa832d51d`
   correctly fixes adapter defaults and the variable-rectangle/native-metadata
-  seam. It predates the final atomic wake and measured benchmark evidence; one
-  combined narrow Luna/max revision must add those facts before integration and
-  issue #7 closure.
+  seam. Exact manager review confirms its queue paragraph still names the
+  superseded QSemaphore and it contains no measured benchmark evidence. One
+  combined narrow Luna/max revision from `fb748082f` must replace that paragraph
+  with the accepted atomic/native-wake seam and add the exact benchmark command,
+  workload and `2.725/4.317/8.557 ms` results before integration/issue closure.
 - After queue review passes: integrate/formally review plugin data, implement
   programmatic minimal UI, add focused block-boundary settings/lifecycle
   evidence, run final targets/review, update and close issues #5/#6/#7/#3/#2.

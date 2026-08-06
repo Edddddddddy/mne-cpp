@@ -6661,6 +6661,44 @@ does not continuously poll them.
   inspect the one-file replacement, then send `W-DOC-001-REVISE-2` to the same
   reusable Luna/max conversation without overlapping another editor.
 
+### REVIEW W-DOC-001-REVISE-1
+
+- Exact commit/parent/one-new-file scope/diff-check pass. The guide is a deep
+  learning artifact with correct Eigen shapes, tap-major order, noalias/LDLT,
+  causal history, update boundaries and effect-versus-engineering distinction.
+- `R-DOC-QUEUE-V2-001` is only partially fixed: variable rectangles, extents,
+  native ownership and tails are correct, but section 6 still prescribes
+  `QSemaphore::tryAcquire(1,0)`, which is superseded and formally rejected on
+  Windows. `R-DOC-BENCHMARK-EVIDENCE-002` also remains open because no benchmark
+  command, workload or measured p50/p95/max exists.
+- Decision: HOLD replacement `fb748082f`; send one same-file Luna/max revision.
+
+### REQUEST W-DOC-001-REVISE-2
+
+- From/to: manager / retained reusable Luna/max documentation thread
+  `019fd2fc-0d25-7163-a29d-b7c8840028f9`.
+- Exact base: `fb748082f4578e1a59b84c3241bf17e490563f41`.
+- Authorized file only:
+  `doc/causal_reference_denoising/LEARNING_GUIDE.md`; no source, tests, CMake,
+  vendor, dependency or other document changes.
+- Replace the remaining QSemaphore text with the implemented queue: always-
+  lock-free unsigned SPSC producer/consumer sequences, acquire/release slot
+  publication/reuse, preallocated maximum rectangles, one nonblocking native
+  signal attempt, Windows configure-created auto-reset event and POSIX configure-
+  created nonblocking CLOEXEC pipe, bounded consumer wait/rechecks, idempotent
+  stop wake and caller quiescence before reconfigure/destruction. State that
+  producer `tryPush` has no Qt semaphore/mutex, wait, retry or post-configure C++
+  allocation and that the focused producer allocation assertion is zero.
+- Add exact engineering benchmark reproduction:
+  build target `ex_causal_reference_denoising`, run with `--benchmark`; 1000 Hz,
+  270 rows, 16 references, 250 targets, 4 preserved rows, 128 samples/block,
+  4 taps/P=64, 100 warmup plus 1000 timed ApplyAndLearn blocks. Nearest-rank
+  Release p50/p95/max are `2.725/4.317/8.557 ms`; p95 passes `<128 ms`.
+  Label it engineering timing evidence, not denoising-quality/clinical proof.
+- Preserve all correct content and links; recheck link targets, fences and
+  diff-check. Commit exact one-file delta, clean status, proactively return
+  `RESPONSE W-DOC-001-REVISE-2`; no manager polling/subagent/server/full scan.
+
 ### DISCUSSION SPEC-QUEUE-ATOMIC-CONSISTENCY-001
 
 - The later atomic-correction section was authoritative, but the earlier

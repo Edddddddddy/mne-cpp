@@ -467,6 +467,18 @@ Pending.
   Issue #5 and plugin integration remain blocked until the response is durable,
   manager-reviewed and all required P0-P2 closure conditions are met.
 
+### R-DOC-QUEUE-V2-001 / R-DOC-BENCHMARK-EVIDENCE-002 - P2 open
+
+- Exact held guide `fb748082f` correctly documents queue-v2 rectangles/extents/
+  native ownership but still says producer admission uses QSemaphore. This is
+  now false after the reviewed Windows P1 correction to atomic sequences plus
+  native event/pipe wake.
+- The same guide lacks the completed `--benchmark` command, 270-row/P64/128-
+  sample workload and measured Release p50/p95/max `2.725/4.317/8.557 ms`.
+- Required correction is one Luna/max guide-only delta from `fb748082f`, keeping
+  algorithm/Eigen content intact and clearly separating engineering timing from
+  effect evidence. Both findings remain open until manager review/integration.
+
 ### R-BENCH-FINITE-001 - P2 - Closed
 
 - Location: held benchmark commit `79eff3b3a`, focused example main finite
