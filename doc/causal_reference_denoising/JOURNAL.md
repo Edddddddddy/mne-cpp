@@ -5643,3 +5643,13 @@ hidden reasoning is not.
   `019fd84f-03c6-79f1-977f-b278d55777ba`; no duplicate conversation is created.
 - The reviewer keeps Sol/ultra and its read-only exact snapshot. Await its
   proactive `RESPONSE R-PLUGIN-DATA-001` without further status polling.
+
+### E-560 - Plugin reviewer freezes syntax evidence before final gate
+
+- Reviewer reports its requested syntax check complete: MSVC 14.51 `/Zs`
+  reaches the same pre-existing Qt `qlist.h` failure before plugin semantics,
+  while installed MSVC 14.29 C++14 `/Zs` accepts the exact plugin source with
+  only existing Eigen code-page warnings.
+- It explicitly freezes validation, is taking final clean-state proof and says
+  the exact-SHA gate is next. This remains progress rather than PASS/HOLD; do
+  not infer acceptance before the structured response.
