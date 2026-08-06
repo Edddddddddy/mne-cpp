@@ -5173,3 +5173,19 @@ hidden reasoning is not.
   one-source SPSC admission correction.
 - No cherry-pick or plugin build occurs; retain the ordered commits behind the
   final queue gate so plugin integration can begin immediately after PASS.
+
+### E-509 - Plugin-data preflight published
+
+- Issue #6 comment/read-back succeeds at
+  `https://github.com/Edddddddddy/mne-cpp/issues/6#issuecomment-5206308145`.
+  It records the conflict-free held commit series and explicitly retains the
+  queue-gate hold before integration/review/UI.
+
+### E-510 - POSIX EINTR tracer response received
+
+- Luna/max thread `019fd779-c771-7f40-8ce7-b23cdc7fa175` proactively returns
+  clean exact-parent two-file commit `c4b13a220` with guarded GNU link wrapping,
+  thread-local one-shot EINTR and public prompt Popped/Stopped oracles.
+- WSL remains unavailable and no runtime RED is claimed. Persist the response,
+  then inspect exact provenance, conditional Windows safety, wrapper firing,
+  public payload/preservation and finite cleanup before integration.

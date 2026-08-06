@@ -6852,6 +6852,23 @@ does not continuously poll them.
   `client-new-thread:c4c3d466-a99d-4429-8804-0e68220c357a` from exact requested
   ref. Await proactive response; do not poll or inspect its worktree.
 
+### RESPONSE W-QUEUE-POSIX-EINTR-TEST-001
+
+- From visible Luna/max thread `019fd779-c771-7f40-8ce7-b23cdc7fa175`.
+- Exact parent `d5fd0e4ee22d266bf38e18b3eaee777308779170`; commit
+  `c4b13a220f163511e5d84ed6378fc7545edd4965`; exactly the focused CMake and
+  test source; clean detached worktree and diff-check pass.
+- Linux non-Apple GNU/Clang CMake adds `--wrap=write`; guarded test wrapper uses
+  a thread-local one-shot arm and delegates every unarmed write. Public push and
+  stop cases use 3000 ms waits, `<500 ms` prompt gates, exact payload/extents/
+  native metadata/tail or full preservation, finite fallback and wrapper count
+  one assertions.
+- WSL `uname` timed out, so no POSIX runtime RED is claimed or fabricated. The
+  worker did not reset/shutdown WSL. Isolated Windows configure remains blocked
+  before target generation by the known incomplete ignored Eigen checkout.
+- Status: response durable; manager provenance/source/CMake/oracle review and
+  populated Windows non-regression remain before integration.
+
 ### Conversation cleanup rule reaffirmed
 
 - User again requires timely cleanup. Archive every one-shot/failed/spent
