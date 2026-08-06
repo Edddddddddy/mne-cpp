@@ -7659,6 +7659,50 @@ does not continuously poll them.
 - dispatch / app accepts the follow-up on the same visible reviewer thread;
   model/reasoning remain Sol/ultra and the active turn is not interrupted.
 
+### RESPONSE R-PLUGIN-DATA-001
+
+- reviewed / exact clean/detached
+  `fd33dc9cd1a2ce90a30fdedd1ffde71c8514ec56`; read-only before/after
+- gate / HOLD; P0=0, P1=0, P2=4, P3=1
+- prior P1 / `R-PLUGIN-SPSC-PRODUCER-001` closed: zero-to-one CAS admission,
+  epoch confirmation and producer quiescence expose no two-producer path.
+- P2 `R-PLUGIN-DESTRUCTOR-BOUND-001` / bounded public stop falls back in the
+  destructor to unbounded worker wait and 1 ms producer polling. Fix a safe
+  ownership protocol or explicitly defer/document the terminal safety policy;
+  test timeout, restart refusal, later retry and destruction.
+- P2 `R-PLUGIN-ADMISSION-DROP-001` / a Busy concurrent notification returns
+  before matrix inspection and drop accounting, underreporting data loss.
+  Distinguish Busy from Closed, count every Busy matrix without queue entry,
+  wait, lock or retry, and test concurrent multi-matrix accounting/FIFO.
+- P2 `R-PLUGIN-LIFECYCLE-TEST-001` / the focused target does not compile the
+  real plugin and exercises none of admission/epoch/stop/restart/output/FIFF
+  lifecycle. Add a supported public lifecycle harness or explicitly defer with
+  the Qt/MSVC target boundary and exact residual risk.
+- P2 `R-PLUGIN-STATIC-REGISTRATION-001` / static builds define QT_STATICPLUGIN
+  but neither link `scan_adaptivedenoising` nor import `AdaptiveDenoising` in
+  mne_scan. Add link/import wiring and a static discovery smoke or defer scope.
+- P3 `R-PLUGIN-ATOMIC-LOCKFREE-001` / callback uint32/uint64 atomics have no
+  C++14 always-lock-free compile guard. Add architecture-sensitive macro/type
+  assertions in the real plugin target.
+- accepted source behavior / deep concrete adapter; worker-only FIFF mapping,
+  fail-closed disarm, FIFO output, invalid-metadata suppression, sole legacy
+  constCast and admitted-callback locality are coherent.
+- independent evidence / Qt MOC succeeds; MSVC 14.29 C++14 `/Zs` accepts exact
+  plugin source. MSVC 14.51 reproduces the known pre-plugin Qt qlist failure.
+  Manager build/MOC/queue/processor evidence remains separately attributed.
+
+### DECISION R-PLUGIN-DATA-001-ACTION
+
+- fix now / admission Busy-vs-Closed accounting, callback atomic lock-free
+  compile constraints, and static link/import wiring.
+- defer explicitly / terminal destructor boundedness plus the full real-plugin
+  lifecycle harness. Memory-safe teardown currently requires waiting for live
+  thread/callback ownership; returning on a deadline would create use-after-free.
+  The supported-runtime harness is also blocked by the existing Qt/MSVC FIFF
+  dependency. Create a dedicated follow-up issue linked from #3/#6.
+- review / after fixes and durable deferral, send a fresh exact snapshot to a
+  Sol/ultra reviewer. UI stays blocked until PASS.
+
 ### PREPARED REQUEST W-PLUGIN-UI-TEST-001
 
 - state / prepared only; do not dispatch until `R-PLUGIN-DATA-001` passes or

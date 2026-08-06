@@ -5653,3 +5653,15 @@ hidden reasoning is not.
 - It explicitly freezes validation, is taking final clean-state proof and says
   the exact-SHA gate is next. This remains progress rather than PASS/HOLD; do
   not infer acceptance before the structured response.
+
+### E-561 - Plugin lifecycle review returns HOLD
+
+- Independent Sol/ultra reviewer returns exact clean/read-only SHA
+  `fd33dc9cd1a2ce90a30fdedd1ffde71c8514ec56`, P0=0, P1=0, P2=4, P3=1.
+- Prior two-producer P1 is closed. Open immediate corrections are Busy admission
+  drop accounting, static link/import and callback atomic lock-free guards.
+- Terminal destructor waiting and absent real-plugin lifecycle coverage share a
+  supported-host/toolchain prerequisite. Engineering-first disposition is an
+  explicit follow-up deferral, not a silent acceptance or unsafe bounded return.
+- Lifecycle gate remains HOLD; teaching UI stays blocked pending fixes,
+  published deferral and a fresh independent review.

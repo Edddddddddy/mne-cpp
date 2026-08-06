@@ -639,3 +639,19 @@ same-responsibility implementation conversations that may receive review fixes.
   is intentionally the next milestone and its absence is not a finding here.
 - Await the proactive structured response without continuous polling. UI work
   remains held until this gate returns PASS or its findings are corrected.
+
+### Plugin lifecycle review HOLD
+
+- Independent `R-PLUGIN-DATA-001` completed read-only at exact clean SHA
+  `fd33dc9cd1a2ce90a30fdedd1ffde71c8514ec56`: P0=0, P1=0, P2=4, P3=1,
+  recommendation HOLD. The prior SPSC-producer P1 is confirmed closed.
+- Immediate source corrections are admission-overlap drop accounting, C++14
+  lock-free guards for callback atomics, and static plugin link/import wiring.
+- Terminal destructor waiting and the complete real-plugin lifecycle harness are
+  deferred candidates: returning from destruction with a live QThread/callback
+  is unsafe, while the current Qt/MSVC baseline cannot build the real target.
+  They require an explicit follow-up issue and final-QA/#6 linkage before gate
+  retry; no silent deferral is allowed.
+- Teaching UI remains held. After the three immediate fixes plus durable
+  deferral, rerun an independent Sol/ultra lifecycle gate. Only PASS permits
+  dispatching `W-PLUGIN-UI-TEST-001`.

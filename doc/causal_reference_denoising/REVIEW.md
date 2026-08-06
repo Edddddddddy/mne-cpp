@@ -726,3 +726,69 @@ tracked.
   state; runtime remains manager evidence: Windows 19/0/0 plus three repeats,
   WSL GNU wrapper 21/0/0 including both forced EINTR cases.
 - No queue P2 deferral remains. Proceed to held plugin lifecycle integration.
+
+### Plugin data/lifecycle formal review - R-PLUGIN-DATA-001
+
+- Snapshot: `fd33dc9cd1a2ce90a30fdedd1ffde71c8514ec56`.
+- Clean/read-only proof: exact detached HEAD before/after; status, staged and
+  unstaged diffs empty.
+- Decision: HOLD, P0=0, P1=0, P2=4, P3=1.
+- Prior `R-PLUGIN-SPSC-PRODUCER-001` is closed by zero-to-one admission and
+  quiescent replacement; no two-producer state path was found.
+
+#### R-PLUGIN-DESTRUCTOR-BOUND-001 - P2 - Deferred candidate
+
+- Location: `adaptivedenoising.cpp:154-167,295-312,392-412`.
+- Evidence: public `stop()` is bounded, but destructor fallback uses unbounded
+  `wait()` and `waitForProducerQuiescence(-1)` with 1 ms polling.
+- Impact: a stuck worker/upstream callback can hang terminal destruction.
+- Disposition: do not replace memory-safe waiting with a bounded return while
+  QThread/callback ownership is live. Create a durable follow-up documenting
+  the host quiescence precondition/risk and requiring timeout/retry/destruction
+  tests on a supported real-plugin harness.
+
+#### R-PLUGIN-ADMISSION-DROP-001 - P2 - Open
+
+- Location: `adaptivedenoising.cpp:101-117,447-466`.
+- Evidence: Busy and Closed admission both return false; Busy notifications
+  return before matrix enumeration and the sole dropped-block increment.
+- Impact: concurrent/reentrant data loss is silently undercounted.
+- Required fix/test: typed Busy/Closed result; prompt Busy rejection that never
+  enters `tryPush`, but counts every matrix exactly and preserves admitted FIFO.
+
+#### R-PLUGIN-LIFECYCLE-TEST-001 - P2 - Deferred candidate
+
+- Location: focused plugin test CMake `:13-18` and slots `:395-417`.
+- Evidence: target compiles queue/processor/core only, not the actual plugin;
+  no admission/epoch/stop/restart/output/metadata lifecycle test is registered.
+- Impact: caller/lifecycle regressions can leave all focused tests GREEN.
+- Disposition: create a dedicated supported-toolchain real-plugin harness task;
+  explicitly carry the current Qt/MSVC FIFF block and residual risk in #3/#6.
+
+#### R-PLUGIN-STATIC-REGISTRATION-001 - P2 - Open
+
+- Location: plugin CMake `:53-55`; omissions in mne_scan CMake `:75-88` and
+  `main.cpp:84-115`.
+- Evidence: QT_STATICPLUGIN is defined but static mne_scan neither links the
+  target nor calls `Q_IMPORT_PLUGIN(AdaptiveDenoising)`.
+- Impact: supported static builds cannot discover the new plugin.
+- Required fix/test: add guarded static link/import wiring and static discovery
+  configure/source evidence; real build may retain the known environment block.
+
+#### R-PLUGIN-ATOMIC-LOCKFREE-001 - P3 - Open
+
+- Location: `adaptivedenoising.cpp:101-145,280-281,463-465`.
+- Evidence: callback uint32/uint64 atomics lack C++14 compile-time lock-free
+  guards, although they are lock-free on reviewed MSVC x64.
+- Impact: a future architecture may silently introduce a library lock.
+- Required fix/test: architecture-sensitive C++14 type/macro assertions compiled
+  with the real source.
+
+### Plugin lifecycle action decision
+
+- Fix `R-PLUGIN-ADMISSION-DROP-001`, `R-PLUGIN-STATIC-REGISTRATION-001` and
+  `R-PLUGIN-ATOMIC-LOCKFREE-001` immediately in minimal worker scopes.
+- Explicitly defer the destructor/harness pair to one linked follow-up issue;
+  their shared prerequisite is a supported host/toolchain lifecycle harness.
+- Re-review a fresh exact snapshot. PASS still requires P0/P1 zero and every P2
+  either closed or durably deferred; UI remains out of scope until then.
