@@ -6702,6 +6702,21 @@ does not continuously poll them.
 - Both are active Luna/max tasks on the exact requested base and scopes. Do not
   poll or inspect their worktrees; consume only proactive structured responses.
 
+### RESPONSE W-QUEUE-SPEC-001
+
+- Luna/max thread `019fd69f-9196-7a82-9c3f-94295c3cbeb5` returns commit
+  `96055bf1350e9b753f265156c9a8b819cd87006c` on exact parent
+  `2530c78642c4742ffcb06bed99e4d7048192de64`.
+- Exact scope: only `doc/causal_reference_denoising/SPEC.md`, worktree clean,
+  diff-check pass; no build/full scan/server/vendor/subagent work.
+- Reported correction: live queue contract now uses always-lock-free unsigned
+  SPSC sequences, acquire/release publication/reuse, immediate Full/drop-newest,
+  configure-created Windows auto-reset event/POSIX nonblocking CLOEXEC pipe,
+  bounded consumer rechecks, untouched Popped tail, complete Timeout/Stopped/
+  InvalidDestination preservation and caller quiescence.
+- Remaining semaphore mentions are reported explicitly historical or rejected,
+  not prescriptive. Manager exact semantic/search review precedes integration.
+
 ### ARCHIVED W-QUEUE-ALLOC-TEST-001
 
 - App archive succeeds for one-shot Luna/max thread

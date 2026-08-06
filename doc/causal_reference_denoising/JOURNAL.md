@@ -4854,3 +4854,12 @@ hidden reasoning is not.
   `019fd69f-9196-7a82-9c3f-94295c3cbeb5`/`17e6`.
 - Both remain active on exact requested scopes. Persist the mapping and await
   proactive responses; no continuous polling or worker-worktree reads.
+
+### E-474 - SPEC atomic-locality response received
+
+- Luna/max returns clean exact-parent SPEC-only commit `96055bf13`. It reports
+  replacement of live semaphore/unspecified-tail text with atomic sequences,
+  native event/pipe, bounded rechecks, untouched tail and complete non-success
+  destination preservation.
+- Persist response before manager exact diff/search/semantic review. Concurrency
+  test task continues independently; no file overlap.
