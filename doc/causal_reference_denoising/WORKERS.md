@@ -6202,3 +6202,47 @@ does not continuously poll them.
 - No task/thread/worktree/repository/GitHub/dependency state changed. This is
   not converted into result polling; continue relying on the worker's proactive
   RESPONSE and resolve its final thread ID from that delivery.
+
+### DISCUSSION PLUGIN-UI-IMPLEMENTATION-001
+
+- Existing programmatic QWidget/QFormLayout and queued-signal patterns were
+  reviewed. Selected file seam: modify plugin h/cpp/CMake; add one fixed POD
+  diagnostics-types header and one setup-widget h/cpp. No `.ui`, qrc, settings
+  registry, controller base or runtime strategy.
+- Plugin control slots update only a PImpl pending snapshot containing enabled/
+  frozen, four numerical settings, settings revision and reset sequence under a
+  GUI/worker mutex. Acquisition callback never touches that mutex.
+- Worker copies once per dequeued block, applies revision/reset before process,
+  chooses one mode for the whole block and emits a fixed POD diagnostics value.
+  Widget uses an explicit queued connection and formats all strings on GUI.
+- Task remains undispatched until queue atomic and plugin-data gates pass; a
+  fresh Sol/ultra block-boundary/diagnostics review follows integration.
+
+### RESPONSE W-QUEUE-ATOMIC-TEST-001
+
+- From/to: visible Luna/max queue-test worker / manager; source thread
+  `019fd5fa-f207-7fe3-9189-8d77fc9cfade`.
+- Exact parent/commit: `4bb1b2a30d74bc0f403621594f09878255cb9db` /
+  `f367fd75a85df1dae17cf41f88bac74169974f8f`; worker is clean/detached and
+  exactly one focused test source changes with clean committed diff.
+- New public slots: sustained overlapping SPSC accepted-stream preservation;
+  active producer/consumer stop race; pending-block stop/fresh reconfigure and
+  destination preservation; native metadata lifetime until popped handle clear.
+  Existing four queue slots gain complete Timeout/Stopped destination/extents/
+  metadata preservation assertions.
+- Oracles: precreated variable matrices/metadata and preallocated results;
+  Pushed/Full accepted subsequence equals popped sequence/extents/metadata/data;
+  sentinel tail preservation; finite atomic/deadline/join-safe synchronization;
+  allowed stop linearizations only; fresh queue emptiness/new payload; custom
+  deleter/liveness exactly once after caller ownership is cleared.
+- Compile contract adds nothrow mutable-to-const QSharedPointer construction
+  while retaining same-type traits. All tests stay on the public queue surface.
+- Worker verification: C++14 syntax passes using complete Eigen read-only from
+  outside the checkout. Isolated vendored Eigen is incomplete. A temporary
+  MinGW/Qt build reached an executable but runtime failed `0xC0000139` from an
+  ABI-mismatched runtime, so no worker runtime GREEN is claimed and no repo/
+  vendor file changed.
+- Restrictions: Luna/max, no production/CMake/docs/dependency edit, subagent,
+  full scan/mne_scan or mne_rt_server.
+- Status: response durable before manager provenance/code/oracle review,
+  integration or populated Windows execution.

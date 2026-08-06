@@ -1,6 +1,6 @@
 # Causal Reference Denoising State
 
-Last updated: 2026-08-06T17:36:00+08:00
+Last updated: 2026-08-06T17:49:00+08:00
 
 ## Recovery order
 
@@ -321,6 +321,10 @@ same-responsibility implementation conversations that may receive review fixes.
   Luna/max UI/settings/diagnostics, focused lifecycle coverage where the local
   dependency graph permits, learning-guide reconciliation, final Sol/ultra
   review and issue closure.
+- UI implementation is prepared but not dispatched: programmatic QWidget only,
+  one fixed diagnostics metatype, narrow plugin control slots, one pending
+  revision/reset snapshot copied once per worker block and explicit queued GUI
+  formatting. It remains behind queue/plugin data integration.
 
 ## Latest response checkpoint
 
@@ -362,3 +366,7 @@ same-responsibility implementation conversations that may receive review fixes.
   exists yet. Manager will publish the dispatch and will not poll it.
   Public dispatch:
   `https://github.com/Edddddddddy/mne-cpp/issues/5#issuecomment-5201732759`.
+  The task proactively returned exact-parent one-test-file commit `f367fd75a`
+  with four new public slots plus complete Timeout/Stopped preservation in the
+  existing slots. Worker C++14 syntax passes; manager exact code/oracle review
+  and populated Windows focused execution remain before integration.

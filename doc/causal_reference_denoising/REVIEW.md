@@ -116,6 +116,10 @@
   traffic with Full accounting; bounded producer/consumer stop races; pending
   discard plus fresh configure; whole destination/extents/metadata preservation
   for Timeout and Stopped.
+- Test response received: exact-parent one-file `f367fd75a` adds sustained SPSC,
+  active stop-race, deterministic pending-discard/fresh-queue and full sentinel
+  preservation coverage. Worker syntax passes; finding remains open until
+  manager code review and populated Windows execution against atomic production.
 
 #### R-QUEUE-V2-METADATA-LIFETIME-001 - P2 - Open
 
@@ -125,6 +129,9 @@
 - Required test: custom-deleter/liveness handles, clear callers immediately
   after push, require no deletion before pop and exactly-once deletion after
   popped handles clear; assert nothrow mutable-to-const conversion.
+- Test response received: `f367fd75a` reports exact public custom-deleter/live
+  count coverage and mutable-to-const nothrow trait. Finding remains open until
+  manager code review and populated Windows execution.
 
 ## Plugin data-lifecycle pre-integration review
 

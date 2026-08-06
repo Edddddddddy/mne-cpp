@@ -4396,3 +4396,23 @@ hidden reasoning is not.
   yields and was terminated. It made no state change and was not retried.
 - Coordination remains proactive RESPONSE only; do not turn setup-ID resolution
   into polling. Continue disjoint work or consume delivered worker evidence.
+
+### E-422 - Minimal teaching widget implementation seam prepared
+
+- Programmatic QWidget/QFormLayout, fixed POD metatype and explicit queued
+  diagnostics match project patterns without `.ui`, qrc or a new controller.
+- Pending enabled/frozen/settings revision/reset sequence remains private to
+  plugin PImpl and is copied once per worker block; acquisition never locks it.
+  Strings are formatted only by GUI. Dispatch waits for queue/plugin gates.
+
+### E-423 - Queue atomic public tests response received
+
+- Luna/max worker proactively returned clean exact-parent one-test-file commit
+  `f367fd75a` with four new public concurrency/stop/lifetime slots and stronger
+  preservation assertions in every prior Timeout/Stopped path.
+- Response reports deterministic accepted-subsequence FIFO/extents/metadata,
+  bounded join-safe stop states, pending discard/fresh queue, custom-deleter
+  lifetime and mutable-to-const nothrow trait. C++14 syntax passes.
+- Worker runtime is honestly unclaimed because its temporary MinGW executable
+  hits ABI mismatch and isolated Eigen is incomplete. Manager diff/oracle
+  review precedes integration/populated Windows validation.

@@ -411,6 +411,34 @@ may mutate the metadata object; all FIFF inspection remains const. This local
 compatibility bridge is preferable to weakening queue ownership or changing
 the global measurement interface within this feature.
 
+### Minimal teaching widget implementation
+
+Follow the repository's programmatic setup-widget convention and keep this
+inside the concrete plugin. Add no `.ui` file, qrc, settings registry or
+controller base.
+
+- One plugin-private data header declares a fixed POD diagnostics snapshot and
+  its `Q_DECLARE_METATYPE`. It contains plugin/configure/process statuses,
+  R/M/P, warmup, generation, per-call update counts, three RMS values and
+  dropped blocks. It contains no `QString`, container or owning pointer.
+- `AdaptiveDenoising` exposes narrow Qt control slots for enabled, frozen, the
+  four numerical values and reset, plus one diagnostics signal. Registration
+  occurs before the worker can emit; the setup widget connects with an explicit
+  `Qt::QueuedConnection` and performs every enum/number-to-text conversion on
+  the GUI thread.
+- PImpl retains the only pending snapshot: enabled/frozen, numerical settings,
+  monotonic settings revision and reset sequence under a GUI/worker mutex.
+  Acquisition never reads or locks it. Worker copies it once after dequeue and
+  before current-block configuration; changed numerical revision reconfigures,
+  a new reset sequence resets, and mode is then selected for that whole block.
+- The widget is a programmatic `QWidget`/`QFormLayout` with the frozen ranges/
+  defaults and read-only labels. It never directly owns numerical/queue state.
+  Destroyed widgets auto-disconnect; the plugin stores no widget pointer.
+
+The later Luna/max UI task is limited to the plugin header/source/CMake plus a
+private diagnostics-types header and setup-widget header/source. A separate
+Sol/ultra review verifies block-boundary serialization and queued diagnostics.
+
 The plugin target links only the dependencies it uses: Qt Core/Widgets,
 `mne_utils`, `mne_fiff`, `mne_rtprocessing`, Eigen, `scShared` and `scMeas`.
 It does not inherit the broad dependency set of `noisereduction` and does not
