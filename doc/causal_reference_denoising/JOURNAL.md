@@ -5378,3 +5378,37 @@ hidden reasoning is not.
 - Persist the mismatch, then resend the identical read-only Sol/ultra review
   using the actual full SHA. No new thread is needed because the reviewer role
   and worktree remain reusable.
+
+### E-531 - Corrected exact-SHA queue review retry dispatched
+
+- Retained reviewer accepts actual pushed snapshot
+  `5aa43160bbae27560c4f4fe013728a6476013db0` with Sol/ultra and the unchanged
+  read-only scope/gate. Prior fetch already contains this object.
+- Manager shell identity changed to a sandbox account and Git now requires a
+  per-command `safe.directory`; no global configuration is changed. Repository
+  status remains clean apart from the three preserved user paths.
+
+### E-532 - Sandbox prevents committing/pushing corrected-review record
+
+- `git add/commit` cannot create `.git/index.lock` under the offline sandbox
+  identity, and the ordinary push cannot connect to GitHub. Both fail without
+  index, source or remote mutation.
+- Request/dispatch/failure text is nevertheless written to project markdown.
+  Do not bypass permissions; continue the already accepted read-only reviewer
+  turn and retry commit/push when repository metadata/network access returns.
+
+### E-533 - Corrected review bounded wait confirms exact snapshot audit
+
+- One 120-second event wait times out while the reviewer remains active. Its
+  latest commentary confirms exact corrected SHA, detached clean state and that
+  durable contract/review records are being audited before source/tests.
+- This is progress only, not a PASS/HOLD response. Do not poll again now; await
+  the proactive final while keeping plugin lifecycle held.
+
+### E-534 - Held plugin lifecycle re-preflight remains conflict-free
+
+- Read-only merge-tree against current committed HEAD `8d04813fb` retains exact
+  merge base `8c51ea4ce` and reports zero conflict markers for plugin commit
+  `5f4718722`; exact-parent fix `34a8096f1` remains one plugin-source file.
+- Both held commit diffs pass whitespace checks. No cherry-pick occurs before
+  queue reviewer PASS, and current uncommitted changes remain documentation only.

@@ -7467,3 +7467,33 @@ does not continuously poll them.
 - scope/gate / identical to `R-QUEUE-ATOMIC-003`; read-only complete queue,
   tests/CMake, live SPEC, caller compatibility and all prior finding disposition.
 - response / proactive exact-SHA P0-P3 PASS/HOLD; no source or external mutation.
+- dispatch / retained review thread accepts corrected full SHA with explicit
+  Sol/ultra; its prior fetch already materialized the object. Await proactive
+  response without polling.
+
+### FAILURE MANAGER-GIT-SANDBOX-001
+
+- After the corrected review dispatch, the execution identity changes to
+  `CodexSandboxOffline`. Per-command `safe.directory` restores read access, but
+  staging/commit fails because `.git/index.lock` is not writable; push also
+  fails immediately because shell network access is disabled.
+- The corrected request and failure remain written in durable project markdown
+  but are not yet committed/pushed. No source, index or remote mutation occurs.
+- Do not change global Git configuration or permissions. Continue read-only
+  review coordination and retry ordinary commit/push only after the environment
+  restores repository metadata/network access.
+
+### PROGRESS R-QUEUE-ATOMIC-003-RETRY-1
+
+- One bounded wait confirms the reviewer is exact/detached/clean at the corrected
+  snapshot and is auditing durable contracts/findings before implementation and
+  tests. No final response or gate decision yet; no further polling now.
+
+### PREFLIGHT W-PLUGIN-DATA-001 - current queue snapshot
+
+- Read-only merge-tree from current committed HEAD `8d04813fb` to held plugin
+  `5f4718722` finds no conflict marker; merge base remains `8c51ea4ce`.
+- Held scope is plugin registration plus six new plugin files, followed by the
+  one-source SPSC admission fix `34a8096f1`; both diffs pass whitespace checks.
+- Integration remains blocked only by queue formal PASS. No code is consumed
+  while the review is active.
