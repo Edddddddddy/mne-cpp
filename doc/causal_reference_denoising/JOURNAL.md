@@ -5795,3 +5795,13 @@ hidden reasoning is not.
   confirms Busy has no info/push and Entered preserves one info/one push site.
 - These are source/compile, not lifecycle runtime evidence. Persist before
   manager object/diff/state-machine review and integration.
+
+### E-575 - Admission/drop/atomic correction integrated
+
+- Manager direct diff accepts the actual-type lock-free assertions and all six
+  admission transitions. Busy/Closed do not own producer count; invalidated
+  provisional Entered releases exactly once; Entered remains RAII-owned.
+- Callback branch audit confirms exact Busy accounting with no info/push and the
+  unchanged admitted path. Conflict-free integration creates `6ab7326ac`.
+- Persist/push integration before populated MOC/source/compile validation. No
+  lifecycle runtime claim is inferred.

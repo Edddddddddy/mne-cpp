@@ -7814,6 +7814,19 @@ does not continuously poll them.
 - next / manager direct provenance/transition/source review, integration and
   fresh exact-snapshot Sol/ultra lifecycle review.
 
+### INTEGRATION W-PLUGIN-ADMISSION-FIX-001-RETRY-1
+
+- manager proof / exact parent, two authorized files, diff-check and transition
+  audit pass. Close/epoch/count races retain single ownership; provisional
+  successful CAS releases its count before returning Closed.
+- callback proof / Busy adds exact list cardinality without `info()` or queue;
+  Entered preserves one metadata snapshot/one push site; Closed returns before
+  dynamic type inspection. No new lock/wait/retry/public strategy is present.
+- integration / conflict-free cherry-pick creates `6ab7326ac`; tracked state is
+  clean and preserved user paths remain untouched.
+- next / populated MOC/C++14/source validation, issue publication and fresh
+  exact-snapshot formal lifecycle review.
+
 ### REQUEST W-PLUGIN-STATIC-001
 
 - from / manager
