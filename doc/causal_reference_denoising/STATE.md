@@ -857,3 +857,6 @@ same-responsibility implementation conversations that may receive review fixes.
   for UI settings/freeze/reset application only at dequeued block boundaries and
   fixed queued diagnostics. This makes the real-plugin test deferral complete;
   no current finding is relabeled fixed.
+- #8's environment rationale is also current: default MSVC14.51/Qt remains
+  blocked, compatible v142 real target now links, and that compile/link evidence
+  is explicitly not the missing lifecycle-runtime harness.

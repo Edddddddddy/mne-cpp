@@ -6347,3 +6347,12 @@ hidden reasoning is not.
 - Authenticated read-back confirms both markers and issue state OPEN. This
   clarifies the deferred real-plugin harness; it does not close or fix either
   existing deferred finding.
+
+### E-629 - Issue-#8 compatible-toolchain boundary reconciled
+
+- Replace the stale claim that no plugin translation unit is reachable. The
+  issue now distinguishes the still-failing default MSVC14.51 path from the
+  proven v142 real-target compile/link and explicitly says target linkage is not
+  the missing lifecycle-runtime harness.
+- Read-back confirms all three markers and state OPEN. The deferral remains for
+  runtime harness/terminal ownership work, not for basic compilation.
