@@ -3512,3 +3512,16 @@ hidden reasoning is not.
   known ignored Eigen gap without repair.
 - Next: commit/push response, inspect exact diff/oracle sensitivity, then
   integrate and run the populated full focused Release target only if accepted.
+
+### E-334 - Core task published and processor boundary review accepted
+
+- Core publish/read-back: issue #3 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5199950147`
+  exactly records the contract task after the connector fallback.
+- Processor provenance: exact `203e33f7f` on `8030221b5`, one authorized
+  additive test file and no production/dependency edit.
+- Oracle review: six isolated inclusive boundaries and exact P=256 construct
+  real good-reference/target layouts and assert both Ready return/snapshot;
+  existing P=288 disarm coverage remains untouched.
+- Decision: no finding; cherry-pick after this review is durable, then build/
+  run the complete populated Release focused suite.

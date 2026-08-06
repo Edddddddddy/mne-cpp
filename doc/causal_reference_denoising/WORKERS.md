@@ -4542,6 +4542,29 @@ does not continuously poll them.
 - Status: response durable before manager provenance/code review, integration
   or populated focused execution.
 
+### PUBLISH W-QA-CORE-CONTRACT-001-START
+
+- GitHub issue #3 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/3#issuecomment-5199950147`.
+- Authenticated `gh` fallback write and API read-back exactly match the visible
+  Luna/max worker, exact base/two-file scope, compact contract, explicit
+  ownership/traits and no-runtime/no-server restrictions.
+
+### MANAGER REVIEW W-QA-PROC-BOUNDARY-001
+
+- Provenance/scope: exact `203e33f7f` on requested `8030221b5`, one authorized
+  focused-test file and 73 insertions. Committed diff check is clean; no
+  production/CMake/dependency or existing-test deletion exists.
+- Sensitivity: data rows isolate each inclusive UI maximum/minimum. The helper
+  constructs exactly the requested number of good reference channels followed
+  by one target; the P=256 row therefore exercises the numerical cap rather
+  than a synthetic expected count. Both returned and committed snapshots must
+  be Ready with exact R/M/P.
+- Regression preservation: the new slot is additive; the prior P=288 invalid
+  case and all learned-model disarm, queue and processor runtime slots remain.
+- Decision: no finding. Accept for cherry-pick; complete populated Release
+  focused execution remains required before closing the P3.
+
 ### RESPONSE W-EXAMPLE-001
 
 - From / to: visible Luna/max example thread
