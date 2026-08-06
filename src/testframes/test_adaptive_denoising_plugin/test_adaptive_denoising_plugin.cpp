@@ -1881,6 +1881,7 @@ void TestAdaptiveDenoisingPlugin::queueStopRacesActiveProducerAndConsumer()
     constexpr int kEmptyWaitUpperBoundMilliseconds = 1000;
     constexpr int kFirstWaitMilliseconds = 1000;
     constexpr int kStopWaitMilliseconds = 2000;
+    constexpr int kStopWaitLowerBoundMilliseconds = 5;
     constexpr int kThreadBudgetMilliseconds = 4000;
     constexpr int kStopSchedulingAllowanceMilliseconds = 20;
     constexpr int kStopToJoinUpperBoundMilliseconds = 1500;
@@ -1999,6 +2000,7 @@ void TestAdaptiveDenoisingPlugin::queueStopRacesActiveProducerAndConsumer()
     std::atomic<int> producerAttempts(0);
     std::atomic<int> consumerFirstStatus(-1);
     std::atomic<int> consumerStoppedStatus(-1);
+    std::atomic<std::int64_t> consumerStoppedElapsedMilliseconds(-1);
     std::atomic<int> consumerPopped(0);
     std::atomic<int> consumerTimeout(0);
     std::atomic<Index> consumerPoppedRows(0);
@@ -2081,11 +2083,18 @@ void TestAdaptiveDenoisingPlugin::queueStopRacesActiveProducerAndConsumer()
             consumerDestination.rowCount = stoppedDestinationRowSentinel;
             consumerDestination.sampleCount = stoppedDestinationSampleSentinel;
             consumerDestination.fiffInfo = stoppedDestinationMetadata;
+            const auto stoppedWaitStartedAt = std::chrono::steady_clock::now();
             const AdaptiveDenoisingQueuePopStatus status =
                 queue.waitPop(consumerDestination, kStopWaitMilliseconds);
+            const auto stoppedWaitFinishedAt = std::chrono::steady_clock::now();
             consumerStoppedStatus.store(static_cast<int>(status), std::memory_order_release);
 
             if (status == AdaptiveDenoisingQueuePopStatus::Stopped) {
+                consumerStoppedElapsedMilliseconds.store(
+                    std::chrono::duration_cast<std::chrono::milliseconds>(
+                        stoppedWaitFinishedAt - stoppedWaitStartedAt)
+                        .count(),
+                    std::memory_order_release);
                 if (!destinationPreserves(
                         consumerDestination,
                         config.maxChannelCount,
@@ -2262,6 +2271,8 @@ void TestAdaptiveDenoisingPlugin::queueStopRacesActiveProducerAndConsumer()
     const AdaptiveDenoisingQueuePopStatus observedStoppedPopStatus =
         static_cast<AdaptiveDenoisingQueuePopStatus>(
             consumerStoppedStatus.load(std::memory_order_acquire));
+    const std::int64_t stoppedWaitElapsedMilliseconds =
+        consumerStoppedElapsedMilliseconds.load(std::memory_order_acquire);
 
     qInfo() << "queue active stop attempts" << attempts
             << "preludePush" << static_cast<int>(preludePushStatus)
@@ -2271,6 +2282,7 @@ void TestAdaptiveDenoisingPlugin::queueStopRacesActiveProducerAndConsumer()
             << "firstPop" << static_cast<int>(observedFirstPopStatus)
             << "stoppedPush" << static_cast<int>(observedStoppedPushStatus)
             << "stoppedPop" << static_cast<int>(observedStoppedPopStatus)
+            << "stoppedWaitMs" << stoppedWaitElapsedMilliseconds
             << "popped" << popped
             << "timeout" << timeout
             << "stopToJoinMs" << stopToJoinMilliseconds;
@@ -2305,6 +2317,8 @@ void TestAdaptiveDenoisingPlugin::queueStopRacesActiveProducerAndConsumer()
     QCOMPARE(observedFirstPopStatus, AdaptiveDenoisingQueuePopStatus::Popped);
     QCOMPARE(observedStoppedPushStatus, AdaptiveDenoisingQueuePushStatus::Stopped);
     QCOMPARE(observedStoppedPopStatus, AdaptiveDenoisingQueuePopStatus::Stopped);
+    QVERIFY(stoppedWaitElapsedMilliseconds >= kStopWaitLowerBoundMilliseconds);
+    QVERIFY(stoppedWaitElapsedMilliseconds < kStopToJoinUpperBoundMilliseconds);
     QCOMPARE(attempts, 2);
     QCOMPARE(popped, 1);
     QCOMPARE(consumerTimeout.load(std::memory_order_acquire), 0);
