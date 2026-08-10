@@ -8856,3 +8856,26 @@ does not continuously poll them.
   The ref was deleted. The app-managed directory was not manually removed.
 - retained conversations / none needed for the completed MVP. OPEN #8 will use
   a new appropriate Sol/ultra lifecycle implementation/review conversation.
+
+### REQUEST W-RESUME-001
+
+- from / user through manager.
+- to / new visible projectless task `019fea81-d30b-7e82-b817-2f367247adf5`.
+- model / explicit `gpt-5.6-sol` / `ultra`.
+- scope / rewrite three Chinese resume bullets only; do not modify repository.
+- accuracy gate / distinguish the implemented causal time-shifted reference
+  regression + block EWLS and measured 1000 Hz/128-sample benchmark from the
+  unsupported motion/subspace/projection claims and old unverified metrics.
+
+### RESPONSE W-RESUME-001
+
+- result / COMPLETE; task remains visible for user follow-up.
+- recommended evidence / C++14/Eigen causal reference regression, atomic SPSC
+  plugin ingress, queued Qt diagnostics, 58.6541 dB synthetic reduction,
+  `1.13195e-4` clean-amplitude error and p50/p95/max
+  `2.174/2.992/4.684 ms` under the frozen benchmark dimensions.
+- correction / remove the three unsupported algorithm names and old empty-room,
+  task-SNR and 1024 Hz/200-sample latency claims unless original datasets,
+  formulas, scripts, logs, configurations and code revisions are supplied.
+- other bullets / TCP and Qt3D wording is tightened conservatively without
+  inventing stability, frame-time or UI-stall measurements.

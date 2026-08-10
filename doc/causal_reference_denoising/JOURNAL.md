@@ -6426,3 +6426,19 @@ hidden reasoning is not.
 - Final branch remains synchronized with origin and the three user-owned
   untracked paths remain preserved. The engineering MVP is ready for user
   acceptance; issue #8 remains the explicit later follow-up.
+
+### E-636 - User acceptance replay and resume task
+
+- Re-run the existing Release acceptance executables without rebuilding or
+  starting mne_scan/rt_server. Core, processor/queue, UI, teaching example and
+  benchmark all exit zero; example reports `example invariants: PASS`.
+- Current benchmark sample reports p50/p95/max `2.338/3.480/9.226 ms`, final
+  generation/accepted/rejected `1099/1099/0`, and p95 <128 ms PASS. Runtime
+  variation from the closing evidence does not affect the fixed gate.
+- A supplementary attempt to force QtTest text reports into unique TEMP files
+  produces no files and the readback harness errors; it changes no repository
+  file and does not replace the successful process-exit evidence.
+- Create visible projectless Sol/ultra task `W-RESUME-001` at user request. It
+  completes without repository mutation, provides accurate long/short resume
+  versions, and flags unsupported algorithms/metrics plus the evidence needed
+  before they could be restored.
