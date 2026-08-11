@@ -6812,3 +6812,17 @@ hidden reasoning is not.
 - The complete run records 82,098 worker calls, 93,217 GUI snapshots, 4,829
   worker clears, maximum complete call 336,900 ns and zero worker allocations.
   Freeze this public RED before the Sol/ultra model/plugin correction.
+
+### E-665 - Fixed visualization mailbox production request frozen
+
+- Archive completed `W-VIS-TEST-004` and delete only its integrated unattached
+  local base ref. The app-managed worktree is left to the app lifecycle.
+- Freeze exact pushed production base
+  `e084f391435933668829432c31a298cf9d8d1b40` for new visible Sol/ultra task
+  `W-VIS-MAILBOX-001`.
+- The worker owns only the fixed visualization model header/source and plugin
+  worker source. It must remove the contended Qt mutex, implement the four-slot
+  SPSC/epoch protocol, clear invalid capture/output and configuration/reset
+  boundaries, commit target rows only for Ready, and preserve update() bytes.
+- Focused tests, UI painter/widget, CMake, numerical core, queue, docs and issue
+  #8 lifecycle policy are immutable. Manager retains all canonical execution.

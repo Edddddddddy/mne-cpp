@@ -1040,3 +1040,8 @@ same-responsibility implementation conversations that may receive review fixes.
   `0,0,1,0,0`. Consumer-paced 120-history and concurrency zero-allocation pass;
   only backlog stale invalidation is RED. Test work is complete. Next freeze and
   dispatch Sol/ultra production correction from the pushed exact snapshot.
+- Production request `W-VIS-MAILBOX-001` is frozen from exact pushed
+  `e084f391435933668829432c31a298cf9d8d1b40`. Scope is the visualization model
+  header/source plus plugin worker source only: four-slot atomic mailbox, epoch
+  invalidation, Ready-only target ownership and configure/reset clear. update(),
+  tests, CMake and all numerical/queue/public interfaces are immutable.

@@ -9185,3 +9185,42 @@ does not continuously poll them.
 - disposition / RED contract is final. Archive the completed Luna task, remove
   only its unattached integrated local base ref, and freeze the Sol/ultra
   production request from the next pushed exact integration snapshot.
+
+### REQUEST W-VIS-MAILBOX-001
+
+- from / manager conversation.
+- to / new visible Sol/ultra project worktree; no internal/nested subagent and
+  no manager polling/read/wait.
+- exact base / `e084f391435933668829432c31a298cf9d8d1b40`.
+- skills / read complete `codebase-design` plus `DEEPENING.md`, then the hosted
+  visualization correction section in `SPEC.md`. Keep the existing concrete
+  model deep; add no public strategy/registry/wake/controller seam.
+- authorized files / only
+  `adaptivedenoisingvisualizationmodel.h`,
+  `adaptivedenoisingvisualizationmodel.cpp`, and `adaptivedenoising.cpp` under
+  the existing plugin. Tests/CMake/UI painter/widget/core/queue/docs immutable.
+- mailbox / replace QMutex publication with a fixed four-slot SPSC mailbox.
+  Always-lock-free unsigned atomics publish/reuse complete fixed snapshots;
+  worker attempts once and drops only visualization publication when four are
+  unread; GUI drains at most four into its GUI-owned latest cache and never
+  accesses a slot after release. Multiple widgets remain sequential calls on
+  the one Qt GUI thread.
+- invalidation / use an epoch/validity protocol so clear returns an immediate
+  complete zero value even with unread old slots; only a successful post-clear
+  release-publication revalidates. Do not reset internal ring sequences during
+  clear. Invalid capture and incompatible output clear pending/RMS/public state.
+- realtime / after construction capture/publish/clear allocate nothing, take no
+  lock, wait/spin/retry nowhere, create no string and remain truthful noexcept.
+  Append finite RMS observations for processed blocks before the publication
+  capacity decision so a later accepted snapshot has chronological history.
+- plugin boundaries / clear visualization on every configure/model boundary;
+  build target rows locally and commit them only when processor configure
+  returns `Ready`; all non-Ready/exception states retain no visualization rows.
+  Clear immediately before applying each pending reset. Existing invalid/start/
+  successful-stop/failure clears remain coherent.
+- immutable acquisition / `AdaptiveDenoising::update()` must remain byte-for-
+  byte unchanged. Do not modify numerical processing, output FIFO, plugin public
+  interface, issue-#8 lifecycle policy or dependencies.
+- response / proactive exact-parent commit(s), exact scope, state/race/wrap/
+  epoch proof, no-allocation source proof, commands/results/limits and clean
+  status. Manager owns canonical v142 tests/plugin/host. Never run rt_server.
