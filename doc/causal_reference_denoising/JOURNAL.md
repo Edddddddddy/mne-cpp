@@ -6800,3 +6800,15 @@ hidden reasoning is not.
   protecting full-mailbox clear behavior.
 - Manager diff/provenance audit accepts the delta. Integrate it, rerun canonical
   v142 RED, then freeze the resulting pushed HEAD for Sol/ultra implementation.
+
+### E-664 - Final bounded visualization RED is stable
+
+- Integrate `W-VIS-TEST-004` as `d4b700942` and rebuild the populated compatible
+  v142 Release UI target successfully.
+- Individual slots again return `0,0,1,0,0`; only stale invalidation fails, now
+  after eight unread valid publications. The updated consumer-paced 120-history
+  stream, exhaustive identity, concurrent traffic/allocation and plot-region
+  rendering remain GREEN.
+- The complete run records 82,098 worker calls, 93,217 GUI snapshots, 4,829
+  worker clears, maximum complete call 336,900 ns and zero worker allocations.
+  Freeze this public RED before the Sol/ultra model/plugin correction.

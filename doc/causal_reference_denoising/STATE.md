@@ -1036,3 +1036,7 @@ same-responsibility implementation conversations that may receive review fixes.
 - Response accepted as exact-parent one-file commit `0204ad1843`: history is
   GUI-consumer-paced and stale invalidation is exercised after eight unread
   publications. Next integrate and rerun the single intended RED before Sol.
+- Integrated as `d4b700942`; populated v142 Release retains exact slot matrix
+  `0,0,1,0,0`. Consumer-paced 120-history and concurrency zero-allocation pass;
+  only backlog stale invalidation is RED. Test work is complete. Next freeze and
+  dispatch Sol/ultra production correction from the pushed exact snapshot.

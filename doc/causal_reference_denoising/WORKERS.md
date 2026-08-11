@@ -9172,3 +9172,16 @@ does not continuously poll them.
 - manager review / exact-parent, one-file scope and behavior match the frozen
   four-slot contract. Accept for integration and canonical stale-state RED
   replay. Worker made no build/dependency/app/server change.
+
+### INTEGRATION / RED W-VIS-TEST-004
+
+- integration commit / `d4b700942`; six-line test-only delta.
+- canonical build / populated compatible v142 Release UI target builds/links.
+- slot matrix / `0,0,1,0,0`; only stale invalidation is RED after eight unread
+  valid publications. The consumer-paced exact 120-history oracle remains GREEN.
+- full sample / 82,098 complete worker calls, 93,217 GUI snapshots, 4,829
+  worker clears, maximum complete call 336,900 ns and zero counted allocations;
+  full process exits 1 only for the intentional RED.
+- disposition / RED contract is final. Archive the completed Luna task, remove
+  only its unattached integrated local base ref, and freeze the Sol/ultra
+  production request from the next pushed exact integration snapshot.
