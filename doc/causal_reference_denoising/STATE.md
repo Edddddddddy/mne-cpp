@@ -959,3 +959,16 @@ same-responsibility implementation conversations that may receive review fixes.
   processor/queue and hosted visualization UI PASS, all with exit zero.
 - Next gate: commit/publish GREEN, run full focused/example/benchmark regression,
   rebuild `mne_scan`, then load the real host and capture the visible window.
+- GREEN integration evidence is published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5250609575`.
+- Final regression checkpoint: numerical core, processor/queue and hosted UI
+  visibly print PASS and exit zero; example invariants PASS; benchmark p50/p95/
+  max is `2.944/4.808/7.273 ms`, p95 <128 ms PASS.
+- Post-commit compatible v142 builds of both `scan_adaptivedenoising` and
+  `mne_scan` exit zero. The real host launches, loads Adaptive Denoising and
+  displays the target selector plus waveform/RMS panels. With no upstream data,
+  `Waiting for MEG data` is the expected safe state.
+- Visual evidence:
+  `doc/causal_reference_denoising/evidence/mne_scan_adaptive_denoising_window.png`.
+- Next gate: dispatch exact-snapshot independent Sol/ultra review; fix any P0/P1
+  and resolve each P2 before closing issue #9 and the active goal.

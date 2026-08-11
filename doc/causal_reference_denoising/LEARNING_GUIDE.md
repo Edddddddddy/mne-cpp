@@ -407,3 +407,48 @@ The v1 scope is deliberately narrower than a general artifact-removal system:
 The implemented seam is causal reference regression with fixed update epochs,
 explicit state ownership, and safe pass-through behavior. Future algorithms or
 broader guarantees require a separately specified interface and evidence.
+
+## 13. Accepting the hosted `mne_scan` visualization
+
+From the repository root, the focused Release checks now print explicit suite
+summaries in PowerShell:
+
+```powershell
+& .\out\Release\apps\test_causal_reference_denoiser.exe -txt
+& .\out\Release\apps\test_adaptive_denoising_plugin.exe -txt
+$env:QT_QPA_PLATFORM = 'offscreen'
+& .\out\Release\apps\test_adaptive_denoising_ui.exe -txt
+Remove-Item Env:QT_QPA_PLATFORM
+```
+
+Each command must print an `[Adaptive Denoising] ... PASS (exit 0)` line. The UI
+suite covers the fixed snapshot, target selection, timer refresh and actual
+three-color rendering; it does not start the full host.
+
+To inspect the real plugin window without `mne_rt_server`:
+
+```powershell
+Push-Location .\out\Release\apps
+.\mne_scan.exe
+Pop-Location
+```
+
+Select **Adaptive Denoising** in the plugin panel if it is not selected already.
+Before a sensor is connected, the central setup surface is expected to show
+`Stopped`, `InvalidMetadata`, zero rows, and **Waiting for MEG data**. This is a
+safe no-input state, not a plugin-load failure. The same window must expose:
+
+- enabled, taps, update interval, memory, regularization, freeze and reset;
+- displayed-target selection and target/FIFF-row, sample and sequence labels;
+- a selected-target waveform panel with raw, denoised and estimated-noise
+  legends;
+- a target-set input/output/estimated-noise RMS history panel.
+
+When a valid upstream `RealTimeMultiSampleArray` supplies at least one good
+`FIFFV_REF_MEG_CH` and one good `FIFFV_MEG_CH`, the target selector becomes
+active and both panels update at 20 Hz. Missing references or targets remain
+safe pass-through states and are explained by the configuration status.
+
+The verified no-input host window is recorded here:
+
+![Adaptive Denoising hosted in MNE Scan](evidence/mne_scan_adaptive_denoising_window.png)

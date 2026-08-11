@@ -6573,3 +6573,42 @@ hidden reasoning is not.
 - Rebuild all three targets. The exact PowerShell commands now visibly print
   `numerical core: PASS`, `processor and queue: PASS`, and
   `hosted visualization UI: PASS`; all exit zero.
+
+### E-647 - Hosted visualization GREEN published
+
+- Push integration commit `2d364e49e` and publish the fixed-model, painter,
+  worker-wiring, callback-identity, focused UI, real-plugin and console-output
+  evidence at
+  `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5250609575`.
+- Keep #9 OPEN for the remaining full regression, exact host, visible evidence
+  and independent review gates.
+
+### E-648 - Full engineering regression and host targets pass
+
+- Run the three focused Release executables separately so their explicit suite
+  summaries are captured. Numerical core, processor/queue and hosted UI each
+  print PASS and exit zero.
+- Teaching example exits zero with `example invariants: PASS`. Use
+  `Start-Process -Wait -NoNewWindow` for the GUI-subsystem benchmark so the host
+  shell truly waits and captures output. It reports p50/p95/max
+  `2.944/4.808/7.273 ms`, 1099 accepted, zero rejected and p95 <128 ms PASS.
+- Build `scan_adaptivedenoising` and `mne_scan` together from the compatible
+  v142 tree after the code commit. Both targets exit zero and link the real DLL
+  and host executable. Only existing external-intermediate warnings remain.
+
+### E-649 - Real MNE Scan host visibly loads the plugin
+
+- Start `out/Release/apps/mne_scan.exe` with that directory as its working
+  directory. Computer Use lists a real `MNE Scan` window for the exact process;
+  its installed `sky` API lacks the mandated documentation method and state/
+  action calls return a context error, so use a minimal Windows `PrintWindow`
+  fallback rather than claiming Computer Use success.
+- The real host automatically loads the sole plugin DLL and selects
+  **Adaptive Denoising**. The central surface visibly contains every teaching
+  control, displayed-target selection, target/sample/sequence fields, the
+  waveform panel with three legends, and the RMS-history panel. With no input,
+  it truthfully displays `Stopped`, `InvalidMetadata` and `Waiting for MEG data`.
+- Save the 1420-by-831 host capture as
+  `doc/causal_reference_denoising/evidence/mne_scan_adaptive_denoising_window.png`,
+  then close only the mne_scan process started by this validation through its
+  normal close request. No `mne_rt_server` is started.
