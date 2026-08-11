@@ -966,3 +966,16 @@ integration gate passes; #8 remains open after MVP issue closure.
 - #8 follow-up: OPEN; owns the two carried P2 residuals and their required real-
   plugin lifecycle/terminal teardown work.
 - Final gate-relevant counts: P0=0, P1=0, P2=0. No P2 is silently waived.
+
+### R-VIS-001 - Hosted visualization review pending
+
+- Exact snapshot: `f2e59838c63bae7c61f5fc877306cd8bc8a69d1c`.
+- Reviewer: new visible `gpt-5.6-sol` / `ultra` task, strictly read-only.
+- Gate scope: fixed snapshot depth and thread safety, worker capture/publication,
+  selected-target mapping, GUI timer/painter, callback isolation, lifecycle/
+  failures, tests/CMake, console acceptance output and real-host evidence.
+- Existing `R-PLUGIN-DESTRUCTOR-BOUND-001` and
+  `R-PLUGIN-LIFECYCLE-TEST-001` stay assigned to OPEN issue #8 unless this
+  extension regresses them. They must not be silently relabeled fixed.
+- Status: REQUEST prepared; await proactive P0-P3 response after visible task
+  setup and GitHub dispatch.

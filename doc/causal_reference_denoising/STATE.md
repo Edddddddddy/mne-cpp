@@ -972,3 +972,7 @@ same-responsibility implementation conversations that may receive review fixes.
   `doc/causal_reference_denoising/evidence/mne_scan_adaptive_denoising_window.png`.
 - Next gate: dispatch exact-snapshot independent Sol/ultra review; fix any P0/P1
   and resolve each P2 before closing issue #9 and the active goal.
+- `R-VIS-001` is frozen as a strict read-only Sol/ultra review of exact snapshot
+  `f2e59838c63bae7c61f5fc877306cd8bc8a69d1c`; the local-only worktree start ref
+  is `codex/review-visualization-base`. The durable request must be pushed before
+  creating the visible review task.

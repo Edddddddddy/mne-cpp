@@ -8879,3 +8879,26 @@ does not continuously poll them.
   formulas, scripts, logs, configurations and code revisions are supplied.
 - other bullets / TCP and Qt3D wording is tightened conservatively without
   inventing stability, frame-time or UI-stall measurements.
+
+### REQUEST R-VIS-001
+
+- from / manager conversation.
+- to / new visible read-only review task; task ID is recorded after app setup.
+- model / explicit `gpt-5.6-sol` / `ultra`.
+- exact snapshot / local-only ref `codex/review-visualization-base` at
+  `f2e59838c63bae7c61f5fc877306cd8bc8a69d1c`.
+- recovery / read `STATE.md`, `SPEC.md`, `WORKERS.md`, `REVIEW.md`, then the
+  `JOURNAL.md` tail; read complete `codebase-design` skill and its deepening
+  guidance before source inspection.
+- mode / strictly read-only: no edit, stage, commit, push, issue mutation,
+  dependency repair, full scan or `mne_rt_server`.
+- review scope / fixed visualization model and capacities; worker capture/
+  publish ordering and target mapping; setup timer/target selection; painter
+  correctness and no-data state; acquisition callback identity; lifecycle/
+  exception clearing; CMake wiring; focused-test sensitivity; console summary
+  correction; host screenshot and manager build/runtime evidence attribution.
+- findings / return only P0-P3 with ID, exact file/line, evidence, impact, fix
+  and required test. Explicitly disposition the two carried issue-#8 P2s and
+  distinguish independently reproduced evidence from manager evidence.
+- gate / PASS requires P0/P1 zero and every P2 fixed or explicitly durably
+  deferred. Respond proactively as `RESPONSE R-VIS-001`; do not modify code.

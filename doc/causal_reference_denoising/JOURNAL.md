@@ -6612,3 +6612,16 @@ hidden reasoning is not.
   `doc/causal_reference_denoising/evidence/mne_scan_adaptive_denoising_window.png`,
   then close only the mne_scan process started by this validation through its
   normal close request. No `mne_rt_server` is started.
+
+### E-650 - Final hosted-visualization review frozen
+
+- Freeze exact pushed acceptance snapshot
+  `f2e59838c63bae7c61f5fc877306cd8bc8a69d1c` under local-only ref
+  `codex/review-visualization-base`.
+- Prepare strict read-only visible Sol/ultra `R-VIS-001`. It audits fixed-model
+  depth/thread safety, capture/publish ordering, target selection, timer/painter,
+  callback identity, lifecycle clearing, tests/CMake, console output and host
+  evidence attribution.
+- PASS requires P0/P1 zero and every P2 fixed or explicitly deferred. The two
+  issue-#8 lifecycle P2 findings remain unfixed and must be dispositioned rather
+  than silently removed. Commit/push this request before creating the task.
