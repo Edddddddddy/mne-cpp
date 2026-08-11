@@ -6508,3 +6508,19 @@ hidden reasoning is not.
   `adaptivedenoising/adaptivedenoisingvisualizationmodel.h`. Existing widget
   sources compile far enough to prove the tracer is the sole blocking RED; no
   production or vendor source is changed.
+- Publish the RED evidence at
+  `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5250194899`.
+
+### E-642 - Fixed visualization snapshot model is GREEN
+
+- Add concrete plugin-private `AdaptiveDenoisingVisualizationModel` with fixed
+  256-point trace storage, 120-slot RMS rings, lock-free target ordinal, worker-
+  only capture staging and one mutex-protected published value.
+- The model deterministically retains both endpoints, stores only the selected
+  target row, calculates estimated noise as raw minus denoised, skips non-finite
+  RMS observations and linearizes ring history chronologically for the GUI.
+- Add the two model files to the real plugin and focused UI targets. The fresh
+  compatible v142 Release focused target compiles and links; its executable
+  exits zero. The GUI-subsystem test still emits no console/report text, so the
+  truthful evidence here is process exit plus the build, not fabricated QtTest
+  totals. Console-visible acceptance is handled as a separate usability slice.

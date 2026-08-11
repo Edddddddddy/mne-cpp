@@ -14,6 +14,8 @@ set(SOURCES
     ${CMAKE_SOURCE_DIR}/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingsetupwidget.cpp
     ${CMAKE_SOURCE_DIR}/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingsetupwidget.h
     ${CMAKE_SOURCE_DIR}/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingdiagnostics.h
+    ${CMAKE_SOURCE_DIR}/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingvisualizationmodel.cpp
+    ${CMAKE_SOURCE_DIR}/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingvisualizationmodel.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

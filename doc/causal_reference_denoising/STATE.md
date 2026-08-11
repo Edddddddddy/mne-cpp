@@ -930,3 +930,11 @@ same-responsibility implementation conversations that may receive review fixes.
   BUILD_TESTS configure and is not masked by the earlier Eigen/toolchain gap.
 - Next gate: implement only the fixed visualization model public contract and
   rerun this tracer to GREEN before adding timer/paint behavior.
+- RED evidence is published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5250194899`.
+- The fixed visualization model now makes the snapshot tracer exit zero in the
+  compatible v142 Release target. It down-samples without retaining an Eigen
+  block, publishes raw/denoised/noise values, and exposes chronological bounded
+  RMS history through one mutex-protected value snapshot.
+- Next gate: add one UI-timer/render RED tracer, then implement the concrete
+  trace view and hosted layout before wiring worker publication.
