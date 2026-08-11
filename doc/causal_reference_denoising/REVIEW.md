@@ -1115,3 +1115,6 @@ integration gate passes; #8 remains open after MVP issue closure.
 - pass rule / P0=0, P1=0, and every P2 fixed or durably deferred. No nested
   reviewer agents and no manager-produced execution may be relabeled as an
   independent reviewer run.
+- task / active visible Sol/ultra reviewer
+  `019ff0a8-2efd-72c3-97e6-678673c6c5dc`, worktree `6372`, exact detached clean
+  `c4b1c6107b9cfd9e7a9fce2aaa06e8233b958ddc`; initial proof passed.

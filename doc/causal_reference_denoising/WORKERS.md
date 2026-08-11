@@ -9293,3 +9293,18 @@ does not continuously poll them.
   required test; exact SHA/clean proof; manager versus reviewer evidence
   boundary; PASS/HOLD. PASS requires P0/P1 zero and every P2 fixed or durably
   deferred. Do not edit, build the full app, run mne_scan or run mne_rt_server.
+
+### SETUP R-VIS-002
+
+- setup / accepted as
+  `client-new-thread:a4b87c18-f36a-43e0-a113-648f7de67a4f`.
+- resolved task / visible thread `019ff0a8-2efd-72c3-97e6-678673c6c5dc`,
+  Sol/ultra, app-managed worktree `6372`, exact local start ref
+  `codex/review-visualization-final-v2` at `c4b1c6107b9c...`.
+- initial response / reviewer independently proves exact detached HEAD and empty
+  tracked/index diffs, then begins the mandated recovery order. No nested agent
+  or mutation is reported.
+- issue dispatch /
+  `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5252749366`.
+- lifecycle / await proactive final response; do not inspect/edit the reviewer
+  worktree or repeatedly poll it.

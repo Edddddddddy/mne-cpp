@@ -6901,3 +6901,15 @@ hidden reasoning is not.
 - It must explicitly close or reopen every R-VIS-001 finding and carry the two
   issue-#8 lifecycle P2 deferrals without silently relabeling them. PASS requires
   no P0/P1 and no undispositioned P2. Manager will not continuously poll.
+
+### E-671 - Final visualization reviewer dispatched
+
+- Push exact request snapshot `c4b1c6107b9cfd9e7a9fce2aaa06e8233b958ddc`
+  and publish its manager evidence/review contract to issue #9 at comment
+  `5252749366`.
+- Create fresh visible Sol/ultra task
+  `019ff0a8-2efd-72c3-97e6-678673c6c5dc` in app worktree `6372` from local-only
+  exact ref `codex/review-visualization-final-v2`.
+- Its first independent progress proves detached exact SHA, empty tracked/index
+  state and begins the required recovery reading. Await its proactive final
+  response without manager worktree inspection or repeated polling.
