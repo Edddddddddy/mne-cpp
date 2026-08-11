@@ -9224,3 +9224,14 @@ does not continuously poll them.
 - response / proactive exact-parent commit(s), exact scope, state/race/wrap/
   epoch proof, no-allocation source proof, commands/results/limits and clean
   status. Manager owns canonical v142 tests/plugin/host. Never run rt_server.
+
+### SETUP W-VIS-MAILBOX-001
+
+- setup / accepted as
+  `client-new-thread:078ec863-5fd3-4649-b992-28cfac84b4a4`.
+- resolved task / visible thread `019ff083-6456-71b2-ad9b-856c045e5d20`,
+  active on local host in app-managed worktree `c928`.
+- model / explicit `gpt-5.6-sol` / `ultra`; starting ref
+  `codex/worker-vis-mailbox-base` resolves to exact requested `e084f3914`.
+- lifecycle / await proactive response without continuous polling or touching
+  the app worktree. No other task may edit the three production files.

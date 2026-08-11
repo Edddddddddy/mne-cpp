@@ -1045,3 +1045,6 @@ same-responsibility implementation conversations that may receive review fixes.
   header/source plus plugin worker source only: four-slot atomic mailbox, epoch
   invalidation, Ready-only target ownership and configure/reset clear. update(),
   tests, CMake and all numerical/queue/public interfaces are immutable.
+- `W-VIS-MAILBOX-001` is active as visible Sol/ultra task
+  `019ff083-6456-71b2-ad9b-856c045e5d20` in app worktree `c928`. Await its
+  proactive three-file response; no production overlap is allowed.

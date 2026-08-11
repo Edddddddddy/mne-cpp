@@ -6826,3 +6826,13 @@ hidden reasoning is not.
   boundaries, commit target rows only for Ready, and preserve update() bytes.
 - Focused tests, UI painter/widget, CMake, numerical core, queue, docs and issue
   #8 lifecycle policy are immutable. Manager retains all canonical execution.
+
+### E-666 - Sol/ultra visualization mailbox task dispatched
+
+- App setup accepts
+  `client-new-thread:078ec863-5fd3-4649-b992-28cfac84b4a4`; resolved visible
+  Sol/ultra task is `019ff083-6456-71b2-ad9b-856c045e5d20` in worktree `c928`.
+- The task starts from exact local ref `codex/worker-vis-mailbox-base` at
+  `e084f3914`, owns only the three frozen production files, works personally
+  without nested agents, and returns proactively. Manager does not poll or
+  inspect its app worktree.
