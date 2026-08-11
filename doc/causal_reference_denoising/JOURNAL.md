@@ -6484,3 +6484,13 @@ hidden reasoning is not.
   publishes the matching processed samples afterward. The 50 ms GUI timer is
   the only repaint driver. Acquisition remains free of visualization access,
   locks, waits, retries and painting.
+
+### E-640 - Hosted visualization issue created
+
+- Create GitHub issue #9, `[ENH] Add hosted Adaptive Denoising waveform
+  visualization`, at `https://github.com/Edddddddddy/mne-cpp/issues/9`.
+- The issue records the fixed 256/120 capacities, processing-worker publish and
+  50 ms GUI timer contract, unchanged acquisition callback, focused regression,
+  v142 real-plugin/host builds, visible host evidence and independent review.
+- Keep #8 OPEN and separate: it owns terminal teardown and real lifecycle
+  harness work, not this visualization implementation.

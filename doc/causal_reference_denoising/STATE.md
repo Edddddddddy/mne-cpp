@@ -920,3 +920,7 @@ same-responsibility implementation conversations that may receive review fixes.
 - Next gate: create the visualization issue, land one focused RED tracer, then
   implement the fixed model/view and worker publication before rebuilding the
   focused UI and real host targets.
+- Hosted visualization issue: `Edddddddddy/mne-cpp#9`, OPEN at
+  `https://github.com/Edddddddddy/mne-cpp/issues/9`. Its checklist is the
+  authoritative goal extension gate; issue #8 remains the separate lifecycle
+  teardown follow-up.
