@@ -486,6 +486,7 @@ void TestAdaptiveDenoisingUi::visualizationSnapshotIsBoundedAndChronological()
         diagnostics.estimatedNoiseRms = 3000.0 + static_cast<double>(observation);
         model.captureInput(raw, targetRows);
         model.publishOutput(denoised, diagnostics);
+        snapshot = model.snapshot();
     }
 
     snapshot = model.snapshot();
@@ -582,6 +583,11 @@ void TestAdaptiveDenoisingUi::visualizationSnapshotInvalidatesStaleState()
     model.captureInput(raw, targetRows);
     model.publishOutput(denoised, diagnostics);
     QVERIFY(model.snapshot().sequence > 0u);
+
+    for(int stalePublication = 0; stalePublication < 8; ++stalePublication) {
+        model.captureInput(raw, targetRows);
+        model.publishOutput(denoised, diagnostics);
+    }
 
     model.captureInput(raw, std::vector<Eigen::Index>());
     model.publishOutput(denoised, diagnostics);
