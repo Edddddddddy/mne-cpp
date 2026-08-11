@@ -9010,3 +9010,16 @@ does not continuously poll them.
 - response / proactive exact-parent commit, changed-file proof, RED/GREEN
   classification, complete test commands/results/limits and clean status. Do
   not run full mne_scan or `mne_rt_server` and do not repair dependencies.
+
+### SETUP W-VIS-TEST-002
+
+- setup / accepted as
+  `client-new-thread:50771377-e651-4b6e-9642-f9ab497cabab` on local host.
+- resolved task / visible thread `019ff006-399d-7330-ba50-d457d62ad622`,
+  active in app-managed worktree `47d4`, title `W-VIS-TEST-002`.
+- model / explicit `gpt-5.6-luna` / `max`; starting ref
+  `codex/worker-vis-test-base` resolves exactly to `6bcfa99d103...`.
+- dispatch / issue #9 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5251062483`.
+- lifecycle / await proactive response without continuous polling or inspection
+  of the app-managed worktree. Retain the local base ref until integration.

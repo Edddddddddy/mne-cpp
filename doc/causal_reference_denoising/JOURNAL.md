@@ -6685,3 +6685,13 @@ hidden reasoning is not.
   `6bcfa99d10300078a73dfdb9b3e2494eb59a4c6d`. It owns only the focused UI test
   source and must add a deterministic invalid-capture stale-state RED plus
   complete snapshot/history/render and bounded concurrency/allocation oracles.
+
+### E-655 - Visualization RED task dispatched
+
+- App setup accepts
+  `client-new-thread:50771377-e651-4b6e-9642-f9ab497cabab`; the resolved visible
+  Luna/max task is `019ff006-399d-7330-ba50-d457d62ad622` in app worktree
+  `47d4` from the exact local base ref.
+- Publish the one-test-file contract at
+  `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5251062483`.
+  Do not poll the worker or inspect/edit its app-managed directory.

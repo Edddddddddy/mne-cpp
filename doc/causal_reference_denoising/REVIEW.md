@@ -1049,3 +1049,6 @@ integration gate passes; #8 remains open after MVP issue closure.
   `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5250987125`.
   First correction slice is `W-VIS-TEST-002`, Luna/max, test-source only, from
   exact base `6bcfa99d10300078a73dfdb9b3e2494eb59a4c6d`.
+- Visible test task: `019ff006-399d-7330-ba50-d457d62ad622`, app worktree
+  `47d4`; dispatch
+  `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5251062483`.

@@ -1000,3 +1000,7 @@ same-responsibility implementation conversations that may receive review fixes.
   Reviewer is archived and the temporary review ref is deleted after detached/
   ancestor proof. Blocking next task is `W-VIS-TEST-002`, a Luna/max public
   model/render/concurrency oracle correction from exact base `6bcfa99d1`.
+- `W-VIS-TEST-002` is active as visible task
+  `019ff006-399d-7330-ba50-d457d62ad622` in app worktree `47d4`; dispatch is
+  `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5251062483`.
+  Await its proactive one-file response without polling.
