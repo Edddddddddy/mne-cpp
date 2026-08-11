@@ -983,3 +983,6 @@ same-responsibility implementation conversations that may receive review fixes.
 - Await its proactive response. Do not continuously poll or inspect/edit the
   reviewer worktree. A PASS closes #9/Goal after durable response and cleanup;
   a HOLD starts only the minimum correction loop.
+- Process correction sent: the reviewer must stop and discard three improperly
+  created internal audit subagents, then finish personally. No repository
+  mutation is reported; final acceptance requires explicit cleanup proof.

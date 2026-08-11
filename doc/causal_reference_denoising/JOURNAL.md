@@ -6637,3 +6637,15 @@ hidden reasoning is not.
 - Publish dispatch at
   `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5250780499`.
   Issue #9 remains OPEN. Do not continuously poll or touch the review worktree.
+
+### E-652 - Reviewer nested-agent process correction
+
+- A single read-only task inspection shows `R-VIS-001` created three internal
+  audit subagents while reading the durable ledger. This violates the visible-
+  conversation execution rule even though no source/worktree mutation is
+  reported.
+- Send one correction requiring immediate interruption of all nested agents,
+  discard of their results, personal completion by the assigned Sol/ultra
+  reviewer, and explicit cleanup confirmation in the final response.
+- Keep issue #9 and the active goal open. Do not accept evidence originating
+  from the nested agents and do not start continuous status polling.

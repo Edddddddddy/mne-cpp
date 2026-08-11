@@ -8915,3 +8915,16 @@ does not continuously poll them.
   `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5250780499`.
 - state / reviewer is strictly read-only and will respond proactively. Manager
   does not poll continuously or inspect/edit the app-managed worktree.
+
+### PROCESS CORRECTION R-VIS-001-001
+
+- observed / the visible reviewer created three internal read-only audit
+  subagents despite the project rule that implementation/review work stays in
+  the assigned visible conversation without nested agents.
+- repository impact / none observed: the review task remains detached at the
+  exact frozen SHA and reports a clean read-only worktree.
+- manager response / send one immediate correction requiring all nested agents
+  to be interrupted, their results discarded, and the visible Sol/ultra
+  reviewer to complete the audit personally.
+- acceptance / the final response must explicitly confirm that cleanup and may
+  cite only the visible reviewer's own evidence. No continuous polling follows.

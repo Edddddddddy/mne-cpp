@@ -981,3 +981,7 @@ integration gate passes; #8 remains open after MVP issue closure.
   worktree `b8eb` from the exact frozen local ref.
 - Dispatch: `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5250780499`.
 - Status: ACTIVE; await proactive P0-P3 response without continuous polling.
+- Process correction: the reviewer briefly created internal audit subagents.
+  Manager immediately required their interruption and exclusion from evidence;
+  the gate remains pending until the visible reviewer confirms cleanup and
+  completes the exact-SHA review personally.
