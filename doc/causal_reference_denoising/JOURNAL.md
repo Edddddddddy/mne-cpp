@@ -6913,3 +6913,19 @@ hidden reasoning is not.
 - Its first independent progress proves detached exact SHA, empty tracked/index
   state and begins the required recovery reading. Await its proactive final
   response without manager worktree inspection or repeated polling.
+
+### E-672 - Final visualization correction review passes
+
+- `R-VIS-002` personally reviews exact detached clean
+  `c4b1c6107b9cfd9e7a9fce2aaa06e8233b958ddc` without nested agents or any
+  repository/build/app/server mutation. Initial and final tracked/index proofs
+  are empty.
+- It returns PASS with new P0/P1/P2/P3 all zero. The fixed mailbox, epoch/stale
+  clearing, complete snapshot oracle and plot-region rendering oracle close all
+  four R-VIS-001 findings.
+- The existing destructor-bound and real-plugin-lifecycle P2s remain explicitly
+  durably deferred, not fixed and unregressed under OPEN issue #8. Reviewer
+  independently confirms that public issue remains open and names both risks.
+- Runtime evidence attribution remains clean: reviewer owns static/provenance/
+  committed-artifact audit only; manager owns all builds/tests/benchmark/real
+  window and no-server evidence. Proceed to issue #9 closure and task/ref cleanup.

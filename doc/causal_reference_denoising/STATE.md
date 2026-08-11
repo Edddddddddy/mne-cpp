@@ -1082,3 +1082,12 @@ same-responsibility implementation conversations that may receive review fixes.
   passed. Dispatch is
   `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5252749366`.
   Await its proactive response without continuous polling.
+- `R-VIS-002` returns PASS at exact detached clean
+  `c4b1c6107b9cfd9e7a9fce2aaa06e8233b958ddc`: new P0/P1/P2/P3 are all zero.
+  All four R-VIS-001 visualization findings are independently CLOSED/FIXED.
+  The two pre-existing issue-#8 lifecycle P2s remain durably deferred, explicitly
+  not fixed and not regressed; issue #8 remains OPEN.
+- Final gate-relevant open counts are P0=0, P1=0, P2=0. Remaining work is
+  administrative only: publish/close issue #9, archive completed visible tasks,
+  delete proven-unattached temporary refs, commit/push final ledgers and complete
+  the active Goal.
