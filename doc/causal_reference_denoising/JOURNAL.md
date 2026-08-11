@@ -6779,3 +6779,12 @@ hidden reasoning is not.
   record it as setup-blocked with no mutation. Create `W-VIS-TEST-004` as a new
   clean Luna/max project worktree from exact pushed `477690037` for the same
   one-file mailbox-test alignment.
+
+### E-662 - Fresh bounded-mailbox test task dispatched
+
+- App setup accepts
+  `client-new-thread:c2ad5ade-d267-464e-a359-7064247d419d`; resolved visible
+  Luna/max task is `019ff07b-4250-7261-918a-0308d75dac7f` in worktree `1e8e`.
+- The task starts from exact local ref `codex/worker-vis-test4-base` at
+  `477690037` and owns only the focused UI test source. It will respond
+  proactively; manager does not poll or inspect the app worktree.

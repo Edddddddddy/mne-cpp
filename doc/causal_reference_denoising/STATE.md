@@ -1029,3 +1029,7 @@ same-responsibility implementation conversations that may receive review fixes.
   exists; no escalation or manual repair is allowed. It is re-archived without
   changes. Fresh `W-VIS-TEST-004` from exact pushed `477690037` now owns the
   same single test-file contract alignment.
+- `W-VIS-TEST-004` is active as visible Luna/max task
+  `019ff07b-4250-7261-918a-0308d75dac7f` in app worktree `1e8e`, created from
+  exact `477690037`. Await its proactive one-file response; no other worker may
+  edit the focused UI test meanwhile.

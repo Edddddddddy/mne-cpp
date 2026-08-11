@@ -9147,3 +9147,14 @@ does not continuously poll them.
   render oracle and the current isolated stale-state RED.
 - response / exact-parent one-file commit, diff/clean proof and limits; manager
   owns canonical v142 execution. Do not run app/server or repair dependencies.
+
+### SETUP W-VIS-TEST-004
+
+- setup / accepted as
+  `client-new-thread:c2ad5ade-d267-464e-a359-7064247d419d`.
+- resolved task / visible thread `019ff07b-4250-7261-918a-0308d75dac7f`
+  on local host, active in app-managed worktree `1e8e`.
+- model / explicit `gpt-5.6-luna` / `max`; starting ref
+  `codex/worker-vis-test4-base` resolves to exact requested `477690037`.
+- lifecycle / await proactive response without continuous polling or touching
+  its worktree. Retain the temporary local base ref until integration.
