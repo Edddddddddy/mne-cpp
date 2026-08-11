@@ -1143,3 +1143,12 @@ integration gate passes; #8 remains open after MVP issue closure.
 - evidence boundary / reviewer ran no build/test/app/server and claims only
   exact-SHA/provenance/source/test/CMake/callback/committed-artifact inspection.
   Manager owns all runtime evidence. Final visualization gate PASS.
+
+### Hosted visualization final disposition
+
+- issue #9 / CLOSED COMPLETED; all tasks and acceptance items checked.
+- gate / P0=0, P1=0, gate-relevant P2=0. No new P3.
+- residual / issue #8 remains OPEN; its destructor-bound and real-plugin
+  lifecycle-harness P2s are still explicitly NOT FIXED and are outside this
+  completed visualization MVP.
+- delivery / pushed branch only, no regular PR because histories are unrelated.

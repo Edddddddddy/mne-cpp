@@ -6929,3 +6929,17 @@ hidden reasoning is not.
 - Runtime evidence attribution remains clean: reviewer owns static/provenance/
   committed-artifact audit only; manager owns all builds/tests/benchmark/real
   window and no-server evidence. Proceed to issue #9 closure and task/ref cleanup.
+
+### E-673 - Hosted visualization goal closes cleanly
+
+- Update every issue #9 task checkbox and close the issue as completed. Verify
+  the GitHub state is CLOSED at 2026-08-11T12:15:30Z. Verify follow-up issue #8
+  remains OPEN and explicitly owns terminal teardown and real-plugin lifecycle
+  harness work.
+- Archive the completed Sol/ultra mailbox implementation and final review tasks.
+  Prove both local start refs are integrated HEAD ancestors and are not attached
+  to any worktree, then delete them with `git branch -d`. App-managed worktrees
+  are left to the app lifecycle.
+- Final branch status is synchronized apart from this closure ledger and the
+  three preserved user-owned untracked paths. Commit/push the ledger, publish
+  the final SHA to the closed issue, and mark the active Goal complete.

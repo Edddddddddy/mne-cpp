@@ -1091,3 +1091,14 @@ same-responsibility implementation conversations that may receive review fixes.
   administrative only: publish/close issue #9, archive completed visible tasks,
   delete proven-unattached temporary refs, commit/push final ledgers and complete
   the active Goal.
+- Hosted visualization goal is COMPLETE. GitHub issue #9 has every checklist
+  item checked and is CLOSED as completed. `R-VIS-002` PASS has no new P0-P3;
+  all visualization findings are fixed. Issue #8 remains OPEN and explicitly
+  owns the two unfixed lifecycle P2 follow-ups.
+- Completed production task `019ff083-6456-71b2-ad9b-856c045e5d20` and final
+  reviewer `019ff0a8-2efd-72c3-97e6-678673c6c5dc` are archived. Integrated,
+  unattached local refs `codex/worker-vis-mailbox-base` and
+  `codex/review-visualization-final-v2` are deleted after ancestry/worktree proof.
+- Acceptance commands and visible-use instructions are in `LEARNING_GUIDE.md`.
+  The feature branch is pushed; no regular PR is created because the local
+  master and origin/main histories have no common ancestor.

@@ -9330,3 +9330,17 @@ does not continuously poll them.
   exact-callback and committed-artifact inspection only. All builds, test counts,
   benchmark, real target links/window/close and server absence remain explicitly
   manager-produced evidence.
+
+### CLOSE VISUALIZATION TASKS
+
+- issue / #9 checklist updated and issue closed completed at
+  `https://github.com/Edddddddddy/mne-cpp/issues/9`; #8 verified OPEN for the
+  two durably deferred lifecycle findings.
+- archived / production task `019ff083-6456-71b2-ad9b-856c045e5d20` and final
+  review task `019ff0a8-2efd-72c3-97e6-678673c6c5dc`.
+- refs / manager proves both temporary refs are HEAD ancestors and absent from
+  all worktree branch entries, then deletes `codex/worker-vis-mailbox-base` and
+  `codex/review-visualization-final-v2` with non-forcing `git branch -d`.
+- preservation / app-owned worktrees are not manually removed. User-owned
+  untracked `.codex-build/`, `src/build/` and
+  `doc/mne_scan_technical_document.md` remain untouched.
