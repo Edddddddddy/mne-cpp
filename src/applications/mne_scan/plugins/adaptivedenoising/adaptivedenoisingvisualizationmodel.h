@@ -60,10 +60,11 @@ struct AdaptiveDenoisingVisualizationSnapshot
 /**
  * Plugin-private deep module for bounded visualization publication.
  *
- * captureInput() and publishOutput() are called serially by the processing
- * worker around one numerical process call. snapshot() is called by the GUI
- * timer. All storage is fixed after construction; streaming calls do not
- * allocate and never retain an Eigen block.
+ * captureInput(), publishOutput(), and active-stream clear() calls are owned
+ * serially by the processing worker around numerical process calls. snapshot()
+ * is owned by the Qt GUI thread; multiple setup widgets call it sequentially
+ * on that same thread. All storage is fixed after construction; streaming
+ * calls do not allocate and never retain an Eigen block.
  */
 class AdaptiveDenoisingVisualizationModel final
 {

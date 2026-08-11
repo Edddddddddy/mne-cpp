@@ -393,6 +393,7 @@ public:
     void configureCurrentBlock(bool metadataValid,
                                const AdaptiveDenoisingSettings& settings)
     {
+        visualizationModel->clear();
         workerConfigurationException = false;
         workerOutputReady = false;
         workerTargetRows.clear();
@@ -406,8 +407,10 @@ public:
 
         try {
             AdaptiveDenoisingStreamDescriptor stream;
+            std::vector<Eigen::Index> candidateTargetRows;
             stream.samplingFrequencyHz = static_cast<double>(queuedBlock.fiffInfo->sfreq);
             stream.channels.reserve(static_cast<std::size_t>(queuedBlock.rowCount));
+            candidateTargetRows.reserve(static_cast<std::size_t>(queuedBlock.rowCount));
 
             for(Eigen::Index row = 0; row < queuedBlock.rowCount; ++row) {
                 const FiffChInfo& channel = queuedBlock.fiffInfo->chs.at(static_cast<int>(row));
@@ -416,11 +419,15 @@ public:
                     static_cast<int>(channel.kind),
                     isBad});
                 if(channel.kind == FIFFV_MEG_CH && !isBad) {
-                    workerTargetRows.push_back(row);
+                    candidateTargetRows.push_back(row);
                 }
             }
 
-            processor.configure(stream, queuedBlock.sampleCount, settings);
+            const AdaptiveDenoisingConfigureResult configuration =
+                processor.configure(stream, queuedBlock.sampleCount, settings);
+            if(configuration.status == AdaptiveDenoisingConfigureStatus::Ready) {
+                workerTargetRows.swap(candidateTargetRows);
+            }
         } catch(...) {
             // configure() is transactional, so explicitly disarm its preserved old ownership before forwarding
             // a block belonging to the new metadata/layout.
@@ -851,6 +858,7 @@ void AdaptiveDenoising::run()
         }
 
         if(m_impl->workerAppliedResetSequence != pendingSnapshot.resetSequence) {
+            m_impl->visualizationModel->clear();
             m_impl->processor.reset();
             m_impl->workerAppliedResetSequence = pendingSnapshot.resetSequence;
         }
