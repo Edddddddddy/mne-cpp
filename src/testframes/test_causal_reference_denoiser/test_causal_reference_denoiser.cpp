@@ -14,6 +14,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdio>
 #include <cstdint>
 #include <limits>
 #include <type_traits>
@@ -23,6 +24,7 @@
 // QT INCLUDES
 //=============================================================================================================
 
+#include <QCoreApplication>
 #include <QtTest>
 
 //=============================================================================================================
@@ -1664,5 +1666,17 @@ void TestCausalReferenceDenoiser::processDoesNotAllocateAfterConfigure()
 // MAIN
 //=============================================================================================================
 
-QTEST_GUILESS_MAIN(TestCausalReferenceDenoiser)
+int main(int argc, char* argv[])
+{
+    QCoreApplication application(argc, argv);
+    TestCausalReferenceDenoiser testObject;
+    const int result = QTest::qExec(&testObject, argc, argv);
+    std::fprintf(stdout,
+                 "\n[Adaptive Denoising] numerical core: %s (exit %d)\n",
+                 result == 0 ? "PASS" : "FAIL",
+                 result);
+    std::fflush(stdout);
+    return result;
+}
+
 #include "test_causal_reference_denoiser.moc"

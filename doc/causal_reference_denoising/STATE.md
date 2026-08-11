@@ -943,3 +943,19 @@ same-responsibility implementation conversations that may receive review fixes.
   visualization model. The target otherwise reaches the focused test source.
 - Next gate: add the concrete painter view, target selector, metadata labels and
   50 ms snapshot polling until this exact observable tracer is GREEN.
+- The hosted painter slice is GREEN. The setup window now has a one-based target
+  selector, target/sample/sequence labels, a 50 ms timer and a two-panel
+  waveform/RMS `QPainter` view; the focused offscreen executable exits zero.
+- Real worker wiring is present only around `processor.process()`. It records
+  good-MEG target rows at configuration, captures selected raw samples before
+  processing and publishes matching output afterward. The acquisition callback
+  remains byte-identical at SHA-256 `1c3ff382...`, one `info()`, one `tryPush()`,
+  and zero visualization/mutex/wait tokens.
+- Compatible v142 `scan_adaptivedenoising` now links the visualization code;
+  the DLL is 122368 bytes. The first dependency rebuild exceeded the command
+  budget but continued normally; the explicit incremental replay exits zero.
+- Focused tests are now console-subsystem executables with explicit PASS/FAIL
+  summaries. PowerShell `-txt` commands visibly report numerical core,
+  processor/queue and hosted visualization UI PASS, all with exit zero.
+- Next gate: commit/publish GREEN, run full focused/example/benchmark regression,
+  rebuild `mne_scan`, then load the real host and capture the visible window.

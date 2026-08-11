@@ -12,6 +12,7 @@
 #include <adaptivedenoising/adaptivedenoisingsetupwidget.h>
 #include <adaptivedenoising/adaptivedenoisingvisualizationmodel.h>
 
+#include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QLabel>
@@ -27,6 +28,7 @@
 
 #include <cstdint>
 #include <cmath>
+#include <cstdio>
 #include <memory>
 #include <type_traits>
 #include <utility>
@@ -358,6 +360,17 @@ void TestAdaptiveDenoisingUi::widgetTimerRendersSelectedTargetSnapshot()
 
 //=============================================================================================================
 
-QTEST_MAIN(TestAdaptiveDenoisingUi)
+int main(int argc, char* argv[])
+{
+    QApplication application(argc, argv);
+    TestAdaptiveDenoisingUi testObject;
+    const int result = QTest::qExec(&testObject, argc, argv);
+    std::fprintf(stdout,
+                 "\n[Adaptive Denoising] hosted visualization UI: %s (exit %d)\n",
+                 result == 0 ? "PASS" : "FAIL",
+                 result);
+    std::fflush(stdout);
+    return result;
+}
 
 #include "test_adaptive_denoising_ui.moc"

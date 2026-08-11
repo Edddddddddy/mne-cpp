@@ -14,6 +14,8 @@ set(SOURCES
     ${CMAKE_SOURCE_DIR}/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingsetupwidget.cpp
     ${CMAKE_SOURCE_DIR}/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingsetupwidget.h
     ${CMAKE_SOURCE_DIR}/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingdiagnostics.h
+    ${CMAKE_SOURCE_DIR}/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingtracewidget.cpp
+    ${CMAKE_SOURCE_DIR}/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingtracewidget.h
     ${CMAKE_SOURCE_DIR}/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingvisualizationmodel.cpp
     ${CMAKE_SOURCE_DIR}/applications/mne_scan/plugins/adaptivedenoising/adaptivedenoisingvisualizationmodel.h
 )
@@ -40,7 +42,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 set_target_properties(${PROJECT_NAME} PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER mne-cpp.org
     MACOSX_BUNDLE ${BUILD_MAC_APP_BUNDLE}
-    WIN32_EXECUTABLE TRUE
+    WIN32_EXECUTABLE FALSE
 )
 
 install(TARGETS ${PROJECT_NAME}

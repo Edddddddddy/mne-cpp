@@ -6534,3 +6534,42 @@ hidden reasoning is not.
 - The compatible v142 build fails only at the intended C2664 constructor seam:
   the current `AdaptiveDenoisingSetupWidget(QWidget*)` cannot accept the shared
   model. No paint, timer or production wiring is implemented before this RED.
+
+### E-644 - Hosted trace widget and timer are GREEN
+
+- Add concrete `AdaptiveDenoisingTraceWidget` using two fixed panels and
+  `QPainter`: current selected-target raw/denoised/estimated-noise waveforms and
+  chronological target-set input/output/noise RMS history.
+- Extend the setup widget with a shared fixed model constructor, one-based target
+  selector, target/FIFF-row, displayed/source-sample and sequence labels, and an
+  active 50 ms GUI timer. Painting and all string formatting remain on the GUI.
+- The existing control/diagnostics test plus fixed-model and rendered-view
+  tracers compile/link under v142 and the offscreen executable exits zero.
+
+### E-645 - Processing-worker visualization wiring passes
+
+- During valid FIFF configuration, retain good `FIFFV_MEG_CH` target row indices
+  on the worker. Capture the selected row immediately before numerical process
+  and publish corresponding output and fixed diagnostics immediately afterward.
+- Clear fixed visualization state on invalid metadata, configuration/output
+  failures, start reset, successful stop and destructor fallback. No full Eigen
+  block is retained and no streaming allocation is added.
+- Freeze the acquisition callback before/after wiring. Both are 1214 characters
+  with SHA-256 `1c3ff3822d10ab854a8b8f3353ada38fcfb778de69efd379dce0df3a63ee6e9c`,
+  one `info()`, one `tryPush()`, and zero visualization, mutex or wait tokens.
+- The first v142 plugin build triggers a large hash/dependency rebuild and the
+  outer command times out while compiler CPU continues increasing. Do not kill
+  it or call it failed. After natural completion, an explicit incremental build
+  exits zero and links a 122368-byte `scan_adaptivedenoising.dll`.
+
+### E-646 - PowerShell acceptance output repaired
+
+- Reproduce the user's exact symptom: `test_causal_reference_denoiser.exe -txt`
+  returns zero but prints nothing. All three focused CMake files set
+  `WIN32_EXECUTABLE TRUE`, selecting a GUI subsystem without console output.
+- Change the three focused targets to console subsystem and replace the QtTest
+  main macros with equivalent explicit application/qExec mains that always
+  print one suite PASS/FAIL summary and flush stdout.
+- Rebuild all three targets. The exact PowerShell commands now visibly print
+  `numerical core: PASS`, `processor and queue: PASS`, and
+  `hosted visualization UI: PASS`; all exit zero.

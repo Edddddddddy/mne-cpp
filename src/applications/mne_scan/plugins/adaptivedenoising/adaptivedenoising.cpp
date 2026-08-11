@@ -13,6 +13,7 @@
 #include "adaptivedenoisingblockqueue.h"
 #include "adaptivedenoisingprocessor.h"
 #include "adaptivedenoisingsetupwidget.h"
+#include "adaptivedenoisingvisualizationmodel.h"
 
 #include <fiff/fiff_info.h>
 
@@ -33,6 +34,7 @@
 #include <cstdint>
 #include <limits>
 #include <type_traits>
+#include <vector>
 
 //=============================================================================================================
 // USED NAMESPACES
@@ -345,6 +347,8 @@ public:
         workerAppliedResetSequence = 0u;
         workerConfigurationException = false;
         workerOutputReady = false;
+        workerTargetRows.clear();
+        visualizationModel->clear();
         recordUnprocessedDiagnostics(AdaptiveDenoisingPluginState::WaitingForData);
     }
 
@@ -391,9 +395,11 @@ public:
     {
         workerConfigurationException = false;
         workerOutputReady = false;
+        workerTargetRows.clear();
 
         if(!metadataValid) {
             disarmProcessor();
+            visualizationModel->clear();
             rememberCurrentBlockState(false);
             return;
         }
@@ -405,9 +411,13 @@ public:
 
             for(Eigen::Index row = 0; row < queuedBlock.rowCount; ++row) {
                 const FiffChInfo& channel = queuedBlock.fiffInfo->chs.at(static_cast<int>(row));
+                const bool isBad = queuedBlock.fiffInfo->bads.contains(channel.ch_name);
                 stream.channels.push_back(AdaptiveDenoisingChannelDescriptor{
                     static_cast<int>(channel.kind),
-                    queuedBlock.fiffInfo->bads.contains(channel.ch_name)});
+                    isBad});
+                if(channel.kind == FIFFV_MEG_CH && !isBad) {
+                    workerTargetRows.push_back(row);
+                }
             }
 
             processor.configure(stream, queuedBlock.sampleCount, settings);
@@ -415,6 +425,8 @@ public:
             // configure() is transactional, so explicitly disarm its preserved old ownership before forwarding
             // a block belonging to the new metadata/layout.
             disarmProcessor();
+            workerTargetRows.clear();
+            visualizationModel->clear();
             workerConfigurationException = true;
         }
 
@@ -437,6 +449,8 @@ public:
             workerSampleCount = 0;
             workerMetadataValid = false;
             workerHasState = false;
+            workerTargetRows.clear();
+            visualizationModel->clear();
             return;
         }
 
@@ -447,6 +461,9 @@ public:
     AdaptiveDenoisingQueuedBlock queuedBlock;
     Eigen::MatrixXd workerBlock;
     AdaptiveDenoisingProcessor processor;
+    std::shared_ptr<AdaptiveDenoisingVisualizationModel> visualizationModel =
+        std::make_shared<AdaptiveDenoisingVisualizationModel>();
+    std::vector<Eigen::Index> workerTargetRows;
 
     QMutex pendingMutex;
     PendingSnapshot pendingSnapshot;
@@ -516,6 +533,7 @@ AdaptiveDenoising::~AdaptiveDenoising()
         if(m_impl->output) {
             m_impl->output->measurementData()->clear();
         }
+        m_impl->visualizationModel->clear();
         m_impl->lifecycleQuiesced = true;
     }
 }
@@ -616,6 +634,7 @@ bool AdaptiveDenoising::stop()
     if(m_impl->output) {
         m_impl->output->measurementData()->clear();
     }
+    m_impl->visualizationModel->clear();
     m_impl->lifecycleQuiesced = true;
     m_impl->setWorkerPluginState(AdaptiveDenoisingPluginState::Stopped);
     emit diagnosticsChanged(m_impl->workerDiagnostics);
@@ -640,7 +659,8 @@ QString AdaptiveDenoising::getName() const
 
 QWidget* AdaptiveDenoising::setupWidget()
 {
-    AdaptiveDenoisingSetupWidget* const widget = new AdaptiveDenoisingSetupWidget;
+    AdaptiveDenoisingSetupWidget* const widget =
+        new AdaptiveDenoisingSetupWidget(m_impl->visualizationModel);
 
     connect(widget,
             &AdaptiveDenoisingSetupWidget::enabledChanged,
@@ -814,6 +834,8 @@ void AdaptiveDenoising::run()
                 m_impl->workerHasState = false;
                 m_impl->workerConfigurationException = true;
                 m_impl->workerOutputReady = false;
+                m_impl->workerTargetRows.clear();
+                m_impl->visualizationModel->clear();
                 m_impl->recordUnprocessedDiagnostics(
                     AdaptiveDenoisingPluginState::ConfigurationException);
                 emit diagnosticsChanged(m_impl->workerDiagnostics);
@@ -844,11 +866,17 @@ void AdaptiveDenoising::run()
             : (pendingSnapshot.frozen
                    ? DenoisingMode::ApplyOnly
                    : DenoisingMode::ApplyAndLearn);
+        m_impl->visualizationModel->captureInput(
+            m_impl->workerBlock,
+            m_impl->workerTargetRows);
         const DenoiserProcessResult result = m_impl->processor.process(m_impl->workerBlock, mode);
         const AdaptiveDenoisingPluginState pluginState = m_impl->workerConfigurationException
             ? AdaptiveDenoisingPluginState::ConfigurationException
             : AdaptiveDenoisingPluginState::Processing;
         m_impl->recordProcessDiagnostics(pluginState, result);
+        m_impl->visualizationModel->publishOutput(
+            m_impl->workerBlock,
+            m_impl->workerDiagnostics);
         emit diagnosticsChanged(m_impl->workerDiagnostics);
 
         if(m_impl->workerOutputReady && !isInterruptionRequested()) {

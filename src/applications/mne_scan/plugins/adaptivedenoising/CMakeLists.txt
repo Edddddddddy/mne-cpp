@@ -12,6 +12,7 @@ set(SOURCES
     adaptivedenoisingblockqueue.cpp
     adaptivedenoisingprocessor.cpp
     adaptivedenoisingsetupwidget.cpp
+    adaptivedenoisingtracewidget.cpp
     adaptivedenoisingvisualizationmodel.cpp
     adaptivedenoising_global.cpp
 )
@@ -22,6 +23,7 @@ set(HEADERS
     adaptivedenoisingdiagnostics.h
     adaptivedenoisingprocessor.h
     adaptivedenoisingsetupwidget.h
+    adaptivedenoisingtracewidget.h
     adaptivedenoisingvisualizationmodel.h
     adaptivedenoising_global.h
 )

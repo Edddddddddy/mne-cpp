@@ -21,6 +21,7 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <cstdio>
 #include <cstdlib>
 #include <initializer_list>
 #include <limits>
@@ -2863,6 +2864,16 @@ void TestAdaptiveDenoisingPlugin::queueStopsPromptlyAfterInterruptedStopSignal()
 
 //=============================================================================================================
 
-QTEST_APPLESS_MAIN(TestAdaptiveDenoisingPlugin)
+int main(int argc, char* argv[])
+{
+    TestAdaptiveDenoisingPlugin testObject;
+    const int result = QTest::qExec(&testObject, argc, argv);
+    std::fprintf(stdout,
+                 "\n[Adaptive Denoising] processor and queue: %s (exit %d)\n",
+                 result == 0 ? "PASS" : "FAIL",
+                 result);
+    std::fflush(stdout);
+    return result;
+}
 
 #include "test_adaptive_denoising_plugin.moc"
