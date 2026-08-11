@@ -9097,3 +9097,27 @@ does not continuously poll them.
 - next / push and publish this exact RED, archive the spent Luna task, then
   dispatch a fresh Sol/ultra production worker for the frozen four-slot mailbox
   and plugin configuration/reset boundary correction.
+
+### REQUEST W-VIS-TEST-003
+
+- from / manager conversation.
+- to / retained relevant Luna/max visualization-test task
+  `019ff006-399d-7330-ba50-d457d62ad622`; temporarily unarchive for this narrow
+  contract-alignment delta, then archive again after integration.
+- exact base / `5c91416d1734f6f81a99c8fd2a761e85724e724f`.
+- scope / same focused UI test source only; production/CMake/docs immutable.
+- mailbox compatibility / the 120-history oracle must emulate the real 50 ms
+  GUI consumer by calling public `snapshot()` after each publish (or at a bound
+  strictly below the frozen four-slot capacity), while retaining the final
+  exact 120-element chronological assertions. It must not require an unbounded
+  producer-only latest-value store when the public contract explicitly allows
+  dropping visualization updates if the bounded mailbox is full.
+- invalidation sensitivity / before one invalid capture/output assertion, issue
+  at least eight valid publishes without a snapshot so the future four-slot
+  mailbox is saturated; then require the invalidation to return the complete
+  empty public value. This protects atomic clear visibility even with unread old
+  slots.
+- preserve / all exhaustive identity, non-finite, single-writer concurrency,
+  allocation, finite deadline and plot-region rendering oracles.
+- response / exact-parent one-file delta and clean proof; no app/server/vendor
+  work. Manager owns populated RED replay.

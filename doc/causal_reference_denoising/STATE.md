@@ -1021,3 +1021,7 @@ same-responsibility implementation conversations that may receive review fixes.
   Concurrency records zero worker allocations. Blocking next action is a fresh
   Sol/ultra production worker for the fixed four-slot mailbox and Ready/reset/
   invalid boundary clearing; the acquisition callback remains immutable.
+- Before Sol dispatch, `W-VIS-TEST-003` must align the 120-history stream with
+  bounded GUI consumption and add full-mailbox invalidation sensitivity. The
+  retained Luna/max test task is reusable for this one-file delta; production
+  remains unchanged and the stale-state slot must stay RED.

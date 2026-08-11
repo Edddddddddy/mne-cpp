@@ -6755,3 +6755,17 @@ hidden reasoning is not.
   zero counted worker allocations. This validates the corrected test ownership
   and isolates the next production fix to stale invalidation plus the statically
   reviewed Qt-mutex publication seam.
+
+### E-660 - Align exhaustive history oracle with bounded mailbox semantics
+
+- Pre-implementation audit finds the 120-history test publishes 125 blocks and
+  takes only one final snapshot. That is valid for the old mutex/latest value,
+  but contradicts the frozen four-slot drop-newest mailbox when GUI consumption
+  is absent.
+- Reuse the relevant Luna/max test task for one narrow delta: drain through the
+  public snapshot during the history stream, preserving exact chronological
+  assertions, and separately saturate the future mailbox before invalidation so
+  atomic clear remains regression-sensitive with unread old slots.
+- This corrects the acceptance model before production work. It does not weaken
+  the real 50 ms GUI behavior, allocation gate, concurrency gate or stale-state
+  RED, and does not authorize a production or CMake change.
