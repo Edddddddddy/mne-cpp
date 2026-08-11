@@ -647,14 +647,19 @@ void TestAdaptiveDenoisingUi::visualizationSnapshotRemainsConsistentDuringConcur
     std::atomic<bool> producerReady{false};
     std::atomic<bool> readerReady{false};
     std::atomic<bool> producerActive{false};
+    std::atomic<bool> readerActive{false};
+    std::atomic<bool> clearWindowRequested{false};
+    std::atomic<bool> readerHoldingForClear{false};
+    std::atomic<bool> workerClearCompleted{false};
     std::atomic<bool> overlapObserved{false};
+    std::atomic<bool> workerClearOverlappedReader{false};
     std::atomic<bool> readerSawNonEmpty{false};
     std::atomic<bool> readerSawInvalidSnapshot{false};
     std::atomic<std::uint64_t> completeWorkerCalls{0u};
     std::atomic<std::uint64_t> workerAllocationCount{0u};
     std::atomic<std::uint64_t> maxWorkerCallNanoseconds{0u};
     std::atomic<std::uint64_t> readerIterations{0u};
-    std::atomic<std::uint64_t> clearCalls{0u};
+    std::atomic<std::uint64_t> workerClearCalls{0u};
 
     const std::chrono::steady_clock::time_point deadline =
         std::chrono::steady_clock::now() + std::chrono::milliseconds(750);
@@ -667,7 +672,9 @@ void TestAdaptiveDenoisingUi::visualizationSnapshotRemainsConsistentDuringConcur
 
         std::uint64_t localCompleteCalls = 0u;
         std::uint64_t localMaxNanoseconds = 0u;
+        std::uint64_t localClearCalls = 0u;
         std::size_t blockIndex = 0u;
+        bool clearOverlapHandshakeUsed = false;
         g_workerAllocationCount = 0u;
         g_countWorkerAllocations = true;
         while(!stop.load(std::memory_order_acquire)
@@ -687,12 +694,41 @@ void TestAdaptiveDenoisingUi::visualizationSnapshotRemainsConsistentDuringConcur
             localMaxNanoseconds = std::max(localMaxNanoseconds, callNanoseconds);
             ++localCompleteCalls;
             blockIndex = (blockIndex + 1u) % kConcurrentVisualizationBlockCount;
+
+            if(localCompleteCalls % 17u == 0u) {
+                bool clearOverlappedReader = false;
+                if(!clearOverlapHandshakeUsed) {
+                    workerClearCompleted.store(false, std::memory_order_release);
+                    clearWindowRequested.store(true, std::memory_order_release);
+                    while(!readerHoldingForClear.load(std::memory_order_acquire)
+                          && !stop.load(std::memory_order_acquire)
+                          && std::chrono::steady_clock::now() < deadline) {
+                        std::this_thread::yield();
+                    }
+                    clearOverlappedReader =
+                        readerHoldingForClear.load(std::memory_order_acquire);
+                }
+
+                model.clear();
+                ++localClearCalls;
+                if(!clearOverlapHandshakeUsed) {
+                    if(clearOverlappedReader
+                       || readerActive.load(std::memory_order_acquire)) {
+                        workerClearOverlappedReader.store(true,
+                                                          std::memory_order_release);
+                    }
+                    workerClearCompleted.store(true, std::memory_order_release);
+                    clearWindowRequested.store(false, std::memory_order_release);
+                    clearOverlapHandshakeUsed = true;
+                }
+            }
         }
         producerActive.store(false, std::memory_order_release);
         g_countWorkerAllocations = false;
         completeWorkerCalls.store(localCompleteCalls, std::memory_order_release);
         workerAllocationCount.store(g_workerAllocationCount, std::memory_order_release);
         maxWorkerCallNanoseconds.store(localMaxNanoseconds, std::memory_order_release);
+        workerClearCalls.store(localClearCalls, std::memory_order_release);
     });
 
     std::thread reader([&]() {
@@ -702,9 +738,9 @@ void TestAdaptiveDenoisingUi::visualizationSnapshotRemainsConsistentDuringConcur
         }
 
         std::uint64_t localReaderIterations = 0u;
-        std::uint64_t localClearCalls = 0u;
         while(!stop.load(std::memory_order_acquire)
               && std::chrono::steady_clock::now() < deadline) {
+            readerActive.store(true, std::memory_order_release);
             const AdaptiveDenoisingVisualizationSnapshot snapshot = model.snapshot();
             if(producerActive.load(std::memory_order_acquire)) {
                 overlapObserved.store(true, std::memory_order_release);
@@ -716,17 +752,20 @@ void TestAdaptiveDenoisingUi::visualizationSnapshotRemainsConsistentDuringConcur
                 }
             }
 
-            ++localReaderIterations;
-            if(localReaderIterations % 17u == 0u) {
-                model.clear();
-                if(producerActive.load(std::memory_order_acquire)) {
-                    overlapObserved.store(true, std::memory_order_release);
+            if(clearWindowRequested.load(std::memory_order_acquire)) {
+                readerHoldingForClear.store(true, std::memory_order_release);
+                while(!workerClearCompleted.load(std::memory_order_acquire)
+                      && !stop.load(std::memory_order_acquire)
+                      && std::chrono::steady_clock::now() < deadline) {
+                    std::this_thread::yield();
                 }
-                ++localClearCalls;
+                readerHoldingForClear.store(false, std::memory_order_release);
             }
+            readerActive.store(false, std::memory_order_release);
+
+            ++localReaderIterations;
         }
         readerIterations.store(localReaderIterations, std::memory_order_release);
-        clearCalls.store(localClearCalls, std::memory_order_release);
         stop.store(true, std::memory_order_release);
     });
 
@@ -750,23 +789,26 @@ void TestAdaptiveDenoisingUi::visualizationSnapshotRemainsConsistentDuringConcur
         maxWorkerCallNanoseconds.load(std::memory_order_acquire);
     const std::uint64_t observedReaderIterations =
         readerIterations.load(std::memory_order_acquire);
-    const std::uint64_t observedClearCalls = clearCalls.load(std::memory_order_acquire);
+    const std::uint64_t observedWorkerClearCalls =
+        workerClearCalls.load(std::memory_order_acquire);
 
     std::fprintf(stdout,
                  "\n[Adaptive Denoising] concurrent worker calls=%llu, "
-                 "reader snapshots=%llu, clears=%llu, max complete worker call=%llu ns, "
+                 "reader snapshots=%llu, worker clears=%llu, "
+                 "max complete worker call=%llu ns, "
                  "worker allocations=%llu\n",
                  static_cast<unsigned long long>(completeCalls),
                  static_cast<unsigned long long>(observedReaderIterations),
-                 static_cast<unsigned long long>(observedClearCalls),
+                 static_cast<unsigned long long>(observedWorkerClearCalls),
                  static_cast<unsigned long long>(maxNanoseconds),
                  static_cast<unsigned long long>(allocations));
     std::fflush(stdout);
 
     QVERIFY(completeCalls > 0u);
     QVERIFY(observedReaderIterations > 0u);
-    QVERIFY(observedClearCalls > 0u);
+    QVERIFY(observedWorkerClearCalls > 0u);
     QVERIFY(overlapObserved.load(std::memory_order_acquire));
+    QVERIFY(workerClearOverlappedReader.load(std::memory_order_acquire));
     QVERIFY(readerSawNonEmpty.load(std::memory_order_acquire));
     QVERIFY(!readerSawInvalidSnapshot.load(std::memory_order_acquire));
     QCOMPARE(allocations, std::uint64_t(0u));
