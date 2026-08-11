@@ -6524,3 +6524,13 @@ hidden reasoning is not.
   exits zero. The GUI-subsystem test still emits no console/report text, so the
   truthful evidence here is process exit plus the build, not fabricated QtTest
   totals. Console-visible acceptance is handled as a separate usability slice.
+
+### E-643 - Hosted trace-widget tracer is RED
+
+- Add one public UI behavior slot using a shared visualization model. It
+  requires a target selector, fixed trace widget, target/sample/sequence labels,
+  an active 50 ms GUI timer, direct target-selection propagation and rendered
+  raw/denoised/noise colors.
+- The compatible v142 build fails only at the intended C2664 constructor seam:
+  the current `AdaptiveDenoisingSetupWidget(QWidget*)` cannot accept the shared
+  model. No paint, timer or production wiring is implemented before this RED.

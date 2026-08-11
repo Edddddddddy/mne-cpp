@@ -938,3 +938,8 @@ same-responsibility implementation conversations that may receive review fixes.
   RMS history through one mutex-protected value snapshot.
 - Next gate: add one UI-timer/render RED tracer, then implement the concrete
   trace view and hosted layout before wiring worker publication.
+- The UI-timer/render tracer is RED at the intended public constructor seam:
+  MSVC C2664 proves the current setup widget cannot receive the shared fixed
+  visualization model. The target otherwise reaches the focused test source.
+- Next gate: add the concrete painter view, target selector, metadata labels and
+  50 ms snapshot polling until this exact observable tracer is GREEN.

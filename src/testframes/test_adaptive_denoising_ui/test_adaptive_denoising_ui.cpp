@@ -17,12 +17,17 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpinBox>
+#include <QtCore/QTimer>
+#include <QtGui/QColor>
+#include <QtGui/QImage>
 #include <QtTest/QSignalSpy>
 #include <QtTest/QtTest>
 
 #include <Eigen/Core>
 
 #include <cstdint>
+#include <cmath>
+#include <memory>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -72,6 +77,7 @@ class TestAdaptiveDenoisingUi : public QObject
 private slots:
     void widgetControlsAndDiagnosticsExposePublicContract();
     void visualizationSnapshotIsBoundedAndChronological();
+    void widgetTimerRendersSelectedTargetSnapshot();
 };
 
 //=============================================================================================================
@@ -263,6 +269,91 @@ void TestAdaptiveDenoisingUi::visualizationSnapshotIsBoundedAndChronological()
              Eigen::Index(kAdaptiveDenoisingRmsHistoryCapacity));
     QCOMPARE(snapshot.inputRmsHistory[0], 6.0);
     QCOMPARE(snapshot.inputRmsHistory[kAdaptiveDenoisingRmsHistoryCapacity - 1], 125.0);
+}
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingUi::widgetTimerRendersSelectedTargetSnapshot()
+{
+    const std::shared_ptr<AdaptiveDenoisingVisualizationModel> model =
+        std::make_shared<AdaptiveDenoisingVisualizationModel>();
+    AdaptiveDenoisingSetupWidget widget(model);
+    widget.resize(1000, 760);
+
+    QSpinBox* const targetSelector =
+        widget.findChild<QSpinBox*>(QStringLiteral("visualizationTargetSpinBox"));
+    QWidget* const traceWidget =
+        widget.findChild<QWidget*>(QStringLiteral("visualizationTraceWidget"));
+    QLabel* const targetValue =
+        widget.findChild<QLabel*>(QStringLiteral("visualizationTargetValue"));
+    QLabel* const samplesValue =
+        widget.findChild<QLabel*>(QStringLiteral("visualizationSamplesValue"));
+    QLabel* const sequenceValue =
+        widget.findChild<QLabel*>(QStringLiteral("visualizationSequenceValue"));
+    QTimer* const refreshTimer =
+        widget.findChild<QTimer*>(QStringLiteral("visualizationRefreshTimer"));
+
+    QVERIFY(targetSelector != nullptr);
+    QVERIFY(traceWidget != nullptr);
+    QVERIFY(targetValue != nullptr);
+    QVERIFY(samplesValue != nullptr);
+    QVERIFY(sequenceValue != nullptr);
+    QVERIFY(refreshTimer != nullptr);
+    QCOMPARE(refreshTimer->interval(), 50);
+    QVERIFY(refreshTimer->isActive());
+
+    Eigen::MatrixXd raw(2, 64);
+    Eigen::MatrixXd denoised(2, 64);
+    for(Eigen::Index sample = 0; sample < raw.cols(); ++sample) {
+        const double phase = static_cast<double>(sample) / 8.0;
+        raw(0, sample) = std::sin(phase);
+        denoised(0, sample) = 0.4 * std::sin(phase);
+        raw(1, sample) = std::cos(phase);
+        denoised(1, sample) = 0.25 * std::cos(phase);
+    }
+
+    Diagnostics diagnostics{};
+    diagnostics.inputRms = 1.0;
+    diagnostics.outputRms = 0.4;
+    diagnostics.estimatedNoiseRms = 0.6;
+    const std::vector<Eigen::Index> targetRows{0, 1};
+
+    model->captureInput(raw, targetRows);
+    model->publishOutput(denoised, diagnostics);
+    widget.show();
+
+    QTRY_COMPARE(sequenceValue->text(), QStringLiteral("1"));
+    QCOMPARE(targetSelector->minimum(), 1);
+    QCOMPARE(targetSelector->maximum(), 2);
+    QCOMPARE(targetValue->text(), QStringLiteral("1 / row 0"));
+    QCOMPARE(samplesValue->text(), QStringLiteral("64 / 64"));
+
+    targetSelector->setValue(2);
+    QCOMPARE(model->selectedTargetOrdinal(), 1);
+    model->captureInput(raw, targetRows);
+    model->publishOutput(denoised, diagnostics);
+    QTRY_COMPARE(sequenceValue->text(), QStringLiteral("2"));
+    QCOMPARE(targetValue->text(), QStringLiteral("2 / row 1"));
+
+    QImage rendered(traceWidget->size(), QImage::Format_ARGB32_Premultiplied);
+    rendered.fill(Qt::transparent);
+    traceWidget->render(&rendered);
+
+    int cyanPixels = 0;
+    int greenPixels = 0;
+    int orangePixels = 0;
+    for(int y = 0; y < rendered.height(); ++y) {
+        for(int x = 0; x < rendered.width(); ++x) {
+            const QColor color = QColor::fromRgba(rendered.pixel(x, y));
+            cyanPixels += color == QColor(QStringLiteral("#4fc3f7")) ? 1 : 0;
+            greenPixels += color == QColor(QStringLiteral("#66bb6a")) ? 1 : 0;
+            orangePixels += color == QColor(QStringLiteral("#ffb74d")) ? 1 : 0;
+        }
+    }
+
+    QVERIFY(cyanPixels > 0);
+    QVERIFY(greenPixels > 0);
+    QVERIFY(orangePixels > 0);
 }
 
 //=============================================================================================================
