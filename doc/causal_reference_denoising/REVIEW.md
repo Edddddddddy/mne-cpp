@@ -1052,3 +1052,15 @@ integration gate passes; #8 remains open after MVP issue closure.
 - Visible test task: `019ff006-399d-7330-ba50-d457d62ad622`, app worktree
   `47d4`; dispatch
   `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5251062483`.
+## Hosted visualization correction evidence
+
+### R-VIS-SNAPSHOT-ORACLE-001 / R-VIS-RENDER-ORACLE-001
+
+- status / TEST CORRECTION INTEGRATED; production review closure pending.
+- evidence / focused test commits `9a1882d4f` and `972a87908` exhaustively check
+  all 256 trace identities, all three complete 120-value histories, non-finite
+  tuple skip, worker-owned clear versus GUI snapshots with zero counted worker
+  allocations, and series colors only in the two plot rectangles.
+- canonical RED / v142 Release builds. Four slots pass; only the new stale-state
+  invalidation slot fails. This is regression-sensitive evidence for the later
+  production correction, not yet a final finding closure.

@@ -1016,3 +1016,8 @@ same-responsibility implementation conversations that may receive review fixes.
   Its committed ownership is correct: producer owns all model mutation and the
   GUI reader owns snapshot only. Next integrate `6317158c09` plus `5c91416d17`
   and run the populated v142 UI target to record the intended stale-state RED.
+- Integrated as `9a1882d4f` plus `972a87908`. Populated v142 Release builds; the
+  five slot exit matrix is `0,0,1,0,0`, with only stale-state invalidation RED.
+  Concurrency records zero worker allocations. Blocking next action is a fresh
+  Sol/ultra production worker for the fixed four-slot mailbox and Ready/reset/
+  invalid boundary clearing; the acquisition callback remains immutable.

@@ -6739,3 +6739,19 @@ hidden reasoning is not.
 - Manager provenance, diff-check, callsite ownership and unchanged-oracle audit
   pass. The two worker commits are ready to integrate; canonical v142 Release is
   expected to fail only on the deliberately stale public snapshot behavior.
+
+### E-659 - Strengthened visualization suite reaches isolated RED
+
+- Cherry-pick the exhaustive test as `9a1882d4f` and the single-writer revision
+  as `972a87908`. No production or CMake file changes.
+- Populated compatible v142 Release builds `test_adaptive_denoising_ui` in
+  10.541 s and links the console-visible executable.
+- The complete offscreen run exits 1. Individual slot replay proves exact
+  results `0,0,1,0,0`: only `visualizationSnapshotInvalidatesStaleState` is RED;
+  controls, exhaustive snapshot/history, concurrent traffic and plot-region
+  rendering are GREEN.
+- One complete concurrency sample records 65,362 worker calls, 79,289 GUI
+  snapshots, 3,844 worker clears, maximum complete worker call 274,700 ns and
+  zero counted worker allocations. This validates the corrected test ownership
+  and isolates the next production fix to stale invalidation plus the statically
+  reviewed Qt-mutex publication seam.

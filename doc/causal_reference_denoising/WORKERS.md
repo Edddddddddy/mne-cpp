@@ -9078,3 +9078,22 @@ does not continuously poll them.
   and canonical v142 RED execution.
 - worker limit / no populated build was changed or run; its isolated ignored
   Eigen checkout remains incomplete and manager owns runtime evidence.
+
+### INTEGRATION / RED W-VIS-TEST-002
+
+- integration commits / `9a1882d4f` and `972a87908`; both preserve the worker
+  patch content and change only the focused UI test source.
+- build / compatible populated VS18 `-T v142` Release target
+  `test_adaptive_denoising_ui` builds and links successfully in 10.541 s.
+- full run / offscreen executable exits 1 as intended. The concurrent slot
+  reports 65,362 complete worker calls, 79,289 GUI snapshots, 3,844 worker
+  clears, maximum complete worker call 274,700 ns and zero counted worker C++
+  allocations.
+- isolation / individual public slots return `0,0,1,0,0`; only
+  `visualizationSnapshotInvalidatesStaleState` fails. Exhaustive mapping/RMS,
+  single-writer concurrency and actual plot-region rendering pass against the
+  old production model, proving no unrelated regression masks the stale-state
+  RED.
+- next / push and publish this exact RED, archive the spent Luna task, then
+  dispatch a fresh Sol/ultra production worker for the frozen four-slot mailbox
+  and plugin configuration/reset boundary correction.
