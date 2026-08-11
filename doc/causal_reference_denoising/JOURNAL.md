@@ -6458,3 +6458,29 @@ hidden reasoning is not.
 - Restore only `//Transformation` and the single-line `new MetaTreeItem(...)`
   expression exactly to the committed baseline. This is the user's explicit
   authorization; do not infer permission for other unrelated source changes.
+
+### E-638 - Authorized host-build repair and compatible build pass
+
+- The first real `mne_scan` build reaches the pre-existing uncommitted split
+  tokens in `abstract3Dtreeitem.cpp` and fails in `mne_disp3D`; it is recorded as
+  a source obstruction, not an Adaptive Denoising failure.
+- Restore exactly the two user-authorized token splits and then restore the
+  complete file content from `HEAD` after proving no other source delta is
+  present. Refreshing the index removes a CRLF-only false dirty indication.
+- Re-run the existing compatible VS18 `-T v142` Release build with target
+  `mne_scan`, `/nodeReuse:false`, and `mne_rt_server` disabled. It exits zero and
+  links `out/Release/apps/mne_scan.exe`. Warnings are limited to existing CMake
+  intermediate-path and Eigen code-page warnings.
+
+### E-639 - Hosted visualization interface frozen
+
+- Use `codebase-design` to keep the seam plugin-private: a fixed numerical
+  snapshot model plus a concrete `QPainter` view, with no `AbstractAlgorithm`,
+  queue, processor or numerical-core interface change.
+- Use `tdd` vertically. The first public tracer covers a 256-point bounded
+  selected-target snapshot, raw/denoised/noise identity, chronological
+  120-point RMS history, target selection and timer-driven GUI refresh.
+- The worker captures selected raw samples before numerical processing and
+  publishes the matching processed samples afterward. The 50 ms GUI timer is
+  the only repaint driver. Acquisition remains free of visualization access,
+  locks, waits, retries and painting.

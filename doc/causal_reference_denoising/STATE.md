@@ -909,3 +909,14 @@ same-responsibility implementation conversations that may receive review fixes.
 - The user explicitly authorizes restoring two accidentally split tokens in
   `abstract3Dtreeitem.cpp` so the real mne_scan host can build. No other user or
   vendor file is authorized by that correction.
+- The two authorized token splits were restored exactly to `HEAD`. A compatible
+  VS18 `-T v142` Release build of the real `mne_scan` target now exits zero with
+  `BUILD_MNE_RT_SERVER=OFF`; the resulting host is
+  `out/Release/apps/mne_scan.exe`.
+- The hosted visualization contract is frozen in `SPEC.md`: one fixed 256-point
+  selected-target waveform snapshot, 120-point RMS history, worker publication,
+  50 ms GUI polling and `QPainter` rendering. The acquisition callback remains
+  outside this seam.
+- Next gate: create the visualization issue, land one focused RED tracer, then
+  implement the fixed model/view and worker publication before rebuilding the
+  focused UI and real host targets.

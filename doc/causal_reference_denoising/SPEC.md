@@ -736,3 +736,48 @@ disabled maps to BypassTrackHistory so causal reference history continues.
   task to require independent high-risk reasoning, especially numerical math,
   real-time/concurrency safety, interface review, or final integration review;
   reviewers use Sol/ultra by default.
+
+## Hosted visualization extension
+
+The acceptance surface is the setup window returned by the real
+`scan_adaptivedenoising` plugin and hosted as the `mne_scan` central widget.
+The extension does not change `AbstractAlgorithm`, the numerical denoiser,
+the input queue, the output connector, or the acquisition callback.
+
+The plugin-private visualization seam is one concrete deep module with fixed
+storage:
+
+- at most 256 chronological points for one selected good MEG target row;
+- raw, denoised, and estimated-noise (`raw - denoised`) waveforms;
+- at most 120 chronological input/output/estimated-noise RMS observations;
+- sequence, selected target ordinal, selected FIFF row, target count, source
+  sample count, and valid point counts;
+- one bounded thread-safe publish operation on the processing worker and one
+  bounded snapshot operation on the GUI thread;
+- target selection is a lock-free integer setting read only by the worker.
+
+For blocks longer than 256 samples, the worker uses deterministic endpoint-
+preserving uniform index selection. It captures the selected raw samples before
+`process()` and publishes the corresponding processed samples afterward. It
+does not retain a full input block or allocate in the streaming path. RMS
+history uses the existing fixed numerical diagnostics for the complete selected
+target set; non-finite diagnostics are not appended.
+
+`AdaptiveDenoisingSetupWidget` owns a 50 ms GUI timer. The timer reads the
+latest fixed snapshot and repaints one lightweight `QPainter` view with a
+waveform panel and an RMS-history panel. Human-readable channel/status text and
+all painting stay on the GUI thread. The view exposes target ordinal selection,
+the existing controls and diagnostics, and an explicit waiting/no-data state.
+
+Visualization acceptance requires:
+
+- a focused public-interface test proving fixed bounds, raw/processed/noise
+  identity, chronological RMS history, target selection, timer refresh, and a
+  renderable non-empty view;
+- unchanged acquisition callback source semantics: no visualization access,
+  mutex, wait, retry, paint, configure, reset, or output work;
+- existing core, processor/queue, UI, example and benchmark gates remain green;
+- the compatible v142 Release `scan_adaptivedenoising` and `mne_scan` targets
+  build with `BUILD_MNE_RT_SERVER=OFF`;
+- the real host loads the plugin and visibly displays the Adaptive Denoising
+  controls and visualization surface; `mne_rt_server` is never started.
