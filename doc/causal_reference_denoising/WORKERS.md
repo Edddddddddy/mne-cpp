@@ -8966,3 +8966,47 @@ does not continuously poll them.
 - next / publish HOLD, archive the one-shot reviewer after durable evidence,
   dispatch Luna/max RED tests and then Sol/ultra implementation from exact
   pushed bases. Fresh Sol/ultra re-review gates #9 closure.
+
+### PUBLICATION / CLEANUP R-VIS-001
+
+- HOLD comment / issue #9:
+  `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5250987125`.
+- archive / completed visible reviewer task
+  `019fefec-3b1d-7e21-bae3-7d954a27b654` is app-archived after its exact-SHA
+  response and cleanup confirmation. Its app-managed worktree is not deleted.
+- ref / `codex/review-visualization-base` was attached to no registered
+  worktree and its SHA is an ancestor of integration; delete only that local
+  temporary ref.
+
+### REQUEST W-VIS-TEST-002
+
+- from / manager conversation.
+- to / new visible app-managed worktree conversation.
+- model / `gpt-5.6-luna` / `max`; no internal/nested subagent and no manager
+  polling/read/wait.
+- exact base / `6bcfa99d10300078a73dfdb9b3e2494eb59a4c6d`.
+- skill / read the complete `tdd` skill and use only public model/widget
+  behavior; no private-state or source-text oracle.
+- scope / edit only
+  `src/testframes/test_adaptive_denoising_ui/test_adaptive_denoising_ui.cpp`.
+  Production, CMake, plugin, queue, processor, core, docs, vendor and dependency
+  files are immutable.
+- snapshot oracle / verify all 256 exact endpoint-preserving source indices and
+  all raw/denoised/noise identities; verify every retained chronological value
+  of input/output/noise RMS after wrap; prove a non-finite tuple is skipped and
+  `clear()` returns a zero/empty value.
+- stale-state RED / after publishing valid data, invalid capture (empty targets)
+  and incompatible output must invalidate the public snapshot instead of
+  retaining old values. This must fail the current model for the intended
+  reason before production changes.
+- concurrency / add a finite sustained worker capture/publish versus snapshot/
+  clear public stress with complete-snapshot identity, finite deadlines, joins
+  before assertions, worker-call latency capture and a thread-local global-new
+  counter covering complete capture/publish calls. Require zero counted worker
+  allocations. Avoid flaky scheduler-tight thresholds; report measured max.
+- rendering / count deterministic series colors only inside waveform and RMS
+  plot regions that exclude title/legend swatches; require both panels and keep
+  the explicit no-data rendering oracle.
+- response / proactive exact-parent commit, changed-file proof, RED/GREEN
+  classification, complete test commands/results/limits and clean status. Do
+  not run full mne_scan or `mne_rt_server` and do not repair dependencies.

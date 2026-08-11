@@ -1045,3 +1045,7 @@ integration gate passes; #8 remains open after MVP issue closure.
 
 - Carried issue-#8 destructor and real-plugin lifecycle P2s remain durably
   deferred and unregressed. They do not absorb the new P1/P2 corrections.
+- HOLD is published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5250987125`.
+  First correction slice is `W-VIS-TEST-002`, Luna/max, test-source only, from
+  exact base `6bcfa99d10300078a73dfdb9b3e2494eb59a4c6d`.

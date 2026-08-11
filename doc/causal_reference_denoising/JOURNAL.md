@@ -6672,3 +6672,16 @@ hidden reasoning is not.
 - Keep #9/Goal open. Next use Luna/max for a public RED oracle correction and
   Sol/ultra for the bounded fixed-storage publication/state-boundary fix; then
   rerun every focused/host gate and a fresh independent review.
+
+### E-654 - Review HOLD published and RED correction frozen
+
+- Publish the exact review counts/findings and retained issue-#8 boundary at
+  `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5250987125`;
+  issue #9 remains OPEN.
+- Archive the completed visible reviewer after it confirms all nested agents
+  were interrupted/discarded. Prove the temporary review ref is not attached
+  and the reviewed SHA is integrated, then delete only that local ref.
+- Freeze `W-VIS-TEST-002` as one Luna/max/max public-test task from exact
+  `6bcfa99d10300078a73dfdb9b3e2494eb59a4c6d`. It owns only the focused UI test
+  source and must add a deterministic invalid-capture stale-state RED plus
+  complete snapshot/history/render and bounded concurrency/allocation oracles.

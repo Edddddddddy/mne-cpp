@@ -995,3 +995,8 @@ same-responsibility implementation conversations that may receive review fixes.
   then use a fresh Sol/ultra worker for fixed-storage nonblocking publication
   and boundary clearing. Repeat all Release/example/benchmark/plugin/host
   evidence and a new independent Sol/ultra review before closing #9/Goal.
+- HOLD publication: issue #9 comment
+  `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5250987125`.
+  Reviewer is archived and the temporary review ref is deleted after detached/
+  ancestor proof. Blocking next task is `W-VIS-TEST-002`, a Luna/max public
+  model/render/concurrency oracle correction from exact base `6bcfa99d1`.
