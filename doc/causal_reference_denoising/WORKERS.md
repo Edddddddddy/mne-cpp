@@ -9060,3 +9060,21 @@ does not continuously poll them.
   snapshot/history/stale/render oracle.
 - response / proactive exact-parent commit, one-file proof and clean status;
   manager owns the canonical RED run. Do not run mne_scan or `mne_rt_server`.
+
+### RESPONSE W-VIS-TEST-002-REVISE-1
+
+- from / retained visible Luna/max task
+  `019ff006-399d-7330-ba50-d457d62ad622`.
+- exact parent / `6317158c09350e4bbfc7df71a902f3bc663af04e`.
+- delta commit / `5c91416d1734f6f81a99c8fd2a761e85724e724f`;
+  exactly the focused UI test source and a clean detached worktree.
+- correction / every capture, publish and periodic clear now occurs in the
+  producer/worker lambda after the timed complete capture/publish call; the GUI
+  reader calls only `snapshot()`. A bounded test-side handshake proves a worker
+  clear occurs while the GUI reader is active without adding another model
+  writer. All exhaustive snapshot/history/stale/render/allocation oracles remain.
+- manager review / exact-parent, one-file scope, diff-check and the committed
+  single-writer callsite audit pass. Accept both worker commits for integration
+  and canonical v142 RED execution.
+- worker limit / no populated build was changed or run; its isolated ignored
+  Eigen checkout remains incomplete and manager owns runtime evidence.

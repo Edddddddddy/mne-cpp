@@ -6727,3 +6727,15 @@ hidden reasoning is not.
   clear, GUI/reader owns snapshot, and the test still proves overlapping clear
   versus snapshot with bounded completion and zero counted worker allocations.
   Production and canonical build trees remain unchanged.
+
+### E-658 - Visualization RED test ownership correction accepted
+
+- `W-VIS-TEST-002-REVISE-1` returns exact-parent one-file delta
+  `5c91416d1734f6f81a99c8fd2a761e85724e724f` over worker commit `6317158c09`.
+- All model mutators are now producer/worker-owned; the GUI thread calls only
+  `snapshot()`. The finite handshake and repeated traffic retain worker-clear
+  versus active-reader coverage without a second publisher or a staging/history
+  data race.
+- Manager provenance, diff-check, callsite ownership and unchanged-oracle audit
+  pass. The two worker commits are ready to integrate; canonical v142 Release is
+  expected to fail only on the deliberately stale public snapshot behavior.

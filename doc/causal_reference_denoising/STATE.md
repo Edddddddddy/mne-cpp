@@ -1012,3 +1012,7 @@ same-responsibility implementation conversations that may receive review fixes.
   manager review holds it because reader-side `clear()` violates the single-
   writer visualization contract. `W-VIS-TEST-002-REVISE-1` is the immediate
   blocker: producer owns capture/publish/clear, GUI reader owns snapshot only.
+- The narrow revision is accepted as exact-parent one-file delta `5c91416d17`.
+  Its committed ownership is correct: producer owns all model mutation and the
+  GUI reader owns snapshot only. Next integrate `6317158c09` plus `5c91416d17`
+  and run the populated v142 UI target to record the intended stale-state RED.
