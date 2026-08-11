@@ -9023,3 +9023,40 @@ does not continuously poll them.
   `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5251062483`.
 - lifecycle / await proactive response without continuous polling or inspection
   of the app-managed worktree. Retain the local base ref until integration.
+
+### RESPONSE W-VIS-TEST-002
+
+- from / visible Luna/max task `019ff006-399d-7330-ba50-d457d62ad622`.
+- exact parent / `6bcfa99d10300078a73dfdb9b3e2494eb59a4c6d`.
+- worker commit / `6317158c09350e4bbfc7df71a902f3bc663af04e`;
+  clean detached worktree and exactly one changed file,
+  `src/testframes/test_adaptive_denoising_ui/test_adaptive_denoising_ui.cpp`.
+- accepted scope / exhaustive 256-point raw/denoised/noise mapping, all three
+  120-entry RMS histories, non-finite tuple skip, invalid-capture stale-state
+  RED, bounded concurrency/allocation instrumentation and plot-region rendering
+  oracles that exclude the legend.
+- manager hold / the reader thread periodically calls `model.clear()` while the
+  producer calls capture/publish. This creates two writers for worker-owned
+  staging/history state and violates the frozen SPSC ownership contract. The
+  commit is not integrated until a narrow revision moves clear to the producer
+  thread while the reader performs snapshot only.
+- verification limit / isolated worker compile remains blocked before source
+  parsing by the ignored incomplete Eigen checkout; no dependency repair or
+  runtime claim was made.
+
+### REQUEST W-VIS-TEST-002-REVISE-1
+
+- from / manager conversation.
+- to / retained visible Luna/max task
+  `019ff006-399d-7330-ba50-d457d62ad622`; no subagents and no manager polling.
+- exact base / worker commit
+  `6317158c09350e4bbfc7df71a902f3bc663af04e`.
+- scope / edit only the same focused UI test source and return a delta commit.
+- correction / preserve one publisher: move periodic `model.clear()` into the
+  producer/worker thread between complete capture/publish cycles. The reader
+  thread may call only `snapshot()`. Retain bounded concurrent worker-clear
+  versus GUI-snapshot coverage, test-side overlap evidence, finite deadlines,
+  joins-before-assertions, zero counted worker allocations and every existing
+  snapshot/history/stale/render oracle.
+- response / proactive exact-parent commit, one-file proof and clean status;
+  manager owns the canonical RED run. Do not run mne_scan or `mne_rt_server`.

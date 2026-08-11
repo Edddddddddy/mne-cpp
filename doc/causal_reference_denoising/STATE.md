@@ -1008,3 +1008,7 @@ same-responsibility implementation conversations that may receive review fixes.
   mailbox, single-attempt worker publish/drop, GUI bounded drain-to-latest and
   atomic invalidation on clear. No mutex/spin/retry/allocation or acquisition-
   callback change; target rows exist only for processor `Ready` state.
+- `W-VIS-TEST-002` returned exact-parent one-file commit `6317158c09`, but
+  manager review holds it because reader-side `clear()` violates the single-
+  writer visualization contract. `W-VIS-TEST-002-REVISE-1` is the immediate
+  blocker: producer owns capture/publish/clear, GUI reader owns snapshot only.

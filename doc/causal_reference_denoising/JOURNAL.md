@@ -6712,3 +6712,18 @@ hidden reasoning is not.
 - This is the production contract for the later Sol/ultra worker after the
   Luna/max test response is integrated. Issue #8 still owns the real-plugin
   lifecycle runtime matrix, not the source fix.
+
+### E-657 - Visualization RED response held for SPSC test ownership
+
+- `W-VIS-TEST-002` proactively returns exact-parent one-file commit
+  `6317158c09350e4bbfc7df71a902f3bc663af04e`. Its exhaustive snapshot/history,
+  invalidation RED, allocation and plot-region rendering additions are in
+  scope and its worktree is clean.
+- Manager review finds the concurrent reader also calls `model.clear()` while
+  the producer captures/publishes. Because clear resets worker-owned staging
+  and RMS history, this test introduces a second writer and can create a C++
+  data race rather than testing the frozen SPSC module contract.
+- Hold integration and return a narrow same-file revision: worker/producer owns
+  clear, GUI/reader owns snapshot, and the test still proves overlapping clear
+  versus snapshot with bounded completion and zero counted worker allocations.
+  Production and canonical build trees remain unchanged.
