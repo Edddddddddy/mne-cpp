@@ -6769,3 +6769,13 @@ hidden reasoning is not.
 - This corrects the acceptance model before production work. It does not weaken
   the real 50 ms GUI behavior, allocation gate, concurrency gate or stale-state
   RED, and does not authorize a production or CMake change.
+
+### E-661 - Archived visualization test task cannot be reused
+
+- The retained Luna/max task is unarchived for `W-VIS-TEST-003`, but its
+  app-managed worktree was already removed by the app lifecycle. PowerShell
+  startup fails before repository access and the task requests escalation.
+- Reject escalation/adoption of another checkout, archive the unusable task and
+  record it as setup-blocked with no mutation. Create `W-VIS-TEST-004` as a new
+  clean Luna/max project worktree from exact pushed `477690037` for the same
+  one-file mailbox-test alignment.

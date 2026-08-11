@@ -9121,3 +9121,29 @@ does not continuously poll them.
   allocation, finite deadline and plot-region rendering oracles.
 - response / exact-parent one-file delta and clean proof; no app/server/vendor
   work. Manager owns populated RED replay.
+
+### BLOCKED W-VIS-TEST-003
+
+- task / retained thread `019ff006-399d-7330-ba50-d457d62ad622`.
+- blocker / after its prior archive the app-managed worktree path no longer
+  exists. The resumed task cannot start PowerShell and enters a filesystem
+  approval request before any repository action.
+- disposition / do not approve access to another checkout, do not rebuild or
+  manually delete/repair the app worktree, and do not accept a commit. Archive
+  the unusable conversation again. No source/Git/build state changed.
+
+### REQUEST W-VIS-TEST-004
+
+- from / manager conversation.
+- to / new clean visible project-worktree Luna/max task; no nested agents and
+  no manager polling/read/wait.
+- exact base / current pushed integration `477690037`.
+- scope / edit only
+  `src/testframes/test_adaptive_denoising_ui/test_adaptive_denoising_ui.cpp`.
+- correction / drain the bounded public mailbox during the 120-history stream
+  while retaining exact final chronology, and saturate with at least eight
+  unread valid publishes immediately before invalid capture/output so clear
+  must hide old slots. Preserve every existing exhaustive/concurrency/allocation/
+  render oracle and the current isolated stale-state RED.
+- response / exact-parent one-file commit, diff/clean proof and limits; manager
+  owns canonical v142 execution. Do not run app/server or repair dependencies.

@@ -1025,3 +1025,7 @@ same-responsibility implementation conversations that may receive review fixes.
   bounded GUI consumption and add full-mailbox invalidation sensitivity. The
   retained Luna/max test task is reusable for this one-file delta; production
   remains unchanged and the stale-state slot must stay RED.
+- Reuse is setup-blocked because the archived task's app worktree no longer
+  exists; no escalation or manual repair is allowed. It is re-archived without
+  changes. Fresh `W-VIS-TEST-004` from exact pushed `477690037` now owns the
+  same single test-file contract alignment.
