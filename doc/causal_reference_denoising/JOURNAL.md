@@ -6888,3 +6888,16 @@ hidden reasoning is not.
   safe no-input status. CloseMainWindow succeeds and the process exits.
 - No mne_rt_server process is built, launched or used. Commit/push this evidence,
   then freeze the exact remote snapshot for the final independent review.
+
+### E-670 - Final visualization correction review requested
+
+- Freeze `R-VIS-002` after pushed code/evidence snapshot `505621a2e`. The fresh
+  visible Sol/ultra reviewer must personally inspect the exact pushed request
+  snapshot, remain strictly read-only and use no nested agents.
+- Review scope covers fixed-mailbox depth/thread safety, sequence/full/reuse and
+  epoch invalidation, Ready/reset/failure clearing, worker capture/publish
+  ordering, acquisition callback immutability, UI/model lifetime, strengthened
+  public oracles, CMake/real host wiring and evidence attribution.
+- It must explicitly close or reopen every R-VIS-001 finding and carry the two
+  issue-#8 lifecycle P2 deferrals without silently relabeling them. PASS requires
+  no P0/P1 and no undispositioned P2. Manager will not continuously poll.

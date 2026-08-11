@@ -1102,3 +1102,16 @@ integration gate passes; #8 remains open after MVP issue closure.
 - evidence boundary / these are manager-produced build/runtime/visual results.
   A fresh independent reviewer must audit the exact pushed snapshot and may
   reference but must not relabel them as independently reproduced evidence.
+
+### R-VIS-002 - Final hosted visualization correction review
+
+- status / REQUEST FROZEN; exact reviewed SHA will be the pushed request commit
+  supplied to the fresh visible Sol/ultra task.
+- gate / personally and read-only audit the four-slot mailbox, sequence/reuse,
+  epoch invalidation, stale-state boundary corrections, complete public test
+  oracles, acquisition isolation, plugin/UI/host wiring and evidence lineage.
+- required dispositions / all four open R-VIS-001 P1/P2 findings, plus explicit
+  preservation or regression of the two issue-#8 durable lifecycle P2s.
+- pass rule / P0=0, P1=0, and every P2 fixed or durably deferred. No nested
+  reviewer agents and no manager-produced execution may be relabeled as an
+  independent reviewer run.

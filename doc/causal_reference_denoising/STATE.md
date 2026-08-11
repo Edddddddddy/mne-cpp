@@ -1072,3 +1072,7 @@ same-responsibility implementation conversations that may receive review fixes.
 - Next gate: commit/push these durable results, freeze that exact remote SHA and
   dispatch a fresh strict read-only Sol/ultra review. PASS closes issue #9 and
   the active goal; HOLD starts only the minimum finding correction.
+- Final review request `R-VIS-002` is being frozen after code/evidence snapshot
+  `505621a2e`. It must run in a fresh visible Sol/ultra task, personally and
+  strictly read-only, without nested agents. The exact reviewed SHA is the
+  pushed request commit supplied at dispatch.

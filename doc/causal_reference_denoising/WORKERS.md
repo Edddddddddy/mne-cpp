@@ -9271,3 +9271,25 @@ does not continuously poll them.
 - disposition / production task remains reusable only until the final review
   confirms no narrow correction is required. Manager owns full regression,
   real plugin/host verification, GitHub publication and final reviewer dispatch.
+
+### REQUEST R-VIS-002
+
+- from / manager conversation.
+- to / new visible `gpt-5.6-sol` / `ultra` review task; personal review only,
+  no nested agents, no manager polling/read/wait and no repository mutation.
+- snapshot / code and manager evidence end at pushed `505621a2e`; review the
+  exact pushed request SHA named in the dispatch, detached and clean.
+- scope / independently audit the hosted visualization correction: deep-module
+  interface/locality, four-slot fixed SPSC publication/reuse/full behavior,
+  always-lock-free assumptions, epoch invalidation/clear, capture/publish
+  ordering, Ready-only target ownership, configure/reset/failure boundaries,
+  unchanged acquisition callback, UI timer/paint/lifetime, focused public test
+  sensitivity, CMake/real-host wiring and evidence attribution.
+- prior findings / explicitly disposition `R-VIS-MUTEX-STREAM-001`,
+  `R-VIS-STALE-STATE-001`, `R-VIS-SNAPSHOT-ORACLE-001` and
+  `R-VIS-RENDER-ORACLE-001`. Preserve the two existing issue-#8 lifecycle P2
+  deferrals unless the correction regresses them.
+- output / P0-P3 findings with exact file/line, evidence, impact, correction and
+  required test; exact SHA/clean proof; manager versus reviewer evidence
+  boundary; PASS/HOLD. PASS requires P0/P1 zero and every P2 fixed or durably
+  deferred. Do not edit, build the full app, run mne_scan or run mne_rt_server.
