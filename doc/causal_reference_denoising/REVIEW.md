@@ -1064,3 +1064,41 @@ integration gate passes; #8 remains open after MVP issue closure.
 - canonical RED / v142 Release builds. Four slots pass; only the new stale-state
   invalidation slot fails. This is regression-sensitive evidence for the later
   production correction, not yet a final finding closure.
+
+### Hosted visualization mailbox correction - manager GREEN
+
+- integrated snapshot / `00d7a6899`, exact three-file production delta from
+  reviewed test base; public visualization interface and acquisition callback
+  remain unchanged.
+- `R-VIS-MUTEX-STREAM-001` correction evidence / QMutex publication is replaced
+  by the fixed four-slot SPSC sequence mailbox. Canonical concurrent execution
+  reports zero counted worker allocations and 203,200 ns maximum complete
+  worker capture/publish/clear call across 903,697 calls.
+- `R-VIS-STALE-STATE-001` correction evidence / the exhaustive invalid-capture,
+  incompatible-output, full-backlog epoch invalidation and Ready/reset boundary
+  slot now passes in the complete Release suite.
+- snapshot/render oracle evidence / all strengthened model/history/concurrency
+  and plot-rectangle assertions pass; complete UI executable exits zero.
+- status / manager GREEN, but prior review findings are not marked independently
+  closed until a fresh exact-snapshot Sol/ultra reviewer returns PASS.
+
+### Hosted visualization final manager acceptance evidence
+
+- focused Release / numerical core PASS exit 0; processor/queue PASS exit 0;
+  hosted visualization UI PASS exit 0 with 903,697 worker calls, 525,443 GUI
+  snapshots, 53,158 worker clears, 203,200 ns maximum worker call and zero
+  counted worker allocations.
+- example / current-source v142 rebuild; deterministic teaching invariants PASS.
+- benchmark / 270 rows, 16 references, 250 targets, 128 samples, four taps,
+  100 warmup and 1000 timed blocks: p50 `2.286 ms`, p95 `2.934 ms`, max
+  `3.888 ms`; 1099 accepted, zero rejected; p95 <128 ms PASS.
+- real target / compatible v142 plugin DLL and MNE Scan host both rebuild from
+  current source while `BUILD_MNE_RT_SERVER=OFF` is asserted in the cache.
+- real window / exact launched process title is `MNE Scan`; manager-inspected
+  1016x839 PrintWindow capture shows Adaptive Denoising selected with all seven
+  controls, diagnostics, target selector, waveform and RMS-history panels, and
+  truthful `Stopped / InvalidMetadata / Waiting for MEG data` no-input state.
+  The process accepts its normal close request and exits; no server runs.
+- evidence boundary / these are manager-produced build/runtime/visual results.
+  A fresh independent reviewer must audit the exact pushed snapshot and may
+  reference but must not relabel them as independently reproduced evidence.

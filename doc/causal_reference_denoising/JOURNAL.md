@@ -6851,3 +6851,40 @@ hidden reasoning is not.
   worktree lacks ignored Eigen and therefore makes no canonical runtime claim.
 - Manager must now inspect the exact commit, then run the populated v142 UI
   target. No integration acceptance is recorded until both pass.
+
+### E-668 - Fixed visualization mailbox reaches canonical GREEN
+
+- Manager inspects the complete three-file worker patch, verifies its exact
+  parent/scope, sequence/reuse and epoch invalidation ordering, Ready-only row
+  ownership, reset/configure clears and byte-identical acquisition callback,
+  then integrates it as `00d7a6899`.
+- The populated compatible v142 Release UI target rebuilds successfully. The
+  complete offscreen executable prints hosted visualization PASS and exits zero.
+- The sustained public concurrency oracle records 903,697 worker calls,
+  525,443 GUI snapshots, 53,158 worker clears, maximum complete worker call
+  203,200 ns and exactly zero counted worker allocations.
+- This closes the manager implementation gate for the prior mutex/stale-state
+  findings. Full focused/example/benchmark regression and real plugin/host
+  verification precede the new exact-snapshot independent review.
+
+### E-669 - Full final regression and real hosted window pass
+
+- Rebuild and run the current Release numerical core and processor/queue focused
+  executables. Both print their explicit Adaptive Denoising PASS summaries and
+  exit zero. The already rebuilt UI suite likewise prints hosted visualization
+  PASS and exits zero.
+- Configure a fresh external compatible v142 example tree from current source,
+  build `ex_causal_reference_denoising`, and capture the GUI-subsystem process
+  with explicit redirected stdout/stderr and WaitForExit. Teaching invariants
+  PASS. The benchmark reports p50/p95/max `2.286/2.934/3.888 ms`, final
+  generation 1099, 1099 accepted, zero rejected and the p95 <128 ms gate PASS.
+- Rebuild `scan_adaptivedenoising` and `mne_scan` from the compatible v142 host
+  tree. Its cache explicitly says `BUILD_MNE_SCAN=ON`,
+  `BUILD_MNE_RT_SERVER=OFF` and toolset v142; both targets link successfully.
+- Launch the exact Release host from its application directory. A 1016x839
+  temporary PrintWindow capture personally inspected by the manager shows the
+  real MNE Scan window with Adaptive Denoising selected, every control and
+  diagnostic, target selector, waveform panel, RMS-history panel and expected
+  safe no-input status. CloseMainWindow succeeds and the process exits.
+- No mne_rt_server process is built, launched or used. Commit/push this evidence,
+  then freeze the exact remote snapshot for the final independent review.

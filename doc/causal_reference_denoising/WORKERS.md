@@ -9258,3 +9258,16 @@ does not continuously poll them.
   so worker correctly makes no canonical build/app/server claim.
 - next / manager independently audits the complete diff, race/epoch behavior,
   callback bytes and canonical v142 GREEN before accepting integration.
+
+### ACCEPT W-VIS-MAILBOX-001
+
+- integration / worker `ce928184c2` is integrated as `00d7a6899` with exactly
+  the three authorized production files; manager diff/race/update-byte audit
+  accepts the implementation.
+- canonical GREEN / compatible v142 Release UI target builds and its complete
+  offscreen executable exits zero. Observed concurrent traffic is 903,697
+  worker calls, 525,443 GUI snapshots and 53,158 worker clears; maximum complete
+  worker call is 203,200 ns and counted worker allocations are exactly zero.
+- disposition / production task remains reusable only until the final review
+  confirms no narrow correction is required. Manager owns full regression,
+  real plugin/host verification, GitHub publication and final reviewer dispatch.

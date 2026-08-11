@@ -1051,3 +1051,24 @@ same-responsibility implementation conversations that may receive review fixes.
 - Response received as exact-parent three-file commit `ce928184c2`. Reported
   fixed mailbox/epoch/Ready/reset/update gates pass in the worker checkout;
   manager diff/race audit and populated v142 GREEN are the current blockers.
+- Manager integrated the exact worker patch as `00d7a6899` and the populated
+  compatible v142 Release `test_adaptive_denoising_ui` now exits zero. One
+  complete run records 903,697 worker calls, 525,443 GUI snapshots, 53,158
+  worker clears, maximum complete worker call 203,200 ns and zero counted
+  worker allocations. The mailbox/epoch/stale-state/render correction is GREEN.
+- Next gate: run the complete focused numerical/processor/UI/example/benchmark
+  regression, rebuild the real plugin and host with `BUILD_MNE_RT_SERVER=OFF`,
+  verify the hosted window, then freeze the pushed exact snapshot for a fresh
+  independent Sol/ultra review.
+- Final manager regression at local snapshot `00d7a6899` is GREEN: numerical
+  core, processor/queue and hosted UI print PASS and exit zero; teaching example
+  invariants PASS; Release benchmark p50/p95/max is `2.286/2.934/3.888 ms`,
+  with 1099 accepted, zero rejected and p95 <128 ms PASS.
+- Compatible v142 `scan_adaptivedenoising` and `mne_scan` targets both rebuild
+  successfully with `BUILD_MNE_RT_SERVER=OFF`. The launched real MNE Scan host
+  loads Adaptive Denoising and visibly shows all controls, diagnostics, selected
+  target waveform and RMS-history panels; no-data state is correctly waiting.
+  The validation process closes normally and no server is started.
+- Next gate: commit/push these durable results, freeze that exact remote SHA and
+  dispatch a fresh strict read-only Sol/ultra review. PASS closes issue #9 and
+  the active goal; HOLD starts only the minimum finding correction.
