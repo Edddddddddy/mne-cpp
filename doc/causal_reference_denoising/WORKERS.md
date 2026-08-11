@@ -8928,3 +8928,41 @@ does not continuously poll them.
   reviewer to complete the audit personally.
 - acceptance / the final response must explicitly confirm that cleanup and may
   cite only the visible reviewer's own evidence. No continuous polling follows.
+
+### RESPONSE R-VIS-001
+
+- reviewer / visible Sol/ultra task
+  `019fefec-3b1d-7e21-bae3-7d954a27b654`; personal read-only audit only.
+- cleanup / all three improperly created nested agents were interrupted while
+  running; their results were discarded and are not used or cited.
+- snapshot / exact detached clean
+  `f2e59838c63bae7c61f5fc877306cd8bc8a69d1c`; no repository, GitHub,
+  dependency, build, host or server mutation.
+- decision / HOLD; P0=0, P1=1, P2=3, P3=1.
+- P1 `R-VIS-MUTEX-STREAM-001` / `QMutexLocker` protects worker publish, GUI
+  snapshot and clear. Installed Qt 5.15.2 Windows sources prove first contention
+  may lazily allocate and lock is not noexcept. Replace it with fixed storage
+  and always-lock-free bounded publication; add concurrent torn-snapshot,
+  allocation and latency oracles.
+- P2 `R-VIS-STALE-STATE-001` / configuration return status is ignored for
+  visualization ownership; Ready-to-new-layout, MissingTargets, other non-Ready
+  configurations and reset can retain or mix old data. Clear at every committed
+  stream/model/reset boundary, retain target rows only for Ready, and invalidate
+  failed capture/output compatibility. The issue-#8 real-plugin harness must
+  later retain the full lifecycle matrix.
+- P2 `R-VIS-SNAPSHOT-ORACLE-001` / strengthen the public model test to cover
+  exact endpoint-preserving interior mapping, all raw/denoised/noise identities,
+  every chronological value in all three wrapped histories, and non-finite
+  tuple skip/clear.
+- P2 `R-VIS-RENDER-ORACLE-001` / exclude legend/title regions and prove actual
+  deterministic colored series in both plot rectangles plus no-data behavior.
+- P3 `R-VIS-EVIDENCE-DIM-001` / committed PNG is 1420x839, 36,754 bytes; update
+  the durable journal without runtime replay.
+- accepted / callback hash/order, fixed capacities, target mapping, timer/view,
+  CMake/host wiring and no-data screenshot are otherwise coherent. Build/run/
+  screenshot provenance remains manager evidence.
+- carried / destructor boundedness and real-plugin lifecycle harness remain
+  explicitly deferred, not fixed, to OPEN #8; the new mutex defect is separate.
+- next / publish HOLD, archive the one-shot reviewer after durable evidence,
+  dispatch Luna/max RED tests and then Sol/ultra implementation from exact
+  pushed bases. Fresh Sol/ultra re-review gates #9 closure.

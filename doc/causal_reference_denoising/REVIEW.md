@@ -985,3 +985,63 @@ integration gate passes; #8 remains open after MVP issue closure.
   Manager immediately required their interruption and exclusion from evidence;
   the gate remains pending until the visible reviewer confirms cleanup and
   completes the exact-SHA review personally.
+
+### R-VIS-001 - Hosted visualization review result
+
+- Exact reviewed SHA: `f2e59838c63bae7c61f5fc877306cd8bc8a69d1c`,
+  detached and clean before/after; personal Sol/ultra read-only evidence only.
+- Process correction closed: three nested agents were interrupted and their
+  results discarded. No nested evidence is cited.
+- Decision: HOLD. New findings: P0=0, P1=1, P2=3, P3=1.
+
+#### R-VIS-MUTEX-STREAM-001 - P1 - Open
+
+- Evidence: `adaptivedenoisingvisualizationmodel.cpp:80-88,159-214` uses one
+  `QMutexLocker` across worker `publishOutput`, GUI `snapshot` and `clear` while
+  the public contract declares bounded allocation-free streaming and noexcept
+  calls. Installed Qt 5.15.2 Windows `qmutex.cpp:559-581` and
+  `qfreelist_p.h:168-175,239-258` lazily allocate on first contention; Windows
+  lock is not declared noexcept.
+- Impact: GUI preemption can stall the processing worker, contribute to ingress
+  drops, and allocation failure can terminate across noexcept.
+- Required correction: fixed-storage, no-spin/no-retry/nonblocking publication
+  with always-lock-free atomic guards; no acquisition-callback dependency.
+- Required evidence: sustained worker/GUI overlap, complete snapshot integrity,
+  zero post-construction worker allocations, bounded latency and lock-free
+  compile guards.
+
+#### R-VIS-STALE-STATE-001 - P2 - Open
+
+- Evidence: `adaptivedenoising.cpp:393-458,846-879` does not commit the processor
+  configure status to visualization ownership. MissingTargets can leave an old
+  published value forever; Ready layout changes mix old RMS history with new
+  row labels; reset keeps old history; other non-Ready states can publish rows
+  while processor diagnostics report zero ownership.
+- Required correction: clear at each stream/model/reset boundary, retain target
+  rows only for Ready, and invalidate failed capture/output compatibility.
+- Required evidence: Ready A/B, non-Ready classifications, reset, stop/restart
+  and first-post-boundary chronological history through the eventual issue-#8
+  real-plugin harness; the source correction itself is not deferred.
+
+#### R-VIS-SNAPSHOT-ORACLE-001 - P2 - Open
+
+- Evidence: current focused test checks only trace endpoints/element zero and
+  first/last input RMS values. Interior downsampling, every identity, output/
+  noise history linearization and non-finite tuple filtering can regress green.
+- Required correction: complete public fixed-model oracles for all listed
+  identities, wrapped chronology and non-finite skip/clear.
+
+#### R-VIS-RENDER-ORACLE-001 - P2 - Open
+
+- Evidence: whole-widget color counts can be satisfied by the always-rendered
+  legend. Broken `drawSeries` calls can still pass.
+- Required correction: inspect deterministic colors inside waveform and RMS
+  plot rectangles excluding legend/title, and retain no-data behavior.
+
+#### R-VIS-EVIDENCE-DIM-001 - P3 - Closed by documentation correction
+
+- Manager independently reads the committed PNG as 1420x839 and 36,754 bytes.
+  The journal dimension is corrected from 831 to 839; no runtime replay needed.
+
+- Carried issue-#8 destructor and real-plugin lifecycle P2s remain durably
+  deferred and unregressed. They do not absorb the new P1/P2 corrections.

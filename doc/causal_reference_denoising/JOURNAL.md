@@ -6608,7 +6608,7 @@ hidden reasoning is not.
   control, displayed-target selection, target/sample/sequence fields, the
   waveform panel with three legends, and the RMS-history panel. With no input,
   it truthfully displays `Stopped`, `InvalidMetadata` and `Waiting for MEG data`.
-- Save the 1420-by-831 host capture as
+- Save the 1420-by-839 host capture as
   `doc/causal_reference_denoising/evidence/mne_scan_adaptive_denoising_window.png`,
   then close only the mne_scan process started by this validation through its
   normal close request. No `mne_rt_server` is started.
@@ -6649,3 +6649,26 @@ hidden reasoning is not.
   reviewer, and explicit cleanup confirmation in the final response.
 - Keep issue #9 and the active goal open. Do not accept evidence originating
   from the nested agents and do not start continuous status polling.
+
+### E-653 - Hosted visualization review returns HOLD
+
+- `R-VIS-001` completes personally at exact clean detached snapshot
+  `f2e59838c63bae7c61f5fc877306cd8bc8a69d1c`. The three improperly created
+  nested agents were interrupted and their work was discarded before the
+  review continued; no nested result is cited.
+- Decision: HOLD with P0=0, P1=1, P2=3, P3=1.
+  - P1 `R-VIS-MUTEX-STREAM-001`: the shared Qt mutex can block and lazily
+    allocate on first Windows contention inside noexcept worker publication.
+  - P2 `R-VIS-STALE-STATE-001`: valid layout/model/reset transitions can retain
+    old waveforms or RMS history and non-Ready processor states can contradict
+    the visualization target ownership.
+  - P2 `R-VIS-SNAPSHOT-ORACLE-001`: downsampling/RMS tests do not cover every
+    interior identity, all three histories, or non-finite tuple filtering.
+  - P2 `R-VIS-RENDER-ORACLE-001`: whole-widget color counting can pass from
+    legend swatches even when plotted series are absent.
+  - P3 `R-VIS-EVIDENCE-DIM-001`: committed PNG is 1420-by-839, not 1420-by-831.
+- Manager independently verifies the committed PNG is 1420-by-839 and 36,754
+  bytes, and corrects only the ledger dimension.
+- Keep #9/Goal open. Next use Luna/max for a public RED oracle correction and
+  Sol/ultra for the bounded fixed-storage publication/state-boundary fix; then
+  rerun every focused/host gate and a fresh independent review.

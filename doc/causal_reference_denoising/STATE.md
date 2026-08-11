@@ -986,3 +986,12 @@ same-responsibility implementation conversations that may receive review fixes.
 - Process correction sent: the reviewer must stop and discard three improperly
   created internal audit subagents, then finish personally. No repository
   mutation is reported; final acceptance requires explicit cleanup proof.
+- `R-VIS-001` now returns HOLD at exact clean `f2e59838c`: P0=0, P1=1,
+  P2=3, P3=1. Nested agents are confirmed interrupted/discarded. Open gates are
+  the contended Qt-mutex worker publication, stale visualization across
+  configuration/reset boundaries, incomplete snapshot oracle and legend-only
+  render false-green. The PNG dimension P3 is corrected to 1420x839.
+- Next: publish the HOLD, archive the spent reviewer, add Luna/max RED tests,
+  then use a fresh Sol/ultra worker for fixed-storage nonblocking publication
+  and boundary clearing. Repeat all Release/example/benchmark/plugin/host
+  evidence and a new independent Sol/ultra review before closing #9/Goal.
