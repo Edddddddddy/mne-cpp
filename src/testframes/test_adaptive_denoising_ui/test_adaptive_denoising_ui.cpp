@@ -18,6 +18,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpinBox>
+#include <QtCore/QRectF>
 #include <QtCore/QTimer>
 #include <QtGui/QColor>
 #include <QtGui/QImage>
@@ -26,13 +27,97 @@
 
 #include <Eigen/Core>
 
+#include <algorithm>
+#include <array>
+#include <atomic>
+#include <chrono>
 #include <cstdint>
 #include <cmath>
+#include <cstdlib>
 #include <cstdio>
+#include <limits>
 #include <memory>
+#include <new>
+#include <thread>
 #include <type_traits>
 #include <utility>
 #include <vector>
+
+//=============================================================================================================
+
+namespace
+{
+
+thread_local bool g_countWorkerAllocations = false;
+thread_local std::uint64_t g_workerAllocationCount = 0u;
+
+void* allocateTestMemory(std::size_t size, bool throwing)
+{
+    void* const memory = std::malloc(size == 0u ? 1u : size);
+    if(memory == nullptr) {
+        if(throwing) {
+            throw std::bad_alloc();
+        }
+        return nullptr;
+    }
+
+    if(g_countWorkerAllocations) {
+        ++g_workerAllocationCount;
+    }
+    return memory;
+}
+
+} // namespace
+
+void* operator new(std::size_t size)
+{
+    return allocateTestMemory(size, true);
+}
+
+void* operator new[](std::size_t size)
+{
+    return allocateTestMemory(size, true);
+}
+
+void* operator new(std::size_t size, const std::nothrow_t&) noexcept
+{
+    return allocateTestMemory(size, false);
+}
+
+void* operator new[](std::size_t size, const std::nothrow_t&) noexcept
+{
+    return allocateTestMemory(size, false);
+}
+
+void operator delete(void* memory) noexcept
+{
+    std::free(memory);
+}
+
+void operator delete[](void* memory) noexcept
+{
+    std::free(memory);
+}
+
+void operator delete(void* memory, std::size_t) noexcept
+{
+    std::free(memory);
+}
+
+void operator delete[](void* memory, std::size_t) noexcept
+{
+    std::free(memory);
+}
+
+void operator delete(void* memory, const std::nothrow_t&) noexcept
+{
+    std::free(memory);
+}
+
+void operator delete[](void* memory, const std::nothrow_t&) noexcept
+{
+    std::free(memory);
+}
 
 //=============================================================================================================
 
@@ -68,6 +153,114 @@ static_assert(
         && std::is_scalar<decltype(std::declval<Diagnostics>().droppedBlocks)>::value,
     "diagnostics must not contain strings, containers or owning pointers");
 
+constexpr std::size_t kConcurrentVisualizationBlockCount = 4u;
+constexpr Eigen::Index kConcurrentVisualizationSampleCount = 64;
+
+struct PrecreatedVisualizationBlock
+{
+    Eigen::MatrixXd raw;
+    Eigen::MatrixXd denoised;
+    std::vector<Eigen::Index> targetRows;
+    Diagnostics diagnostics{};
+};
+
+bool snapshotMatchesVisualizationBlock(
+    const AdaptiveDenoisingVisualizationSnapshot& snapshot,
+    const PrecreatedVisualizationBlock& block) noexcept
+{
+    if(snapshot.sequence == 0u
+       || snapshot.selectedTargetOrdinal != 1
+       || snapshot.selectedTargetRow != 1
+       || snapshot.targetCount != 2
+       || snapshot.sourceSampleCount != kConcurrentVisualizationSampleCount
+       || snapshot.traceSampleCount != kConcurrentVisualizationSampleCount
+       || snapshot.rmsHistoryCount <= 0
+       || snapshot.rmsHistoryCount
+              > static_cast<Eigen::Index>(kAdaptiveDenoisingRmsHistoryCapacity)) {
+        return false;
+    }
+
+    for(Eigen::Index traceIndex = 0;
+        traceIndex < snapshot.traceSampleCount;
+        ++traceIndex) {
+        const Eigen::Index sourceColumn =
+            (traceIndex * (block.raw.cols() - 1))
+            / (snapshot.traceSampleCount - 1);
+        const std::size_t destinationIndex = static_cast<std::size_t>(traceIndex);
+        const double expectedRaw = block.raw(1, sourceColumn);
+        const double expectedDenoised = block.denoised(1, sourceColumn);
+        if(snapshot.raw[destinationIndex] != expectedRaw
+           || snapshot.denoised[destinationIndex] != expectedDenoised
+           || snapshot.estimatedNoise[destinationIndex]
+                  != expectedRaw - expectedDenoised) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool snapshotMatchesAnyVisualizationBlock(
+    const AdaptiveDenoisingVisualizationSnapshot& snapshot,
+    const std::array<PrecreatedVisualizationBlock,
+                     kConcurrentVisualizationBlockCount>& blocks) noexcept
+{
+    const auto historyBlockIndex =
+        [&blocks](const AdaptiveDenoisingVisualizationSnapshot& snapshot,
+                  std::size_t historyIndex) {
+            for(std::size_t blockIndex = 0u;
+                blockIndex < kConcurrentVisualizationBlockCount;
+                ++blockIndex) {
+                const PrecreatedVisualizationBlock& block = blocks[blockIndex];
+                if(std::isfinite(snapshot.inputRmsHistory[historyIndex])
+                   && std::isfinite(snapshot.outputRmsHistory[historyIndex])
+                   && std::isfinite(snapshot.estimatedNoiseRmsHistory[historyIndex])
+                   && snapshot.inputRmsHistory[historyIndex]
+                          == block.diagnostics.inputRms
+                   && snapshot.outputRmsHistory[historyIndex]
+                          == block.diagnostics.outputRms
+                   && snapshot.estimatedNoiseRmsHistory[historyIndex]
+                          == block.diagnostics.estimatedNoiseRms) {
+                    return blockIndex;
+                }
+            }
+            return kConcurrentVisualizationBlockCount;
+        };
+
+    if(snapshot.rmsHistoryCount <= 0
+       || snapshot.rmsHistoryCount
+              > static_cast<Eigen::Index>(kAdaptiveDenoisingRmsHistoryCapacity)) {
+        return false;
+    }
+
+    std::array<std::size_t, kAdaptiveDenoisingRmsHistoryCapacity> historyBlocks{};
+    for(std::size_t historyIndex = 0u;
+        historyIndex < static_cast<std::size_t>(snapshot.rmsHistoryCount);
+        ++historyIndex) {
+        historyBlocks[historyIndex] = historyBlockIndex(snapshot, historyIndex);
+        if(historyBlocks[historyIndex] >= kConcurrentVisualizationBlockCount) {
+            return false;
+        }
+        if(historyIndex > 0u
+           && historyBlocks[historyIndex]
+                  != (historyBlocks[historyIndex - 1u] + 1u)
+                         % kConcurrentVisualizationBlockCount) {
+            return false;
+        }
+    }
+
+    for(std::size_t blockIndex = 0u;
+        blockIndex < kConcurrentVisualizationBlockCount;
+        ++blockIndex) {
+        if(snapshotMatchesVisualizationBlock(snapshot, blocks[blockIndex])
+           && historyBlocks[static_cast<std::size_t>(snapshot.rmsHistoryCount) - 1u]
+                  == blockIndex) {
+            return true;
+        }
+    }
+    return false;
+}
+
 } // namespace
 
 //=============================================================================================================
@@ -79,6 +272,8 @@ class TestAdaptiveDenoisingUi : public QObject
 private slots:
     void widgetControlsAndDiagnosticsExposePublicContract();
     void visualizationSnapshotIsBoundedAndChronological();
+    void visualizationSnapshotInvalidatesStaleState();
+    void visualizationSnapshotRemainsConsistentDuringConcurrentTraffic();
     void widgetTimerRendersSelectedTargetSnapshot();
 };
 
@@ -245,23 +440,50 @@ void TestAdaptiveDenoisingUi::visualizationSnapshotIsBoundedAndChronological()
     QCOMPARE(snapshot.targetCount, Eigen::Index(2));
     QCOMPARE(snapshot.sourceSampleCount, Eigen::Index(300));
     QCOMPARE(snapshot.traceSampleCount, Eigen::Index(kAdaptiveDenoisingTraceCapacity));
-    QCOMPARE(snapshot.raw[0], 1000.0);
-    QCOMPARE(snapshot.raw[kAdaptiveDenoisingTraceCapacity - 1], 1299.0);
-    QCOMPARE(snapshot.denoised[0], 250.0);
-    QCOMPARE(snapshot.estimatedNoise[0], 750.0);
+    for(std::size_t traceIndex = 0u;
+        traceIndex < kAdaptiveDenoisingTraceCapacity;
+        ++traceIndex) {
+        const Eigen::Index sourceColumn =
+            (static_cast<Eigen::Index>(traceIndex) * (raw.cols() - 1))
+            / static_cast<Eigen::Index>(kAdaptiveDenoisingTraceCapacity - 1u);
+        QCOMPARE(snapshot.raw[traceIndex], raw(1, sourceColumn));
+        QCOMPARE(snapshot.denoised[traceIndex], denoised(1, sourceColumn));
+        QCOMPARE(snapshot.estimatedNoise[traceIndex],
+                 raw(1, sourceColumn) - denoised(1, sourceColumn));
+    }
     QCOMPARE(snapshot.rmsHistoryCount, Eigen::Index(1));
     QCOMPARE(snapshot.inputRmsHistory[0], 10.0);
     QCOMPARE(snapshot.outputRmsHistory[0], 4.0);
     QCOMPARE(snapshot.estimatedNoiseRmsHistory[0], 6.0);
+
+    const AdaptiveDenoisingVisualizationSnapshot beforeNonFinite = snapshot;
+    diagnostics.inputRms = std::numeric_limits<double>::quiet_NaN();
+    diagnostics.outputRms = 404.0;
+    diagnostics.estimatedNoiseRms = 505.0;
+    model.captureInput(raw, targetRows);
+    model.publishOutput(denoised, diagnostics);
+
+    snapshot = model.snapshot();
+    QCOMPARE(snapshot.rmsHistoryCount, beforeNonFinite.rmsHistoryCount);
+    for(std::size_t historyIndex = 0u;
+        historyIndex < kAdaptiveDenoisingRmsHistoryCapacity;
+        ++historyIndex) {
+        QCOMPARE(snapshot.inputRmsHistory[historyIndex],
+                 beforeNonFinite.inputRmsHistory[historyIndex]);
+        QCOMPARE(snapshot.outputRmsHistory[historyIndex],
+                 beforeNonFinite.outputRmsHistory[historyIndex]);
+        QCOMPARE(snapshot.estimatedNoiseRmsHistory[historyIndex],
+                 beforeNonFinite.estimatedNoiseRmsHistory[historyIndex]);
+    }
 
     raw.conservativeResize(Eigen::NoChange, 1);
     denoised.conservativeResize(Eigen::NoChange, 1);
     for(int observation = 1;
         observation <= static_cast<int>(kAdaptiveDenoisingRmsHistoryCapacity) + 5;
         ++observation) {
-        diagnostics.inputRms = static_cast<double>(observation);
-        diagnostics.outputRms = 0.5 * static_cast<double>(observation);
-        diagnostics.estimatedNoiseRms = 0.25 * static_cast<double>(observation);
+        diagnostics.inputRms = 1000.0 + static_cast<double>(observation);
+        diagnostics.outputRms = 2000.0 + static_cast<double>(observation);
+        diagnostics.estimatedNoiseRms = 3000.0 + static_cast<double>(observation);
         model.captureInput(raw, targetRows);
         model.publishOutput(denoised, diagnostics);
     }
@@ -269,8 +491,285 @@ void TestAdaptiveDenoisingUi::visualizationSnapshotIsBoundedAndChronological()
     snapshot = model.snapshot();
     QCOMPARE(snapshot.rmsHistoryCount,
              Eigen::Index(kAdaptiveDenoisingRmsHistoryCapacity));
-    QCOMPARE(snapshot.inputRmsHistory[0], 6.0);
-    QCOMPARE(snapshot.inputRmsHistory[kAdaptiveDenoisingRmsHistoryCapacity - 1], 125.0);
+    for(std::size_t historyIndex = 0u;
+        historyIndex < kAdaptiveDenoisingRmsHistoryCapacity;
+        ++historyIndex) {
+        const double observation = 6.0 + static_cast<double>(historyIndex);
+        QCOMPARE(snapshot.inputRmsHistory[historyIndex], 1000.0 + observation);
+        QCOMPARE(snapshot.outputRmsHistory[historyIndex], 2000.0 + observation);
+        QCOMPARE(snapshot.estimatedNoiseRmsHistory[historyIndex],
+                 3000.0 + observation);
+        QVERIFY(std::isfinite(snapshot.inputRmsHistory[historyIndex]));
+        QVERIFY(std::isfinite(snapshot.outputRmsHistory[historyIndex]));
+        QVERIFY(std::isfinite(snapshot.estimatedNoiseRmsHistory[historyIndex]));
+    }
+
+    model.clear();
+    snapshot = model.snapshot();
+    QCOMPARE(snapshot.sequence, std::uint64_t(0u));
+    QCOMPARE(snapshot.selectedTargetOrdinal, Eigen::Index(0));
+    QCOMPARE(snapshot.selectedTargetRow, Eigen::Index(-1));
+    QCOMPARE(snapshot.targetCount, Eigen::Index(0));
+    QCOMPARE(snapshot.sourceSampleCount, Eigen::Index(0));
+    QCOMPARE(snapshot.traceSampleCount, Eigen::Index(0));
+    QCOMPARE(snapshot.rmsHistoryCount, Eigen::Index(0));
+    for(std::size_t traceIndex = 0u;
+        traceIndex < kAdaptiveDenoisingTraceCapacity;
+        ++traceIndex) {
+        QCOMPARE(snapshot.raw[traceIndex], 0.0);
+        QCOMPARE(snapshot.denoised[traceIndex], 0.0);
+        QCOMPARE(snapshot.estimatedNoise[traceIndex], 0.0);
+    }
+    for(std::size_t historyIndex = 0u;
+        historyIndex < kAdaptiveDenoisingRmsHistoryCapacity;
+        ++historyIndex) {
+        QCOMPARE(snapshot.inputRmsHistory[historyIndex], 0.0);
+        QCOMPARE(snapshot.outputRmsHistory[historyIndex], 0.0);
+        QCOMPARE(snapshot.estimatedNoiseRmsHistory[historyIndex], 0.0);
+    }
+}
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingUi::visualizationSnapshotInvalidatesStaleState()
+{
+    const auto isEmptySnapshot = [](const AdaptiveDenoisingVisualizationSnapshot& snapshot) {
+        if(snapshot.sequence != 0u
+           || snapshot.selectedTargetOrdinal != 0
+           || snapshot.selectedTargetRow != -1
+           || snapshot.targetCount != 0
+           || snapshot.sourceSampleCount != 0
+           || snapshot.traceSampleCount != 0
+           || snapshot.rmsHistoryCount != 0) {
+            return false;
+        }
+
+        for(std::size_t index = 0u; index < kAdaptiveDenoisingTraceCapacity; ++index) {
+            if(snapshot.raw[index] != 0.0
+               || snapshot.denoised[index] != 0.0
+               || snapshot.estimatedNoise[index] != 0.0) {
+                return false;
+            }
+        }
+        for(std::size_t index = 0u; index < kAdaptiveDenoisingRmsHistoryCapacity; ++index) {
+            if(snapshot.inputRmsHistory[index] != 0.0
+               || snapshot.outputRmsHistory[index] != 0.0
+               || snapshot.estimatedNoiseRmsHistory[index] != 0.0) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+    AdaptiveDenoisingVisualizationModel model;
+    model.setSelectedTargetOrdinal(0);
+
+    Eigen::MatrixXd raw(2, 8);
+    Eigen::MatrixXd denoised(2, 8);
+    for(Eigen::Index sample = 0; sample < raw.cols(); ++sample) {
+        raw(0, sample) = 10.0 + static_cast<double>(sample);
+        raw(1, sample) = 100.0 + static_cast<double>(sample);
+        denoised(0, sample) = 7.0 + static_cast<double>(sample);
+        denoised(1, sample) = 70.0 + static_cast<double>(sample);
+    }
+
+    Diagnostics diagnostics{};
+    diagnostics.inputRms = 3.0;
+    diagnostics.outputRms = 2.0;
+    diagnostics.estimatedNoiseRms = 1.0;
+    const std::vector<Eigen::Index> targetRows{1};
+
+    model.captureInput(raw, targetRows);
+    model.publishOutput(denoised, diagnostics);
+    QVERIFY(model.snapshot().sequence > 0u);
+
+    model.captureInput(raw, std::vector<Eigen::Index>());
+    model.publishOutput(denoised, diagnostics);
+    QVERIFY(isEmptySnapshot(model.snapshot()));
+
+    model.clear();
+    model.captureInput(raw, targetRows);
+    model.publishOutput(denoised, diagnostics);
+    QVERIFY(model.snapshot().sequence > 0u);
+
+    Eigen::MatrixXd incompatibleRows(1, raw.cols());
+    incompatibleRows.setZero();
+    model.captureInput(raw, targetRows);
+    model.publishOutput(incompatibleRows, diagnostics);
+    QVERIFY(isEmptySnapshot(model.snapshot()));
+
+    model.clear();
+    model.captureInput(raw, targetRows);
+    model.publishOutput(denoised, diagnostics);
+    QVERIFY(model.snapshot().sequence > 0u);
+
+    Eigen::MatrixXd incompatibleColumns(raw.rows(), raw.cols() - 1);
+    incompatibleColumns.setZero();
+    model.captureInput(raw, targetRows);
+    model.publishOutput(incompatibleColumns, diagnostics);
+    QVERIFY(isEmptySnapshot(model.snapshot()));
+}
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingUi::visualizationSnapshotRemainsConsistentDuringConcurrentTraffic()
+{
+    std::array<PrecreatedVisualizationBlock,
+               kConcurrentVisualizationBlockCount> blocks;
+    for(std::size_t blockIndex = 0u;
+        blockIndex < kConcurrentVisualizationBlockCount;
+        ++blockIndex) {
+        PrecreatedVisualizationBlock& block = blocks[blockIndex];
+        block.raw.resize(2, kConcurrentVisualizationSampleCount);
+        block.denoised.resize(2, kConcurrentVisualizationSampleCount);
+        block.targetRows = std::vector<Eigen::Index>{0, 1};
+        block.diagnostics.inputRms = 1000.0 + static_cast<double>(blockIndex);
+        block.diagnostics.outputRms = 2000.0 + static_cast<double>(blockIndex);
+        block.diagnostics.estimatedNoiseRms = 3000.0 + static_cast<double>(blockIndex);
+
+        const double base = 10000.0 + 100.0 * static_cast<double>(blockIndex);
+        const double noise = 10.0 + static_cast<double>(blockIndex);
+        for(Eigen::Index sample = 0;
+            sample < kConcurrentVisualizationSampleCount;
+            ++sample) {
+            block.raw(0, sample) = base + 0.5 * static_cast<double>(sample);
+            block.raw(1, sample) = base + 1000.0 + static_cast<double>(sample);
+            block.denoised(0, sample) = block.raw(0, sample) - noise;
+            block.denoised(1, sample) = block.raw(1, sample) - noise;
+        }
+    }
+
+    AdaptiveDenoisingVisualizationModel model;
+    model.setSelectedTargetOrdinal(1);
+
+    std::atomic<bool> start{false};
+    std::atomic<bool> stop{false};
+    std::atomic<bool> producerReady{false};
+    std::atomic<bool> readerReady{false};
+    std::atomic<bool> producerActive{false};
+    std::atomic<bool> overlapObserved{false};
+    std::atomic<bool> readerSawNonEmpty{false};
+    std::atomic<bool> readerSawInvalidSnapshot{false};
+    std::atomic<std::uint64_t> completeWorkerCalls{0u};
+    std::atomic<std::uint64_t> workerAllocationCount{0u};
+    std::atomic<std::uint64_t> maxWorkerCallNanoseconds{0u};
+    std::atomic<std::uint64_t> readerIterations{0u};
+    std::atomic<std::uint64_t> clearCalls{0u};
+
+    const std::chrono::steady_clock::time_point deadline =
+        std::chrono::steady_clock::now() + std::chrono::milliseconds(750);
+
+    std::thread producer([&]() {
+        producerReady.store(true, std::memory_order_release);
+        while(!start.load(std::memory_order_acquire)) {
+            std::this_thread::yield();
+        }
+
+        std::uint64_t localCompleteCalls = 0u;
+        std::uint64_t localMaxNanoseconds = 0u;
+        std::size_t blockIndex = 0u;
+        g_workerAllocationCount = 0u;
+        g_countWorkerAllocations = true;
+        while(!stop.load(std::memory_order_acquire)
+              && std::chrono::steady_clock::now() < deadline) {
+            const std::chrono::steady_clock::time_point callStart =
+                std::chrono::steady_clock::now();
+            producerActive.store(true, std::memory_order_release);
+            model.captureInput(blocks[blockIndex].raw, blocks[blockIndex].targetRows);
+            model.publishOutput(blocks[blockIndex].denoised,
+                                blocks[blockIndex].diagnostics);
+            producerActive.store(false, std::memory_order_release);
+
+            const std::uint64_t callNanoseconds = static_cast<std::uint64_t>(
+                std::chrono::duration_cast<std::chrono::nanoseconds>(
+                    std::chrono::steady_clock::now() - callStart)
+                    .count());
+            localMaxNanoseconds = std::max(localMaxNanoseconds, callNanoseconds);
+            ++localCompleteCalls;
+            blockIndex = (blockIndex + 1u) % kConcurrentVisualizationBlockCount;
+        }
+        producerActive.store(false, std::memory_order_release);
+        g_countWorkerAllocations = false;
+        completeWorkerCalls.store(localCompleteCalls, std::memory_order_release);
+        workerAllocationCount.store(g_workerAllocationCount, std::memory_order_release);
+        maxWorkerCallNanoseconds.store(localMaxNanoseconds, std::memory_order_release);
+    });
+
+    std::thread reader([&]() {
+        readerReady.store(true, std::memory_order_release);
+        while(!start.load(std::memory_order_acquire)) {
+            std::this_thread::yield();
+        }
+
+        std::uint64_t localReaderIterations = 0u;
+        std::uint64_t localClearCalls = 0u;
+        while(!stop.load(std::memory_order_acquire)
+              && std::chrono::steady_clock::now() < deadline) {
+            const AdaptiveDenoisingVisualizationSnapshot snapshot = model.snapshot();
+            if(producerActive.load(std::memory_order_acquire)) {
+                overlapObserved.store(true, std::memory_order_release);
+            }
+            if(snapshot.traceSampleCount > 0) {
+                readerSawNonEmpty.store(true, std::memory_order_release);
+                if(!snapshotMatchesAnyVisualizationBlock(snapshot, blocks)) {
+                    readerSawInvalidSnapshot.store(true, std::memory_order_release);
+                }
+            }
+
+            ++localReaderIterations;
+            if(localReaderIterations % 17u == 0u) {
+                model.clear();
+                if(producerActive.load(std::memory_order_acquire)) {
+                    overlapObserved.store(true, std::memory_order_release);
+                }
+                ++localClearCalls;
+            }
+        }
+        readerIterations.store(localReaderIterations, std::memory_order_release);
+        clearCalls.store(localClearCalls, std::memory_order_release);
+        stop.store(true, std::memory_order_release);
+    });
+
+    const std::chrono::steady_clock::time_point readyDeadline =
+        std::chrono::steady_clock::now() + std::chrono::milliseconds(250);
+    while((!producerReady.load(std::memory_order_acquire)
+           || !readerReady.load(std::memory_order_acquire))
+          && std::chrono::steady_clock::now() < readyDeadline) {
+        std::this_thread::yield();
+    }
+    start.store(true, std::memory_order_release);
+
+    producer.join();
+    reader.join();
+
+    const std::uint64_t completeCalls =
+        completeWorkerCalls.load(std::memory_order_acquire);
+    const std::uint64_t allocations =
+        workerAllocationCount.load(std::memory_order_acquire);
+    const std::uint64_t maxNanoseconds =
+        maxWorkerCallNanoseconds.load(std::memory_order_acquire);
+    const std::uint64_t observedReaderIterations =
+        readerIterations.load(std::memory_order_acquire);
+    const std::uint64_t observedClearCalls = clearCalls.load(std::memory_order_acquire);
+
+    std::fprintf(stdout,
+                 "\n[Adaptive Denoising] concurrent worker calls=%llu, "
+                 "reader snapshots=%llu, clears=%llu, max complete worker call=%llu ns, "
+                 "worker allocations=%llu\n",
+                 static_cast<unsigned long long>(completeCalls),
+                 static_cast<unsigned long long>(observedReaderIterations),
+                 static_cast<unsigned long long>(observedClearCalls),
+                 static_cast<unsigned long long>(maxNanoseconds),
+                 static_cast<unsigned long long>(allocations));
+    std::fflush(stdout);
+
+    QVERIFY(completeCalls > 0u);
+    QVERIFY(observedReaderIterations > 0u);
+    QVERIFY(observedClearCalls > 0u);
+    QVERIFY(overlapObserved.load(std::memory_order_acquire));
+    QVERIFY(readerSawNonEmpty.load(std::memory_order_acquire));
+    QVERIFY(!readerSawInvalidSnapshot.load(std::memory_order_acquire));
+    QCOMPARE(allocations, std::uint64_t(0u));
 }
 
 //=============================================================================================================
@@ -304,6 +803,52 @@ void TestAdaptiveDenoisingUi::widgetTimerRendersSelectedTargetSnapshot()
     QCOMPARE(refreshTimer->interval(), 50);
     QVERIFY(refreshTimer->isActive());
 
+    widget.show();
+    QApplication::processEvents();
+    QVERIFY(traceWidget->width() > 0);
+    QVERIFY(traceWidget->height() > 0);
+
+    const QRectF content = QRectF(traceWidget->rect()).adjusted(12.0, 12.0, -12.0, -12.0);
+    const double gap = 12.0;
+    const double waveformHeight = (content.height() - gap) * 0.62;
+    const QRectF waveformPanel(content.left(), content.top(),
+                               content.width(), waveformHeight);
+    const QRectF rmsPanel(content.left(), waveformPanel.bottom() + gap,
+                          content.width(), content.bottom() - waveformPanel.bottom() - gap);
+    const QRect waveformPlot = waveformPanel.adjusted(10.0, 28.0, -10.0, -10.0)
+                                   .toAlignedRect();
+    const QRect rmsPlot = rmsPanel.adjusted(10.0, 26.0, -10.0, -10.0).toAlignedRect();
+
+    const auto exactColorCount = [](const QImage& image,
+                                    const QRect& region,
+                                    const QColor& color) {
+        const QRect clipped = region.intersected(image.rect());
+        int count = 0;
+        for(int y = clipped.top(); y <= clipped.bottom(); ++y) {
+            for(int x = clipped.left(); x <= clipped.right(); ++x) {
+                count += QColor::fromRgba(image.pixel(x, y)) == color ? 1 : 0;
+            }
+        }
+        return count;
+    };
+
+    const QColor cyan(QStringLiteral("#4fc3f7"));
+    const QColor green(QStringLiteral("#66bb6a"));
+    const QColor orange(QStringLiteral("#ffb74d"));
+
+    QImage noData(traceWidget->size(), QImage::Format_ARGB32_Premultiplied);
+    noData.fill(Qt::transparent);
+    traceWidget->render(&noData);
+    QCOMPARE(targetValue->text(), QStringLiteral("waiting"));
+    QCOMPARE(samplesValue->text(), QStringLiteral("0 / 0"));
+    QVERIFY(!targetSelector->isEnabled());
+    QCOMPARE(exactColorCount(noData, waveformPlot, cyan), 0);
+    QCOMPARE(exactColorCount(noData, waveformPlot, green), 0);
+    QCOMPARE(exactColorCount(noData, waveformPlot, orange), 0);
+    QCOMPARE(exactColorCount(noData, rmsPlot, cyan), 0);
+    QCOMPARE(exactColorCount(noData, rmsPlot, green), 0);
+    QCOMPARE(exactColorCount(noData, rmsPlot, orange), 0);
+
     Eigen::MatrixXd raw(2, 64);
     Eigen::MatrixXd denoised(2, 64);
     for(Eigen::Index sample = 0; sample < raw.cols(); ++sample) {
@@ -322,7 +867,6 @@ void TestAdaptiveDenoisingUi::widgetTimerRendersSelectedTargetSnapshot()
 
     model->captureInput(raw, targetRows);
     model->publishOutput(denoised, diagnostics);
-    widget.show();
 
     QTRY_COMPARE(sequenceValue->text(), QStringLiteral("1"));
     QCOMPARE(targetSelector->minimum(), 1);
@@ -332,6 +876,9 @@ void TestAdaptiveDenoisingUi::widgetTimerRendersSelectedTargetSnapshot()
 
     targetSelector->setValue(2);
     QCOMPARE(model->selectedTargetOrdinal(), 1);
+    diagnostics.inputRms = 1.2;
+    diagnostics.outputRms = 0.5;
+    diagnostics.estimatedNoiseRms = 0.7;
     model->captureInput(raw, targetRows);
     model->publishOutput(denoised, diagnostics);
     QTRY_COMPARE(sequenceValue->text(), QStringLiteral("2"));
@@ -341,21 +888,12 @@ void TestAdaptiveDenoisingUi::widgetTimerRendersSelectedTargetSnapshot()
     rendered.fill(Qt::transparent);
     traceWidget->render(&rendered);
 
-    int cyanPixels = 0;
-    int greenPixels = 0;
-    int orangePixels = 0;
-    for(int y = 0; y < rendered.height(); ++y) {
-        for(int x = 0; x < rendered.width(); ++x) {
-            const QColor color = QColor::fromRgba(rendered.pixel(x, y));
-            cyanPixels += color == QColor(QStringLiteral("#4fc3f7")) ? 1 : 0;
-            greenPixels += color == QColor(QStringLiteral("#66bb6a")) ? 1 : 0;
-            orangePixels += color == QColor(QStringLiteral("#ffb74d")) ? 1 : 0;
-        }
-    }
-
-    QVERIFY(cyanPixels > 0);
-    QVERIFY(greenPixels > 0);
-    QVERIFY(orangePixels > 0);
+    QVERIFY(exactColorCount(rendered, waveformPlot, cyan) > 0);
+    QVERIFY(exactColorCount(rendered, waveformPlot, green) > 0);
+    QVERIFY(exactColorCount(rendered, waveformPlot, orange) > 0);
+    QVERIFY(exactColorCount(rendered, rmsPlot, cyan) > 0);
+    QVERIFY(exactColorCount(rendered, rmsPlot, green) > 0);
+    QVERIFY(exactColorCount(rendered, rmsPlot, orange) > 0);
 }
 
 //=============================================================================================================
