@@ -9235,3 +9235,26 @@ does not continuously poll them.
   `codex/worker-vis-mailbox-base` resolves to exact requested `e084f3914`.
 - lifecycle / await proactive response without continuous polling or touching
   the app worktree. No other task may edit the three production files.
+
+### RESPONSE W-VIS-MAILBOX-001
+
+- exact parent / `e084f391435933668829432c31a298cf9d8d1b40`.
+- worker commit / `ce928184c20b780b48fc1a8011c27112e3896e03`;
+  exactly the three authorized production files, detached clean worktree and no
+  nested agents.
+- module / unchanged public 256/120 value seam; private four-slot fixed SPSC
+  mailbox with worker producer/history/clear ownership and sequential GUI-thread
+  consumer/cache ownership. Always-lock-free unsigned sequences release-publish
+  and release-reuse complete slots; four unread values cause immediate drop.
+- invalidation / zero is invalid, valid epochs skip zero, clear invalidates
+  before resetting worker pending/RMS/public sequence and never resets ring
+  positions. Only successful post-clear publication revalidates; snapshot checks
+  epoch before/after cache and rejects old slot tags.
+- plugin / every configure boundary clears; candidate good-MEG rows commit only
+  for processor Ready; reset clears immediately before numerical reset. update()
+  matches parent byte-for-byte at reported SHA-256 `17119e5d...c176`.
+- verification / no model mutex tokens, exact scope/diff-check, immutable tests,
+  C++14 syntax probes and clean status pass. Isolated ignored Eigen is incomplete,
+  so worker correctly makes no canonical build/app/server claim.
+- next / manager independently audits the complete diff, race/epoch behavior,
+  callback bytes and canonical v142 GREEN before accepting integration.

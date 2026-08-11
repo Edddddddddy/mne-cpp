@@ -6836,3 +6836,18 @@ hidden reasoning is not.
   `e084f3914`, owns only the three frozen production files, works personally
   without nested agents, and returns proactively. Manager does not poll or
   inspect its app worktree.
+
+### E-667 - Fixed visualization mailbox implementation returned
+
+- `W-VIS-MAILBOX-001` returns exact-parent three-file Sol/ultra commit
+  `ce928184c20b780b48fc1a8011c27112e3896e03` with a clean detached worktree and
+  no nested agents.
+- It reports the unchanged public model seam, fixed four-slot sequence mailbox,
+  zero-invalid/nonzero-epoch clear protocol, drop-only visualization behavior,
+  Ready-only target-row commit and reset-before-clear ordering. Worker RMS
+  history advances before the capacity decision.
+- Worker static gates pass: no visualization mutex, immutable tests, exact scope,
+  diff-check, syntax probes and parent-identical update() bytes. The isolated
+  worktree lacks ignored Eigen and therefore makes no canonical runtime claim.
+- Manager must now inspect the exact commit, then run the populated v142 UI
+  target. No integration acceptance is recorded until both pass.
