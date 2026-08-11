@@ -896,3 +896,16 @@ same-responsibility implementation conversations that may receive review fixes.
   intentionally preserved as user-owned paths.
 - No conventional PR, full `mne_scan`, `mne_rt_server`, or vendor Qt change was
   made. The implementation is ready for user acceptance.
+
+## Visualization-host extension goal
+
+- On 2026-08-11 the user clarified that acceptance requires a visible
+  `mne_scan` window, not only focused tests and a plugin DLL. A goal-backed
+  extension is active in the manager conversation.
+- Required view: existing controls/diagnostics plus selected-target raw,
+  denoised and estimated-noise live curves and three RMS histories. GUI refresh
+  consumes a bounded thread-safe snapshot; acquisition callback remains free of
+  plotting, waits and retries. `mne_rt_server` remains out of scope.
+- The user explicitly authorizes restoring two accidentally split tokens in
+  `abstract3Dtreeitem.cpp` so the real mne_scan host can build. No other user or
+  vendor file is authorized by that correction.

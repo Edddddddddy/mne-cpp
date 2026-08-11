@@ -6442,3 +6442,19 @@ hidden reasoning is not.
   completes without repository mutation, provides accurate long/short resume
   versions, and flags unsupported algorithms/metrics plus the evidence needed
   before they could be restored.
+
+### E-637 - Visualization-host goal activated
+
+- User clarifies the delivered artifact must be a visible mne_scan window and
+  authorizes correction of the unrelated `abstract3Dtreeitem.cpp` token split.
+- Create an active goal requiring a real mne_scan-hosted Adaptive Denoising view
+  with raw/denoised/estimated-noise curves, RMS histories, unchanged realtime
+  acquisition semantics, focused regressions, v142 host/plugin build, visible
+  load evidence, independent review and pushed durable records.
+- Source audit shows the existing setup widget contains controls and scalar
+  diagnostics only. The plugin already exports `RealTimeMultiSampleArray`, so
+  the host can display denoised output through its generic MultiView, but the
+  dedicated three-curve visualization is new work.
+- Restore only `//Transformation` and the single-line `new MetaTreeItem(...)`
+  expression exactly to the committed baseline. This is the user's explicit
+  authorization; do not infer permission for other unrelated source changes.
