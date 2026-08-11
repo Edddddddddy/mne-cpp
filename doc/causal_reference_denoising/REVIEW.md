@@ -977,5 +977,7 @@ integration gate passes; #8 remains open after MVP issue closure.
 - Existing `R-PLUGIN-DESTRUCTOR-BOUND-001` and
   `R-PLUGIN-LIFECYCLE-TEST-001` stay assigned to OPEN issue #8 unless this
   extension regresses them. They must not be silently relabeled fixed.
-- Status: REQUEST prepared; await proactive P0-P3 response after visible task
-  setup and GitHub dispatch.
+- Visible task: `019fefec-3b1d-7e21-bae3-7d954a27b654`, Sol/ultra, app-managed
+  worktree `b8eb` from the exact frozen local ref.
+- Dispatch: `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5250780499`.
+- Status: ACTIVE; await proactive P0-P3 response without continuous polling.

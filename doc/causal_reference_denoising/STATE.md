@@ -976,3 +976,10 @@ same-responsibility implementation conversations that may receive review fixes.
   `f2e59838c63bae7c61f5fc877306cd8bc8a69d1c`; the local-only worktree start ref
   is `codex/review-visualization-base`. The durable request must be pushed before
   creating the visible review task.
+- Review setup is active as visible task
+  `019fefec-3b1d-7e21-bae3-7d954a27b654` in app-managed worktree `b8eb` and is
+  published at
+  `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5250780499`.
+- Await its proactive response. Do not continuously poll or inspect/edit the
+  reviewer worktree. A PASS closes #9/Goal after durable response and cleanup;
+  a HOLD starts only the minimum correction loop.

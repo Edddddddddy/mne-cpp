@@ -8902,3 +8902,16 @@ does not continuously poll them.
   distinguish independently reproduced evidence from manager evidence.
 - gate / PASS requires P0/P1 zero and every P2 fixed or explicitly durably
   deferred. Respond proactively as `RESPONSE R-VIS-001`; do not modify code.
+
+### SETUP R-VIS-001
+
+- app setup / accepted as
+  `client-new-thread:05325ce8-c106-495f-ac3d-a0ab2d1a5fea` on local host.
+- resolved task / visible thread `019fefec-3b1d-7e21-bae3-7d954a27b654`,
+  active in app-managed worktree `b8eb`, title `R-VIS-001`.
+- model / explicit `gpt-5.6-sol` / `ultra`; starting ref resolves exactly to
+  `f2e59838c63bae7c61f5fc877306cd8bc8a69d1c`.
+- public dispatch / issue #9 comment:
+  `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5250780499`.
+- state / reviewer is strictly read-only and will respond proactively. Manager
+  does not poll continuously or inspect/edit the app-managed worktree.

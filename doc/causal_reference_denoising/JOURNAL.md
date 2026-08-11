@@ -6625,3 +6625,15 @@ hidden reasoning is not.
 - PASS requires P0/P1 zero and every P2 fixed or explicitly deferred. The two
   issue-#8 lifecycle P2 findings remain unfixed and must be dispositioned rather
   than silently removed. Commit/push this request before creating the task.
+
+### E-651 - Visible Sol/ultra review dispatched
+
+- App worktree setup succeeds as
+  `client-new-thread:05325ce8-c106-495f-ac3d-a0ab2d1a5fea`; one identity listing
+  resolves active visible task `019fefec-3b1d-7e21-bae3-7d954a27b654` in
+  app-managed worktree `b8eb`, title `R-VIS-001`.
+- The task uses Sol/ultra and the exact local review ref at `f2e59838c...`; it is
+  strictly read-only and must return findings proactively.
+- Publish dispatch at
+  `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5250780499`.
+  Issue #9 remains OPEN. Do not continuously poll or touch the review worktree.
