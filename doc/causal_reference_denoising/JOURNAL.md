@@ -6788,3 +6788,15 @@ hidden reasoning is not.
 - The task starts from exact local ref `codex/worker-vis-test4-base` at
   `477690037` and owns only the focused UI test source. It will respond
   proactively; manager does not poll or inspect the app worktree.
+
+### E-663 - Bounded-mailbox test alignment returned
+
+- `W-VIS-TEST-004` proactively returns exact-parent one-file commit
+  `0204ad184360acd4df58e72a880e0c8b12d245fc` with six inserted lines and a
+  clean detached worktree.
+- Each wrapped-history publication is now consumed through the public snapshot,
+  matching the real GUI timer and preserving exact 120-value chronology. The
+  stale-state slot accumulates eight unread valid values before invalidation,
+  protecting full-mailbox clear behavior.
+- Manager diff/provenance audit accepts the delta. Integrate it, rerun canonical
+  v142 RED, then freeze the resulting pushed HEAD for Sol/ultra implementation.

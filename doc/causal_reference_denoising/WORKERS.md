@@ -9158,3 +9158,17 @@ does not continuously poll them.
   `codex/worker-vis-test4-base` resolves to exact requested `477690037`.
 - lifecycle / await proactive response without continuous polling or touching
   its worktree. Retain the temporary local base ref until integration.
+
+### RESPONSE W-VIS-TEST-004
+
+- exact parent / `477690037198ef1fa8b3e9eb84ea242bbe30a426`.
+- worker commit / `0204ad184360acd4df58e72a880e0c8b12d245fc`;
+  exactly six inserted lines in the focused UI test source, clean detached
+  app worktree and diff-check pass.
+- change / the 125-observation history loop consumes through public snapshot
+  after each publication, preserving the exact final 120 values. The stale
+  invalidation slot now makes eight unread valid publications before invalid
+  capture/output and still requires the complete zero value.
+- manager review / exact-parent, one-file scope and behavior match the frozen
+  four-slot contract. Accept for integration and canonical stale-state RED
+  replay. Worker made no build/dependency/app/server change.

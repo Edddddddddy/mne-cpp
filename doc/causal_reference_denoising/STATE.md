@@ -1033,3 +1033,6 @@ same-responsibility implementation conversations that may receive review fixes.
   `019ff07b-4250-7261-918a-0308d75dac7f` in app worktree `1e8e`, created from
   exact `477690037`. Await its proactive one-file response; no other worker may
   edit the focused UI test meanwhile.
+- Response accepted as exact-parent one-file commit `0204ad1843`: history is
+  GUI-consumer-paced and stale invalidation is exercised after eight unread
+  publications. Next integrate and rerun the single intended RED before Sol.
