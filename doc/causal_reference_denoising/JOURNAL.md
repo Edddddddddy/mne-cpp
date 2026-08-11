@@ -6695,3 +6695,20 @@ hidden reasoning is not.
 - Publish the one-test-file contract at
   `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5251062483`.
   Do not poll the worker or inspect/edit its app-managed directory.
+
+### E-656 - Fixed snapshot-mailbox correction selected
+
+- Apply `codebase-design` to keep the correction behind the existing concrete
+  visualization module. Reject a new strategy/registry, Qt mutex, spin lock or
+  acquisition-side notification seam.
+- Freeze a four-slot SPSC mailbox: worker release-publishes once or drops only
+  the visualization update; GUI acquire-drains at most four to a GUI-owned
+  latest cache; consumer release makes slots reusable. Always-lock-free unsigned
+  counters cover wrap and publication ownership.
+- `clear()` uses an atomic validity transition so old data disappears even when
+  unread slots fill the mailbox. Invalid capture/output and every configure/
+  reset boundary clear worker history; target rows are committed only when the
+  processor is Ready.
+- This is the production contract for the later Sol/ultra worker after the
+  Luna/max test response is integrated. Issue #8 still owns the real-plugin
+  lifecycle runtime matrix, not the source fix.

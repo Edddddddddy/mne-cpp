@@ -781,3 +781,42 @@ Visualization acceptance requires:
   build with `BUILD_MNE_RT_SERVER=OFF`;
 - the real host loads the plugin and visibly displays the Adaptive Denoising
   controls and visualization surface; `mne_rt_server` is never started.
+
+### Hosted visualization review correction
+
+The worker-to-GUI handoff must not use `QMutex`, a spin lock or an allocating
+notification primitive. Replace it with one plugin-private fixed four-slot
+SPSC snapshot mailbox:
+
+- worker-owned producer index/sequence and GUI-owned consumer index/sequence;
+- always-lock-free unsigned atomic sequence counters with release publication
+  and acquire observation/reuse, using capacity below half the unsigned range;
+- one worker publication attempt per processed block; if all four snapshots are
+  unread, drop only that visualization publication without waiting, retrying or
+  affecting the numerical/output block;
+- GUI `snapshot()` drains at most four published slots and returns the newest
+  complete value from a GUI-thread-owned cache; it never observes a slot after
+  releasing it for reuse;
+- a release/acquire validity flag makes `clear()` immediately hide every older
+  snapshot even when the mailbox is full. The next successful post-clear
+  publication revalidates the view only after its slot is release-published;
+- `clear()`, invalid capture and incompatible output reset worker-only pending
+  trace/RMS state and invalidate publication without touching acquisition;
+- configure every stream/model boundary through an empty visualization state,
+  keep visualization target rows only when the processor configure status is
+  `Ready`, and clear again before applying reset to a block.
+
+All mailbox storage is constructed with the model. `captureInput`,
+`publishOutput`, `clear` and the worker side of the mailbox allocate nothing,
+take no lock, wait for no GUI action and remain truthful `noexcept`. Multiple
+setup widgets are permitted only as sequential consumers on the Qt GUI thread;
+the mailbox is SPSC, not a general multi-reader queue. The acquisition callback
+continues to have no reference to this module.
+
+The focused correction tests must cover every downsampled index and all three
+waveform/RMS identities, wrapped chronological history, non-finite tuple skip,
+invalid-capture/output invalidation, sustained producer/GUI overlap with zero
+counted worker allocations, and plotted-series pixels inside both plot regions
+excluding legend/title colors. The eventual real-plugin lifecycle harness in
+issue #8 retains Ready-layout/non-Ready/reset/stop/restart boundary coverage;
+that deferred harness does not defer the current source correction.

@@ -1004,3 +1004,7 @@ same-responsibility implementation conversations that may receive review fixes.
   `019ff006-399d-7330-ba50-d457d62ad622` in app worktree `47d4`; dispatch is
   `https://github.com/Edddddddddy/mne-cpp/issues/9#issuecomment-5251062483`.
   Await its proactive one-file response without polling.
+- Post-RED implementation seam is frozen: a four-slot fixed SPSC snapshot
+  mailbox, single-attempt worker publish/drop, GUI bounded drain-to-latest and
+  atomic invalidation on clear. No mutex/spin/retry/allocation or acquisition-
+  callback change; target rows exist only for processor `Ready` state.
