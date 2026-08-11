@@ -10,6 +10,7 @@
 
 #include <adaptivedenoising/adaptivedenoisingdiagnostics.h>
 #include <adaptivedenoising/adaptivedenoisingsetupwidget.h>
+#include <adaptivedenoising/adaptivedenoisingvisualizationmodel.h>
 
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QDoubleSpinBox>
@@ -24,6 +25,7 @@
 #include <cstdint>
 #include <type_traits>
 #include <utility>
+#include <vector>
 
 //=============================================================================================================
 
@@ -69,6 +71,7 @@ class TestAdaptiveDenoisingUi : public QObject
 
 private slots:
     void widgetControlsAndDiagnosticsExposePublicContract();
+    void visualizationSnapshotIsBoundedAndChronological();
 };
 
 //=============================================================================================================
@@ -200,6 +203,66 @@ void TestAdaptiveDenoisingUi::widgetControlsAndDiagnosticsExposePublicContract()
     QCOMPARE(valueLabel(QStringLiteral("outputRmsValue"))->text(), QStringLiteral("0.75"));
     QCOMPARE(valueLabel(QStringLiteral("estimatedNoiseRmsValue"))->text(), QStringLiteral("0.5"));
     QCOMPARE(valueLabel(QStringLiteral("droppedBlocksValue"))->text(), QStringLiteral("4"));
+}
+
+//=============================================================================================================
+
+void TestAdaptiveDenoisingUi::visualizationSnapshotIsBoundedAndChronological()
+{
+    AdaptiveDenoisingVisualizationModel model;
+    model.setSelectedTargetOrdinal(1);
+
+    Eigen::MatrixXd raw(2, 300);
+    Eigen::MatrixXd denoised(2, 300);
+    for(Eigen::Index sample = 0; sample < raw.cols(); ++sample) {
+        raw(0, sample) = -1000.0 - static_cast<double>(sample);
+        raw(1, sample) = 1000.0 + static_cast<double>(sample);
+        denoised(0, sample) = raw(0, sample);
+        denoised(1, sample) = 250.0 + 0.25 * static_cast<double>(sample);
+    }
+
+    Diagnostics diagnostics{};
+    diagnostics.inputRms = 10.0;
+    diagnostics.outputRms = 4.0;
+    diagnostics.estimatedNoiseRms = 6.0;
+
+    const std::vector<Eigen::Index> targetRows{0, 1};
+    model.captureInput(raw, targetRows);
+    model.publishOutput(denoised, diagnostics);
+
+    AdaptiveDenoisingVisualizationSnapshot snapshot = model.snapshot();
+    QCOMPARE(snapshot.sequence, std::uint64_t(1));
+    QCOMPARE(snapshot.selectedTargetOrdinal, Eigen::Index(1));
+    QCOMPARE(snapshot.selectedTargetRow, Eigen::Index(1));
+    QCOMPARE(snapshot.targetCount, Eigen::Index(2));
+    QCOMPARE(snapshot.sourceSampleCount, Eigen::Index(300));
+    QCOMPARE(snapshot.traceSampleCount, Eigen::Index(kAdaptiveDenoisingTraceCapacity));
+    QCOMPARE(snapshot.raw[0], 1000.0);
+    QCOMPARE(snapshot.raw[kAdaptiveDenoisingTraceCapacity - 1], 1299.0);
+    QCOMPARE(snapshot.denoised[0], 250.0);
+    QCOMPARE(snapshot.estimatedNoise[0], 750.0);
+    QCOMPARE(snapshot.rmsHistoryCount, Eigen::Index(1));
+    QCOMPARE(snapshot.inputRmsHistory[0], 10.0);
+    QCOMPARE(snapshot.outputRmsHistory[0], 4.0);
+    QCOMPARE(snapshot.estimatedNoiseRmsHistory[0], 6.0);
+
+    raw.conservativeResize(Eigen::NoChange, 1);
+    denoised.conservativeResize(Eigen::NoChange, 1);
+    for(int observation = 1;
+        observation <= static_cast<int>(kAdaptiveDenoisingRmsHistoryCapacity) + 5;
+        ++observation) {
+        diagnostics.inputRms = static_cast<double>(observation);
+        diagnostics.outputRms = 0.5 * static_cast<double>(observation);
+        diagnostics.estimatedNoiseRms = 0.25 * static_cast<double>(observation);
+        model.captureInput(raw, targetRows);
+        model.publishOutput(denoised, diagnostics);
+    }
+
+    snapshot = model.snapshot();
+    QCOMPARE(snapshot.rmsHistoryCount,
+             Eigen::Index(kAdaptiveDenoisingRmsHistoryCapacity));
+    QCOMPARE(snapshot.inputRmsHistory[0], 6.0);
+    QCOMPARE(snapshot.inputRmsHistory[kAdaptiveDenoisingRmsHistoryCapacity - 1], 125.0);
 }
 
 //=============================================================================================================

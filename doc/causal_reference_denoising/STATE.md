@@ -924,3 +924,9 @@ same-responsibility implementation conversations that may receive review fixes.
   `https://github.com/Edddddddddy/mne-cpp/issues/9`. Its checklist is the
   authoritative goal extension gate; issue #8 remains the separate lifecycle
   teardown follow-up.
+- TDD tracer is RED on the compatible v142 focused UI target: compilation
+  reaches the intended C1083 missing
+  `adaptivedenoisingvisualizationmodel.h`. The failure is isolated after a fresh
+  BUILD_TESTS configure and is not masked by the earlier Eigen/toolchain gap.
+- Next gate: implement only the fixed visualization model public contract and
+  rerun this tracer to GREEN before adding timer/paint behavior.

@@ -6494,3 +6494,17 @@ hidden reasoning is not.
   v142 real-plugin/host builds, visible host evidence and independent review.
 - Keep #8 OPEN and separate: it owns terminal teardown and real lifecycle
   harness work, not this visualization implementation.
+
+### E-641 - Visualization snapshot tracer is RED
+
+- Add one focused public-interface UI slot,
+  `visualizationSnapshotIsBoundedAndChronological`. It requests selected-target
+  capture, endpoint-preserving 300-to-256 downsampling, raw/denoised/noise
+  identity, fixed metadata, and chronological 120-of-126 RMS retention.
+- Configure a fresh compatible VS18 `-T v142` focused test build with
+  applications/examples disabled. Configuration succeeds against the populated
+  Eigen and Qt baseline.
+- Build stops at the intended MSVC C1083 missing
+  `adaptivedenoising/adaptivedenoisingvisualizationmodel.h`. Existing widget
+  sources compile far enough to prove the tracer is the sole blocking RED; no
+  production or vendor source is changed.
